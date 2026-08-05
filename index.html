@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIXMA — UI/UX Design Guides, Documented Like Blueprints</title>
+    <meta
+      name="description"
+      content="PIXMA UX Guides is a curated library of practical UI/UX tutorials — color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile & web layout, written like engineering specs."
+    />
+    <link rel="canonical" href="https://pixmauxguides.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixmauxguides.com/" />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="PIXMA — UI/UX Design Guides, Documented Like Blueprints"
+    />
+    <meta
+      property="og:description"
+      content="A curated library of practical UI/UX tutorials — color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile & web layout, written like engineering specs."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PIXMA UX Guides — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="PIXMA — UI/UX Design Guides, Documented Like Blueprints"
+    />
+    <meta
+      name="twitter:description"
+      content="A curated library of practical UI/UX tutorials — color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile & web layout, written like engineering specs."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a href="#guides" class="skip-link">Skip to guides</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="#" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="#guides">All Guides</a>
+            <a href="#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <div id="home-view">
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="eyebrow fade-up">// interface_specifications</p>
+          <h1 class="fade-up">
+            Design guides, documented like engineering blueprints.
+          </h1>
+          <p class="tagline fade-up">
+            A practical, no-fluff library on color theory, typography, spacing
+            systems, and the Figma / Adobe XD workflows that turn a sketch into
+            a shippable interface.
+          </p>
+          <div class="hero-actions fade-up">
+            <a href="#guides" class="btn btn-primary">Browse guides ↓</a>
+            <a href="#toolbar" class="btn btn-ghost">Filter by category</a>
+          </div>
+          <div class="hero-stats fade-up">
+            <span><strong id="stat-count">1</strong> GUIDES</span>
+            <span class="dot">·</span>
+            <span>10 CATEGORIES</span>
+            <span class="dot">·</span>
+            <span>NEW GUIDES WEEKLY</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="toolbar-wrap">
+        <div class="toolbar bracketed" id="toolbar">
+          <div class="field search-field">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+            <label for="search-input" class="sr-only">Search guides</label>
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search guides — e.g. contrast, spacing, Figma"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field select-field">
+            <label for="category-select" class="sr-only">Category</label>
+            <select id="category-select">
+              <option value="all">All categories</option>
+            </select>
+          </div>
+          <div class="field select-field">
+            <label for="level-select" class="sr-only">Level</label>
+            <select id="level-select">
+              <option value="all">All levels</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <main class="wrap guides-main" id="guides" tabindex="-1">
+        <div class="section-head">
+          <h2 class="section-label mono">/ all_guides</h2>
+          <p class="results-count mono" id="results-count">
+            Showing 1 of 1 guides
+          </p>
+        </div>
+        <div class="grid" id="grid-root"></div>
+        <div class="empty-state" id="empty-state">
+          <p>No guides matched <strong id="empty-query"></strong>.</p>
+          <button type="button" class="btn btn-primary" id="reset-filters">
+            Reset filters
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!--
+      Guides are reached via #/guide/<id> and rendered here, in place
+      of the guide list. About / Contact / Privacy / Terms now live at
+      their own real, crawlable files (about.html, contact.html,
+      privacy.html, terms.html) — see those files for the canonical
+      versions. The #/about, #/contact, #/privacy, #/terms hash routes
+      below are kept only as a fallback for old bookmarked/shared links.
+    -->
+    <div class="wrap page-view" id="page-view" tabindex="-1" hidden>
+      <a href="#" class="page-view__back mono">← All guides</a>
+      <div class="page-view-body" id="page-view-body"></div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="privacy.html">Privacy policy</a></li>
+            <li><a href="terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="privacy.html">Privacy policy</a> ·
+          <a href="terms.html">Terms of service</a> ·
+          <a href="about.html">About</a> ·
+          <a href="contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

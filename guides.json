@@ -1,0 +1,29 @@
+[
+  {
+    "id": "g6",
+    "category": "spacing",
+    "level": "beginner",
+    "readTime": 11,
+    "title": "Whitespace as a UI Component, Not a Leftover",
+    "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
+    "thumbnail": "thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumnail.png"
+  },
+  {
+    "id": "color-contrast-systems",
+    "category": "color-theory",
+    "level": "beginner",
+    "readTime": 10,
+    "title": "Color Contrast Is Math, Not Taste",
+    "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
+    "thumbnail": "thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png"
+  },
+  {
+    "id": "type-scale-systems",
+    "category": "typography",
+    "level": "intermediate",
+    "readTime": 12,
+    "title": "Font Size Is a Formula, Not a Feeling",
+    "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
+    "thumbnail": "thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png"
+  }
+]
