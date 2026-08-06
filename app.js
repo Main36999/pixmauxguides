@@ -289,7 +289,6 @@
   var emptyQuery = document.getElementById("empty-query");
   var categorySelect = document.getElementById("category-select");
   var levelSelect = document.getElementById("level-select");
-  var searchInput = document.getElementById("search-input");
   var toast = document.getElementById("toast");
   var toastTimer = null;
   var homeView = document.getElementById("home-view");
@@ -714,15 +713,26 @@
 
   window.addEventListener("hashchange", handleRoute);
 
-  // The filter toolbar (#search-input, #category-select, #level-select,
+  // Shared by the toolbar's "All Guides" button and the empty-state's
+  // "reset filters" button. Also clears any query left in the header
+  // search inputs so a stale search term can't silently keep filtering
+  // the grid after a reset.
+  function resetFilters() {
+    state = { search: "", category: "all", level: "all" };
+    if (categorySelect) categorySelect.value = "all";
+    if (levelSelect) levelSelect.value = "all";
+    headerSearchForms.forEach(function (form) {
+      var input = form.querySelector("input[type='search']");
+      if (input) input.value = "";
+    });
+    render();
+  }
+
+  // The filter toolbar (#all-guides-btn, #category-select, #level-select,
   // #reset-filters) only exists on index.html — this whole block is
   // skipped on guide/legal pages instead of throwing on the missing
   // elements.
   if (isHomePage) {
-    searchInput.addEventListener("input", function (e) {
-      state.search = e.target.value;
-      render();
-    });
     categorySelect.addEventListener("change", function (e) {
       state.category = e.target.value;
       render();
@@ -732,13 +742,14 @@
       render();
     });
     document
+      .getElementById("all-guides-btn")
+      .addEventListener("click", function () {
+        resetFilters();
+      });
+    document
       .getElementById("reset-filters")
       .addEventListener("click", function () {
-        state = { search: "", category: "all", level: "all" };
-        searchInput.value = "";
-        categorySelect.value = "all";
-        levelSelect.value = "all";
-        render();
+        resetFilters();
         showToast("Filters reset.");
       });
   }
@@ -774,7 +785,6 @@
   function runHeaderSearch(query) {
     if (!isHomePage) return;
     state.search = query;
-    searchInput.value = query;
     headerSearchForms.forEach(function (form) {
       var input = form.querySelector("input[type='search']");
       if (input) input.value = query;

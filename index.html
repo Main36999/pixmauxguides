@@ -262,10 +262,6 @@
             systems, and the Figma / Adobe XD workflows that turn a sketch into
             a shippable interface.
           </p>
-          <div class="hero-actions fade-up">
-            <a href="#guides" class="btn btn-primary">Browse guides ↓</a>
-            <a href="#toolbar" class="btn btn-ghost">Filter by category</a>
-          </div>
           <div class="hero-stats fade-up">
             <span
               ><strong id="stat-count"
@@ -283,36 +279,19 @@
 
       <div class="toolbar-wrap">
         <div class="toolbar bracketed" id="toolbar">
-          <div class="field search-field">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.2" y2="16.2" />
-            </svg>
-            <label for="search-input" class="sr-only">Search guides</label>
-            <input
-              type="search"
-              id="search-input"
-              placeholder="Search guides — e.g. contrast, spacing, Figma"
-              autocomplete="off"
-            />
+          <div class="field toolbar-reset">
+            <button type="button" id="all-guides-btn">All Guides</button>
           </div>
           <div class="field select-field">
             <label for="category-select" class="sr-only">Category</label>
             <select id="category-select">
-              <option value="all">All categories</option>
+              <option value="all">All Categories</option>
             </select>
           </div>
           <div class="field select-field">
             <label for="level-select" class="sr-only">Level</label>
             <select id="level-select">
-              <option value="all">All levels</option>
+              <option value="all">All Level</option>
               <option value="beginner">Beginner</option>
               <option value="intermediate">Intermediate</option>
               <option value="advanced">Advanced</option>
