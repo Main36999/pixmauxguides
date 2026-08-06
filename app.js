@@ -629,6 +629,17 @@
     }
   }
 
+  // Guide ids that have since been renamed to a more descriptive slug
+  // (e.g. "g6" -> "whitespace-as-ui-component"). Kept so an old
+  // #/guide/<old-id> bookmark or shared link still resolves to
+  // today's file instead of silently falling back to the guide list.
+  // /guide/g6.html itself (the old crawlable URL, as opposed to this
+  // in-app hash route) redirects separately — see g6.html itself,
+  // plus _redirects/.htaccess for a real HTTP 301 where supported.
+  var LEGACY_GUIDE_IDS = {
+    g6: "whitespace-as-ui-component",
+  };
+
   // Guides used to be rendered in place at #/guide/<id>. They now
   // each have their own real, crawlable page at /guide/<id>.html, so
   // an old bookmarked or shared #/guide/<id> link is redirected there
@@ -640,7 +651,7 @@
     var hash = location.hash;
     var guideMatch = hash.match(/^#\/guide\/([\w-]+)$/);
     if (guideMatch) {
-      var id = guideMatch[1];
+      var id = LEGACY_GUIDE_IDS[guideMatch[1]] || guideMatch[1];
       var exists = GUIDES.some(function (g) {
         return g.id === id;
       });
@@ -786,7 +797,8 @@
   // fetch to resolve before it runs for the first time.
   async function loadGuides() {
     // Absolute path: this file is now loaded from nested pages too
-    // (e.g. /guide/g6.html), where a relative "guides.json" would
+    // (e.g. /guide/whitespace-as-ui-component.html), where a relative
+    // "guides.json" would
     // resolve to /guide/guides.json and 404.
     const response = await fetch("/guides.json");
     if (!response.ok) {

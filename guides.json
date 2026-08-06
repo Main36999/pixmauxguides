@@ -1,12 +1,12 @@
 [
   {
-    "id": "g6",
+    "id": "whitespace-as-ui-component",
     "category": "spacing",
     "level": "beginner",
     "readTime": 11,
     "title": "Whitespace as a UI Component, Not a Leftover",
     "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
-    "thumbnail": "thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumnail.png"
+    "thumbnail": "thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
   },
   {
     "id": "color-contrast-systems",

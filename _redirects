@@ -1,0 +1,5 @@
+# Netlify redirects. One rule per line: from  to  status
+# https://docs.netlify.com/manage/routing/redirects/redirect-options/
+#
+# g6.html -> whitespace-as-ui-component.html (slug renamed for SEO)
+/guide/g6.html   /guide/whitespace-as-ui-component.html   301
