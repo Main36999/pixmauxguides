@@ -1,0 +1,18 @@
+# ads.txt for pixmauxguides.com
+# Spec: https://iabtechlab.com/ads-txt/
+#
+# ── Google AdSense ──────────────────────────────────────────────
+# Replace pub-0000000000000000 below with your real AdSense
+# Publisher ID once your AdSense application is approved.
+#
+# Where to find it: AdSense account → Sites → click this site →
+# the "Get personalized ads.txt snippet" panel shows the exact
+# line to use. Your Publisher ID is also under Account → Account
+# information (format: pub-XXXXXXXXXXXXXXXX). The certification
+# authority ID "f08c47fec0942fa0" is fixed and the same for every
+# AdSense publisher — do not change it.
+#
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# This file must be served at exactly https://pixmauxguides.com/ads.txt
+# (site root, not /assets/ or any subfolder) for Google to detect it.

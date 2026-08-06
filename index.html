@@ -8,6 +8,30 @@
       data-blockingmode="auto"
       type="text/javascript"
     ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PIXMA — UI/UX Design Guides, Documented Like Blueprints</title>
@@ -344,7 +368,7 @@
                   8 · 16 · 24
                 </text></svg
               ><img
-                src="thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
+                src="/thumbnail_image/whitespace-as-ui-component-thumbnail.png"
                 alt="Whitespace as a UI Component, Not a Leftover"
                 loading="lazy"
                 onerror="this.style.display = 'none'"
@@ -402,7 +426,7 @@
                   4.5:1
                 </text></svg
               ><img
-                src="thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png"
+                src="/thumbnail_image/color-contrast-systems-thumbnail.png"
                 alt="Color Contrast Is Math, Not Taste"
                 loading="lazy"
                 onerror="this.style.display = 'none'"
@@ -457,7 +481,7 @@
                   16 / 24
                 </text></svg
               ><img
-                src="thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png"
+                src="/thumbnail_image/type-scale-systems-thumbnail.png"
                 alt="Font Size Is a Formula, Not a Feeling"
                 loading="lazy"
                 onerror="this.style.display = 'none'"
@@ -538,7 +562,7 @@
                   AUTO LAYOUT
                 </text></svg
               ><img
-                src="thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png"
+                src="/thumbnail_image/auto-layout-constraint-model-thumbnail.png"
                 alt="Auto Layout Is a Constraint System, Not a Convenience Toggle"
                 loading="lazy"
                 onerror="this.style.display = 'none'"

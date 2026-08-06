@@ -8,6 +8,30 @@
       data-blockingmode="auto"
       type="text/javascript"
     ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
@@ -54,7 +78,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
+      content="https://pixmauxguides.com/thumbnail_image/whitespace-as-ui-component-thumbnail.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -75,7 +99,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
+      content="https://pixmauxguides.com/thumbnail_image/whitespace-as-ui-component-thumbnail.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
@@ -91,7 +115,7 @@
         "headline": "Whitespace as a UI Component, Not a Leftover",
         "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
         "mainEntityOfPage": "https://pixmauxguides.com/guide/whitespace-as-ui-component.html",
-        "image": "https://pixmauxguides.com/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png",
+        "image": "https://pixmauxguides.com/thumbnail_image/whitespace-as-ui-component-thumbnail.png",
         "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
         "publisher": {
           "@type": "Organization",

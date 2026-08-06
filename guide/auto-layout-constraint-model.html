@@ -8,6 +8,30 @@
       data-blockingmode="auto"
       type="text/javascript"
     ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
@@ -55,7 +79,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png"
+      content="https://pixmauxguides.com/thumbnail_image/auto-layout-constraint-model-thumbnail.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -76,7 +100,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png"
+      content="https://pixmauxguides.com/thumbnail_image/auto-layout-constraint-model-thumbnail.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
@@ -92,7 +116,7 @@
         "headline": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
         "description": "A spec-level read of Figma's Auto Layout: how Fixed, Hug, and Fill actually resolve against each other, why nested frames behave the way they do, and the exact property mapping for CSS Flexbox handoff.",
         "mainEntityOfPage": "https://pixmauxguides.com/guide/auto-layout-constraint-model.html",
-        "image": "https://pixmauxguides.com/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png",
+        "image": "https://pixmauxguides.com/thumbnail_image/auto-layout-constraint-model-thumbnail.png",
         "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
         "publisher": {
           "@type": "Organization",
