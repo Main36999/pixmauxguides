@@ -751,6 +751,147 @@ ul {
   color: var(--text);
 }
 
+/* ---------- learning path ---------- */
+.learning-path {
+  padding-top: 8px;
+  padding-bottom: 52px;
+}
+.path-lede {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+.path-stages {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+  gap: 0 14px;
+}
+.path-stage {
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+  border-radius: 2px;
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+  animation: cardIn 0.28s ease both;
+}
+.path-stage:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15, 42, 82, 0.1);
+  border-color: #c3d6f4;
+}
+/* Advanced starts out empty on a young site — a dashed body (corner
+   brackets stay solid) reads as "structure defined, content pending",
+   echoing the dashed dimension-line/handle motifs used elsewhere. */
+.path-stage[data-level="advanced"] {
+  border-style: dashed;
+}
+.path-stage__index {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+}
+.path-stage__level {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.path-stage__desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.path-stage__meta {
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  color: var(--action);
+  padding-top: 8px;
+  border-top: 1px solid var(--grid-line);
+}
+.path-stage__guides {
+  display: flex;
+  flex-direction: column;
+}
+.path-stage__guides li {
+  border-bottom: 1px solid var(--grid-line);
+}
+.path-stage__guides li:last-child {
+  border-bottom: 0;
+}
+.path-stage__guides a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 0;
+}
+.path-stage__guides a:hover {
+  color: var(--action);
+}
+.path-stage__guide-time {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.path-stage__cta {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--action);
+  text-decoration: none;
+  padding-top: 4px;
+}
+.path-stage__cta:hover {
+  color: var(--action-hover);
+  text-decoration: underline;
+}
+.path-stage__empty {
+  margin-top: auto;
+  border: 1px dashed var(--grid-line);
+  border-radius: 2px;
+  padding: 14px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.path-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  padding-top: 30px;
+}
+.path-connector svg {
+  width: 30px;
+  height: 20px;
+}
+@media (max-width: 860px) {
+  .path-stages {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .path-connector {
+    display: none;
+  }
+}
+
 /* ---------- footer ---------- */
 .site-footer {
   color: #dce6f7;
