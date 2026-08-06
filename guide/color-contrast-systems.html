@@ -13,7 +13,7 @@
     <title>Color Contrast Is Math, Not Taste — PIXMA UX Guides</title>
     <meta
       name="description"
-      content="The one part of color theory that isn&#39;t a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails."
+      content="The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails."
     />
     <link
       rel="canonical"
@@ -42,38 +42,32 @@
       content="https://pixmauxguides.com/guide/color-contrast-systems.html"
     />
     <meta property="og:site_name" content="PIXMA UX Guides" />
-    <meta
-      property="og:title"
-      content="Color Contrast Is Math, Not Taste — PIXMA UX Guides"
-    />
+    <meta property="og:title" content="Color Contrast Is Math, Not Taste" />
     <meta
       property="og:description"
-      content="The one part of color theory that isn&#39;t a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails."
+      content="The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails."
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://pixmauxguides.com/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Color Contrast Is Math, Not Taste — PIXMA UX Guides."
+      content="Blueprint-style diagram of three overlapping circles annotated with a 4.5:1 contrast ratio."
     />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Color Contrast Is Math, Not Taste — PIXMA UX Guides"
-    />
+    <meta name="twitter:title" content="Color Contrast Is Math, Not Taste" />
     <meta
       name="twitter:description"
-      content="The one part of color theory that isn&#39;t a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails."
+      content="The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails."
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://pixmauxguides.com/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
@@ -81,9 +75,417 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Color Contrast Is Math, Not Taste",
+        "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/color-contrast-systems.html",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "datePublished": "2026-08-06",
+        "dateModified": "2026-08-06",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+
+      .guide-recap {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+      .guide-recap li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 14px 18px;
+        background: var(--gp-paper);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-recap li .n {
+        font-family: var(--gp-mono);
+        font-size: 0.9rem;
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+        padding-top: 2px;
+      }
+      .guide-recap li p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+    </style>
   </head>
-  <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <header class="site-header">
       <div class="wrap header-inner">
@@ -206,314 +608,437 @@
       </div>
     </header>
 
-    <div class="wrap page-view" id="page-view">
-      <a href="../index.html#guides" class="page-view__back mono"
-        >← Back to guides</a
-      >
-      <main class="page-view-body" id="main" tabindex="-1">
-        <div class="article-eyebrow">
-          <span class="badge">COLOR_THEORY</span>
-          <span class="card-meta mono">BEG · 10 MIN READ</span>
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Color theory</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Color Contrast</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">// color_theory · contrast_ratios</p>
+          <h1 class="guide-title">Color Contrast Is Math, Not Taste</h1>
+          <p class="guide-dek">
+            Contrast is the only part of color theory with a pass/fail number
+            attached to it — learn the ratios first, and every other palette
+            decision gets easier to defend.
+          </p>
+          <div class="guide-meta mono">
+            <span>BEGINNER</span>
+            <span class="dot">·</span>
+            <span>10 MIN READ</span>
+            <span class="dot">·</span>
+            <span>COLOR THEORY</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#why-contrast"
+                ><span class="n">01</span> Why contrast is the right place to
+                start</a
+              >
+            </li>
+            <li>
+              <a href="#contrast-ratio"
+                ><span class="n">02</span> What a contrast ratio actually is</a
+              >
+            </li>
+            <li>
+              <a href="#the-numbers"
+                ><span class="n">03</span> The numbers that actually matter</a
+              >
+            </li>
+            <li>
+              <a href="#exemptions"
+                ><span class="n">04</span> What gets a pass, and why</a
+              >
+            </li>
+            <li>
+              <a href="#color-alone"
+                ><span class="n">05</span> Color alone is never enough</a
+              >
+            </li>
+            <li>
+              <a href="#color-scale"
+                ><span class="n">06</span> Building a scale instead of picking
+                colors one at a time</a
+              >
+            </li>
+            <li>
+              <a href="#semantic-tokens"
+                ><span class="n">07</span> Naming colors by role, not by hue</a
+              >
+            </li>
+            <li>
+              <a href="#dark-mode"
+                ><span class="n">08</span> Dark mode is a second palette, not an
+                inverted one</a
+              >
+            </li>
+            <li>
+              <a href="#auditing"
+                ><span class="n">09</span> Auditing a palette you didn't
+                build</a
+              >
+            </li>
+            <li>
+              <a href="#key-takeaways"
+                ><span class="n">10</span> Key Takeaways</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+          <section id="why-contrast">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>Why contrast is the right place to start</h2>
+            <p>
+              Most introductions to color theory start with the color wheel:
+              complementary pairs, split-complementary triads, warm versus cool.
+              That's a real subject and it matters for mood and brand — but
+              almost none of it is testable. Two designers can disagree forever
+              about whether a palette "feels right," and both can be correct,
+              because taste isn't a spec.
+            </p>
+            <p>
+              Contrast is different. It's the one part of color theory with an
+              actual number attached, defined by an open standard, calculated
+              the same way every time from the two colors involved. A palette
+              either meets 4.5:1 for its body text or it doesn't — that's not a
+              design opinion, it's arithmetic. That makes contrast the most
+              defensible place to start learning color for interfaces, for the
+              same reason whitespace is the most defensible place to start
+              learning layout: there's no taste to hide behind.
+            </p>
+          </section>
+
+          <section id="contrast-ratio">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>What a contrast ratio actually is</h2>
+            <p>
+              A contrast ratio compares the relative luminance — perceived
+              brightness, not just hue — of two colors, expressed as a ratio
+              from 1:1 (identical colors, no contrast at all) up to 21:1 (pure
+              black on pure white, the maximum possible). It's calculated from
+              each color's RGB values, weighted toward green because the human
+              eye is more sensitive to green light than to red or blue.
+            </p>
+            <p>
+              The formula itself is deliberately boring to compute by hand and
+              easy to check with a tool: a browser's built-in accessibility
+              inspector, a Figma or Adobe XD contrast plugin, or any free online
+              contrast checker will take two hex codes and return a single
+              number. The formula matters less than the habit of actually
+              running it, on every text-and-background pairing before shipping,
+              instead of estimating it by eye.
+            </p>
+          </section>
+
+          <section id="the-numbers">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>The numbers that actually matter</h2>
+            <p>
+              WCAG's Level AA contrast requirement — the bar most teams should
+              treat as non-negotiable — is 4.5:1 for normal body text against
+              its background. Large text gets a lower bar of 3:1, where "large"
+              specifically means 18pt (24px) regular weight or 14pt (about
+              18.5px) bold and up; text that size stays legible even with less
+              contrast behind it.
+            </p>
+            <p>
+              A second, newer rule — non-text contrast, added in WCAG 2.1 —
+              requires 3:1 for the visual elements that let someone identify a
+              UI component or its state: button borders, form field outlines,
+              checkbox and radio button edges, focus indicators. Icons and
+              infographic elements carrying real meaning fall under this too.
+              It's the rule teams miss most often, because it's easy to obsess
+              over text contrast and still ship a form with a border so faint
+              it's nearly invisible.
+            </p>
+            <p>
+              A stricter tier — Level AAA — exists above that: 7:1 for normal
+              text, 4.5:1 for large text. It's worth targeting for body copy on
+              content-heavy products, but treat AA as the floor to clear on
+              everything, not the goal to aim for on the easy cases.
+            </p>
+          </section>
+
+          <section id="exemptions">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>What gets a pass, and why</h2>
+            <p>
+              WCAG explicitly exempts a few things from these minimums: disabled
+              controls, purely decorative elements, logos and brand marks, and
+              text that's baked into an image with no other way to present it.
+              That exemption exists because a disabled button communicates its
+              state through more than color alone — it's also unclickable,
+              typically paired with a "not-allowed" cursor and a consistent
+              reduced-opacity treatment — not because low contrast is fine
+              whenever it's inconvenient to fix.
+            </p>
+            <p>
+              The practical takeaway: check every functional element a person
+              actually needs to read or operate — labels, inputs, buttons,
+              links, error text, chart lines, status badges — and treat "it's
+              decorative" as a narrow exception that needs a real justification,
+              not a default excuse for skipping the check.
+            </p>
+          </section>
+
+          <section id="color-alone">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>Color alone is never enough</h2>
+            <p>
+              Roughly 1 in 12 men and 1 in 200 women have some form of color
+              vision deficiency, most commonly reduced sensitivity to red or
+              green. A palette can pass every contrast check and still fail
+              these users if the interface's only signal for meaning is hue — a
+              red-versus-green status dot at identical lightness and saturation,
+              for instance, can look nearly identical to a meaningful share of a
+              real audience.
+            </p>
+            <p>
+              The relevant rule is simple to state and easy to forget in the
+              middle of a busy screen: never use color as the only visual means
+              of conveying information. A form error needs a colored border and
+              an icon and a text message, not just a color change. A chart needs
+              distinct line styles or direct labels, not just distinct hues.
+              This is a cheap fix when it's designed in from the start and an
+              expensive one to retrofit across a shipped product.
+            </p>
+          </section>
+
+          <section id="color-scale">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Building a scale instead of picking colors one at a time</h2>
+            <p>
+              Choosing individual colors ad hoc — this blue for the button, a
+              slightly different blue for the link, another for the focus ring —
+              produces the same problem one-off spacing values do: nothing is
+              reusable, and nothing gets checked systematically. The fix is the
+              same too: build a numbered scale instead of a pile of loose hex
+              codes.
+            </p>
+            <p>
+              A typical approach generates nine or ten steps per hue, often
+              labeled 50 through 900, running from a near-white tint to a
+              near-black shade at consistent lightness intervals rather than
+              eyeballed jumps. One brand hue run through that scale produces
+              every tint and shade a product actually needs — hover states,
+              backgrounds, borders, disabled states — without anyone picking a
+              fresh color for each new situation.
+            </p>
+            <p>
+              Grayscale gets the exact same treatment: a numbered neutral scale
+              for text, borders, and surfaces, instead of a slightly different
+              gray chosen for every component that happens to need one. Most of
+              an interface's contrast work is actually gray-on-gray or
+              gray-on-white, so the neutral scale tends to matter more
+              day-to-day than the brand hue does.
+            </p>
+          </section>
+
+          <section id="semantic-tokens">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Naming colors by role, not by hue</h2>
+            <p>
+              A hex code tells you nothing about what a color is for. The fix,
+              borrowed from design systems work, is semantic naming: instead of
+              styling a button with #1D5FD6 directly, define a token — action,
+              or action-primary — that currently resolves to that hex value, and
+              reference the token everywhere a "primary action color" is needed.
+            </p>
+            <p>
+              That does two things a raw hex code can't. First, it documents
+              intent: a developer reading action-danger in code knows what the
+              color means without opening a design file. Second, it makes the
+              color swappable in exactly one place — adjust an accent hue once,
+              and every button, link, and focus ring built on that token updates
+              together, still passing whatever contrast check was run against
+              that role originally.
+            </p>
+            <p>
+              A reasonably complete role set covers text (primary, muted,
+              inverse), surface (background, card, overlay), border, and status
+              (action, success, warning, danger) — each with a light-mode value
+              and, where relevant, a separate dark-mode value, each pre-checked
+              against the surfaces it's actually meant to sit on.
+            </p>
+          </section>
+
+          <section id="dark-mode">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Dark mode is a second palette, not an inverted one</h2>
+            <p>
+              Simply inverting or dimming a light palette for dark mode breaks
+              contrast math that was calculated for a specific pair of colors. A
+              light gray that hit 4.5:1 against white can fail badly against a
+              near-black background, and a saturated brand blue that looked
+              crisp on white frequently reads as harsh, or seems to vibrate,
+              against a dark surface.
+            </p>
+            <p>
+              Treat dark mode as its own set of token values, checked against
+              its own set of surfaces, not a filter applied to the light set. In
+              practice this usually means desaturating and lightening brand hues
+              slightly for dark backgrounds, and choosing a near-black rather
+              than a pure-black base surface — pure black behind bright text can
+              itself feel harsh and, counterintuitively, can hurt readability
+              compared to a very dark gray.
+            </p>
+            <p>
+              Every semantic token from the previous section needs a dark-mode
+              value defined and contrast-checked the same way its light-mode
+              counterpart was — never assumed to inherit acceptable contrast
+              just because the light version happened to pass.
+            </p>
+          </section>
+
+          <section id="auditing">
+            <p class="guide-section__kicker mono">§ 09</p>
+            <h2>Auditing a palette you didn't build</h2>
+            <p>
+              Given any existing product, list every distinct
+              text-and-background pairing that actually appears on screen — body
+              copy, muted captions, placeholder text, button labels, link text —
+              and run each one through a contrast checker. Anything under 4.5:1
+              (or 3:1 for genuinely large text) goes on a fix list, sorted by
+              how often that pairing shows up across the product.
+            </p>
+            <p>
+              Next, check every interactive element's border and focus indicator
+              against its background at 3:1. Focus indicators deserve extra
+              attention here: they're the pairing most likely to have been
+              styled once, early, and never revisited, even as the surrounding
+              palette kept changing around them.
+            </p>
+            <p>
+              Finally, find anywhere meaning is carried by color alone — status
+              dots, chart lines, form validation states — and confirm each one
+              has a second, non-color signal. A spacing audit tends to surface
+              accidental inconsistency; a contrast audit tends to surface
+              accidental exclusion, which is a different kind of bug, but just
+              as real.
+            </p>
+          </section>
+
+          <section id="key-takeaways">
+            <p class="guide-section__kicker mono">§ 10</p>
+            <h2>Key Takeaways</h2>
+            <ul class="guide-recap">
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Contrast ratio is a calculable number derived from relative
+                  luminance, not a subjective read — WCAG defines exactly how to
+                  compute it.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Meet at least 4.5:1 for normal text and 3:1 for large text
+                  (18px/24px+ regular, or 14pt/~18.5px+ bold) at Level AA.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  UI components and borders — inputs, buttons, focus indicators
+                  — need 3:1 too, under WCAG's separate non-text contrast rule.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Never let color alone carry meaning: roughly 1 in 12 men has
+                  some color vision deficiency, so every color-coded state needs
+                  a second signal — icon, label, or pattern.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Build a numbered shade scale (e.g. 50–900) per hue, plus a
+                  separate neutral/gray scale, instead of picking colors one at
+                  a time.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Name colors by role (action, danger, text-muted) instead of by
+                  hex value, and give dark mode its own contrast-checked token
+                  values rather than inverting the light palette.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              Contrast is a useful entry point into color for the same reason
+              whitespace is a useful entry point into layout: it replaces a
+              purely aesthetic judgment with a number anyone can check, which
+              makes it possible to actually get better at the skill instead of
+              just developing more confident taste.
+            </p>
+            <p>
+              Once contrast ratios and semantic tokens feel automatic, the rest
+              of color theory — hue relationships, saturation, the emotional
+              weight of a palette — becomes something layered on top of a system
+              that already passes its basic checks, rather than a replacement
+              for checking at all. The wheel is still worth learning. It's just
+              not where the guarantees come from.
+            </p>
+          </section>
         </div>
-        <h1 class="article-title">Color Contrast Is Math, Not Taste</h1>
-        <div class="article-hero">
-          <svg
-            viewBox="0 0 240 120"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <circle cx="102" cy="38" r="20" />
-            <circle cx="138" cy="38" r="20" />
-            <circle cx="120" cy="64" r="20" />
-            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
-            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
-            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
-            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
-              4.5:1
-            </text></svg
-          ><img
-            src="../thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png"
-            alt="Color Contrast Is Math, Not Taste"
-            loading="lazy"
-            onerror="this.style.display = 'none'"
-          /><span class="badge">COLOR_THEORY</span>
-        </div>
-        <p class="article-dek">
-          Contrast is the only part of color theory with a pass/fail number
-          attached to it — learn the ratios first, and every other palette
-          decision gets easier to defend.
-        </p>
-        <div class="article-body">
-          <h3>Why contrast is the right place to start</h3>
-          <p>
-            Most introductions to color theory start with the color wheel:
-            complementary pairs, split-complementary triads, warm versus cool.
-            That&#39;s a real subject and it matters for mood and brand — but
-            almost none of it is testable. Two designers can disagree forever
-            about whether a palette &quot;feels right,&quot; and both can be
-            correct, because taste isn&#39;t a spec.
-          </p>
-          <p>
-            Contrast is different. It&#39;s the one part of color theory with an
-            actual number attached, defined by an open standard, calculated the
-            same way every time from the two colors involved. A palette either
-            meets 4.5:1 for its body text or it doesn&#39;t — that&#39;s not a
-            design opinion, it&#39;s arithmetic. That makes contrast the most
-            defensible place to start learning color for interfaces, for the
-            same reason whitespace is the most defensible place to start
-            learning layout: there&#39;s no taste to hide behind.
-          </p>
 
-          <h3>What a contrast ratio actually is</h3>
-          <p>
-            A contrast ratio compares the relative luminance — perceived
-            brightness, not just hue — of two colors, expressed as a ratio from
-            1:1 (identical colors, no contrast at all) up to 21:1 (pure black on
-            pure white, the maximum possible). It&#39;s calculated from each
-            color&#39;s RGB values, weighted toward green because the human eye
-            is more sensitive to green light than to red or blue.
-          </p>
-          <p>
-            The formula itself is deliberately boring to compute by hand and
-            easy to check with a tool: a browser&#39;s built-in accessibility
-            inspector, a Figma or Adobe XD contrast plugin, or any free online
-            contrast checker will take two hex codes and return a single number.
-            The formula matters less than the habit of actually running it, on
-            every text-and-background pairing before shipping, instead of
-            estimating it by eye.
-          </p>
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>COLOR THEORY</span>
+            <span>CONTRAST</span>
+            <span>WCAG</span>
+            <span>ACCESSIBILITY</span>
+            <span>DESIGN TOKENS</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="whitespace-as-ui-component.html"
+                  >Whitespace as a UI Component, Not a Leftover</a
+                >
+              </li>
+              <li>
+                <a href="type-scale-systems.html"
+                  >Font Size Is a Formula, Not a Feeling</a
+                >
+              </li>
+              <li>
+                <a href="auto-layout-constraint-model.html"
+                  >Auto Layout Is a Constraint System, Not a Convenience
+                  Toggle</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
 
-          <h3>The numbers that actually matter</h3>
-          <p>
-            WCAG&#39;s Level AA contrast requirement — the bar most teams should
-            treat as non-negotiable — is 4.5:1 for normal body text against its
-            background. Large text gets a lower bar of 3:1, where
-            &quot;large&quot; specifically means 18pt (24px) regular weight or
-            14pt (about 18.5px) bold and up; text that size stays legible even
-            with less contrast behind it.
-          </p>
-          <p>
-            A second, newer rule — non-text contrast, added in WCAG 2.1 —
-            requires 3:1 for the visual elements that let someone identify a UI
-            component or its state: button borders, form field outlines,
-            checkbox and radio button edges, focus indicators. Icons and
-            infographic elements carrying real meaning fall under this too.
-            It&#39;s the rule teams miss most often, because it&#39;s easy to
-            obsess over text contrast and still ship a form with a border so
-            faint it&#39;s nearly invisible.
-          </p>
-          <p>
-            A stricter tier — Level AAA — exists above that: 7:1 for normal
-            text, 4.5:1 for large text. It&#39;s worth targeting for body copy
-            on content-heavy products, but treat AA as the floor to clear on
-            everything, not the goal to aim for on the easy cases.
-          </p>
-
-          <h3>What gets a pass, and why</h3>
-          <p>
-            WCAG explicitly exempts a few things from these minimums: disabled
-            controls, purely decorative elements, logos and brand marks, and
-            text that&#39;s baked into an image with no other way to present it.
-            That exemption exists because a disabled button communicates its
-            state through more than color alone — it&#39;s also unclickable,
-            typically paired with a &quot;not-allowed&quot; cursor and a
-            consistent reduced-opacity treatment — not because low contrast is
-            fine whenever it&#39;s inconvenient to fix.
-          </p>
-          <p>
-            The practical takeaway: check every functional element a person
-            actually needs to read or operate — labels, inputs, buttons, links,
-            error text, chart lines, status badges — and treat &quot;it&#39;s
-            decorative&quot; as a narrow exception that needs a real
-            justification, not a default excuse for skipping the check.
-          </p>
-
-          <h3>Color alone is never enough</h3>
-          <p>
-            Roughly 1 in 12 men and 1 in 200 women have some form of color
-            vision deficiency, most commonly reduced sensitivity to red or
-            green. A palette can pass every contrast check and still fail these
-            users if the interface&#39;s only signal for meaning is hue — a
-            red-versus-green status dot at identical lightness and saturation,
-            for instance, can look nearly identical to a meaningful share of a
-            real audience.
-          </p>
-          <p>
-            The relevant rule is simple to state and easy to forget in the
-            middle of a busy screen: never use color as the only visual means of
-            conveying information. A form error needs a colored border and an
-            icon and a text message, not just a color change. A chart needs
-            distinct line styles or direct labels, not just distinct hues. This
-            is a cheap fix when it&#39;s designed in from the start and an
-            expensive one to retrofit across a shipped product.
-          </p>
-
-          <h3>Building a scale instead of picking colors one at a time</h3>
-          <p>
-            Choosing individual colors ad hoc — this blue for the button, a
-            slightly different blue for the link, another for the focus ring —
-            produces the same problem one-off spacing values do: nothing is
-            reusable, and nothing gets checked systematically. The fix is the
-            same too: build a numbered scale instead of a pile of loose hex
-            codes.
-          </p>
-          <p>
-            A typical approach generates nine or ten steps per hue, often
-            labeled 50 through 900, running from a near-white tint to a
-            near-black shade at consistent lightness intervals rather than
-            eyeballed jumps. One brand hue run through that scale produces every
-            tint and shade a product actually needs — hover states, backgrounds,
-            borders, disabled states — without anyone picking a fresh color for
-            each new situation.
-          </p>
-          <p>
-            Grayscale gets the exact same treatment: a numbered neutral scale
-            for text, borders, and surfaces, instead of a slightly different
-            gray chosen for every component that happens to need one. Most of an
-            interface&#39;s contrast work is actually gray-on-gray or
-            gray-on-white, so the neutral scale tends to matter more day-to-day
-            than the brand hue does.
-          </p>
-
-          <h3>Naming colors by role, not by hue</h3>
-          <p>
-            A hex code tells you nothing about what a color is for. The fix,
-            borrowed from design systems work, is semantic naming: instead of
-            styling a button with #1D5FD6 directly, define a token — action, or
-            action-primary — that currently resolves to that hex value, and
-            reference the token everywhere a &quot;primary action color&quot; is
-            needed.
-          </p>
-          <p>
-            That does two things a raw hex code can&#39;t. First, it documents
-            intent: a developer reading action-danger in code knows what the
-            color means without opening a design file. Second, it makes the
-            color swappable in exactly one place — adjust an accent hue once,
-            and every button, link, and focus ring built on that token updates
-            together, still passing whatever contrast check was run against that
-            role originally.
-          </p>
-          <p>
-            A reasonably complete role set covers text (primary, muted,
-            inverse), surface (background, card, overlay), border, and status
-            (action, success, warning, danger) — each with a light-mode value
-            and, where relevant, a separate dark-mode value, each pre-checked
-            against the surfaces it&#39;s actually meant to sit on.
-          </p>
-
-          <h3>Dark mode is a second palette, not an inverted one</h3>
-          <p>
-            Simply inverting or dimming a light palette for dark mode breaks
-            contrast math that was calculated for a specific pair of colors. A
-            light gray that hit 4.5:1 against white can fail badly against a
-            near-black background, and a saturated brand blue that looked crisp
-            on white frequently reads as harsh, or seems to vibrate, against a
-            dark surface.
-          </p>
-          <p>
-            Treat dark mode as its own set of token values, checked against its
-            own set of surfaces, not a filter applied to the light set. In
-            practice this usually means desaturating and lightening brand hues
-            slightly for dark backgrounds, and choosing a near-black rather than
-            a pure-black base surface — pure black behind bright text can itself
-            feel harsh and, counterintuitively, can hurt readability compared to
-            a very dark gray.
-          </p>
-          <p>
-            Every semantic token from the previous section needs a dark-mode
-            value defined and contrast-checked the same way its light-mode
-            counterpart was — never assumed to inherit acceptable contrast just
-            because the light version happened to pass.
-          </p>
-
-          <h3>Auditing a palette you didn&#39;t build</h3>
-          <p>
-            Given any existing product, list every distinct text-and-background
-            pairing that actually appears on screen — body copy, muted captions,
-            placeholder text, button labels, link text — and run each one
-            through a contrast checker. Anything under 4.5:1 (or 3:1 for
-            genuinely large text) goes on a fix list, sorted by how often that
-            pairing shows up across the product.
-          </p>
-          <p>
-            Next, check every interactive element&#39;s border and focus
-            indicator against its background at 3:1. Focus indicators deserve
-            extra attention here: they&#39;re the pairing most likely to have
-            been styled once, early, and never revisited, even as the
-            surrounding palette kept changing around them.
-          </p>
-          <p>
-            Finally, find anywhere meaning is carried by color alone — status
-            dots, chart lines, form validation states — and confirm each one has
-            a second, non-color signal. A spacing audit tends to surface
-            accidental inconsistency; a contrast audit tends to surface
-            accidental exclusion, which is a different kind of bug, but just as
-            real.
-          </p>
-
-          <h3>Where this leads next</h3>
-          <p>
-            Contrast is a useful entry point into color for the same reason
-            whitespace is a useful entry point into layout: it replaces a purely
-            aesthetic judgment with a number anyone can check, which makes it
-            possible to actually get better at the skill instead of just
-            developing more confident taste.
-          </p>
-          <p>
-            Once contrast ratios and semantic tokens feel automatic, the rest of
-            color theory — hue relationships, saturation, the emotional weight
-            of a palette — becomes something layered on top of a system that
-            already passes its basic checks, rather than a replacement for
-            checking at all. The wheel is still worth learning. It&#39;s just
-            not where the guarantees come from.
-          </p>
-        </div>
-        <div class="takeaways">
-          <span class="section-label mono">// key_takeaways</span>
-          <ul>
-            <li>
-              Contrast ratio is a calculable number derived from relative
-              luminance, not a subjective read — WCAG defines exactly how to
-              compute it.
-            </li>
-            <li>
-              Meet at least 4.5:1 for normal text and 3:1 for large text
-              (18px/24px+ regular, or 14pt/~18.5px+ bold) at Level AA.
-            </li>
-            <li>
-              UI components and borders — inputs, buttons, focus indicators —
-              need 3:1 too, under WCAG&#39;s separate non-text contrast rule.
-            </li>
-            <li>
-              Never let color alone carry meaning: roughly 1 in 12 men has some
-              color vision deficiency, so every color-coded state needs a second
-              signal — icon, label, or pattern.
-            </li>
-            <li>
-              Build a numbered shade scale (e.g. 50–900) per hue, plus a
-              separate neutral/gray scale, instead of picking colors one at a
-              time.
-            </li>
-            <li>
-              Name colors by role (action, danger, text-muted) instead of by hex
-              value, and give dark mode its own contrast-checked token values
-              rather than inverting the light palette.
-            </li>
-          </ul>
-        </div>
-        <a href="../index.html#guides" class="btn btn-primary back-to-guides"
-          >← Back to guides</a
-        >
-      </main>
-    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <footer class="site-footer">
       <div class="wrap footer-grid">
-        <div class="footer-col footer-brand">
+        <div class="footer-brand">
           <img
             class="brand-mark"
             src="/assets/logo.png"
@@ -558,14 +1083,7 @@
         </div>
         <div class="footer-col">
           <h2>Guides</h2>
-          <ul>
-            <li><a href="../index.html#toolbar">Color Theory</a></li>
-            <li><a href="../index.html#toolbar">Typography</a></li>
-            <li><a href="../index.html#toolbar">Spacing &amp; Layout</a></li>
-            <li><a href="../index.html#toolbar">Figma Workflow</a></li>
-            <li><a href="../index.html#toolbar">Adobe XD Workflow</a></li>
-            <li><a href="../index.html#toolbar">Mobile App Design</a></li>
-          </ul>
+          <ul id="footer-categories"></ul>
         </div>
         <div class="footer-col">
           <h2>Company</h2>

@@ -15,7 +15,7 @@
     </title>
     <meta
       name="description"
-      content="The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever&#39;s left over after everything else is placed."
+      content="The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed."
     />
     <link
       rel="canonical"
@@ -46,36 +46,36 @@
     <meta property="og:site_name" content="PIXMA UX Guides" />
     <meta
       property="og:title"
-      content="Whitespace as a UI Component, Not a Leftover — PIXMA UX Guides"
+      content="Whitespace as a UI Component, Not a Leftover"
     />
     <meta
       property="og:description"
-      content="The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever&#39;s left over after everything else is placed."
+      content="The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed."
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://pixmauxguides.com/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Whitespace as a UI Component, Not a Leftover — PIXMA UX Guides."
+      content="Blueprint-style diagram of a 3x3 dot grid annotated with 8, 16, and 24 pixel spacing values."
     />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Whitespace as a UI Component, Not a Leftover — PIXMA UX Guides"
+      content="Whitespace as a UI Component, Not a Leftover"
     />
     <meta
       name="twitter:description"
-      content="The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever&#39;s left over after everything else is placed."
+      content="The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed."
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://pixmauxguides.com/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
@@ -83,9 +83,417 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Whitespace as a UI Component, Not a Leftover",
+        "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/whitespace-as-ui-component.html",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "datePublished": "2026-08-06",
+        "dateModified": "2026-08-06",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+
+      .guide-recap {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+      .guide-recap li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 14px 18px;
+        background: var(--gp-paper);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-recap li .n {
+        font-family: var(--gp-mono);
+        font-size: 0.9rem;
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+        padding-top: 2px;
+      }
+      .guide-recap li p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+    </style>
   </head>
-  <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <header class="site-header">
       <div class="wrap header-inner">
@@ -208,342 +616,467 @@
       </div>
     </header>
 
-    <div class="wrap page-view" id="page-view">
-      <a href="../index.html#guides" class="page-view__back mono"
-        >← Back to guides</a
-      >
-      <main class="page-view-body" id="main" tabindex="-1">
-        <div class="article-eyebrow">
-          <span class="badge">SPACING_LAYOUT</span>
-          <span class="card-meta mono">BEG · 11 MIN READ</span>
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Spacing &amp; layout</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Whitespace</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">
+            // spacing_layout · whitespace_systems
+          </p>
+          <h1 class="guide-title">
+            Whitespace as a UI Component, Not a Leftover
+          </h1>
+          <p class="guide-dek">
+            Whitespace is the fastest way to learn to see UI/UX design at all —
+            once you notice how space carries meaning, every other decision on
+            the page starts making sense too.
+          </p>
+          <div class="guide-meta mono">
+            <span>BEGINNER</span>
+            <span class="dot">·</span>
+            <span>11 MIN READ</span>
+            <span class="dot">·</span>
+            <span>SPACING &amp; LAYOUT</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#why-whitespace"
+                ><span class="n">01</span> Why whitespace is the right place to
+                start</a
+              >
+            </li>
+            <li>
+              <a href="#not-empty"
+                ><span class="n">02</span> The blank page isn't empty</a
+              >
+            </li>
+            <li>
+              <a href="#macro-micro"
+                ><span class="n">03</span> Two kinds of space: macro and
+                micro</a
+              >
+            </li>
+            <li>
+              <a href="#grouping"
+                ><span class="n">04</span> Grouping is communication</a
+              >
+            </li>
+            <li>
+              <a href="#hierarchy"
+                ><span class="n">05</span> Hierarchy without new colors or
+                fonts</a
+              >
+            </li>
+            <li>
+              <a href="#density"
+                ><span class="n">06</span> Density is a deliberate choice, not
+                an accident</a
+              >
+            </li>
+            <li>
+              <a href="#spacing-scale"
+                ><span class="n">07</span> Building a spacing scale you can
+                actually use</a
+              >
+            </li>
+            <li>
+              <a href="#mistakes"
+                ><span class="n">08</span> Whitespace mistakes worth watching
+                for</a
+              >
+            </li>
+            <li>
+              <a href="#auditing"
+                ><span class="n">09</span> Auditing whitespace on a screen you
+                didn't design</a
+              >
+            </li>
+            <li>
+              <a href="#key-takeaways"
+                ><span class="n">10</span> Key Takeaways</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+          <section id="why-whitespace">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>Why whitespace is the right place to start</h2>
+            <p>
+              Most introductions to UI/UX start with color or typography,
+              because they're the easiest things to point at. But color and type
+              only work because of something more fundamental sitting underneath
+              them: the space around and between elements. Get the spacing wrong
+              and a perfect color palette and a beautifully paired typeface
+              still won't rescue the layout.
+            </p>
+            <p>
+              Whitespace is also the one design decision every interface has,
+              whether anyone made it on purpose or not. A button has padding
+              whether or not a designer chose it deliberately; a list has gaps
+              between items whether or not those gaps were sized on purpose.
+              That makes it the most honest place to learn UI/UX, because
+              there's no default to hide behind — every gap on a screen is a
+              decision, made well or made by accident.
+            </p>
+          </section>
+
+          <section id="not-empty">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>The blank page isn't empty</h2>
+            <p>
+              Call it whitespace, negative space, or just "the gaps" — the term
+              doesn't have to mean white, or even blank. It means any area of a
+              layout without content: the margin around a card, the gutter
+              between two columns, the padding inside a button. Treat it as a
+              design element with its own scale and rules, not whatever space
+              happens to remain after every other decision has already been
+              made.
+            </p>
+            <p>
+              The instinct to treat space as a leftover is understandable — it's
+              the one part of a screen with nothing to click, read, or look at.
+              But that absence of content is exactly what makes it powerful:
+              space is the only tool in an interface that can create separation
+              and hierarchy without adding a single new color, border, or line
+              of text.
+            </p>
+          </section>
+
+          <section id="macro-micro">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>Two kinds of space: macro and micro</h2>
+            <p>
+              Macro whitespace separates major regions of a page: the gap
+              between a header and the content beneath it, the distance between
+              two independent sections, the margin around the page itself. These
+              are the largest values in a spacing system, typically 32px, 48px,
+              or 64px and up, because they need to read as a clear break even at
+              a glance.
+            </p>
+            <p>
+              Micro whitespace lives inside a single component: the padding
+              inside a button, the gap between a form label and its input, the
+              space between an icon and the text next to it. These values are
+              small — usually 4px to 16px — and need to stay identical across
+              every instance of that component, because any inconsistency here
+              reads as a bug rather than a style choice.
+            </p>
+            <p>
+              Confusing the two is a common beginner mistake. A macro-sized gap
+              used inside a component makes it feel like it's falling apart into
+              unrelated pieces; a micro-sized gap used between unrelated
+              sections makes the whole page feel cramped and undifferentiated.
+              The two scales solve different problems and shouldn't borrow each
+              other's values.
+            </p>
+          </section>
+
+          <section id="grouping">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>Grouping is communication</h2>
+            <p>
+              Human perception groups things automatically, and this isn't a
+              design metaphor — it's a documented set of principles from Gestalt
+              psychology, developed for general visual perception long before
+              screens existed, and interface design leans on it constantly. Two
+              of the most useful for UI/UX are proximity (things placed close
+              together are perceived as related) and common region (things
+              enclosed by a shared boundary are perceived as one group).
+            </p>
+            <p>
+              Take a settings screen with a name field, an email field, and a
+              "Save changes" button. If all three sit at identical spacing from
+              each other, a person has to read the labels to work out that "Save
+              changes" applies to both fields, not just the one directly above
+              it. Add a slightly larger gap before the button, and that
+              relationship becomes obvious without reading a single word — the
+              spacing itself has communicated the structure.
+            </p>
+            <p>
+              This is the real reason inconsistent spacing feels "off" even to
+              people who couldn't explain why. A label sitting exactly as far
+              from its own input as from an unrelated element above it sends two
+              contradictory signals about what belongs together, and the eye
+              notices the contradiction even when the conscious mind never puts
+              a name to it.
+            </p>
+          </section>
+
+          <section id="hierarchy">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>Hierarchy without new colors or fonts</h2>
+            <p>
+              A beginner's instinct for adding emphasis is usually to add
+              something — a bolder weight, a brighter color, a border, a
+              background tint. Every one of those additions is a real design
+              decision with a real cost: another value to maintain, another rule
+              to remember, one more thing competing for attention on the screen.
+            </p>
+            <p>
+              Space can create the same hierarchy for free. A section with more
+              room around it reads as more important than a section crammed next
+              to its neighbors, even set in identical type and color. Increasing
+              the whitespace around a page's single most important action — a
+              primary call-to-action, a hero heading — is often a stronger
+              signal than making it bigger or brighter, because it doesn't just
+              draw the eye, it gives the eye somewhere to land without competing
+              for attention.
+            </p>
+            <p>
+              This is why experienced designers often "fix" a cluttered,
+              hard-to-scan screen by removing elements and adding space, rather
+              than by re-coloring or re-labeling everything on it. The content
+              doesn't need to shout louder if it has room to be heard.
+            </p>
+          </section>
+
+          <section id="density">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Density is a deliberate choice, not an accident</h2>
+            <p>
+              There's no single correct amount of whitespace — the right density
+              depends entirely on what the interface is for. A financial
+              dashboard or an admin table intentionally uses a tighter spacing
+              scale, because the person using it wants to see as many rows and
+              numbers as possible without scrolling, and every extra pixel of
+              padding is a real cost measured in less visible data.
+            </p>
+            <p>
+              A marketing homepage or an onboarding flow intentionally goes the
+              other way, using a loose spacing scale, because breathing room
+              signals confidence and lets each idea land on its own before the
+              next one arrives. Applying dashboard-level density to a landing
+              page makes it feel like a spreadsheet; applying landing-page
+              looseness to a data table makes it unusable for anyone trying to
+              actually work in it.
+            </p>
+            <p>
+              Many mature products now expose this as a real, user-facing
+              setting — "comfortable," "cozy," and "compact" density modes in
+              tools like spreadsheets or admin panels are, functionally, a
+              whitespace scale the user gets to choose for themselves. That's a
+              useful mental model even for products that don't offer the toggle:
+              ask which end of that spectrum actually serves the person using
+              this specific screen, right now.
+            </p>
+          </section>
+
+          <section id="spacing-scale">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Building a spacing scale you can actually use</h2>
+            <p>
+              Random spacing values — one gap at 14px, the next at 22px, another
+              at 18px — force every future decision to be a fresh guess. A
+              spacing scale replaces guessing with a small, fixed set of numbers
+              everyone on a team reuses: something like 4, 8, 12, 16, 24, 32,
+              48, and 64 pixels covers the vast majority of real interface
+              needs.
+            </p>
+            <p>
+              Base the scale on a small unit — 4px or 8px are the most common
+              choices — so every value stays predictable and divides cleanly
+              across the pixel densities real screens actually use. Reserve the
+              smallest steps (4–8px) for micro whitespace inside components, and
+              the largest (32px and up) for macro whitespace between sections,
+              with the middle of the scale handling everything in between.
+            </p>
+            <p>
+              Name the steps instead of typing raw numbers into code or design
+              files — space-xs, space-sm, space-md, and so on, each mapped to a
+              pixel value. That turns "how much space goes here" from an
+              open-ended question into a choice from a short, known list, which
+              is what actually makes a scale usable under deadline pressure
+              rather than just a nice idea sitting in a style guide nobody
+              opens.
+            </p>
+          </section>
+
+          <section id="mistakes">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Whitespace mistakes worth watching for</h2>
+            <p>
+              Uniform spacing everywhere is the most common mistake: giving
+              every element on a screen the same gap regardless of its
+              relationship to its neighbors. It feels safe and consistent, but
+              it actually erases the grouping information spacing is supposed to
+              provide — everything ends up looking equally related, which is
+              functionally the same as looking equally unrelated.
+            </p>
+            <p>
+              Cramming a form or a dense list to "fit more on the screen" is a
+              close second. Reducing padding below a comfortable minimum doesn't
+              just look tight, it actively increases error rates and slows
+              people down, because targets become harder to distinguish and
+              misclicks become more likely — this matters most on touchscreens,
+              where a finger is far less precise than a mouse cursor.
+            </p>
+            <p>
+              A subtler mistake is decorative inconsistency: padding that
+              changes slightly from one card to the next, or one modal to the
+              next, for no functional reason — usually because it was eyeballed
+              rather than pulled from a defined scale. No single instance looks
+              wrong in isolation, but the product as a whole starts to feel
+              unpolished in a way that's hard to pin down without comparing
+              screens side by side.
+            </p>
+          </section>
+
+          <section id="auditing">
+            <p class="guide-section__kicker mono">§ 09</p>
+            <h2>Auditing whitespace on a screen you didn't design</h2>
+            <p>
+              Whitespace is also one of the fastest things to audit on an
+              existing product. Pick any screen and ask, for every gap you can
+              see: does this value appear anywhere on the defined scale? An
+              answer of "no" almost always means the gap was adjusted by eye
+              during a rushed handoff, not chosen deliberately — and it's
+              usually the first thing worth fixing.
+            </p>
+            <p>
+              Next, check whether related items sit closer together than
+              unrelated ones. Group a label with its input, a heading with the
+              paragraph it introduces, a button with the field it submits — if
+              any of these relationships aren't visible from spacing alone, with
+              all color and text imagined away, the hierarchy isn't actually
+              being communicated by the layout, no matter how correct the
+              content itself is.
+            </p>
+            <p>
+              Finally, pick a few reference relationships — inside a button,
+              between a form's fields, between a page's major sections — and
+              check that identical relationships use identical values everywhere
+              the pattern repeats. A design system audit that starts with
+              spacing tends to surface far more inconsistency, far faster, than
+              one that starts with color or type, precisely because space is
+              invisible enough that nobody double-checks it by default.
+            </p>
+          </section>
+
+          <section id="key-takeaways">
+            <p class="guide-section__kicker mono">§ 10</p>
+            <h2>Key Takeaways</h2>
+            <ul class="guide-recap">
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Whitespace isn't empty — it's the one design tool that creates
+                  separation and hierarchy without adding a single new color or
+                  line of text.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Separate macro spacing (between sections, 32px+) from micro
+                  spacing (inside components, 4–16px) — they solve different
+                  problems and shouldn't share values.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Smaller gaps signal grouping, larger gaps signal separation —
+                  this is Gestalt proximity at work, and it does more
+                  communicative work than color or borders.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Match density to purpose: tighter scales for data-dense tools,
+                  looser scales for storytelling and marketing pages.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Build a small, named spacing scale (e.g.
+                  4/8/12/16/24/32/48/64px) instead of typing one-off pixel
+                  values — consistency beats precision.
+                </p>
+              </li>
+              <li>
+                <span class="n" aria-hidden="true">→</span>
+                <p>
+                  Audit any screen by checking whether every visible gap maps to
+                  a defined scale value, and whether related items sit visibly
+                  closer together than unrelated ones.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              Space is a genuinely good place to start learning UI/UX because
+              getting it right doesn't depend on taste, a design degree, or a
+              trained eye for color — it depends on noticing relationships and
+              applying a consistent scale, which is a skill anyone can build
+              with practice. Once grouping and hierarchy through space start to
+              feel intuitive, the same underlying question carries directly over
+              into every other layer of interface design: what is this decision
+              communicating, and is it communicating it on purpose?
+            </p>
+            <p>
+              That question — asked of color, of type, of every border and
+              shadow and animation — is really what UI/UX design is. Whitespace
+              just happens to be the clearest, lowest-stakes place to start
+              practicing the habit of asking it.
+            </p>
+          </section>
         </div>
-        <h1 class="article-title">
-          Whitespace as a UI Component, Not a Leftover
-        </h1>
-        <div class="article-hero">
-          <svg
-            viewBox="0 0 240 120"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <circle class="thumb-fill" cx="90" cy="24" r="3.4" />
-            <circle class="thumb-fill" cx="120" cy="24" r="3.4" />
-            <circle class="thumb-fill" cx="150" cy="24" r="3.4" />
-            <circle class="thumb-fill" cx="90" cy="44" r="3.4" />
-            <circle class="thumb-fill" cx="120" cy="44" r="3.4" />
-            <circle class="thumb-fill" cx="150" cy="44" r="3.4" />
-            <circle class="thumb-fill" cx="90" cy="64" r="3.4" />
-            <circle class="thumb-fill" cx="120" cy="64" r="3.4" />
-            <circle class="thumb-fill" cx="150" cy="64" r="3.4" />
-            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
-            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
-            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
-            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
-              8 · 16 · 24
-            </text></svg
-          ><img
-            src="../thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png"
-            alt="Whitespace as a UI Component, Not a Leftover"
-            loading="lazy"
-            onerror="this.style.display = 'none'"
-          /><span class="badge">SPACING_LAYOUT</span>
-        </div>
-        <p class="article-dek">
-          Whitespace is the fastest way to learn to see UI/UX design at all —
-          once you notice how space carries meaning, every other decision on the
-          page starts making sense too.
-        </p>
-        <div class="article-body">
-          <h3>Why whitespace is the right place to start</h3>
-          <p>
-            Most introductions to UI/UX start with color or typography, because
-            they&#39;re the easiest things to point at. But color and type only
-            work because of something more fundamental sitting underneath them:
-            the space around and between elements. Get the spacing wrong and a
-            perfect color palette and a beautifully paired typeface still
-            won&#39;t rescue the layout.
-          </p>
-          <p>
-            Whitespace is also the one design decision every interface has,
-            whether anyone made it on purpose or not. A button has padding
-            whether or not a designer chose it deliberately; a list has gaps
-            between items whether or not those gaps were sized on purpose. That
-            makes it the most honest place to learn UI/UX, because there&#39;s
-            no default to hide behind — every gap on a screen is a decision,
-            made well or made by accident.
-          </p>
 
-          <h3>The blank page isn&#39;t empty</h3>
-          <p>
-            Call it whitespace, negative space, or just &quot;the gaps&quot; —
-            the term doesn&#39;t have to mean white, or even blank. It means any
-            area of a layout without content: the margin around a card, the
-            gutter between two columns, the padding inside a button. Treat it as
-            a design element with its own scale and rules, not whatever space
-            happens to remain after every other decision has already been made.
-          </p>
-          <p>
-            The instinct to treat space as a leftover is understandable —
-            it&#39;s the one part of a screen with nothing to click, read, or
-            look at. But that absence of content is exactly what makes it
-            powerful: space is the only tool in an interface that can create
-            separation and hierarchy without adding a single new color, border,
-            or line of text.
-          </p>
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>SPACING</span>
+            <span>LAYOUT</span>
+            <span>HIERARCHY</span>
+            <span>DESIGN SYSTEMS</span>
+            <span>UI FUNDAMENTALS</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="color-contrast-systems.html"
+                  >Color Contrast Is Math, Not Taste</a
+                >
+              </li>
+              <li>
+                <a href="type-scale-systems.html"
+                  >Font Size Is a Formula, Not a Feeling</a
+                >
+              </li>
+              <li>
+                <a href="auto-layout-constraint-model.html"
+                  >Auto Layout Is a Constraint System, Not a Convenience
+                  Toggle</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
 
-          <h3>Two kinds of space: macro and micro</h3>
-          <p>
-            Macro whitespace separates major regions of a page: the gap between
-            a header and the content beneath it, the distance between two
-            independent sections, the margin around the page itself. These are
-            the largest values in a spacing system, typically 32px, 48px, or
-            64px and up, because they need to read as a clear break even at a
-            glance.
-          </p>
-          <p>
-            Micro whitespace lives inside a single component: the padding inside
-            a button, the gap between a form label and its input, the space
-            between an icon and the text next to it. These values are small —
-            usually 4px to 16px — and need to stay identical across every
-            instance of that component, because any inconsistency here reads as
-            a bug rather than a style choice.
-          </p>
-          <p>
-            Confusing the two is a common beginner mistake. A macro-sized gap
-            used inside a component makes it feel like it&#39;s falling apart
-            into unrelated pieces; a micro-sized gap used between unrelated
-            sections makes the whole page feel cramped and undifferentiated. The
-            two scales solve different problems and shouldn&#39;t borrow each
-            other&#39;s values.
-          </p>
-
-          <h3>Grouping is communication</h3>
-          <p>
-            Human perception groups things automatically, and this isn&#39;t a
-            design metaphor — it&#39;s a documented set of principles from
-            Gestalt psychology, developed for general visual perception long
-            before screens existed, and interface design leans on it constantly.
-            Two of the most useful for UI/UX are proximity (things placed close
-            together are perceived as related) and common region (things
-            enclosed by a shared boundary are perceived as one group).
-          </p>
-          <p>
-            Take a settings screen with a name field, an email field, and a
-            &quot;Save changes&quot; button. If all three sit at identical
-            spacing from each other, a person has to read the labels to work out
-            that &quot;Save changes&quot; applies to both fields, not just the
-            one directly above it. Add a slightly larger gap before the button,
-            and that relationship becomes obvious without reading a single word
-            — the spacing itself has communicated the structure.
-          </p>
-          <p>
-            This is the real reason inconsistent spacing feels &quot;off&quot;
-            even to people who couldn&#39;t explain why. A label sitting exactly
-            as far from its own input as from an unrelated element above it
-            sends two contradictory signals about what belongs together, and the
-            eye notices the contradiction even when the conscious mind never
-            puts a name to it.
-          </p>
-
-          <h3>Hierarchy without new colors or fonts</h3>
-          <p>
-            A beginner&#39;s instinct for adding emphasis is usually to add
-            something — a bolder weight, a brighter color, a border, a
-            background tint. Every one of those additions is a real design
-            decision with a real cost: another value to maintain, another rule
-            to remember, one more thing competing for attention on the screen.
-          </p>
-          <p>
-            Space can create the same hierarchy for free. A section with more
-            room around it reads as more important than a section crammed next
-            to its neighbors, even set in identical type and color. Increasing
-            the whitespace around a page&#39;s single most important action — a
-            primary call-to-action, a hero heading — is often a stronger signal
-            than making it bigger or brighter, because it doesn&#39;t just draw
-            the eye, it gives the eye somewhere to land without competing for
-            attention.
-          </p>
-          <p>
-            This is why experienced designers often &quot;fix&quot; a cluttered,
-            hard-to-scan screen by removing elements and adding space, rather
-            than by re-coloring or re-labeling everything on it. The content
-            doesn&#39;t need to shout louder if it has room to be heard.
-          </p>
-
-          <h3>Density is a deliberate choice, not an accident</h3>
-          <p>
-            There&#39;s no single correct amount of whitespace — the right
-            density depends entirely on what the interface is for. A financial
-            dashboard or an admin table intentionally uses a tighter spacing
-            scale, because the person using it wants to see as many rows and
-            numbers as possible without scrolling, and every extra pixel of
-            padding is a real cost measured in less visible data.
-          </p>
-          <p>
-            A marketing homepage or an onboarding flow intentionally goes the
-            other way, using a loose spacing scale, because breathing room
-            signals confidence and lets each idea land on its own before the
-            next one arrives. Applying dashboard-level density to a landing page
-            makes it feel like a spreadsheet; applying landing-page looseness to
-            a data table makes it unusable for anyone trying to actually work in
-            it.
-          </p>
-          <p>
-            Many mature products now expose this as a real, user-facing setting
-            — &quot;comfortable,&quot; &quot;cozy,&quot; and &quot;compact&quot;
-            density modes in tools like spreadsheets or admin panels are,
-            functionally, a whitespace scale the user gets to choose for
-            themselves. That&#39;s a useful mental model even for products that
-            don&#39;t offer the toggle: ask which end of that spectrum actually
-            serves the person using this specific screen, right now.
-          </p>
-
-          <h3>Building a spacing scale you can actually use</h3>
-          <p>
-            Random spacing values — one gap at 14px, the next at 22px, another
-            at 18px — force every future decision to be a fresh guess. A spacing
-            scale replaces guessing with a small, fixed set of numbers everyone
-            on a team reuses: something like 4, 8, 12, 16, 24, 32, 48, and 64
-            pixels covers the vast majority of real interface needs.
-          </p>
-          <p>
-            Base the scale on a small unit — 4px or 8px are the most common
-            choices — so every value stays predictable and divides cleanly
-            across the pixel densities real screens actually use. Reserve the
-            smallest steps (4–8px) for micro whitespace inside components, and
-            the largest (32px and up) for macro whitespace between sections,
-            with the middle of the scale handling everything in between.
-          </p>
-          <p>
-            Name the steps instead of typing raw numbers into code or design
-            files — space-xs, space-sm, space-md, and so on, each mapped to a
-            pixel value. That turns &quot;how much space goes here&quot; from an
-            open-ended question into a choice from a short, known list, which is
-            what actually makes a scale usable under deadline pressure rather
-            than just a nice idea sitting in a style guide nobody opens.
-          </p>
-
-          <h3>Whitespace mistakes worth watching for</h3>
-          <p>
-            Uniform spacing everywhere is the most common mistake: giving every
-            element on a screen the same gap regardless of its relationship to
-            its neighbors. It feels safe and consistent, but it actually erases
-            the grouping information spacing is supposed to provide — everything
-            ends up looking equally related, which is functionally the same as
-            looking equally unrelated.
-          </p>
-          <p>
-            Cramming a form or a dense list to &quot;fit more on the
-            screen&quot; is a close second. Reducing padding below a comfortable
-            minimum doesn&#39;t just look tight, it actively increases error
-            rates and slows people down, because targets become harder to
-            distinguish and misclicks become more likely — this matters most on
-            touchscreens, where a finger is far less precise than a mouse
-            cursor.
-          </p>
-          <p>
-            A subtler mistake is decorative inconsistency: padding that changes
-            slightly from one card to the next, or one modal to the next, for no
-            functional reason — usually because it was eyeballed rather than
-            pulled from a defined scale. No single instance looks wrong in
-            isolation, but the product as a whole starts to feel unpolished in a
-            way that&#39;s hard to pin down without comparing screens side by
-            side.
-          </p>
-
-          <h3>Auditing whitespace on a screen you didn&#39;t design</h3>
-          <p>
-            Whitespace is also one of the fastest things to audit on an existing
-            product. Pick any screen and ask, for every gap you can see: does
-            this value appear anywhere on the defined scale? An answer of
-            &quot;no&quot; almost always means the gap was adjusted by eye
-            during a rushed handoff, not chosen deliberately — and it&#39;s
-            usually the first thing worth fixing.
-          </p>
-          <p>
-            Next, check whether related items sit closer together than unrelated
-            ones. Group a label with its input, a heading with the paragraph it
-            introduces, a button with the field it submits — if any of these
-            relationships aren&#39;t visible from spacing alone, with all color
-            and text imagined away, the hierarchy isn&#39;t actually being
-            communicated by the layout, no matter how correct the content itself
-            is.
-          </p>
-          <p>
-            Finally, pick a few reference relationships — inside a button,
-            between a form&#39;s fields, between a page&#39;s major sections —
-            and check that identical relationships use identical values
-            everywhere the pattern repeats. A design system audit that starts
-            with spacing tends to surface far more inconsistency, far faster,
-            than one that starts with color or type, precisely because space is
-            invisible enough that nobody double-checks it by default.
-          </p>
-
-          <h3>Where this leads next</h3>
-          <p>
-            Space is a genuinely good place to start learning UI/UX because
-            getting it right doesn&#39;t depend on taste, a design degree, or a
-            trained eye for color — it depends on noticing relationships and
-            applying a consistent scale, which is a skill anyone can build with
-            practice. Once grouping and hierarchy through space start to feel
-            intuitive, the same underlying question carries directly over into
-            every other layer of interface design: what is this decision
-            communicating, and is it communicating it on purpose?
-          </p>
-          <p>
-            That question — asked of color, of type, of every border and shadow
-            and animation — is really what UI/UX design is. Whitespace just
-            happens to be the clearest, lowest-stakes place to start practicing
-            the habit of asking it.
-          </p>
-        </div>
-        <div class="takeaways">
-          <span class="section-label mono">// key_takeaways</span>
-          <ul>
-            <li>
-              Whitespace isn&#39;t empty — it&#39;s the one design tool that
-              creates separation and hierarchy without adding a single new color
-              or line of text.
-            </li>
-            <li>
-              Separate macro spacing (between sections, 32px+) from micro
-              spacing (inside components, 4–16px) — they solve different
-              problems and shouldn&#39;t share values.
-            </li>
-            <li>
-              Smaller gaps signal grouping, larger gaps signal separation — this
-              is Gestalt proximity at work, and it does more communicative work
-              than color or borders.
-            </li>
-            <li>
-              Match density to purpose: tighter scales for data-dense tools,
-              looser scales for storytelling and marketing pages.
-            </li>
-            <li>
-              Build a small, named spacing scale (e.g. 4/8/12/16/24/32/48/64px)
-              instead of typing one-off pixel values — consistency beats
-              precision.
-            </li>
-            <li>
-              Audit any screen by checking whether every visible gap maps to a
-              defined scale value, and whether related items sit visibly closer
-              together than unrelated ones.
-            </li>
-          </ul>
-        </div>
-        <a href="../index.html#guides" class="btn btn-primary back-to-guides"
-          >← Back to guides</a
-        >
-      </main>
-    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <footer class="site-footer">
       <div class="wrap footer-grid">
-        <div class="footer-col footer-brand">
+        <div class="footer-brand">
           <img
             class="brand-mark"
             src="/assets/logo.png"
@@ -588,14 +1121,7 @@
         </div>
         <div class="footer-col">
           <h2>Guides</h2>
-          <ul>
-            <li><a href="../index.html#toolbar">Color Theory</a></li>
-            <li><a href="../index.html#toolbar">Typography</a></li>
-            <li><a href="../index.html#toolbar">Spacing &amp; Layout</a></li>
-            <li><a href="../index.html#toolbar">Figma Workflow</a></li>
-            <li><a href="../index.html#toolbar">Adobe XD Workflow</a></li>
-            <li><a href="../index.html#toolbar">Mobile App Design</a></li>
-          </ul>
+          <ul id="footer-categories"></ul>
         </div>
         <div class="footer-col">
           <h2>Company</h2>

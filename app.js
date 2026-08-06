@@ -247,6 +247,10 @@
                 <input type="email" id="contact-email" name="email" autocomplete="email" required />
               </div>
               <div class="form-row">
+                <label for="contact-subject">Subject <span class="req">*</span></label>
+                <input type="text" id="contact-subject" name="subject" autocomplete="off" required />
+              </div>
+              <div class="form-row">
                 <label for="contact-topic">Topic</label>
                 <select id="contact-topic" name="topic">
                   <option value="general">General question</option>
@@ -559,7 +563,7 @@
 
       if (!form.checkValidity()) {
         errorEl.textContent =
-          "Please fill in your name, a valid email, and a message before sending.";
+          "Please fill in your name, a valid email, a subject, and a message before sending.";
         form.reportValidity();
         return;
       }
