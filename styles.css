@@ -539,7 +539,8 @@ ul {
 
 /* ---------- guides section ---------- */
 .guides-main {
-  padding: 44px 0 88px;
+  padding-top: 44px;
+  padding-bottom: 88px;
 }
 .section-head {
   display: flex;
@@ -898,7 +899,8 @@ ul {
   display: none;
 }
 .page-view {
-  padding: 44px 0 88px;
+  padding-top: 44px;
+  padding-bottom: 88px;
   animation: pageIn 0.18s ease both;
 }
 .page-view[hidden] {
@@ -934,7 +936,8 @@ ul {
 }
 @media (max-width: 640px) {
   .page-view {
-    padding: 32px 0 64px;
+    padding-top: 32px;
+    padding-bottom: 64px;
   }
 }
 
