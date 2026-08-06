@@ -281,39 +281,9 @@
     advanced: "ADV",
   };
 
-  // Metadata for the three "/ learning_path" stage panels on the
-  // homepage (see pathStagesHtml() below). Keep this 1:1 with the
-  // LEVELS block in build-home.js — that script pre-renders the same
-  // panels at build time; this one re-renders them once guides.json
-  // loads. "Advanced" is labeled "Advanced / Pro" on-page since it's
-  // the top of the ladder, but the key itself stays "advanced" to
-  // match guides.json's `level` field and #level-select's values.
-  var LEVELS = {
-    beginner: {
-      label: "Beginner",
-      stage: "STAGE 01",
-      tagline:
-        "Foundational rules — how space, contrast, and hierarchy work. No prior design experience required.",
-    },
-    intermediate: {
-      label: "Intermediate",
-      stage: "STAGE 02",
-      tagline:
-        "Systemized practice — turning principles into repeatable scales, tokens, and tool workflows.",
-    },
-    advanced: {
-      label: "Advanced / Pro",
-      stage: "STAGE 03",
-      tagline:
-        "Complex, real-world systems — multi-brand tokens, edge cases, and the judgment calls with no single right answer.",
-    },
-  };
-  var LEVEL_ORDER = ["beginner", "intermediate", "advanced"];
-
   var state = { search: "", category: "all", level: "all" };
 
   var gridRoot = document.getElementById("grid-root");
-  var pathStagesRoot = document.getElementById("path-stages-root");
   var resultsCount = document.getElementById("results-count");
   var emptyState = document.getElementById("empty-state");
   var emptyQuery = document.getElementById("empty-query");
@@ -545,94 +515,6 @@
       "</div>" +
       "</article>"
     );
-  }
-
-  // The connector glyph printed between two stage panels on desktop
-  // (hidden on narrow viewports — see .path-connector in styles.css).
-  var PATH_CONNECTOR =
-    '<div class="path-connector" aria-hidden="true">' +
-    '<svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
-    '<line x1="2" y1="12" x2="28" y2="12" stroke-dasharray="2 3"/>' +
-    '<path d="M22,6 L32,12 L22,18"/>' +
-    "</svg></div>";
-
-  function pathStageHtml(levelKey, guidesForLevel) {
-    var meta = LEVELS[levelKey];
-    var count = guidesForLevel.length;
-    var countLabel =
-      count === 0
-        ? "0 GUIDES — COMING SOON"
-        : count + " " + (count === 1 ? "GUIDE" : "GUIDES");
-
-    var body;
-    if (count > 0) {
-      var items = guidesForLevel
-        .map(function (g) {
-          return (
-            '<li><a href="/guide/' +
-            g.id +
-            '.html"><span class="path-stage__guide-title">' +
-            escapeHtml(g.title) +
-            '</span><span class="path-stage__guide-time mono">' +
-            g.readTime +
-            " MIN</span></a></li>"
-          );
-        })
-        .join("");
-      body =
-        '<ul class="path-stage__guides">' +
-        items +
-        "</ul>" +
-        '<a class="path-stage__cta" href="#guides" data-jump-level="' +
-        levelKey +
-        '">Explore ' +
-        meta.label.toLowerCase() +
-        ' guides <span aria-hidden="true">→</span></a>';
-    } else {
-      body =
-        '<div class="path-stage__empty"><p>New ' +
-        meta.label.toLowerCase() +
-        " guides are in the works — check back soon.</p></div>";
-    }
-
-    return (
-      '<div class="path-stage bracketed" data-level="' +
-      levelKey +
-      '">' +
-      '<div class="path-stage__index mono">' +
-      meta.stage +
-      "</div>" +
-      '<h3 class="path-stage__level">' +
-      meta.label +
-      "</h3>" +
-      '<p class="path-stage__desc">' +
-      escapeHtml(meta.tagline) +
-      "</p>" +
-      '<div class="path-stage__meta mono">' +
-      countLabel +
-      "</div>" +
-      body +
-      "</div>"
-    );
-  }
-
-  function pathStagesHtml(guides) {
-    return LEVEL_ORDER.map(function (levelKey, i) {
-      var guidesForLevel = guides.filter(function (g) {
-        return g.level === levelKey;
-      });
-      var stage = pathStageHtml(levelKey, guidesForLevel);
-      return i < LEVEL_ORDER.length - 1 ? stage + PATH_CONNECTOR : stage;
-    }).join("");
-  }
-
-  // Unlike render(), this doesn't depend on state.search/category/level
-  // — the learning path always shows the full level breakdown, not the
-  // filtered view — so it only needs to run once, after GUIDES loads
-  // (see init()), not on every filter change.
-  function renderLearningPath() {
-    if (!pathStagesRoot) return;
-    pathStagesRoot.innerHTML = pathStagesHtml(GUIDES);
   }
 
   function render() {
@@ -878,22 +760,6 @@
       }
       return;
     }
-
-    // "Explore <level> guides" CTA inside a learning-path stage panel
-    // (see pathStageHtml()) — same jump-and-filter behavior as the
-    // category links above, just against #level-select instead.
-    var jumpLevelLink = e.target.closest("[data-jump-level]");
-    if (jumpLevelLink && levelSelect) {
-      e.preventDefault();
-      levelSelect.value = jumpLevelLink.getAttribute("data-jump-level");
-      state.level = levelSelect.value;
-      render();
-      var toolbarEl2 = document.getElementById("toolbar");
-      if (toolbarEl2) {
-        toolbarEl2.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      return;
-    }
   });
 
   // --- Header quick search ---
@@ -1031,7 +897,6 @@
 
     populateSelects();
     render();
-    renderLearningPath();
     handleRoute();
 
     // Arriving from another page's header search (e.g. a guide page's

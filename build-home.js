@@ -154,34 +154,6 @@ const THUMB_DIM_LABEL = {
 
 const LEVEL_ABBR = { beginner: "BEG", intermediate: "INT", advanced: "ADV" };
 
-// Metadata for the three "/ learning_path" stage panels on the
-// homepage (see pathStagesHtml() below). Order here is the display
-// order: beginner -> intermediate -> advanced. "Advanced" is labeled
-// "Advanced / Pro" on-page since that's the top of the ladder, but the
-// underlying key stays "advanced" to match guides.json's `level`
-// field and the existing #level-select filter values.
-const LEVELS = {
-  beginner: {
-    label: "Beginner",
-    stage: "STAGE 01",
-    tagline:
-      "Foundational rules — how space, contrast, and hierarchy work. No prior design experience required.",
-  },
-  intermediate: {
-    label: "Intermediate",
-    stage: "STAGE 02",
-    tagline:
-      "Systemized practice — turning principles into repeatable scales, tokens, and tool workflows.",
-  },
-  advanced: {
-    label: "Advanced / Pro",
-    stage: "STAGE 03",
-    tagline:
-      "Complex, real-world systems — multi-brand tokens, edge cases, and the judgment calls with no single right answer.",
-  },
-};
-const LEVEL_ORDER = ["beginner", "intermediate", "advanced"];
-
 function escapeHtml(str) {
   return String(str).replace(
     /[&<>"']/g,
@@ -238,58 +210,6 @@ function cardHtml(g) {
   );
 }
 
-// The connector glyph printed between two stage panels on desktop
-// (hidden on narrow viewports — see .path-connector in styles.css).
-const PATH_CONNECTOR =
-  `<div class="path-connector" aria-hidden="true">` +
-  `<svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">` +
-  `<line x1="2" y1="12" x2="28" y2="12" stroke-dasharray="2 3"/>` +
-  `<path d="M22,6 L32,12 L22,18"/>` +
-  `</svg></div>`;
-
-function pathStageHtml(levelKey, guidesForLevel) {
-  const meta = LEVELS[levelKey];
-  const count = guidesForLevel.length;
-  const countLabel =
-    count === 0
-      ? "0 GUIDES — COMING SOON"
-      : `${count} ${count === 1 ? "GUIDE" : "GUIDES"}`;
-
-  const body =
-    count > 0
-      ? `<ul class="path-stage__guides">` +
-        guidesForLevel
-          .map(
-            (g) =>
-              `<li><a href="/guide/${g.id}.html">` +
-              `<span class="path-stage__guide-title">${escapeHtml(g.title)}</span>` +
-              `<span class="path-stage__guide-time mono">${g.readTime} MIN</span>` +
-              `</a></li>`,
-          )
-          .join("") +
-        `</ul>` +
-        `<a class="path-stage__cta" href="#guides" data-jump-level="${levelKey}">Explore ${meta.label.toLowerCase()} guides <span aria-hidden="true">→</span></a>`
-      : `<div class="path-stage__empty"><p>New ${meta.label.toLowerCase()} guides are in the works — check back soon.</p></div>`;
-
-  return (
-    `<div class="path-stage bracketed" data-level="${levelKey}">` +
-    `<div class="path-stage__index mono">${meta.stage}</div>` +
-    `<h3 class="path-stage__level">${meta.label}</h3>` +
-    `<p class="path-stage__desc">${escapeHtml(meta.tagline)}</p>` +
-    `<div class="path-stage__meta mono">${countLabel}</div>` +
-    body +
-    `</div>`
-  );
-}
-
-function pathStagesHtml(guides) {
-  return LEVEL_ORDER.map((levelKey, i) => {
-    const guidesForLevel = guides.filter((g) => g.level === levelKey);
-    const stage = pathStageHtml(levelKey, guidesForLevel);
-    return i < LEVEL_ORDER.length - 1 ? stage + PATH_CONNECTOR : stage;
-  }).join("");
-}
-
 // ---------------------------------------------------------------------
 // Build
 // ---------------------------------------------------------------------
@@ -335,13 +255,6 @@ function main() {
     "<!--RESULTS_COUNT-->",
     "<!--/RESULTS_COUNT-->",
     `Showing ${guides.length} of ${guides.length} guides`,
-  );
-
-  html = replaceBetween(
-    html,
-    "<!--LEARNING_PATH_START-->",
-    "<!--LEARNING_PATH_END-->",
-    pathStagesHtml(guides),
   );
 
   fs.writeFileSync(INDEX_HTML_PATH, html);
