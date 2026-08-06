@@ -261,6 +261,7 @@
                 <textarea id="contact-message" name="message" required></textarea>
               </div>
               <div class="form-error" id="contact-form-error" role="alert"></div>
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px" aria-hidden="true" />
               <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send message</button>
             </form>
             <p class="contact-alt">You can also reach us directly at <a href="mailto:hello@pixmauxguides.com">hello@pixmauxguides.com</a>. We typically respond within two business days.</p>
@@ -292,6 +293,14 @@
   var pageViewBody = document.getElementById("page-view-body");
   var DEFAULT_TITLE = document.title;
 
+  // Only index.html has the guide grid + filter toolbar. Guide pages
+  // (/guide/*.html) and the standalone about/contact/privacy/terms
+  // pages load this same app.js for the shared header search + mobile
+  // menu behavior, but don't have grid-root, category-select, etc.
+  // Every home-only code path below checks this flag (or guards
+  // itself internally) instead of assuming those elements exist.
+  var isHomePage = !!gridRoot;
+
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (ch) {
       return {
@@ -305,26 +314,40 @@
   }
 
   function populateSelects() {
-    Object.keys(CATEGORIES).forEach(function (key) {
-      var opt = document.createElement("option");
-      opt.value = key;
-      opt.textContent = CATEGORIES[key].label;
-      categorySelect.appendChild(opt);
-    });
-    document.getElementById("stat-count").textContent = GUIDES.length;
-
-    var footerList = document.getElementById("footer-categories");
-    Object.keys(CATEGORIES)
-      .slice(0, 6)
-      .forEach(function (key) {
-        var li = document.createElement("li");
-        var a = document.createElement("a");
-        a.href = "#toolbar";
-        a.textContent = CATEGORIES[key].label;
-        a.setAttribute("data-jump-category", key);
-        li.appendChild(a);
-        footerList.appendChild(li);
+    if (categorySelect) {
+      Object.keys(CATEGORIES).forEach(function (key) {
+        var opt = document.createElement("option");
+        opt.value = key;
+        opt.textContent = CATEGORIES[key].label;
+        categorySelect.appendChild(opt);
       });
+    }
+
+    var statCount = document.getElementById("stat-count");
+    if (statCount) statCount.textContent = GUIDES.length;
+
+    // footer-categories exists on every page that uses the newer
+    // shared footer (home + guide pages), so this part always runs.
+    // From the home page the links jump-filter in place; from a guide
+    // page they're plain links back to the toolbar on index.html.
+    var footerList = document.getElementById("footer-categories");
+    if (footerList) {
+      Object.keys(CATEGORIES)
+        .slice(0, 6)
+        .forEach(function (key) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          if (isHomePage) {
+            a.href = "#toolbar";
+            a.setAttribute("data-jump-category", key);
+          } else {
+            a.href = "../index.html#toolbar";
+          }
+          a.textContent = CATEGORIES[key].label;
+          li.appendChild(a);
+          footerList.appendChild(li);
+        });
+    }
   }
 
   function getFiltered() {
@@ -451,6 +474,7 @@
   }
 
   function render() {
+    if (!isHomePage) return;
     var filtered = getFiltered();
     var cards = filtered.map(cardHtml);
     gridRoot.innerHTML = cards.join("");
@@ -481,6 +505,7 @@
      there is no shared modal that every article is stuffed into. */
 
   function showPage(html) {
+    if (!homeView || !pageView || !pageViewBody) return;
     pageViewBody.innerHTML = html;
     homeView.hidden = true;
     pageView.hidden = false;
@@ -495,6 +520,7 @@
   }
 
   function showHome() {
+    if (!homeView || !pageView) return;
     if (pageView.hidden) return;
     pageView.hidden = true;
     pageViewBody.innerHTML = "";
@@ -517,6 +543,11 @@
     );
   }
 
+  // Same endpoint used by the standalone contact.html page — keep both
+  // in sync if you change it. Sign up free at https://formspree.io,
+  // create a form, and paste your own endpoint below.
+  var CONTACT_FORM_ENDPOINT = "https://formspree.io/f/xljrealj";
+
   function initContactForm() {
     var form = document.getElementById("contact-form");
     if (!form) return;
@@ -524,22 +555,64 @@
       e.preventDefault();
       var nameEl = document.getElementById("contact-name");
       var errorEl = document.getElementById("contact-form-error");
+      var submitBtn = form.querySelector('button[type="submit"]');
+
       if (!form.checkValidity()) {
         errorEl.textContent =
           "Please fill in your name, a valid email, and a message before sending.";
         form.reportValidity();
         return;
       }
+
+      if (CONTACT_FORM_ENDPOINT.indexOf("YOUR_FORM_ID") !== -1) {
+        errorEl.textContent =
+          "This form isn't connected yet — add your Formspree endpoint in app.js before it can send messages.";
+        return;
+      }
+
       errorEl.textContent = "";
-      var firstName = (nameEl.value || "").trim().split(" ")[0] || "there";
-      var wrap = document.getElementById("contact-form-wrap");
-      wrap.innerHTML =
-        '<div class="form-success">' +
-        "<strong>Message received.</strong>" +
-        "<p>Thanks, " +
-        escapeHtml(firstName) +
-        " — this confirmation is part of the front-end template. Connect this form's submit handler to your own backend, or a service like Formspree, to actually deliver messages to your inbox.</p>" +
-        "</div>";
+      submitBtn.disabled = true;
+      var originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = "Sending…";
+
+      fetch(CONTACT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      })
+        .then(function (response) {
+          if (response.ok) {
+            var firstName =
+              (nameEl.value || "").trim().split(" ")[0] || "there";
+            var wrap = document.getElementById("contact-form-wrap");
+            wrap.innerHTML =
+              '<div class="form-success">' +
+              "<strong>Message received.</strong>" +
+              "<p>Thanks, " +
+              escapeHtml(firstName) +
+              " — we've got your message and will get back to you within two business days.</p>" +
+              "</div>";
+            return;
+          }
+          return response.json().then(function (data) {
+            var message =
+              data && data.errors && data.errors.length
+                ? data.errors
+                    .map(function (err) {
+                      return err.message;
+                    })
+                    .join(", ")
+                : "Something went wrong while sending your message. Please try again or email us directly.";
+            throw new Error(message);
+          });
+        })
+        .catch(function (err) {
+          errorEl.textContent =
+            (err && err.message) ||
+            "Something went wrong while sending your message. Please try again or email us directly.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        });
     });
   }
 
@@ -563,6 +636,7 @@
   // a link to one of the guides retired from GUIDES/guides.json) fall
   // back to the guide list rather than redirecting to a 404.
   function handleRoute() {
+    if (!isHomePage) return;
     var hash = location.hash;
     var guideMatch = hash.match(/^#\/guide\/([\w-]+)$/);
     if (guideMatch) {
@@ -585,38 +659,50 @@
 
   window.addEventListener("hashchange", handleRoute);
 
-  searchInput.addEventListener("input", function (e) {
-    state.search = e.target.value;
-    render();
-  });
-  categorySelect.addEventListener("change", function (e) {
-    state.category = e.target.value;
-    render();
-  });
-  levelSelect.addEventListener("change", function (e) {
-    state.level = e.target.value;
-    render();
-  });
-  document
-    .getElementById("reset-filters")
-    .addEventListener("click", function () {
-      state = { search: "", category: "all", level: "all" };
-      searchInput.value = "";
-      categorySelect.value = "all";
-      levelSelect.value = "all";
+  // The filter toolbar (#search-input, #category-select, #level-select,
+  // #reset-filters) only exists on index.html — this whole block is
+  // skipped on guide/legal pages instead of throwing on the missing
+  // elements.
+  if (isHomePage) {
+    searchInput.addEventListener("input", function (e) {
+      state.search = e.target.value;
       render();
-      showToast("Filters reset.");
     });
+    categorySelect.addEventListener("change", function (e) {
+      state.category = e.target.value;
+      render();
+    });
+    levelSelect.addEventListener("change", function (e) {
+      state.level = e.target.value;
+      render();
+    });
+    document
+      .getElementById("reset-filters")
+      .addEventListener("click", function () {
+        state = { search: "", category: "all", level: "all" };
+        searchInput.value = "";
+        categorySelect.value = "all";
+        levelSelect.value = "all";
+        render();
+        showToast("Filters reset.");
+      });
+  }
+
+  // Footer "jump to category" links only carry data-jump-category (and
+  // only need in-place filtering) on the home page — see populateSelects().
+  // On other pages they're plain links to ../index.html#toolbar, so this
+  // delegate simply never matches there.
   document.addEventListener("click", function (e) {
     var jumpLink = e.target.closest("[data-jump-category]");
-    if (jumpLink) {
+    if (jumpLink && categorySelect) {
       e.preventDefault();
       categorySelect.value = jumpLink.getAttribute("data-jump-category");
       state.category = categorySelect.value;
       render();
-      document
-        .getElementById("toolbar")
-        .scrollIntoView({ behavior: "smooth", block: "center" });
+      var toolbarEl = document.getElementById("toolbar");
+      if (toolbarEl) {
+        toolbarEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
       return;
     }
   });
@@ -631,6 +717,7 @@
   var headerSearchForms = document.querySelectorAll(".header-search");
 
   function runHeaderSearch(query) {
+    if (!isHomePage) return;
     state.search = query;
     searchInput.value = query;
     headerSearchForms.forEach(function (form) {
@@ -653,6 +740,9 @@
 
   headerSearchForms.forEach(function (form) {
     form.addEventListener("submit", function (e) {
+      // Off the home page there's nothing to filter in place, so let
+      // the browser do its normal GET submit to ../index.html?q=...
+      if (!isHomePage) return;
       e.preventDefault();
       var input = form.querySelector("input[type='search']");
       runHeaderSearch(((input && input.value) || "").trim());
@@ -695,7 +785,10 @@
   // on GUIDES (rendering, search, filtering, routing) waits for this
   // fetch to resolve before it runs for the first time.
   async function loadGuides() {
-    const response = await fetch("guides.json");
+    // Absolute path: this file is now loaded from nested pages too
+    // (e.g. /guide/g6.html), where a relative "guides.json" would
+    // resolve to /guide/guides.json and 404.
+    const response = await fetch("/guides.json");
     if (!response.ok) {
       throw new Error(
         "Failed to load guides.json (HTTP " + response.status + ")",
@@ -709,6 +802,7 @@
   }
 
   function renderLoadError() {
+    if (!isHomePage) return;
     gridRoot.innerHTML = "";
     resultsCount.textContent = "Couldn't load guides.";
     emptyState.setAttribute("data-visible", "true");
@@ -717,7 +811,12 @@
   }
 
   async function init() {
-    resultsCount.textContent = "Loading guides…";
+    // Guide/legal pages load this same app.js for the shared header
+    // search + mobile menu behavior but have no grid/results UI to
+    // report loading progress on, so this (and every home-only step
+    // below) is skipped there — see the isHomePage checks inside
+    // render(), handleRoute(), renderLoadError(), and runHeaderSearch().
+    if (isHomePage) resultsCount.textContent = "Loading guides…";
     try {
       GUIDES = await loadGuides();
     } catch (err) {
@@ -732,11 +831,14 @@
     render();
     handleRoute();
 
-    // Arriving from another page's header search (e.g. contact.html ->
-    // index.html?q=spacing#guides): pick the term back up and filter.
-    var initialQuery = new URLSearchParams(location.search).get("q");
-    if (initialQuery) {
-      runHeaderSearch(initialQuery);
+    // Arriving from another page's header search (e.g. a guide page's
+    // search form -> index.html?q=spacing#guides): pick the term back
+    // up and filter. Only meaningful on the home page itself.
+    if (isHomePage) {
+      var initialQuery = new URLSearchParams(location.search).get("q");
+      if (initialQuery) {
+        runHeaderSearch(initialQuery);
+      }
     }
   }
 

@@ -1,14 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auto Layout Is a Constraint System, Not a Convenience Toggle — PIXMA UX Guides</title>
+    <title>
+      Auto Layout Is a Constraint System, Not a Convenience Toggle — PIXMA UX
+      Guides
+    </title>
     <meta
       name="description"
       content="A spec-level read of Figma's Auto Layout: how Fixed, Hug, and Fill actually resolve against each other, why nested frames behave the way they do, and the exact property mapping for CSS Flexbox handoff."
     />
-    <link rel="canonical" href="https://pixmauxguides.com/guide/auto-layout-constraint-model.html" />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/auto-layout-constraint-model.html"
+    />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -102,10 +115,12 @@
         --gp-line: #e1ded2;
         --gp-warn: #8a5a17;
         --gp-warn-bg: #fbf1de;
-        --gp-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas,
-          "Liberation Mono", monospace;
-        --gp-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter,
-          Roboto, Helvetica, Arial, sans-serif;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
       }
 
       .guide-breadcrumb {
@@ -507,6 +522,69 @@
             </button>
           </form>
         </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="../index.html#guides">All Guides</a>
+          <a href="../index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
       </div>
     </header>
 
@@ -521,17 +599,18 @@
     <main class="wrap guide-main" id="guide-content" tabindex="-1">
       <article class="guide-article">
         <header class="guide-article__head">
-          <p class="guide-eyebrow mono">// figma_workflows · auto_layout_spec</p>
+          <p class="guide-eyebrow mono">
+            // figma_workflows · auto_layout_spec
+          </p>
           <h1 class="guide-title">
             Auto Layout Is a Constraint System, Not a Convenience Toggle
           </h1>
           <p class="guide-dek">
             Most people learn Auto Layout by nudging settings until a frame
-            looks right, then get stuck the first time it stretches, clips,
-            or refuses to shrink. This is a spec-level read of what it's
-            actually solving underneath the panel — resolvable rules, not
-            guesses — so you can predict the outcome before you touch
-            anything.
+            looks right, then get stuck the first time it stretches, clips, or
+            refuses to shrink. This is a spec-level read of what it's actually
+            solving underneath the panel — resolvable rules, not guesses — so
+            you can predict the outcome before you touch anything.
           </p>
           <div class="guide-meta mono">
             <span>INTERMEDIATE</span>
@@ -545,16 +624,60 @@
         <nav class="guide-toc" aria-label="On this page">
           <p class="guide-toc__label mono">/ on_this_page</p>
           <ol>
-            <li><a href="#mental-model"><span class="n">01</span> The Mental Model</a></li>
-            <li><a href="#sizing-modes"><span class="n">02</span> Three Sizing Modes, One Rule Each</a></li>
-            <li><a href="#padding-gap"><span class="n">03</span> Padding and Gap Are Different Properties</a></li>
-            <li><a href="#alignment"><span class="n">04</span> Alignment: Two Axes, Nine Positions</a></li>
-            <li><a href="#nesting"><span class="n">05</span> Nesting: How Constraints Cascade</a></li>
-            <li><a href="#wrap-minmax"><span class="n">06</span> Wrap and the Min/Max Escape Hatches</a></li>
-            <li><a href="#absolute"><span class="n">07</span> Absolute Position, On Purpose</a></li>
-            <li><a href="#handoff"><span class="n">08</span> Dev Handoff: Mapping to CSS Flexbox</a></li>
-            <li><a href="#pitfalls"><span class="n">09</span> Five Pitfalls That Look Like Bugs</a></li>
-            <li><a href="#cheat-sheet"><span class="n">10</span> Quick Reference</a></li>
+            <li>
+              <a href="#mental-model"
+                ><span class="n">01</span> The Mental Model</a
+              >
+            </li>
+            <li>
+              <a href="#sizing-modes"
+                ><span class="n">02</span> Three Sizing Modes, One Rule Each</a
+              >
+            </li>
+            <li>
+              <a href="#padding-gap"
+                ><span class="n">03</span> Padding and Gap Are Different
+                Properties</a
+              >
+            </li>
+            <li>
+              <a href="#alignment"
+                ><span class="n">04</span> Alignment: Two Axes, Nine
+                Positions</a
+              >
+            </li>
+            <li>
+              <a href="#nesting"
+                ><span class="n">05</span> Nesting: How Constraints Cascade</a
+              >
+            </li>
+            <li>
+              <a href="#wrap-minmax"
+                ><span class="n">06</span> Wrap and the Min/Max Escape
+                Hatches</a
+              >
+            </li>
+            <li>
+              <a href="#absolute"
+                ><span class="n">07</span> Absolute Position, On Purpose</a
+              >
+            </li>
+            <li>
+              <a href="#handoff"
+                ><span class="n">08</span> Dev Handoff: Mapping to CSS
+                Flexbox</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                ><span class="n">09</span> Five Pitfalls That Look Like Bugs</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                ><span class="n">10</span> Quick Reference</a
+              >
+            </li>
           </ol>
         </nav>
 
@@ -563,42 +686,57 @@
             <p class="guide-section__kicker mono">§ 01</p>
             <h2>The Mental Model</h2>
             <p>
-              A frame with Auto Layout applied does not have a size the way
-              an ordinary rectangle does. Draw a plain rectangle and its
-              width and height are data you typed in — fixed numbers, full
-              stop. Apply Auto Layout to a frame and its size becomes the
-              <strong>output</strong> of a small system of rules: how much
-              space is available, what its children are asking for, and what
-              its own sizing mode says to do with the difference. Nothing
-              renders until that system is solved.
+              A frame with Auto Layout applied does not have a size the way an
+              ordinary rectangle does. Draw a plain rectangle and its width and
+              height are data you typed in — fixed numbers, full stop. Apply
+              Auto Layout to a frame and its size becomes the
+              <strong>output</strong> of a small system of rules: how much space
+              is available, what its children are asking for, and what its own
+              sizing mode says to do with the difference. Nothing renders until
+              that system is solved.
             </p>
             <p>
               This is the same box model CSS Flexbox already implements,
-              arriving at the same place from the same direction — Figma
-              didn't invent a new spacing paradigm, it gave designers a panel
-              over the one browsers already run. Every "why is my button
-              suddenly full-width" moment is a resolution-order problem, not
-              a bug: something upstream is asking for a size that has
-              nowhere to come from, so Figma has to pick an answer for you.
+              arriving at the same place from the same direction — Figma didn't
+              invent a new spacing paradigm, it gave designers a panel over the
+              one browsers already run. Every "why is my button suddenly
+              full-width" moment is a resolution-order problem, not a bug:
+              something upstream is asking for a size that has nowhere to come
+              from, so Figma has to pick an answer for you.
             </p>
             <p>
-              Treat every Auto Layout frame as three declarations layered on
-              top of each other, always in this order: how big is this frame
-              allowed to be (its own sizing mode, relative to its parent),
-              how is the space inside it divided (padding and gap), and how
-              are its children positioned within what's left (alignment).
-              Get the order right and the rest of this page is mostly
-              vocabulary.
+              Treat every Auto Layout frame as three declarations layered on top
+              of each other, always in this order: how big is this frame allowed
+              to be (its own sizing mode, relative to its parent), how is the
+              space inside it divided (padding and gap), and how are its
+              children positioned within what's left (alignment). Get the order
+              right and the rest of this page is mostly vocabulary.
             </p>
           </section>
 
           <figure class="guide-figure">
             <div class="guide-figure__frame">
-              <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig1-title fig1-desc">
+              <svg
+                viewBox="0 0 720 260"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
                 <title id="fig1-title">The three sizing modes</title>
-                <desc id="fig1-desc">Three blueprint panels showing Fixed, Hug, and Fill sizing behavior for an Auto Layout frame.</desc>
+                <desc id="fig1-desc">
+                  Three blueprint panels showing Fixed, Hug, and Fill sizing
+                  behavior for an Auto Layout frame.
+                </desc>
                 <defs>
-                  <marker id="gp-arrow-s" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <marker
+                    id="gp-arrow-s"
+                    viewBox="0 0 8 8"
+                    refX="4"
+                    refY="4"
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto-start-reverse"
+                  >
                     <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
                   </marker>
                 </defs>
@@ -612,34 +750,203 @@
 
                 <!-- FIXED panel -->
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
-                  <text x="20" y="26" fill="#7fb3e0" font-size="12" letter-spacing="1">FIXED</text>
-                  <rect x="65" y="90" width="110" height="70" rx="2" fill="none" stroke="#e8edf4" stroke-width="1.5" />
-                  <line x1="65" y1="76" x2="175" y2="76" stroke="#7fb3e0" stroke-width="1" marker-start="url(#gp-arrow-s)" marker-end="url(#gp-arrow-s)" />
-                  <text x="120" y="70" fill="#7fb3e0" font-size="10" text-anchor="middle">160</text>
-                  <text x="120" y="200" fill="#9fb2cc" font-size="9.5" text-anchor="middle">ignores parent</text>
-                  <text x="120" y="213" fill="#9fb2cc" font-size="9.5" text-anchor="middle">and children</text>
+                  <text
+                    x="20"
+                    y="26"
+                    fill="#7fb3e0"
+                    font-size="12"
+                    letter-spacing="1"
+                  >
+                    FIXED
+                  </text>
+                  <rect
+                    x="65"
+                    y="90"
+                    width="110"
+                    height="70"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.5"
+                  />
+                  <line
+                    x1="65"
+                    y1="76"
+                    x2="175"
+                    y2="76"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    marker-start="url(#gp-arrow-s)"
+                    marker-end="url(#gp-arrow-s)"
+                  />
+                  <text
+                    x="120"
+                    y="70"
+                    fill="#7fb3e0"
+                    font-size="10"
+                    text-anchor="middle"
+                  >
+                    160
+                  </text>
+                  <text
+                    x="120"
+                    y="200"
+                    fill="#9fb2cc"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    ignores parent
+                  </text>
+                  <text
+                    x="120"
+                    y="213"
+                    fill="#9fb2cc"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    and children
+                  </text>
                 </g>
 
                 <!-- HUG panel -->
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
-                  <text x="260" y="26" fill="#7fb3e0" font-size="12" letter-spacing="1">HUG</text>
-                  <rect x="290" y="95" width="140" height="60" rx="2" fill="none" stroke="#e8edf4" stroke-width="1.5" stroke-dasharray="3 3" />
-                  <rect x="320" y="112" width="80" height="26" rx="2" fill="#7fb3e0" opacity="0.85" />
-                  <text x="360" y="129" fill="#081b38" font-size="9.5" text-anchor="middle">content</text>
-                  <line x1="290" y1="81" x2="430" y2="81" stroke="#7fb3e0" stroke-width="1" marker-start="url(#gp-arrow-s)" marker-end="url(#gp-arrow-s)" />
-                  <text x="360" y="75" fill="#7fb3e0" font-size="10" text-anchor="middle">child + padding</text>
-                  <text x="360" y="200" fill="#9fb2cc" font-size="9.5" text-anchor="middle">shrinks to fit</text>
-                  <text x="360" y="213" fill="#9fb2cc" font-size="9.5" text-anchor="middle">its children</text>
+                  <text
+                    x="260"
+                    y="26"
+                    fill="#7fb3e0"
+                    font-size="12"
+                    letter-spacing="1"
+                  >
+                    HUG
+                  </text>
+                  <rect
+                    x="290"
+                    y="95"
+                    width="140"
+                    height="60"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.5"
+                    stroke-dasharray="3 3"
+                  />
+                  <rect
+                    x="320"
+                    y="112"
+                    width="80"
+                    height="26"
+                    rx="2"
+                    fill="#7fb3e0"
+                    opacity="0.85"
+                  />
+                  <text
+                    x="360"
+                    y="129"
+                    fill="#081b38"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    content
+                  </text>
+                  <line
+                    x1="290"
+                    y1="81"
+                    x2="430"
+                    y2="81"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    marker-start="url(#gp-arrow-s)"
+                    marker-end="url(#gp-arrow-s)"
+                  />
+                  <text
+                    x="360"
+                    y="75"
+                    fill="#7fb3e0"
+                    font-size="10"
+                    text-anchor="middle"
+                  >
+                    child + padding
+                  </text>
+                  <text
+                    x="360"
+                    y="200"
+                    fill="#9fb2cc"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    shrinks to fit
+                  </text>
+                  <text
+                    x="360"
+                    y="213"
+                    fill="#9fb2cc"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    its children
+                  </text>
                 </g>
 
                 <!-- FILL panel -->
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
-                  <text x="500" y="26" fill="#7fb3e0" font-size="12" letter-spacing="1">FILL</text>
-                  <rect x="500" y="95" width="200" height="60" rx="2" fill="none" stroke="#3f5f8a" stroke-width="1" stroke-dasharray="2 3" />
-                  <rect x="508" y="103" width="184" height="44" rx="2" fill="none" stroke="#e8edf4" stroke-width="1.5" />
-                  <line x1="500" y1="176" x2="700" y2="176" stroke="#7fb3e0" stroke-width="1" marker-start="url(#gp-arrow-s)" marker-end="url(#gp-arrow-s)" />
-                  <text x="600" y="190" fill="#7fb3e0" font-size="10" text-anchor="middle">remaining parent space</text>
-                  <text x="600" y="213" fill="#9fb2cc" font-size="9.5" text-anchor="middle">grows to match parent</text>
+                  <text
+                    x="500"
+                    y="26"
+                    fill="#7fb3e0"
+                    font-size="12"
+                    letter-spacing="1"
+                  >
+                    FILL
+                  </text>
+                  <rect
+                    x="500"
+                    y="95"
+                    width="200"
+                    height="60"
+                    rx="2"
+                    fill="none"
+                    stroke="#3f5f8a"
+                    stroke-width="1"
+                    stroke-dasharray="2 3"
+                  />
+                  <rect
+                    x="508"
+                    y="103"
+                    width="184"
+                    height="44"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.5"
+                  />
+                  <line
+                    x1="500"
+                    y1="176"
+                    x2="700"
+                    y2="176"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    marker-start="url(#gp-arrow-s)"
+                    marker-end="url(#gp-arrow-s)"
+                  />
+                  <text
+                    x="600"
+                    y="190"
+                    fill="#7fb3e0"
+                    font-size="10"
+                    text-anchor="middle"
+                  >
+                    remaining parent space
+                  </text>
+                  <text
+                    x="600"
+                    y="213"
+                    fill="#9fb2cc"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    grows to match parent
+                  </text>
                 </g>
               </svg>
             </div>
@@ -654,45 +961,44 @@
             <h2>Three Sizing Modes, One Rule Each</h2>
             <p>
               Every Auto Layout frame, and every direct child of one, picks a
-              resizing mode independently for each axis — width and height
-              are set separately, so a button can be Fill horizontally and
-              Hug vertically at the same time.
+              resizing mode independently for each axis — width and height are
+              set separately, so a button can be Fill horizontally and Hug
+              vertically at the same time.
             </p>
             <p>
-              <strong>Fixed</strong> — an explicit number. The frame ignores
-              its children and its parent entirely on that axis. Use it for
-              things that must never move: an icon slot, a fixed-width
-              sidebar, a toggle switch.
+              <strong>Fixed</strong> — an explicit number. The frame ignores its
+              children and its parent entirely on that axis. Use it for things
+              that must never move: an icon slot, a fixed-width sidebar, a
+              toggle switch.
             </p>
             <p>
-              <strong>Hug contents</strong> — the frame sizes itself to wrap
-              its children plus its own padding, and nothing else. Its size
-              on that axis is an output of what's inside it, not an input you
-              set directly, which is why you resize a Hug frame by resizing
-              its children or its padding — never the frame.
+              <strong>Hug contents</strong> — the frame sizes itself to wrap its
+              children plus its own padding, and nothing else. Its size on that
+              axis is an output of what's inside it, not an input you set
+              directly, which is why you resize a Hug frame by resizing its
+              children or its padding — never the frame.
             </p>
             <p>
               <strong>Fill container</strong> — the frame asks its parent for
               whatever space is left over after siblings and padding are
-              accounted for. Its size on that axis is an output of its
-              parent, not of its own content, so a Fill frame's content can
-              overflow if the parent turns out smaller than expected —
-              filling comes with no minimum guarantee unless you add one.
+              accounted for. Its size on that axis is an output of its parent,
+              not of its own content, so a Fill frame's content can overflow if
+              the parent turns out smaller than expected — filling comes with no
+              minimum guarantee unless you add one.
             </p>
             <p>
               The one rule that explains almost every "unexpected" resize:
               <strong>Fill points up</strong> toward the parent,
-              <strong>Hug points down</strong> toward the children. Set a
-              frame to Hug on an axis, then give one of its direct children
-              Fill on that same axis, and you've built two requests staring
-              at each other with no third value to resolve against. Figma
-              breaks the tie by quietly converting one side to Fixed — which
-              looks like a bug the first time you see it, and is actually the
-              only sane way to terminate an unsolvable loop. The fix isn't a
-              setting, it's structural: Fill only means something once
-              <em>some</em> ancestor on that axis has already landed on a
-              real number, whether that's a Fixed frame, the artboard edge,
-              or a browser viewport.
+              <strong>Hug points down</strong> toward the children. Set a frame
+              to Hug on an axis, then give one of its direct children Fill on
+              that same axis, and you've built two requests staring at each
+              other with no third value to resolve against. Figma breaks the tie
+              by quietly converting one side to Fixed — which looks like a bug
+              the first time you see it, and is actually the only sane way to
+              terminate an unsolvable loop. The fix isn't a setting, it's
+              structural: Fill only means something once <em>some</em> ancestor
+              on that axis has already landed on a real number, whether that's a
+              Fixed frame, the artboard edge, or a browser viewport.
             </p>
           </section>
 
@@ -700,32 +1006,32 @@
             <p class="guide-section__kicker mono">§ 03</p>
             <h2>Padding and Gap Are Different Properties</h2>
             <p>
-              Two spacing values live on every Auto Layout frame, and it's
-              worth being precise about which one you're reaching for,
-              because they resize completely different things.
+              Two spacing values live on every Auto Layout frame, and it's worth
+              being precise about which one you're reaching for, because they
+              resize completely different things.
             </p>
             <p>
-              <strong>Padding</strong> is the space between the frame's own
-              edge and its children — inside a Hug frame, padding is part of
-              what the frame is hugging, so changing padding changes the
-              frame's outer size. Padding can be set as one uniform number, a
+              <strong>Padding</strong> is the space between the frame's own edge
+              and its children — inside a Hug frame, padding is part of what the
+              frame is hugging, so changing padding changes the frame's outer
+              size. Padding can be set as one uniform number, a
               horizontal/vertical pair, or independently on all four sides.
             </p>
             <p>
               <strong>Gap</strong> (sometimes labeled "item spacing") is the
-              space between siblings, not between the frame and its edge.
-              Gap can be a fixed number — every gap in the frame is exactly
-              that many pixels — or set to distribute automatically, which
-              pushes the first and last child flush to the padding edge and
-              lets the gap absorb whatever room is left between them,
-              growing as the frame grows.
+              space between siblings, not between the frame and its edge. Gap
+              can be a fixed number — every gap in the frame is exactly that
+              many pixels — or set to distribute automatically, which pushes the
+              first and last child flush to the padding edge and lets the gap
+              absorb whatever room is left between them, growing as the frame
+              grows.
             </p>
             <p>
-              The distinction matters most when a Hug frame "won't shrink":
-              if you're dragging the gap value and the frame's outer bound
-              isn't moving, that's correct behavior — gap only ever
-              redistributes space between children, and padding is the only
-              spacing value that changes a Hug frame's outer size.
+              The distinction matters most when a Hug frame "won't shrink": if
+              you're dragging the gap value and the frame's outer bound isn't
+              moving, that's correct behavior — gap only ever redistributes
+              space between children, and padding is the only spacing value that
+              changes a Hug frame's outer size.
             </p>
           </section>
 
@@ -735,18 +1041,17 @@
             <p>
               Every Auto Layout frame has a <strong>primary axis</strong>
               (the direction of flow — the axis Gap operates on) and a
-              <strong>counter axis</strong> (perpendicular to it). Alignment
-              is set independently for each, which is why the alignment
-              control in the panel is a 3×3 grid rather than a single
-              dropdown: three positions along the primary axis, times three
-              along the counter axis, gives nine total combinations.
+              <strong>counter axis</strong> (perpendicular to it). Alignment is
+              set independently for each, which is why the alignment control in
+              the panel is a 3×3 grid rather than a single dropdown: three
+              positions along the primary axis, times three along the counter
+              axis, gives nine total combinations.
             </p>
             <p>
               Primary-axis alignment controls how children pack along the
               direction of flow — start, center, end, or, via the Auto gap
-              setting from the previous section, spread evenly with the
-              leftover space pushed between items rather than gathered on one
-              side.
+              setting from the previous section, spread evenly with the leftover
+              space pushed between items rather than gathered on one side.
             </p>
             <p>
               Counter-axis alignment controls where children sit on the
@@ -755,10 +1060,10 @@
               horizontal position (left, center, right).
             </p>
             <p>
-              This maps directly onto Flexbox's <code>justify-content</code>
-              (primary axis) and <code>align-items</code> (counter axis) —
-              see the handoff table in section eight for the full property
-              list.
+              This maps directly onto Flexbox's
+              <code>justify-content</code> (primary axis) and
+              <code>align-items</code> (counter axis) — see the handoff table in
+              section eight for the full property list.
             </p>
           </section>
 
@@ -767,63 +1072,238 @@
             <h2>Nesting: How Constraints Cascade</h2>
             <p>
               The real power of Auto Layout only shows up once frames are
-              nested, and the reason it holds together is that each frame
-              solves its own local system independently, then hands its
-              resolved size up to its parent as if it were a single,
-              ordinary child — the parent doesn't know or care that its
-              child is itself a small layout engine with three more children
-              inside it.
+              nested, and the reason it holds together is that each frame solves
+              its own local system independently, then hands its resolved size
+              up to its parent as if it were a single, ordinary child — the
+              parent doesn't know or care that its child is itself a small
+              layout engine with three more children inside it.
             </p>
           </section>
 
           <figure class="guide-figure">
             <div class="guide-figure__frame">
-              <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2-title fig2-desc">
+              <svg
+                viewBox="0 0 720 300"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig2-title fig2-desc"
+              >
                 <title id="fig2-title">Anatomy of a nested comment card</title>
-                <desc id="fig2-desc">Blueprint schematic of a card component: an outer vertical Hug frame containing a horizontal byline row and a vertical body-text frame, with padding and gap annotated.</desc>
+                <desc id="fig2-desc">
+                  Blueprint schematic of a card component: an outer vertical Hug
+                  frame containing a horizontal byline row and a vertical
+                  body-text frame, with padding and gap annotated.
+                </desc>
                 <defs>
-                  <marker id="gp-arrow2" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <marker
+                    id="gp-arrow2"
+                    viewBox="0 0 8 8"
+                    refX="4"
+                    refY="4"
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto-start-reverse"
+                  >
                     <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
                   </marker>
                 </defs>
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
                   <!-- outer card frame -->
-                  <rect x="60" y="30" width="440" height="230" rx="3" fill="none" stroke="#e8edf4" stroke-width="1.5" stroke-dasharray="4 3" />
-                  <text x="72" y="20" fill="#7fb3e0" font-size="10.5" letter-spacing="0.5">CARD · VERTICAL · HUG</text>
+                  <rect
+                    x="60"
+                    y="30"
+                    width="440"
+                    height="230"
+                    rx="3"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.5"
+                    stroke-dasharray="4 3"
+                  />
+                  <text
+                    x="72"
+                    y="20"
+                    fill="#7fb3e0"
+                    font-size="10.5"
+                    letter-spacing="0.5"
+                  >
+                    CARD · VERTICAL · HUG
+                  </text>
 
                   <!-- padding indicator -->
-                  <rect x="82" y="52" width="396" height="186" fill="none" stroke="#3f5f8a" stroke-width="1" stroke-dasharray="2 2" />
-                  <text x="490" y="48" fill="#5b789f" font-size="9" text-anchor="end">padding 20</text>
+                  <rect
+                    x="82"
+                    y="52"
+                    width="396"
+                    height="186"
+                    fill="none"
+                    stroke="#3f5f8a"
+                    stroke-width="1"
+                    stroke-dasharray="2 2"
+                  />
+                  <text
+                    x="490"
+                    y="48"
+                    fill="#5b789f"
+                    font-size="9"
+                    text-anchor="end"
+                  >
+                    padding 20
+                  </text>
 
                   <!-- byline row -->
-                  <rect x="82" y="52" width="396" height="46" rx="2" fill="none" stroke="#e8edf4" stroke-width="1.2" />
-                  <text x="90" y="65" fill="#7fb3e0" font-size="9">BYLINE · HORIZONTAL · HUG</text>
-                  <circle cx="106" cy="86" r="14" fill="#7fb3e0" opacity="0.85" />
-                  <text x="106" y="90" fill="#081b38" font-size="8" text-anchor="middle">FIX</text>
-                  <rect x="132" y="78" width="220" height="16" fill="#33507a" opacity="0.6" />
-                  <text x="242" y="90" fill="#e8edf4" font-size="8.5" text-anchor="middle">name — FILL</text>
-                  <rect x="404" y="78" width="60" height="16" fill="#33507a" opacity="0.6" />
-                  <text x="434" y="90" fill="#e8edf4" font-size="8" text-anchor="middle">time — FIX</text>
+                  <rect
+                    x="82"
+                    y="52"
+                    width="396"
+                    height="46"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.2"
+                  />
+                  <text x="90" y="65" fill="#7fb3e0" font-size="9">
+                    BYLINE · HORIZONTAL · HUG
+                  </text>
+                  <circle
+                    cx="106"
+                    cy="86"
+                    r="14"
+                    fill="#7fb3e0"
+                    opacity="0.85"
+                  />
+                  <text
+                    x="106"
+                    y="90"
+                    fill="#081b38"
+                    font-size="8"
+                    text-anchor="middle"
+                  >
+                    FIX
+                  </text>
+                  <rect
+                    x="132"
+                    y="78"
+                    width="220"
+                    height="16"
+                    fill="#33507a"
+                    opacity="0.6"
+                  />
+                  <text
+                    x="242"
+                    y="90"
+                    fill="#e8edf4"
+                    font-size="8.5"
+                    text-anchor="middle"
+                  >
+                    name — FILL
+                  </text>
+                  <rect
+                    x="404"
+                    y="78"
+                    width="60"
+                    height="16"
+                    fill="#33507a"
+                    opacity="0.6"
+                  />
+                  <text
+                    x="434"
+                    y="90"
+                    fill="#e8edf4"
+                    font-size="8"
+                    text-anchor="middle"
+                  >
+                    time — FIX
+                  </text>
 
                   <!-- gap between rows -->
-                  <line x1="480" y1="98" x2="480" y2="112" stroke="#7fb3e0" stroke-width="1" marker-start="url(#gp-arrow2)" marker-end="url(#gp-arrow2)" />
-                  <text x="486" y="108" fill="#7fb3e0" font-size="8.5">gap 8</text>
+                  <line
+                    x1="480"
+                    y1="98"
+                    x2="480"
+                    y2="112"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    marker-start="url(#gp-arrow2)"
+                    marker-end="url(#gp-arrow2)"
+                  />
+                  <text x="486" y="108" fill="#7fb3e0" font-size="8.5">
+                    gap 8
+                  </text>
 
                   <!-- body text frame -->
-                  <rect x="82" y="112" width="396" height="126" rx="2" fill="none" stroke="#e8edf4" stroke-width="1.2" />
-                  <text x="90" y="126" fill="#7fb3e0" font-size="9">BODY · VERTICAL · HUG</text>
-                  <rect x="90" y="134" width="380" height="8" fill="#33507a" opacity="0.55" />
-                  <rect x="90" y="148" width="380" height="8" fill="#33507a" opacity="0.55" />
-                  <rect x="90" y="162" width="380" height="8" fill="#33507a" opacity="0.55" />
-                  <rect x="90" y="176" width="260" height="8" fill="#33507a" opacity="0.55" />
-                  <text x="90" y="212" fill="#5b789f" font-size="8.5">↳ new line typed here grows this</text>
-                  <text x="90" y="224" fill="#5b789f" font-size="8.5">frame, which grows the card above</text>
+                  <rect
+                    x="82"
+                    y="112"
+                    width="396"
+                    height="126"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.2"
+                  />
+                  <text x="90" y="126" fill="#7fb3e0" font-size="9">
+                    BODY · VERTICAL · HUG
+                  </text>
+                  <rect
+                    x="90"
+                    y="134"
+                    width="380"
+                    height="8"
+                    fill="#33507a"
+                    opacity="0.55"
+                  />
+                  <rect
+                    x="90"
+                    y="148"
+                    width="380"
+                    height="8"
+                    fill="#33507a"
+                    opacity="0.55"
+                  />
+                  <rect
+                    x="90"
+                    y="162"
+                    width="380"
+                    height="8"
+                    fill="#33507a"
+                    opacity="0.55"
+                  />
+                  <rect
+                    x="90"
+                    y="176"
+                    width="260"
+                    height="8"
+                    fill="#33507a"
+                    opacity="0.55"
+                  />
+                  <text x="90" y="212" fill="#5b789f" font-size="8.5">
+                    ↳ new line typed here grows this
+                  </text>
+                  <text x="90" y="224" fill="#5b789f" font-size="8.5">
+                    frame, which grows the card above
+                  </text>
 
                   <!-- side annotation -->
-                  <line x1="520" y1="30" x2="520" y2="260" stroke="#3f5f8a" stroke-width="1" marker-start="url(#gp-arrow2)" marker-end="url(#gp-arrow2)" />
-                  <text x="534" y="120" fill="#7fb3e0" font-size="9">card height</text>
-                  <text x="534" y="132" fill="#7fb3e0" font-size="9">= output, not</text>
-                  <text x="534" y="144" fill="#7fb3e0" font-size="9">an input</text>
+                  <line
+                    x1="520"
+                    y1="30"
+                    x2="520"
+                    y2="260"
+                    stroke="#3f5f8a"
+                    stroke-width="1"
+                    marker-start="url(#gp-arrow2)"
+                    marker-end="url(#gp-arrow2)"
+                  />
+                  <text x="534" y="120" fill="#7fb3e0" font-size="9">
+                    card height
+                  </text>
+                  <text x="534" y="132" fill="#7fb3e0" font-size="9">
+                    = output, not
+                  </text>
+                  <text x="534" y="144" fill="#7fb3e0" font-size="9">
+                    an input
+                  </text>
                 </g>
               </svg>
             </div>
@@ -835,29 +1315,29 @@
 
           <section id="nesting-cont">
             <p>
-              Take the comment card above: an outer vertical frame set to
-              Hug (the card itself), containing an inner horizontal frame for
-              the byline (an avatar at Fixed size, a name set to Fill, and a
+              Take the comment card above: an outer vertical frame set to Hug
+              (the card itself), containing an inner horizontal frame for the
+              byline (an avatar at Fixed size, a name set to Fill, and a
               timestamp at Fixed size), followed by a vertical frame for the
               body text, also set to Hug. Type a longer comment, and the
               body-text frame grows taller because its own Hug rule resolves
-              against its now-taller text child. That new height rolls up to
-              the outer card frame — also Hug — which grows to match.
-              Nothing in this chain was told "make the card taller when the
-              comment is long"; every frame just resolved its own
-              three-declaration stack from section one, and the result
-              composes correctly by construction.
+              against its now-taller text child. That new height rolls up to the
+              outer card frame — also Hug — which grows to match. Nothing in
+              this chain was told "make the card taller when the comment is
+              long"; every frame just resolved its own three-declaration stack
+              from section one, and the result composes correctly by
+              construction.
             </p>
             <p>
-              The debugging consequence is the one worth remembering: a
-              change three frames deep can only propagate upward through
-              frames that are set to Hug on the relevant axis. The moment it
-              hits a Fixed or Fill frame — a frame whose size on that axis
-              doesn't come from its children — the change stops there and
-              gets absorbed, either by clipping if there's no room, or by
-              whitespace if there's too much. If resizing something isn't
-              affecting a distant ancestor the way you'd expect, the frame
-              sitting between them is the first place to check.
+              The debugging consequence is the one worth remembering: a change
+              three frames deep can only propagate upward through frames that
+              are set to Hug on the relevant axis. The moment it hits a Fixed or
+              Fill frame — a frame whose size on that axis doesn't come from its
+              children — the change stops there and gets absorbed, either by
+              clipping if there's no room, or by whitespace if there's too much.
+              If resizing something isn't affecting a distant ancestor the way
+              you'd expect, the frame sitting between them is the first place to
+              check.
             </p>
           </section>
 
@@ -867,32 +1347,31 @@
             <p>
               Horizontal and vertical flows (not the Grid flow) support a
               <strong>Wrap</strong> setting: once children run out of room on
-              the primary axis, instead of overflowing or shrinking past
-              their limits, the frame starts a new row — or column — and
-              continues laying out there. Wrapped frames get a second,
-              independent gap value for the space between rows, separate
-              from the gap between items within a row.
+              the primary axis, instead of overflowing or shrinking past their
+              limits, the frame starts a new row — or column — and continues
+              laying out there. Wrapped frames get a second, independent gap
+              value for the space between rows, separate from the gap between
+              items within a row.
             </p>
             <p>
-              Wrap on its own doesn't create a responsive layout — it just
-              gives overflow somewhere to go. What decides
+              Wrap on its own doesn't create a responsive layout — it just gives
+              overflow somewhere to go. What decides
               <em>when</em> something wraps is the min-width (or min-height)
-              constraint layered on top of a child's Fill or Hug sizing: a
-              Fill child with a 200px minimum keeps growing to fill its row
-              right up until the row can no longer offer it 200px, at which
-              point it drops to the next line instead of shrinking further.
-              Max-width and max-height work the same way in reverse, capping
-              how far a Fill child is allowed to stretch.
+              constraint layered on top of a child's Fill or Hug sizing: a Fill
+              child with a 200px minimum keeps growing to fill its row right up
+              until the row can no longer offer it 200px, at which point it
+              drops to the next line instead of shrinking further. Max-width and
+              max-height work the same way in reverse, capping how far a Fill
+              child is allowed to stretch.
             </p>
             <p>
-              Worth flagging plainly: min/max constraints across several
-              Fill children inside a wrapped parent are one of the rougher
-              edges of the engine as of this writing — resize order can
-              produce values that look inconsistent across siblings that
-              should be symmetric. If a layout depends on precise min/max
-              behavior across many wrapped Fill items, test the actual file
-              rather than assuming the numbers will resolve the way the
-              panel implies.
+              Worth flagging plainly: min/max constraints across several Fill
+              children inside a wrapped parent are one of the rougher edges of
+              the engine as of this writing — resize order can produce values
+              that look inconsistent across siblings that should be symmetric.
+              If a layout depends on precise min/max behavior across many
+              wrapped Fill items, test the actual file rather than assuming the
+              numbers will resolve the way the panel implies.
             </p>
           </section>
 
@@ -902,18 +1381,18 @@
             <p>
               Occasionally an element needs to sit on top of an Auto Layout
               frame without taking part in its flow at all — a notification
-              badge overlapping the corner of an icon, a close button pinned
-              to a modal header regardless of how long the title text runs.
-              Toggling a layer to <strong>Absolute Position</strong> removes
-              it from the gap and alignment system entirely: it no longer
-              consumes a slot, doesn't push siblings, and is positioned
-              instead by direct offsets against its parent frame — the same
-              way <code>position: absolute</code> behaves against a
-              <code>position: relative</code> parent in CSS. Use it
-              deliberately and sparingly: it's an exception to the
-              constraint system, not a substitute for it, and a layout built
-              mostly out of absolutely positioned children has quietly
-              opted out of everything Auto Layout is for.
+              badge overlapping the corner of an icon, a close button pinned to
+              a modal header regardless of how long the title text runs.
+              Toggling a layer to <strong>Absolute Position</strong> removes it
+              from the gap and alignment system entirely: it no longer consumes
+              a slot, doesn't push siblings, and is positioned instead by direct
+              offsets against its parent frame — the same way
+              <code>position: absolute</code> behaves against a
+              <code>position: relative</code> parent in CSS. Use it deliberately
+              and sparingly: it's an exception to the constraint system, not a
+              substitute for it, and a layout built mostly out of absolutely
+              positioned children has quietly opted out of everything Auto
+              Layout is for.
             </p>
           </section>
 
@@ -921,15 +1400,17 @@
             <p class="guide-section__kicker mono">§ 08</p>
             <h2>Dev Handoff: Mapping to CSS Flexbox</h2>
             <p>
-              None of the vocabulary above is Figma-specific — it's a panel
-              over the same model Flexbox already implements, which is
-              exactly why "translate this frame to code" is usually a
-              mechanical exercise rather than a design decision, provided
-              both sides are using the same terms.
+              None of the vocabulary above is Figma-specific — it's a panel over
+              the same model Flexbox already implements, which is exactly why
+              "translate this frame to code" is usually a mechanical exercise
+              rather than a design decision, provided both sides are using the
+              same terms.
             </p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ figma_to_flexbox_property_map</caption>
+                <caption>
+                  / figma_to_flexbox_property_map
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Figma property</th>
@@ -937,18 +1418,68 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Direction: Horizontal / Vertical</td><td><code>flex-direction: row</code> / <code>column</code></td></tr>
-                  <tr><td>Wrap</td><td><code>flex-wrap: wrap</code></td></tr>
-                  <tr><td>Gap (fixed number)</td><td><code>gap</code></td></tr>
-                  <tr><td>Gap: Auto / space between</td><td><code>justify-content: space-between</code></td></tr>
-                  <tr><td>Padding</td><td><code>padding</code> (shorthand or per side)</td></tr>
-                  <tr><td>Resizing: Fixed</td><td>fixed width/height, <code>flex-grow: 0</code>, <code>flex-shrink: 0</code></td></tr>
-                  <tr><td>Resizing: Hug contents</td><td><code>width: fit-content</code> (no flex-grow)</td></tr>
-                  <tr><td>Resizing: Fill container</td><td><code>flex: 1 1 0%</code></td></tr>
-                  <tr><td>Primary-axis alignment</td><td><code>justify-content</code></td></tr>
-                  <tr><td>Counter-axis alignment</td><td><code>align-items</code> (or <code>align-self</code> per child)</td></tr>
-                  <tr><td>Min / Max width or height</td><td><code>min-width</code> / <code>max-width</code>, <code>min-height</code> / <code>max-height</code></td></tr>
-                  <tr><td>Absolute Position</td><td><code>position: absolute</code> on a <code>position: relative</code> parent</td></tr>
+                  <tr>
+                    <td>Direction: Horizontal / Vertical</td>
+                    <td>
+                      <code>flex-direction: row</code> / <code>column</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Wrap</td>
+                    <td><code>flex-wrap: wrap</code></td>
+                  </tr>
+                  <tr>
+                    <td>Gap (fixed number)</td>
+                    <td><code>gap</code></td>
+                  </tr>
+                  <tr>
+                    <td>Gap: Auto / space between</td>
+                    <td><code>justify-content: space-between</code></td>
+                  </tr>
+                  <tr>
+                    <td>Padding</td>
+                    <td><code>padding</code> (shorthand or per side)</td>
+                  </tr>
+                  <tr>
+                    <td>Resizing: Fixed</td>
+                    <td>
+                      fixed width/height, <code>flex-grow: 0</code>,
+                      <code>flex-shrink: 0</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Resizing: Hug contents</td>
+                    <td><code>width: fit-content</code> (no flex-grow)</td>
+                  </tr>
+                  <tr>
+                    <td>Resizing: Fill container</td>
+                    <td><code>flex: 1 1 0%</code></td>
+                  </tr>
+                  <tr>
+                    <td>Primary-axis alignment</td>
+                    <td><code>justify-content</code></td>
+                  </tr>
+                  <tr>
+                    <td>Counter-axis alignment</td>
+                    <td>
+                      <code>align-items</code> (or <code>align-self</code> per
+                      child)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Min / Max width or height</td>
+                    <td>
+                      <code>min-width</code> / <code>max-width</code>,
+                      <code>min-height</code> / <code>max-height</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Absolute Position</td>
+                    <td>
+                      <code>position: absolute</code> on a
+                      <code>position: relative</code> parent
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -971,25 +1502,26 @@
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">02</span>
                 <p>
-                  <strong>Wrapping a shape-plus-text group instead of
-                  applying Auto Layout directly.</strong>
+                  <strong
+                    >Wrapping a shape-plus-text group instead of applying Auto
+                    Layout directly.</strong
+                  >
                   Group a background rectangle with a text layer first, then
-                  apply Auto Layout to the group, and the shape and text end
-                  up negotiating Fill/Hug with each other instead of the text
-                  simply negotiating with the frame. Select the text layer
-                  alone and apply Auto Layout to it directly; give the
-                  resulting frame a fill color and corner radius, and it
-                  becomes the button background with one fewer layer to
-                  reason about.
+                  apply Auto Layout to the group, and the shape and text end up
+                  negotiating Fill/Hug with each other instead of the text
+                  simply negotiating with the frame. Select the text layer alone
+                  and apply Auto Layout to it directly; give the resulting frame
+                  a fill color and corner radius, and it becomes the button
+                  background with one fewer layer to reason about.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">03</span>
                 <p>
                   <strong>Adjusting gap when the frame won't shrink.</strong>
-                  If a Hug frame's outer size isn't moving, check padding,
-                  not gap — gap only ever redistributes space between
-                  existing children.
+                  If a Hug frame's outer size isn't moving, check padding, not
+                  gap — gap only ever redistributes space between existing
+                  children.
                 </p>
               </li>
               <li class="guide-pitfall">
@@ -997,18 +1529,19 @@
                 <p>
                   <strong>Forgetting counter-axis stretch.</strong>
                   Children default to Hug on the counter axis unless told
-                  otherwise, so a short child sitting next to a tall one in
-                  the same row won't automatically match its height. For a
-                  uniform row or column, set the shorter children's
-                  counter-axis sizing to Fill rather than adjusting
-                  alignment.
+                  otherwise, so a short child sitting next to a tall one in the
+                  same row won't automatically match its height. For a uniform
+                  row or column, set the shorter children's counter-axis sizing
+                  to Fill rather than adjusting alignment.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">05</span>
                 <p>
-                  <strong>Trusting min/max precision across many wrapped
-                  Fill children.</strong>
+                  <strong
+                    >Trusting min/max precision across many wrapped Fill
+                    children.</strong
+                  >
                   As noted in section six — verify in the actual file for
                   anything layout-critical, rather than assuming the panel's
                   numbers will resolve symmetrically.
@@ -1022,7 +1555,9 @@
             <h2>Quick Reference</h2>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ rules_of_thumb</caption>
+                <caption>
+                  / rules_of_thumb
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Property</th>
@@ -1031,13 +1566,45 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Fixed</td><td>Ignores children and parent</td><td>Use for things that must never move</td></tr>
-                  <tr><td>Hug contents</td><td>Sizes to children + padding</td><td>Resize by resizing children or padding, never the frame</td></tr>
-                  <tr><td>Fill container</td><td>Takes leftover space from parent</td><td>Only meaningful once an ancestor has a resolved size</td></tr>
-                  <tr><td>Padding</td><td>Space between frame edge and children</td><td>Changes a Hug frame's outer size</td></tr>
-                  <tr><td>Gap</td><td>Space between siblings</td><td>Never changes a Hug frame's outer size</td></tr>
-                  <tr><td>Wrap</td><td>New row/column on overflow</td><td>Pairs with min-width to decide when to wrap</td></tr>
-                  <tr><td>Absolute Position</td><td>Removes a child from the flow</td><td>Deliberate exception, not a default</td></tr>
+                  <tr>
+                    <td>Fixed</td>
+                    <td>Ignores children and parent</td>
+                    <td>Use for things that must never move</td>
+                  </tr>
+                  <tr>
+                    <td>Hug contents</td>
+                    <td>Sizes to children + padding</td>
+                    <td>
+                      Resize by resizing children or padding, never the frame
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Fill container</td>
+                    <td>Takes leftover space from parent</td>
+                    <td>
+                      Only meaningful once an ancestor has a resolved size
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Padding</td>
+                    <td>Space between frame edge and children</td>
+                    <td>Changes a Hug frame's outer size</td>
+                  </tr>
+                  <tr>
+                    <td>Gap</td>
+                    <td>Space between siblings</td>
+                    <td>Never changes a Hug frame's outer size</td>
+                  </tr>
+                  <tr>
+                    <td>Wrap</td>
+                    <td>New row/column on overflow</td>
+                    <td>Pairs with min-width to decide when to wrap</td>
+                  </tr>
+                  <tr>
+                    <td>Absolute Position</td>
+                    <td>Removes a child from the flow</td>
+                    <td>Deliberate exception, not a default</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1045,10 +1612,10 @@
 
           <section class="guide-closing">
             <p>
-              Auto Layout rewards being read once, carefully, the way you'd
-              read a spec instead of a tooltip. After that, most of what
-              looks like unpredictable behavior turns out to be the
-              constraint system doing exactly what it was asked to do.
+              Auto Layout rewards being read once, carefully, the way you'd read
+              a spec instead of a tooltip. After that, most of what looks like
+              unpredictable behavior turns out to be the constraint system doing
+              exactly what it was asked to do.
             </p>
           </section>
         </div>
@@ -1065,13 +1632,19 @@
             <h2 class="mono">/ related_guides</h2>
             <ul>
               <li>
-                <a href="g6.html">Whitespace as a UI Component, Not a Leftover</a>
+                <a href="g6.html"
+                  >Whitespace as a UI Component, Not a Leftover</a
+                >
               </li>
               <li>
-                <a href="color-contrast-systems.html">Color Contrast Is Math, Not Taste</a>
+                <a href="color-contrast-systems.html"
+                  >Color Contrast Is Math, Not Taste</a
+                >
               </li>
               <li>
-                <a href="type-scale-systems.html">Font Size Is a Formula, Not a Feeling</a>
+                <a href="type-scale-systems.html"
+                  >Font Size Is a Formula, Not a Feeling</a
+                >
               </li>
             </ul>
           </div>
@@ -1147,8 +1720,8 @@
         <div class="footer-col">
           <h2>Stay in the loop</h2>
           <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check
-            back or bookmark this page.
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
           </p>
         </div>
       </div>

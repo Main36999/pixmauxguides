@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact us — PIXMA UX Guides</title>
@@ -193,6 +200,15 @@
                 id="contact-form-error"
                 role="alert"
               ></div>
+              <!-- Honeypot field: hidden from real visitors, catches simple spam bots -->
+              <input
+                type="text"
+                name="_gotcha"
+                tabindex="-1"
+                autocomplete="off"
+                style="position: absolute; left: -9999px"
+                aria-hidden="true"
+              />
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -305,6 +321,12 @@
     <script>
       (function () {
         "use strict";
+
+        // Where the form actually delivers messages. Sign up free at
+        // https://formspree.io, create a form, and paste your own
+        // endpoint (looks like https://formspree.io/f/abcdwxyz) below.
+        var FORM_ENDPOINT = "https://formspree.io/f/xljrealj";
+
         function escapeHtml(str) {
           return String(str).replace(/[&<>"']/g, function (ch) {
             return {
@@ -316,28 +338,72 @@
             }[ch];
           });
         }
+
         var form = document.getElementById("contact-form");
         if (!form) return;
+
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           var nameEl = document.getElementById("contact-name");
           var errorEl = document.getElementById("contact-form-error");
+          var submitBtn = form.querySelector('button[type="submit"]');
+
           if (!form.checkValidity()) {
             errorEl.textContent =
               "Please fill in your name, a valid email, a subject, and a message before sending.";
             form.reportValidity();
             return;
           }
+
+          if (FORM_ENDPOINT.indexOf("YOUR_FORM_ID") !== -1) {
+            errorEl.textContent =
+              "This form isn't connected yet — add your Formspree endpoint in contact.html before it can send messages.";
+            return;
+          }
+
           errorEl.textContent = "";
-          var firstName = (nameEl.value || "").trim().split(" ")[0] || "there";
-          var wrap = document.getElementById("contact-form-wrap");
-          wrap.innerHTML =
-            '<div class="form-success">' +
-            "<strong>Message received.</strong>" +
-            "<p>Thanks, " +
-            escapeHtml(firstName) +
-            " — this confirmation is part of the front-end template. Connect this form's submit handler to your own backend, or a service like Formspree, to actually deliver messages to your inbox.</p>" +
-            "</div>";
+          submitBtn.disabled = true;
+          var originalBtnText = submitBtn.textContent;
+          submitBtn.textContent = "Sending…";
+
+          fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            body: new FormData(form),
+          })
+            .then(function (response) {
+              if (response.ok) {
+                var firstName =
+                  (nameEl.value || "").trim().split(" ")[0] || "there";
+                var wrap = document.getElementById("contact-form-wrap");
+                wrap.innerHTML =
+                  '<div class="form-success">' +
+                  "<strong>Message received.</strong>" +
+                  "<p>Thanks, " +
+                  escapeHtml(firstName) +
+                  " — we've got your message and will get back to you within two business days.</p>" +
+                  "</div>";
+                return;
+              }
+              return response.json().then(function (data) {
+                var message =
+                  data && data.errors && data.errors.length
+                    ? data.errors
+                        .map(function (err) {
+                          return err.message;
+                        })
+                        .join(", ")
+                    : "Something went wrong while sending your message. Please try again or email us directly.";
+                throw new Error(message);
+              });
+            })
+            .catch(function (err) {
+              errorEl.textContent =
+                (err && err.message) ||
+                "Something went wrong while sending your message. Please try again or email us directly.";
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalBtnText;
+            });
         });
       })();
     </script>
