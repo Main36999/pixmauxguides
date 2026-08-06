@@ -28,7 +28,7 @@
   },
   {
     "id": "auto-layout-constraint-model",
-    "category": "figma-workflows",
+    "category": "figma",
     "level": "intermediate",
     "readTime": 15,
     "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
