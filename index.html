@@ -127,6 +127,69 @@
             </button>
           </form>
         </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="#guides">All Guides</a>
+          <a href="#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
       </div>
     </header>
 
@@ -216,12 +279,19 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <!--
-      Guides are reached via #/guide/<id> and rendered here, in place
-      of the guide list. About / Contact / Privacy / Terms now live at
-      their own real, crawlable files (about.html, contact.html,
-      privacy.html, terms.html) — see those files for the canonical
-      versions. The #/about, #/contact, #/privacy, #/terms hash routes
-      below are kept only as a fallback for old bookmarked/shared links.
+      Guides now live at their own real, crawlable files under /guide/
+      (e.g. /guide/g6.html) instead of being rendered in place here —
+      see app.js's cardHtml() for the links and the /guide/ directory
+      for the pages themselves. An old bookmarked or shared #/guide/<id>
+      link is redirected to its /guide/<id>.html page by app.js's
+      handleRoute(), rather than being rendered inside the SPA.
+
+      About / Contact / Privacy / Terms similarly live at their own
+      real, crawlable files (about.html, contact.html, privacy.html,
+      terms.html) — see those files for the canonical versions. Unlike
+      guides, the #/about, #/contact, #/privacy, #/terms hash routes
+      below are still rendered here (not redirected) as a fallback for
+      old bookmarked/shared links, via #page-view.
     -->
     <div class="wrap page-view" id="page-view" tabindex="-1" hidden>
       <a href="#" class="page-view__back mono">← All guides</a>

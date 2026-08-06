@@ -138,294 +138,18 @@
 
   // Each guide's `thumbnail` points to a local image file (any web
   // image format) that sits in a "thumbnail_image" folder next to
-  // index.html. It's used both for the card thumbnail on the guide
-  // list and as the hero image at the top of the guide's own article
-  // page. If the file at that path doesn't exist yet, both places
-  // automatically fall back to this category's blueprint-style SVG
+  // index.html. It's used for the card thumbnail on the guide list
+  // below. If the file at that path doesn't exist yet, the card
+  // automatically falls back to this category's blueprint-style SVG
   // icon (see THUMBS above) — so the site never shows a broken image.
+  // (The same fallback pattern is used for each guide's own hero
+  // image too, but that markup now lives directly in each guide's
+  // static page under /guide/ rather than being rendered here.)
   //
   // The guide data itself now lives in guides.json (fetched below by
   // loadGuides()) instead of being hardcoded here. GUIDES starts empty
   // and is populated once that fetch resolves.
   var GUIDES = [];
-
-  // Full long-form article content for each guide. Each guide gets its
-  // own real URL (#/guide/<id>) and is rendered as its own page when
-  // that "Read guide" link is followed. Two flagship guides ship today;
-  // the other 13 have been retired for now and can be re-added to this
-  // object + the GUIDES array above later.
-  var ARTICLES = {
-    g6: {
-      dek: `Whitespace is the fastest way to learn to see UI/UX design at all — once you notice how space carries meaning, every other decision on the page starts making sense too.`,
-      sections: [
-        {
-          h: "Why whitespace is the right place to start",
-          body: [
-            `Most introductions to UI/UX start with color or typography, because they're the easiest things to point at. But color and type only work because of something more fundamental sitting underneath them: the space around and between elements. Get the spacing wrong and a perfect color palette and a beautifully paired typeface still won't rescue the layout.`,
-            `Whitespace is also the one design decision every interface has, whether anyone made it on purpose or not. A button has padding whether or not a designer chose it deliberately; a list has gaps between items whether or not those gaps were sized on purpose. That makes it the most honest place to learn UI/UX, because there's no default to hide behind — every gap on a screen is a decision, made well or made by accident.`,
-          ],
-        },
-        {
-          h: "The blank page isn't empty",
-          body: [
-            `Call it whitespace, negative space, or just "the gaps" — the term doesn't have to mean white, or even blank. It means any area of a layout without content: the margin around a card, the gutter between two columns, the padding inside a button. Treat it as a design element with its own scale and rules, not whatever space happens to remain after every other decision has already been made.`,
-            `The instinct to treat space as a leftover is understandable — it's the one part of a screen with nothing to click, read, or look at. But that absence of content is exactly what makes it powerful: space is the only tool in an interface that can create separation and hierarchy without adding a single new color, border, or line of text.`,
-          ],
-        },
-        {
-          h: "Two kinds of space: macro and micro",
-          body: [
-            `Macro whitespace separates major regions of a page: the gap between a header and the content beneath it, the distance between two independent sections, the margin around the page itself. These are the largest values in a spacing system, typically 32px, 48px, or 64px and up, because they need to read as a clear break even at a glance.`,
-            `Micro whitespace lives inside a single component: the padding inside a button, the gap between a form label and its input, the space between an icon and the text next to it. These values are small — usually 4px to 16px — and need to stay identical across every instance of that component, because any inconsistency here reads as a bug rather than a style choice.`,
-            `Confusing the two is a common beginner mistake. A macro-sized gap used inside a component makes it feel like it's falling apart into unrelated pieces; a micro-sized gap used between unrelated sections makes the whole page feel cramped and undifferentiated. The two scales solve different problems and shouldn't borrow each other's values.`,
-          ],
-        },
-        {
-          h: "Grouping is communication",
-          body: [
-            `Human perception groups things automatically, and this isn't a design metaphor — it's a documented set of principles from Gestalt psychology, developed for general visual perception long before screens existed, and interface design leans on it constantly. Two of the most useful for UI/UX are proximity (things placed close together are perceived as related) and common region (things enclosed by a shared boundary are perceived as one group).`,
-            `Take a settings screen with a name field, an email field, and a "Save changes" button. If all three sit at identical spacing from each other, a person has to read the labels to work out that "Save changes" applies to both fields, not just the one directly above it. Add a slightly larger gap before the button, and that relationship becomes obvious without reading a single word — the spacing itself has communicated the structure.`,
-            `This is the real reason inconsistent spacing feels "off" even to people who couldn't explain why. A label sitting exactly as far from its own input as from an unrelated element above it sends two contradictory signals about what belongs together, and the eye notices the contradiction even when the conscious mind never puts a name to it.`,
-          ],
-        },
-        {
-          h: "Hierarchy without new colors or fonts",
-          body: [
-            `A beginner's instinct for adding emphasis is usually to add something — a bolder weight, a brighter color, a border, a background tint. Every one of those additions is a real design decision with a real cost: another value to maintain, another rule to remember, one more thing competing for attention on the screen.`,
-            `Space can create the same hierarchy for free. A section with more room around it reads as more important than a section crammed next to its neighbors, even set in identical type and color. Increasing the whitespace around a page's single most important action — a primary call-to-action, a hero heading — is often a stronger signal than making it bigger or brighter, because it doesn't just draw the eye, it gives the eye somewhere to land without competing for attention.`,
-            `This is why experienced designers often "fix" a cluttered, hard-to-scan screen by removing elements and adding space, rather than by re-coloring or re-labeling everything on it. The content doesn't need to shout louder if it has room to be heard.`,
-          ],
-        },
-        {
-          h: "Density is a deliberate choice, not an accident",
-          body: [
-            `There's no single correct amount of whitespace — the right density depends entirely on what the interface is for. A financial dashboard or an admin table intentionally uses a tighter spacing scale, because the person using it wants to see as many rows and numbers as possible without scrolling, and every extra pixel of padding is a real cost measured in less visible data.`,
-            `A marketing homepage or an onboarding flow intentionally goes the other way, using a loose spacing scale, because breathing room signals confidence and lets each idea land on its own before the next one arrives. Applying dashboard-level density to a landing page makes it feel like a spreadsheet; applying landing-page looseness to a data table makes it unusable for anyone trying to actually work in it.`,
-            `Many mature products now expose this as a real, user-facing setting — "comfortable," "cozy," and "compact" density modes in tools like spreadsheets or admin panels are, functionally, a whitespace scale the user gets to choose for themselves. That's a useful mental model even for products that don't offer the toggle: ask which end of that spectrum actually serves the person using this specific screen, right now.`,
-          ],
-        },
-        {
-          h: "Building a spacing scale you can actually use",
-          body: [
-            `Random spacing values — one gap at 14px, the next at 22px, another at 18px — force every future decision to be a fresh guess. A spacing scale replaces guessing with a small, fixed set of numbers everyone on a team reuses: something like 4, 8, 12, 16, 24, 32, 48, and 64 pixels covers the vast majority of real interface needs.`,
-            `Base the scale on a small unit — 4px or 8px are the most common choices — so every value stays predictable and divides cleanly across the pixel densities real screens actually use. Reserve the smallest steps (4–8px) for micro whitespace inside components, and the largest (32px and up) for macro whitespace between sections, with the middle of the scale handling everything in between.`,
-            `Name the steps instead of typing raw numbers into code or design files — space-xs, space-sm, space-md, and so on, each mapped to a pixel value. That turns "how much space goes here" from an open-ended question into a choice from a short, known list, which is what actually makes a scale usable under deadline pressure rather than just a nice idea sitting in a style guide nobody opens.`,
-          ],
-        },
-        {
-          h: "Whitespace mistakes worth watching for",
-          body: [
-            `Uniform spacing everywhere is the most common mistake: giving every element on a screen the same gap regardless of its relationship to its neighbors. It feels safe and consistent, but it actually erases the grouping information spacing is supposed to provide — everything ends up looking equally related, which is functionally the same as looking equally unrelated.`,
-            `Cramming a form or a dense list to "fit more on the screen" is a close second. Reducing padding below a comfortable minimum doesn't just look tight, it actively increases error rates and slows people down, because targets become harder to distinguish and misclicks become more likely — this matters most on touchscreens, where a finger is far less precise than a mouse cursor.`,
-            `A subtler mistake is decorative inconsistency: padding that changes slightly from one card to the next, or one modal to the next, for no functional reason — usually because it was eyeballed rather than pulled from a defined scale. No single instance looks wrong in isolation, but the product as a whole starts to feel unpolished in a way that's hard to pin down without comparing screens side by side.`,
-          ],
-        },
-        {
-          h: "Auditing whitespace on a screen you didn't design",
-          body: [
-            `Whitespace is also one of the fastest things to audit on an existing product. Pick any screen and ask, for every gap you can see: does this value appear anywhere on the defined scale? An answer of "no" almost always means the gap was adjusted by eye during a rushed handoff, not chosen deliberately — and it's usually the first thing worth fixing.`,
-            `Next, check whether related items sit closer together than unrelated ones. Group a label with its input, a heading with the paragraph it introduces, a button with the field it submits — if any of these relationships aren't visible from spacing alone, with all color and text imagined away, the hierarchy isn't actually being communicated by the layout, no matter how correct the content itself is.`,
-            `Finally, pick a few reference relationships — inside a button, between a form's fields, between a page's major sections — and check that identical relationships use identical values everywhere the pattern repeats. A design system audit that starts with spacing tends to surface far more inconsistency, far faster, than one that starts with color or type, precisely because space is invisible enough that nobody double-checks it by default.`,
-          ],
-        },
-        {
-          h: "Where this leads next",
-          body: [
-            `Space is a genuinely good place to start learning UI/UX because getting it right doesn't depend on taste, a design degree, or a trained eye for color — it depends on noticing relationships and applying a consistent scale, which is a skill anyone can build with practice. Once grouping and hierarchy through space start to feel intuitive, the same underlying question carries directly over into every other layer of interface design: what is this decision communicating, and is it communicating it on purpose?`,
-            `That question — asked of color, of type, of every border and shadow and animation — is really what UI/UX design is. Whitespace just happens to be the clearest, lowest-stakes place to start practicing the habit of asking it.`,
-          ],
-        },
-      ],
-      takeaways: [
-        "Whitespace isn't empty — it's the one design tool that creates separation and hierarchy without adding a single new color or line of text.",
-        "Separate macro spacing (between sections, 32px+) from micro spacing (inside components, 4–16px) — they solve different problems and shouldn't share values.",
-        "Smaller gaps signal grouping, larger gaps signal separation — this is Gestalt proximity at work, and it does more communicative work than color or borders.",
-        "Match density to purpose: tighter scales for data-dense tools, looser scales for storytelling and marketing pages.",
-        "Build a small, named spacing scale (e.g. 4/8/12/16/24/32/48/64px) instead of typing one-off pixel values — consistency beats precision.",
-        "Audit any screen by checking whether every visible gap maps to a defined scale value, and whether related items sit visibly closer together than unrelated ones.",
-      ],
-    },
-
-    "color-contrast-systems": {
-      dek: `Contrast is the only part of color theory with a pass/fail number attached to it — learn the ratios first, and every other palette decision gets easier to defend.`,
-      sections: [
-        {
-          h: "Why contrast is the right place to start",
-          body: [
-            `Most introductions to color theory start with the color wheel: complementary pairs, split-complementary triads, warm versus cool. That's a real subject and it matters for mood and brand — but almost none of it is testable. Two designers can disagree forever about whether a palette "feels right," and both can be correct, because taste isn't a spec.`,
-            `Contrast is different. It's the one part of color theory with an actual number attached, defined by an open standard, calculated the same way every time from the two colors involved. A palette either meets 4.5:1 for its body text or it doesn't — that's not a design opinion, it's arithmetic. That makes contrast the most defensible place to start learning color for interfaces, for the same reason whitespace is the most defensible place to start learning layout: there's no taste to hide behind.`,
-          ],
-        },
-        {
-          h: "What a contrast ratio actually is",
-          body: [
-            `A contrast ratio compares the relative luminance — perceived brightness, not just hue — of two colors, expressed as a ratio from 1:1 (identical colors, no contrast at all) up to 21:1 (pure black on pure white, the maximum possible). It's calculated from each color's RGB values, weighted toward green because the human eye is more sensitive to green light than to red or blue.`,
-            `The formula itself is deliberately boring to compute by hand and easy to check with a tool: a browser's built-in accessibility inspector, a Figma or Adobe XD contrast plugin, or any free online contrast checker will take two hex codes and return a single number. The formula matters less than the habit of actually running it, on every text-and-background pairing before shipping, instead of estimating it by eye.`,
-          ],
-        },
-        {
-          h: "The numbers that actually matter",
-          body: [
-            `WCAG's Level AA contrast requirement — the bar most teams should treat as non-negotiable — is 4.5:1 for normal body text against its background. Large text gets a lower bar of 3:1, where "large" specifically means 18pt (24px) regular weight or 14pt (about 18.5px) bold and up; text that size stays legible even with less contrast behind it.`,
-            `A second, newer rule — non-text contrast, added in WCAG 2.1 — requires 3:1 for the visual elements that let someone identify a UI component or its state: button borders, form field outlines, checkbox and radio button edges, focus indicators. Icons and infographic elements carrying real meaning fall under this too. It's the rule teams miss most often, because it's easy to obsess over text contrast and still ship a form with a border so faint it's nearly invisible.`,
-            `A stricter tier — Level AAA — exists above that: 7:1 for normal text, 4.5:1 for large text. It's worth targeting for body copy on content-heavy products, but treat AA as the floor to clear on everything, not the goal to aim for on the easy cases.`,
-          ],
-        },
-        {
-          h: "What gets a pass, and why",
-          body: [
-            `WCAG explicitly exempts a few things from these minimums: disabled controls, purely decorative elements, logos and brand marks, and text that's baked into an image with no other way to present it. That exemption exists because a disabled button communicates its state through more than color alone — it's also unclickable, typically paired with a "not-allowed" cursor and a consistent reduced-opacity treatment — not because low contrast is fine whenever it's inconvenient to fix.`,
-            `The practical takeaway: check every functional element a person actually needs to read or operate — labels, inputs, buttons, links, error text, chart lines, status badges — and treat "it's decorative" as a narrow exception that needs a real justification, not a default excuse for skipping the check.`,
-          ],
-        },
-        {
-          h: "Color alone is never enough",
-          body: [
-            `Roughly 1 in 12 men and 1 in 200 women have some form of color vision deficiency, most commonly reduced sensitivity to red or green. A palette can pass every contrast check and still fail these users if the interface's only signal for meaning is hue — a red-versus-green status dot at identical lightness and saturation, for instance, can look nearly identical to a meaningful share of a real audience.`,
-            `The relevant rule is simple to state and easy to forget in the middle of a busy screen: never use color as the only visual means of conveying information. A form error needs a colored border and an icon and a text message, not just a color change. A chart needs distinct line styles or direct labels, not just distinct hues. This is a cheap fix when it's designed in from the start and an expensive one to retrofit across a shipped product.`,
-          ],
-        },
-        {
-          h: "Building a scale instead of picking colors one at a time",
-          body: [
-            `Choosing individual colors ad hoc — this blue for the button, a slightly different blue for the link, another for the focus ring — produces the same problem one-off spacing values do: nothing is reusable, and nothing gets checked systematically. The fix is the same too: build a numbered scale instead of a pile of loose hex codes.`,
-            `A typical approach generates nine or ten steps per hue, often labeled 50 through 900, running from a near-white tint to a near-black shade at consistent lightness intervals rather than eyeballed jumps. One brand hue run through that scale produces every tint and shade a product actually needs — hover states, backgrounds, borders, disabled states — without anyone picking a fresh color for each new situation.`,
-            `Grayscale gets the exact same treatment: a numbered neutral scale for text, borders, and surfaces, instead of a slightly different gray chosen for every component that happens to need one. Most of an interface's contrast work is actually gray-on-gray or gray-on-white, so the neutral scale tends to matter more day-to-day than the brand hue does.`,
-          ],
-        },
-        {
-          h: "Naming colors by role, not by hue",
-          body: [
-            `A hex code tells you nothing about what a color is for. The fix, borrowed from design systems work, is semantic naming: instead of styling a button with #1D5FD6 directly, define a token — action, or action-primary — that currently resolves to that hex value, and reference the token everywhere a "primary action color" is needed.`,
-            `That does two things a raw hex code can't. First, it documents intent: a developer reading action-danger in code knows what the color means without opening a design file. Second, it makes the color swappable in exactly one place — adjust an accent hue once, and every button, link, and focus ring built on that token updates together, still passing whatever contrast check was run against that role originally.`,
-            `A reasonably complete role set covers text (primary, muted, inverse), surface (background, card, overlay), border, and status (action, success, warning, danger) — each with a light-mode value and, where relevant, a separate dark-mode value, each pre-checked against the surfaces it's actually meant to sit on.`,
-          ],
-        },
-        {
-          h: "Dark mode is a second palette, not an inverted one",
-          body: [
-            `Simply inverting or dimming a light palette for dark mode breaks contrast math that was calculated for a specific pair of colors. A light gray that hit 4.5:1 against white can fail badly against a near-black background, and a saturated brand blue that looked crisp on white frequently reads as harsh, or seems to vibrate, against a dark surface.`,
-            `Treat dark mode as its own set of token values, checked against its own set of surfaces, not a filter applied to the light set. In practice this usually means desaturating and lightening brand hues slightly for dark backgrounds, and choosing a near-black rather than a pure-black base surface — pure black behind bright text can itself feel harsh and, counterintuitively, can hurt readability compared to a very dark gray.`,
-            `Every semantic token from the previous section needs a dark-mode value defined and contrast-checked the same way its light-mode counterpart was — never assumed to inherit acceptable contrast just because the light version happened to pass.`,
-          ],
-        },
-        {
-          h: "Auditing a palette you didn't build",
-          body: [
-            `Given any existing product, list every distinct text-and-background pairing that actually appears on screen — body copy, muted captions, placeholder text, button labels, link text — and run each one through a contrast checker. Anything under 4.5:1 (or 3:1 for genuinely large text) goes on a fix list, sorted by how often that pairing shows up across the product.`,
-            `Next, check every interactive element's border and focus indicator against its background at 3:1. Focus indicators deserve extra attention here: they're the pairing most likely to have been styled once, early, and never revisited, even as the surrounding palette kept changing around them.`,
-            `Finally, find anywhere meaning is carried by color alone — status dots, chart lines, form validation states — and confirm each one has a second, non-color signal. A spacing audit tends to surface accidental inconsistency; a contrast audit tends to surface accidental exclusion, which is a different kind of bug, but just as real.`,
-          ],
-        },
-        {
-          h: "Where this leads next",
-          body: [
-            `Contrast is a useful entry point into color for the same reason whitespace is a useful entry point into layout: it replaces a purely aesthetic judgment with a number anyone can check, which makes it possible to actually get better at the skill instead of just developing more confident taste.`,
-            `Once contrast ratios and semantic tokens feel automatic, the rest of color theory — hue relationships, saturation, the emotional weight of a palette — becomes something layered on top of a system that already passes its basic checks, rather than a replacement for checking at all. The wheel is still worth learning. It's just not where the guarantees come from.`,
-          ],
-        },
-      ],
-      takeaways: [
-        "Contrast ratio is a calculable number derived from relative luminance, not a subjective read — WCAG defines exactly how to compute it.",
-        "Meet at least 4.5:1 for normal text and 3:1 for large text (18px/24px+ regular, or 14pt/~18.5px+ bold) at Level AA.",
-        "UI components and borders — inputs, buttons, focus indicators — need 3:1 too, under WCAG's separate non-text contrast rule.",
-        "Never let color alone carry meaning: roughly 1 in 12 men has some color vision deficiency, so every color-coded state needs a second signal — icon, label, or pattern.",
-        "Build a numbered shade scale (e.g. 50–900) per hue, plus a separate neutral/gray scale, instead of picking colors one at a time.",
-        "Name colors by role (action, danger, text-muted) instead of by hex value, and give dark mode its own contrast-checked token values rather than inverting the light palette.",
-      ],
-    },
-
-    "type-scale-systems": {
-      dek: `Font size is usually the last thing anyone actually systemizes — a modular scale, paired with the line-height and measure rules that govern real readability, turns picking a size into a lookup instead of a guess.`,
-      sections: [
-        {
-          h: "Why a type scale is the right place to start",
-          body: [
-            `Most people treat font size as a series of independent decisions — this heading looks about right at 28px, that caption feels fine at 12px — chosen one at a time by eye, the same way ad-hoc spacing values get chosen one at a time by eye. The result is the same problem too: a page full of sizes that don't relate to each other in any way a person, or a stylesheet, can predict.`,
-            `A type scale replaces that guessing with a formula: pick one base size and one ratio, and every other size on the page is derived from those two numbers instead of invented separately. Two designers working from the same base and ratio produce identical scales without ever comparing notes — the same property that made whitespace and contrast worth learning first. The answer is checkable, not just defensible.`,
-          ],
-        },
-        {
-          h: "What a modular scale actually is",
-          body: [
-            `A modular scale multiplies a base size by a fixed ratio, once per step: size = base × ratio^n. Starting from a 16px base and a 1.25 ratio, the next step up is 16 × 1.25 = 20px, then 20 × 1.25 = 25px, then roughly 31px, and so on in both directions — down toward small caption sizes as well as up toward display headings.`,
-            `The ratios most type-scale tools ship with by default are small, named intervals borrowed from music theory: 1.125 ("major second"), 1.25 ("major third"), 1.333 ("perfect fourth"), and 1.618 (the golden ratio) are the four worth knowing. A smaller ratio produces a tighter, more subtle scale suited to dense interfaces; a larger ratio produces more dramatic jumps suited to editorial or marketing pages where a heading needs to command real visual weight.`,
-          ],
-        },
-        {
-          h: "Picking a base size and a ratio",
-          body: [
-            `16px is the de facto standard base size for body text on the web — it's the default a browser applies with no CSS at all, and dropping below it on any real block of reading text makes a page measurably harder to read for most people, not just those with low vision. Treat 16px as a floor for body copy, not a starting point to shrink from when a layout feels crowded.`,
-            `On mobile specifically, 16px isn't just a readability preference: iOS Safari automatically zooms the viewport when a tapped input's font size is smaller than 16px, an easy bug to introduce by accident on a form field and one worth checking for directly, since the zoom itself often gets blamed on something else during QA.`,
-            `Ratio choice should track content density the same way a spacing scale's density tracks its interface: a tight ratio like 1.125 or 1.2 suits data-dense dashboards and admin tools, where too many competing sizes on one screen creates noise; a looser ratio like 1.5 or 1.618 suits marketing pages and long-form articles, where a heading is meant to dominate the page it sits on.`,
-          ],
-        },
-        {
-          h: "Line-height belongs to the scale, not to taste",
-          body: [
-            `Line-height needs its own rule, and it moves in the opposite direction from font size: as text gets larger, it needs proportionally less line-height, not more. Body copy at 16px typically wants a line-height around 1.5–1.6 times its font size; a 48px display heading at that same 1.5 ratio would leave enormous, awkward gaps between lines that a reader never asked for.`,
-            `A practical rule holds across most scales: tighten line-height as size increases — roughly 1.1–1.3 for large display headings, 1.3–1.4 for subheadings, and 1.5–1.6 for body text and captions. Treat line-height as a second column on the same scale table as font size, not a value chosen separately for each new component that happens to need text.`,
-            `This isn't only an aesthetic default. WCAG's text-spacing criterion specifically expects line-height to reach at least 1.5 times the font size for body text without breaking the layout, on the reasoning that many users with low vision or reading disabilities rely on browser or assistive-technology settings to force exactly that spacing.`,
-          ],
-        },
-        {
-          h: "Measure: the line length nobody sets on purpose",
-          body: [
-            `Measure is the line length of a paragraph, and it's one of the most consistently under-designed properties on the web, because unlike font size or color, nothing renders visibly wrong when it's ignored — a paragraph that stretches the full width of a wide browser window doesn't throw an error, it just becomes measurably harder to track from the end of one line to the start of the next.`,
-            `The commonly cited comfortable range is 45 to 75 characters per line, with roughly 66 characters treated as the sweet spot for sustained reading — a range that traces back to classic print typography and holds up consistently in web-readability research. In practical CSS terms this usually lands around a max-width of 60–75ch on a body-copy container, not a fixed pixel width that stops working the moment the font size or the viewport changes.`,
-            `Below that range, eyes bounce line to line too often and reading feels choppy; above it, especially past 90–100 characters, a reader's eye can lose its place finding the start of the next line — a problem that gets measurably worse at wide desktop widths, where a single unconstrained paragraph can run past 120 characters per line.`,
-          ],
-        },
-        {
-          h: "Fluid type: scaling without breakpoints",
-          body: [
-            `A traditional responsive approach sets a handful of fixed sizes and swaps between them at breakpoints, which means a heading is 32px right up until a 768px breakpoint and instantly 24px one pixel below it. Fluid type replaces those hard jumps with a formula that scales continuously between a minimum and a maximum, using CSS's clamp() function: clamp(minimum, preferred, maximum).`,
-            `A typical fluid heading declaration looks like font-size: clamp(1.5rem, 1.2rem + 2vw, 3rem) — never smaller than 1.5rem, never larger than 3rem, and smoothly interpolated between those bounds based on viewport width in between. The result is a heading that resizes at exactly the same rate the browser window does, with no visible jump at any particular width and no breakpoint to maintain as new screen sizes show up.`,
-            `Apply clamp() to a handful of key sizes — the largest headings and hero text see the most benefit — rather than to every step of the scale; body text at 16px rarely needs to grow much across viewports, and forcing it to flex adds complexity without a real readability gain.`,
-          ],
-        },
-        {
-          h: "Naming the scale and pairing typefaces",
-          body: [
-            `Give each step a name instead of writing raw rem or pixel values into code: text-xs, text-sm, text-base, text-lg, text-xl, text-2xl, text-3xl, and so on, each mapped to one value from the scale. That turns "what size is this" into a lookup from a short list — the same discipline a named spacing scale brings to gaps and padding.`,
-            `One well-made typeface is enough for most interfaces; two is the practical ceiling for almost everyone else — a body typeface and a distinct display or heading typeface, chosen for contrast rather than similarity. Pairing a serif display face with a sans body face, or a geometric sans with a humanist one, reads as an intentional choice; pairing two similar-but-not-identical sans faces usually just reads as a mistake.`,
-            `If code or data needs its own treatment, a monospace typeface is worth adding as a third, clearly scoped exception — never as a stylistic alternative to the body face, only for the specific job, like code or tabular numbers, that a fixed-width face is actually good at.`,
-          ],
-        },
-        {
-          h: "Accessibility minimums text needs to clear",
-          body: [
-            `WCAG's resize-text criterion requires that text can be scaled up to 200% by a user, using nothing but standard browser zoom, without losing content or breaking functionality — a requirement that quietly rules out fixed-height containers with overflow hidden wrapped around anything that holds real text.`,
-            `A separate text-spacing criterion sets minimums a user must be able to apply on top of a site's own styles without anything breaking: line-height at least 1.5 times the font size, space after paragraphs at least 2 times the font size, letter spacing at least 0.12 times the font size, and word spacing at least 0.16 times the font size. Designing to these ratios as defaults, rather than treating them as an edge case a user might force later, means a site already passes before anyone overrides anything.`,
-            `A few more minimums round this out: never disable pinch-to-zoom with user-scalable=no in a viewport meta tag, avoid justified text on the web (variable-width justification produces uneven word gaps that particularly hurt readers with dyslexia), and use all-caps sparingly on anything longer than a short label — long stretches of capital letters remove the word-shape cues a reader normally relies on and measurably slow reading speed.`,
-          ],
-        },
-        {
-          h: "Auditing type on a screen you didn't design",
-          body: [
-            `Pick any existing screen and list every distinct font size actually in use. If that list has no relationship to a consistent ratio — 13px next to 15px next to 22px, none of them derived from the others — the sizes were picked by eye during a rushed handoff, the same way an unaudited spacing scale usually was.`,
-            `Check line-height next: does it get tighter as size increases, or is one value applied everywhere regardless of size? A uniform line-height across headings and body text is one of the fastest tells that leading was never actually designed, just left at a framework's default.`,
-            `Finally, measure actual line length on the widest body-text container on the page. Anything reliably running past 90–100 characters per line on a standard desktop viewport is a real readability bug, not a stylistic choice, and usually the cheapest fix on the entire list — a single max-width change on one container, rather than a full pass through the type scale.`,
-          ],
-        },
-        {
-          h: "Where this leads next",
-          body: [
-            `A type scale is worth learning early for the same reason whitespace and contrast are: it replaces a size-by-size guess with a formula that produces every other value on the page automatically, and that formula is exactly as checkable as a contrast ratio or a spacing token — a size either belongs to the scale or it doesn't.`,
-            `Once base, ratio, line-height, and measure feel automatic, the remaining craft of typography — voice, texture, the specific character of a typeface — sits on top of a system that already gets the mechanics right, rather than trying to compensate for a page where nothing was actually decided on purpose.`,
-          ],
-        },
-      ],
-      takeaways: [
-        "A modular scale derives every size from one formula — size = base × ratio^n — instead of picking each size independently.",
-        "Keep 16px as the floor for body text; smaller triggers real readability problems and, on iOS, an unwanted zoom on tap.",
-        "Line-height moves opposite to size: roughly 1.1–1.3 for large headings, 1.5–1.6 for body text, following WCAG's text-spacing minimums.",
-        "Keep body-text measure in the 45–75 character range (around 66 is ideal) — usually a 60–75ch max-width, not a fixed pixel value.",
-        "Use CSS clamp() for fluid type on key headings so size interpolates smoothly across viewport widths instead of jumping at breakpoints.",
-        "Name scale steps as tokens (text-xs…text-3xl) and limit a UI to two typefaces chosen for contrast, plus an optional monospace for code.",
-      ],
-    },
-  };
 
   // Static site pages. These now also exist as standalone, crawlable
   // files (about.html, contact.html, privacy.html, terms.html) that
@@ -700,18 +424,6 @@
     );
   }
 
-  function heroHtml(g) {
-    var cat = CATEGORIES[g.category];
-    return (
-      '<div class="article-hero">' +
-      thumbMediaHtml(g) +
-      '<span class="badge">' +
-      cat.code +
-      "</span>" +
-      "</div>"
-    );
-  }
-
   function cardHtml(g) {
     return (
       '<article class="guide-card bracketed">' +
@@ -729,9 +441,9 @@
       " · " +
       g.readTime +
       " MIN</span>" +
-      '<a class="btn btn-card" href="#/guide/' +
+      '<a class="btn btn-card" href="/guide/' +
       g.id +
-      '">Read guide <span aria-hidden="true">→</span></a>' +
+      '.html">Read guide <span aria-hidden="true">→</span></a>' +
       "</div>" +
       "</div>" +
       "</article>"
@@ -790,59 +502,9 @@
     document.title = DEFAULT_TITLE;
   }
 
-  function articleHtml(guide, article) {
-    var cat = CATEGORIES[guide.category];
-    var sectionsHtml = article.sections
-      .map(function (s) {
-        var paras = s.body
-          .map(function (p) {
-            return "<p>" + escapeHtml(p) + "</p>";
-          })
-          .join("");
-        return "<h3>" + escapeHtml(s.h) + "</h3>" + paras;
-      })
-      .join("");
-    var takeawaysHtml = article.takeaways
-      .map(function (t) {
-        return "<li>" + escapeHtml(t) + "</li>";
-      })
-      .join("");
-    return (
-      '<div class="article-eyebrow">' +
-      '<span class="badge">' +
-      cat.code +
-      "</span>" +
-      '<span class="card-meta mono">' +
-      LEVEL_ABBR[guide.level] +
-      " · " +
-      guide.readTime +
-      " MIN READ</span>" +
-      "</div>" +
-      '<h2 class="article-title">' +
-      escapeHtml(guide.title) +
-      "</h2>" +
-      heroHtml(guide) +
-      '<p class="article-dek">' +
-      escapeHtml(article.dek) +
-      "</p>" +
-      '<div class="article-body">' +
-      sectionsHtml +
-      "</div>" +
-      '<div class="takeaways">' +
-      '<span class="section-label mono">// key_takeaways</span>' +
-      "<ul>" +
-      takeawaysHtml +
-      "</ul>" +
-      "</div>" +
-      '<a href="#" class="btn btn-primary back-to-guides">← Back to guides</a>'
-    );
-  }
-
   function legalHtml(page) {
     var updatedHtml = page.updated
-      ? '<p class="legal-updated mono">' +
-        escapeHtml(page.updated) +
-        "</p>"
+      ? '<p class="legal-updated mono">' + escapeHtml(page.updated) + "</p>"
       : "";
     return (
       '<div class="legal-content">' +
@@ -869,8 +531,7 @@
         return;
       }
       errorEl.textContent = "";
-      var firstName =
-        (nameEl.value || "").trim().split(" ")[0] || "there";
+      var firstName = (nameEl.value || "").trim().split(" ")[0] || "there";
       var wrap = document.getElementById("contact-form-wrap");
       wrap.innerHTML =
         '<div class="form-success">' +
@@ -880,23 +541,6 @@
         " — this confirmation is part of the front-end template. Connect this form's submit handler to your own backend, or a service like Formspree, to actually deliver messages to your inbox.</p>" +
         "</div>";
     });
-  }
-
-  function renderGuideRoute(id) {
-    var guide = null;
-    for (var i = 0; i < GUIDES.length; i++) {
-      if (GUIDES[i].id === id) {
-        guide = GUIDES[i];
-        break;
-      }
-    }
-    var article = ARTICLES[id];
-    if (!guide || !article) {
-      showHome();
-      return;
-    }
-    document.title = guide.title + " — " + DEFAULT_TITLE;
-    showPage(articleHtml(guide, article));
   }
 
   function renderLegalRoute(key) {
@@ -912,11 +556,23 @@
     }
   }
 
+  // Guides used to be rendered in place at #/guide/<id>. They now
+  // each have their own real, crawlable page at /guide/<id>.html, so
+  // an old bookmarked or shared #/guide/<id> link is redirected there
+  // instead of being rendered inside the SPA. Unrecognized ids (e.g.
+  // a link to one of the guides retired from GUIDES/guides.json) fall
+  // back to the guide list rather than redirecting to a 404.
   function handleRoute() {
     var hash = location.hash;
     var guideMatch = hash.match(/^#\/guide\/([\w-]+)$/);
     if (guideMatch) {
-      renderGuideRoute(guideMatch[1]);
+      var id = guideMatch[1];
+      var exists = GUIDES.some(function (g) {
+        return g.id === id;
+      });
+      location.replace(
+        exists ? "/guide/" + id + ".html" : "/index.html#guides",
+      );
       return;
     }
     var pageMatch = hash.match(/^#\/(about|contact|privacy|terms)$/);
@@ -966,17 +622,21 @@
   });
 
   // --- Header quick search ---
-  // The form works with no JS at all: its native GET to index.html?q=...
-  // is a real navigation that lands here from any page. This handler
-  // just upgrades that same action to filter in place when we're
-  // already on index.html, instead of doing a full page reload.
-  var headerSearchForm = document.querySelector(".header-search");
-  var headerSearchInput = document.getElementById("header-search-input");
+  // Both the desktop header form and the mobile menu form share the
+  // ".header-search" class, so this works for either without duplicating
+  // logic. Each form works with no JS at all too: its native GET to
+  // index.html?q=... is a real navigation that lands here from any page.
+  // This handler just upgrades that same action to filter in place when
+  // we're already on index.html, instead of doing a full page reload.
+  var headerSearchForms = document.querySelectorAll(".header-search");
 
   function runHeaderSearch(query) {
     state.search = query;
     searchInput.value = query;
-    if (headerSearchInput) headerSearchInput.value = query;
+    headerSearchForms.forEach(function (form) {
+      var input = form.querySelector("input[type='search']");
+      if (input) input.value = query;
+    });
     categorySelect.value = "all";
     levelSelect.value = "all";
     state.category = "all";
@@ -991,10 +651,41 @@
       .scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  if (headerSearchForm) {
-    headerSearchForm.addEventListener("submit", function (e) {
+  headerSearchForms.forEach(function (form) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      runHeaderSearch((headerSearchInput.value || "").trim());
+      var input = form.querySelector("input[type='search']");
+      runHeaderSearch(((input && input.value) || "").trim());
+    });
+  });
+
+  // --- Mobile menu toggle ---
+  // Below 640px the header's nav links and search collapse behind this
+  // hamburger button into the #mobile-menu panel (see styles.css).
+  var menuToggle = document.getElementById("menu-toggle");
+  var mobileMenu = document.getElementById("mobile-menu");
+
+  function closeMobileMenu() {
+    if (!mobileMenu || mobileMenu.hidden) return;
+    mobileMenu.hidden = true;
+    menuToggle.setAttribute("aria-expanded", "false");
+  }
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", function () {
+      var willOpen = mobileMenu.hidden;
+      mobileMenu.hidden = !willOpen;
+      menuToggle.setAttribute("aria-expanded", String(willOpen));
+    });
+    mobileMenu.addEventListener("click", function (e) {
+      if (e.target.closest("a")) closeMobileMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMobileMenu();
+    });
+    window.addEventListener("hashchange", closeMobileMenu);
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 640) closeMobileMenu();
     });
   }
 
@@ -1007,7 +698,7 @@
     const response = await fetch("guides.json");
     if (!response.ok) {
       throw new Error(
-        "Failed to load guides.json (HTTP " + response.status + ")"
+        "Failed to load guides.json (HTTP " + response.status + ")",
       );
     }
     const data = await response.json();

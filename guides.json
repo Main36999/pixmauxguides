@@ -25,5 +25,14 @@
     "title": "Font Size Is a Formula, Not a Feeling",
     "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
     "thumbnail": "thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png"
+  },
+  {
+    "id": "auto-layout-constraint-model",
+    "category": "figma-workflows",
+    "level": "intermediate",
+    "readTime": 15,
+    "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
+    "description": "The mental model behind Figma's most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.",
+    "thumbnail": "thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png"
   }
 ]
