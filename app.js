@@ -859,6 +859,18 @@
 
   function renderLoadError() {
     if (!isHomePage) return;
+    // index.html now ships with the guide grid pre-rendered at build
+    // time (see build-home.js) as a static fallback for crawlers, no-
+    // JS visitors, and this exact case. If that pre-rendered markup
+    // is already sitting in the DOM, keep it visible instead of
+    // wiping a working page just because the *live* refresh failed —
+    // search/filtering won't work against fresh data, but the guides
+    // themselves are still right there.
+    if (gridRoot.children.length > 0) {
+      resultsCount.textContent =
+        "Showing guides (couldn't refresh — search & filtering unavailable).";
+      return;
+    }
     gridRoot.innerHTML = "";
     resultsCount.textContent = "Couldn't load guides.";
     emptyState.setAttribute("data-visible", "true");
