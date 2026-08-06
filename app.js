@@ -318,11 +318,25 @@
   }
 
   function populateSelects() {
+    // How many loaded guides sit in each category — used below to
+    // disable/label categories that don't have any guides yet, instead
+    // of letting someone pick one and land on the empty state.
+    var categoryCounts = {};
+    GUIDES.forEach(function (g) {
+      categoryCounts[g.category] = (categoryCounts[g.category] || 0) + 1;
+    });
+
     if (categorySelect) {
       Object.keys(CATEGORIES).forEach(function (key) {
         var opt = document.createElement("option");
         opt.value = key;
-        opt.textContent = CATEGORIES[key].label;
+        var count = categoryCounts[key] || 0;
+        if (count === 0) {
+          opt.textContent = CATEGORIES[key].label + " — Coming soon";
+          opt.disabled = true;
+        } else {
+          opt.textContent = CATEGORIES[key].label;
+        }
         categorySelect.appendChild(opt);
       });
     }
@@ -334,21 +348,47 @@
     // shared footer (home + guide pages), so this part always runs.
     // From the home page the links jump-filter in place; from a guide
     // page they're plain links back to the toolbar on index.html.
+    //
+    // Categories with at least one guide are shown first (as real
+    // links) so the 6 footer slots aren't wasted on dead ends; only if
+    // fewer than 6 categories have guides yet do the remaining slots
+    // fill in with non-clickable "Coming soon" entries.
     var footerList = document.getElementById("footer-categories");
     if (footerList) {
-      Object.keys(CATEGORIES)
+      var allKeys = Object.keys(CATEGORIES);
+      var populatedKeys = allKeys.filter(function (key) {
+        return (categoryCounts[key] || 0) > 0;
+      });
+      var emptyKeys = allKeys.filter(function (key) {
+        return !(categoryCounts[key] || 0);
+      });
+      populatedKeys
+        .concat(emptyKeys)
         .slice(0, 6)
         .forEach(function (key) {
           var li = document.createElement("li");
-          var a = document.createElement("a");
-          if (isHomePage) {
-            a.href = "#toolbar";
-            a.setAttribute("data-jump-category", key);
+          var count = categoryCounts[key] || 0;
+          if (count > 0) {
+            var a = document.createElement("a");
+            if (isHomePage) {
+              a.href = "#toolbar";
+              a.setAttribute("data-jump-category", key);
+            } else {
+              a.href = "../index.html#toolbar";
+            }
+            a.textContent = CATEGORIES[key].label;
+            li.appendChild(a);
           } else {
-            a.href = "../index.html#toolbar";
+            var span = document.createElement("span");
+            span.className = "footer-cat-soon";
+            span.textContent = CATEGORIES[key].label;
+            var tag = document.createElement("span");
+            tag.className = "footer-cat-soon__tag";
+            tag.textContent = "Soon";
+            span.appendChild(document.createTextNode(" "));
+            span.appendChild(tag);
+            li.appendChild(span);
           }
-          a.textContent = CATEGORIES[key].label;
-          li.appendChild(a);
           footerList.appendChild(li);
         });
     }
