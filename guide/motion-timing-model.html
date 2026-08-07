@@ -131,7 +131,7 @@
       }
     </script>
 
-<style>
+    <style>
       /* Scoped to this guide page only — reuses the site's shared classes
          (site-header, wrap, brand, site-footer, etc.) for chrome, and only
          defines new "guide-*" classes below so nothing here can collide
@@ -520,6 +520,14 @@
         line-height: 1.6;
         color: #e8edf4;
       }
+      .guide-code pre code {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+      }
     </style>
   </head>
   <body class="guide-page">
@@ -663,14 +671,14 @@
             Motion Timing Is a Physics Model, Not a Preset
           </h1>
           <p class="guide-dek">
-            Most interfaces treat easing as a dropdown pick — ease,
-            ease-in-out, maybe a spring if the framework happens to offer
-            one — chosen by how it feels on whichever component someone was
-            building that day. Duration tied to distance, curves chosen by
-            directional role instead of vibe, and a reduced-motion path
-            that's actually designed rather than defaulted to zero are the
-            parts that decide whether a hundred-screen product reads as one
-            coherent system or a pile of individually-tuned transitions.
+            Most interfaces treat easing as a dropdown pick — ease, ease-in-out,
+            maybe a spring if the framework happens to offer one — chosen by how
+            it feels on whichever component someone was building that day.
+            Duration tied to distance, curves chosen by directional role instead
+            of vibe, and a reduced-motion path that's actually designed rather
+            than defaulted to zero are the parts that decide whether a
+            hundred-screen product reads as one coherent system or a pile of
+            individually-tuned transitions.
           </p>
           <div class="guide-meta mono">
             <span>ADVANCED</span>
@@ -686,14 +694,12 @@
           <ol>
             <li>
               <a href="#why-a-model"
-                ><span class="n">01</span> Why "Ease In Out" Isn't a
-                Decision</a
+                ><span class="n">01</span> Why "Ease In Out" Isn't a Decision</a
               >
             </li>
             <li>
               <a href="#distance-duration"
-                ><span class="n">02</span> Duration Is a Function of
-                Distance</a
+                ><span class="n">02</span> Duration Is a Function of Distance</a
               >
             </li>
             <li>
@@ -741,25 +747,23 @@
         </nav>
 
         <div class="guide-body">
-
           <section id="why-a-model">
             <p class="guide-section__kicker mono">§ 01</p>
             <h2>Why "Ease In Out" Isn't a Decision</h2>
             <p>
               Ask most teams why a transition takes 200ms with an
-              <code>ease-in-out</code> curve and the honest answer is
-              usually "it felt right" — tuned once, on one component, by
-              whoever happened to be building it that week. That's not a
-              criticism of taste; it's a description of what happens when
-              timing has no model behind it. The same product ends up with
-              a 150ms fade here, a 400ms slide there, and a spring
-              somewhere else entirely, each locally reasonable and
-              collectively incoherent.
+              <code>ease-in-out</code> curve and the honest answer is usually
+              "it felt right" — tuned once, on one component, by whoever
+              happened to be building it that week. That's not a criticism of
+              taste; it's a description of what happens when timing has no model
+              behind it. The same product ends up with a 150ms fade here, a
+              400ms slide there, and a spring somewhere else entirely, each
+              locally reasonable and collectively incoherent.
             </p>
             <p>
               Motion timing is actually two independently tunable variables
-              stacked on top of each other, plus a third model that
-              replaces both of them entirely in some contexts:
+              stacked on top of each other, plus a third model that replaces
+              both of them entirely in some contexts:
             </p>
             <p>
               <strong>Duration</strong> — how long the change takes, which
@@ -767,26 +771,24 @@
               picked once and reused everywhere.
             </p>
             <p>
-              <strong>Easing</strong> — the velocity curve over that
-              duration: whether the motion is constant, front-loaded,
-              back-loaded, or something more deliberate — chosen by what
-              role the moving element is playing, not by which curve looks
-              nicest in isolation.
+              <strong>Easing</strong> — the velocity curve over that duration:
+              whether the motion is constant, front-loaded, back-loaded, or
+              something more deliberate — chosen by what role the moving element
+              is playing, not by which curve looks nicest in isolation.
             </p>
             <p>
-              <strong>Physics parameters</strong> — an alternative to
-              authoring a duration at all, where stiffness, damping, and
-              mass describe the object and the system solves for motion
-              frame by frame. Section five covers why that's not just a
-              stylistic choice.
+              <strong>Physics parameters</strong> — an alternative to authoring
+              a duration at all, where stiffness, damping, and mass describe the
+              object and the system solves for motion frame by frame. Section
+              five covers why that's not just a stylistic choice.
             </p>
             <p>
               Inconsistent timing is exactly as visible to a user as
               inconsistent spacing — it just gets audited far less, because
-              nobody screenshots a transition and holds a ruler to it. The
-              rest of this guide is the model that replaces "it felt right"
-              with something a second designer, or a second engineer, can
-              actually reproduce.
+              nobody screenshots a transition and holds a ruler to it. The rest
+              of this guide is the model that replaces "it felt right" with
+              something a second designer, or a second engineer, can actually
+              reproduce.
             </p>
           </section>
 
@@ -794,27 +796,24 @@
             <p class="guide-section__kicker mono">§ 02</p>
             <h2>Duration Is a Function of Distance</h2>
             <p>
-              Nothing in the physical world moves the same duration
-              regardless of how far it travels, and motion that ignores
-              this reads as artificial even when a viewer can't say why. An
-              element sliding 8px into place and a panel sliding the full
-              width of the screen should not share a duration — the first
-              at 400ms looks sluggish, and the second at 100ms looks like
-              it teleported.
+              Nothing in the physical world moves the same duration regardless
+              of how far it travels, and motion that ignores this reads as
+              artificial even when a viewer can't say why. An element sliding
+              8px into place and a panel sliding the full width of the screen
+              should not share a duration — the first at 400ms looks sluggish,
+              and the second at 100ms looks like it teleported.
             </p>
-            <p class="guide-formula mono">
-              duration ≈ base + k · √(distance)
-            </p>
+            <p class="guide-formula mono">duration ≈ base + k · √(distance)</p>
             <p>
               That formula is the honest version of the relationship — a
               square-root curve, not a straight line, because doubling the
-              distance shouldn't double the duration; perceived speed
-              matters more than literal velocity, and a square-root
-              relationship keeps large moves from feeling sluggish. Very
-              few production teams implement a literal continuous function,
-              though — almost all of them approximate it with a small set
-              of named duration <em>bands</em>, tied to how much of the
-              screen an element covers or crosses:
+              distance shouldn't double the duration; perceived speed matters
+              more than literal velocity, and a square-root relationship keeps
+              large moves from feeling sluggish. Very few production teams
+              implement a literal continuous function, though — almost all of
+              them approximate it with a small set of named duration
+              <em>bands</em>, tied to how much of the screen an element covers
+              or crosses:
             </p>
             <div class="guide-table-wrap">
               <table class="guide-table">
@@ -853,22 +852,20 @@
               </table>
             </div>
             <p>
-              The ceiling matters as much as the bands. Past roughly
-              600–700ms, additional duration stops reading as "a bigger
-              move" and starts reading as lag — the user's attention has
-              already moved on before the animation finishes, which
-              defeats the point of animating at all. If a transition
-              genuinely needs to be slower than that, the fix is usually to
-              break it into stages rather than stretch one curve across the
-              whole thing.
+              The ceiling matters as much as the bands. Past roughly 600–700ms,
+              additional duration stops reading as "a bigger move" and starts
+              reading as lag — the user's attention has already moved on before
+              the animation finishes, which defeats the point of animating at
+              all. If a transition genuinely needs to be slower than that, the
+              fix is usually to break it into stages rather than stretch one
+              curve across the whole thing.
             </p>
             <p>
               None of these numbers are a law — they're a workable starting
-              point that shows up, with minor variation, across most
-              mature motion systems. What actually matters is picking a
-              small, named set of bands and using them everywhere, instead
-              of a fresh number every time a new component needs a
-              transition.
+              point that shows up, with minor variation, across most mature
+              motion systems. What actually matters is picking a small, named
+              set of bands and using them everywhere, instead of a fresh number
+              every time a new component needs a transition.
             </p>
           </section>
 
@@ -879,22 +876,22 @@
               <code>cubic-bezier(x1, y1, x2, y2)</code> plots progress (the
               y-axis, 0 to 1) against elapsed time (the x-axis, 0 to 1). The
               start and end points are fixed at <code>(0, 0)</code> and
-              <code>(1, 1)</code> by definition — a transition always
-              starts at 0% progress and ends at 100%, so those two points
-              are never part of the four numbers you actually write. The
-              four numbers describe two <em>control points</em> that pull
-              the curve's shape between those fixed ends.
+              <code>(1, 1)</code> by definition — a transition always starts at
+              0% progress and ends at 100%, so those two points are never part
+              of the four numbers you actually write. The four numbers describe
+              two <em>control points</em> that pull the curve's shape between
+              those fixed ends.
             </p>
             <p>
-              The first control point, <code>(x1, y1)</code>, governs how
-              the motion leaves its starting position — a low
-              <code>y1</code> relative to <code>x1</code> means progress
-              barely moves at first, producing a slow, held start. The
-              second, <code>(x2, y2)</code>, governs how it arrives — a
+              The first control point, <code>(x1, y1)</code>, governs how the
+              motion leaves its starting position — a low
+              <code>y1</code> relative to <code>x1</code> means progress barely
+              moves at first, producing a slow, held start. The second,
+              <code>(x2, y2)</code>, governs how it arrives — a
               <code>y2</code> already close to 1 well before
-              <code>x2</code> reaches 1 means progress front-loads and
-              coasts into the finish. Every named easing keyword in CSS is
-              just a preset pair of these:
+              <code>x2</code> reaches 1 means progress front-loads and coasts
+              into the finish. Every named easing keyword in CSS is just a
+              preset pair of these:
             </p>
           </section>
 
@@ -908,10 +905,10 @@
               >
                 <title id="fig1-title">A cubic-bezier curve, plotted</title>
                 <desc id="fig1-desc">
-                  A blueprint diagram plotting progress against time for the
-                  CSS default "ease" curve, with its two control points
-                  shown as handles pulling away from the straight diagonal
-                  a linear curve would trace.
+                  A blueprint diagram plotting progress against time for the CSS
+                  default "ease" curve, with its two control points shown as
+                  handles pulling away from the straight diagonal a linear curve
+                  would trace.
                 </desc>
                 <defs>
                   <marker
@@ -928,37 +925,116 @@
                 </defs>
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
                   <!-- axes -->
-                  <line x1="100" y1="240" x2="620" y2="240" stroke="#33507a" stroke-width="1" />
-                  <line x1="100" y1="240" x2="100" y2="30" stroke="#33507a" stroke-width="1" />
-                  <text x="600" y="258" fill="#9fb2cc" font-size="9" text-anchor="end">time (0→1)</text>
-                  <text x="46" y="44" fill="#9fb2cc" font-size="9">progress</text>
+                  <line
+                    x1="100"
+                    y1="240"
+                    x2="620"
+                    y2="240"
+                    stroke="#33507a"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="100"
+                    y1="240"
+                    x2="100"
+                    y2="30"
+                    stroke="#33507a"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="600"
+                    y="258"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="end"
+                  >
+                    time (0→1)
+                  </text>
+                  <text x="46" y="44" fill="#9fb2cc" font-size="9">
+                    progress
+                  </text>
                   <text x="46" y="56" fill="#9fb2cc" font-size="9">(0→1)</text>
-                  <text x="90" y="244" fill="#9fb2cc" font-size="8.5" text-anchor="end">0</text>
-                  <text x="90" y="44" fill="#9fb2cc" font-size="8.5" text-anchor="end">1</text>
+                  <text
+                    x="90"
+                    y="244"
+                    fill="#9fb2cc"
+                    font-size="8.5"
+                    text-anchor="end"
+                  >
+                    0
+                  </text>
+                  <text
+                    x="90"
+                    y="44"
+                    fill="#9fb2cc"
+                    font-size="8.5"
+                    text-anchor="end"
+                  >
+                    1
+                  </text>
 
                   <!-- linear reference -->
-                  <line x1="100" y1="240" x2="600" y2="40" stroke="#33507a" stroke-width="1" stroke-dasharray="3 3" />
-                  <text x="430" y="118" fill="#5b789f" font-size="8.5">linear (for reference)</text>
+                  <line
+                    x1="100"
+                    y1="240"
+                    x2="600"
+                    y2="40"
+                    stroke="#33507a"
+                    stroke-width="1"
+                    stroke-dasharray="3 3"
+                  />
+                  <text x="430" y="118" fill="#5b789f" font-size="8.5">
+                    linear (for reference)
+                  </text>
 
                   <!-- bezier handles -->
-                  <line x1="100" y1="240" x2="225" y2="220" stroke="#7fb3e0" stroke-width="1" stroke-dasharray="2 2" />
-                  <line x1="600" y1="40" x2="225" y2="40" stroke="#7fb3e0" stroke-width="1" stroke-dasharray="2 2" />
+                  <line
+                    x1="100"
+                    y1="240"
+                    x2="225"
+                    y2="220"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    stroke-dasharray="2 2"
+                  />
+                  <line
+                    x1="600"
+                    y1="40"
+                    x2="225"
+                    y2="40"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    stroke-dasharray="2 2"
+                  />
 
                   <!-- the curve itself -->
-                  <path d="M100,240 C225,220 225,40 600,40" fill="none" stroke="#e8edf4" stroke-width="2" />
+                  <path
+                    d="M100,240 C225,220 225,40 600,40"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="2"
+                  />
 
                   <!-- points -->
                   <circle cx="100" cy="240" r="3.4" fill="#e8edf4" />
-                  <text x="106" y="256" fill="#9fb2cc" font-size="8.5">P0 (0, 0)</text>
+                  <text x="106" y="256" fill="#9fb2cc" font-size="8.5">
+                    P0 (0, 0)
+                  </text>
 
                   <circle cx="225" cy="220" r="3" fill="#7fb3e0" />
-                  <text x="234" y="222" fill="#cdd9ea" font-size="8.5">P1 control (0.25, 0.1)</text>
+                  <text x="234" y="222" fill="#cdd9ea" font-size="8.5">
+                    P1 control (0.25, 0.1)
+                  </text>
 
                   <circle cx="225" cy="40" r="3" fill="#7fb3e0" />
-                  <text x="234" y="38" fill="#cdd9ea" font-size="8.5">P2 control (0.25, 1)</text>
+                  <text x="234" y="38" fill="#cdd9ea" font-size="8.5">
+                    P2 control (0.25, 1)
+                  </text>
 
                   <circle cx="600" cy="40" r="3.4" fill="#e8edf4" />
-                  <text x="546" y="30" fill="#9fb2cc" font-size="8.5">P3 (1, 1)</text>
+                  <text x="546" y="30" fill="#9fb2cc" font-size="8.5">
+                    P3 (1, 1)
+                  </text>
 
                   <text x="130" y="285" fill="#7fb3e0" font-size="9.5">
                     cubic-bezier(0.25, 0.1, 0.25, 1) — CSS's default "ease"
@@ -967,19 +1043,18 @@
               </svg>
             </div>
             <figcaption>
-              FIG. 01 — P0 and P3 are always fixed at (0,0) and (1,1); only
-              the two control points are ever configurable. This is the
-              curve most transitions ship with by default, unnoticed.
+              FIG. 01 — P0 and P3 are always fixed at (0,0) and (1,1); only the
+              two control points are ever configurable. This is the curve most
+              transitions ship with by default, unnoticed.
             </figcaption>
           </figure>
 
           <section>
             <p>
-              The five CSS keywords resolve to fixed control-point pairs —
-              worth memorizing, because <code>ease</code> is what a
-              transition silently uses whenever
-              <code>transition-timing-function</code> is left unset, not a
-              neutral "no easing" default:
+              The five CSS keywords resolve to fixed control-point pairs — worth
+              memorizing, because <code>ease</code> is what a transition
+              silently uses whenever <code>transition-timing-function</code> is
+              left unset, not a neutral "no easing" default:
             </p>
             <div class="guide-table-wrap">
               <table class="guide-table">
@@ -1025,11 +1100,11 @@
             <p>
               One more thing worth knowing: <code>y1</code> and
               <code>y2</code> aren't restricted to the 0–1 range the way
-              <code>x1</code> and <code>x2</code> are — a control point with
-              a y-value above 1 or below 0 is legal, and that's the
-              mechanism behind overshoot and anticipation curves, where an
-              element visibly swings past its resting value before settling
-              back, or pulls back slightly before committing to a move.
+              <code>x1</code> and <code>x2</code> are — a control point with a
+              y-value above 1 or below 0 is legal, and that's the mechanism
+              behind overshoot and anticipation curves, where an element visibly
+              swings past its resting value before settling back, or pulls back
+              slightly before committing to a move.
             </p>
           </section>
 
@@ -1037,39 +1112,37 @@
             <p class="guide-section__kicker mono">§ 04</p>
             <h2>Standard, Decelerate, Accelerate</h2>
             <p>
-              Most mature motion systems don't hand every component the
-              same curve — they define curves by the <em>directional
-              role</em> the moving element is playing, then pair each role
-              with a shape that matches how that kind of motion actually
-              reads:
+              Most mature motion systems don't hand every component the same
+              curve — they define curves by the <em>directional role</em> the
+              moving element is playing, then pair each role with a shape that
+              matches how that kind of motion actually reads:
             </p>
             <p>
-              <strong>Standard</strong> — for an element that's on screen
-              for the whole transition, changing position or size without
-              entering or leaving. A moderate ease in both directions keeps
-              it readable without calling attention to either end.
+              <strong>Standard</strong> — for an element that's on screen for
+              the whole transition, changing position or size without entering
+              or leaving. A moderate ease in both directions keeps it readable
+              without calling attention to either end.
             </p>
             <p>
-              <strong>Decelerate</strong> — for an element entering the
-              screen. It starts already moving at speed, as if it existed
-              off-screen a moment ago, and slows into its resting place.
-              That deceleration is what reads as "arriving," not just
-              appearing.
+              <strong>Decelerate</strong> — for an element entering the screen.
+              It starts already moving at speed, as if it existed off-screen a
+              moment ago, and slows into its resting place. That deceleration is
+              what reads as "arriving," not just appearing.
             </p>
             <p>
-              <strong>Accelerate</strong> — for an element leaving the
-              screen. It starts at rest and gains speed on the way out,
-              because the user doesn't need to see exactly where it lands —
-              only that it's decisively gone.
+              <strong>Accelerate</strong> — for an element leaving the screen.
+              It starts at rest and gains speed on the way out, because the user
+              doesn't need to see exactly where it lands — only that it's
+              decisively gone.
             </p>
             <p>
-              A well-known reference version of these three, stable across
-              years of Material-style motion specs, illustrates the shapes
-              well: standard as <code>cubic-bezier(0.4, 0, 0.2, 1)</code>
+              A well-known reference version of these three, stable across years
+              of Material-style motion specs, illustrates the shapes well:
+              standard as <code>cubic-bezier(0.4, 0, 0.2, 1)</code>
               ("fast out, slow in"), decelerate as
               <code>cubic-bezier(0, 0, 0.2, 1)</code>, and accelerate as
-              <code>cubic-bezier(0.4, 0, 1, 1)</code>. The exact numbers
-              matter far less than the pairing logic behind them.
+              <code>cubic-bezier(0.4, 0, 1, 1)</code>. The exact numbers matter
+              far less than the pairing logic behind them.
             </p>
           </section>
 
@@ -1081,47 +1154,121 @@
                 role="img"
                 aria-labelledby="fig2-title fig2-desc"
               >
-                <title id="fig2-title">Standard, decelerate, and accelerate curves compared</title>
+                <title id="fig2-title">
+                  Standard, decelerate, and accelerate curves compared
+                </title>
                 <desc id="fig2-desc">
-                  A blueprint diagram plotting three easing curves on the
-                  same progress-versus-time axes: a standard curve eased at
-                  both ends, a decelerate curve that starts at full speed,
-                  and an accelerate curve that ends at full speed.
+                  A blueprint diagram plotting three easing curves on the same
+                  progress-versus-time axes: a standard curve eased at both
+                  ends, a decelerate curve that starts at full speed, and an
+                  accelerate curve that ends at full speed.
                 </desc>
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
                   <!-- axes -->
-                  <line x1="100" y1="230" x2="620" y2="230" stroke="#33507a" stroke-width="1" />
-                  <line x1="100" y1="230" x2="100" y2="30" stroke="#33507a" stroke-width="1" />
-                  <text x="600" y="248" fill="#9fb2cc" font-size="9" text-anchor="end">time (0→1)</text>
-                  <text x="46" y="44" fill="#9fb2cc" font-size="9">progress</text>
+                  <line
+                    x1="100"
+                    y1="230"
+                    x2="620"
+                    y2="230"
+                    stroke="#33507a"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="100"
+                    y1="230"
+                    x2="100"
+                    y2="30"
+                    stroke="#33507a"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="600"
+                    y="248"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="end"
+                  >
+                    time (0→1)
+                  </text>
+                  <text x="46" y="44" fill="#9fb2cc" font-size="9">
+                    progress
+                  </text>
 
                   <!-- standard -->
-                  <path d="M100,230 C300,230 200,40 600,40" fill="none" stroke="#7fb3e0" stroke-width="2" />
+                  <path
+                    d="M100,230 C300,230 200,40 600,40"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="2"
+                  />
                   <!-- decelerate (enter) -->
-                  <path d="M100,230 C100,230 200,40 600,40" fill="none" stroke="#e8edf4" stroke-width="2" stroke-dasharray="6 3" />
+                  <path
+                    d="M100,230 C100,230 200,40 600,40"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="2"
+                    stroke-dasharray="6 3"
+                  />
                   <!-- accelerate (exit) -->
-                  <path d="M100,230 C300,230 600,40 600,40" fill="none" stroke="#9fb2cc" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" />
+                  <path
+                    d="M100,230 C300,230 600,40 600,40"
+                    fill="none"
+                    stroke="#9fb2cc"
+                    stroke-width="2"
+                    stroke-dasharray="1 4"
+                    stroke-linecap="round"
+                  />
 
                   <circle cx="100" cy="230" r="3.2" fill="#cdd9ea" />
                   <circle cx="600" cy="40" r="3.2" fill="#cdd9ea" />
 
                   <!-- legend -->
-                  <line x1="440" y1="200" x2="470" y2="200" stroke="#7fb3e0" stroke-width="2" />
-                  <text x="478" y="204" fill="#cdd9ea" font-size="9.5">standard — stays on screen</text>
+                  <line
+                    x1="440"
+                    y1="200"
+                    x2="470"
+                    y2="200"
+                    stroke="#7fb3e0"
+                    stroke-width="2"
+                  />
+                  <text x="478" y="204" fill="#cdd9ea" font-size="9.5">
+                    standard — stays on screen
+                  </text>
 
-                  <line x1="440" y1="222" x2="470" y2="222" stroke="#e8edf4" stroke-width="2" stroke-dasharray="6 3" />
-                  <text x="478" y="226" fill="#cdd9ea" font-size="9.5">decelerate — entering</text>
+                  <line
+                    x1="440"
+                    y1="222"
+                    x2="470"
+                    y2="222"
+                    stroke="#e8edf4"
+                    stroke-width="2"
+                    stroke-dasharray="6 3"
+                  />
+                  <text x="478" y="226" fill="#cdd9ea" font-size="9.5">
+                    decelerate — entering
+                  </text>
 
-                  <line x1="440" y1="244" x2="470" y2="244" stroke="#9fb2cc" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" />
-                  <text x="478" y="248" fill="#cdd9ea" font-size="9.5">accelerate — exiting</text>
+                  <line
+                    x1="440"
+                    y1="244"
+                    x2="470"
+                    y2="244"
+                    stroke="#9fb2cc"
+                    stroke-width="2"
+                    stroke-dasharray="1 4"
+                    stroke-linecap="round"
+                  />
+                  <text x="478" y="248" fill="#cdd9ea" font-size="9.5">
+                    accelerate — exiting
+                  </text>
                 </g>
               </svg>
             </div>
             <figcaption>
-              FIG. 02 — All three share the same start and end points; only
-              the control points, and the role each curve is assigned to,
-              differ. Swapping decelerate and accelerate between an
-              entrance and an exit is the pitfall in section nine.
+              FIG. 02 — All three share the same start and end points; only the
+              control points, and the role each curve is assigned to, differ.
+              Swapping decelerate and accelerate between an entrance and an exit
+              is the pitfall in section nine.
             </figcaption>
           </figure>
 
@@ -1129,67 +1276,62 @@
             <p class="guide-section__kicker mono">§ 05</p>
             <h2>Spring Physics: A Different Model</h2>
             <p>
-              Every curve in sections three and four shares one trait: it's
-              a fixed-duration curve, baked in advance. Spring physics
-              replaces that entirely. Instead of authoring a duration and a
-              shape, you set physical parameters — <strong>stiffness</strong>
+              Every curve in sections three and four shares one trait: it's a
+              fixed-duration curve, baked in advance. Spring physics replaces
+              that entirely. Instead of authoring a duration and a shape, you
+              set physical parameters — <strong>stiffness</strong>
               (how strongly the spring pulls toward its target),
-              <strong>damping</strong> (how much that pull is resisted, converting
-              energy to settle the motion), and <strong>mass</strong> (how much
-              inertia the moving object has) — and the system solves a
-              damped harmonic oscillator each frame. Duration becomes an
-              output of the simulation, not an input to it.
+              <strong>damping</strong> (how much that pull is resisted,
+              converting energy to settle the motion), and
+              <strong>mass</strong> (how much inertia the moving object has) —
+              and the system solves a damped harmonic oscillator each frame.
+              Duration becomes an output of the simulation, not an input to it.
             </p>
             <p class="guide-formula mono">F = −k·x − c·v</p>
             <p>
-              Where <code>k</code> is stiffness, <code>x</code> is
-              displacement from the target, <code>c</code> is the damping
-              coefficient, and <code>v</code> is current velocity. How that
-              force resolves over time falls into three regimes worth
-              knowing by name:
+              Where <code>k</code> is stiffness, <code>x</code> is displacement
+              from the target, <code>c</code> is the damping coefficient, and
+              <code>v</code> is current velocity. How that force resolves over
+              time falls into three regimes worth knowing by name:
             </p>
             <p>
-              <strong>Underdamped</strong> — the object overshoots the
-              target and oscillates before settling. Visually bouncy;
-              useful for playful or attention-grabbing moments, wrong for
-              anything that needs to feel controlled.
+              <strong>Underdamped</strong> — the object overshoots the target
+              and oscillates before settling. Visually bouncy; useful for
+              playful or attention-grabbing moments, wrong for anything that
+              needs to feel controlled.
             </p>
             <p>
-              <strong>Critically damped</strong> — the object returns to
-              rest in the minimum possible time with no overshoot at all.
-              This is the default most interfaces actually want: fast,
-              natural, no bounce.
+              <strong>Critically damped</strong> — the object returns to rest in
+              the minimum possible time with no overshoot at all. This is the
+              default most interfaces actually want: fast, natural, no bounce.
             </p>
             <p>
-              <strong>Overdamped</strong> — the object approaches the
-              target slowly with no oscillation, arriving well after a
-              critically damped spring would. Rarely what a UI needs;
-              mostly useful as a deliberately heavy, weighted feel.
+              <strong>Overdamped</strong> — the object approaches the target
+              slowly with no oscillation, arriving well after a critically
+              damped spring would. Rarely what a UI needs; mostly useful as a
+              deliberately heavy, weighted feel.
             </p>
             <p>
-              The practical reason springs matter isn't the physics
-              vocabulary — it's <strong>interruptibility</strong>. A
-              bezier curve interrupted mid-flight has no defined behavior
-              for "what happens now"; someone has to hand-author a
-              transition out of wherever the animation happens to be
-              paused, which is expensive to do well and usually skipped. A
-              spring is defined entirely by its current position and
+              The practical reason springs matter isn't the physics vocabulary —
+              it's <strong>interruptibility</strong>. A bezier curve interrupted
+              mid-flight has no defined behavior for "what happens now"; someone
+              has to hand-author a transition out of wherever the animation
+              happens to be paused, which is expensive to do well and usually
+              skipped. A spring is defined entirely by its current position and
               velocity, so re-targeting it mid-motion — because the user
-              dragged, tapped again, or reversed a gesture — is the normal
-              case, not a special one. That's why gesture-driven
-              interactions like drag-to-dismiss or swipe-back lean on
-              springs rather than pre-baked curves: the interface has to
-              stay honest about velocity the instant a finger changes
-              direction.
+              dragged, tapped again, or reversed a gesture — is the normal case,
+              not a special one. That's why gesture-driven interactions like
+              drag-to-dismiss or swipe-back lean on springs rather than
+              pre-baked curves: the interface has to stay honest about velocity
+              the instant a finger changes direction.
             </p>
             <p>
-              The trade-off is authoring workflow. A duration in
-              milliseconds is trivial to write into a design spec; a
-              stiffness-and-damping pair is not something most handoff
-              tools display, and two engineers implementing "the same
-              spring" on different platforms can easily land on visibly
-              different motion unless the actual numbers — not just a
-              description like "snappy" — are written down and shared.
+              The trade-off is authoring workflow. A duration in milliseconds is
+              trivial to write into a design spec; a stiffness-and-damping pair
+              is not something most handoff tools display, and two engineers
+              implementing "the same spring" on different platforms can easily
+              land on visibly different motion unless the actual numbers — not
+              just a description like "snappy" — are written down and shared.
             </p>
           </section>
 
@@ -1197,46 +1339,44 @@
             <p class="guide-section__kicker mono">§ 06</p>
             <h2>Choreography Without Chaos</h2>
             <p>
-              When several elements enter or leave together, animating all
-              of them at once reads as a flash rather than a sequence — the
-              eye can't track a dozen things changing in perfect unison. A
-              small stagger, offsetting each item's start time from the
-              last, lets a group still read as one coordinated motion while
-              remaining perceptible as a sequence rather than a blur.
+              When several elements enter or leave together, animating all of
+              them at once reads as a flash rather than a sequence — the eye
+              can't track a dozen things changing in perfect unison. A small
+              stagger, offsetting each item's start time from the last, lets a
+              group still read as one coordinated motion while remaining
+              perceptible as a sequence rather than a blur.
             </p>
             <p class="guide-formula mono">
               itemDelay = baseDelay + (index · staggerStep)
             </p>
             <p>
-              A stagger step of roughly 20–50ms between items is enough to
-              read as sequential without dragging the whole group's
-              entrance out. That step needs a ceiling, though — applied
-              naively to a 30-row list, a 40ms step alone adds 1.2 seconds
-              to the last row's entrance, which stops feeling like
-              choreography and starts feeling like the list is loading
-              slowly. Capping the total spread, or switching to a flat
-              short delay past some item count, keeps the effect
-              proportional.
+              A stagger step of roughly 20–50ms between items is enough to read
+              as sequential without dragging the whole group's entrance out.
+              That step needs a ceiling, though — applied naively to a 30-row
+              list, a 40ms step alone adds 1.2 seconds to the last row's
+              entrance, which stops feeling like choreography and starts feeling
+              like the list is loading slowly. Capping the total spread, or
+              switching to a flat short delay past some item count, keeps the
+              effect proportional.
             </p>
             <p>
               Direction is a deliberate choice, not a default. Entrances
               typically stagger forward — first item first — so attention
-              follows the group in reading order. Exits often reverse
-              that order, last item first, so the eye's attention
-              retraces its own path back out instead of jumping around.
-              Getting this backwards is subtle enough that it rarely gets
-              flagged in review, but it's noticeably why some staggered
-              exits feel slightly wrong without an obvious cause.
+              follows the group in reading order. Exits often reverse that
+              order, last item first, so the eye's attention retraces its own
+              path back out instead of jumping around. Getting this backwards is
+              subtle enough that it rarely gets flagged in review, but it's
+              noticeably why some staggered exits feel slightly wrong without an
+              obvious cause.
             </p>
             <p>
               One more choreography rule worth stating explicitly: a parent
-              container's transform and a child's opacity fade shouldn't
-              run on unrelated curves with unrelated durations. Two
-              different eased motions compounding on nested elements
-              produces a combined curve that's neither one — not broken,
-              exactly, but perceptibly "off" in a way that's hard to
-              diagnose because neither individual animation, viewed alone,
-              looks wrong.
+              container's transform and a child's opacity fade shouldn't run on
+              unrelated curves with unrelated durations. Two different eased
+              motions compounding on nested elements produces a combined curve
+              that's neither one — not broken, exactly, but perceptibly "off" in
+              a way that's hard to diagnose because neither individual
+              animation, viewed alone, looks wrong.
             </p>
           </section>
 
@@ -1247,32 +1387,28 @@
               Motion values belong in the same
               <a href="design-tokens-naming-system.html">token system</a>
               as color and spacing, not hardcoded per-component — the same
-              naming discipline applies. Duration tokens should be named by
-              the distance band from section two
-              (<code>motion.duration.fast</code>,
-              <code>.base</code>, <code>.slow</code>), and easing tokens
-              should be named by directional role from section four
-              (<code>motion.easing.standard</code>,
-              <code>.decelerate</code>, <code>.accelerate</code>) — never
-              by shape, for the same reason a color token shouldn't be
-              named after its hex value. A token called
-              <code>motion.easing.bouncy</code> is a description wearing a
-              role token's clothes; the day that curve gets retuned to
-              something that isn't bouncy anymore, every consumer of the
-              name is now wrong.
+              naming discipline applies. Duration tokens should be named by the
+              distance band from section two (<code>motion.duration.fast</code>,
+              <code>.base</code>, <code>.slow</code>), and easing tokens should
+              be named by directional role from section four
+              (<code>motion.easing.standard</code>, <code>.decelerate</code>,
+              <code>.accelerate</code>) — never by shape, for the same reason a
+              color token shouldn't be named after its hex value. A token called
+              <code>motion.easing.bouncy</code> is a description wearing a role
+              token's clothes; the day that curve gets retuned to something that
+              isn't bouncy anymore, every consumer of the name is now wrong.
             </p>
             <p>
-              The W3C DTCG format — covered in more depth in the tokens
-              guide linked above — defines two primitive types that cover
-              motion directly: <code>$type: "duration"</code>, a number
-              plus a unit string like <code>"300ms"</code>, and
+              The W3C DTCG format — covered in more depth in the tokens guide
+              linked above — defines two primitive types that cover motion
+              directly: <code>$type: "duration"</code>, a number plus a unit
+              string like <code>"300ms"</code>, and
               <code>$type: "cubicBezier"</code>, an array of exactly four
-              numbers. A composite <code>"transition"</code> type, bundling
-              a duration, an easing reference, and an optional delay into
-              one resolvable unit, is worth adopting even where it isn't
-              formally standardized yet — it keeps a duration and its
-              paired curve from drifting apart when one gets retuned
-              without the other:
+              numbers. A composite <code>"transition"</code> type, bundling a
+              duration, an easing reference, and an optional delay into one
+              resolvable unit, is worth adopting even where it isn't formally
+              standardized yet — it keeps a duration and its paired curve from
+              drifting apart when one gets retuned without the other:
             </p>
           </section>
 
@@ -1307,28 +1443,27 @@
             <p class="guide-section__kicker mono">§ 08</p>
             <h2>Reduced Motion Isn't "Off"</h2>
             <p>
-              <code>prefers-reduced-motion</code> is an OS-level media
-              feature — the user sets it once, system-wide, and it exposes
-              two values to a stylesheet: <code>reduce</code> and
-              <code>no-preference</code>. For some users this isn't an
-              aesthetic preference: large-scale motion — parallax, zoom,
-              spin, sweeping transforms — can trigger real physical
-              symptoms for people with vestibular disorders, not just
-              mild annoyance. Treating the setting as optional polish
-              rather than a genuine accessibility requirement gets the
-              stakes backwards.
+              <code>prefers-reduced-motion</code> is an OS-level media feature —
+              the user sets it once, system-wide, and it exposes two values to a
+              stylesheet: <code>reduce</code> and <code>no-preference</code>.
+              For some users this isn't an aesthetic preference: large-scale
+              motion — parallax, zoom, spin, sweeping transforms — can trigger
+              real physical symptoms for people with vestibular disorders, not
+              just mild annoyance. Treating the setting as optional polish
+              rather than a genuine accessibility requirement gets the stakes
+              backwards.
             </p>
             <p>
-              The common mistake is treating "respect reduced motion" as
-              "set every duration to 0ms." A hard, instant cut can actually
-              be more disorienting than a short, simple animation, because
-              it removes the continuity cue that told the user
+              The common mistake is treating "respect reduced motion" as "set
+              every duration to 0ms." A hard, instant cut can actually be more
+              disorienting than a short, simple animation, because it removes
+              the continuity cue that told the user
               <em>where</em> the new state came from — a menu that simply
-              vanishes and reappears elsewhere reads as two unrelated
-              events, not one continuous change. The better approach keeps
-              the state change legible — a brief opacity crossfade, or a
-              small position shift — while stripping out the large-scale
-              transform, parallax, or zoom that could actually cause harm.
+              vanishes and reappears elsewhere reads as two unrelated events,
+              not one continuous change. The better approach keeps the state
+              change legible — a brief opacity crossfade, or a small position
+              shift — while stripping out the large-scale transform, parallax,
+              or zoom that could actually cause harm.
             </p>
             <p>
               In practice, that means the media query should swap
@@ -1353,9 +1488,9 @@
 
           <section>
             <p>
-              This keeps the reduced-motion path a designed, tested state —
-              not an unstyled fallback nobody looked at until a user
-              reported it. The same
+              This keeps the reduced-motion path a designed, tested state — not
+              an unstyled fallback nobody looked at until a user reported it.
+              The same
               <a href="accessibility-structural-model.html"
                 >structural discipline that governs focus and keyboard
                 behavior</a
@@ -1374,11 +1509,10 @@
                 <p>
                   <strong>Picking the curve before the duration.</strong>
                   Easing shapes how a duration feels, but it can't fix a
-                  duration that's wrong for the distance in section two.
-                  Set the duration band first, from what's actually
-                  moving, then apply the curve — reversing the order
-                  usually means re-tuning the curve later to compensate for
-                  a duration that was never right.
+                  duration that's wrong for the distance in section two. Set the
+                  duration band first, from what's actually moving, then apply
+                  the curve — reversing the order usually means re-tuning the
+                  curve later to compensate for a duration that was never right.
                 </p>
               </li>
               <li class="guide-pitfall">
@@ -1388,14 +1522,13 @@
                     >Shipping the silent <code>ease</code> default
                     everywhere.</strong
                   >
-                  Every <code>transition: all 200ms;</code> shortcut that
-                  omits a timing function inherits
+                  Every <code>transition: all 200ms;</code> shortcut that omits
+                  a timing function inherits
                   <code>cubic-bezier(0.25, 0.1, 0.25, 1)</code> from section
-                  three, regardless of whether that shape fits the
-                  motion's role. The pool of "unintentional" curves in a
-                  codebase grows every time this shortcut ships, and it
-                  compounds silently because nothing about it looks like a
-                  bug.
+                  three, regardless of whether that shape fits the motion's
+                  role. The pool of "unintentional" curves in a codebase grows
+                  every time this shortcut ships, and it compounds silently
+                  because nothing about it looks like a bug.
                 </p>
               </li>
               <li class="guide-pitfall">
@@ -1406,27 +1539,26 @@
                     opacity.</strong
                   >
                   Transitioning <code>width</code>, <code>height</code>,
-                  <code>top</code>, or <code>left</code> forces the browser
-                  to recalculate layout on every frame, which is where
-                  animation jank comes from on lower-power devices.
+                  <code>top</code>, or <code>left</code> forces the browser to
+                  recalculate layout on every frame, which is where animation
+                  jank comes from on lower-power devices.
                   <code>transform</code> and <code>opacity</code> can run
-                  entirely on the compositor, independent of layout — the
-                  same visual result, without the cost.
+                  entirely on the compositor, independent of layout — the same
+                  visual result, without the cost.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">04</span>
                 <p>
                   <strong
-                    >Swapping the decelerate and accelerate roles from
-                    section four.</strong
+                    >Swapping the decelerate and accelerate roles from section
+                    four.</strong
                   >
-                  Using an entrance curve on an exiting element makes it
-                  read as if it hesitates before leaving; using an exit
-                  curve on something arriving makes the arrival feel
-                  abrupt. Both are subtle enough to survive review
-                  unnoticed while still registering, faintly, as
-                  something being slightly wrong.
+                  Using an entrance curve on an exiting element makes it read as
+                  if it hesitates before leaving; using an exit curve on
+                  something arriving makes the arrival feel abrupt. Both are
+                  subtle enough to survive review unnoticed while still
+                  registering, faintly, as something being slightly wrong.
                 </p>
               </li>
               <li class="guide-pitfall">
@@ -1436,12 +1568,12 @@
                     >Treating reduced motion as a launch-week
                     afterthought.</strong
                   >
-                  Bolting a <code>prefers-reduced-motion</code> block onto
-                  a finished motion system, under deadline pressure, is how
-                  reduced-motion paths ship broken or don't ship at all.
-                  Design the reduced state alongside the full one from the
-                  start, the way section eight describes, and it never
-                  becomes a separate line item to run out of time for.
+                  Bolting a <code>prefers-reduced-motion</code> block onto a
+                  finished motion system, under deadline pressure, is how
+                  reduced-motion paths ship broken or don't ship at all. Design
+                  the reduced state alongside the full one from the start, the
+                  way section eight describes, and it never becomes a separate
+                  line item to run out of time for.
                 </p>
               </li>
             </ul>
@@ -1515,19 +1647,18 @@
 
           <section class="guide-closing">
             <p>
-              None of the specific numbers in this guide are the point —
-              a team will retune duration bands and curve shapes as the
-              product's voice evolves, and that's expected. What's meant to
-              outlast any single value is the model underneath: duration
-              keyed to distance rather than picked per component, curves
-              assigned by directional role rather than chosen for how they
-              look in isolation, and a reduced-motion path treated as a
-              real designed state rather than a compliance checkbox.
-              Whatever specific milliseconds a team eventually settles on,
-              keeping them behind that model is what makes a hundred-screen
-              product's motion feel like one hand designed all of it,
-              rather than whichever engineer happened to touch that
-              particular transition last.
+              None of the specific numbers in this guide are the point — a team
+              will retune duration bands and curve shapes as the product's voice
+              evolves, and that's expected. What's meant to outlast any single
+              value is the model underneath: duration keyed to distance rather
+              than picked per component, curves assigned by directional role
+              rather than chosen for how they look in isolation, and a
+              reduced-motion path treated as a real designed state rather than a
+              compliance checkbox. Whatever specific milliseconds a team
+              eventually settles on, keeping them behind that model is what
+              makes a hundred-screen product's motion feel like one hand
+              designed all of it, rather than whichever engineer happened to
+              touch that particular transition last.
             </p>
           </section>
         </div>
@@ -1556,8 +1687,7 @@
               </li>
               <li>
                 <a href="accessibility-structural-model.html"
-                  >Accessibility Is a Structural Decision, Not a Final
-                  Pass</a
+                  >Accessibility Is a Structural Decision, Not a Final Pass</a
                 >
               </li>
             </ul>
@@ -1568,7 +1698,7 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer class="site-footer">
+    <footer class="site-footer">
       <div class="wrap footer-grid">
         <div class="footer-brand">
           <img
