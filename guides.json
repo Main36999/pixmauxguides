@@ -18,6 +18,15 @@
     "thumbnail": "/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png"
   },
   {
+    "id": "color-palette-token-system",
+    "category": "color-theory",
+    "level": "intermediate",
+    "readTime": 14,
+    "title": "A Color Palette Is a Token System, Not a Row of Swatches",
+    "description": "Why HSL's lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.",
+    "thumbnail": "/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches_thumbnail.png"
+  },
+  {
     "id": "type-scale-systems",
     "category": "typography",
     "level": "intermediate",

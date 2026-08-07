@@ -1,0 +1,1710 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      A Color Palette Is a Token System, Not a Row of Swatches — PIXMA UX
+      Guides
+    </title>
+    <meta
+      name="description"
+      content="A spec-level guide to color palettes as token systems: why HSL's lightness value is perceptually inconsistent across hues, how to build an OKLCH tonal ramp, the primitive/semantic/component tiers, and why light and dark themes should remap aliases instead of duplicating the ramp."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/color-palette-token-system.html"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/color-palette-token-system.html"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="A Color Palette Is a Token System, Not a Row of Swatches"
+    />
+    <meta
+      property="og:description"
+      content="How to build a color palette as a token system: perceptually even OKLCH tonal ramps, the primitive/semantic/component tiers, and alias-based light/dark theming."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/thumbnail_image/color-palette-token-system-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram comparing HSL and OKLCH swatches held at the same lightness value across three hues, next to a light/dark alias-remapping diagram."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="A Color Palette Is a Token System, Not a Row of Swatches"
+    />
+    <meta
+      name="twitter:description"
+      content="How to build a color palette as a token system: perceptually even OKLCH tonal ramps, the primitive/semantic/component tiers, and alias-based light/dark theming."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/thumbnail_image/color-palette-token-system-thumbnail.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "A Color Palette Is a Token System, Not a Row of Swatches",
+        "description": "A spec-level guide to color palettes as token systems: why HSL's lightness value is perceptually inconsistent across hues, how to build an OKLCH tonal ramp, the primitive/semantic/component tiers, and why light and dark themes should remap aliases instead of duplicating the ramp.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/color-palette-token-system.html",
+        "image": "https://pixmauxguides.com/thumbnail_image/color-palette-token-system-thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+
+      .guide-formula {
+        font-family: var(--gp-mono);
+        font-size: 0.95rem;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-blue-line);
+        padding: 12px 16px;
+        margin: 0 0 18px;
+        letter-spacing: 0.02em;
+      }
+      .guide-code {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 20px;
+        margin: 4px 0 32px;
+        overflow-x: auto;
+      }
+      .guide-code pre {
+        margin: 0;
+        font-family: var(--gp-mono);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #e8edf4;
+      }
+      .guide-code pre code {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <!--HEADER_START--><header class="site-header">
+      <div class="wrap header-inner">
+        <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="../index.html#guides">All Guides</a>
+            <a href="../index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="../index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="../index.html#guides">All Guides</a>
+          <a href="../index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header><!--HEADER_END-->
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Color theory</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Palette Tokens</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">
+            // color_theory · palette_token_system
+          </p>
+          <h1 class="guide-title">
+            A Color Palette Is a Token System, Not a Row of Swatches
+          </h1>
+          <p class="guide-dek">
+            Most color palettes start as a handful of brand hex codes and grow
+            by accretion — a slightly lighter blue added for a hover state
+            here, a barely-different gray added for a border there — until no
+            one can say with confidence which of forty near-identical blues is
+            actually load-bearing. A palette built as a token system instead
+            starts from a small set of perceptually even tonal ramps, gives
+            every step a role instead of a name, and lets light and dark
+            themes swap by reassigning aliases rather than redrawing the
+            palette from scratch.
+          </p>
+          <div class="guide-meta mono">
+            <span>INTERMEDIATE</span>
+            <span class="dot">·</span>
+            <span>14 MIN READ</span>
+            <span class="dot">·</span>
+            <span>COLOR THEORY</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#why-tokens"
+                ><span class="n">01</span> Why "Blue-500" Isn't a
+                Palette</a
+              >
+            </li>
+            <li>
+              <a href="#perceptual-space"
+                ><span class="n">02</span> HSL Lies About Lightness</a
+              >
+            </li>
+            <li>
+              <a href="#tonal-ramp"
+                ><span class="n">03</span> Building a Tonal Ramp</a
+              >
+            </li>
+            <li>
+              <a href="#three-tiers"
+                ><span class="n">04</span> Primitive, Semantic,
+                Component</a
+              >
+            </li>
+            <li>
+              <a href="#naming-roles"
+                ><span class="n">05</span> Naming Roles, Not
+                Appearances</a
+              >
+            </li>
+            <li>
+              <a href="#light-dark"
+                ><span class="n">06</span> Light and Dark Without
+                Duplication</a
+              >
+            </li>
+            <li>
+              <a href="#contrast-constraint"
+                ><span class="n">07</span> Contrast Is Downstream, Not
+                Separate</a
+              >
+            </li>
+            <li>
+              <a href="#dtcg-color"
+                ><span class="n">08</span> Tokens as Data: the DTCG
+                Color Type</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                ><span class="n">09</span> Five Pitfalls That Look Like
+                Polish</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                ><span class="n">10</span> Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+          <section id="why-tokens">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>Why "Blue-500" Isn't a Palette</h2>
+            <p>
+              Ask most teams how many blues are in their product and the
+              honest answer is usually "we're not sure" — a brand blue picked
+              once by a designer, a slightly lighter one added later for a
+              hover state, a slightly darker one added for a pressed state, a
+              muted one for disabled controls, and a translucent one for
+              overlays, each added one-off as the need came up rather than
+              generated by any shared logic. None of these are wrong in
+              isolation. Collectively, they're a pile of near-duplicate colors
+              nobody can reason about, because nothing about the palette
+              explains why step four is exactly that shade and not the one a
+              designer picked last Tuesday.
+            </p>
+            <p>
+              A color system that can survive a rebrand, a new dark theme, or
+              a new brand color needs two genuinely separate concerns stacked
+              on top of each other, plus a third layer that resolves them per
+              theme:
+            </p>
+            <p>
+              <strong>Tonal ramp</strong> — how the actual color steps get
+              generated for a given hue: an ordered, perceptually even scale
+              from near-white to near-black, produced by a formula rather than
+              picked by eye one step at a time.
+            </p>
+            <p>
+              <strong>Semantic role</strong> — which UI need a given ramp step
+              is standing in for: a background, a border, a body of text, a
+              danger state — named for what it does, not for what it looks
+              like today.
+            </p>
+            <p>
+              <strong>Theme resolution</strong> — which ramp step a given
+              semantic role points to right now, which is the only thing that
+              should change between a light theme and a dark one.
+            </p>
+            <p>
+              The rest of this guide is that stack, worked through in order —
+              starting with the part almost every hand-picked palette gets
+              subtly wrong before a single semantic name is even chosen: the
+              math behind the ramp itself.
+            </p>
+          </section>
+
+          <section id="perceptual-space">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>HSL Lies About Lightness</h2>
+            <p>
+              <code>hsl()</code> feels like the right tool for building a
+              ramp — hold hue and saturation constant, sweep lightness from
+              high to low, done. The problem is that HSL's
+              <code>L</code> channel is a purely mathematical average of the
+              RGB channels, not a measurement of how bright a color actually
+              looks to a human eye. Two colors can share an identical
+              <code>L</code> value in HSL and read as wildly different
+              brightnesses on screen —
+              <code>hsl(60, 100%, 50%)</code>, a pure yellow, and
+              <code>hsl(240, 100%, 50%)</code>, a pure blue, both sit at
+              <code>L: 50%</code>, yet the yellow looks dramatically lighter
+              than the blue at a glance. A ramp built by holding HSL's
+              <code>L</code> constant across hues, or stepping it evenly for
+              a single hue, inherits that mismatch — steps that measure as
+              "the same lightness" on paper but don't read as evenly spaced
+              to an actual viewer.
+            </p>
+            <p>
+              <code>oklch()</code>, part of the CSS Color Module Level 4
+              specification, fixes this by construction. It's the cylindrical
+              form of the Oklab color model, purpose-built so its
+              <code>L</code> channel tracks perceived lightness rather than a
+              channel average — holding <code>L</code> constant while sweeping
+              hue produces colors that actually look similarly light,
+              something HSL cannot promise:
+            </p>
+            <p class="guide-formula mono">
+              oklch(L C H) → L 0–1 (0 = black, 1 = white) · C 0–≈0.4 in sRGB ·
+              H in degrees, cyclical
+            </p>
+            <p>
+              <code>L</code> is lightness on that perceptual scale.
+              <code>C</code> is chroma — roughly "how much color," unitless,
+              typically staying under about 0.4 for colors that render
+              in-gamut on a standard sRGB display, though wider-gamut screens
+              (Display P3, Rec. 2020) can push it higher. <code>H</code> is
+              hue in degrees around a color wheel, same intuition as HSL's hue
+              channel, wrapping back to 0 at 360.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 260"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">
+                  HSL versus OKLCH lightness held constant across three hues
+                </title>
+                <desc id="fig1-desc">
+                  Two rows of three color swatches each. The top row holds
+                  HSL lightness at fifty percent across a yellow, a green,
+                  and a blue, and the swatches read as visibly different
+                  brightnesses. The bottom row holds OKLCH lightness at
+                  seventy-five percent across the same three hue positions,
+                  and the swatches read as much closer in perceived
+                  brightness.
+                </desc>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <text x="24" y="28" fill="#9fb2cc" font-size="10.5">
+                    hsl(H, 100%, 50%) — same "L", different perceived
+                    brightness
+                  </text>
+                  <rect
+                    x="24"
+                    y="42"
+                    width="200"
+                    height="64"
+                    rx="4"
+                    fill="hsl(60, 100%, 50%)"
+                  />
+                  <rect
+                    x="240"
+                    y="42"
+                    width="200"
+                    height="64"
+                    rx="4"
+                    fill="hsl(120, 100%, 50%)"
+                  />
+                  <rect
+                    x="456"
+                    y="42"
+                    width="200"
+                    height="64"
+                    rx="4"
+                    fill="hsl(240, 100%, 50%)"
+                  />
+                  <text x="24" y="122" fill="#7fb3e0" font-size="9">
+                    hsl(60,100%,50%)
+                  </text>
+                  <text x="240" y="122" fill="#7fb3e0" font-size="9">
+                    hsl(120,100%,50%)
+                  </text>
+                  <text x="456" y="122" fill="#7fb3e0" font-size="9">
+                    hsl(240,100%,50%)
+                  </text>
+
+                  <line
+                    x1="24"
+                    y1="146"
+                    x2="656"
+                    y2="146"
+                    stroke="#33507a"
+                    stroke-width="1"
+                  />
+
+                  <text x="24" y="168" fill="#9fb2cc" font-size="10.5">
+                    oklch(75% 0.15 H) — same L, much closer perceived
+                    brightness
+                  </text>
+                  <rect
+                    x="24"
+                    y="182"
+                    width="200"
+                    height="64"
+                    rx="4"
+                    fill="oklch(75% 0.15 95)"
+                  />
+                  <rect
+                    x="240"
+                    y="182"
+                    width="200"
+                    height="64"
+                    rx="4"
+                    fill="oklch(75% 0.15 155)"
+                  />
+                  <rect
+                    x="456"
+                    y="182"
+                    width="200"
+                    height="64"
+                    rx="4"
+                    fill="oklch(75% 0.15 255)"
+                  />
+                  <text x="24" y="260" fill="#7fb3e0" font-size="9">
+                    oklch(75% .15 95)
+                  </text>
+                  <text x="240" y="260" fill="#7fb3e0" font-size="9">
+                    oklch(75% .15 155)
+                  </text>
+                  <text x="456" y="260" fill="#7fb3e0" font-size="9">
+                    oklch(75% .15 255)
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — Rendered with live <code>hsl()</code> and
+              <code>oklch()</code> values in a modern browser. Chroma still
+              interacts with perceived brightness at the margins, so the
+              OKLCH row isn't perfectly identical — just markedly closer than
+              HSL's, which isn't trying to be perceptual at all.
+            </figcaption>
+          </figure>
+
+          <section>
+            <p>
+              One consequence worth planning around: in-gamut chroma isn't
+              independent of lightness. A color can't be both extremely light
+              (or extremely dark) <em>and</em> highly saturated — the maximum
+              displayable <code>C</code> shrinks toward zero as
+              <code>L</code> approaches 0 or 1. A ramp that holds
+              <code>C</code> fixed across every step, for simplicity, will get
+              its lightest and darkest steps silently clipped to whatever the
+              display can actually show — which is why the next section tapers
+              chroma toward the ends of the ramp rather than holding it flat.
+            </p>
+          </section>
+
+          <section id="tonal-ramp">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>Building a Tonal Ramp</h2>
+            <p>
+              A ramp starts from one fixed hue and produces an ordered set of
+              lightness steps for it — commonly ten or eleven, numbered the
+              way Tailwind popularized (<code>50</code> through
+              <code>900</code> or <code>950</code>, low numbers light, high
+              numbers dark) though the exact count and labels are a
+              convention, not a rule. Three things vary together as the ramp
+              descends from light to dark:
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ tonal_ramp_steps</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Step</th>
+                    <th scope="col">Target L</th>
+                    <th scope="col">Typical use</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>50</td>
+                    <td>≈ 97%</td>
+                    <td>Tinted page/section backgrounds</td>
+                  </tr>
+                  <tr>
+                    <td>100–200</td>
+                    <td>≈ 90–82%</td>
+                    <td>Subtle fills, hover backgrounds</td>
+                  </tr>
+                  <tr>
+                    <td>300–400</td>
+                    <td>≈ 72–62%</td>
+                    <td>Borders, disabled fills, icons</td>
+                  </tr>
+                  <tr>
+                    <td>500</td>
+                    <td>≈ 55%</td>
+                    <td>Base brand color, primary actions</td>
+                  </tr>
+                  <tr>
+                    <td>600–700</td>
+                    <td>≈ 46–36%</td>
+                    <td>Hover/active states on the base</td>
+                  </tr>
+                  <tr>
+                    <td>800–900</td>
+                    <td>≈ 27–20%</td>
+                    <td>High-emphasis text, dark surfaces</td>
+                  </tr>
+                  <tr>
+                    <td>950</td>
+                    <td>≈ 14%</td>
+                    <td>Near-black text, dark-mode base</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              <strong>Hue</strong> stays fixed for the whole ramp in the
+              simplest version of this model. Some mature systems allow it a
+              small, deliberate rotation across the steps — a few degrees
+              warmer at the dark end, say — to compensate for a hue's
+              perceived shift at extreme lightness, but that's a refinement
+              worth adding once the base ramp works, not a requirement to get
+              a usable palette shipped.
+            </p>
+            <p>
+              <strong>Lightness</strong> is stepped more densely through the
+              middle of the range than at the extremes, because that's where
+              most real UI usage clusters — base brand colors, text, and
+              interactive states all live in the 300–700 band, while 50 and
+              950 exist mainly as backgrounds and are visited far less often.
+            </p>
+            <p>
+              <strong>Chroma</strong> peaks somewhere in the middle of the
+              ramp and tapers toward both ends, following the gamut
+              constraint from the previous section — a flat <code>C</code>
+              across all eleven steps is the single most common reason a
+              hand-rolled ramp looks uneven at the tips even when the
+              lightness math is right.
+            </p>
+            <p>
+              None of these exact percentages are a law — they're a workable
+              starting point, not a spec. What matters is generating the
+              steps from a small, explicit rule for a given hue instead of
+              eyeballing eleven separate colors and hoping they stay
+              consistent the next time someone has to add a twelfth.
+            </p>
+          </section>
+
+          <section id="three-tiers">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>Primitive, Semantic, Component</h2>
+            <p>
+              A ramp is raw material, not a usable token set on its own — it
+              needs to sit underneath the same three-tier structure that
+              governs any well-run
+              <a href="design-tokens-naming-system.html">token system</a>,
+              applied specifically to color:
+            </p>
+            <p>
+              <strong>Primitive</strong> — the ramp's own output, named after
+              itself: <code>color.blue.500</code>,
+              <code>color.gray.100</code>. Purely descriptive. A primitive
+              token carries no opinion about where it gets used.
+            </p>
+            <p>
+              <strong>Semantic</strong> — a role, referencing exactly one
+              primitive step: <code>color.background.brand</code> pointing at
+              <code>color.blue.500</code>. This is the tier where meaning
+              actually lives, and the only tier a designer or engineer should
+              need to think in day to day.
+            </p>
+            <p>
+              <strong>Component</strong> — a semantic token scoped to one
+              component's specific property, so that component can be
+              retargeted without touching the shared semantic layer:
+              <code>button.primary.background</code> pointing at
+              <code>color.background.brand</code>.
+            </p>
+            <p>
+              The rule that keeps this from collapsing back into chaos is
+              simple: each tier only ever references the tier directly below
+              it. A component token pointing straight at a primitive,
+              skipping semantic entirely, is the single most common way a
+              three-tier system quietly turns back into a one-tier system —
+              it works fine until the semantic layer gets retuned and that one
+              component doesn't move with it.
+            </p>
+          </section>
+
+          <section id="naming-roles">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>Naming Roles, Not Appearances</h2>
+            <p>
+              A semantic color token's name is a promise about function, not
+              a description of its current pixel value. <code
+                >color.text.error</code
+              >
+              sounds reasonable until the brand's error color moves from red
+              to amber for accessibility reasons, and now every consumer of
+              that name is technically correct and visually wrong. The fix
+              is naming by <em>role</em>, along two axes that combine into
+              most of what a UI actually needs:
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ semantic_color_roles</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Example token</th>
+                    <th scope="col">Maps to</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Surface</td>
+                    <td><code>color.background.surface</code></td>
+                    <td>Card, panel, sheet backgrounds</td>
+                  </tr>
+                  <tr>
+                    <td>Brand</td>
+                    <td><code>color.background.brand</code></td>
+                    <td>Primary actions, highlighted state</td>
+                  </tr>
+                  <tr>
+                    <td>Text</td>
+                    <td>
+                      <code>color.text.primary</code> /
+                      <code>.secondary</code>
+                    </td>
+                    <td>Body copy by emphasis level</td>
+                  </tr>
+                  <tr>
+                    <td>Border</td>
+                    <td><code>color.border.default</code></td>
+                    <td>Dividers, input outlines</td>
+                  </tr>
+                  <tr>
+                    <td>Interactive state</td>
+                    <td>
+                      <code>color.action.primary.hover</code> /
+                      <code>.active</code> / <code>.disabled</code>
+                    </td>
+                    <td>State variants of one control</td>
+                  </tr>
+                  <tr>
+                    <td>Feedback</td>
+                    <td>
+                      <code>color.feedback.success</code> /
+                      <code>.warning</code> / <code>.danger</code> /
+                      <code>.info</code>
+                    </td>
+                    <td>Status and validation messaging</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              The test for a good semantic name: it should still make sense
+              after the exact color it resolves to has been swapped. If a
+              name only makes sense while it happens to be red, orange, or
+              blue, it's describing appearance, not role, and it belongs one
+              tier down at the primitive layer instead.
+            </p>
+          </section>
+
+          <section id="light-dark">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Light and Dark Without Duplication</h2>
+            <p>
+              The instinct when adding a dark theme is to design a second,
+              parallel palette from scratch. That doubles the ramp-building
+              work from section three and guarantees the two palettes drift
+              apart the first time either one gets retuned in isolation. The
+              structural fix: keep the exact same semantic token names in
+              both themes, and change only which primitive step each one
+              resolves to.
+            </p>
+            <p>
+              <code>color.background.surface</code> might resolve to
+              <code>gray.50</code> in a light theme and <code>gray.900</code>
+              in a dark one; <code>color.text.primary</code> flips the same
+              pair in reverse. Nothing about the semantic layer or anything
+              built on top of it — components, layouts — needs to know a
+              theme switch happened at all. It's worth noting dark surfaces
+              in mature systems are rarely true black at every elevation
+              either; a slightly lifted, low-chroma dark step reads as more
+              legible and less harsh than pure <code>#000</code> once real
+              content sits on top of it.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 240"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig2-title fig2-desc"
+              >
+                <title id="fig2-title">
+                  One semantic token resolving to different primitive steps
+                  per theme
+                </title>
+                <desc id="fig2-desc">
+                  A diagram showing a light-theme ramp strip and a dark-theme
+                  ramp strip, each with one step highlighted, with dashed
+                  lines from both highlighted steps converging on a single
+                  shared semantic token box labeled color background
+                  surface.
+                </desc>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <text x="24" y="26" fill="#9fb2cc" font-size="10">
+                    LIGHT THEME
+                  </text>
+                  <g>
+                    <rect x="24" y="38" width="34" height="34" fill="#f4f2ea" />
+                    <rect x="58" y="38" width="34" height="34" fill="#dcd8ca" />
+                    <rect
+                      x="92"
+                      y="38"
+                      width="34"
+                      height="34"
+                      fill="#cdd9ea"
+                      stroke="#7fb3e0"
+                      stroke-width="2"
+                    />
+                    <rect x="126" y="38" width="34" height="34" fill="#5b789f" />
+                    <rect x="160" y="38" width="34" height="34" fill="#243a5e" />
+                  </g>
+                  <text x="24" y="92" fill="#7fb3e0" font-size="8.5">
+                    gray.50 selected
+                  </text>
+
+                  <text x="536" y="26" fill="#9fb2cc" font-size="10">
+                    DARK THEME
+                  </text>
+                  <g>
+                    <rect x="536" y="38" width="34" height="34" fill="#f4f2ea" />
+                    <rect x="570" y="38" width="34" height="34" fill="#5b789f" />
+                    <rect x="604" y="38" width="34" height="34" fill="#243a5e" />
+                    <rect
+                      x="638"
+                      y="38"
+                      width="34"
+                      height="34"
+                      fill="#132548"
+                      stroke="#7fb3e0"
+                      stroke-width="2"
+                    />
+                    <rect x="672" y="38" width="34" height="34" fill="#081b38" />
+                  </g>
+                  <text x="536" y="92" fill="#7fb3e0" font-size="8.5">
+                    gray.900 selected
+                  </text>
+
+                  <path
+                    d="M109,72 C160,120 260,150 300,166"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.4"
+                    stroke-dasharray="4 3"
+                  />
+                  <path
+                    d="M655,72 C560,120 460,150 420,166"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.4"
+                    stroke-dasharray="4 3"
+                  />
+
+                  <rect
+                    x="255"
+                    y="168"
+                    width="210"
+                    height="46"
+                    rx="4"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.4"
+                  />
+                  <text
+                    x="360"
+                    y="188"
+                    fill="#e8edf4"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    color.background.surface
+                  </text>
+                  <text
+                    x="360"
+                    y="204"
+                    fill="#9fb2cc"
+                    font-size="8.5"
+                    text-anchor="middle"
+                  >
+                    one name, two resolved values
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 02 — The semantic name never changes between themes; only
+              the alias assignment behind it does. Components built on
+              <code>color.background.surface</code> never know a theme switch
+              happened.
+            </figcaption>
+          </figure>
+
+          <section>
+            <p>
+              In practice that alias swap is usually just a custom-property
+              reassignment under a theme selector — the semantic layer,
+              expressed as CSS variables, gets a second definition scoped to
+              a <code>[data-theme="dark"]</code> attribute or a
+              <code>prefers-color-scheme: dark</code> media query, and every
+              component keeps referencing the same semantic variable name
+              either way:
+            </p>
+          </section>
+
+          <div class="guide-code">
+            <pre><code>:root {
+  --color-background-surface: var(--gray-50);
+  --color-text-primary:       var(--gray-900);
+  --color-border-default:     var(--gray-200);
+}
+
+[data-theme="dark"] {
+  --color-background-surface: var(--gray-900);
+  --color-text-primary:       var(--gray-50);
+  --color-border-default:     var(--gray-700);
+}</code></pre>
+          </div>
+
+          <section id="contrast-constraint">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Contrast Is Downstream, Not Separate</h2>
+            <p>
+              Every semantic pairing that will actually appear together on
+              screen — text on a surface, an icon on a brand background, a
+              danger label on its own fill — needs to clear a real WCAG
+              contrast ratio, and the exact math for that lives in
+              <a href="color-contrast-systems.html"
+                >the companion guide on color contrast</a
+              >
+              rather than being repeated here. What belongs in this guide is
+              <em>when</em> that check happens: at ramp-definition time,
+              against every pairing the semantic layer actually produces, not
+              as a one-off audit run against finished screens after the fact.
+            </p>
+            <p>
+              A short pairing matrix — text-on-surface, text-on-brand,
+              icon-on-surface, and so on — built alongside the ramp and
+              re-verified any time a step gets retuned catches what a
+              per-screen audit misses: a single ramp adjustment can silently
+              break a dozen pairings across a product at once, and the
+              earlier that shows up, the cheaper it is to fix.
+            </p>
+          </section>
+
+          <section id="dtcg-color">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Tokens as Data: the DTCG Color Type</h2>
+            <p>
+              The W3C Design Tokens Community Group format defines
+              <code>$type: "color"</code> as a structured value — a
+              <code>colorSpace</code> string plus a <code>components</code>
+              array, with an optional <code>hex</code> fallback for tools
+              that still expect one — rather than a bare hex string. That
+              matters here specifically because it lets a primitive token
+              carry its real OKLCH values as the source of truth while still
+              shipping a computed hex for tooling that hasn't caught up:
+            </p>
+          </section>
+
+          <div class="guide-code">
+            <pre><code>{
+  "color": {
+    "blue": {
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.55, 0.16, 250],
+          "hex": "#3d6fe0"
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.38, 0.14, 250],
+          "hex": "#1f3e8c"
+        }
+      }
+    },
+    "background": {
+      "brand":       { "$value": "{color.blue.500}" },
+      "brand-hover": { "$value": "{color.blue.700}" }
+    }
+  },
+  "button": {
+    "primary": {
+      "background":       { "$value": "{color.background.brand}" },
+      "background-hover": { "$value": "{color.background.brand-hover}" }
+    }
+  }
+}</code></pre>
+          </div>
+
+          <section>
+            <p>
+              The brace syntax — <code>{color.blue.500}</code> — is a
+              reference to another token by its path, resolved the same way
+              regardless of which tier it crosses, which is what makes the
+              primitive → semantic → component chain from section four
+              expressible as literal, machine-readable data rather than just
+              a naming convention teams have to remember to follow by hand.
+            </p>
+          </section>
+
+          <section id="pitfalls">
+            <p class="guide-section__kicker mono">§ 09</p>
+            <h2>Five Pitfalls That Look Like Polish</h2>
+            <ul class="guide-pitfalls">
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">01</span>
+                <p>
+                  <strong>Picking steps in a color picker instead of a ramp
+                    function.</strong>
+                  A single hand-tweaked step breaks the systematic
+                  relationship the rest of the ramp relies on — future
+                  retuning has to special-case that one step forever, and
+                  nobody downstream can tell which steps are "real" and which
+                  were nudged by eye under deadline.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">02</span>
+                <p>
+                  <strong>Naming a semantic token after its current
+                    appearance.</strong>
+                  <code>color-red-error</code> is a primitive description
+                  wearing a semantic token's clothes, the same failure mode
+                  section five describes — the day the error color moves off
+                  red, every consumer of that name is quietly wrong.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">03</span>
+                <p>
+                  <strong>Building dark mode as a second full palette.</strong>
+                  Two independently maintained ramps drift apart the first
+                  time either gets retuned alone, doubling both the
+                  maintenance burden and the odds of a contrast regression
+                  that only shows up in one theme.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">04</span>
+                <p>
+                  <strong>Sharing one alias across unrelated roles because
+                    they currently match.</strong>
+                  Pointing both <code>color.border.default</code> and
+                  <code>color.text.disabled</code> at the same primitive step
+                  because they happen to look right together today means a
+                  future retune of one role for one reason silently drags the
+                  other along with it. Give each role its own alias even when
+                  it resolves to the same value right now — cheap to add
+                  early, expensive to untangle later.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">05</span>
+                <p>
+                  <strong>Holding chroma flat across the whole ramp.</strong>
+                  Skipping the taper from section three because a constant
+                  <code>C</code> seemed simpler means the lightest and
+                  darkest steps get silently clipped to whatever the display
+                  can render — two steps authored as different colors can end
+                  up rendering identically at the extremes.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section id="cheat-sheet">
+            <p class="guide-section__kicker mono">§ 10</p>
+            <h2>Quick Reference</h2>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ color_palette_reference</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Typical value</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>oklch() L range</td>
+                    <td>0–1 or 0%–100%</td>
+                    <td>0 = black, 1 = white, perceptual</td>
+                  </tr>
+                  <tr>
+                    <td>oklch() C range</td>
+                    <td>0–≈0.4</td>
+                    <td>In-gamut for sRGB; higher in P3</td>
+                  </tr>
+                  <tr>
+                    <td>oklch() H range</td>
+                    <td>0–360deg</td>
+                    <td>Cyclical, 360 wraps to 0</td>
+                  </tr>
+                  <tr>
+                    <td>Typical ramp size</td>
+                    <td>10–11 steps</td>
+                    <td>e.g. 50…900, 950</td>
+                  </tr>
+                  <tr>
+                    <td>Token tiers</td>
+                    <td>primitive → semantic → component</td>
+                    <td>Never skip a tier or point sideways</td>
+                  </tr>
+                  <tr>
+                    <td>Dark mode</td>
+                    <td>remap aliases</td>
+                    <td>Same semantic names, both themes</td>
+                  </tr>
+                  <tr>
+                    <td>DTCG <code>$type: "color"</code></td>
+                    <td>colorSpace + components [+ hex]</td>
+                    <td>Structured, not a bare string</td>
+                  </tr>
+                  <tr>
+                    <td>Contrast check timing</td>
+                    <td>at ramp-definition time</td>
+                    <td>Not a final-screen audit pass</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              None of the specific lightness percentages or step counts in
+              this guide are the point — a team will retune the exact numbers
+              to fit its own brand, and that's expected. What's meant to
+              outlast any single value is the separation underneath: a ramp
+              generated by a rule rather than picked by eye, semantic names
+              chosen for role rather than appearance, and theme switching
+              handled as an alias reassignment rather than a second palette.
+              Keep those three layers distinct, and a rebrand or a new dark
+              theme only ever touches the primitive tier — every semantic
+              name and every component built on top of it keeps working
+              without anyone having to go find and update it by hand.
+            </p>
+          </section>
+        </div>
+
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>COLOR THEORY</span>
+            <span>DESIGN TOKENS</span>
+            <span>OKLCH</span>
+            <span>TONAL RAMPS</span>
+            <span>DARK MODE</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="color-contrast-systems.html"
+                  >Color Contrast Is Math, Not Taste</a
+                >
+              </li>
+              <li>
+                <a href="design-tokens-naming-system.html"
+                  >Design Tokens Are a Naming System, Not a Style Guide</a
+                >
+              </li>
+              <li>
+                <a href="accessibility-structural-model.html"
+                  >Accessibility Is a Structural Decision, Not a Final Pass</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="../about.html">About us</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="../privacy.html">Privacy policy</a></li>
+            <li><a href="../terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check
+            back or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="../privacy.html">Privacy policy</a> ·
+          <a href="../terms.html">Terms of service</a> ·
+          <a href="../about.html">About</a> ·
+          <a href="../contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="../app.js"></script>
+  </body>
+</html>
