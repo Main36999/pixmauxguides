@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Motion Timing Is a Physics Model, Not a Preset — PIXMA UX Guides
+    </title>
+    <meta
+      name="description"
+      content="A spec-level read of motion timing: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/motion-timing-model.html"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/motion-timing-model.html"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Motion Timing Is a Physics Model, Not a Preset"
+    />
+    <meta
+      property="og:description"
+      content="Distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative model, and why reduced motion isn't the same as no motion."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/thumbnail_image/motion-timing-model-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram of a cubic-bezier easing curve with labeled control points, plotted against time and progress."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Motion Timing Is a Physics Model, Not a Preset"
+    />
+    <meta
+      name="twitter:description"
+      content="Distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative model, and why reduced motion isn't the same as no motion."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/thumbnail_image/motion-timing-model-thumbnail.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Motion Timing Is a Physics Model, Not a Preset",
+        "description": "A spec-level read of motion timing: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/motion-timing-model.html",
+        "image": "https://pixmauxguides.com/thumbnail_image/motion-timing-model-thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "inLanguage": "en"
+      }
+    </script>
+
+<style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+
+      .guide-formula {
+        font-family: var(--gp-mono);
+        font-size: 0.95rem;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-blue-line);
+        padding: 12px 16px;
+        margin: 0 0 18px;
+        letter-spacing: 0.02em;
+      }
+      .guide-code {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 20px;
+        margin: 4px 0 32px;
+        overflow-x: auto;
+      }
+      .guide-code pre {
+        margin: 0;
+        font-family: var(--gp-mono);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #e8edf4;
+      }
+    </style>
+  </head>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="../index.html#guides">All Guides</a>
+            <a href="../index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="../index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="../index.html#guides">All Guides</a>
+          <a href="../index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Prototyping &amp; motion</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Motion Timing</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">
+            // prototyping_motion · easing_and_duration_model
+          </p>
+          <h1 class="guide-title">
+            Motion Timing Is a Physics Model, Not a Preset
+          </h1>
+          <p class="guide-dek">
+            Most interfaces treat easing as a dropdown pick — ease,
+            ease-in-out, maybe a spring if the framework happens to offer
+            one — chosen by how it feels on whichever component someone was
+            building that day. Duration tied to distance, curves chosen by
+            directional role instead of vibe, and a reduced-motion path
+            that's actually designed rather than defaulted to zero are the
+            parts that decide whether a hundred-screen product reads as one
+            coherent system or a pile of individually-tuned transitions.
+          </p>
+          <div class="guide-meta mono">
+            <span>ADVANCED</span>
+            <span class="dot">·</span>
+            <span>15 MIN READ</span>
+            <span class="dot">·</span>
+            <span>PROTOTYPING &amp; MOTION</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#why-a-model"
+                ><span class="n">01</span> Why "Ease In Out" Isn't a
+                Decision</a
+              >
+            </li>
+            <li>
+              <a href="#distance-duration"
+                ><span class="n">02</span> Duration Is a Function of
+                Distance</a
+              >
+            </li>
+            <li>
+              <a href="#reading-bezier"
+                ><span class="n">03</span> Reading a Cubic-Bézier Curve</a
+              >
+            </li>
+            <li>
+              <a href="#curve-families"
+                ><span class="n">04</span> Standard, Decelerate, Accelerate</a
+              >
+            </li>
+            <li>
+              <a href="#spring-physics"
+                ><span class="n">05</span> Spring Physics: A Different Model</a
+              >
+            </li>
+            <li>
+              <a href="#choreography"
+                ><span class="n">06</span> Choreography Without Chaos</a
+              >
+            </li>
+            <li>
+              <a href="#motion-tokens"
+                ><span class="n">07</span> Motion Tokens and the DTCG Types</a
+              >
+            </li>
+            <li>
+              <a href="#reduced-motion"
+                ><span class="n">08</span> Reduced Motion Isn't "Off"</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                ><span class="n">09</span> Five Pitfalls That Look Like
+                Polish</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                ><span class="n">10</span> Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+
+          <section id="why-a-model">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>Why "Ease In Out" Isn't a Decision</h2>
+            <p>
+              Ask most teams why a transition takes 200ms with an
+              <code>ease-in-out</code> curve and the honest answer is
+              usually "it felt right" — tuned once, on one component, by
+              whoever happened to be building it that week. That's not a
+              criticism of taste; it's a description of what happens when
+              timing has no model behind it. The same product ends up with
+              a 150ms fade here, a 400ms slide there, and a spring
+              somewhere else entirely, each locally reasonable and
+              collectively incoherent.
+            </p>
+            <p>
+              Motion timing is actually two independently tunable variables
+              stacked on top of each other, plus a third model that
+              replaces both of them entirely in some contexts:
+            </p>
+            <p>
+              <strong>Duration</strong> — how long the change takes, which
+              should be a function of how much is changing, not a constant
+              picked once and reused everywhere.
+            </p>
+            <p>
+              <strong>Easing</strong> — the velocity curve over that
+              duration: whether the motion is constant, front-loaded,
+              back-loaded, or something more deliberate — chosen by what
+              role the moving element is playing, not by which curve looks
+              nicest in isolation.
+            </p>
+            <p>
+              <strong>Physics parameters</strong> — an alternative to
+              authoring a duration at all, where stiffness, damping, and
+              mass describe the object and the system solves for motion
+              frame by frame. Section five covers why that's not just a
+              stylistic choice.
+            </p>
+            <p>
+              Inconsistent timing is exactly as visible to a user as
+              inconsistent spacing — it just gets audited far less, because
+              nobody screenshots a transition and holds a ruler to it. The
+              rest of this guide is the model that replaces "it felt right"
+              with something a second designer, or a second engineer, can
+              actually reproduce.
+            </p>
+          </section>
+
+          <section id="distance-duration">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>Duration Is a Function of Distance</h2>
+            <p>
+              Nothing in the physical world moves the same duration
+              regardless of how far it travels, and motion that ignores
+              this reads as artificial even when a viewer can't say why. An
+              element sliding 8px into place and a panel sliding the full
+              width of the screen should not share a duration — the first
+              at 400ms looks sluggish, and the second at 100ms looks like
+              it teleported.
+            </p>
+            <p class="guide-formula mono">
+              duration ≈ base + k · √(distance)
+            </p>
+            <p>
+              That formula is the honest version of the relationship — a
+              square-root curve, not a straight line, because doubling the
+              distance shouldn't double the duration; perceived speed
+              matters more than literal velocity, and a square-root
+              relationship keeps large moves from feeling sluggish. Very
+              few production teams implement a literal continuous function,
+              though — almost all of them approximate it with a small set
+              of named duration <em>bands</em>, tied to how much of the
+              screen an element covers or crosses:
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>
+                  / distance_duration_bands
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Band</th>
+                    <th scope="col">Typical trigger</th>
+                    <th scope="col">Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Micro</td>
+                    <td>Icon toggle, checkbox, small state flip</td>
+                    <td>100–150ms</td>
+                  </tr>
+                  <tr>
+                    <td>Small</td>
+                    <td>Button press, chip select, in-place move</td>
+                    <td>150–250ms</td>
+                  </tr>
+                  <tr>
+                    <td>Medium</td>
+                    <td>Card or panel expand, dropdown, tooltip</td>
+                    <td>250–400ms</td>
+                  </tr>
+                  <tr>
+                    <td>Large</td>
+                    <td>Modal, full-screen sheet, route change</td>
+                    <td>400–600ms</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              The ceiling matters as much as the bands. Past roughly
+              600–700ms, additional duration stops reading as "a bigger
+              move" and starts reading as lag — the user's attention has
+              already moved on before the animation finishes, which
+              defeats the point of animating at all. If a transition
+              genuinely needs to be slower than that, the fix is usually to
+              break it into stages rather than stretch one curve across the
+              whole thing.
+            </p>
+            <p>
+              None of these numbers are a law — they're a workable starting
+              point that shows up, with minor variation, across most
+              mature motion systems. What actually matters is picking a
+              small, named set of bands and using them everywhere, instead
+              of a fresh number every time a new component needs a
+              transition.
+            </p>
+          </section>
+
+          <section id="reading-bezier">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>Reading a Cubic-Bézier Curve</h2>
+            <p>
+              <code>cubic-bezier(x1, y1, x2, y2)</code> plots progress (the
+              y-axis, 0 to 1) against elapsed time (the x-axis, 0 to 1). The
+              start and end points are fixed at <code>(0, 0)</code> and
+              <code>(1, 1)</code> by definition — a transition always
+              starts at 0% progress and ends at 100%, so those two points
+              are never part of the four numbers you actually write. The
+              four numbers describe two <em>control points</em> that pull
+              the curve's shape between those fixed ends.
+            </p>
+            <p>
+              The first control point, <code>(x1, y1)</code>, governs how
+              the motion leaves its starting position — a low
+              <code>y1</code> relative to <code>x1</code> means progress
+              barely moves at first, producing a slow, held start. The
+              second, <code>(x2, y2)</code>, governs how it arrives — a
+              <code>y2</code> already close to 1 well before
+              <code>x2</code> reaches 1 means progress front-loads and
+              coasts into the finish. Every named easing keyword in CSS is
+              just a preset pair of these:
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 300"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">A cubic-bezier curve, plotted</title>
+                <desc id="fig1-desc">
+                  A blueprint diagram plotting progress against time for the
+                  CSS default "ease" curve, with its two control points
+                  shown as handles pulling away from the straight diagonal
+                  a linear curve would trace.
+                </desc>
+                <defs>
+                  <marker
+                    id="mtm-arrow"
+                    viewBox="0 0 8 8"
+                    refX="4"
+                    refY="4"
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto-start-reverse"
+                  >
+                    <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                  </marker>
+                </defs>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <!-- axes -->
+                  <line x1="100" y1="240" x2="620" y2="240" stroke="#33507a" stroke-width="1" />
+                  <line x1="100" y1="240" x2="100" y2="30" stroke="#33507a" stroke-width="1" />
+                  <text x="600" y="258" fill="#9fb2cc" font-size="9" text-anchor="end">time (0→1)</text>
+                  <text x="46" y="44" fill="#9fb2cc" font-size="9">progress</text>
+                  <text x="46" y="56" fill="#9fb2cc" font-size="9">(0→1)</text>
+                  <text x="90" y="244" fill="#9fb2cc" font-size="8.5" text-anchor="end">0</text>
+                  <text x="90" y="44" fill="#9fb2cc" font-size="8.5" text-anchor="end">1</text>
+
+                  <!-- linear reference -->
+                  <line x1="100" y1="240" x2="600" y2="40" stroke="#33507a" stroke-width="1" stroke-dasharray="3 3" />
+                  <text x="430" y="118" fill="#5b789f" font-size="8.5">linear (for reference)</text>
+
+                  <!-- bezier handles -->
+                  <line x1="100" y1="240" x2="225" y2="220" stroke="#7fb3e0" stroke-width="1" stroke-dasharray="2 2" />
+                  <line x1="600" y1="40" x2="225" y2="40" stroke="#7fb3e0" stroke-width="1" stroke-dasharray="2 2" />
+
+                  <!-- the curve itself -->
+                  <path d="M100,240 C225,220 225,40 600,40" fill="none" stroke="#e8edf4" stroke-width="2" />
+
+                  <!-- points -->
+                  <circle cx="100" cy="240" r="3.4" fill="#e8edf4" />
+                  <text x="106" y="256" fill="#9fb2cc" font-size="8.5">P0 (0, 0)</text>
+
+                  <circle cx="225" cy="220" r="3" fill="#7fb3e0" />
+                  <text x="234" y="222" fill="#cdd9ea" font-size="8.5">P1 control (0.25, 0.1)</text>
+
+                  <circle cx="225" cy="40" r="3" fill="#7fb3e0" />
+                  <text x="234" y="38" fill="#cdd9ea" font-size="8.5">P2 control (0.25, 1)</text>
+
+                  <circle cx="600" cy="40" r="3.4" fill="#e8edf4" />
+                  <text x="546" y="30" fill="#9fb2cc" font-size="8.5">P3 (1, 1)</text>
+
+                  <text x="130" y="285" fill="#7fb3e0" font-size="9.5">
+                    cubic-bezier(0.25, 0.1, 0.25, 1) — CSS's default "ease"
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — P0 and P3 are always fixed at (0,0) and (1,1); only
+              the two control points are ever configurable. This is the
+              curve most transitions ship with by default, unnoticed.
+            </figcaption>
+          </figure>
+
+          <section>
+            <p>
+              The five CSS keywords resolve to fixed control-point pairs —
+              worth memorizing, because <code>ease</code> is what a
+              transition silently uses whenever
+              <code>transition-timing-function</code> is left unset, not a
+              neutral "no easing" default:
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>
+                  / css_easing_keywords
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Keyword</th>
+                    <th scope="col">cubic-bezier()</th>
+                    <th scope="col">Shape</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>linear</td>
+                    <td>(0, 0, 1, 1)</td>
+                    <td>Constant velocity, no easing at all</td>
+                  </tr>
+                  <tr>
+                    <td>ease</td>
+                    <td>(0.25, 0.1, 0.25, 1)</td>
+                    <td>The silent default — slight start, long coast</td>
+                  </tr>
+                  <tr>
+                    <td>ease-in</td>
+                    <td>(0.42, 0, 1, 1)</td>
+                    <td>Slow start, fast finish</td>
+                  </tr>
+                  <tr>
+                    <td>ease-out</td>
+                    <td>(0, 0, 0.58, 1)</td>
+                    <td>Fast start, slow finish</td>
+                  </tr>
+                  <tr>
+                    <td>ease-in-out</td>
+                    <td>(0.42, 0, 0.58, 1)</td>
+                    <td>Symmetric — slow, fast, slow</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              One more thing worth knowing: <code>y1</code> and
+              <code>y2</code> aren't restricted to the 0–1 range the way
+              <code>x1</code> and <code>x2</code> are — a control point with
+              a y-value above 1 or below 0 is legal, and that's the
+              mechanism behind overshoot and anticipation curves, where an
+              element visibly swings past its resting value before settling
+              back, or pulls back slightly before committing to a move.
+            </p>
+          </section>
+
+          <section id="curve-families">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>Standard, Decelerate, Accelerate</h2>
+            <p>
+              Most mature motion systems don't hand every component the
+              same curve — they define curves by the <em>directional
+              role</em> the moving element is playing, then pair each role
+              with a shape that matches how that kind of motion actually
+              reads:
+            </p>
+            <p>
+              <strong>Standard</strong> — for an element that's on screen
+              for the whole transition, changing position or size without
+              entering or leaving. A moderate ease in both directions keeps
+              it readable without calling attention to either end.
+            </p>
+            <p>
+              <strong>Decelerate</strong> — for an element entering the
+              screen. It starts already moving at speed, as if it existed
+              off-screen a moment ago, and slows into its resting place.
+              That deceleration is what reads as "arriving," not just
+              appearing.
+            </p>
+            <p>
+              <strong>Accelerate</strong> — for an element leaving the
+              screen. It starts at rest and gains speed on the way out,
+              because the user doesn't need to see exactly where it lands —
+              only that it's decisively gone.
+            </p>
+            <p>
+              A well-known reference version of these three, stable across
+              years of Material-style motion specs, illustrates the shapes
+              well: standard as <code>cubic-bezier(0.4, 0, 0.2, 1)</code>
+              ("fast out, slow in"), decelerate as
+              <code>cubic-bezier(0, 0, 0.2, 1)</code>, and accelerate as
+              <code>cubic-bezier(0.4, 0, 1, 1)</code>. The exact numbers
+              matter far less than the pairing logic behind them.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 300"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig2-title fig2-desc"
+              >
+                <title id="fig2-title">Standard, decelerate, and accelerate curves compared</title>
+                <desc id="fig2-desc">
+                  A blueprint diagram plotting three easing curves on the
+                  same progress-versus-time axes: a standard curve eased at
+                  both ends, a decelerate curve that starts at full speed,
+                  and an accelerate curve that ends at full speed.
+                </desc>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <!-- axes -->
+                  <line x1="100" y1="230" x2="620" y2="230" stroke="#33507a" stroke-width="1" />
+                  <line x1="100" y1="230" x2="100" y2="30" stroke="#33507a" stroke-width="1" />
+                  <text x="600" y="248" fill="#9fb2cc" font-size="9" text-anchor="end">time (0→1)</text>
+                  <text x="46" y="44" fill="#9fb2cc" font-size="9">progress</text>
+
+                  <!-- standard -->
+                  <path d="M100,230 C300,230 200,40 600,40" fill="none" stroke="#7fb3e0" stroke-width="2" />
+                  <!-- decelerate (enter) -->
+                  <path d="M100,230 C100,230 200,40 600,40" fill="none" stroke="#e8edf4" stroke-width="2" stroke-dasharray="6 3" />
+                  <!-- accelerate (exit) -->
+                  <path d="M100,230 C300,230 600,40 600,40" fill="none" stroke="#9fb2cc" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" />
+
+                  <circle cx="100" cy="230" r="3.2" fill="#cdd9ea" />
+                  <circle cx="600" cy="40" r="3.2" fill="#cdd9ea" />
+
+                  <!-- legend -->
+                  <line x1="440" y1="200" x2="470" y2="200" stroke="#7fb3e0" stroke-width="2" />
+                  <text x="478" y="204" fill="#cdd9ea" font-size="9.5">standard — stays on screen</text>
+
+                  <line x1="440" y1="222" x2="470" y2="222" stroke="#e8edf4" stroke-width="2" stroke-dasharray="6 3" />
+                  <text x="478" y="226" fill="#cdd9ea" font-size="9.5">decelerate — entering</text>
+
+                  <line x1="440" y1="244" x2="470" y2="244" stroke="#9fb2cc" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" />
+                  <text x="478" y="248" fill="#cdd9ea" font-size="9.5">accelerate — exiting</text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 02 — All three share the same start and end points; only
+              the control points, and the role each curve is assigned to,
+              differ. Swapping decelerate and accelerate between an
+              entrance and an exit is the pitfall in section nine.
+            </figcaption>
+          </figure>
+
+          <section id="spring-physics">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>Spring Physics: A Different Model</h2>
+            <p>
+              Every curve in sections three and four shares one trait: it's
+              a fixed-duration curve, baked in advance. Spring physics
+              replaces that entirely. Instead of authoring a duration and a
+              shape, you set physical parameters — <strong>stiffness</strong>
+              (how strongly the spring pulls toward its target),
+              <strong>damping</strong> (how much that pull is resisted, converting
+              energy to settle the motion), and <strong>mass</strong> (how much
+              inertia the moving object has) — and the system solves a
+              damped harmonic oscillator each frame. Duration becomes an
+              output of the simulation, not an input to it.
+            </p>
+            <p class="guide-formula mono">F = −k·x − c·v</p>
+            <p>
+              Where <code>k</code> is stiffness, <code>x</code> is
+              displacement from the target, <code>c</code> is the damping
+              coefficient, and <code>v</code> is current velocity. How that
+              force resolves over time falls into three regimes worth
+              knowing by name:
+            </p>
+            <p>
+              <strong>Underdamped</strong> — the object overshoots the
+              target and oscillates before settling. Visually bouncy;
+              useful for playful or attention-grabbing moments, wrong for
+              anything that needs to feel controlled.
+            </p>
+            <p>
+              <strong>Critically damped</strong> — the object returns to
+              rest in the minimum possible time with no overshoot at all.
+              This is the default most interfaces actually want: fast,
+              natural, no bounce.
+            </p>
+            <p>
+              <strong>Overdamped</strong> — the object approaches the
+              target slowly with no oscillation, arriving well after a
+              critically damped spring would. Rarely what a UI needs;
+              mostly useful as a deliberately heavy, weighted feel.
+            </p>
+            <p>
+              The practical reason springs matter isn't the physics
+              vocabulary — it's <strong>interruptibility</strong>. A
+              bezier curve interrupted mid-flight has no defined behavior
+              for "what happens now"; someone has to hand-author a
+              transition out of wherever the animation happens to be
+              paused, which is expensive to do well and usually skipped. A
+              spring is defined entirely by its current position and
+              velocity, so re-targeting it mid-motion — because the user
+              dragged, tapped again, or reversed a gesture — is the normal
+              case, not a special one. That's why gesture-driven
+              interactions like drag-to-dismiss or swipe-back lean on
+              springs rather than pre-baked curves: the interface has to
+              stay honest about velocity the instant a finger changes
+              direction.
+            </p>
+            <p>
+              The trade-off is authoring workflow. A duration in
+              milliseconds is trivial to write into a design spec; a
+              stiffness-and-damping pair is not something most handoff
+              tools display, and two engineers implementing "the same
+              spring" on different platforms can easily land on visibly
+              different motion unless the actual numbers — not just a
+              description like "snappy" — are written down and shared.
+            </p>
+          </section>
+
+          <section id="choreography">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Choreography Without Chaos</h2>
+            <p>
+              When several elements enter or leave together, animating all
+              of them at once reads as a flash rather than a sequence — the
+              eye can't track a dozen things changing in perfect unison. A
+              small stagger, offsetting each item's start time from the
+              last, lets a group still read as one coordinated motion while
+              remaining perceptible as a sequence rather than a blur.
+            </p>
+            <p class="guide-formula mono">
+              itemDelay = baseDelay + (index · staggerStep)
+            </p>
+            <p>
+              A stagger step of roughly 20–50ms between items is enough to
+              read as sequential without dragging the whole group's
+              entrance out. That step needs a ceiling, though — applied
+              naively to a 30-row list, a 40ms step alone adds 1.2 seconds
+              to the last row's entrance, which stops feeling like
+              choreography and starts feeling like the list is loading
+              slowly. Capping the total spread, or switching to a flat
+              short delay past some item count, keeps the effect
+              proportional.
+            </p>
+            <p>
+              Direction is a deliberate choice, not a default. Entrances
+              typically stagger forward — first item first — so attention
+              follows the group in reading order. Exits often reverse
+              that order, last item first, so the eye's attention
+              retraces its own path back out instead of jumping around.
+              Getting this backwards is subtle enough that it rarely gets
+              flagged in review, but it's noticeably why some staggered
+              exits feel slightly wrong without an obvious cause.
+            </p>
+            <p>
+              One more choreography rule worth stating explicitly: a parent
+              container's transform and a child's opacity fade shouldn't
+              run on unrelated curves with unrelated durations. Two
+              different eased motions compounding on nested elements
+              produces a combined curve that's neither one — not broken,
+              exactly, but perceptibly "off" in a way that's hard to
+              diagnose because neither individual animation, viewed alone,
+              looks wrong.
+            </p>
+          </section>
+
+          <section id="motion-tokens">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Motion Tokens and the DTCG Types</h2>
+            <p>
+              Motion values belong in the same
+              <a href="design-tokens-naming-system.html">token system</a>
+              as color and spacing, not hardcoded per-component — the same
+              naming discipline applies. Duration tokens should be named by
+              the distance band from section two
+              (<code>motion.duration.fast</code>,
+              <code>.base</code>, <code>.slow</code>), and easing tokens
+              should be named by directional role from section four
+              (<code>motion.easing.standard</code>,
+              <code>.decelerate</code>, <code>.accelerate</code>) — never
+              by shape, for the same reason a color token shouldn't be
+              named after its hex value. A token called
+              <code>motion.easing.bouncy</code> is a description wearing a
+              role token's clothes; the day that curve gets retuned to
+              something that isn't bouncy anymore, every consumer of the
+              name is now wrong.
+            </p>
+            <p>
+              The W3C DTCG format — covered in more depth in the tokens
+              guide linked above — defines two primitive types that cover
+              motion directly: <code>$type: "duration"</code>, a number
+              plus a unit string like <code>"300ms"</code>, and
+              <code>$type: "cubicBezier"</code>, an array of exactly four
+              numbers. A composite <code>"transition"</code> type, bundling
+              a duration, an easing reference, and an optional delay into
+              one resolvable unit, is worth adopting even where it isn't
+              formally standardized yet — it keeps a duration and its
+              paired curve from drifting apart when one gets retuned
+              without the other:
+            </p>
+          </section>
+
+          <div class="guide-code">
+            <pre><code>{
+  "motion": {
+    "duration": {
+      "fast":  { "$value": "150ms", "$type": "duration" },
+      "base":  { "$value": "250ms", "$type": "duration" },
+      "slow":  { "$value": "450ms", "$type": "duration" }
+    },
+    "easing": {
+      "standard":   { "$value": [0.4, 0, 0.2, 1], "$type": "cubicBezier" },
+      "decelerate": { "$value": [0,   0, 0.2, 1], "$type": "cubicBezier" },
+      "accelerate": { "$value": [0.4, 0, 1,   1], "$type": "cubicBezier" }
+    },
+    "transition": {
+      "panel-enter": {
+        "$type": "transition",
+        "$value": {
+          "duration": "{motion.duration.base}",
+          "timingFunction": "{motion.easing.decelerate}",
+          "delay": "0ms"
+        }
+      }
+    }
+  }
+}</code></pre>
+          </div>
+
+          <section id="reduced-motion">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Reduced Motion Isn't "Off"</h2>
+            <p>
+              <code>prefers-reduced-motion</code> is an OS-level media
+              feature — the user sets it once, system-wide, and it exposes
+              two values to a stylesheet: <code>reduce</code> and
+              <code>no-preference</code>. For some users this isn't an
+              aesthetic preference: large-scale motion — parallax, zoom,
+              spin, sweeping transforms — can trigger real physical
+              symptoms for people with vestibular disorders, not just
+              mild annoyance. Treating the setting as optional polish
+              rather than a genuine accessibility requirement gets the
+              stakes backwards.
+            </p>
+            <p>
+              The common mistake is treating "respect reduced motion" as
+              "set every duration to 0ms." A hard, instant cut can actually
+              be more disorienting than a short, simple animation, because
+              it removes the continuity cue that told the user
+              <em>where</em> the new state came from — a menu that simply
+              vanishes and reappears elsewhere reads as two unrelated
+              events, not one continuous change. The better approach keeps
+              the state change legible — a brief opacity crossfade, or a
+              small position shift — while stripping out the large-scale
+              transform, parallax, or zoom that could actually cause harm.
+            </p>
+            <p>
+              In practice, that means the media query should swap
+              <em>tokens</em>, not delete the transition system:
+            </p>
+          </section>
+
+          <div class="guide-code">
+            <pre><code>@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-base: 80ms;
+    --motion-duration-slow: 120ms;
+    --motion-easing-decelerate: linear;
+    --motion-easing-accelerate: linear;
+  }
+  .parallax-layer,
+  .hero-zoom {
+    transform: none !important;
+  }
+}</code></pre>
+          </div>
+
+          <section>
+            <p>
+              This keeps the reduced-motion path a designed, tested state —
+              not an unstyled fallback nobody looked at until a user
+              reported it. The same
+              <a href="accessibility-structural-model.html"
+                >structural discipline that governs focus and keyboard
+                behavior</a
+              >
+              applies here: reduced motion is a state to design for
+              deliberately, not a media query to bolt on at the end.
+            </p>
+          </section>
+
+          <section id="pitfalls">
+            <p class="guide-section__kicker mono">§ 09</p>
+            <h2>Five Pitfalls That Look Like Polish</h2>
+            <ul class="guide-pitfalls">
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">01</span>
+                <p>
+                  <strong>Picking the curve before the duration.</strong>
+                  Easing shapes how a duration feels, but it can't fix a
+                  duration that's wrong for the distance in section two.
+                  Set the duration band first, from what's actually
+                  moving, then apply the curve — reversing the order
+                  usually means re-tuning the curve later to compensate for
+                  a duration that was never right.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">02</span>
+                <p>
+                  <strong
+                    >Shipping the silent <code>ease</code> default
+                    everywhere.</strong
+                  >
+                  Every <code>transition: all 200ms;</code> shortcut that
+                  omits a timing function inherits
+                  <code>cubic-bezier(0.25, 0.1, 0.25, 1)</code> from section
+                  three, regardless of whether that shape fits the
+                  motion's role. The pool of "unintentional" curves in a
+                  codebase grows every time this shortcut ships, and it
+                  compounds silently because nothing about it looks like a
+                  bug.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">03</span>
+                <p>
+                  <strong
+                    >Animating layout properties instead of transform and
+                    opacity.</strong
+                  >
+                  Transitioning <code>width</code>, <code>height</code>,
+                  <code>top</code>, or <code>left</code> forces the browser
+                  to recalculate layout on every frame, which is where
+                  animation jank comes from on lower-power devices.
+                  <code>transform</code> and <code>opacity</code> can run
+                  entirely on the compositor, independent of layout — the
+                  same visual result, without the cost.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">04</span>
+                <p>
+                  <strong
+                    >Swapping the decelerate and accelerate roles from
+                    section four.</strong
+                  >
+                  Using an entrance curve on an exiting element makes it
+                  read as if it hesitates before leaving; using an exit
+                  curve on something arriving makes the arrival feel
+                  abrupt. Both are subtle enough to survive review
+                  unnoticed while still registering, faintly, as
+                  something being slightly wrong.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">05</span>
+                <p>
+                  <strong
+                    >Treating reduced motion as a launch-week
+                    afterthought.</strong
+                  >
+                  Bolting a <code>prefers-reduced-motion</code> block onto
+                  a finished motion system, under deadline pressure, is how
+                  reduced-motion paths ship broken or don't ship at all.
+                  Design the reduced state alongside the full one from the
+                  start, the way section eight describes, and it never
+                  becomes a separate line item to run out of time for.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section id="cheat-sheet">
+            <p class="guide-section__kicker mono">§ 10</p>
+            <h2>Quick Reference</h2>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>
+                  / motion_timing_reference
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Typical value</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Micro / small duration</td>
+                    <td>100–250ms</td>
+                    <td>Icon toggles, buttons, in-place moves</td>
+                  </tr>
+                  <tr>
+                    <td>Medium / large duration</td>
+                    <td>250–600ms</td>
+                    <td>Panels, modals, route-level transitions</td>
+                  </tr>
+                  <tr>
+                    <td>Practical ceiling</td>
+                    <td>~600–700ms</td>
+                    <td>Past this it reads as lag, not motion</td>
+                  </tr>
+                  <tr>
+                    <td>CSS silent default</td>
+                    <td>cubic-bezier(.25,.1,.25,1)</td>
+                    <td>Applied automatically when unset</td>
+                  </tr>
+                  <tr>
+                    <td>Entrance role</td>
+                    <td>decelerate</td>
+                    <td>Already moving; slows into place</td>
+                  </tr>
+                  <tr>
+                    <td>Exit role</td>
+                    <td>accelerate</td>
+                    <td>Starts at rest; speeds up leaving</td>
+                  </tr>
+                  <tr>
+                    <td>Critically damped spring</td>
+                    <td>c = 2√(k·m)</td>
+                    <td>Fastest return with no overshoot</td>
+                  </tr>
+                  <tr>
+                    <td>Stagger step</td>
+                    <td>20–50ms per item</td>
+                    <td>Cap total spread on long lists</td>
+                  </tr>
+                  <tr>
+                    <td><code>prefers-reduced-motion</code></td>
+                    <td>reduce / no-preference</td>
+                    <td>OS-level, not a JS or app flag</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              None of the specific numbers in this guide are the point —
+              a team will retune duration bands and curve shapes as the
+              product's voice evolves, and that's expected. What's meant to
+              outlast any single value is the model underneath: duration
+              keyed to distance rather than picked per component, curves
+              assigned by directional role rather than chosen for how they
+              look in isolation, and a reduced-motion path treated as a
+              real designed state rather than a compliance checkbox.
+              Whatever specific milliseconds a team eventually settles on,
+              keeping them behind that model is what makes a hundred-screen
+              product's motion feel like one hand designed all of it,
+              rather than whichever engineer happened to touch that
+              particular transition last.
+            </p>
+          </section>
+        </div>
+
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>PROTOTYPING</span>
+            <span>EASING</span>
+            <span>SPRING PHYSICS</span>
+            <span>MOTION TOKENS</span>
+            <span>REDUCED MOTION</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="auto-layout-constraint-model.html"
+                  >Auto Layout Is a Constraint System, Not a Convenience
+                  Toggle</a
+                >
+              </li>
+              <li>
+                <a href="design-tokens-naming-system.html"
+                  >Design Tokens Are a Naming System, Not a Style Guide</a
+                >
+              </li>
+              <li>
+                <a href="accessibility-structural-model.html"
+                  >Accessibility Is a Structural Decision, Not a Final
+                  Pass</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="../about.html">About us</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="../privacy.html">Privacy policy</a></li>
+            <li><a href="../terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="../privacy.html">Privacy policy</a> ·
+          <a href="../terms.html">Terms of service</a> ·
+          <a href="../about.html">About</a> ·
+          <a href="../contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="../app.js"></script>
+  </body>
+</html>

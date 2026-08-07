@@ -1,0 +1,1913 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Accessibility Is a Structural Decision, Not a Final Pass — PIXMA UX
+      Guides
+    </title>
+    <meta
+      name="description"
+      content="A structural read of web accessibility: how the accessibility tree is built, how a control's accessible name actually gets computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing quietly misses."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/accessibility-structural-model.html"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/accessibility-structural-model.html"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Accessibility Is a Structural Decision, Not a Final Pass"
+    />
+    <meta
+      property="og:description"
+      content="How the accessibility tree gets built, how a control's accessible name is actually computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing misses."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram of accessible name computation order and a modal dialog's focus trap."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Accessibility Is a Structural Decision, Not a Final Pass"
+    />
+    <meta
+      name="twitter:description"
+      content="How the accessibility tree gets built, how a control's accessible name is actually computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing misses."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Accessibility Is a Structural Decision, Not a Final Pass",
+        "description": "A structural read of web accessibility: how the accessibility tree is built, how a control's accessible name actually gets computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing quietly misses.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/accessibility-structural-model.html",
+        "image": "https://pixmauxguides.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+    </style>
+  </head>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="../index.html#guides">All Guides</a>
+            <a href="../index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="../index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="../index.html#guides">All Guides</a>
+          <a href="../index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Accessibility guides</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Structural Model</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">// accessibility · structural_model</p>
+          <h1 class="guide-title">
+            Accessibility Is a Structural Decision, Not a Final Pass
+          </h1>
+          <p class="guide-dek">
+            Most teams learn accessibility as a checklist run at the end of a
+            sprint — alt text, a contrast pass, an <code>aria-label</code>
+            sprinkled onto anything that complains in an audit. This is a
+            structural read of what that checklist is actually testing
+            underneath: how markup produces an accessibility tree, how a
+            control's name gets computed, and why almost none of it can be
+            patched on after the fact.
+          </p>
+          <div class="guide-meta mono">
+            <span>INTERMEDIATE</span>
+            <span class="dot">·</span>
+            <span>16 MIN READ</span>
+            <span class="dot">·</span>
+            <span>ACCESSIBILITY</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#structural-model"
+                ><span class="n">01</span> The Structural Model</a
+              >
+            </li>
+            <li>
+              <a href="#semantic-html"
+                ><span class="n">02</span> Semantic HTML Is Free
+                Accessibility</a
+              >
+            </li>
+            <li>
+              <a href="#accessible-name"
+                ><span class="n">03</span> The Accessible Name</a
+              >
+            </li>
+            <li>
+              <a href="#aria-roles-states"
+                ><span class="n">04</span> ARIA: Roles, States, Properties</a
+              >
+            </li>
+            <li>
+              <a href="#focus-order-traps"
+                ><span class="n">05</span> Focus: Order, Visibility, Traps</a
+              >
+            </li>
+            <li>
+              <a href="#keyboard-patterns"
+                ><span class="n">06</span> Keyboard Patterns for Custom
+                Widgets</a
+              >
+            </li>
+            <li>
+              <a href="#forms-labels-errors"
+                ><span class="n">07</span> Forms: Labels, Errors,
+                Announcements</a
+              >
+            </li>
+            <li>
+              <a href="#testing-coverage"
+                ><span class="n">08</span> Testing: Coverage vs. What It
+                Misses</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                ><span class="n">09</span> Six Pitfalls That Look Like Edge
+                Cases</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"><span class="n">10</span> Quick Reference</a>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+          <section id="structural-model">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>The Structural Model</h2>
+            <p>
+              A screen reader doesn't read your page. It reads a second,
+              parallel data structure the browser builds from your markup
+              called the <strong>accessibility tree</strong> — a filtered,
+              semantic-only view of the DOM where purely visual containers
+              like generic <code>div</code>s and <code>span</code>s are
+              mostly flattened away, and elements with actual meaning survive
+              as a node with three things attached: a <strong>role</strong>
+              (what kind of thing this is), a <strong>name</strong> (what to
+              call it out loud), and a set of <strong>states</strong> (its
+              current condition — expanded, checked, disabled, current). Every
+              other assistive technology — switch access, voice control,
+              braille displays — reads from that same tree, not from pixels.
+            </p>
+            <p>
+              This is the fact that reframes everything else in this guide:
+              ARIA attributes can only edit labels and metadata on a tree
+              whose <em>structure</em> was already decided by your HTML.
+              They cannot invent a heading that isn't there, cannot turn a
+              flat sequence of clickable <code>div</code>s into a real list,
+              and cannot retroactively give a page landmarks it never had.
+              Structure comes from markup, written once, at authoring time.
+              Everything ARIA can do is layered on top of whatever structure
+              already exists — which is exactly why "run an audit, then patch
+              the failures with ARIA" produces pages that pass automated
+              scans while still being confusing or unusable with a screen
+              reader.
+            </p>
+            <p>
+              Treat every interactive piece of UI as three decisions made in
+              this order, the same way a load-bearing wall gets decided before
+              paint color: what role does this already have, or need
+              declared; what name will assistive tech attach to it; and what
+              states will need to update as the user interacts with it. Get
+              those three right at the markup layer and most of what's
+              normally called "accessibility work" turns out to already be
+              done.
+            </p>
+          </section>
+
+          <section id="semantic-html">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>Semantic HTML Is Free Accessibility You're Not Using</h2>
+            <p>
+              Native HTML elements ship with role, keyboard behavior, and
+              often state handling built in, at no cost. A
+              <code>&lt;button&gt;</code> is focusable, already has
+              <code>role="button"</code>, and already responds to both Enter
+              and Space without a line of JavaScript. Rebuild that same
+              button out of a <code>&lt;div onclick&gt;</code> instead, and
+              you now owe the platform every piece of that for free: a
+              <code>tabindex="0"</code> so it's reachable, an explicit
+              <code>role="button"</code>, and a keydown handler for
+              <em>two different keys</em>, because browsers don't
+              auto-activate a plain div on Enter or Space the way they do a
+              real button. It's not that this debt can't be repaid — it's
+              that it's easy to under-repay, and nothing visually signals
+              that you have.
+            </p>
+            <p>
+              Landmark elements — <code>&lt;header&gt;</code>,
+              <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
+              <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code> — give
+              screen reader users a jump list roughly equivalent to what
+              sighted users get from peripheral vision scanning a page
+              layout: "skip to the nav," "skip to main," without reading
+              everything in between. It's one of the most common navigation
+              methods screen reader users rely on, and it's unavailable on a
+              page built entirely from generic containers.
+            </p>
+            <p>
+              Heading levels are a second jump list. Many screen reader users
+              routinely skim a page by pulling up its heading outline —
+              <code>h1</code> through <code>h6</code> — the same way a
+              sighted user's eye jumps between bold headlines on a page
+              before deciding what to actually read. Choosing a heading tag
+              for its default font size instead of its place in the outline,
+              or skipping from an <code>h2</code> straight to an
+              <code>h4</code> because it "looked right," breaks that outline
+              for the people relying on it — even though nothing about it
+              looks wrong.
+            </p>
+          </section>
+
+          <section id="accessible-name">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>The Accessible Name</h2>
+            <p>
+              Every node in the accessibility tree carries an
+              <strong>accessible name</strong> — the string a screen reader
+              actually announces for it — and that string is not always the
+              text you can see. It's the output of a small, ordered
+              computation, and the first source present wins outright, even
+              overriding sources further down the list.
+            </p>
+            <p>
+              <code>aria-labelledby</code> is checked first: if it's present,
+              it wins completely, pulling its text from wherever it points —
+              even if that's nowhere near the control visually, and even if
+              the control also has visible text of its own that gets
+              ignored. Next comes <code>aria-label</code>, a literal string
+              set directly on the element. After that comes native labelling
+              — a <code>&lt;label for&gt;</code> association, an
+              <code>alt</code> attribute on an image, or the element's own
+              visible text content. Last, and unreliable enough to treat as a
+              fallback rather than a strategy, is the <code>title</code>
+              attribute — inconsistently announced across screen readers and
+              often invisible until a mouse hover that keyboard and touch
+              users never trigger.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 260"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">
+                  Accessible name computation order
+                </title>
+                <desc id="fig1-desc">
+                  Four priority tiers for how a control's accessible name is
+                  computed — aria-labelledby, then aria-label, then native
+                  labelling, then the title attribute as a last resort — next
+                  to a before-and-after example of the same icon button with
+                  and without a name.
+                </desc>
+                <defs>
+                  <marker
+                    id="a11y-arrow"
+                    viewBox="0 0 8 8"
+                    refX="4"
+                    refY="4"
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto-start-reverse"
+                  >
+                    <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                  </marker>
+                </defs>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <text
+                    x="20"
+                    y="20"
+                    fill="#7fb3e0"
+                    font-size="11"
+                    letter-spacing="0.5"
+                  >
+                    FIRST MATCH WINS ↓
+                  </text>
+
+                  <rect
+                    x="20"
+                    y="34"
+                    width="330"
+                    height="42"
+                    rx="2"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.5"
+                  />
+                  <text x="34" y="52" fill="#e8edf4" font-size="12">
+                    1 · aria-labelledby
+                  </text>
+                  <text x="34" y="68" fill="#9fb2cc" font-size="9.5">
+                    points to text elsewhere on the page
+                  </text>
+
+                  <line
+                    x1="185"
+                    y1="76"
+                    x2="185"
+                    y2="90"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    marker-end="url(#a11y-arrow)"
+                  />
+
+                  <rect
+                    x="20"
+                    y="92"
+                    width="330"
+                    height="42"
+                    rx="2"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.2"
+                    opacity="0.85"
+                  />
+                  <text x="34" y="110" fill="#e8edf4" font-size="12">
+                    2 · aria-label
+                  </text>
+                  <text x="34" y="126" fill="#9fb2cc" font-size="9.5">
+                    a literal string set on the element itself
+                  </text>
+
+                  <line
+                    x1="185"
+                    y1="134"
+                    x2="185"
+                    y2="148"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    marker-end="url(#a11y-arrow)"
+                  />
+
+                  <rect
+                    x="20"
+                    y="150"
+                    width="330"
+                    height="42"
+                    rx="2"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1"
+                    opacity="0.7"
+                  />
+                  <text x="34" y="168" fill="#e8edf4" font-size="12">
+                    3 · native labelling
+                  </text>
+                  <text x="34" y="184" fill="#9fb2cc" font-size="9.5">
+                    label-for, alt text, visible text content
+                  </text>
+
+                  <line
+                    x1="185"
+                    y1="192"
+                    x2="185"
+                    y2="206"
+                    stroke="#5b789f"
+                    stroke-width="1"
+                    marker-end="url(#a11y-arrow)"
+                  />
+
+                  <rect
+                    x="20"
+                    y="208"
+                    width="330"
+                    height="42"
+                    rx="2"
+                    fill="none"
+                    stroke="#5b789f"
+                    stroke-width="1"
+                    stroke-dasharray="3 3"
+                    opacity="0.6"
+                  />
+                  <text x="34" y="226" fill="#9fb2cc" font-size="12">
+                    4 · title attribute
+                  </text>
+                  <text x="34" y="242" fill="#5b789f" font-size="9.5">
+                    last resort — inconsistent, easy to miss
+                  </text>
+
+                  <line
+                    x1="392"
+                    y1="18"
+                    x2="392"
+                    y2="252"
+                    stroke="#12335f"
+                    stroke-width="1"
+                  />
+
+                  <text
+                    x="412"
+                    y="20"
+                    fill="#7fb3e0"
+                    font-size="11"
+                    letter-spacing="0.5"
+                  >
+                    SAME ICON, TWO NAMES
+                  </text>
+
+                  <rect
+                    x="412"
+                    y="40"
+                    width="130"
+                    height="36"
+                    rx="4"
+                    fill="none"
+                    stroke="#c9788a"
+                    stroke-width="1.2"
+                  />
+                  <circle
+                    cx="432"
+                    cy="58"
+                    r="7"
+                    fill="none"
+                    stroke="#c9788a"
+                    stroke-width="1.4"
+                  />
+                  <line
+                    x1="437"
+                    y1="63"
+                    x2="443"
+                    y2="69"
+                    stroke="#c9788a"
+                    stroke-width="1.4"
+                  />
+                  <text x="454" y="62" fill="#c9788a" font-size="9">
+                    icon button
+                  </text>
+                  <text x="412" y="90" fill="#c9788a" font-size="9.5">
+                    name: "" — announced only "button"
+                  </text>
+
+                  <rect
+                    x="412"
+                    y="112"
+                    width="130"
+                    height="36"
+                    rx="4"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.4"
+                  />
+                  <circle
+                    cx="432"
+                    cy="130"
+                    r="7"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.4"
+                  />
+                  <line
+                    x1="437"
+                    y1="135"
+                    x2="443"
+                    y2="141"
+                    stroke="#7fb3e0"
+                    stroke-width="1.4"
+                  />
+                  <text x="454" y="134" fill="#7fb3e0" font-size="9">
+                    icon button
+                  </text>
+                  <text x="412" y="162" fill="#7fb3e0" font-size="9.5">
+                    aria-label="Search"
+                  </text>
+                  <text x="412" y="176" fill="#9fb2cc" font-size="9.5">
+                    name: "Search" — announced correctly
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — Accessible name computation order: the first source
+              present wins, and an icon with no label announces nothing at
+              all.
+            </figcaption>
+          </figure>
+
+          <section>
+            <p>
+              Two failures come directly out of this order. The common one is
+              an icon-only button — a magnifying glass, a hamburger, a
+              trash-can — with no visible text and no <code>aria-label</code>,
+              so its computed name is an empty string. A screen reader
+              announces it as simply "button," giving no indication of what
+              it does. The subtler one is a mismatch between the visible
+              label and the accessible name: setting an
+              <code>aria-label</code> that reads differently from the text a
+              sighted user sees breaks voice-control users, who typically
+              activate a control by speaking its <em>visible</em> label —
+              this exact mismatch has its own WCAG success criterion (2.5.3,
+              Label in Name) because it's common enough to name directly.
+            </p>
+          </section>
+
+          <section id="aria-roles-states">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>ARIA: Roles, States, and Properties</h2>
+            <p>
+              ARIA is a vocabulary of attributes that describe roles, states,
+              and properties to the accessibility tree — nothing more. It
+              changes no styling, adds no keyboard behavior, and triggers no
+              JavaScript on its own; it is purely a labeling layer sitting on
+              top of whatever the DOM and your event handlers already do.
+              That single fact resolves most confusion about when to reach
+              for it.
+            </p>
+            <p>
+              Three practical rules cover the majority of real cases. First,
+              if a native element already does the job, use it — recreating
+              a button out of a <code>div</code> plus
+              <code>role="button"</code> only rebuilds, by hand and
+              imperfectly, what <code>&lt;button&gt;</code> already gives for
+              free. Second, avoid overriding an element's built-in semantics
+              unless there's genuinely no other option — putting
+              <code>role="presentation"</code> on a data table strips its
+              structure from assistive tech entirely. Third, and most often
+              skipped: every interactive role needs both a real accessible
+              name and full keyboard operability. A role with no name is
+              frequently worse than no role at all, because it tells
+              assistive technology "this matters, pay attention," and then
+              has nothing to say when it does.
+            </p>
+            <p>
+              It helps to separate three things ARIA attributes describe.
+              <strong>Roles</strong> declare what an element fundamentally
+              is — <code>role="dialog"</code>, <code>role="tab"</code>,
+              <code>role="alert"</code> — and are generally set once and left
+              alone. <strong>States</strong> describe a condition that
+              changes as the user interacts —
+              <code>aria-expanded</code>, <code>aria-checked</code>,
+              <code>aria-selected</code>, <code>aria-current</code> — and
+              must be kept in sync with the actual UI on every change, not
+              set once at load. <strong>Properties</strong> describe more
+              stable relationships between elements —
+              <code>aria-describedby</code>, <code>aria-controls</code>,
+              <code>aria-labelledby</code> — wiring one element to another
+              that the visual layout alone doesn't make explicit.
+            </p>
+            <p>
+              <code>aria-live</code> regions announce content that changes
+              without a page reload — a save confirmation, a cart total, an
+              inline validation message. <code>polite</code> waits for the
+              screen reader to finish whatever it's currently saying before
+              announcing the update; <code>assertive</code> interrupts
+              immediately and should be reserved for things that genuinely
+              can't wait, like a failed submission. The common mistake runs
+              in both directions: marking too much of a page as live and
+              drowning users in announcements for routine UI churn, or never
+              marking anything live and leaving async updates — a cart count
+              ticking up, a spinner resolving — completely silent to anyone
+              not looking directly at that pixel.
+            </p>
+          </section>
+
+          <section id="focus-order-traps">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>Focus: Order, Visibility, and Traps</h2>
+            <p>
+              Tab order follows <strong>DOM order</strong>, full stop — not
+              the order things appear on screen. Reorder elements visually
+              with CSS <code>order</code>, grid placement, or absolute
+              positioning without moving them in the underlying markup, and
+              the Tab key still walks the original DOM sequence, jumping
+              across the screen in a pattern that has nothing to do with what
+              a sighted user just read left to right. Nobody notices this in
+              a mouse-only walkthrough, because a mouse never has to follow
+              Tab order — it's exclusively a keyboard and screen-reader
+              problem, which is exactly why it survives so many rounds of
+              visual QA untouched.
+            </p>
+            <p>
+              A second, related failure is removing the default focus
+              outline — <code>outline: none</code> — without shipping a
+              replacement. That outline is the only signal a keyboard user
+              gets for where they currently are on the page; strip it and
+              every keyboard interaction becomes a guessing game. The
+              <code>:focus-visible</code> pseudo-class exists precisely for
+              this: it lets you style focus differently for keyboard
+              navigation than for a mouse click, so the outline that looks
+              unnecessary on a clicked button still appears for the person
+              who tabbed to it.
+            </p>
+            <p>
+              Skip links — a hidden "Skip to main content" link that becomes
+              visible on focus — let keyboard and screen reader users bypass
+              repeated navigation instead of tabbing through the same header
+              on every single page. The common failure isn't a missing skip
+              link; it's a skip link that's present but not actually the
+              first focusable element, or that fails to move focus to the
+              destination it points to.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 300"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig2-title fig2-desc"
+              >
+                <title id="fig2-title">
+                  DOM order versus a modal's focus trap
+                </title>
+                <desc id="fig2-desc">
+                  Left: three boxes displayed in one visual order while their
+                  underlying DOM and Tab order stay fixed, producing a
+                  mismatch. Right: a modal dialog that traps Tab focus among
+                  its own three controls and returns focus to the trigger
+                  button once it closes.
+                </desc>
+                <defs>
+                  <marker
+                    id="a11y-arrow2"
+                    viewBox="0 0 8 8"
+                    refX="4"
+                    refY="4"
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto-start-reverse"
+                  >
+                    <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                  </marker>
+                </defs>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <line
+                    x1="358"
+                    y1="14"
+                    x2="358"
+                    y2="286"
+                    stroke="#12335f"
+                    stroke-width="1"
+                  />
+
+                  <text
+                    x="20"
+                    y="24"
+                    fill="#7fb3e0"
+                    font-size="11"
+                    letter-spacing="0.5"
+                  >
+                    VISUAL ORDER ≠ DOM ORDER
+                  </text>
+                  <text x="20" y="94" fill="#9fb2cc" font-size="9">
+                    displayed left → right, via CSS order
+                  </text>
+
+                  <rect
+                    x="20"
+                    y="100"
+                    width="80"
+                    height="60"
+                    rx="3"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.4"
+                  />
+                  <text
+                    x="60"
+                    y="135"
+                    fill="#e8edf4"
+                    font-size="16"
+                    text-anchor="middle"
+                  >
+                    B
+                  </text>
+                  <rect
+                    x="130"
+                    y="100"
+                    width="80"
+                    height="60"
+                    rx="3"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.4"
+                  />
+                  <text
+                    x="170"
+                    y="135"
+                    fill="#e8edf4"
+                    font-size="16"
+                    text-anchor="middle"
+                  >
+                    C
+                  </text>
+                  <rect
+                    x="240"
+                    y="100"
+                    width="80"
+                    height="60"
+                    rx="3"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.4"
+                  />
+                  <text
+                    x="280"
+                    y="135"
+                    fill="#e8edf4"
+                    font-size="16"
+                    text-anchor="middle"
+                  >
+                    A
+                  </text>
+
+                  <polyline
+                    points="280,182 60,182 170,182"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.2"
+                    stroke-dasharray="3 3"
+                    marker-end="url(#a11y-arrow2)"
+                  />
+                  <circle
+                    cx="280"
+                    cy="182"
+                    r="9"
+                    fill="#081b38"
+                    stroke="#7fb3e0"
+                    stroke-width="1.2"
+                  />
+                  <text
+                    x="280"
+                    y="186"
+                    fill="#7fb3e0"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    1
+                  </text>
+                  <circle
+                    cx="60"
+                    cy="182"
+                    r="9"
+                    fill="#081b38"
+                    stroke="#7fb3e0"
+                    stroke-width="1.2"
+                  />
+                  <text
+                    x="60"
+                    y="186"
+                    fill="#7fb3e0"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    2
+                  </text>
+                  <circle
+                    cx="170"
+                    cy="182"
+                    r="9"
+                    fill="#081b38"
+                    stroke="#7fb3e0"
+                    stroke-width="1.2"
+                  />
+                  <text
+                    x="170"
+                    y="186"
+                    fill="#7fb3e0"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    3
+                  </text>
+
+                  <text
+                    x="170"
+                    y="226"
+                    fill="#7fb3e0"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    Tab still visits A → B → C, the DOM order
+                  </text>
+                  <text
+                    x="170"
+                    y="240"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    — crossing back over what's on screen
+                  </text>
+
+                  <text
+                    x="378"
+                    y="24"
+                    fill="#7fb3e0"
+                    font-size="11"
+                    letter-spacing="0.5"
+                  >
+                    FOCUS TRAP INSIDE A DIALOG
+                  </text>
+
+                  <rect
+                    x="398"
+                    y="44"
+                    width="282"
+                    height="150"
+                    rx="4"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.4"
+                  />
+                  <text x="412" y="62" fill="#7fb3e0" font-size="9.5">
+                    role="dialog" aria-modal="true"
+                  </text>
+
+                  <rect
+                    x="412"
+                    y="76"
+                    width="150"
+                    height="24"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.1"
+                  />
+                  <text x="420" y="92" fill="#e8edf4" font-size="9">
+                    Field
+                  </text>
+
+                  <rect
+                    x="412"
+                    y="148"
+                    width="70"
+                    height="26"
+                    rx="2"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.1"
+                  />
+                  <text x="424" y="165" fill="#e8edf4" font-size="9">
+                    Cancel
+                  </text>
+
+                  <rect
+                    x="498"
+                    y="148"
+                    width="70"
+                    height="26"
+                    rx="2"
+                    fill="#7fb3e0"
+                    opacity="0.85"
+                  />
+                  <text x="516" y="165" fill="#081b38" font-size="9">
+                    Save
+                  </text>
+
+                  <polyline
+                    points="487,88 568,88 568,161 482,161 412,161 412,88"
+                    fill="none"
+                    stroke="#5b789f"
+                    stroke-width="1"
+                    stroke-dasharray="2 2"
+                    marker-end="url(#a11y-arrow2)"
+                  />
+                  <text
+                    x="540"
+                    y="210"
+                    fill="#9fb2cc"
+                    font-size="8.5"
+                    text-anchor="middle"
+                  >
+                    Tab wraps: Field → Save → Cancel → Field
+                  </text>
+
+                  <rect
+                    x="470"
+                    y="240"
+                    width="140"
+                    height="30"
+                    rx="3"
+                    fill="none"
+                    stroke="#e8edf4"
+                    stroke-width="1.2"
+                    stroke-dasharray="2 2"
+                  />
+                  <text
+                    x="540"
+                    y="259"
+                    fill="#e8edf4"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    trigger button
+                  </text>
+                  <line
+                    x1="470"
+                    y1="238"
+                    x2="440"
+                    y2="196"
+                    stroke="#7fb3e0"
+                    stroke-width="1.1"
+                    marker-end="url(#a11y-arrow2)"
+                  />
+                  <text x="398" y="222" fill="#7fb3e0" font-size="8.5">
+                    Esc / close →
+                  </text>
+                  <text x="398" y="234" fill="#7fb3e0" font-size="8.5">
+                    focus returns here
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 02 — Left: CSS reordered three boxes visually while their
+              DOM order stayed fixed, so Tab crosses back over the layout.
+              Right: a well-behaved dialog traps Tab among its own controls
+              and hands focus back to the button that opened it.
+            </figcaption>
+          </figure>
+
+          <section>
+            <p>
+              That right-hand pattern is worth stating as a checklist on its
+              own, because a modal is one of the highest-stakes focus
+              interactions on most sites: on open, focus should move into the
+              dialog, typically to its first focusable control or the dialog
+              itself; while it's open, Tab and Shift+Tab should cycle only
+              among the dialog's own controls, never leaking back to the page
+              underneath; and on close — whether by Escape, a Cancel button,
+              or a successful submit — focus should return to the exact
+              element that opened it. That last step is the one most
+              commonly skipped, and skipping it means a keyboard user closes
+              a dialog and has no idea where they've landed on the page.
+            </p>
+            <p>
+              One more focus case that's easy to miss: single-page apps that
+              swap content without a full page load give a screen reader no
+              automatic signal that navigation happened, because there was no
+              new page load to announce. Moving focus to the new view's
+              heading — or firing a dedicated live-region announcement — on
+              every route change is what replaces that missing signal;
+              without it, a screen reader user can trigger a navigation and
+              simply never learn that anything changed.
+            </p>
+          </section>
+
+          <section id="keyboard-patterns">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Keyboard Patterns for Custom Widgets</h2>
+            <p>
+              For genuinely custom widgets — tabs, menus, comboboxes,
+              sliders, listboxes — there's an established set of keyboard
+              conventions (the WAI-ARIA Authoring Practices patterns) that
+              exist so a tab list behaves the same way on your site as it
+              does everywhere else a keyboard or screen reader user has
+              already learned it. The baseline expectations are consistent
+              across widgets: Enter or Space activates, Escape closes or
+              cancels, arrow keys move between items inside a composite
+              control, and Home/End jump to the first or last item.
+            </p>
+            <p>
+              A pattern called <strong>roving tabindex</strong> underlies most
+              composite widgets: only one item inside the group is ever a Tab
+              stop at a time, and arrow keys move that single stop between
+              siblings, updating each item's <code>tabindex</code> as focus
+              moves. That keeps the Tab key reserved for entering and
+              leaving the whole widget as one unit — a tab list with eight
+              tabs should cost the rest of the page exactly one Tab stop, not
+              eight.
+            </p>
+            <p>
+              The failure worth calling out explicitly here connects
+              straight back to section four: a custom dropdown can carry
+              every "correct" ARIA role — <code>combobox</code>,
+              <code>listbox</code>, <code>option</code> — and still be
+              completely inoperable by keyboard, if the only code wired up is
+              a mouse <code>onclick</code> handler. It will look right in a
+              visual review and often pass an automated scan that only checks
+              whether the attributes are present, while being unusable for
+              anyone who can't click. ARIA describes intent; your event
+              handlers are what actually deliver it.
+            </p>
+          </section>
+
+          <section id="forms-labels-errors">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Forms: Labels, Errors, and Announcements</h2>
+            <p>
+              Every input needs a programmatically associated label — a real
+              <code>&lt;label for="id"&gt;</code>, or the input wrapped
+              inside one — not placeholder text standing in for it.
+              Placeholder text disappears the moment someone starts typing,
+              isn't reliably treated as a persistent label by every screen
+              reader, and typically ships with contrast too low to read
+              comfortably by default.
+            </p>
+            <p>
+              Related inputs need a group label, not just individual ones —
+              wrap a set of radio buttons, or the several fields of an
+              address, in <code>&lt;fieldset&gt;</code> with a
+              <code>&lt;legend&gt;</code> so assistive tech announces what
+              the group as a whole represents, rather than presenting four
+              unrelated fields with no shared context.
+            </p>
+            <p>
+              For validation errors, connect the error text to its field
+              with <code>aria-describedby</code> pointing at the error
+              message's <code>id</code>, and set
+              <code>aria-invalid="true"</code> on the input while the problem
+              stands — that combination means a screen reader announces both
+              the field's name and its specific error the moment it receives
+              focus, instead of relying on red text a sighted user has to
+              spot visually. When errors surface asynchronously — after a
+              failed submit, or live as someone types — wrap the summary or
+              message in <code>aria-live="polite"</code>, or
+              <code>role="alert"</code> for something urgent enough to
+              interrupt, so the update gets announced without the user having
+              to re-scan the whole form to discover it. The balance to hold
+              is not over-announcing: a live region that fires on every
+              keystroke turns a helpful signal into constant noise.
+            </p>
+          </section>
+
+          <section id="testing-coverage">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Testing: Coverage vs. What It Misses</h2>
+            <p>
+              Automated scanners — axe, Lighthouse, WAVE — are genuinely
+              good at what they check: missing alt text, insufficient color
+              contrast, unlabeled form fields, invalid ARIA attribute values,
+              duplicate IDs. Commonly cited industry estimates put automated
+              coverage at roughly a third to half of WCAG's success criteria
+              — a real floor worth having in CI, not a ceiling worth trusting
+              on its own.
+            </p>
+            <p>
+              What a scanner structurally cannot judge: whether alt text is
+              actually descriptive rather than a filename, whether reading
+              order makes sense as a sequence rather than merely existing,
+              whether a custom widget from section six is truly operable by
+              keyboard rather than just correctly labeled, whether a live
+              region announces at a sane frequency, or whether focus really
+              returns to the right place once a dialog closes. All five of
+              those require a human running through the interface, not a
+              rule checking an attribute's presence.
+            </p>
+            <p>
+              A minimum manual pass covers most of that gap cheaply: unplug
+              the mouse and complete your core flow using only Tab,
+              Shift+Tab, Enter, Space, arrow keys, and Escape; spend five
+              minutes on that same flow with a screen reader running —
+              VoiceOver ships free on macOS, NVDA is free on Windows — rather
+              than only skimming the homepage; and zoom the browser to 200%
+              to confirm content reflows into a single column instead of
+              clipping or forcing horizontal scroll. None of that replaces
+              automated tooling — it catches the roughly half of real issues
+              automated tooling was never built to see.
+            </p>
+          </section>
+
+          <section id="pitfalls">
+            <p class="guide-section__kicker mono">§ 09</p>
+            <h2>Six Pitfalls That Look Like Edge Cases</h2>
+            <ul class="guide-pitfalls">
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">01</span>
+                <p>
+                  <strong>Icon-only buttons with no accessible name.</strong>
+                  The single most common failure from section three — a
+                  search or close icon that's a real, focusable control
+                  announced as nothing but "button." Add
+                  <code>aria-label</code> or visually-hidden text the moment
+                  an icon stands in for a word.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">02</span>
+                <p>
+                  <strong
+                    ><code>outline: none</code> with no
+                    <code>:focus-visible</code> replacement.</strong
+                  >
+                  Removes the only signal a keyboard user has for their
+                  current position on the page. Replace it, never just
+                  delete it.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">03</span>
+                <p>
+                  <strong
+                    >Reordering visually with CSS without reordering the
+                    DOM.</strong
+                  >
+                  Creates the exact mismatch shown in figure two — the fix is
+                  moving the markup, not adding an ARIA attribute on top of
+                  it.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">04</span>
+                <p>
+                  <strong>Correct roles, no behavior.</strong>
+                  A custom widget with every appropriate ARIA role wired up,
+                  and only a mouse click handler underneath it — inoperable
+                  by keyboard, invisible to an audit that only checks for
+                  attribute presence.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">05</span>
+                <p>
+                  <strong>Modals that don't return focus on close.</strong>
+                  A keyboard user who opened a dialog loses their place in
+                  the page entirely once it closes without sending focus
+                  back to the trigger.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">06</span>
+                <p>
+                  <strong>Ignoring <code>prefers-reduced-motion</code>.</strong>
+                  Parallax, autoplaying carousels, and large animated
+                  transitions can cause real physical symptoms for people
+                  with vestibular disorders, not just mild annoyance. Wrap
+                  non-essential motion behind the media query and provide a
+                  still, static equivalent when it's set.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section id="cheat-sheet">
+            <p class="guide-section__kicker mono">§ 10</p>
+            <h2>Quick Reference</h2>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>
+                  / rules_of_thumb
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">What it controls</th>
+                    <th scope="col">Rule of thumb</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Accessible name</td>
+                    <td>What's announced for a control</td>
+                    <td>labelledby beats label beats native content</td>
+                  </tr>
+                  <tr>
+                    <td>Role</td>
+                    <td>What kind of control this is</td>
+                    <td>Prefer the native element over role on a div</td>
+                  </tr>
+                  <tr>
+                    <td>ARIA state</td>
+                    <td>Current condition of a control</td>
+                    <td>Update on every change, not just once at load</td>
+                  </tr>
+                  <tr>
+                    <td>Focus order</td>
+                    <td>Tab key sequence</td>
+                    <td>Follows DOM order, never CSS visual order</td>
+                  </tr>
+                  <tr>
+                    <td>:focus-visible</td>
+                    <td>Visible focus indicator</td>
+                    <td>Restyle it — never remove it outright</td>
+                  </tr>
+                  <tr>
+                    <td>aria-live</td>
+                    <td>Announces content that changes without reload</td>
+                    <td>polite for routine updates, alert for urgent ones</td>
+                  </tr>
+                  <tr>
+                    <td>Roving tabindex</td>
+                    <td>Which item in a composite is Tab-reachable</td>
+                    <td>One tab stop per widget; arrows move within it</td>
+                  </tr>
+                  <tr>
+                    <td>aria-describedby</td>
+                    <td>Extra description read after the name</td>
+                    <td>Point it at error text tied to that exact field</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              Almost everything in this guide is cheaper the earlier it's
+              decided. A heading level, a native <code>&lt;button&gt;</code>,
+              a label wired to its input — each one costs nothing extra when
+              it's the first draft of the markup, and costs a rebuild when
+              it's retrofitted after launch. Accessibility rewards being
+              treated as a structural decision made once, not a final pass
+              run at the end.
+            </p>
+          </section>
+        </div>
+
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>ACCESSIBILITY</span>
+            <span>ARIA</span>
+            <span>KEYBOARD NAV</span>
+            <span>SEMANTIC HTML</span>
+            <span>WCAG</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="color-contrast-systems.html"
+                  >Color Contrast Is Math, Not Taste</a
+                >
+              </li>
+              <li>
+                <a href="type-scale-systems.html"
+                  >Font Size Is a Formula, Not a Feeling</a
+                >
+              </li>
+              <li>
+                <a href="whitespace-as-ui-component.html"
+                  >Whitespace as a UI Component, Not a Leftover</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="../about.html">About us</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="../privacy.html">Privacy policy</a></li>
+            <li><a href="../terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check
+            back or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="../privacy.html">Privacy policy</a> ·
+          <a href="../terms.html">Terms of service</a> ·
+          <a href="../about.html">About</a> ·
+          <a href="../contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="../app.js"></script>
+  </body>
+</html>
