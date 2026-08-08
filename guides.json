@@ -79,5 +79,23 @@
     "title": "Motion Timing Is a Physics Model, Not a Preset",
     "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
     "thumbnail": "/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset_thumbnail.png"
+  },
+  {
+    "id": "dark-mode-second-palette",
+    "category": "color-theory",
+    "level": "intermediate",
+    "readTime": 12,
+    "title": "Dark Mode Is a Second Palette, Not an Inverted Filter",
+    "description": "Elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch.",
+    "thumbnail": "/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter_thumbnail.png"
+  },
+  {
+    "id": "line-length-reading-constraint",
+    "category": "typography",
+    "level": "beginner",
+    "readTime": 9,
+    "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
+    "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
+    "thumbnail": "/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought_thumbnail.png"
   }
 ]

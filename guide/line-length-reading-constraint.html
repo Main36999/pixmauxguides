@@ -1,0 +1,1296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Line Length Is a Reading Constraint, Not a Layout Afterthought —
+      PIXMA UX Guides
+    </title>
+    <meta
+      name="description"
+      content="The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/line-length-reading-constraint.html"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/line-length-reading-constraint.html"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Line Length Is a Reading Constraint, Not a Layout Afterthought"
+    />
+    <meta
+      property="og:description"
+      content="How measure and line-height work together: the 45-75 character range, why the ch unit is the only sizing unit that tracks it, and CSS that keeps both steady across breakpoints."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/thumbnail_image/line-length-reading-constraint-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Diagram comparing a wide line of text with a long eye return-sweep against a narrower, comfortably measured line with a short return-sweep."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Line Length Is a Reading Constraint, Not a Layout Afterthought"
+    />
+    <meta
+      name="twitter:description"
+      content="How measure and line-height work together: the 45-75 character range, why the ch unit is the only sizing unit that tracks it, and CSS that keeps both steady across breakpoints."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/thumbnail_image/line-length-reading-constraint-thumbnail.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
+        "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/line-length-reading-constraint.html",
+        "image": "https://pixmauxguides.com/thumbnail_image/line-length-reading-constraint-thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "datePublished": "2026-08-08",
+        "dateModified": "2026-08-08",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. Identical token set
+         to the other guide pages so typography and spacing stay uniform
+         across the whole /guide/ section. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+
+      .guide-formula {
+        font-family: var(--gp-mono);
+        font-size: 0.95rem;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-blue-line);
+        padding: 12px 16px;
+        margin: 0 0 18px;
+        letter-spacing: 0.02em;
+      }
+      .guide-code {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 20px;
+        margin: 4px 0 32px;
+        overflow-x: auto;
+      }
+      .guide-code pre {
+        margin: 0;
+        font-family: var(--gp-mono);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #e8edf4;
+      }
+      .guide-code pre code {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <!--HEADER_START--><header class="site-header">
+      <div class="wrap header-inner">
+        <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="../index.html#guides">All Guides</a>
+            <a href="../index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="../index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="../index.html#guides">All Guides</a>
+          <a href="../index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header><!--HEADER_END-->
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Typography</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Line Length</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">
+            // typography · line_length_reading_constraint
+          </p>
+          <h1 class="guide-title">
+            Line Length Is a Reading Constraint, Not a Layout Afterthought
+          </h1>
+          <p class="guide-dek">
+            Most layouts treat line length as whatever happens to fit between
+            the margins at whatever width the visitor's browser happens to
+            be. It isn't neutral: stretch a line past roughly 75 characters
+            and the eye's return sweep to the start of the next line grows
+            long enough to lose its place; squeeze it under about 45 and
+            reading breaks into a choppy, hyphen-heavy rhythm before it's
+            found one at all. The measure is a real ergonomic constraint
+            with a known comfortable range, a CSS unit built specifically to
+            hold it, and a line-height that has to move together with it —
+            not a layout afterthought decided by whichever container
+            happens to be nearby.
+          </p>
+          <div class="guide-meta mono">
+            <span>BEGINNER</span>
+            <span class="dot">·</span>
+            <span>9 MIN READ</span>
+            <span class="dot">·</span>
+            <span>TYPOGRAPHY</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#why-wide-lines-tire"
+                ><span class="n">01</span> Why Wide Text Blocks Feel
+                Exhausting to Read</a
+              >
+            </li>
+            <li>
+              <a href="#the-measure"
+                ><span class="n">02</span> The 45–75 Character Measure</a
+              >
+            </li>
+            <li>
+              <a href="#measuring-in-ch"
+                ><span class="n">03</span> Measuring in ch, Not Pixels or
+                Percentages</a
+              >
+            </li>
+            <li>
+              <a href="#leading-scales-with-measure"
+                ><span class="n">04</span> Why Line-Height Has to Scale With
+                the Measure</a
+              >
+            </li>
+            <li>
+              <a href="#formula"
+                ><span class="n">05</span> A Formula That Keeps Measure and
+                Leading in Sync</a
+              >
+            </li>
+            <li>
+              <a href="#holding-the-measure"
+                ><span class="n">06</span> Holding the Measure at Any
+                Viewport</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                ><span class="n">07</span> Four Pitfalls That Quietly Break
+                the Measure</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                ><span class="n">08</span> Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+          <section id="why-wide-lines-tire">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>Why Wide Text Blocks Feel Exhausting to Read</h2>
+            <p>
+              Reading a line of text is a sequence of short jumps —
+              saccades — separated by brief fixations, followed by one
+              larger jump at the end of the line: the return sweep back to
+              the left margin and down to the next line. That return sweep
+              is the fragile part of the sequence. It's a ballistic eye
+              movement, planned and fired before the eye actually knows
+              where it will land, and its accuracy depends heavily on how
+              far it has to travel. On a very long line, the return sweep
+              has to cross most of the width of the page, and imprecise
+              landings become common — the eye either re-reads the line it
+              just finished or drops onto the wrong line below it, and the
+              reader has to hunt to recover their place.
+            </p>
+            <p>
+              A very short line has the opposite problem. The eye barely
+              finishes accelerating into a line before it has to break, so a
+              narrow-measure column produces a rapid, choppy rhythm of
+              returns, and the line-breaking algorithm — whichever browser
+              or app is wrapping the text — has to work harder to avoid
+              orphaned words or excessive hyphenation, since there's so
+              little room to work with on each line.
+            </p>
+            <p>
+              Both failure modes come from the same variable: the number of
+              characters on a line, not the pixel width of the container
+              holding it. A phone in portrait orientation and a widescreen
+              monitor can both hold a comfortable measure or an
+              uncomfortable one — what matters is how many characters
+              actually land between the margins, which is a function of
+              font-size and container width together, not either one
+              alone.
+            </p>
+          </section>
+
+          <section id="the-measure">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>The 45–75 Character Measure</h2>
+            <p>
+              Typography settled on a working answer to "how many
+              characters is too many" long before screens existed: a
+              comfortable line for continuous reading runs somewhere between
+              about 45 and 75 characters, including spaces, with the middle
+              of that range — commonly cited as somewhere around 60 to 66 —
+              treated as close to ideal for long-form body text. The range
+              isn't an arbitrary round number; it reflects roughly how much
+              text a reader can hold in view and carry into a return sweep
+              without the sweep's accuracy breaking down at one end or the
+              rhythm turning choppy at the other.
+            </p>
+            <p>
+              The convention traveled from print to the web largely intact,
+              though on-screen text tends to sit toward the lower half of
+              the range more often than print does — screens are read from
+              a wider range of distances, under more variable lighting, and
+              often on devices with lower effective resolution than a
+              printed page, so overshooting toward 75+ characters costs more
+              on screen than the equivalent overshoot would in print.
+              Sitting closer to 60–65 characters is a safer default for a
+              general-purpose website than reaching for the theoretical
+              upper bound of 75.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 260"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">
+                  A wide line of text compared with a comfortably measured
+                  line, showing the eye's return-sweep distance for each
+                </title>
+                <desc id="fig1-desc">
+                  Two stacked text blocks. The top block spans nearly the
+                  full width of the frame, about ninety characters per line,
+                  with a long, low arc showing the eye's jump from the end
+                  of one line back to the start of the next. The bottom
+                  block is narrower, about sixty-four characters per line,
+                  with a short arc showing the same jump covering much less
+                  horizontal distance.
+                </desc>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <text x="24" y="24" fill="#9fb2cc" font-size="10.5">
+                    ~90 CHARACTERS — LONG RETURN SWEEP
+                  </text>
+                  <line x1="24" y1="40" x2="696" y2="40" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
+                  <line x1="24" y1="56" x2="676" y2="56" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
+                  <line x1="24" y1="72" x2="690" y2="72" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M696,40 C 600,100 200,100 24,56" fill="none" stroke="#7fb3e0" stroke-width="1.6" stroke-dasharray="3 3"/>
+                  <circle cx="696" cy="40" r="3.2" fill="#7fb3e0"/>
+                  <circle cx="24" cy="56" r="3.2" fill="#7fb3e0"/>
+                  <text x="330" y="112" fill="#7fb3e0" font-size="8.5" text-anchor="middle">
+                    return sweep travels ~90 characters
+                  </text>
+
+                  <text x="24" y="164" fill="#9fb2cc" font-size="10.5">
+                    ~64 CHARACTERS — SHORT, RELIABLE RETURN SWEEP
+                  </text>
+                  <line x1="24" y1="180" x2="330" y2="180" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
+                  <line x1="24" y1="196" x2="318" y2="196" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
+                  <line x1="24" y1="212" x2="326" y2="212" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M330,180 C 300,208 55,208 24,196" fill="none" stroke="#7fb3e0" stroke-width="1.6" stroke-dasharray="3 3"/>
+                  <circle cx="330" cy="180" r="3.2" fill="#7fb3e0"/>
+                  <circle cx="24" cy="196" r="3.2" fill="#7fb3e0"/>
+                  <text x="177" y="240" fill="#7fb3e0" font-size="8.5" text-anchor="middle">
+                    return sweep travels ~64 characters — easy to relocate
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — Same font-size and line spacing throughout; only the
+              measure changes. The structural point is the arc length, not
+              the exact character counts, which will vary with typeface and
+              font-size.
+            </figcaption>
+          </figure>
+
+          <section id="measuring-in-ch">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>Measuring in ch, Not Pixels or Percentages</h2>
+            <p>
+              CSS has no unit that means "characters per line" directly, but
+              <code>ch</code> is the closest available proxy: one
+              <code>ch</code> equals the width of the "0" (zero) glyph in
+              whatever font and font-size are currently active. Because
+              that width is derived from the font's own metrics instead of
+              an absolute pixel count, <code>max-width: 65ch</code>
+              continues to approximate the same character count even when
+              the font-size changes underneath it — from a user's browser
+              zoom, from an OS-level accessibility text-scaling setting, or
+              from a fallback font loading in before the intended one
+              finishes downloading. A pixel-based max-width has no
+              equivalent defense: <code>600px</code> holds a wildly
+              different number of characters depending on font-size, and it
+              holds exactly the same, now-wrong, number of characters after
+              the font-size changes, because px was never tracking
+              character count in the first place.
+            </p>
+            <p>
+              <code>ch</code> isn't a perfect character count either — it's
+              calibrated to one specific glyph, and most letters in a
+              proportional typeface are narrower or wider than the "0", so
+              65ch of a typical paragraph usually renders as somewhat fewer
+              than a literal 65 characters. That's fine: the goal was never
+              an exact count, it was a measure that stays inside the
+              comfortable range as conditions change, and <code>ch</code> is
+              the only sizing unit built to track the two variables — font
+              and font-size — that actually determine how many characters
+              fit.
+            </p>
+            <p>
+              Percentage widths fail the same test in the opposite
+              direction: a percentage is relative to the parent container,
+              which has no relationship to the font's metrics at all, so a
+              60%-wide column can land at a wildly different character
+              count depending on viewport size and font-size simultaneously,
+              with nothing correcting for either.
+            </p>
+          </section>
+
+          <section id="leading-scales-with-measure">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>Why Line-Height Has to Scale With the Measure</h2>
+            <p>
+              Measure and line-height aren't independent settings, even
+              though most CSS resets treat them that way with one global
+              line-height value applied everywhere. The wider a line is,
+              the further the return sweep from section one has to travel,
+              and the more vertical separation it needs between lines to
+              land on the correct one instead of the line above or below
+              it. A line-height that reads as perfectly comfortable on a
+              narrow column can feel measurably too tight the moment the
+              same text block widens — not because the number changed, but
+              because the return sweep it has to support got longer.
+            </p>
+            <p>
+              The relationship runs in the direction most people don't
+              expect at first: narrow columns can carry a
+              <strong>tighter</strong> line-height, not a looser one. With
+              little horizontal distance to travel, the eye's return sweep
+              on a 40–45ch column stays accurate even with the lines packed
+              closely — something in the neighborhood of 1.2 to 1.3
+              unitless line-height reads as connected rather than cramped.
+              Stretch the same text out to 70–90ch and that same tight
+              spacing starts producing exactly the mis-landings section one
+              described; something closer to 1.5–1.65 gives the longer
+              sweep the vertical room it needs.
+            </p>
+          </section>
+
+          <section id="formula">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>A Formula That Keeps Measure and Leading in Sync</h2>
+            <p>
+              There's no single physically correct mapping from measure to
+              line-height — the right amount depends on the typeface's
+              x-height, its own default vertical rhythm, and the reading
+              context — but the direction of the relationship is fixed:
+              leading should climb as the measure widens, and it should
+              never sit at one fixed number applied identically to every
+              column width on the page. A simple linear model, tuned by eye
+              rather than derived from any external standard, is enough to
+              keep the two moving together instead of drifting out of sync
+              as a layout's column widths change:
+            </p>
+            <p class="guide-formula mono">
+              leading ≈ 1.2 + (measure − 45) × 0.01 · clamped to 1.2–1.65
+            </p>
+            <p>
+              Run a few widths through it and the shape becomes intuitive:
+              45ch — the tight end of the comfortable range — lands at 1.2.
+              65ch, a common default body-copy width, lands at 1.4. 75ch,
+              the wide end of the comfortable range, lands at 1.5, which
+              happens to line up with the minimum line-height accessibility
+              guidelines expect users to be able to reach without breaking
+              the layout, covered in the reference table below. Push the
+              measure past that into genuinely too-wide territory and the
+              formula clamps at 1.65 rather than climbing indefinitely —
+              past a certain width, more leading stops compensating for the
+              problem, and the real fix is capping the measure itself,
+              which is exactly what the next section covers.
+            </p>
+          </section>
+
+          <section id="holding-the-measure">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Holding the Measure at Any Viewport</h2>
+            <p>
+              Because <code>ch</code> already scales with font-size, and
+              font-size itself can scale fluidly with viewport width using
+              <code>clamp()</code> — the same technique covered in
+              <a href="type-scale-systems.html"
+                >the companion guide on type scales</a
+              >
+              — pairing the two keeps a column's measure roughly anchored
+              across breakpoints without writing a separate override for
+              every screen width. The custom-property pattern below keeps
+              measure and leading traveling together as a single unit per
+              component, instead of two settings that can be edited
+              independently and quietly drift apart:
+            </p>
+            <div class="guide-code">
+              <pre><code>:root {
+  --measure: 65ch;
+  --leading: 1.4;
+}
+
+.prose {
+  max-width: var(--measure);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: var(--leading);
+}
+
+/* A narrower column earns a tighter leading, not the same 1.4 */
+.prose--sidebar {
+  --measure: 42ch;
+  --leading: 1.25;
+}
+
+/* A wider, full-bleed column earns a looser leading */
+.prose--feature {
+  --measure: 78ch;
+  --leading: 1.55;
+}</code></pre>
+            </div>
+            <p>
+              The real risk sits almost entirely at the wide end of the
+              viewport range. Narrow viewports solve the measure problem
+              for free — a phone screen is rarely wide enough to hold 90
+              characters at a readable font-size no matter what the CSS
+              says, so mobile rarely needs explicit protection. A wide
+              desktop monitor or a maximized browser window is the opposite
+              case: without an explicit <code>max-width: Nch</code> cap on
+              the reading column, a proportional-width container has
+              nothing stopping it from stretching well past 75–90
+              characters, and that's the scenario the <code>ch</code>-based
+              cap exists to prevent.
+            </p>
+          </section>
+
+          <section id="pitfalls">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Four Pitfalls That Quietly Break the Measure</h2>
+            <ul class="guide-pitfalls">
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">01</span>
+                <p>
+                  <strong>Capping width in px instead of ch.</strong>
+                  A max-width set in pixels holds a fixed pixel count, not a
+                  fixed character count — the moment font-size changes,
+                  from browser zoom, an OS text-scaling setting, or a font
+                  substitution, the actual number of characters per line
+                  silently drifts out of the comfortable range while the
+                  CSS itself never changed.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">02</span>
+                <p>
+                  <strong>One global line-height for every column
+                    width.</strong>
+                  A single site-wide <code>line-height: 1.5</code> rule
+                  feels like a safe default, but section four's
+                  relationship means it can't be correct for every column
+                  at once — it under-serves a 90ch feature paragraph and
+                  over-serves a 40ch sidebar callout, since neither was the
+                  width the number was actually chosen for.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">03</span>
+                <p>
+                  <strong>Applying the measure cap to headings and short UI
+                    strings.</strong>
+                  The 45–75 character guidance describes continuous body
+                  copy specifically — the text a reader's eye actually
+                  sweeps through line after line. Wrapping a large display
+                  headline, a button label, or a form field's helper text
+                  to the same 65ch container it doesn't need produces
+                  awkward, unpredictably ragged line breaks on strings that
+                  were never long enough to need a measure limit in the
+                  first place.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">04</span>
+                <p>
+                  <strong>Assuming ch translates directly across scripts
+                    and typefaces.</strong>
+                  <code>ch</code> is calibrated to the "0" glyph of
+                  whatever font is active, and that glyph's proportion to
+                  the script's average character width isn't constant — it
+                  varies across Latin typefaces and doesn't map onto
+                  non-Latin scripts the same way at all. CJK characters, for
+                  instance, run roughly twice as wide as Latin ones on
+                  average, which is exactly why the accessibility guideline
+                  in the reference table below sets a separate, lower
+                  character ceiling for CJK text instead of reusing the
+                  Latin number.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section id="cheat-sheet">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Quick Reference</h2>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ line_length_reference</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Typical value</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Comfortable measure</td>
+                    <td>45–75 characters</td>
+                    <td>~60–66 often cited as the sweet spot</td>
+                  </tr>
+                  <tr>
+                    <td>Narrow-column leading</td>
+                    <td>~1.2–1.3</td>
+                    <td>Short return sweep, tight spacing reads fine</td>
+                  </tr>
+                  <tr>
+                    <td>Wide-column leading</td>
+                    <td>~1.5–1.65</td>
+                    <td>Longer return sweep needs the extra room</td>
+                  </tr>
+                  <tr>
+                    <td>Sizing unit</td>
+                    <td>ch</td>
+                    <td>Tracks font-size; px and % do not</td>
+                  </tr>
+                  <tr>
+                    <td>WCAG text spacing (AA, 1.4.12)</td>
+                    <td>Line height ≥ 1.5× font size</td>
+                    <td>Users must be able to reach this without breaking layout</td>
+                  </tr>
+                  <tr>
+                    <td>WCAG visual presentation (AAA, 1.4.8)</td>
+                    <td>Width ≤ 80 characters (40 for CJK)</td>
+                    <td>Advisory ceiling, just above the 45–75 comfort range</td>
+                  </tr>
+                  <tr>
+                    <td>Applies to</td>
+                    <td>Body copy, continuous text</td>
+                    <td>Not headings, labels, or short UI strings</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              None of this depends on hitting an exact character count — 63
+              versus 67 was never the meaningful difference. What matters
+              is treating the measure as a real constraint that a layout
+              either respects or ignores: capped with a unit that actually
+              tracks characters instead of pixels, paired with a
+              line-height chosen for that specific width rather than
+              borrowed from a global reset, and left alone on the short
+              strings — headings, labels, buttons — that were never part of
+              the problem it solves. Get those three things right once, in
+              a couple of reusable custom properties, and the measure holds
+              itself steady across every breakpoint and every column width
+              the layout ever needs, without a fresh decision required each
+              time one gets added.
+            </p>
+          </section>
+        </div>
+
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>TYPOGRAPHY</span>
+            <span>MEASURE</span>
+            <span>LINE HEIGHT</span>
+            <span>READABILITY</span>
+            <span>CSS</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="type-scale-systems.html"
+                  >Font Size Is a Formula, Not a Feeling</a
+                >
+              </li>
+              <li>
+                <a href="accessibility-structural-model.html"
+                  >Accessibility Is a Structural Decision, Not a Final
+                  Pass</a
+                >
+              </li>
+              <li>
+                <a href="whitespace-as-ui-component.html"
+                  >Whitespace as a UI Component, Not a Leftover</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="../about.html">About us</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="../privacy.html">Privacy policy</a></li>
+            <li><a href="../terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check
+            back or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="../privacy.html">Privacy policy</a> ·
+          <a href="../terms.html">Terms of service</a> ·
+          <a href="../about.html">About</a> ·
+          <a href="../contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="../app.js"></script>
+  </body>
+</html>

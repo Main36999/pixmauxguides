@@ -1,0 +1,1586 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Dark Mode Is a Second Palette, Not an Inverted Filter — PIXMA UX
+      Guides
+    </title>
+    <meta
+      name="description"
+      content="Why a dark theme built by inverting the light theme always breaks: elevation communicated through lightness instead of shadow, desaturating accent hues so they stop vibrating on black, and why contrast ratios have to be re-derived per theme instead of assumed."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/dark-mode-second-palette.html"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/dark-mode-second-palette.html"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Dark Mode Is a Second Palette, Not an Inverted Filter"
+    />
+    <meta
+      property="og:description"
+      content="How to build a dark theme that isn't just an inverted light theme: elevation via lightness instead of shadow, desaturated accent colors, and independently re-verified contrast."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/thumbnail_image/dark-mode-second-palette-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram comparing shadow-based elevation on a light surface with lightness-overlay elevation on a dark surface, next to a swatch comparison of a saturated accent color vibrating on black versus a desaturated version of the same hue."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Dark Mode Is a Second Palette, Not an Inverted Filter"
+    />
+    <meta
+      name="twitter:description"
+      content="How to build a dark theme that isn't just an inverted light theme: elevation via lightness instead of shadow, desaturated accent colors, and independently re-verified contrast."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/thumbnail_image/dark-mode-second-palette-thumbnail.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Dark Mode Is a Second Palette, Not an Inverted Filter",
+        "description": "Why a dark theme built by inverting the light theme always breaks: elevation communicated through lightness instead of shadow, desaturating accent hues so they stop vibrating on black, and why contrast ratios have to be re-derived per theme instead of assumed.",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/dark-mode-second-palette.html",
+        "image": "https://pixmauxguides.com/thumbnail_image/dark-mode-second-palette-thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "datePublished": "2026-08-08",
+        "dateModified": "2026-08-08",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      /* Scoped to this guide page only — reuses the site's shared classes
+         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
+         defines new "guide-*" classes below so nothing here can collide
+         with rules already living in ../styles.css. Identical token set
+         to the other guide pages so typography and spacing stay uniform
+         across the whole /guide/ section. */
+      :root {
+        --gp-paper: #fbfaf5;
+        --gp-ink: #16233a;
+        --gp-ink-soft: #4b5871;
+        --gp-navy: #0f2a52;
+        --gp-navy-deep: #081b38;
+        --gp-blue-line: #7fb3e0;
+        --gp-line: #e1ded2;
+        --gp-warn: #8a5a17;
+        --gp-warn-bg: #fbf1de;
+        --gp-mono:
+          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --gp-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+
+      .guide-breadcrumb {
+        max-width: 1040px;
+        margin: 28px auto 0;
+        padding: 0 24px;
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+      }
+      .guide-breadcrumb a {
+        color: var(--gp-navy);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .guide-breadcrumb a:hover {
+        border-bottom-color: var(--gp-navy);
+      }
+      .guide-breadcrumb span[aria-hidden] {
+        margin: 0 6px;
+        color: var(--gp-line);
+      }
+
+      .guide-main {
+        max-width: 1040px;
+        padding-top: 8px;
+        padding-bottom: 96px;
+      }
+
+      .guide-article__head {
+        padding: 28px 0 36px;
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-eyebrow {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
+      }
+      .guide-title {
+        font-family: var(--gp-sans);
+        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 18px;
+        max-width: 18ch;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
+      }
+      .guide-dek {
+        font-family: var(--gp-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--gp-ink-soft);
+        max-width: 62ch;
+        margin: 0 0 22px;
+        opacity: 0;
+        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
+      }
+      .guide-meta {
+        font-family: var(--gp-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-ink-soft);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .guide-meta .dot {
+        color: var(--gp-line);
+      }
+      @keyframes gp-fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .guide-eyebrow,
+        .guide-title,
+        .guide-dek {
+          animation: none;
+          opacity: 1;
+        }
+      }
+
+      .guide-toc {
+        margin: 36px 0 44px;
+        padding: 20px 22px;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-navy);
+      }
+      .guide-toc__label {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--gp-navy);
+        margin: 0 0 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 24px;
+      }
+      @media (max-width: 640px) {
+        .guide-toc ol {
+          grid-template-columns: 1fr;
+        }
+      }
+      .guide-toc a {
+        display: flex;
+        gap: 10px;
+        font-family: var(--gp-sans);
+        font-size: 0.92rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 3px 0;
+      }
+      .guide-toc a:hover {
+        color: var(--gp-navy);
+      }
+      .guide-toc a .n {
+        font-family: var(--gp-mono);
+        color: var(--gp-blue-line);
+        filter: brightness(0.75);
+      }
+
+      .guide-body {
+        font-family: var(--gp-sans);
+        color: var(--gp-ink);
+        max-width: 68ch;
+      }
+      .guide-body p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        margin: 0 0 18px;
+      }
+      .guide-body section {
+        margin: 0 0 52px;
+        scroll-margin-top: 24px;
+      }
+      .guide-section__kicker {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.05em;
+        color: var(--gp-blue-line);
+        filter: brightness(0.8);
+        margin: 0 0 6px;
+      }
+      .guide-body h2 {
+        font-family: var(--gp-sans);
+        font-size: 1.5rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--gp-ink);
+        margin: 0 0 16px;
+      }
+      .guide-body strong {
+        color: var(--gp-navy);
+        font-weight: 600;
+      }
+      .guide-body code {
+        font-family: var(--gp-mono);
+        font-size: 0.88em;
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-radius: 3px;
+        padding: 0.1em 0.4em;
+      }
+
+      .guide-figure {
+        max-width: 100%;
+        margin: 8px 0 52px;
+      }
+      .guide-figure__frame {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 18px 14px;
+      }
+      .guide-figure__frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .guide-figure figcaption {
+        font-family: var(--gp-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.02em;
+        color: var(--gp-ink-soft);
+        margin-top: 10px;
+      }
+
+      .guide-table-wrap {
+        overflow-x: auto;
+        margin: 4px 0 52px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        min-width: 480px;
+      }
+      .guide-table caption {
+        text-align: left;
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        padding: 12px 14px;
+        background: var(--gp-paper);
+        border-bottom: 1px solid var(--gp-line);
+      }
+      .guide-table th,
+      .guide-table td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--gp-line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      .guide-table thead th {
+        font-family: var(--gp-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+      }
+      .guide-table td:first-child,
+      .guide-table th:first-child {
+        font-family: var(--gp-mono);
+        font-size: 0.86rem;
+        white-space: nowrap;
+        color: var(--gp-ink);
+      }
+      .guide-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-pitfalls {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .guide-pitfall {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--gp-warn-bg);
+        border-left: 3px solid var(--gp-warn);
+      }
+      .guide-pitfall__n {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        color: var(--gp-warn);
+        padding-top: 2px;
+      }
+      .guide-pitfall p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--gp-ink);
+      }
+      .guide-pitfall p strong {
+        display: block;
+        color: var(--gp-ink);
+        margin-bottom: 4px;
+      }
+
+      .guide-closing {
+        padding-top: 8px;
+        border-top: 1px solid var(--gp-line);
+        margin-top: 4px;
+      }
+
+      .guide-article__footer {
+        margin-top: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--gp-line);
+      }
+      .guide-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+      .guide-tags span {
+        font-family: var(--gp-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        border: 1px solid var(--gp-line);
+        padding: 5px 10px;
+        border-radius: 3px;
+      }
+      .guide-related h2 {
+        font-family: var(--gp-mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+        color: var(--gp-navy);
+        margin: 0 0 14px;
+        text-transform: none;
+      }
+      .guide-related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .guide-related a {
+        display: block;
+        font-family: var(--gp-sans);
+        font-size: 0.98rem;
+        color: var(--gp-ink);
+        text-decoration: none;
+        padding: 12px 14px;
+        border: 1px solid var(--gp-line);
+      }
+      .guide-related a:hover {
+        border-color: var(--gp-navy);
+        color: var(--gp-navy);
+      }
+
+      .guide-formula {
+        font-family: var(--gp-mono);
+        font-size: 0.95rem;
+        color: var(--gp-navy);
+        background: var(--gp-paper);
+        border: 1px solid var(--gp-line);
+        border-left: 3px solid var(--gp-blue-line);
+        padding: 12px 16px;
+        margin: 0 0 18px;
+        letter-spacing: 0.02em;
+      }
+      .guide-code {
+        background: var(--gp-navy-deep);
+        border: 1px solid var(--gp-navy);
+        border-radius: 6px;
+        padding: 18px 20px;
+        margin: 4px 0 32px;
+        overflow-x: auto;
+      }
+      .guide-code pre {
+        margin: 0;
+        font-family: var(--gp-mono);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #e8edf4;
+      }
+      .guide-code pre code {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body class="guide-page">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <!--HEADER_START--><header class="site-header">
+      <div class="wrap header-inner">
+        <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="../index.html#guides">All Guides</a>
+            <a href="../index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="../index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="../index.html#guides">All Guides</a>
+          <a href="../index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header><!--HEADER_END-->
+    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
+      <a href="../index.html">All guides</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#toolbar">Color theory</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Dark Mode</span>
+    </nav>
+
+    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+      <article class="guide-article">
+        <header class="guide-article__head">
+          <p class="guide-eyebrow mono">
+            // color_theory · dark_mode_second_palette
+          </p>
+          <h1 class="guide-title">
+            Dark Mode Is a Second Palette, Not an Inverted Filter
+          </h1>
+          <p class="guide-dek">
+            The fastest way to ship a dark theme is to swap the page
+            background to near-black, swap body text to near-white, and
+            leave every other color untouched. It technically works, and it
+            is almost always wrong: shadows stop reading as depth once
+            there's no light surface left to darken, saturated accent
+            colors that looked confident on white start to glow against
+            black, and contrast pairs that passed easily in the light
+            theme can fail once they're actually measured against their
+            dark counterparts instead of assumed to carry over.
+          </p>
+          <div class="guide-meta mono">
+            <span>INTERMEDIATE</span>
+            <span class="dot">·</span>
+            <span>12 MIN READ</span>
+            <span class="dot">·</span>
+            <span>COLOR THEORY</span>
+          </div>
+        </header>
+
+        <nav class="guide-toc" aria-label="On this page">
+          <p class="guide-toc__label mono">/ on_this_page</p>
+          <ol>
+            <li>
+              <a href="#why-invert-fails"
+                ><span class="n">01</span> Why Inverting a Light Theme
+                Doesn't Work</a
+              >
+            </li>
+            <li>
+              <a href="#elevation-lightness"
+                ><span class="n">02</span> Elevation Through Lightness, Not
+                Shadow</a
+              >
+            </li>
+            <li>
+              <a href="#dark-surface-ramp"
+                ><span class="n">03</span> Building the Dark Surface
+                Ramp</a
+              >
+            </li>
+            <li>
+              <a href="#desaturating-accents"
+                ><span class="n">04</span> Desaturating Hues So They Don't
+                Vibrate on Black</a
+              >
+            </li>
+            <li>
+              <a href="#never-pure-white"
+                ><span class="n">05</span> Text and Icon Color: Never
+                Pure White</a
+              >
+            </li>
+            <li>
+              <a href="#contrast-from-scratch"
+                ><span class="n">06</span> Re-Deriving Contrast Ratios
+                From Scratch</a
+              >
+            </li>
+            <li>
+              <a href="#tokens-stay-values-change"
+                ><span class="n">07</span> Semantic Tokens Stay the Same,
+                Values Don't</a
+              >
+            </li>
+            <li>
+              <a href="#testing-dark-theme"
+                ><span class="n">08</span> Testing a Dark Theme
+                Properly</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                ><span class="n">09</span> Five Pitfalls That Look Like
+                Polish</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                ><span class="n">10</span> Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+        <div class="guide-body">
+          <section id="why-invert-fails">
+            <p class="guide-section__kicker mono">§ 01</p>
+            <h2>Why Inverting a Light Theme Doesn't Work</h2>
+            <p>
+              A literal inversion — flip the page background from paper to
+              near-black, flip body text from ink to near-white, leave
+              every brand color, shadow, and border exactly where it was —
+              is the shape most first dark themes take, because it's the
+              cheapest possible change and it does technically produce a
+              dark screen. The problem is that every other decision in the
+              light theme was tuned for a light surface, and none of those
+              decisions survive the swap unexamined.
+            </p>
+            <p>
+              Shadows are the clearest casualty. A drop shadow communicates
+              depth by darkening a light surface underneath a raised
+              element — on a surface that's already near-black, there's
+              almost nothing left to darken, so the shadow either
+              disappears or has to be faked with an unnaturally heavy blur
+              that reads as a smudge rather than depth. Saturated accent
+              colors are the second casualty: a hue calibrated to look
+              vivid but controlled against white can look like it's
+              glowing once the surrounding field goes dark, a real
+              perceptual effect and not just a stylistic preference. And
+              contrast is the third: the specific ramp steps that produced
+              a passing WCAG ratio in the light theme are not the same
+              steps a naive inversion resolves to, so nothing about a
+              light-theme pairing passing guarantees its dark counterpart
+              does too.
+            </p>
+            <p>
+              A dark theme that holds up is built as a second,
+              independently-tuned resolution of the same semantic tokens
+              described in
+              <a href="color-palette-token-system.html"
+                >the companion guide on palette tokens</a
+              >, not a filter layered over the first one. That means
+              making three decisions on purpose instead of by default: how
+              elevation reads without relying on shadow, how much chroma an
+              accent hue can carry before it starts to vibrate against a
+              dark surface, and how contrast gets re-verified against the
+              dark theme's actual resolved colors rather than inherited
+              from the light theme's numbers. The rest of this guide works
+              through those three in order.
+            </p>
+          </section>
+
+          <section id="elevation-lightness">
+            <p class="guide-section__kicker mono">§ 02</p>
+            <h2>Elevation Through Lightness, Not Shadow</h2>
+            <p>
+              On a light surface, elevation is communicated almost
+              entirely by shadow: a raised card gets a soft, offset
+              drop-shadow, a flat surface gets none, and the eye reads the
+              shadow's falloff as physical depth. That technique depends on
+              the shadow being visibly darker than the surface it's cast
+              on — which is exactly the relationship a dark surface can't
+              offer. Cast the same shadow onto a surface that's already
+              near-black and the darkening it would add is nearly
+              imperceptible, so a UI that relies on shadow alone for
+              hierarchy goes visually flat the moment it's inverted.
+            </p>
+            <p>
+              The fix, popularized by Material Design's dark theme
+              guidelines and now common across mature dark UIs, is to
+              communicate elevation by making raised surfaces
+              <em>lighter</em> instead of casting a shadow onto them —
+              treat each elevation level as a small, semi-transparent white
+              overlay laid over the base surface color, with the overlay's
+              opacity increasing at higher elevations. The result is a
+              surface that gets measurably brighter the "closer" it is to
+              the viewer, which is a depth cue that works in exactly the
+              direction a dark theme actually has room to move in.
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ elevation_model_light_vs_dark</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Elevation</th>
+                    <th scope="col">Light theme</th>
+                    <th scope="col">Dark theme</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Base (0)</td>
+                    <td>Flat, no shadow</td>
+                    <td>Base surface, darkest step</td>
+                  </tr>
+                  <tr>
+                    <td>Raised (card)</td>
+                    <td>Small offset shadow</td>
+                    <td>Small white-overlay lift</td>
+                  </tr>
+                  <tr>
+                    <td>Floating (menu)</td>
+                    <td>Medium shadow, more blur</td>
+                    <td>Larger overlay lift</td>
+                  </tr>
+                  <tr>
+                    <td>Modal / dialog</td>
+                    <td>Largest shadow + scrim</td>
+                    <td>Largest overlay lift + scrim</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              The exact opacity curve is a house convention rather than a
+              fixed law — what matters structurally is that it's
+              monotonic (higher elevation is never darker than the level
+              below it) and that it's generated by a rule instead of
+              picked per component, for the same reason a tonal ramp is
+              generated rather than hand-picked: consistency across
+              dozens of components only survives if every one of them is
+              deriving its surface color from the same small function.
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 280"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">
+                  Shadow-based elevation on a light surface compared with
+                  lightness-overlay elevation on a dark surface
+                </title>
+                <desc id="fig1-desc">
+                  Two rows of three stacked cards. The top row sits on a
+                  light background and each higher card gets a heavier
+                  drop shadow to read as more elevated. The bottom row
+                  sits on a near-black background and each higher card
+                  is simply a lighter shade of gray, with no shadow at
+                  all, and still reads as more elevated than the one
+                  beneath it.
+                </desc>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <text x="24" y="24" fill="#9fb2cc" font-size="10.5">
+                    LIGHT SURFACE — DEPTH VIA SHADOW
+                  </text>
+                  <rect x="24" y="38" width="180" height="60" rx="5" fill="#e7e4d8" />
+                  <rect x="48" y="52" width="140" height="40" rx="4" fill="#2c2c2c" opacity="0.08" />
+                  <rect x="44" y="48" width="140" height="40" rx="4" fill="#fbfaf5" />
+                  <rect x="266" y="30" width="180" height="60" rx="5" fill="#e7e4d8" />
+                  <rect x="296" y="52" width="140" height="40" rx="4" fill="#2c2c2c" opacity="0.16" />
+                  <rect x="290" y="46" width="140" height="40" rx="4" fill="#fbfaf5" />
+                  <rect x="508" y="22" width="180" height="60" rx="5" fill="#e7e4d8" />
+                  <rect x="546" y="52" width="140" height="40" rx="4" fill="#2c2c2c" opacity="0.26" />
+                  <rect x="538" y="44" width="140" height="40" rx="4" fill="#fbfaf5" />
+                  <text x="44" y="112" fill="#7fb3e0" font-size="8.5">base</text>
+                  <text x="290" y="106" fill="#7fb3e0" font-size="8.5">+shadow</text>
+                  <text x="538" y="98" fill="#7fb3e0" font-size="8.5">++shadow</text>
+
+                  <text x="24" y="160" fill="#9fb2cc" font-size="10.5">
+                    DARK SURFACE — DEPTH VIA LIGHTNESS OVERLAY
+                  </text>
+                  <rect x="24" y="174" width="180" height="60" rx="5" fill="#0d1a30" />
+                  <rect x="44" y="188" width="140" height="40" rx="4" fill="#16233a" />
+                  <rect x="266" y="166" width="180" height="60" rx="5" fill="#0d1a30" />
+                  <rect x="290" y="188" width="140" height="40" rx="4" fill="#233350" />
+                  <rect x="508" y="158" width="180" height="60" rx="5" fill="#0d1a30" />
+                  <rect x="538" y="188" width="140" height="40" rx="4" fill="#324564" />
+                  <text x="44" y="248" fill="#7fb3e0" font-size="8.5">base surface</text>
+                  <text x="290" y="242" fill="#7fb3e0" font-size="8.5">+4% overlay</text>
+                  <text x="538" y="234" fill="#7fb3e0" font-size="8.5">+9% overlay</text>
+                  <text x="24" y="268" fill="#5b789f" font-size="8">
+                    no shadow used anywhere in the bottom row
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — Illustrative opacity values. The structural point is
+              the direction of change: light-theme elevation gets darker
+              shadows, dark-theme elevation gets lighter surfaces, and
+              nothing in the bottom row depends on a shadow being visible
+              at all.
+            </figcaption>
+          </figure>
+
+          <section id="dark-surface-ramp">
+            <p class="guide-section__kicker mono">§ 03</p>
+            <h2>Building the Dark Surface Ramp</h2>
+            <p>
+              The alias-swap model from the companion guide on tokens — a
+              semantic name like <code>color.background.surface</code>
+              resolving to a light ramp step in one theme and a dark ramp
+              step in the other — is the right starting structure, but a
+              typical light-mode ramp isn't built with dark-mode surfaces
+              in mind. Most ramps carry only one or two very dark steps
+              near the bottom, because in a light theme those steps are
+              used almost exclusively for high-emphasis text, not for
+              several stacked, closely related surface colors. Elevation
+              needs more resolution than that: enough distinct, closely
+              spaced steps near the dark end to represent a base surface
+              plus several raised levels above it without any two levels
+              collapsing into the same visible shade.
+            </p>
+            <p>
+              The practical fix is a dedicated surface sub-ramp — a small
+              set of steps generated with tighter lightness deltas than
+              the primitive ramp uses elsewhere, purpose-built for
+              elevation rather than borrowed from the general-purpose
+              scale. It's also worth resisting true black as the base:
+              <code>oklch(0% …)</code> looks like the obvious floor for a
+              "near-black" surface, but a true-black base combined with
+              the highest overlay steps needed for a deep elevation stack
+              tends to make the top of the stack jump further than
+              intended, since there's more distance for the overlay to
+              travel. A base around the lower end of the perceptual scale
+              — enough above true black to leave headroom for several
+              overlay steps above it, without reading as anything other
+              than "black" at a glance — gives the ramp somewhere
+              controlled to climb from.
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ dark_surface_sub_ramp</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Token</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Relative to base</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>surface-0</td>
+                    <td>Page background</td>
+                    <td>Darkest step, not literal black</td>
+                  </tr>
+                  <tr>
+                    <td>surface-1</td>
+                    <td>Cards, list rows</td>
+                    <td>Small, consistent lift</td>
+                  </tr>
+                  <tr>
+                    <td>surface-2</td>
+                    <td>Menus, popovers</td>
+                    <td>Larger lift than surface-1</td>
+                  </tr>
+                  <tr>
+                    <td>surface-3</td>
+                    <td>Modals, dialogs</td>
+                    <td>Largest lift in the set</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              None of the surface-0 through surface-3 labels need to be
+              new primitives from scratch — they can just as easily be
+              extra intermediate stops threaded into the existing
+              primitive ramp near its dark end. The requirement is only
+              that the ramp actually has enough steps there to give
+              elevation somewhere to go; a ramp with a single "gray-900"
+              and nothing beneath it has nowhere for a four-level
+              elevation system to live.
+            </p>
+          </section>
+
+          <section id="desaturating-accents">
+            <p class="guide-section__kicker mono">§ 04</p>
+            <h2>Desaturating Hues So They Don't Vibrate on Black</h2>
+            <p>
+              Perceived saturation isn't a property of a color in
+              isolation — it's judged relative to what surrounds it, a
+              well-documented effect of simultaneous contrast. The
+              practical consequence for interface color: an accent at a
+              given chroma value that reads as "vivid but controlled"
+              against a light, low-chroma surface can read as
+              considerably more intense, even uncomfortably so, against a
+              near-black one, without the color itself changing at all.
+              Warm, highly saturated hues — hot pinks, saturated reds and
+              oranges — tend to show the effect most strongly, sitting at
+              the boundary some designers describe as a color
+              "vibrating," where the eye has trouble settling on a stable
+              edge between the accent and the surface behind it.
+            </p>
+            <p>
+              The fix isn't to abandon saturated brand colors in dark
+              mode, it's to resolve them to a different point on the same
+              hue rather than reusing the identical light-theme primitive
+              step. In OKLCH terms that generally means pulling chroma
+              down and nudging lightness up slightly for any accent that
+              sits directly on a dark surface — keeping the hue angle
+              fixed, since that's what carries brand recognition, while
+              giving up some of the saturation that a light background
+              could carry without incident.
+            </p>
+            <p class="guide-formula mono">
+              dark-accent: C' ≈ C × 0.75–0.90 · L' ≈ L + 0.03–0.08 · H
+              unchanged
+            </p>
+            <p>
+              Treat that as a starting range to tune by eye against the
+              actual dark surface color in use, not a formula to apply
+              blindly — the right amount of reduction depends on the hue,
+              the base chroma, and how large an area the accent covers
+              (a small icon can usually carry more chroma than a full-width
+              banner in the same hue before it starts to feel loud).
+            </p>
+          </section>
+
+          <figure class="guide-figure">
+            <div class="guide-figure__frame">
+              <svg
+                viewBox="0 0 720 220"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig2-title fig2-desc"
+              >
+                <title id="fig2-title">
+                  The same accent hue at full chroma versus reduced chroma,
+                  shown against a light and a dark surface
+                </title>
+                <desc id="fig2-desc">
+                  A two by two grid of color swatches. Top left: a
+                  saturated pink on a white background, reading as bold
+                  but calm. Top right: the identical saturated pink on a
+                  near-black background, reading as noticeably more
+                  intense. Bottom left: the same pink on white, unchanged.
+                  Bottom right: a desaturated, slightly lighter version of
+                  the same pink on the near-black background, reading
+                  closer in intensity to the top left swatch.
+                </desc>
+                <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                  <text x="24" y="24" fill="#9fb2cc" font-size="10">
+                    SAME PRIMITIVE STEP, BOTH THEMES
+                  </text>
+                  <rect x="24" y="36" width="200" height="56" rx="4" fill="#fbfaf5" stroke="#e1ded2" />
+                  <rect x="48" y="48" width="80" height="32" rx="3" fill="oklch(58% 0.24 340)" />
+                  <text x="24" y="106" fill="#7fb3e0" font-size="8.5">on white — reads fine</text>
+
+                  <rect x="264" y="36" width="200" height="56" rx="4" fill="#0d1a30" />
+                  <rect x="288" y="48" width="80" height="32" rx="3" fill="oklch(58% 0.24 340)" />
+                  <text x="264" y="106" fill="#7fb3e0" font-size="8.5">on near-black — vibrates</text>
+
+                  <text x="24" y="140" fill="#9fb2cc" font-size="10">
+                    DARK-THEME ACCENT RE-RESOLVED
+                  </text>
+                  <rect x="24" y="152" width="200" height="56" rx="4" fill="#fbfaf5" stroke="#e1ded2" />
+                  <rect x="48" y="164" width="80" height="32" rx="3" fill="oklch(58% 0.24 340)" />
+                  <text x="24" y="222" fill="#7fb3e0" font-size="8.5">on white — unchanged</text>
+
+                  <rect x="264" y="152" width="200" height="56" rx="4" fill="#0d1a30" />
+                  <rect x="288" y="164" width="80" height="32" rx="3" fill="oklch(66% 0.15 340)" />
+                  <text x="264" y="222" fill="#7fb3e0" font-size="8.5">
+                    on near-black — reduced C, calmer
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 02 — Same hue angle throughout; only chroma and
+              lightness move for the dark-surface pairing. Rendered with
+              live <code>oklch()</code> values, so actual appearance may
+              shift slightly by display and color-management settings.
+            </figcaption>
+          </figure>
+
+          <section id="never-pure-white">
+            <p class="guide-section__kicker mono">§ 05</p>
+            <h2>Text and Icon Color: Never Pure White</h2>
+            <p>
+              The same instinct that inverts <code>#000</code> text to
+              <code>#fff</code> also tends to reach for literal
+              <code>#ffffff</code> as the dark theme's primary text color,
+              since it's the most direct "opposite" of black. In practice
+              it's rarely the right choice. Pure white against a near-black
+              surface is the most extreme contrast pair a UI can produce,
+              and at that extreme the boundary between glyph and
+              background can visibly bloom or halo, especially on OLED
+              and high-density displays and for viewers with astigmatism —
+              a real perceptual cost for a pairing that, ironically,
+              already clears WCAG's contrast minimums with enormous
+              margin to spare.
+            </p>
+            <p>
+              A softened near-white — a neutral step sitting a few
+              percentage points below full lightness, sometimes with the
+              faintest cool or warm tint pulled from the brand's hue rather
+              than a perfectly neutral gray — keeps body text comfortable
+              to read for long stretches while still passing contrast
+              requirements with plenty of room. Reserve literal
+              <code>#ffffff</code> for small, high-emphasis moments where
+              the extra "pop" is doing real work — a single stat, an
+              active-state icon — rather than using it as the default
+              color for paragraphs of body copy.
+            </p>
+          </section>
+
+          <section id="contrast-from-scratch">
+            <p class="guide-section__kicker mono">§ 06</p>
+            <h2>Re-Deriving Contrast Ratios From Scratch</h2>
+            <p>
+              It's tempting to assume a pairing that passes WCAG contrast
+              in the light theme automatically passes in the dark theme,
+              since "the numbers just flip." That assumption doesn't hold
+              once real ramp steps are involved instead of literal
+              black-and-white endpoints: the relative luminance values of
+              a ramp's intermediate steps don't mirror symmetrically
+              around its midpoint, so a pairing built from step three and
+              step eight in the light theme doesn't necessarily produce
+              the same ratio as whatever steps the dark theme actually
+              resolves that same semantic pairing to. Every text-on-surface,
+              icon-on-surface, and state pairing needs to be measured
+              again, independently, against the dark theme's own resolved
+              colors — not inherited from the light theme's results.
+            </p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ dark_theme_pairing_matrix</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Pairing</th>
+                    <th scope="col">Minimum</th>
+                    <th scope="col">Re-check when</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Primary text / surface-0</td>
+                    <td>4.5:1</td>
+                    <td>Text color or base surface changes</td>
+                  </tr>
+                  <tr>
+                    <td>Secondary text / surface-1</td>
+                    <td>4.5:1</td>
+                    <td>Any elevation overlay opacity changes</td>
+                  </tr>
+                  <tr>
+                    <td>Icon / surface-0</td>
+                    <td>3:1</td>
+                    <td>Icon token or surface token changes</td>
+                  </tr>
+                  <tr>
+                    <td>Accent text / surface-2</td>
+                    <td>4.5:1</td>
+                    <td>Dark-mode chroma reduction is retuned</td>
+                  </tr>
+                  <tr>
+                    <td>Danger text / surface-0</td>
+                    <td>4.5:1</td>
+                    <td>Feedback hue ramp is retuned</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              It's also worth knowing that WCAG 2.x's ratio formula isn't
+              the last word on how contrast is actually perceived — an
+              emerging alternative called APCA (the Advanced Perceptual
+              Contrast Algorithm) models polarity explicitly, meaning it
+              treats light text on a dark surface and dark text on a light
+              surface as genuinely different situations rather than
+              mirror images of the same ratio. APCA isn't yet the
+              enforceable standard the way WCAG 2.x is, but it's a useful
+              second opinion when a pairing passes the letter of WCAG 2.x
+              and still looks uncomfortably thin in an actual dark UI.
+            </p>
+          </section>
+
+          <section id="tokens-stay-values-change">
+            <p class="guide-section__kicker mono">§ 07</p>
+            <h2>Semantic Tokens Stay the Same, Values Don't</h2>
+            <p>
+              None of the previous three sections change the token
+              architecture itself — they change what a dark theme's
+              aliases are allowed to point to. The semantic layer still
+              exposes the same names to every component regardless of
+              theme; what's different from the simple gray-50/gray-900
+              swap example is that some aliases now resolve to values that
+              were purpose-built for the dark theme rather than reused
+              from the light theme's ramp — the surface sub-ramp from
+              section three, and the desaturated accent from section four.
+            </p>
+          </section>
+
+          <div class="guide-code">
+            <pre><code>:root {
+  --color-background-surface: var(--gray-50);
+  --color-text-primary:       var(--gray-900);
+  --color-action-primary:     var(--blue-500);
+}
+
+[data-theme="dark"] {
+  /* Surface: dedicated dark sub-ramp, not a literal #000 base */
+  --color-background-surface: var(--surface-0);
+  --surface-1: /* +overlay */;
+  --surface-2: /* ++overlay */;
+
+  /* Text: softened near-white, not literal #fff */
+  --color-text-primary:       var(--gray-50-soft);
+
+  /* Accent: re-resolved hue, not the light-theme primitive reused */
+  --color-action-primary:     var(--blue-400-dark-accent);
+}</code></pre>
+          </div>
+
+          <section>
+            <p>
+              Every one of these still resolves through the same
+              <code>color.background.surface</code> /
+              <code>color.text.primary</code> /
+              <code>color.action.primary</code> semantic names a component
+              already references — nothing downstream has to know a dark
+              accent isn't the literal same primitive as the light-theme
+              accent. That's the whole benefit of keeping theme resolution
+              as its own tier: the dark theme gets to make genuinely
+              different color decisions without a single component
+              needing new logic to consume them.
+            </p>
+          </section>
+
+          <section id="testing-dark-theme">
+            <p class="guide-section__kicker mono">§ 08</p>
+            <h2>Testing a Dark Theme Properly</h2>
+            <p>
+              A dark theme that only gets checked by toggling it on once
+              and glancing at the homepage will ship with problems a
+              slightly longer pass would have caught. A few checks worth
+              treating as standard before calling it done:
+            </p>
+            <p>
+              <strong>Both toggle and system preference.</strong> Verify
+              the theme responds correctly to both a manual in-app toggle
+              and the OS-level <code>prefers-color-scheme: dark</code>
+              media query — it's common for one path to be wired up and
+              tested while the other silently falls back to the light
+              theme.
+            </p>
+            <p>
+              <strong>Every pairing, not just the obvious ones.</strong>
+              Run the full contrast matrix from section six again after
+              any ramp or accent retune, not only on the pairings that
+              seem likely to be affected — a single elevation-overlay
+              change can shift several surface tokens at once.
+            </p>
+            <p>
+              <strong>Assets that assume a light background.</strong>
+              Logos, illustrations, and icons drawn with dark strokes on a
+              transparent background can become invisible or nearly so
+              once the surface behind them goes dark; each one needs a
+              theme-aware variant or a currentColor-based approach rather
+              than a fixed dark stroke color.
+            </p>
+            <p>
+              <strong>Focus states and forced-colors mode.</strong> Focus
+              rings tuned for visibility on a light surface can lose
+              contrast against a dark one, and Windows' forced-colors
+              mode overrides author colors entirely — both are worth a
+              dedicated pass rather than an assumption that whatever
+              worked in light mode still works.
+            </p>
+            <p>
+              <strong>A real device, not just a simulator.</strong> OLED
+              panels, ambient glare, and ambient light sensors that shift
+              perceived contrast all behave differently from a
+              color-accurate monitor in a dim room — a theme that looks
+              perfect in a design tool is worth a final look on an actual
+              phone in normal daylight.
+            </p>
+          </section>
+
+          <section id="pitfalls">
+            <p class="guide-section__kicker mono">§ 09</p>
+            <h2>Five Pitfalls That Look Like Polish</h2>
+            <ul class="guide-pitfalls">
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">01</span>
+                <p>
+                  <strong>Treating dark mode as a CSS
+                    <code>filter: invert()</code> over the light theme.</strong>
+                  It inverts every image, icon, and photo along with the
+                  UI chrome, producing broken visuals everywhere the site
+                  actually has content instead of flat color.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">02</span>
+                <p>
+                  <strong>Keeping <code>box-shadow</code> as the only
+                    depth cue.</strong>
+                  Shadows lose almost all their visual effect against a
+                  near-black surface, so any hierarchy that depends on
+                  them alone goes flat the moment the theme switches.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">03</span>
+                <p>
+                  <strong>Reusing the exact same saturated primitive step
+                    for an accent in both themes.</strong>
+                  The identical value that reads as confident on a light
+                  surface reads as intense or "buzzing" on a dark one,
+                  the simultaneous-contrast effect section four covers.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">04</span>
+                <p>
+                  <strong>Shipping literal <code>#ffffff</code> as the
+                    default body text color.</strong>
+                  It clears contrast minimums with room to spare while
+                  still being genuinely harder to read for long stretches
+                  and prone to visible halation on OLED displays.
+                </p>
+              </li>
+              <li class="guide-pitfall">
+                <span class="guide-pitfall__n">05</span>
+                <p>
+                  <strong>Assuming a light-mode-passing pairing survives
+                    into dark mode untested.</strong>
+                  The steps each side of the pairing resolves to changed
+                  between themes, so the ratio has to be independently
+                  re-measured, not carried over as an assumption.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <section id="cheat-sheet">
+            <p class="guide-section__kicker mono">§ 10</p>
+            <h2>Quick Reference</h2>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>/ dark_mode_reference</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Typical value</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Base surface L</td>
+                    <td>Low, not literal 0%</td>
+                    <td>Leaves headroom for overlay steps above it</td>
+                  </tr>
+                  <tr>
+                    <td>Elevation cue</td>
+                    <td>Lightness overlay</td>
+                    <td>Replaces shadow, which barely reads on dark</td>
+                  </tr>
+                  <tr>
+                    <td>Accent chroma</td>
+                    <td>C × 0.75–0.90</td>
+                    <td>Reduced relative to the light-theme step</td>
+                  </tr>
+                  <tr>
+                    <td>Accent lightness</td>
+                    <td>L + 0.03–0.08</td>
+                    <td>Paired with the chroma reduction</td>
+                  </tr>
+                  <tr>
+                    <td>Primary text</td>
+                    <td>Softened near-white</td>
+                    <td>Not literal #ffffff for body copy</td>
+                  </tr>
+                  <tr>
+                    <td>AA text minimum</td>
+                    <td>4.5:1 normal · 3:1 large/UI</td>
+                    <td>Re-verified per theme, never inherited</td>
+                  </tr>
+                  <tr>
+                    <td>Contrast model</td>
+                    <td>WCAG 2.x ratio</td>
+                    <td>APCA useful as a second opinion, not yet the standard</td>
+                  </tr>
+                  <tr>
+                    <td>Theme switch mechanism</td>
+                    <td>Alias reassignment</td>
+                    <td>Same semantic names, independently tuned values</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-closing">
+            <p>
+              A dark theme earns its keep the same way the tonal ramp in
+              the companion guide does: not by matching any specific
+              percentage listed here, but by treating "dark mode" as a
+              second, deliberately tuned resolution of the same semantic
+              layer rather than a filter bolted onto the first one. Once
+              elevation stops depending on shadow, accents get a chroma
+              budget of their own, and every contrast pairing is verified
+              against what the dark theme actually resolves to, the
+              specific numbers become easy to retune later without
+              touching anything else — which is the entire point of
+              keeping the three layers separate in the first place.
+            </p>
+          </section>
+        </div>
+
+        <footer class="guide-article__footer">
+          <div class="guide-tags mono">
+            <span>DARK MODE</span>
+            <span>COLOR THEORY</span>
+            <span>ELEVATION</span>
+            <span>CONTRAST</span>
+            <span>DESIGN TOKENS</span>
+          </div>
+          <div class="guide-related">
+            <h2 class="mono">/ related_guides</h2>
+            <ul>
+              <li>
+                <a href="color-palette-token-system.html"
+                  >A Color Palette Is a Token System, Not a Row of
+                  Swatches</a
+                >
+              </li>
+              <li>
+                <a href="color-contrast-systems.html"
+                  >Color Contrast Is Math, Not Taste</a
+                >
+              </li>
+              <li>
+                <a href="accessibility-structural-model.html"
+                  >Accessibility Is a Structural Decision, Not a Final
+                  Pass</a
+                >
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="../about.html">About us</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="../privacy.html">Privacy policy</a></li>
+            <li><a href="../terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check
+            back or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="../privacy.html">Privacy policy</a> ·
+          <a href="../terms.html">Terms of service</a> ·
+          <a href="../about.html">About</a> ·
+          <a href="../contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="../app.js"></script>
+  </body>
+</html>
