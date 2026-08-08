@@ -35,8 +35,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Dark Mode Is a Second Palette, Not an Inverted Filter — PIXMA UX
-      Guides
+      Dark Mode Is a Second Palette, Not an Inverted Filter — PIXMA UX Guides
     </title>
     <meta
       name="description"
@@ -44,7 +43,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/dark-mode-second-palette.html"
+      href="https://pixmauxguides.com/guide/dark-mode-second-palette"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -66,7 +65,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/dark-mode-second-palette.html"
+      content="https://pixmauxguides.com/guide/dark-mode-second-palette"
     />
     <meta property="og:site_name" content="PIXMA UX Guides" />
     <meta
@@ -115,7 +114,7 @@
         "@type": "TechArticle",
         "headline": "Dark Mode Is a Second Palette, Not an Inverted Filter",
         "description": "Why a dark theme built by inverting the light theme always breaks: elevation communicated through lightness instead of shadow, desaturating accent hues so they stop vibrating on black, and why contrast ratios have to be re-derived per theme instead of assumed.",
-        "mainEntityOfPage": "https://pixmauxguides.com/guide/dark-mode-second-palette.html",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/dark-mode-second-palette",
         "image": "https://pixmauxguides.com/thumbnail_image/dark-mode-second-palette-thumbnail.png",
         "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
         "publisher": {
@@ -536,7 +535,8 @@
   <body class="guide-page">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
-    <!--HEADER_START--><header class="site-header">
+    <!--HEADER_START-->
+    <header class="site-header">
       <div class="wrap header-inner">
         <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
           <img
@@ -655,7 +655,8 @@
           </button>
         </form>
       </div>
-    </header><!--HEADER_END-->
+    </header>
+    <!--HEADER_END-->
     <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
       <a href="../index.html">All guides</a>
       <span aria-hidden="true">/</span>
@@ -674,15 +675,14 @@
             Dark Mode Is a Second Palette, Not an Inverted Filter
           </h1>
           <p class="guide-dek">
-            The fastest way to ship a dark theme is to swap the page
-            background to near-black, swap body text to near-white, and
-            leave every other color untouched. It technically works, and it
-            is almost always wrong: shadows stop reading as depth once
-            there's no light surface left to darken, saturated accent
-            colors that looked confident on white start to glow against
-            black, and contrast pairs that passed easily in the light
-            theme can fail once they're actually measured against their
-            dark counterparts instead of assumed to carry over.
+            The fastest way to ship a dark theme is to swap the page background
+            to near-black, swap body text to near-white, and leave every other
+            color untouched. It technically works, and it is almost always
+            wrong: shadows stop reading as depth once there's no light surface
+            left to darken, saturated accent colors that looked confident on
+            white start to glow against black, and contrast pairs that passed
+            easily in the light theme can fail once they're actually measured
+            against their dark counterparts instead of assumed to carry over.
           </p>
           <div class="guide-meta mono">
             <span>INTERMEDIATE</span>
@@ -698,8 +698,8 @@
           <ol>
             <li>
               <a href="#why-invert-fails"
-                ><span class="n">01</span> Why Inverting a Light Theme
-                Doesn't Work</a
+                ><span class="n">01</span> Why Inverting a Light Theme Doesn't
+                Work</a
               >
             </li>
             <li>
@@ -710,8 +710,7 @@
             </li>
             <li>
               <a href="#dark-surface-ramp"
-                ><span class="n">03</span> Building the Dark Surface
-                Ramp</a
+                ><span class="n">03</span> Building the Dark Surface Ramp</a
               >
             </li>
             <li>
@@ -722,26 +721,25 @@
             </li>
             <li>
               <a href="#never-pure-white"
-                ><span class="n">05</span> Text and Icon Color: Never
-                Pure White</a
+                ><span class="n">05</span> Text and Icon Color: Never Pure
+                White</a
               >
             </li>
             <li>
               <a href="#contrast-from-scratch"
-                ><span class="n">06</span> Re-Deriving Contrast Ratios
-                From Scratch</a
+                ><span class="n">06</span> Re-Deriving Contrast Ratios From
+                Scratch</a
               >
             </li>
             <li>
               <a href="#tokens-stay-values-change"
-                ><span class="n">07</span> Semantic Tokens Stay the Same,
-                Values Don't</a
+                ><span class="n">07</span> Semantic Tokens Stay the Same, Values
+                Don't</a
               >
             </li>
             <li>
               <a href="#testing-dark-theme"
-                ><span class="n">08</span> Testing a Dark Theme
-                Properly</a
+                ><span class="n">08</span> Testing a Dark Theme Properly</a
               >
             </li>
             <li>
@@ -764,45 +762,42 @@
             <h2>Why Inverting a Light Theme Doesn't Work</h2>
             <p>
               A literal inversion — flip the page background from paper to
-              near-black, flip body text from ink to near-white, leave
-              every brand color, shadow, and border exactly where it was —
-              is the shape most first dark themes take, because it's the
-              cheapest possible change and it does technically produce a
-              dark screen. The problem is that every other decision in the
-              light theme was tuned for a light surface, and none of those
-              decisions survive the swap unexamined.
+              near-black, flip body text from ink to near-white, leave every
+              brand color, shadow, and border exactly where it was — is the
+              shape most first dark themes take, because it's the cheapest
+              possible change and it does technically produce a dark screen. The
+              problem is that every other decision in the light theme was tuned
+              for a light surface, and none of those decisions survive the swap
+              unexamined.
             </p>
             <p>
               Shadows are the clearest casualty. A drop shadow communicates
-              depth by darkening a light surface underneath a raised
-              element — on a surface that's already near-black, there's
-              almost nothing left to darken, so the shadow either
-              disappears or has to be faked with an unnaturally heavy blur
-              that reads as a smudge rather than depth. Saturated accent
-              colors are the second casualty: a hue calibrated to look
-              vivid but controlled against white can look like it's
-              glowing once the surrounding field goes dark, a real
+              depth by darkening a light surface underneath a raised element —
+              on a surface that's already near-black, there's almost nothing
+              left to darken, so the shadow either disappears or has to be faked
+              with an unnaturally heavy blur that reads as a smudge rather than
+              depth. Saturated accent colors are the second casualty: a hue
+              calibrated to look vivid but controlled against white can look
+              like it's glowing once the surrounding field goes dark, a real
               perceptual effect and not just a stylistic preference. And
-              contrast is the third: the specific ramp steps that produced
-              a passing WCAG ratio in the light theme are not the same
-              steps a naive inversion resolves to, so nothing about a
-              light-theme pairing passing guarantees its dark counterpart
-              does too.
+              contrast is the third: the specific ramp steps that produced a
+              passing WCAG ratio in the light theme are not the same steps a
+              naive inversion resolves to, so nothing about a light-theme
+              pairing passing guarantees its dark counterpart does too.
             </p>
             <p>
               A dark theme that holds up is built as a second,
               independently-tuned resolution of the same semantic tokens
               described in
-              <a href="color-palette-token-system.html"
+              <a href="color-palette-token-system"
                 >the companion guide on palette tokens</a
-              >, not a filter layered over the first one. That means
-              making three decisions on purpose instead of by default: how
-              elevation reads without relying on shadow, how much chroma an
-              accent hue can carry before it starts to vibrate against a
-              dark surface, and how contrast gets re-verified against the
-              dark theme's actual resolved colors rather than inherited
-              from the light theme's numbers. The rest of this guide works
-              through those three in order.
+              >, not a filter layered over the first one. That means making
+              three decisions on purpose instead of by default: how elevation
+              reads without relying on shadow, how much chroma an accent hue can
+              carry before it starts to vibrate against a dark surface, and how
+              contrast gets re-verified against the dark theme's actual resolved
+              colors rather than inherited from the light theme's numbers. The
+              rest of this guide works through those three in order.
             </p>
           </section>
 
@@ -810,32 +805,33 @@
             <p class="guide-section__kicker mono">§ 02</p>
             <h2>Elevation Through Lightness, Not Shadow</h2>
             <p>
-              On a light surface, elevation is communicated almost
-              entirely by shadow: a raised card gets a soft, offset
-              drop-shadow, a flat surface gets none, and the eye reads the
-              shadow's falloff as physical depth. That technique depends on
-              the shadow being visibly darker than the surface it's cast
-              on — which is exactly the relationship a dark surface can't
-              offer. Cast the same shadow onto a surface that's already
-              near-black and the darkening it would add is nearly
-              imperceptible, so a UI that relies on shadow alone for
+              On a light surface, elevation is communicated almost entirely by
+              shadow: a raised card gets a soft, offset drop-shadow, a flat
+              surface gets none, and the eye reads the shadow's falloff as
+              physical depth. That technique depends on the shadow being visibly
+              darker than the surface it's cast on — which is exactly the
+              relationship a dark surface can't offer. Cast the same shadow onto
+              a surface that's already near-black and the darkening it would add
+              is nearly imperceptible, so a UI that relies on shadow alone for
               hierarchy goes visually flat the moment it's inverted.
             </p>
             <p>
-              The fix, popularized by Material Design's dark theme
-              guidelines and now common across mature dark UIs, is to
-              communicate elevation by making raised surfaces
-              <em>lighter</em> instead of casting a shadow onto them —
-              treat each elevation level as a small, semi-transparent white
-              overlay laid over the base surface color, with the overlay's
-              opacity increasing at higher elevations. The result is a
-              surface that gets measurably brighter the "closer" it is to
-              the viewer, which is a depth cue that works in exactly the
-              direction a dark theme actually has room to move in.
+              The fix, popularized by Material Design's dark theme guidelines
+              and now common across mature dark UIs, is to communicate elevation
+              by making raised surfaces
+              <em>lighter</em> instead of casting a shadow onto them — treat
+              each elevation level as a small, semi-transparent white overlay
+              laid over the base surface color, with the overlay's opacity
+              increasing at higher elevations. The result is a surface that gets
+              measurably brighter the "closer" it is to the viewer, which is a
+              depth cue that works in exactly the direction a dark theme
+              actually has room to move in.
             </p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ elevation_model_light_vs_dark</caption>
+                <caption>
+                  / elevation_model_light_vs_dark
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Elevation</th>
@@ -868,14 +864,14 @@
               </table>
             </div>
             <p>
-              The exact opacity curve is a house convention rather than a
-              fixed law — what matters structurally is that it's
-              monotonic (higher elevation is never darker than the level
-              below it) and that it's generated by a rule instead of
-              picked per component, for the same reason a tonal ramp is
-              generated rather than hand-picked: consistency across
-              dozens of components only survives if every one of them is
-              deriving its surface color from the same small function.
+              The exact opacity curve is a house convention rather than a fixed
+              law — what matters structurally is that it's monotonic (higher
+              elevation is never darker than the level below it) and that it's
+              generated by a rule instead of picked per component, for the same
+              reason a tonal ramp is generated rather than hand-picked:
+              consistency across dozens of components only survives if every one
+              of them is deriving its surface color from the same small
+              function.
             </p>
           </section>
 
@@ -892,43 +888,162 @@
                   lightness-overlay elevation on a dark surface
                 </title>
                 <desc id="fig1-desc">
-                  Two rows of three stacked cards. The top row sits on a
-                  light background and each higher card gets a heavier
-                  drop shadow to read as more elevated. The bottom row
-                  sits on a near-black background and each higher card
-                  is simply a lighter shade of gray, with no shadow at
-                  all, and still reads as more elevated than the one
-                  beneath it.
+                  Two rows of three stacked cards. The top row sits on a light
+                  background and each higher card gets a heavier drop shadow to
+                  read as more elevated. The bottom row sits on a near-black
+                  background and each higher card is simply a lighter shade of
+                  gray, with no shadow at all, and still reads as more elevated
+                  than the one beneath it.
                 </desc>
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
                   <text x="24" y="24" fill="#9fb2cc" font-size="10.5">
                     LIGHT SURFACE — DEPTH VIA SHADOW
                   </text>
-                  <rect x="24" y="38" width="180" height="60" rx="5" fill="#e7e4d8" />
-                  <rect x="48" y="52" width="140" height="40" rx="4" fill="#2c2c2c" opacity="0.08" />
-                  <rect x="44" y="48" width="140" height="40" rx="4" fill="#fbfaf5" />
-                  <rect x="266" y="30" width="180" height="60" rx="5" fill="#e7e4d8" />
-                  <rect x="296" y="52" width="140" height="40" rx="4" fill="#2c2c2c" opacity="0.16" />
-                  <rect x="290" y="46" width="140" height="40" rx="4" fill="#fbfaf5" />
-                  <rect x="508" y="22" width="180" height="60" rx="5" fill="#e7e4d8" />
-                  <rect x="546" y="52" width="140" height="40" rx="4" fill="#2c2c2c" opacity="0.26" />
-                  <rect x="538" y="44" width="140" height="40" rx="4" fill="#fbfaf5" />
-                  <text x="44" y="112" fill="#7fb3e0" font-size="8.5">base</text>
-                  <text x="290" y="106" fill="#7fb3e0" font-size="8.5">+shadow</text>
-                  <text x="538" y="98" fill="#7fb3e0" font-size="8.5">++shadow</text>
+                  <rect
+                    x="24"
+                    y="38"
+                    width="180"
+                    height="60"
+                    rx="5"
+                    fill="#e7e4d8"
+                  />
+                  <rect
+                    x="48"
+                    y="52"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#2c2c2c"
+                    opacity="0.08"
+                  />
+                  <rect
+                    x="44"
+                    y="48"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#fbfaf5"
+                  />
+                  <rect
+                    x="266"
+                    y="30"
+                    width="180"
+                    height="60"
+                    rx="5"
+                    fill="#e7e4d8"
+                  />
+                  <rect
+                    x="296"
+                    y="52"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#2c2c2c"
+                    opacity="0.16"
+                  />
+                  <rect
+                    x="290"
+                    y="46"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#fbfaf5"
+                  />
+                  <rect
+                    x="508"
+                    y="22"
+                    width="180"
+                    height="60"
+                    rx="5"
+                    fill="#e7e4d8"
+                  />
+                  <rect
+                    x="546"
+                    y="52"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#2c2c2c"
+                    opacity="0.26"
+                  />
+                  <rect
+                    x="538"
+                    y="44"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#fbfaf5"
+                  />
+                  <text x="44" y="112" fill="#7fb3e0" font-size="8.5">
+                    base
+                  </text>
+                  <text x="290" y="106" fill="#7fb3e0" font-size="8.5">
+                    +shadow
+                  </text>
+                  <text x="538" y="98" fill="#7fb3e0" font-size="8.5">
+                    ++shadow
+                  </text>
 
                   <text x="24" y="160" fill="#9fb2cc" font-size="10.5">
                     DARK SURFACE — DEPTH VIA LIGHTNESS OVERLAY
                   </text>
-                  <rect x="24" y="174" width="180" height="60" rx="5" fill="#0d1a30" />
-                  <rect x="44" y="188" width="140" height="40" rx="4" fill="#16233a" />
-                  <rect x="266" y="166" width="180" height="60" rx="5" fill="#0d1a30" />
-                  <rect x="290" y="188" width="140" height="40" rx="4" fill="#233350" />
-                  <rect x="508" y="158" width="180" height="60" rx="5" fill="#0d1a30" />
-                  <rect x="538" y="188" width="140" height="40" rx="4" fill="#324564" />
-                  <text x="44" y="248" fill="#7fb3e0" font-size="8.5">base surface</text>
-                  <text x="290" y="242" fill="#7fb3e0" font-size="8.5">+4% overlay</text>
-                  <text x="538" y="234" fill="#7fb3e0" font-size="8.5">+9% overlay</text>
+                  <rect
+                    x="24"
+                    y="174"
+                    width="180"
+                    height="60"
+                    rx="5"
+                    fill="#0d1a30"
+                  />
+                  <rect
+                    x="44"
+                    y="188"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#16233a"
+                  />
+                  <rect
+                    x="266"
+                    y="166"
+                    width="180"
+                    height="60"
+                    rx="5"
+                    fill="#0d1a30"
+                  />
+                  <rect
+                    x="290"
+                    y="188"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#233350"
+                  />
+                  <rect
+                    x="508"
+                    y="158"
+                    width="180"
+                    height="60"
+                    rx="5"
+                    fill="#0d1a30"
+                  />
+                  <rect
+                    x="538"
+                    y="188"
+                    width="140"
+                    height="40"
+                    rx="4"
+                    fill="#324564"
+                  />
+                  <text x="44" y="248" fill="#7fb3e0" font-size="8.5">
+                    base surface
+                  </text>
+                  <text x="290" y="242" fill="#7fb3e0" font-size="8.5">
+                    +4% overlay
+                  </text>
+                  <text x="538" y="234" fill="#7fb3e0" font-size="8.5">
+                    +9% overlay
+                  </text>
                   <text x="24" y="268" fill="#5b789f" font-size="8">
                     no shadow used anywhere in the bottom row
                   </text>
@@ -936,11 +1051,10 @@
               </svg>
             </div>
             <figcaption>
-              FIG. 01 — Illustrative opacity values. The structural point is
-              the direction of change: light-theme elevation gets darker
-              shadows, dark-theme elevation gets lighter surfaces, and
-              nothing in the bottom row depends on a shadow being visible
-              at all.
+              FIG. 01 — Illustrative opacity values. The structural point is the
+              direction of change: light-theme elevation gets darker shadows,
+              dark-theme elevation gets lighter surfaces, and nothing in the
+              bottom row depends on a shadow being visible at all.
             </figcaption>
           </figure>
 
@@ -950,38 +1064,38 @@
             <p>
               The alias-swap model from the companion guide on tokens — a
               semantic name like <code>color.background.surface</code>
-              resolving to a light ramp step in one theme and a dark ramp
-              step in the other — is the right starting structure, but a
-              typical light-mode ramp isn't built with dark-mode surfaces
-              in mind. Most ramps carry only one or two very dark steps
-              near the bottom, because in a light theme those steps are
-              used almost exclusively for high-emphasis text, not for
-              several stacked, closely related surface colors. Elevation
-              needs more resolution than that: enough distinct, closely
-              spaced steps near the dark end to represent a base surface
-              plus several raised levels above it without any two levels
-              collapsing into the same visible shade.
+              resolving to a light ramp step in one theme and a dark ramp step
+              in the other — is the right starting structure, but a typical
+              light-mode ramp isn't built with dark-mode surfaces in mind. Most
+              ramps carry only one or two very dark steps near the bottom,
+              because in a light theme those steps are used almost exclusively
+              for high-emphasis text, not for several stacked, closely related
+              surface colors. Elevation needs more resolution than that: enough
+              distinct, closely spaced steps near the dark end to represent a
+              base surface plus several raised levels above it without any two
+              levels collapsing into the same visible shade.
             </p>
             <p>
-              The practical fix is a dedicated surface sub-ramp — a small
-              set of steps generated with tighter lightness deltas than
-              the primitive ramp uses elsewhere, purpose-built for
-              elevation rather than borrowed from the general-purpose
-              scale. It's also worth resisting true black as the base:
+              The practical fix is a dedicated surface sub-ramp — a small set of
+              steps generated with tighter lightness deltas than the primitive
+              ramp uses elsewhere, purpose-built for elevation rather than
+              borrowed from the general-purpose scale. It's also worth resisting
+              true black as the base:
               <code>oklch(0% …)</code> looks like the obvious floor for a
-              "near-black" surface, but a true-black base combined with
-              the highest overlay steps needed for a deep elevation stack
-              tends to make the top of the stack jump further than
-              intended, since there's more distance for the overlay to
-              travel. A base around the lower end of the perceptual scale
-              — enough above true black to leave headroom for several
-              overlay steps above it, without reading as anything other
-              than "black" at a glance — gives the ramp somewhere
-              controlled to climb from.
+              "near-black" surface, but a true-black base combined with the
+              highest overlay steps needed for a deep elevation stack tends to
+              make the top of the stack jump further than intended, since
+              there's more distance for the overlay to travel. A base around the
+              lower end of the perceptual scale — enough above true black to
+              leave headroom for several overlay steps above it, without reading
+              as anything other than "black" at a glance — gives the ramp
+              somewhere controlled to climb from.
             </p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ dark_surface_sub_ramp</caption>
+                <caption>
+                  / dark_surface_sub_ramp
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Token</th>
@@ -1014,14 +1128,13 @@
               </table>
             </div>
             <p>
-              None of the surface-0 through surface-3 labels need to be
-              new primitives from scratch — they can just as easily be
-              extra intermediate stops threaded into the existing
-              primitive ramp near its dark end. The requirement is only
-              that the ramp actually has enough steps there to give
-              elevation somewhere to go; a ramp with a single "gray-900"
-              and nothing beneath it has nowhere for a four-level
-              elevation system to live.
+              None of the surface-0 through surface-3 labels need to be new
+              primitives from scratch — they can just as easily be extra
+              intermediate stops threaded into the existing primitive ramp near
+              its dark end. The requirement is only that the ramp actually has
+              enough steps there to give elevation somewhere to go; a ramp with
+              a single "gray-900" and nothing beneath it has nowhere for a
+              four-level elevation system to live.
             </p>
           </section>
 
@@ -1029,42 +1142,39 @@
             <p class="guide-section__kicker mono">§ 04</p>
             <h2>Desaturating Hues So They Don't Vibrate on Black</h2>
             <p>
-              Perceived saturation isn't a property of a color in
-              isolation — it's judged relative to what surrounds it, a
-              well-documented effect of simultaneous contrast. The
-              practical consequence for interface color: an accent at a
-              given chroma value that reads as "vivid but controlled"
-              against a light, low-chroma surface can read as
-              considerably more intense, even uncomfortably so, against a
-              near-black one, without the color itself changing at all.
-              Warm, highly saturated hues — hot pinks, saturated reds and
-              oranges — tend to show the effect most strongly, sitting at
-              the boundary some designers describe as a color
-              "vibrating," where the eye has trouble settling on a stable
-              edge between the accent and the surface behind it.
+              Perceived saturation isn't a property of a color in isolation —
+              it's judged relative to what surrounds it, a well-documented
+              effect of simultaneous contrast. The practical consequence for
+              interface color: an accent at a given chroma value that reads as
+              "vivid but controlled" against a light, low-chroma surface can
+              read as considerably more intense, even uncomfortably so, against
+              a near-black one, without the color itself changing at all. Warm,
+              highly saturated hues — hot pinks, saturated reds and oranges —
+              tend to show the effect most strongly, sitting at the boundary
+              some designers describe as a color "vibrating," where the eye has
+              trouble settling on a stable edge between the accent and the
+              surface behind it.
             </p>
             <p>
-              The fix isn't to abandon saturated brand colors in dark
-              mode, it's to resolve them to a different point on the same
-              hue rather than reusing the identical light-theme primitive
-              step. In OKLCH terms that generally means pulling chroma
-              down and nudging lightness up slightly for any accent that
-              sits directly on a dark surface — keeping the hue angle
-              fixed, since that's what carries brand recognition, while
-              giving up some of the saturation that a light background
-              could carry without incident.
+              The fix isn't to abandon saturated brand colors in dark mode, it's
+              to resolve them to a different point on the same hue rather than
+              reusing the identical light-theme primitive step. In OKLCH terms
+              that generally means pulling chroma down and nudging lightness up
+              slightly for any accent that sits directly on a dark surface —
+              keeping the hue angle fixed, since that's what carries brand
+              recognition, while giving up some of the saturation that a light
+              background could carry without incident.
             </p>
             <p class="guide-formula mono">
-              dark-accent: C' ≈ C × 0.75–0.90 · L' ≈ L + 0.03–0.08 · H
-              unchanged
+              dark-accent: C' ≈ C × 0.75–0.90 · L' ≈ L + 0.03–0.08 · H unchanged
             </p>
             <p>
-              Treat that as a starting range to tune by eye against the
-              actual dark surface color in use, not a formula to apply
-              blindly — the right amount of reduction depends on the hue,
-              the base chroma, and how large an area the accent covers
-              (a small icon can usually carry more chroma than a full-width
-              banner in the same hue before it starts to feel loud).
+              Treat that as a starting range to tune by eye against the actual
+              dark surface color in use, not a formula to apply blindly — the
+              right amount of reduction depends on the hue, the base chroma, and
+              how large an area the accent covers (a small icon can usually
+              carry more chroma than a full-width banner in the same hue before
+              it starts to feel loud).
             </p>
           </section>
 
@@ -1081,36 +1191,100 @@
                   shown against a light and a dark surface
                 </title>
                 <desc id="fig2-desc">
-                  A two by two grid of color swatches. Top left: a
-                  saturated pink on a white background, reading as bold
-                  but calm. Top right: the identical saturated pink on a
-                  near-black background, reading as noticeably more
-                  intense. Bottom left: the same pink on white, unchanged.
-                  Bottom right: a desaturated, slightly lighter version of
-                  the same pink on the near-black background, reading
-                  closer in intensity to the top left swatch.
+                  A two by two grid of color swatches. Top left: a saturated
+                  pink on a white background, reading as bold but calm. Top
+                  right: the identical saturated pink on a near-black
+                  background, reading as noticeably more intense. Bottom left:
+                  the same pink on white, unchanged. Bottom right: a
+                  desaturated, slightly lighter version of the same pink on the
+                  near-black background, reading closer in intensity to the top
+                  left swatch.
                 </desc>
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
                   <text x="24" y="24" fill="#9fb2cc" font-size="10">
                     SAME PRIMITIVE STEP, BOTH THEMES
                   </text>
-                  <rect x="24" y="36" width="200" height="56" rx="4" fill="#fbfaf5" stroke="#e1ded2" />
-                  <rect x="48" y="48" width="80" height="32" rx="3" fill="oklch(58% 0.24 340)" />
-                  <text x="24" y="106" fill="#7fb3e0" font-size="8.5">on white — reads fine</text>
+                  <rect
+                    x="24"
+                    y="36"
+                    width="200"
+                    height="56"
+                    rx="4"
+                    fill="#fbfaf5"
+                    stroke="#e1ded2"
+                  />
+                  <rect
+                    x="48"
+                    y="48"
+                    width="80"
+                    height="32"
+                    rx="3"
+                    fill="oklch(58% 0.24 340)"
+                  />
+                  <text x="24" y="106" fill="#7fb3e0" font-size="8.5">
+                    on white — reads fine
+                  </text>
 
-                  <rect x="264" y="36" width="200" height="56" rx="4" fill="#0d1a30" />
-                  <rect x="288" y="48" width="80" height="32" rx="3" fill="oklch(58% 0.24 340)" />
-                  <text x="264" y="106" fill="#7fb3e0" font-size="8.5">on near-black — vibrates</text>
+                  <rect
+                    x="264"
+                    y="36"
+                    width="200"
+                    height="56"
+                    rx="4"
+                    fill="#0d1a30"
+                  />
+                  <rect
+                    x="288"
+                    y="48"
+                    width="80"
+                    height="32"
+                    rx="3"
+                    fill="oklch(58% 0.24 340)"
+                  />
+                  <text x="264" y="106" fill="#7fb3e0" font-size="8.5">
+                    on near-black — vibrates
+                  </text>
 
                   <text x="24" y="140" fill="#9fb2cc" font-size="10">
                     DARK-THEME ACCENT RE-RESOLVED
                   </text>
-                  <rect x="24" y="152" width="200" height="56" rx="4" fill="#fbfaf5" stroke="#e1ded2" />
-                  <rect x="48" y="164" width="80" height="32" rx="3" fill="oklch(58% 0.24 340)" />
-                  <text x="24" y="222" fill="#7fb3e0" font-size="8.5">on white — unchanged</text>
+                  <rect
+                    x="24"
+                    y="152"
+                    width="200"
+                    height="56"
+                    rx="4"
+                    fill="#fbfaf5"
+                    stroke="#e1ded2"
+                  />
+                  <rect
+                    x="48"
+                    y="164"
+                    width="80"
+                    height="32"
+                    rx="3"
+                    fill="oklch(58% 0.24 340)"
+                  />
+                  <text x="24" y="222" fill="#7fb3e0" font-size="8.5">
+                    on white — unchanged
+                  </text>
 
-                  <rect x="264" y="152" width="200" height="56" rx="4" fill="#0d1a30" />
-                  <rect x="288" y="164" width="80" height="32" rx="3" fill="oklch(66% 0.15 340)" />
+                  <rect
+                    x="264"
+                    y="152"
+                    width="200"
+                    height="56"
+                    rx="4"
+                    fill="#0d1a30"
+                  />
+                  <rect
+                    x="288"
+                    y="164"
+                    width="80"
+                    height="32"
+                    rx="3"
+                    fill="oklch(66% 0.15 340)"
+                  />
                   <text x="264" y="222" fill="#7fb3e0" font-size="8.5">
                     on near-black — reduced C, calmer
                   </text>
@@ -1118,10 +1292,10 @@
               </svg>
             </div>
             <figcaption>
-              FIG. 02 — Same hue angle throughout; only chroma and
-              lightness move for the dark-surface pairing. Rendered with
-              live <code>oklch()</code> values, so actual appearance may
-              shift slightly by display and color-management settings.
+              FIG. 02 — Same hue angle throughout; only chroma and lightness
+              move for the dark-surface pairing. Rendered with live
+              <code>oklch()</code> values, so actual appearance may shift
+              slightly by display and color-management settings.
             </figcaption>
           </figure>
 
@@ -1131,28 +1305,27 @@
             <p>
               The same instinct that inverts <code>#000</code> text to
               <code>#fff</code> also tends to reach for literal
-              <code>#ffffff</code> as the dark theme's primary text color,
-              since it's the most direct "opposite" of black. In practice
-              it's rarely the right choice. Pure white against a near-black
-              surface is the most extreme contrast pair a UI can produce,
-              and at that extreme the boundary between glyph and
-              background can visibly bloom or halo, especially on OLED
-              and high-density displays and for viewers with astigmatism —
-              a real perceptual cost for a pairing that, ironically,
-              already clears WCAG's contrast minimums with enormous
+              <code>#ffffff</code> as the dark theme's primary text color, since
+              it's the most direct "opposite" of black. In practice it's rarely
+              the right choice. Pure white against a near-black surface is the
+              most extreme contrast pair a UI can produce, and at that extreme
+              the boundary between glyph and background can visibly bloom or
+              halo, especially on OLED and high-density displays and for viewers
+              with astigmatism — a real perceptual cost for a pairing that,
+              ironically, already clears WCAG's contrast minimums with enormous
               margin to spare.
             </p>
             <p>
-              A softened near-white — a neutral step sitting a few
-              percentage points below full lightness, sometimes with the
-              faintest cool or warm tint pulled from the brand's hue rather
-              than a perfectly neutral gray — keeps body text comfortable
-              to read for long stretches while still passing contrast
-              requirements with plenty of room. Reserve literal
-              <code>#ffffff</code> for small, high-emphasis moments where
-              the extra "pop" is doing real work — a single stat, an
-              active-state icon — rather than using it as the default
-              color for paragraphs of body copy.
+              A softened near-white — a neutral step sitting a few percentage
+              points below full lightness, sometimes with the faintest cool or
+              warm tint pulled from the brand's hue rather than a perfectly
+              neutral gray — keeps body text comfortable to read for long
+              stretches while still passing contrast requirements with plenty of
+              room. Reserve literal
+              <code>#ffffff</code> for small, high-emphasis moments where the
+              extra "pop" is doing real work — a single stat, an active-state
+              icon — rather than using it as the default color for paragraphs of
+              body copy.
             </p>
           </section>
 
@@ -1160,23 +1333,24 @@
             <p class="guide-section__kicker mono">§ 06</p>
             <h2>Re-Deriving Contrast Ratios From Scratch</h2>
             <p>
-              It's tempting to assume a pairing that passes WCAG contrast
-              in the light theme automatically passes in the dark theme,
-              since "the numbers just flip." That assumption doesn't hold
-              once real ramp steps are involved instead of literal
-              black-and-white endpoints: the relative luminance values of
-              a ramp's intermediate steps don't mirror symmetrically
-              around its midpoint, so a pairing built from step three and
-              step eight in the light theme doesn't necessarily produce
-              the same ratio as whatever steps the dark theme actually
+              It's tempting to assume a pairing that passes WCAG contrast in the
+              light theme automatically passes in the dark theme, since "the
+              numbers just flip." That assumption doesn't hold once real ramp
+              steps are involved instead of literal black-and-white endpoints:
+              the relative luminance values of a ramp's intermediate steps don't
+              mirror symmetrically around its midpoint, so a pairing built from
+              step three and step eight in the light theme doesn't necessarily
+              produce the same ratio as whatever steps the dark theme actually
               resolves that same semantic pairing to. Every text-on-surface,
-              icon-on-surface, and state pairing needs to be measured
-              again, independently, against the dark theme's own resolved
-              colors — not inherited from the light theme's results.
+              icon-on-surface, and state pairing needs to be measured again,
+              independently, against the dark theme's own resolved colors — not
+              inherited from the light theme's results.
             </p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ dark_theme_pairing_matrix</caption>
+                <caption>
+                  / dark_theme_pairing_matrix
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Pairing</th>
@@ -1214,16 +1388,16 @@
               </table>
             </div>
             <p>
-              It's also worth knowing that WCAG 2.x's ratio formula isn't
-              the last word on how contrast is actually perceived — an
-              emerging alternative called APCA (the Advanced Perceptual
-              Contrast Algorithm) models polarity explicitly, meaning it
-              treats light text on a dark surface and dark text on a light
-              surface as genuinely different situations rather than
-              mirror images of the same ratio. APCA isn't yet the
-              enforceable standard the way WCAG 2.x is, but it's a useful
-              second opinion when a pairing passes the letter of WCAG 2.x
-              and still looks uncomfortably thin in an actual dark UI.
+              It's also worth knowing that WCAG 2.x's ratio formula isn't the
+              last word on how contrast is actually perceived — an emerging
+              alternative called APCA (the Advanced Perceptual Contrast
+              Algorithm) models polarity explicitly, meaning it treats light
+              text on a dark surface and dark text on a light surface as
+              genuinely different situations rather than mirror images of the
+              same ratio. APCA isn't yet the enforceable standard the way WCAG
+              2.x is, but it's a useful second opinion when a pairing passes the
+              letter of WCAG 2.x and still looks uncomfortably thin in an actual
+              dark UI.
             </p>
           </section>
 
@@ -1231,14 +1405,13 @@
             <p class="guide-section__kicker mono">§ 07</p>
             <h2>Semantic Tokens Stay the Same, Values Don't</h2>
             <p>
-              None of the previous three sections change the token
-              architecture itself — they change what a dark theme's
-              aliases are allowed to point to. The semantic layer still
-              exposes the same names to every component regardless of
-              theme; what's different from the simple gray-50/gray-900
-              swap example is that some aliases now resolve to values that
-              were purpose-built for the dark theme rather than reused
-              from the light theme's ramp — the surface sub-ramp from
+              None of the previous three sections change the token architecture
+              itself — they change what a dark theme's aliases are allowed to
+              point to. The semantic layer still exposes the same names to every
+              component regardless of theme; what's different from the simple
+              gray-50/gray-900 swap example is that some aliases now resolve to
+              values that were purpose-built for the dark theme rather than
+              reused from the light theme's ramp — the surface sub-ramp from
               section three, and the desaturated accent from section four.
             </p>
           </section>
@@ -1270,12 +1443,11 @@
               <code>color.background.surface</code> /
               <code>color.text.primary</code> /
               <code>color.action.primary</code> semantic names a component
-              already references — nothing downstream has to know a dark
-              accent isn't the literal same primitive as the light-theme
-              accent. That's the whole benefit of keeping theme resolution
-              as its own tier: the dark theme gets to make genuinely
-              different color decisions without a single component
-              needing new logic to consume them.
+              already references — nothing downstream has to know a dark accent
+              isn't the literal same primitive as the light-theme accent. That's
+              the whole benefit of keeping theme resolution as its own tier: the
+              dark theme gets to make genuinely different color decisions
+              without a single component needing new logic to consume them.
             </p>
           </section>
 
@@ -1283,49 +1455,46 @@
             <p class="guide-section__kicker mono">§ 08</p>
             <h2>Testing a Dark Theme Properly</h2>
             <p>
-              A dark theme that only gets checked by toggling it on once
-              and glancing at the homepage will ship with problems a
-              slightly longer pass would have caught. A few checks worth
-              treating as standard before calling it done:
+              A dark theme that only gets checked by toggling it on once and
+              glancing at the homepage will ship with problems a slightly longer
+              pass would have caught. A few checks worth treating as standard
+              before calling it done:
             </p>
             <p>
-              <strong>Both toggle and system preference.</strong> Verify
-              the theme responds correctly to both a manual in-app toggle
-              and the OS-level <code>prefers-color-scheme: dark</code>
-              media query — it's common for one path to be wired up and
-              tested while the other silently falls back to the light
-              theme.
+              <strong>Both toggle and system preference.</strong> Verify the
+              theme responds correctly to both a manual in-app toggle and the
+              OS-level <code>prefers-color-scheme: dark</code>
+              media query — it's common for one path to be wired up and tested
+              while the other silently falls back to the light theme.
             </p>
             <p>
               <strong>Every pairing, not just the obvious ones.</strong>
-              Run the full contrast matrix from section six again after
-              any ramp or accent retune, not only on the pairings that
-              seem likely to be affected — a single elevation-overlay
-              change can shift several surface tokens at once.
+              Run the full contrast matrix from section six again after any ramp
+              or accent retune, not only on the pairings that seem likely to be
+              affected — a single elevation-overlay change can shift several
+              surface tokens at once.
             </p>
             <p>
               <strong>Assets that assume a light background.</strong>
               Logos, illustrations, and icons drawn with dark strokes on a
-              transparent background can become invisible or nearly so
-              once the surface behind them goes dark; each one needs a
-              theme-aware variant or a currentColor-based approach rather
-              than a fixed dark stroke color.
+              transparent background can become invisible or nearly so once the
+              surface behind them goes dark; each one needs a theme-aware
+              variant or a currentColor-based approach rather than a fixed dark
+              stroke color.
             </p>
             <p>
-              <strong>Focus states and forced-colors mode.</strong> Focus
-              rings tuned for visibility on a light surface can lose
-              contrast against a dark one, and Windows' forced-colors
-              mode overrides author colors entirely — both are worth a
-              dedicated pass rather than an assumption that whatever
-              worked in light mode still works.
+              <strong>Focus states and forced-colors mode.</strong> Focus rings
+              tuned for visibility on a light surface can lose contrast against
+              a dark one, and Windows' forced-colors mode overrides author
+              colors entirely — both are worth a dedicated pass rather than an
+              assumption that whatever worked in light mode still works.
             </p>
             <p>
-              <strong>A real device, not just a simulator.</strong> OLED
-              panels, ambient glare, and ambient light sensors that shift
-              perceived contrast all behave differently from a
-              color-accurate monitor in a dim room — a theme that looks
-              perfect in a design tool is worth a final look on an actual
-              phone in normal daylight.
+              <strong>A real device, not just a simulator.</strong> OLED panels,
+              ambient glare, and ambient light sensors that shift perceived
+              contrast all behave differently from a color-accurate monitor in a
+              dim room — a theme that looks perfect in a design tool is worth a
+              final look on an actual phone in normal daylight.
             </p>
           </section>
 
@@ -1336,51 +1505,61 @@
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">01</span>
                 <p>
-                  <strong>Treating dark mode as a CSS
-                    <code>filter: invert()</code> over the light theme.</strong>
-                  It inverts every image, icon, and photo along with the
-                  UI chrome, producing broken visuals everywhere the site
-                  actually has content instead of flat color.
+                  <strong
+                    >Treating dark mode as a CSS
+                    <code>filter: invert()</code> over the light theme.</strong
+                  >
+                  It inverts every image, icon, and photo along with the UI
+                  chrome, producing broken visuals everywhere the site actually
+                  has content instead of flat color.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">02</span>
                 <p>
-                  <strong>Keeping <code>box-shadow</code> as the only
-                    depth cue.</strong>
+                  <strong
+                    >Keeping <code>box-shadow</code> as the only depth
+                    cue.</strong
+                  >
                   Shadows lose almost all their visual effect against a
-                  near-black surface, so any hierarchy that depends on
-                  them alone goes flat the moment the theme switches.
+                  near-black surface, so any hierarchy that depends on them
+                  alone goes flat the moment the theme switches.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">03</span>
                 <p>
-                  <strong>Reusing the exact same saturated primitive step
-                    for an accent in both themes.</strong>
-                  The identical value that reads as confident on a light
-                  surface reads as intense or "buzzing" on a dark one,
-                  the simultaneous-contrast effect section four covers.
+                  <strong
+                    >Reusing the exact same saturated primitive step for an
+                    accent in both themes.</strong
+                  >
+                  The identical value that reads as confident on a light surface
+                  reads as intense or "buzzing" on a dark one, the
+                  simultaneous-contrast effect section four covers.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">04</span>
                 <p>
-                  <strong>Shipping literal <code>#ffffff</code> as the
-                    default body text color.</strong>
-                  It clears contrast minimums with room to spare while
-                  still being genuinely harder to read for long stretches
-                  and prone to visible halation on OLED displays.
+                  <strong
+                    >Shipping literal <code>#ffffff</code> as the default body
+                    text color.</strong
+                  >
+                  It clears contrast minimums with room to spare while still
+                  being genuinely harder to read for long stretches and prone to
+                  visible halation on OLED displays.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">05</span>
                 <p>
-                  <strong>Assuming a light-mode-passing pairing survives
-                    into dark mode untested.</strong>
-                  The steps each side of the pairing resolves to changed
-                  between themes, so the ratio has to be independently
-                  re-measured, not carried over as an assumption.
+                  <strong
+                    >Assuming a light-mode-passing pairing survives into dark
+                    mode untested.</strong
+                  >
+                  The steps each side of the pairing resolves to changed between
+                  themes, so the ratio has to be independently re-measured, not
+                  carried over as an assumption.
                 </p>
               </li>
             </ul>
@@ -1391,7 +1570,9 @@
             <h2>Quick Reference</h2>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ dark_mode_reference</caption>
+                <caption>
+                  / dark_mode_reference
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Concept</th>
@@ -1433,7 +1614,9 @@
                   <tr>
                     <td>Contrast model</td>
                     <td>WCAG 2.x ratio</td>
-                    <td>APCA useful as a second opinion, not yet the standard</td>
+                    <td>
+                      APCA useful as a second opinion, not yet the standard
+                    </td>
                   </tr>
                   <tr>
                     <td>Theme switch mechanism</td>
@@ -1447,16 +1630,15 @@
 
           <section class="guide-closing">
             <p>
-              A dark theme earns its keep the same way the tonal ramp in
-              the companion guide does: not by matching any specific
-              percentage listed here, but by treating "dark mode" as a
-              second, deliberately tuned resolution of the same semantic
-              layer rather than a filter bolted onto the first one. Once
-              elevation stops depending on shadow, accents get a chroma
-              budget of their own, and every contrast pairing is verified
-              against what the dark theme actually resolves to, the
-              specific numbers become easy to retune later without
-              touching anything else — which is the entire point of
+              A dark theme earns its keep the same way the tonal ramp in the
+              companion guide does: not by matching any specific percentage
+              listed here, but by treating "dark mode" as a second, deliberately
+              tuned resolution of the same semantic layer rather than a filter
+              bolted onto the first one. Once elevation stops depending on
+              shadow, accents get a chroma budget of their own, and every
+              contrast pairing is verified against what the dark theme actually
+              resolves to, the specific numbers become easy to retune later
+              without touching anything else — which is the entire point of
               keeping the three layers separate in the first place.
             </p>
           </section>
@@ -1474,20 +1656,18 @@
             <h2 class="mono">/ related_guides</h2>
             <ul>
               <li>
-                <a href="color-palette-token-system.html"
-                  >A Color Palette Is a Token System, Not a Row of
-                  Swatches</a
+                <a href="color-palette-token-system"
+                  >A Color Palette Is a Token System, Not a Row of Swatches</a
                 >
               </li>
               <li>
-                <a href="color-contrast-systems.html"
+                <a href="color-contrast-systems"
                   >Color Contrast Is Math, Not Taste</a
                 >
               </li>
               <li>
-                <a href="accessibility-structural-model.html"
-                  >Accessibility Is a Structural Decision, Not a Final
-                  Pass</a
+                <a href="accessibility-structural-model"
+                  >Accessibility Is a Structural Decision, Not a Final Pass</a
                 >
               </li>
             </ul>
@@ -1564,8 +1744,8 @@
         <div class="footer-col">
           <h2>Stay in the loop</h2>
           <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check
-            back or bookmark this page.
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
           </p>
         </div>
       </div>

@@ -376,7 +376,7 @@
                 <span class="card-meta mono">BEG · 11 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/whitespace-as-ui-component.html"
+                  href="/guide/whitespace-as-ui-component"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -429,9 +429,7 @@
               </p>
               <div class="card-footer">
                 <span class="card-meta mono">BEG · 10 MIN</span
-                ><a
-                  class="btn btn-card"
-                  href="/guide/color-contrast-systems.html"
+                ><a class="btn btn-card" href="/guide/color-contrast-systems"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -490,7 +488,7 @@
                 <span class="card-meta mono">INT · 14 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/color-palette-token-system.html"
+                  href="/guide/color-palette-token-system"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -544,7 +542,7 @@
               </p>
               <div class="card-footer">
                 <span class="card-meta mono">INT · 12 MIN</span
-                ><a class="btn btn-card" href="/guide/type-scale-systems.html"
+                ><a class="btn btn-card" href="/guide/type-scale-systems"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -629,7 +627,7 @@
                 <span class="card-meta mono">INT · 15 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/auto-layout-constraint-model.html"
+                  href="/guide/auto-layout-constraint-model"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -704,7 +702,7 @@
                 <span class="card-meta mono">INT · 16 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/accessibility-structural-model.html"
+                  href="/guide/accessibility-structural-model"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -766,7 +764,7 @@
                 <span class="card-meta mono">ADV · 17 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/design-tokens-naming-system.html"
+                  href="/guide/design-tokens-naming-system"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -843,7 +841,7 @@
                 <span class="card-meta mono">INT · 18 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/responsive-layout-contract.html"
+                  href="/guide/responsive-layout-contract"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -906,7 +904,7 @@
               </p>
               <div class="card-footer">
                 <span class="card-meta mono">ADV · 15 MIN</span
-                ><a class="btn btn-card" href="/guide/motion-timing-model.html"
+                ><a class="btn btn-card" href="/guide/motion-timing-model"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -961,9 +959,7 @@
               </p>
               <div class="card-footer">
                 <span class="card-meta mono">INT · 12 MIN</span
-                ><a
-                  class="btn btn-card"
-                  href="/guide/dark-mode-second-palette.html"
+                ><a class="btn btn-card" href="/guide/dark-mode-second-palette"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -1020,7 +1016,7 @@
                 <span class="card-meta mono">BEG · 11 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/font-pairing-hierarchy-decision.html"
+                  href="/guide/font-pairing-hierarchy-decision"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -1077,7 +1073,7 @@
                 <span class="card-meta mono">BEG · 9 MIN</span
                 ><a
                   class="btn btn-card"
-                  href="/guide/line-length-reading-constraint.html"
+                  href="/guide/line-length-reading-constraint"
                   >Read guide <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -1098,12 +1094,14 @@
 
     <!--
       Guides now live at their own real, crawlable files under /guide/
-      (e.g. /guide/whitespace-as-ui-component.html) instead of being
-      rendered in place here —
-      see app.js's cardHtml() for the links and the /guide/ directory
-      for the pages themselves. An old bookmarked or shared #/guide/<id>
-      link is redirected to its /guide/<id>.html page by app.js's
-      handleRoute(), rather than being rendered inside the SPA.
+      (e.g. /guide/whitespace-as-ui-component) instead of being
+      rendered in place here — the underlying file is still
+      <id>.html on disk; the host rewrites the extensionless URL to
+      it. See app.js's cardHtml() for the links and the /guide/
+      directory for the pages themselves. An old bookmarked or shared
+      #/guide/<id> link is redirected to its /guide/<id> page by
+      app.js's handleRoute(), rather than being rendered inside the
+      SPA.
 
       About / Contact / Privacy / Terms similarly live at their own
       real, crawlable files (about.html, contact.html, privacy.html,

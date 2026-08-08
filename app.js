@@ -516,7 +516,7 @@
       " MIN</span>" +
       '<a class="btn btn-card" href="/guide/' +
       g.id +
-      '.html">Read guide <span aria-hidden="true">→</span></a>' +
+      '">Read guide <span aria-hidden="true">→</span></a>' +
       "</div>" +
       "</div>" +
       "</article>"
@@ -691,9 +691,11 @@
   };
 
   // Guides used to be rendered in place at #/guide/<id>. They now
-  // each have their own real, crawlable page at /guide/<id>.html, so
-  // an old bookmarked or shared #/guide/<id> link is redirected there
-  // instead of being rendered inside the SPA. Unrecognized ids (e.g.
+  // each have their own real, crawlable page at /guide/<id> (the
+  // underlying file is still <id>.html on disk; the host rewrites the
+  // extensionless URL to it), so an old bookmarked or shared
+  // #/guide/<id> link is redirected there instead of being rendered
+  // inside the SPA. Unrecognized ids (e.g.
   // a link to one of the guides retired from GUIDES/guides.json) fall
   // back to the guide list rather than redirecting to a 404.
   function handleRoute() {
@@ -713,9 +715,7 @@
       var exists = GUIDES.some(function (g) {
         return g.id === id;
       });
-      location.replace(
-        exists ? "/guide/" + id + ".html" : "/index.html#guides",
-      );
+      location.replace(exists ? "/guide/" + id : "/index.html#guides");
       return;
     }
     var pageMatch = hash.match(/^#\/(about|contact|privacy|terms)$/);

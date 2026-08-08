@@ -215,7 +215,7 @@ function cardHtml(g) {
     `<p class="card-desc">${escapeHtml(g.description)}</p>` +
     `<div class="card-footer">` +
     `<span class="card-meta mono">${LEVEL_ABBR[g.level]} · ${g.readTime} MIN</span>` +
-    `<a class="btn btn-card" href="/guide/${g.id}.html">Read guide <span aria-hidden="true">→</span></a>` +
+    `<a class="btn btn-card" href="/guide/${g.id}">Read guide <span aria-hidden="true">→</span></a>` +
     `</div></div></article>`
   );
 }
@@ -270,7 +270,7 @@ function roadmapStepHtml(g) {
     `<input type="checkbox" class="roadmap-step-checkbox" data-roadmap-id="${escapeHtml(g.id)}" aria-label="${ariaLabel}">` +
     `<span class="roadmap-step-box" aria-hidden="true"><svg viewBox="0 0 12 10"><path d="M1 5.2L4.4 8.6L11 1.4"/></svg></span>` +
     `</label>` +
-    `<a class="roadmap-step-link" href="/guide/${g.id}.html">` +
+    `<a class="roadmap-step-link" href="/guide/${g.id}">` +
     `<span class="roadmap-step-title">${escapeHtml(g.title)}</span>` +
     `<span class="roadmap-step-meta mono">${LEVEL_ABBR[g.level]} · ${g.readTime} MIN</span>` +
     `</a>` +

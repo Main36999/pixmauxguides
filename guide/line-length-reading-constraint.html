@@ -35,8 +35,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Line Length Is a Reading Constraint, Not a Layout Afterthought —
-      PIXMA UX Guides
+      Line Length Is a Reading Constraint, Not a Layout Afterthought — PIXMA UX
+      Guides
     </title>
     <meta
       name="description"
@@ -44,7 +44,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/line-length-reading-constraint.html"
+      href="https://pixmauxguides.com/guide/line-length-reading-constraint"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -66,7 +66,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/line-length-reading-constraint.html"
+      content="https://pixmauxguides.com/guide/line-length-reading-constraint"
     />
     <meta property="og:site_name" content="PIXMA UX Guides" />
     <meta
@@ -115,7 +115,7 @@
         "@type": "TechArticle",
         "headline": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
         "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
-        "mainEntityOfPage": "https://pixmauxguides.com/guide/line-length-reading-constraint.html",
+        "mainEntityOfPage": "https://pixmauxguides.com/guide/line-length-reading-constraint",
         "image": "https://pixmauxguides.com/thumbnail_image/line-length-reading-constraint-thumbnail.png",
         "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
         "publisher": {
@@ -536,7 +536,8 @@
   <body class="guide-page">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
-    <!--HEADER_START--><header class="site-header">
+    <!--HEADER_START-->
+    <header class="site-header">
       <div class="wrap header-inner">
         <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
           <img
@@ -655,7 +656,8 @@
           </button>
         </form>
       </div>
-    </header><!--HEADER_END-->
+    </header>
+    <!--HEADER_END-->
     <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
       <a href="../index.html">All guides</a>
       <span aria-hidden="true">/</span>
@@ -675,16 +677,15 @@
           </h1>
           <p class="guide-dek">
             Most layouts treat line length as whatever happens to fit between
-            the margins at whatever width the visitor's browser happens to
-            be. It isn't neutral: stretch a line past roughly 75 characters
-            and the eye's return sweep to the start of the next line grows
-            long enough to lose its place; squeeze it under about 45 and
-            reading breaks into a choppy, hyphen-heavy rhythm before it's
-            found one at all. The measure is a real ergonomic constraint
-            with a known comfortable range, a CSS unit built specifically to
-            hold it, and a line-height that has to move together with it —
-            not a layout afterthought decided by whichever container
-            happens to be nearby.
+            the margins at whatever width the visitor's browser happens to be.
+            It isn't neutral: stretch a line past roughly 75 characters and the
+            eye's return sweep to the start of the next line grows long enough
+            to lose its place; squeeze it under about 45 and reading breaks into
+            a choppy, hyphen-heavy rhythm before it's found one at all. The
+            measure is a real ergonomic constraint with a known comfortable
+            range, a CSS unit built specifically to hold it, and a line-height
+            that has to move together with it — not a layout afterthought
+            decided by whichever container happens to be nearby.
           </p>
           <div class="guide-meta mono">
             <span>BEGINNER</span>
@@ -700,8 +701,8 @@
           <ol>
             <li>
               <a href="#why-wide-lines-tire"
-                ><span class="n">01</span> Why Wide Text Blocks Feel
-                Exhausting to Read</a
+                ><span class="n">01</span> Why Wide Text Blocks Feel Exhausting
+                to Read</a
               >
             </li>
             <li>
@@ -717,8 +718,8 @@
             </li>
             <li>
               <a href="#leading-scales-with-measure"
-                ><span class="n">04</span> Why Line-Height Has to Scale With
-                the Measure</a
+                ><span class="n">04</span> Why Line-Height Has to Scale With the
+                Measure</a
               >
             </li>
             <li>
@@ -735,8 +736,8 @@
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">07</span> Four Pitfalls That Quietly Break
-                the Measure</a
+                ><span class="n">07</span> Four Pitfalls That Quietly Break the
+                Measure</a
               >
             </li>
             <li>
@@ -752,37 +753,35 @@
             <p class="guide-section__kicker mono">§ 01</p>
             <h2>Why Wide Text Blocks Feel Exhausting to Read</h2>
             <p>
-              Reading a line of text is a sequence of short jumps —
-              saccades — separated by brief fixations, followed by one
-              larger jump at the end of the line: the return sweep back to
-              the left margin and down to the next line. That return sweep
-              is the fragile part of the sequence. It's a ballistic eye
-              movement, planned and fired before the eye actually knows
-              where it will land, and its accuracy depends heavily on how
-              far it has to travel. On a very long line, the return sweep
-              has to cross most of the width of the page, and imprecise
-              landings become common — the eye either re-reads the line it
-              just finished or drops onto the wrong line below it, and the
-              reader has to hunt to recover their place.
+              Reading a line of text is a sequence of short jumps — saccades —
+              separated by brief fixations, followed by one larger jump at the
+              end of the line: the return sweep back to the left margin and down
+              to the next line. That return sweep is the fragile part of the
+              sequence. It's a ballistic eye movement, planned and fired before
+              the eye actually knows where it will land, and its accuracy
+              depends heavily on how far it has to travel. On a very long line,
+              the return sweep has to cross most of the width of the page, and
+              imprecise landings become common — the eye either re-reads the
+              line it just finished or drops onto the wrong line below it, and
+              the reader has to hunt to recover their place.
             </p>
             <p>
               A very short line has the opposite problem. The eye barely
               finishes accelerating into a line before it has to break, so a
-              narrow-measure column produces a rapid, choppy rhythm of
-              returns, and the line-breaking algorithm — whichever browser
-              or app is wrapping the text — has to work harder to avoid
-              orphaned words or excessive hyphenation, since there's so
-              little room to work with on each line.
+              narrow-measure column produces a rapid, choppy rhythm of returns,
+              and the line-breaking algorithm — whichever browser or app is
+              wrapping the text — has to work harder to avoid orphaned words or
+              excessive hyphenation, since there's so little room to work with
+              on each line.
             </p>
             <p>
               Both failure modes come from the same variable: the number of
-              characters on a line, not the pixel width of the container
-              holding it. A phone in portrait orientation and a widescreen
-              monitor can both hold a comfortable measure or an
-              uncomfortable one — what matters is how many characters
-              actually land between the margins, which is a function of
-              font-size and container width together, not either one
-              alone.
+              characters on a line, not the pixel width of the container holding
+              it. A phone in portrait orientation and a widescreen monitor can
+              both hold a comfortable measure or an uncomfortable one — what
+              matters is how many characters actually land between the margins,
+              which is a function of font-size and container width together, not
+              either one alone.
             </p>
           </section>
 
@@ -790,28 +789,27 @@
             <p class="guide-section__kicker mono">§ 02</p>
             <h2>The 45–75 Character Measure</h2>
             <p>
-              Typography settled on a working answer to "how many
-              characters is too many" long before screens existed: a
-              comfortable line for continuous reading runs somewhere between
-              about 45 and 75 characters, including spaces, with the middle
-              of that range — commonly cited as somewhere around 60 to 66 —
-              treated as close to ideal for long-form body text. The range
-              isn't an arbitrary round number; it reflects roughly how much
-              text a reader can hold in view and carry into a return sweep
-              without the sweep's accuracy breaking down at one end or the
-              rhythm turning choppy at the other.
+              Typography settled on a working answer to "how many characters is
+              too many" long before screens existed: a comfortable line for
+              continuous reading runs somewhere between about 45 and 75
+              characters, including spaces, with the middle of that range —
+              commonly cited as somewhere around 60 to 66 — treated as close to
+              ideal for long-form body text. The range isn't an arbitrary round
+              number; it reflects roughly how much text a reader can hold in
+              view and carry into a return sweep without the sweep's accuracy
+              breaking down at one end or the rhythm turning choppy at the
+              other.
             </p>
             <p>
               The convention traveled from print to the web largely intact,
-              though on-screen text tends to sit toward the lower half of
-              the range more often than print does — screens are read from
-              a wider range of distances, under more variable lighting, and
-              often on devices with lower effective resolution than a
-              printed page, so overshooting toward 75+ characters costs more
-              on screen than the equivalent overshoot would in print.
-              Sitting closer to 60–65 characters is a safer default for a
-              general-purpose website than reaching for the theoretical
-              upper bound of 75.
+              though on-screen text tends to sit toward the lower half of the
+              range more often than print does — screens are read from a wider
+              range of distances, under more variable lighting, and often on
+              devices with lower effective resolution than a printed page, so
+              overshooting toward 75+ characters costs more on screen than the
+              equivalent overshoot would in print. Sitting closer to 60–65
+              characters is a safer default for a general-purpose website than
+              reaching for the theoretical upper bound of 75.
             </p>
           </section>
 
@@ -824,42 +822,113 @@
                 aria-labelledby="fig1-title fig1-desc"
               >
                 <title id="fig1-title">
-                  A wide line of text compared with a comfortably measured
-                  line, showing the eye's return-sweep distance for each
+                  A wide line of text compared with a comfortably measured line,
+                  showing the eye's return-sweep distance for each
                 </title>
                 <desc id="fig1-desc">
-                  Two stacked text blocks. The top block spans nearly the
-                  full width of the frame, about ninety characters per line,
-                  with a long, low arc showing the eye's jump from the end
-                  of one line back to the start of the next. The bottom
-                  block is narrower, about sixty-four characters per line,
-                  with a short arc showing the same jump covering much less
-                  horizontal distance.
+                  Two stacked text blocks. The top block spans nearly the full
+                  width of the frame, about ninety characters per line, with a
+                  long, low arc showing the eye's jump from the end of one line
+                  back to the start of the next. The bottom block is narrower,
+                  about sixty-four characters per line, with a short arc showing
+                  the same jump covering much less horizontal distance.
                 </desc>
                 <g font-family="ui-monospace,Menlo,Consolas,monospace">
                   <text x="24" y="24" fill="#9fb2cc" font-size="10.5">
                     ~90 CHARACTERS — LONG RETURN SWEEP
                   </text>
-                  <line x1="24" y1="40" x2="696" y2="40" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="24" y1="56" x2="676" y2="56" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="24" y1="72" x2="690" y2="72" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
-                  <path d="M696,40 C 600,100 200,100 24,56" fill="none" stroke="#7fb3e0" stroke-width="1.6" stroke-dasharray="3 3"/>
-                  <circle cx="696" cy="40" r="3.2" fill="#7fb3e0"/>
-                  <circle cx="24" cy="56" r="3.2" fill="#7fb3e0"/>
-                  <text x="330" y="112" fill="#7fb3e0" font-size="8.5" text-anchor="middle">
+                  <line
+                    x1="24"
+                    y1="40"
+                    x2="696"
+                    y2="40"
+                    stroke="#3a4f74"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="24"
+                    y1="56"
+                    x2="676"
+                    y2="56"
+                    stroke="#3a4f74"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="24"
+                    y1="72"
+                    x2="690"
+                    y2="72"
+                    stroke="#3a4f74"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M696,40 C 600,100 200,100 24,56"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.6"
+                    stroke-dasharray="3 3"
+                  />
+                  <circle cx="696" cy="40" r="3.2" fill="#7fb3e0" />
+                  <circle cx="24" cy="56" r="3.2" fill="#7fb3e0" />
+                  <text
+                    x="330"
+                    y="112"
+                    fill="#7fb3e0"
+                    font-size="8.5"
+                    text-anchor="middle"
+                  >
                     return sweep travels ~90 characters
                   </text>
 
                   <text x="24" y="164" fill="#9fb2cc" font-size="10.5">
                     ~64 CHARACTERS — SHORT, RELIABLE RETURN SWEEP
                   </text>
-                  <line x1="24" y1="180" x2="330" y2="180" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="24" y1="196" x2="318" y2="196" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="24" y1="212" x2="326" y2="212" stroke="#3a4f74" stroke-width="4" stroke-linecap="round"/>
-                  <path d="M330,180 C 300,208 55,208 24,196" fill="none" stroke="#7fb3e0" stroke-width="1.6" stroke-dasharray="3 3"/>
-                  <circle cx="330" cy="180" r="3.2" fill="#7fb3e0"/>
-                  <circle cx="24" cy="196" r="3.2" fill="#7fb3e0"/>
-                  <text x="177" y="240" fill="#7fb3e0" font-size="8.5" text-anchor="middle">
+                  <line
+                    x1="24"
+                    y1="180"
+                    x2="330"
+                    y2="180"
+                    stroke="#3a4f74"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="24"
+                    y1="196"
+                    x2="318"
+                    y2="196"
+                    stroke="#3a4f74"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="24"
+                    y1="212"
+                    x2="326"
+                    y2="212"
+                    stroke="#3a4f74"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M330,180 C 300,208 55,208 24,196"
+                    fill="none"
+                    stroke="#7fb3e0"
+                    stroke-width="1.6"
+                    stroke-dasharray="3 3"
+                  />
+                  <circle cx="330" cy="180" r="3.2" fill="#7fb3e0" />
+                  <circle cx="24" cy="196" r="3.2" fill="#7fb3e0" />
+                  <text
+                    x="177"
+                    y="240"
+                    fill="#7fb3e0"
+                    font-size="8.5"
+                    text-anchor="middle"
+                  >
                     return sweep travels ~64 characters — easy to relocate
                   </text>
                 </g>
@@ -867,8 +936,8 @@
             </div>
             <figcaption>
               FIG. 01 — Same font-size and line spacing throughout; only the
-              measure changes. The structural point is the arc length, not
-              the exact character counts, which will vary with typeface and
+              measure changes. The structural point is the arc length, not the
+              exact character counts, which will vary with typeface and
               font-size.
             </figcaption>
           </figure>
@@ -880,39 +949,37 @@
               CSS has no unit that means "characters per line" directly, but
               <code>ch</code> is the closest available proxy: one
               <code>ch</code> equals the width of the "0" (zero) glyph in
-              whatever font and font-size are currently active. Because
-              that width is derived from the font's own metrics instead of
-              an absolute pixel count, <code>max-width: 65ch</code>
-              continues to approximate the same character count even when
-              the font-size changes underneath it — from a user's browser
-              zoom, from an OS-level accessibility text-scaling setting, or
-              from a fallback font loading in before the intended one
-              finishes downloading. A pixel-based max-width has no
-              equivalent defense: <code>600px</code> holds a wildly
-              different number of characters depending on font-size, and it
-              holds exactly the same, now-wrong, number of characters after
-              the font-size changes, because px was never tracking
-              character count in the first place.
+              whatever font and font-size are currently active. Because that
+              width is derived from the font's own metrics instead of an
+              absolute pixel count, <code>max-width: 65ch</code> continues to
+              approximate the same character count even when the font-size
+              changes underneath it — from a user's browser zoom, from an
+              OS-level accessibility text-scaling setting, or from a fallback
+              font loading in before the intended one finishes downloading. A
+              pixel-based max-width has no equivalent defense:
+              <code>600px</code> holds a wildly different number of characters
+              depending on font-size, and it holds exactly the same, now-wrong,
+              number of characters after the font-size changes, because px was
+              never tracking character count in the first place.
             </p>
             <p>
               <code>ch</code> isn't a perfect character count either — it's
               calibrated to one specific glyph, and most letters in a
-              proportional typeface are narrower or wider than the "0", so
-              65ch of a typical paragraph usually renders as somewhat fewer
-              than a literal 65 characters. That's fine: the goal was never
-              an exact count, it was a measure that stays inside the
-              comfortable range as conditions change, and <code>ch</code> is
-              the only sizing unit built to track the two variables — font
-              and font-size — that actually determine how many characters
-              fit.
+              proportional typeface are narrower or wider than the "0", so 65ch
+              of a typical paragraph usually renders as somewhat fewer than a
+              literal 65 characters. That's fine: the goal was never an exact
+              count, it was a measure that stays inside the comfortable range as
+              conditions change, and <code>ch</code> is the only sizing unit
+              built to track the two variables — font and font-size — that
+              actually determine how many characters fit.
             </p>
             <p>
-              Percentage widths fail the same test in the opposite
-              direction: a percentage is relative to the parent container,
-              which has no relationship to the font's metrics at all, so a
-              60%-wide column can land at a wildly different character
-              count depending on viewport size and font-size simultaneously,
-              with nothing correcting for either.
+              Percentage widths fail the same test in the opposite direction: a
+              percentage is relative to the parent container, which has no
+              relationship to the font's metrics at all, so a 60%-wide column
+              can land at a wildly different character count depending on
+              viewport size and font-size simultaneously, with nothing
+              correcting for either.
             </p>
           </section>
 
@@ -920,29 +987,28 @@
             <p class="guide-section__kicker mono">§ 04</p>
             <h2>Why Line-Height Has to Scale With the Measure</h2>
             <p>
-              Measure and line-height aren't independent settings, even
-              though most CSS resets treat them that way with one global
-              line-height value applied everywhere. The wider a line is,
-              the further the return sweep from section one has to travel,
-              and the more vertical separation it needs between lines to
-              land on the correct one instead of the line above or below
-              it. A line-height that reads as perfectly comfortable on a
-              narrow column can feel measurably too tight the moment the
-              same text block widens — not because the number changed, but
-              because the return sweep it has to support got longer.
+              Measure and line-height aren't independent settings, even though
+              most CSS resets treat them that way with one global line-height
+              value applied everywhere. The wider a line is, the further the
+              return sweep from section one has to travel, and the more vertical
+              separation it needs between lines to land on the correct one
+              instead of the line above or below it. A line-height that reads as
+              perfectly comfortable on a narrow column can feel measurably too
+              tight the moment the same text block widens — not because the
+              number changed, but because the return sweep it has to support got
+              longer.
             </p>
             <p>
-              The relationship runs in the direction most people don't
-              expect at first: narrow columns can carry a
+              The relationship runs in the direction most people don't expect at
+              first: narrow columns can carry a
               <strong>tighter</strong> line-height, not a looser one. With
-              little horizontal distance to travel, the eye's return sweep
-              on a 40–45ch column stays accurate even with the lines packed
-              closely — something in the neighborhood of 1.2 to 1.3
-              unitless line-height reads as connected rather than cramped.
-              Stretch the same text out to 70–90ch and that same tight
-              spacing starts producing exactly the mis-landings section one
-              described; something closer to 1.5–1.65 gives the longer
-              sweep the vertical room it needs.
+              little horizontal distance to travel, the eye's return sweep on a
+              40–45ch column stays accurate even with the lines packed closely —
+              something in the neighborhood of 1.2 to 1.3 unitless line-height
+              reads as connected rather than cramped. Stretch the same text out
+              to 70–90ch and that same tight spacing starts producing exactly
+              the mis-landings section one described; something closer to
+              1.5–1.65 gives the longer sweep the vertical room it needs.
             </p>
           </section>
 
@@ -951,32 +1017,30 @@
             <h2>A Formula That Keeps Measure and Leading in Sync</h2>
             <p>
               There's no single physically correct mapping from measure to
-              line-height — the right amount depends on the typeface's
-              x-height, its own default vertical rhythm, and the reading
-              context — but the direction of the relationship is fixed:
-              leading should climb as the measure widens, and it should
-              never sit at one fixed number applied identically to every
-              column width on the page. A simple linear model, tuned by eye
-              rather than derived from any external standard, is enough to
-              keep the two moving together instead of drifting out of sync
-              as a layout's column widths change:
+              line-height — the right amount depends on the typeface's x-height,
+              its own default vertical rhythm, and the reading context — but the
+              direction of the relationship is fixed: leading should climb as
+              the measure widens, and it should never sit at one fixed number
+              applied identically to every column width on the page. A simple
+              linear model, tuned by eye rather than derived from any external
+              standard, is enough to keep the two moving together instead of
+              drifting out of sync as a layout's column widths change:
             </p>
             <p class="guide-formula mono">
               leading ≈ 1.2 + (measure − 45) × 0.01 · clamped to 1.2–1.65
             </p>
             <p>
-              Run a few widths through it and the shape becomes intuitive:
-              45ch — the tight end of the comfortable range — lands at 1.2.
-              65ch, a common default body-copy width, lands at 1.4. 75ch,
-              the wide end of the comfortable range, lands at 1.5, which
-              happens to line up with the minimum line-height accessibility
-              guidelines expect users to be able to reach without breaking
-              the layout, covered in the reference table below. Push the
-              measure past that into genuinely too-wide territory and the
-              formula clamps at 1.65 rather than climbing indefinitely —
-              past a certain width, more leading stops compensating for the
-              problem, and the real fix is capping the measure itself,
-              which is exactly what the next section covers.
+              Run a few widths through it and the shape becomes intuitive: 45ch
+              — the tight end of the comfortable range — lands at 1.2. 65ch, a
+              common default body-copy width, lands at 1.4. 75ch, the wide end
+              of the comfortable range, lands at 1.5, which happens to line up
+              with the minimum line-height accessibility guidelines expect users
+              to be able to reach without breaking the layout, covered in the
+              reference table below. Push the measure past that into genuinely
+              too-wide territory and the formula clamps at 1.65 rather than
+              climbing indefinitely — past a certain width, more leading stops
+              compensating for the problem, and the real fix is capping the
+              measure itself, which is exactly what the next section covers.
             </p>
           </section>
 
@@ -987,15 +1051,14 @@
               Because <code>ch</code> already scales with font-size, and
               font-size itself can scale fluidly with viewport width using
               <code>clamp()</code> — the same technique covered in
-              <a href="type-scale-systems.html"
+              <a href="type-scale-systems"
                 >the companion guide on type scales</a
               >
-              — pairing the two keeps a column's measure roughly anchored
-              across breakpoints without writing a separate override for
-              every screen width. The custom-property pattern below keeps
-              measure and leading traveling together as a single unit per
-              component, instead of two settings that can be edited
-              independently and quietly drift apart:
+              — pairing the two keeps a column's measure roughly anchored across
+              breakpoints without writing a separate override for every screen
+              width. The custom-property pattern below keeps measure and leading
+              traveling together as a single unit per component, instead of two
+              settings that can be edited independently and quietly drift apart:
             </p>
             <div class="guide-code">
               <pre><code>:root {
@@ -1022,17 +1085,16 @@
 }</code></pre>
             </div>
             <p>
-              The real risk sits almost entirely at the wide end of the
-              viewport range. Narrow viewports solve the measure problem
-              for free — a phone screen is rarely wide enough to hold 90
-              characters at a readable font-size no matter what the CSS
-              says, so mobile rarely needs explicit protection. A wide
-              desktop monitor or a maximized browser window is the opposite
-              case: without an explicit <code>max-width: Nch</code> cap on
-              the reading column, a proportional-width container has
-              nothing stopping it from stretching well past 75–90
-              characters, and that's the scenario the <code>ch</code>-based
-              cap exists to prevent.
+              The real risk sits almost entirely at the wide end of the viewport
+              range. Narrow viewports solve the measure problem for free — a
+              phone screen is rarely wide enough to hold 90 characters at a
+              readable font-size no matter what the CSS says, so mobile rarely
+              needs explicit protection. A wide desktop monitor or a maximized
+              browser window is the opposite case: without an explicit
+              <code>max-width: Nch</code> cap on the reading column, a
+              proportional-width container has nothing stopping it from
+              stretching well past 75–90 characters, and that's the scenario the
+              <code>ch</code>-based cap exists to prevent.
             </p>
           </section>
 
@@ -1045,56 +1107,59 @@
                 <p>
                   <strong>Capping width in px instead of ch.</strong>
                   A max-width set in pixels holds a fixed pixel count, not a
-                  fixed character count — the moment font-size changes,
-                  from browser zoom, an OS text-scaling setting, or a font
+                  fixed character count — the moment font-size changes, from
+                  browser zoom, an OS text-scaling setting, or a font
                   substitution, the actual number of characters per line
-                  silently drifts out of the comfortable range while the
-                  CSS itself never changed.
+                  silently drifts out of the comfortable range while the CSS
+                  itself never changed.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">02</span>
                 <p>
-                  <strong>One global line-height for every column
-                    width.</strong>
-                  A single site-wide <code>line-height: 1.5</code> rule
-                  feels like a safe default, but section four's
-                  relationship means it can't be correct for every column
-                  at once — it under-serves a 90ch feature paragraph and
-                  over-serves a 40ch sidebar callout, since neither was the
-                  width the number was actually chosen for.
+                  <strong
+                    >One global line-height for every column width.</strong
+                  >
+                  A single site-wide <code>line-height: 1.5</code> rule feels
+                  like a safe default, but section four's relationship means it
+                  can't be correct for every column at once — it under-serves a
+                  90ch feature paragraph and over-serves a 40ch sidebar callout,
+                  since neither was the width the number was actually chosen
+                  for.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">03</span>
                 <p>
-                  <strong>Applying the measure cap to headings and short UI
-                    strings.</strong>
-                  The 45–75 character guidance describes continuous body
-                  copy specifically — the text a reader's eye actually
-                  sweeps through line after line. Wrapping a large display
-                  headline, a button label, or a form field's helper text
-                  to the same 65ch container it doesn't need produces
-                  awkward, unpredictably ragged line breaks on strings that
-                  were never long enough to need a measure limit in the
-                  first place.
+                  <strong
+                    >Applying the measure cap to headings and short UI
+                    strings.</strong
+                  >
+                  The 45–75 character guidance describes continuous body copy
+                  specifically — the text a reader's eye actually sweeps through
+                  line after line. Wrapping a large display headline, a button
+                  label, or a form field's helper text to the same 65ch
+                  container it doesn't need produces awkward, unpredictably
+                  ragged line breaks on strings that were never long enough to
+                  need a measure limit in the first place.
                 </p>
               </li>
               <li class="guide-pitfall">
                 <span class="guide-pitfall__n">04</span>
                 <p>
-                  <strong>Assuming ch translates directly across scripts
-                    and typefaces.</strong>
-                  <code>ch</code> is calibrated to the "0" glyph of
-                  whatever font is active, and that glyph's proportion to
-                  the script's average character width isn't constant — it
-                  varies across Latin typefaces and doesn't map onto
-                  non-Latin scripts the same way at all. CJK characters, for
-                  instance, run roughly twice as wide as Latin ones on
-                  average, which is exactly why the accessibility guideline
-                  in the reference table below sets a separate, lower
-                  character ceiling for CJK text instead of reusing the
-                  Latin number.
+                  <strong
+                    >Assuming ch translates directly across scripts and
+                    typefaces.</strong
+                  >
+                  <code>ch</code> is calibrated to the "0" glyph of whatever
+                  font is active, and that glyph's proportion to the script's
+                  average character width isn't constant — it varies across
+                  Latin typefaces and doesn't map onto non-Latin scripts the
+                  same way at all. CJK characters, for instance, run roughly
+                  twice as wide as Latin ones on average, which is exactly why
+                  the accessibility guideline in the reference table below sets
+                  a separate, lower character ceiling for CJK text instead of
+                  reusing the Latin number.
                 </p>
               </li>
             </ul>
@@ -1105,7 +1170,9 @@
             <h2>Quick Reference</h2>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <caption>/ line_length_reference</caption>
+                <caption>
+                  / line_length_reference
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Concept</th>
@@ -1137,12 +1204,16 @@
                   <tr>
                     <td>WCAG text spacing (AA, 1.4.12)</td>
                     <td>Line height ≥ 1.5× font size</td>
-                    <td>Users must be able to reach this without breaking layout</td>
+                    <td>
+                      Users must be able to reach this without breaking layout
+                    </td>
                   </tr>
                   <tr>
                     <td>WCAG visual presentation (AAA, 1.4.8)</td>
                     <td>Width ≤ 80 characters (40 for CJK)</td>
-                    <td>Advisory ceiling, just above the 45–75 comfort range</td>
+                    <td>
+                      Advisory ceiling, just above the 45–75 comfort range
+                    </td>
                   </tr>
                   <tr>
                     <td>Applies to</td>
@@ -1157,18 +1228,17 @@
           <section class="guide-closing">
             <p>
               None of this depends on hitting an exact character count — 63
-              versus 67 was never the meaningful difference. What matters
-              is treating the measure as a real constraint that a layout
-              either respects or ignores: capped with a unit that actually
-              tracks characters instead of pixels, paired with a
-              line-height chosen for that specific width rather than
-              borrowed from a global reset, and left alone on the short
-              strings — headings, labels, buttons — that were never part of
-              the problem it solves. Get those three things right once, in
-              a couple of reusable custom properties, and the measure holds
-              itself steady across every breakpoint and every column width
-              the layout ever needs, without a fresh decision required each
-              time one gets added.
+              versus 67 was never the meaningful difference. What matters is
+              treating the measure as a real constraint that a layout either
+              respects or ignores: capped with a unit that actually tracks
+              characters instead of pixels, paired with a line-height chosen for
+              that specific width rather than borrowed from a global reset, and
+              left alone on the short strings — headings, labels, buttons — that
+              were never part of the problem it solves. Get those three things
+              right once, in a couple of reusable custom properties, and the
+              measure holds itself steady across every breakpoint and every
+              column width the layout ever needs, without a fresh decision
+              required each time one gets added.
             </p>
           </section>
         </div>
@@ -1185,18 +1255,17 @@
             <h2 class="mono">/ related_guides</h2>
             <ul>
               <li>
-                <a href="type-scale-systems.html"
+                <a href="type-scale-systems"
                   >Font Size Is a Formula, Not a Feeling</a
                 >
               </li>
               <li>
-                <a href="accessibility-structural-model.html"
-                  >Accessibility Is a Structural Decision, Not a Final
-                  Pass</a
+                <a href="accessibility-structural-model"
+                  >Accessibility Is a Structural Decision, Not a Final Pass</a
                 >
               </li>
               <li>
-                <a href="whitespace-as-ui-component.html"
+                <a href="whitespace-as-ui-component"
                   >Whitespace as a UI Component, Not a Leftover</a
                 >
               </li>
@@ -1274,8 +1343,8 @@
         <div class="footer-col">
           <h2>Stay in the loop</h2>
           <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check
-            back or bookmark this page.
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
           </p>
         </div>
       </div>

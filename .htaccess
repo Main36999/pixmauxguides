@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# g6.html -> whitespace-as-ui-component (slug renamed for SEO)
+RewriteRule ^guide/g6\.html$ /guide/whitespace-as-ui-component [R=301,L]
+
+# Consolidate any already-indexed/bookmarked .html guide URLs into the
+# clean version, so SEO signals merge onto the one canonical URL.
+RewriteCond %{THE_REQUEST} \s/+guide/([a-z0-9-]+)\.html[\s?] [NC]
+RewriteRule ^ /guide/%1 [R=301,L]
+
+# Serve the real .html file for the clean URL without changing what's
+# shown in the address bar (internal rewrite, not a redirect).
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^guide/([a-z0-9-]+)/?$ guide/$1.html [L]
