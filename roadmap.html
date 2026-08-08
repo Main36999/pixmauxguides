@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Roadmap — PIXMA UX Guides</title>
+    <meta
+      name="description"
+      content="The suggested reading order through PIXMA's UI/UX guides — four stages, from foundational spacing and contrast principles through typography and color systems, layout and accessibility, to advanced design tokens and motion."
+    />
+    <link rel="canonical" href="https://pixmauxguides.com/roadmap.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixmauxguides.com/roadmap.html" />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta property="og:title" content="Learning Roadmap — PIXMA UX Guides" />
+    <meta
+      property="og:description"
+      content="The suggested reading order through PIXMA's UI/UX guides — four stages, from foundational principles through typography, color, layout, accessibility, and advanced systems."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PIXMA UX Guides — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Learning Roadmap — PIXMA UX Guides" />
+    <meta
+      name="twitter:description"
+      content="The suggested reading order through PIXMA's UI/UX guides — four stages, from foundational principles through typography, color, layout, accessibility, and advanced systems."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pixmauxguides.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Learning Roadmap",
+            "item": "https://pixmauxguides.com/roadmap.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#roadmap" class="skip-link">Skip to roadmap</a>
+
+    <!--HEADER_START-->
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="index.html" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="index.html#guides">All Guides</a>
+            <a href="roadmap.html" aria-current="page">Roadmap</a>
+            <a href="index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="index.html#guides">All Guides</a>
+          <a href="roadmap.html" aria-current="page">Roadmap</a>
+          <a href="index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+    <!--HEADER_END-->
+
+    <div class="wrap roadmap-crumb">
+      <a href="index.html" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <section
+      class="roadmap-section roadmap-section--page"
+      id="roadmap"
+      aria-labelledby="roadmap-heading"
+    >
+      <div class="wrap">
+        <div class="section-head roadmap-head">
+          <div class="roadmap-head-text">
+            <p class="section-label mono">/ learning_roadmap</p>
+            <h2 class="roadmap-title" id="roadmap-heading">
+              A suggested order to read these guides in
+            </h2>
+            <p class="roadmap-intro">
+              Every guide stands on its own, but read in this order they build
+              on each other — start with the fundamentals, move into reusable
+              systems, then layout, accessibility, and the advanced layer.
+            </p>
+          </div>
+          <div class="roadmap-summary mono">
+            <span
+              ><strong
+                ><!--ROADMAP_STAGE_COUNT-->4<!--/ROADMAP_STAGE_COUNT--></strong
+              >
+              STAGES</span
+            >
+            <span class="dot">·</span>
+            <span
+              ><strong
+                ><!--ROADMAP_GUIDE_COUNT-->11<!--/ROADMAP_GUIDE_COUNT--></strong
+              >
+              GUIDES</span
+            >
+            <span class="dot">·</span>
+            <span
+              ><strong
+                ><!--ROADMAP_TOTAL_TIME-->~2H 29M<!--/ROADMAP_TOTAL_TIME--></strong
+              >
+              READING</span
+            >
+          </div>
+        </div>
+
+        <div class="roadmap-progress" id="roadmap-progress">
+          <div class="roadmap-progress-track" aria-hidden="true">
+            <div class="roadmap-progress-fill" id="roadmap-progress-fill"></div>
+          </div>
+          <div class="roadmap-progress-row">
+            <p class="roadmap-progress-label mono" id="roadmap-progress-label">
+              Check off a guide once you've read it — progress is saved in this
+              browser.
+            </p>
+            <button
+              type="button"
+              class="roadmap-reset mono"
+              id="roadmap-reset"
+              hidden
+            >
+              Reset progress
+            </button>
+          </div>
+        </div>
+
+        <ol class="roadmap-track">
+          <!--ROADMAP_STAGES_START-->
+          <li class="roadmap-stage bracketed" data-stage="1">
+            <div class="roadmap-stage-marker">
+              <span class="roadmap-stage-num mono">01</span>
+            </div>
+            <div class="roadmap-stage-body">
+              <div class="roadmap-stage-headline">
+                <h3 class="roadmap-stage-title">Foundations</h3>
+                <span class="badge roadmap-stage-count mono">3 GUIDES</span>
+              </div>
+              <p class="roadmap-stage-blurb">
+                Start here. The three principles every later guide assumes you
+                already know: how space, contrast, and line length carry meaning
+                before color or type styling enters the picture.
+              </p>
+              <ul class="roadmap-steps">
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="whitespace-as-ui-component"
+                      aria-label='Mark "Whitespace as a UI Component, Not a Leftover" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/whitespace-as-ui-component.html"
+                    ><span class="roadmap-step-title"
+                      >Whitespace as a UI Component, Not a Leftover</span
+                    ><span class="roadmap-step-meta mono">BEG · 11 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="line-length-reading-constraint"
+                      aria-label='Mark "Line Length Is a Reading Constraint, Not a Layout Afterthought" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/line-length-reading-constraint.html"
+                    ><span class="roadmap-step-title"
+                      >Line Length Is a Reading Constraint, Not a Layout
+                      Afterthought</span
+                    ><span class="roadmap-step-meta mono">BEG · 9 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="color-contrast-systems"
+                      aria-label='Mark "Color Contrast Is Math, Not Taste" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/color-contrast-systems.html"
+                    ><span class="roadmap-step-title"
+                      >Color Contrast Is Math, Not Taste</span
+                    ><span class="roadmap-step-meta mono">BEG · 10 MIN</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="roadmap-stage bracketed" data-stage="2">
+            <div class="roadmap-stage-marker">
+              <span class="roadmap-stage-num mono">02</span>
+            </div>
+            <div class="roadmap-stage-body">
+              <div class="roadmap-stage-headline">
+                <h3 class="roadmap-stage-title">
+                  Typography &amp; Color Systems
+                </h3>
+                <span class="badge roadmap-stage-count mono">3 GUIDES</span>
+              </div>
+              <p class="roadmap-stage-blurb">
+                Turn one-off choices into systems — a type scale that resizes
+                itself, a color palette built from tokens instead of swatches,
+                and a dark theme that&#39;s re-derived rather than inverted.
+              </p>
+              <ul class="roadmap-steps">
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="type-scale-systems"
+                      aria-label='Mark "Font Size Is a Formula, Not a Feeling" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/type-scale-systems.html"
+                    ><span class="roadmap-step-title"
+                      >Font Size Is a Formula, Not a Feeling</span
+                    ><span class="roadmap-step-meta mono">INT · 12 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="color-palette-token-system"
+                      aria-label='Mark "A Color Palette Is a Token System, Not a Row of Swatches" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/color-palette-token-system.html"
+                    ><span class="roadmap-step-title"
+                      >A Color Palette Is a Token System, Not a Row of
+                      Swatches</span
+                    ><span class="roadmap-step-meta mono">INT · 14 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="dark-mode-second-palette"
+                      aria-label='Mark "Dark Mode Is a Second Palette, Not an Inverted Filter" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/dark-mode-second-palette.html"
+                    ><span class="roadmap-step-title"
+                      >Dark Mode Is a Second Palette, Not an Inverted
+                      Filter</span
+                    ><span class="roadmap-step-meta mono">INT · 12 MIN</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="roadmap-stage bracketed" data-stage="3">
+            <div class="roadmap-stage-marker">
+              <span class="roadmap-stage-num mono">03</span>
+            </div>
+            <div class="roadmap-stage-body">
+              <div class="roadmap-stage-headline">
+                <h3 class="roadmap-stage-title">
+                  Layout, Structure &amp; Accessibility
+                </h3>
+                <span class="badge roadmap-stage-count mono">3 GUIDES</span>
+              </div>
+              <p class="roadmap-stage-blurb">
+                Make an interface hold together everywhere it&#39;s used:
+                Figma&#39;s constraint model, a responsive layout that&#39;s a
+                contract rather than a breakpoint list, and the accessibility
+                tree underneath it all.
+              </p>
+              <ul class="roadmap-steps">
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="auto-layout-constraint-model"
+                      aria-label='Mark "Auto Layout Is a Constraint System, Not a Convenience Toggle" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/auto-layout-constraint-model.html"
+                    ><span class="roadmap-step-title"
+                      >Auto Layout Is a Constraint System, Not a Convenience
+                      Toggle</span
+                    ><span class="roadmap-step-meta mono">INT · 15 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="responsive-layout-contract"
+                      aria-label='Mark "Responsive Layout Is a Contract, Not a Breakpoint List" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/responsive-layout-contract.html"
+                    ><span class="roadmap-step-title"
+                      >Responsive Layout Is a Contract, Not a Breakpoint
+                      List</span
+                    ><span class="roadmap-step-meta mono">INT · 18 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="accessibility-structural-model"
+                      aria-label='Mark "Accessibility Is a Structural Decision, Not a Final Pass" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/accessibility-structural-model.html"
+                    ><span class="roadmap-step-title"
+                      >Accessibility Is a Structural Decision, Not a Final
+                      Pass</span
+                    ><span class="roadmap-step-meta mono">INT · 16 MIN</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="roadmap-stage bracketed" data-stage="4">
+            <div class="roadmap-stage-marker">
+              <span class="roadmap-stage-num mono">04</span>
+            </div>
+            <div class="roadmap-stage-body">
+              <div class="roadmap-stage-headline">
+                <h3 class="roadmap-stage-title">Systems &amp; Motion</h3>
+                <span class="badge roadmap-stage-count mono">2 GUIDES</span>
+              </div>
+              <p class="roadmap-stage-blurb">
+                The advanced layer teams reach for once the basics are solid:
+                naming conventions that survive a rebrand, and motion timing
+                with real physics behind it.
+              </p>
+              <ul class="roadmap-steps">
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="design-tokens-naming-system"
+                      aria-label='Mark "Design Tokens Are a Naming System, Not a Style Guide" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/design-tokens-naming-system.html"
+                    ><span class="roadmap-step-title"
+                      >Design Tokens Are a Naming System, Not a Style
+                      Guide</span
+                    ><span class="roadmap-step-meta mono">ADV · 17 MIN</span></a
+                  >
+                </li>
+                <li class="roadmap-step">
+                  <label class="roadmap-step-check"
+                    ><input
+                      type="checkbox"
+                      class="roadmap-step-checkbox"
+                      data-roadmap-id="motion-timing-model"
+                      aria-label='Mark "Motion Timing Is a Physics Model, Not a Preset" as read' /><span
+                      class="roadmap-step-box"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 12 10">
+                        <path d="M1 5.2L4.4 8.6L11 1.4" /></svg></span></label
+                  ><a
+                    class="roadmap-step-link"
+                    href="/guide/motion-timing-model.html"
+                    ><span class="roadmap-step-title"
+                      >Motion Timing Is a Physics Model, Not a Preset</span
+                    ><span class="roadmap-step-meta mono">ADV · 15 MIN</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!--ROADMAP_STAGES_END-->
+        </ol>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="privacy.html">Privacy policy</a></li>
+            <li><a href="terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="privacy.html">Privacy policy</a> ·
+          <a href="terms.html">Terms of service</a> ·
+          <a href="about.html">About</a> ·
+          <a href="contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

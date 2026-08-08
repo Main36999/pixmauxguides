@@ -146,6 +146,7 @@
         <div class="header-actions">
           <nav class="site-nav" aria-label="Primary">
             <a href="#guides">All Guides</a>
+            <a href="roadmap.html">Roadmap</a>
             <a href="#toolbar">Categories</a>
           </nav>
           <form
@@ -212,6 +213,7 @@
       <div class="mobile-menu" id="mobile-menu" hidden>
         <nav class="mobile-menu__nav" aria-label="Primary">
           <a href="#guides">All Guides</a>
+          <a href="roadmap.html">Roadmap</a>
           <a href="#toolbar">Categories</a>
         </nav>
         <form
@@ -264,6 +266,12 @@
             systems, and the Figma / Adobe XD workflows that turn a sketch into
             a shippable interface.
           </p>
+          <div class="hero-actions fade-up">
+            <a href="roadmap.html" class="btn btn-primary"
+              >Start the learning roadmap <span aria-hidden="true">→</span></a
+            >
+            <a href="#guides" class="btn btn-ghost">Browse all guides</a>
+          </div>
           <div class="hero-stats fade-up">
             <span
               ><strong id="stat-count"
@@ -1047,6 +1055,13 @@
       guides, the #/about, #/contact, #/privacy, #/terms hash routes
       below are still rendered here (not redirected) as a fallback for
       old bookmarked/shared links, via #page-view.
+
+      The learning roadmap used to be a section on this page (#roadmap)
+      but now lives at its own real, crawlable file, roadmap.html —
+      see build-home.js's buildRoadmap() for how it's pre-rendered and
+      app.js's initRoadmapProgress() for its "mark as read" behavior.
+      An old bookmarked or shared index.html#roadmap link is redirected
+      to roadmap.html by app.js's handleRoute().
     -->
     <div class="wrap page-view" id="page-view" tabindex="-1" hidden>
       <a href="#" class="page-view__back mono">← All guides</a>

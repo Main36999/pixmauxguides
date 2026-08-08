@@ -2,9 +2,14 @@
 /**
  * build-home.js
  * -----------------------------------------------------------------------
- * Pre-renders the homepage guide grid (index.html #grid-root) from
- * guides.json into real, static HTML at build time — the exact same
- * markup app.js's cardHtml() would produce client-side.
+ * Pre-renders two pieces of static HTML from guides.json at build time:
+ *   - the homepage guide grid (index.html #grid-root) — the exact same
+ *     markup app.js's cardHtml() would produce client-side.
+ *   - the learning roadmap, which lives on its own page (roadmap.html
+ *     #roadmap) rather than as a section of the homepage. It has no
+ *     client-side equivalent at all (see the ROADMAP_STAGES section
+ *     below) — app.js only layers "mark as read" checkbox/progress-bar
+ *     behavior on top of what this script writes.
  *
  * WHY THIS EXISTS
  * Previously #grid-root started empty and was only filled in by
@@ -12,20 +17,24 @@
  * guide list — and the site's core content — didn't exist in the raw
  * HTML at all until JavaScript ran. This script closes that gap:
  * guides.json stays the single source of truth, but running this
- * script writes its contents into index.html as plain HTML, so the
- * page is fully readable with JavaScript off and by any crawler that
- * doesn't execute JS.
+ * script writes its contents into index.html and roadmap.html as
+ * plain HTML, so both pages are fully readable with JavaScript off
+ * and by any crawler that doesn't execute JS.
  *
- * app.js is UNCHANGED and still fetches guides.json on load and
- * re-renders #grid-root for live search/filter/category interactivity
- * — it just now enhances a page that already has real content on it,
- * instead of building the page from nothing.
+ * app.js is otherwise UNCHANGED and still fetches guides.json on load
+ * and re-renders #grid-root for live search/filter/category
+ * interactivity — it just now enhances a page that already has real
+ * content on it, instead of building the page from nothing. The
+ * roadmap is simpler: it isn't searchable/filterable, so app.js never
+ * rebuilds it — it only adds "mark as read" checkbox/progress-bar
+ * behavior on top of the static markup this script writes.
  *
  * USAGE
  *   node build-home.js
  *
  * Run this locally (or as your host's build command) every time
- * guides.json changes, before you deploy/commit index.html.
+ * guides.json changes, before you deploy/commit index.html and
+ * roadmap.html.
  * Netlify: set "Build command" to `node build-home.js` and
  * "Publish directory" to the repo root.
  * -----------------------------------------------------------------------
@@ -37,6 +46,7 @@ const path = require("path");
 const ROOT = __dirname;
 const GUIDES_JSON_PATH = path.join(ROOT, "guides.json");
 const INDEX_HTML_PATH = path.join(ROOT, "index.html");
+const ROADMAP_HTML_PATH = path.join(ROOT, "roadmap.html");
 
 // ---------------------------------------------------------------------
 // Ported 1:1 from app.js. If you ever edit a card's markup/labels in
@@ -211,6 +221,122 @@ function cardHtml(g) {
 }
 
 // ---------------------------------------------------------------------
+// Learning roadmap (roadmap.html #roadmap)
+// ---------------------------------------------------------------------
+// A curated, opinionated reading order through the guides, grouped into
+// stages. Unlike the grid above, the roadmap has no client-side render
+// path to keep in sync — it's built here once, at build time, and the
+// resulting markup is static. app.js only layers "mark as read"
+// checkbox + progress-bar behavior on top of it (see the "roadmap
+// progress" block near the end of app.js); it never rebuilds this list.
+//
+// Ordering comes from each guide's `roadmapStage` / `roadmapStep` fields
+// in guides.json (roadmapStep is a single 1..N sequence used to sort
+// guides within a stage). A guide with no `roadmapStage` is simply left
+// off the roadmap — that's the mechanism for keeping a brand-new guide
+// off the suggested path until you've decided where it belongs.
+const ROADMAP_STAGES = [
+  {
+    id: 1,
+    title: "Foundations",
+    blurb:
+      "Start here. The three principles every later guide assumes you already know: how space, contrast, and line length carry meaning before color or type styling enters the picture.",
+  },
+  {
+    id: 2,
+    title: "Typography & Color Systems",
+    blurb:
+      "Turn one-off choices into systems — a type scale that resizes itself, a color palette built from tokens instead of swatches, and a dark theme that's re-derived rather than inverted.",
+  },
+  {
+    id: 3,
+    title: "Layout, Structure & Accessibility",
+    blurb:
+      "Make an interface hold together everywhere it's used: Figma's constraint model, a responsive layout that's a contract rather than a breakpoint list, and the accessibility tree underneath it all.",
+  },
+  {
+    id: 4,
+    title: "Systems & Motion",
+    blurb:
+      "The advanced layer teams reach for once the basics are solid: naming conventions that survive a rebrand, and motion timing with real physics behind it.",
+  },
+];
+
+function roadmapStepHtml(g) {
+  const ariaLabel = escapeHtml(`Mark "${g.title}" as read`);
+  return (
+    `<li class="roadmap-step">` +
+    `<label class="roadmap-step-check">` +
+    `<input type="checkbox" class="roadmap-step-checkbox" data-roadmap-id="${escapeHtml(g.id)}" aria-label="${ariaLabel}">` +
+    `<span class="roadmap-step-box" aria-hidden="true"><svg viewBox="0 0 12 10"><path d="M1 5.2L4.4 8.6L11 1.4"/></svg></span>` +
+    `</label>` +
+    `<a class="roadmap-step-link" href="/guide/${g.id}.html">` +
+    `<span class="roadmap-step-title">${escapeHtml(g.title)}</span>` +
+    `<span class="roadmap-step-meta mono">${LEVEL_ABBR[g.level]} · ${g.readTime} MIN</span>` +
+    `</a>` +
+    `</li>`
+  );
+}
+
+function roadmapStageHtml(stage, guides) {
+  const num = String(stage.id).padStart(2, "0");
+  return (
+    `<li class="roadmap-stage bracketed" data-stage="${stage.id}">` +
+    `<div class="roadmap-stage-marker"><span class="roadmap-stage-num mono">${num}</span></div>` +
+    `<div class="roadmap-stage-body">` +
+    `<div class="roadmap-stage-headline">` +
+    `<h3 class="roadmap-stage-title">${escapeHtml(stage.title)}</h3>` +
+    `<span class="badge roadmap-stage-count mono">${guides.length} GUIDE${guides.length === 1 ? "" : "S"}</span>` +
+    `</div>` +
+    `<p class="roadmap-stage-blurb">${escapeHtml(stage.blurb)}</p>` +
+    `<ul class="roadmap-steps">${guides.map(roadmapStepHtml).join("")}</ul>` +
+    `</div>` +
+    `</li>`
+  );
+}
+
+function formatRoadmapTime(totalMinutes) {
+  const h = Math.floor(totalMinutes / 60);
+  const m = totalMinutes % 60;
+  if (h === 0) return `~${m}M`;
+  if (m === 0) return `~${h}H`;
+  return `~${h}H ${m}M`;
+}
+
+// Builds every piece build-home.js needs to splice into roadmap.html's
+// #roadmap section: the stage-by-stage markup, plus the small stats
+// (stage count / guide count / total reading time) shown above it.
+function buildRoadmap(guides) {
+  const roadmapGuides = guides
+    .filter((g) => typeof g.roadmapStage === "number")
+    .slice()
+    .sort((a, b) => (a.roadmapStep || 0) - (b.roadmapStep || 0));
+
+  const byStage = new Map();
+  roadmapGuides.forEach((g) => {
+    if (!byStage.has(g.roadmapStage)) byStage.set(g.roadmapStage, []);
+    byStage.get(g.roadmapStage).push(g);
+  });
+
+  const stagesUsed = ROADMAP_STAGES.filter((s) => byStage.has(s.id));
+  const stagesHtml = stagesUsed
+    .map((s) => roadmapStageHtml(s, byStage.get(s.id)))
+    .join("");
+
+  const totalMinutes = roadmapGuides.reduce(
+    (sum, g) => sum + (g.readTime || 0),
+    0,
+  );
+
+  return {
+    stagesHtml,
+    stageCount: stagesUsed.length,
+    guideCount: roadmapGuides.length,
+    totalTimeLabel: formatRoadmapTime(totalMinutes),
+  };
+}
+
+// ---------------------------------------------------------------------
 // Build
 // ---------------------------------------------------------------------
 
@@ -227,12 +353,7 @@ function replaceBetween(html, startMarker, endMarker, replacement) {
   );
 }
 
-function main() {
-  const guides = JSON.parse(fs.readFileSync(GUIDES_JSON_PATH, "utf8"));
-  if (!Array.isArray(guides)) {
-    throw new Error("guides.json did not contain an array");
-  }
-
+function buildIndexHtml(guides) {
   let html = fs.readFileSync(INDEX_HTML_PATH, "utf8");
 
   const cardsHtml = guides.map(cardHtml).join("");
@@ -261,6 +382,51 @@ function main() {
   console.log(
     `✓ index.html updated — ${guides.length} guide${guides.length === 1 ? "" : "s"} pre-rendered into #grid-root.`,
   );
+}
+
+function buildRoadmapHtml(guides) {
+  let html = fs.readFileSync(ROADMAP_HTML_PATH, "utf8");
+
+  const roadmap = buildRoadmap(guides);
+  html = replaceBetween(
+    html,
+    "<!--ROADMAP_STAGES_START-->",
+    "<!--ROADMAP_STAGES_END-->",
+    roadmap.stagesHtml,
+  );
+  html = replaceBetween(
+    html,
+    "<!--ROADMAP_STAGE_COUNT-->",
+    "<!--/ROADMAP_STAGE_COUNT-->",
+    String(roadmap.stageCount),
+  );
+  html = replaceBetween(
+    html,
+    "<!--ROADMAP_GUIDE_COUNT-->",
+    "<!--/ROADMAP_GUIDE_COUNT-->",
+    String(roadmap.guideCount),
+  );
+  html = replaceBetween(
+    html,
+    "<!--ROADMAP_TOTAL_TIME-->",
+    "<!--/ROADMAP_TOTAL_TIME-->",
+    roadmap.totalTimeLabel,
+  );
+
+  fs.writeFileSync(ROADMAP_HTML_PATH, html);
+  console.log(
+    `✓ roadmap.html updated — ${roadmap.guideCount} guide${roadmap.guideCount === 1 ? "" : "s"} pre-rendered into #roadmap across ${roadmap.stageCount} stage${roadmap.stageCount === 1 ? "" : "s"}.`,
+  );
+}
+
+function main() {
+  const guides = JSON.parse(fs.readFileSync(GUIDES_JSON_PATH, "utf8"));
+  if (!Array.isArray(guides)) {
+    throw new Error("guides.json did not contain an array");
+  }
+
+  buildIndexHtml(guides);
+  buildRoadmapHtml(guides);
 }
 
 main();
