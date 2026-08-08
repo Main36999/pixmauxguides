@@ -30,7 +30,7 @@
     "description": "Why HSL's lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.",
     "thumbnail": "/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches_thumbnail.png",
     "roadmapStage": 2,
-    "roadmapStep": 5
+    "roadmapStep": 6
   },
   {
     "id": "type-scale-systems",
@@ -52,7 +52,7 @@
     "description": "The mental model behind Figma's most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.",
     "thumbnail": "/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png",
     "roadmapStage": 3,
-    "roadmapStep": 7
+    "roadmapStep": 8
   },
   {
     "id": "accessibility-structural-model",
@@ -63,7 +63,7 @@
     "description": "How the accessibility tree actually gets built from markup, how a control's accessible name is computed, ARIA's real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses.",
     "thumbnail": "/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png",
     "roadmapStage": 3,
-    "roadmapStep": 9
+    "roadmapStep": 10
   },
   {
     "id": "design-tokens-naming-system",
@@ -74,7 +74,7 @@
     "description": "The part of a design system that actually decides whether it survives a rebrand: primitive, semantic, and component token tiers, the aliasing chain between them, and the naming rules that keep tokens from drifting back into hardcoded values.",
     "thumbnail": "/thumbnail_image/Design Tokens Are a Naming System, Not a Style Guide_thumbnail.png",
     "roadmapStage": 4,
-    "roadmapStep": 10
+    "roadmapStep": 11
   },
   {
     "id": "responsive-layout-contract",
@@ -85,7 +85,7 @@
     "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.",
     "thumbnail": "/thumbnail_image/Responsive Layout Is a Contract, Not a Breakpoint List_thumbnail.png",
     "roadmapStage": 3,
-    "roadmapStep": 8
+    "roadmapStep": 9
   },
   {
     "id": "motion-timing-model",
@@ -96,7 +96,7 @@
     "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
     "thumbnail": "/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset_thumbnail.png",
     "roadmapStage": 4,
-    "roadmapStep": 11
+    "roadmapStep": 12
   },
   {
     "id": "dark-mode-second-palette",
@@ -107,7 +107,7 @@
     "description": "Elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch.",
     "thumbnail": "/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter_thumbnail.png",
     "roadmapStage": 2,
-    "roadmapStep": 6
+    "roadmapStep": 7
   },
   {
     "id": "font-pairing-hierarchy-decision",
@@ -116,7 +116,9 @@
     "readTime": 11,
     "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match",
     "description": "Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a \"creative\" pairing.",
-    "thumbnail": "/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png"
+    "thumbnail": "/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png",
+    "roadmapStage": 2,
+    "roadmapStep": 5
   },
   {
     "id": "line-length-reading-constraint",
