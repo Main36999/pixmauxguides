@@ -110,6 +110,15 @@
     "roadmapStep": 6
   },
   {
+    "id": "font-pairing-hierarchy-decision",
+    "category": "typography",
+    "level": "beginner",
+    "readTime": 11,
+    "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match",
+    "description": "Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a \"creative\" pairing.",
+    "thumbnail": "/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png"
+  },
+  {
     "id": "line-length-reading-constraint",
     "category": "typography",
     "level": "beginner",
