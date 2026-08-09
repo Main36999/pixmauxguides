@@ -130,5 +130,14 @@
     "thumbnail": "/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought_thumbnail.png",
     "roadmapStage": 1,
     "roadmapStep": 2
+  },
+  {
+    "id": "grid-systems-rhythm",
+    "category": "spacing",
+    "level": "intermediate",
+    "readTime": 14,
+    "title": "Grid Systems Are a Rhythm, Not a Ruler",
+    "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
+    "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png"
   }
 ]
