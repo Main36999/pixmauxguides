@@ -138,6 +138,8 @@
     "readTime": 14,
     "title": "Grid Systems Are a Rhythm, Not a Ruler",
     "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
-    "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png"
+    "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png",
+    "roadmapStage": 3,
+    "roadmapStep": 8.5
   }
 ]
