@@ -535,9 +535,7 @@
     <!--HEADER_END-->
 
     <div class="wrap guide-crumb">
-      <a href="/index.html#guides" class="page-view__back mono"
-        >← All guides</a
-      >
+      <a href="/index.html#guides" class="page-view__back mono">← All guides</a>
     </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
@@ -550,11 +548,11 @@
           Grid Systems Are a Rhythm, Not a Ruler
         </h1>
         <p class="guide-hero__dek">
-          A column count is the least important decision in a grid system.
-          The decision that actually holds an interface together is the
-          spacing unit underneath it — the number that a grid's columns,
-          gutters, margins, and line-heights all have to agree on before any
-          of them mean anything next to each other.
+          A column count is the least important decision in a grid system. The
+          decision that actually holds an interface together is the spacing unit
+          underneath it — the number that a grid's columns, gutters, margins,
+          and line-heights all have to agree on before any of them mean anything
+          next to each other.
         </p>
         <div class="guide-hero__figure">
           <svg
@@ -575,30 +573,10 @@
             <circle class="thumb-fill" cx="90" cy="64" r="3.4" />
             <circle class="thumb-fill" cx="120" cy="64" r="3.4" />
             <circle class="thumb-fill" cx="150" cy="64" r="3.4" />
-            <line
-              x1="64"
-              y1="99"
-              x2="176"
-              y2="99"
-              class="thumb-dim-line"
-            /><line
-              x1="64"
-              y1="95"
-              x2="64"
-              y2="103"
-              class="thumb-dim-tick"
-            /><line
-              x1="176"
-              y1="95"
-              x2="176"
-              y2="103"
-              class="thumb-dim-tick"
-            /><text
-              x="120"
-              y="112"
-              text-anchor="middle"
-              class="thumb-dim-label"
-            >
+            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
+            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
+            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
+            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
               8 · 16 · 24
             </text>
           </svg>
@@ -613,15 +591,15 @@
           <li><a href="#the-unit-comes-first">The unit comes first</a></li>
           <li><a href="#the-spacing-scale">Building the spacing scale</a></li>
           <li>
-            <a href="#columns-and-gutters"
-              >Columns and gutters are a ratio</a
-            >
+            <a href="#columns-and-gutters">Columns and gutters are a ratio</a>
           </li>
           <li><a href="#fluid-grids">Making the grid fluid</a></li>
           <li>
             <a href="#vertical-rhythm">Vertical rhythm, the forgotten axis</a>
           </li>
-          <li><a href="#where-it-breaks">Where rhythm breaks in practice</a></li>
+          <li>
+            <a href="#where-it-breaks">Where rhythm breaks in practice</a>
+          </li>
           <li><a href="#worked-example">A worked example</a></li>
           <li><a href="#cheat-sheet">Cheat sheet</a></li>
         </ol>
@@ -631,77 +609,72 @@
         <p>
           Ask most people what a grid system is for and they'll describe
           columns: twelve of them, probably, evenly spaced across the page.
-          That's not wrong, but it's the least interesting part of the
-          system. Columns tell you how to divide width. They say nothing
-          about why a card's internal padding, the gap between two cards,
-          and the space above a section heading should have anything to do
-          with each other — and in an interface without a real grid system,
-          they usually don't. One component ships with 14px of padding,
-          another with 15px, a third with 20px, each value chosen in
-          isolation by whoever built that piece, each one defensible on its
-          own and wrong together.
+          That's not wrong, but it's the least interesting part of the system.
+          Columns tell you how to divide width. They say nothing about why a
+          card's internal padding, the gap between two cards, and the space
+          above a section heading should have anything to do with each other —
+          and in an interface without a real grid system, they usually don't.
+          One component ships with 14px of padding, another with 15px, a third
+          with 20px, each value chosen in isolation by whoever built that piece,
+          each one defensible on its own and wrong together.
         </p>
         <p>
-          A grid system's actual job is to make every one of those
-          decisions answerable from a single number, so unrelated parts of
-          an interface — a card built in one sprint, a modal built in
-          another, a marketing page bolted on by a different team — end up
-          sharing a rhythm without anyone coordinating by hand. That number
-          is the spacing unit, and it comes before columns, before gutters,
-          before any layout decision at all.
+          A grid system's actual job is to make every one of those decisions
+          answerable from a single number, so unrelated parts of an interface —
+          a card built in one sprint, a modal built in another, a marketing page
+          bolted on by a different team — end up sharing a rhythm without anyone
+          coordinating by hand. That number is the spacing unit, and it comes
+          before columns, before gutters, before any layout decision at all.
         </p>
 
         <h2 id="the-unit-comes-first">
-          <span class="guide-article__num mono">01</span>The unit comes
-          first
+          <span class="guide-article__num mono">01</span>The unit comes first
         </h2>
         <p>
           Most mature design systems standardize on an
           <strong>8-point base unit</strong> — Google's Material Design
-          popularized it in 2014 and it has since become the default across
-          iOS, Android, and web design systems alike. The reason isn't
-          aesthetic, it's arithmetic: 8 is cleanly divisible by 2 and 4,
-          which matters because interface elements get scaled at multiple
-          device pixel ratios. A value defined in 8pt increments stays a
-          whole number of physical pixels at 1×, 2×, and 3× density — 8pt
-          becomes 8px, 16px, or 24px with nothing left over. Pick an odd
-          base like 7 or 10, and you'll eventually hit a density where a
-          spacing value lands on a half-pixel, which renderers either round
-          unpredictably or blur.
+          popularized it in 2014 and it has since become the default across iOS,
+          Android, and web design systems alike. The reason isn't aesthetic,
+          it's arithmetic: 8 is cleanly divisible by 2 and 4, which matters
+          because interface elements get scaled at multiple device pixel ratios.
+          A value defined in 8pt increments stays a whole number of physical
+          pixels at 1×, 2×, and 3× density — 8pt becomes 8px, 16px, or 24px with
+          nothing left over. Pick an odd base like 7 or 10, and you'll
+          eventually hit a density where a spacing value lands on a half-pixel,
+          which renderers either round unpredictably or blur.
         </p>
         <p>
           iOS's point system and Android's dp system are both, in effect,
-          already agreeing to this: an 8pt/8dp step is the smallest unit
-          that reliably survives translation across the density buckets
-          both platforms ship. Web interfaces don't have quite the same
-          hard constraint, but there's no reason to invent a different rule
-          when the one every native platform converged on already works,
-          and using it means a design token can move between web, iOS, and
-          Android specs without a conversion step.
+          already agreeing to this: an 8pt/8dp step is the smallest unit that
+          reliably survives translation across the density buckets both
+          platforms ship. Web interfaces don't have quite the same hard
+          constraint, but there's no reason to invent a different rule when the
+          one every native platform converged on already works, and using it
+          means a design token can move between web, iOS, and Android specs
+          without a conversion step.
         </p>
         <p>
           Most systems pair the 8-unit with a
-          <strong>4-unit half-step</strong> for the cases where a full 8px
-          is too coarse — icon-to-label gaps, border widths, the padding
-          inside a small badge. The rule of thumb: reach for 4 near the
-          smallest, densest elements (icons, chips, input borders), and
-          switch to multiples of 8 for everything at component scale or
-          larger. A spacing value that isn't a multiple of 4 shouldn't
-          exist in the system at all — if 8 and 4 don't produce the exact
-          gap a design calls for, that's a signal to reconsider the
-          gap, not to add a one-off exception.
+          <strong>4-unit half-step</strong> for the cases where a full 8px is
+          too coarse — icon-to-label gaps, border widths, the padding inside a
+          small badge. The rule of thumb: reach for 4 near the smallest, densest
+          elements (icons, chips, input borders), and switch to multiples of 8
+          for everything at component scale or larger. A spacing value that
+          isn't a multiple of 4 shouldn't exist in the system at all — if 8 and
+          4 don't produce the exact gap a design calls for, that's a signal to
+          reconsider the gap, not to add a one-off exception.
         </p>
 
         <h2 id="the-spacing-scale">
-          <span class="guide-article__num mono">02</span>Building the
-          spacing scale
+          <span class="guide-article__num mono">02</span>Building the spacing
+          scale
         </h2>
         <p>
-          The base unit isn't used directly everywhere — it's the seed for
-          a small, named scale that every padding, margin, and gap value in
-          the interface draws from. A typical scale roughly doubles as it
-          climbs, so the jump between steps stays proportionally
-          meaningful instead of the eye having to tell 44px from 48px apart:
+          The base unit isn't used directly everywhere — it's the seed for a
+          small, named scale that every padding, margin, and gap value in the
+          interface draws from. A typical scale roughly doubles as it climbs, so
+          the jump between steps stays proportionally meaningful instead of the
+          eye having to tell 44px from 48px apart:
         </p>
         <div class="guide-table-wrap">
           <table>
@@ -766,67 +739,62 @@
         </div>
         <p>
           Naming the tokens by multiplier rather than by pixel value —
-          <code>--space-2</code> rather than <code>--space-16</code> — is
-          what lets the whole scale re-derive itself later. Change the root
-          unit from 8px to 8.5px for a denser platform and every token
-          shifts proportionally without a single call site changing.
+          <code>--space-2</code> rather than <code>--space-16</code> — is what
+          lets the whole scale re-derive itself later. Change the root unit from
+          8px to 8.5px for a denser platform and every token shifts
+          proportionally without a single call site changing.
         </p>
 
         <h2 id="columns-and-gutters">
-          <span class="guide-article__num mono">03</span>Columns and
-          gutters are a ratio, not a fixed number
+          <span class="guide-article__num mono">03</span>Columns and gutters are
+          a ratio, not a fixed number
         </h2>
         <p>
-          Twelve columns is the near-universal default for the same reason
-          8 is the near-universal spacing unit: divisibility. Twelve
-          divides evenly by 2, 3, 4, and 6, so a layout can split into
-          halves, thirds, quarters, or sixths without any column ever
-          getting cut mid-way. A 10-column grid only divides cleanly by 2
-          and 5 — fine until a designer wants a three-column layout, at
-          which point the grid simply can't express it.
+          Twelve columns is the near-universal default for the same reason 8 is
+          the near-universal spacing unit: divisibility. Twelve divides evenly
+          by 2, 3, 4, and 6, so a layout can split into halves, thirds,
+          quarters, or sixths without any column ever getting cut mid-way. A
+          10-column grid only divides cleanly by 2 and 5 — fine until a designer
+          wants a three-column layout, at which point the grid simply can't
+          express it.
         </p>
         <p>
-          The gutter — the gap between columns — should be pulled from the
-          same spacing scale as everything else, not chosen independently.
-          A common pairing is a 24px gutter at desktop (<code
-            >--space-3</code
-          >) narrowing to 16px on mobile (<code>--space-2</code>), so the
-          same 12-column structure feels proportionally tighter on a
-          smaller viewport without needing a separate rule.
+          The gutter — the gap between columns — should be pulled from the same
+          spacing scale as everything else, not chosen independently. A common
+          pairing is a 24px gutter at desktop (<code>--space-3</code>) narrowing
+          to 16px on mobile (<code>--space-2</code>), so the same 12-column
+          structure feels proportionally tighter on a smaller viewport without
+          needing a separate rule.
         </p>
         <p>
           <strong>Margin and gutter are not the same number</strong>, even
           though it's tempting to make them match for simplicity. A gutter
-          separates two columns that both belong to the content; a margin
-          frames that content against the edge of the viewport. Those are
-          different jobs, and they scale differently — a margin usually
-          needs to grow faster than a gutter as viewport width increases,
-          because its job is proportional framing, not internal spacing.
-          A common pattern: gutters step through 16px → 24px as the
-          viewport grows, while margins step through 16px → 24px → 64px →
-          96px across the same breakpoints.
+          separates two columns that both belong to the content; a margin frames
+          that content against the edge of the viewport. Those are different
+          jobs, and they scale differently — a margin usually needs to grow
+          faster than a gutter as viewport width increases, because its job is
+          proportional framing, not internal spacing. A common pattern: gutters
+          step through 16px → 24px as the viewport grows, while margins step
+          through 16px → 24px → 64px → 96px across the same breakpoints.
         </p>
         <p>
-          With those three numbers — container width, column count, gutter
-          — a fixed column's width is just algebra:
+          With those three numbers — container width, column count, gutter — a
+          fixed column's width is just algebra:
         </p>
         <pre><code>column_width = (container_width − (columns − 1) × gutter − 2 × margin) / columns</code></pre>
         <p>
           That formula is worth knowing even though almost nobody hand-
-          calculates it anymore, because it's exactly what CSS Grid and
-          Flexbox are doing for you — and understanding it is what lets you
-          tell, at a glance, whether a design's numbers actually add up to
-          whole pixels or are quietly relying on the browser to round.
+          calculates it anymore, because it's exactly what CSS Grid and Flexbox
+          are doing for you — and understanding it is what lets you tell, at a
+          glance, whether a design's numbers actually add up to whole pixels or
+          are quietly relying on the browser to round.
         </p>
 
         <h2 id="fluid-grids">
-          <span class="guide-article__num mono">04</span>Making the grid
-          fluid
+          <span class="guide-article__num mono">04</span>Making the grid fluid
         </h2>
         <p>
-          In CSS, the calculation above is rarely written out — <code
-            >fr</code
-          >
+          In CSS, the calculation above is rarely written out — <code>fr</code>
           units do it automatically. A 12-column grid with an 8-unit-based
           gutter is just:
         </p>
@@ -839,20 +807,20 @@
   padding-inline: var(--space-4); /* 32px, the margin */
 }</code></pre>
         <p>
-          The <code>minmax(0, 1fr)</code> instead of a bare <code>1fr</code>
-          matters more than it looks: a bare <code>fr</code> track has an
-          implicit minimum size equal to its content, so a column holding
-          an un-breakable long word or a wide image can force the whole
-          grid wider than its container. Wrapping it in
-          <code>minmax(0, 1fr)</code> overrides that minimum to zero and
-          lets the track actually shrink to the space available.
+          The <code>minmax(0, 1fr)</code> instead of a bare
+          <code>1fr</code> matters more than it looks: a bare
+          <code>fr</code> track has an implicit minimum size equal to its
+          content, so a column holding an un-breakable long word or a wide image
+          can force the whole grid wider than its container. Wrapping it in
+          <code>minmax(0, 1fr)</code> overrides that minimum to zero and lets
+          the track actually shrink to the space available.
         </p>
         <p>
-          For content that doesn't need to align to the full 12-column
-          structure — a tag list, a card grid with no fixed count —
-          <code>auto-fit</code> combined with <code>minmax()</code> gives a
-          grid that reflows its own column count instead of wrapping
-          awkwardly at a fixed number:
+          For content that doesn't need to align to the full 12-column structure
+          — a tag list, a card grid with no fixed count —
+          <code>auto-fit</code> combined with <code>minmax()</code> gives a grid
+          that reflows its own column count instead of wrapping awkwardly at a
+          fixed number:
         </p>
         <pre><code>.card-grid {
   display: grid;
@@ -863,34 +831,33 @@
   gap: var(--space-4); /* 32px */
 }</code></pre>
         <p>
-          This still respects the underlying rhythm — the gap is still a
-          scale token — it just stops pretending every piece of content
-          needs to know about the site-wide column count to lay out
-          correctly.
+          This still respects the underlying rhythm — the gap is still a scale
+          token — it just stops pretending every piece of content needs to know
+          about the site-wide column count to lay out correctly.
         </p>
 
         <h2 id="vertical-rhythm">
-          <span class="guide-article__num mono">05</span>Vertical rhythm,
-          the forgotten axis
+          <span class="guide-article__num mono">05</span>Vertical rhythm, the
+          forgotten axis
         </h2>
         <p>
-          Everything above governs horizontal space. Vertical space gets
-          far less attention, which is exactly why it's usually where a
-          grid system quietly falls apart — a page can have flawless
-          columns and still feel uneven if the spacing above and below
-          headings doesn't follow a rule.
+          Everything above governs horizontal space. Vertical space gets far
+          less attention, which is exactly why it's usually where a grid system
+          quietly falls apart — a page can have flawless columns and still feel
+          uneven if the spacing above and below headings doesn't follow a rule.
         </p>
         <p>
-          The key distinction most systems miss: <strong
+          The key distinction most systems miss:
+          <strong
             >line-height and block spacing are not governed by the same
             unit.</strong
           >
-          Block spacing — the gap between a paragraph and the next
-          heading, between cards, between sections — should snap to the
-          8px spacing scale above. Line-height operates at a finer grain,
-          because text needs more granular control to stay legible at
-          different sizes. A useful sub-rule: keep line-height values as
-          multiples of 4px rather than forcing them onto the 8px scale.
+          Block spacing — the gap between a paragraph and the next heading,
+          between cards, between sections — should snap to the 8px spacing scale
+          above. Line-height operates at a finer grain, because text needs more
+          granular control to stay legible at different sizes. A useful
+          sub-rule: keep line-height values as multiples of 4px rather than
+          forcing them onto the 8px scale.
         </p>
         <div class="guide-table-wrap">
           <table>
@@ -934,70 +901,67 @@
           </table>
         </div>
         <p>
-          With line-heights fixed to 4px steps, the margin above and below
-          each block of text can then be set to whole multiples of the
-          8px scale without ever landing on a fractional pixel — a
-          24px-line-height paragraph followed by a 24px (<code
-            >--space-3</code
-          >) gap keeps every baseline on the page falling on an 8px
-          interval, which is what actually reads as "aligned" even though
-          no one consciously notices individual baselines.
+          With line-heights fixed to 4px steps, the margin above and below each
+          block of text can then be set to whole multiples of the 8px scale
+          without ever landing on a fractional pixel — a 24px-line-height
+          paragraph followed by a 24px (<code>--space-3</code>) gap keeps every
+          baseline on the page falling on an 8px interval, which is what
+          actually reads as "aligned" even though no one consciously notices
+          individual baselines.
         </p>
         <div class="guide-callout">
           <p>
             <strong>Why this is worth the extra rule:</strong> a page where
             every heading's margin is a slightly different, content-fitted
-            number looks fine in isolation and restless in aggregate —
-            the eye can't quite say what's wrong, but nothing feels like
-            it belongs to the same document. Constraining line-height and
-            block spacing to two small, related scales is what removes
-            that restlessness without anyone having to eyeball it
-            section by section.
+            number looks fine in isolation and restless in aggregate — the eye
+            can't quite say what's wrong, but nothing feels like it belongs to
+            the same document. Constraining line-height and block spacing to two
+            small, related scales is what removes that restlessness without
+            anyone having to eyeball it section by section.
           </p>
         </div>
 
         <h2 id="where-it-breaks">
-          <span class="guide-article__num mono">06</span>Where rhythm
-          breaks in practice
+          <span class="guide-article__num mono">06</span>Where rhythm breaks in
+          practice
         </h2>
         <p>
-          A spacing system rarely fails because someone rejects it
-          outright — it erodes gradually, usually through one of four
-          patterns:
+          A spacing system rarely fails because someone rejects it outright — it
+          erodes gradually, usually through one of four patterns:
         </p>
         <ul>
           <li>
-            <strong>Compounding drift in nested components.</strong> A card
-            with 16px padding placed inside a section with 32px padding,
-            inside a page with 64px padding, looks intentional. The same
-            stack with 15px, 30px, and 60px — each individually "close
-            enough" — compounds into a page where nothing quite lines up
-            with anything else, and no single number is obviously wrong.
+            <strong>Compounding drift in nested components.</strong> A card with
+            16px padding placed inside a section with 32px padding, inside a
+            page with 64px padding, looks intentional. The same stack with 15px,
+            30px, and 60px — each individually "close enough" — compounds into a
+            page where nothing quite lines up with anything else, and no single
+            number is obviously wrong.
           </li>
           <li>
             <strong>Mixing 4px and 8px inconsistently.</strong> The 4px
-            half-step exists for small, dense elements — not as a general
-            escape hatch. Once 4px increments start appearing in section-
-            level spacing "because it fit better," the scale stops being a
-            scale and becomes a suggestion.
+            half-step exists for small, dense elements — not as a general escape
+            hatch. Once 4px increments start appearing in section- level spacing
+            "because it fit better," the scale stops being a scale and becomes a
+            suggestion.
           </li>
           <li>
-            <strong>Assets with built-in padding.</strong> An icon
-            exported with 2px of invisible padding baked into its SVG
-            viewBox will never sit flush against the grid, no matter how
-            correctly the surrounding component is spaced — the
-            misalignment is inside the asset, not the layout.
+            <strong>Assets with built-in padding.</strong> An icon exported with
+            2px of invisible padding baked into its SVG viewBox will never sit
+            flush against the grid, no matter how correctly the surrounding
+            component is spaced — the misalignment is inside the asset, not the
+            layout.
           </li>
           <li>
             <strong
               >Breakpoints that change the base unit instead of the
               multiplier.</strong
             >
-            Mobile layouts should use smaller multiples of the same
-            8px unit (2×, 3×, 4× instead of 4×, 6×, 8×), not a different
-            base unit altogether — otherwise nothing about the desktop
-            rhythm transfers to mobile, and the two are effectively
-            unrelated design systems that happen to share a codebase.
+            Mobile layouts should use smaller multiples of the same 8px unit
+            (2×, 3×, 4× instead of 4×, 6×, 8×), not a different base unit
+            altogether — otherwise nothing about the desktop rhythm transfers to
+            mobile, and the two are effectively unrelated design systems that
+            happen to share a codebase.
           </li>
         </ul>
 
@@ -1005,9 +969,9 @@
           <span class="guide-article__num mono">07</span>A worked example
         </h2>
         <p>
-          A simple card makes the whole system concrete. Every number
-          below is pulled directly from the scale — none are chosen to
-          "look right" in isolation:
+          A simple card makes the whole system concrete. Every number below is
+          pulled directly from the scale — none are chosen to "look right" in
+          isolation:
         </p>
         <pre><code>.card {
   padding: var(--space-2); /* 16px outer padding */
@@ -1068,23 +1032,23 @@
         </h2>
         <ul>
           <li>
-            Pick one base unit — 8px, with a 4px half-step for small,
-            dense elements. Every spacing value in the system is a
-            multiple of one of those two numbers.
+            Pick one base unit — 8px, with a 4px half-step for small, dense
+            elements. Every spacing value in the system is a multiple of one of
+            those two numbers.
           </li>
           <li>
             Use 12 columns for anything that needs clean halves, thirds,
-            quarters, or sixths. Pull gutters from the spacing scale, not
-            a separate number.
+            quarters, or sixths. Pull gutters from the spacing scale, not a
+            separate number.
           </li>
           <li>
-            Margin and gutter are different tokens — margin frames the
-            viewport edge, gutter separates columns, and they should scale
-            at different rates.
+            Margin and gutter are different tokens — margin frames the viewport
+            edge, gutter separates columns, and they should scale at different
+            rates.
           </li>
           <li>
-            Snap line-height to 4px steps; snap block spacing (margins
-            between paragraphs, cards, sections) to the 8px scale.
+            Snap line-height to 4px steps; snap block spacing (margins between
+            paragraphs, cards, sections) to the 8px scale.
           </li>
           <li>
             <code
@@ -1095,8 +1059,8 @@
             <code>minmax()</code> compute it for you.
           </li>
           <li>
-            Mobile breakpoints should use smaller multiples of the same
-            unit, never a different base unit.
+            Mobile breakpoints should use smaller multiples of the same unit,
+            never a different base unit.
           </li>
         </ul>
       </article>
@@ -1113,19 +1077,21 @@
             <span class="badge">SPACING_LAYOUT</span>
             <h3>Whitespace as a UI Component, Not a Leftover</h3>
             <p>
-              The foundational principle this guide's spacing scale builds
-              on top of.
+              The foundational principle this guide's spacing scale builds on
+              top of.
             </p>
           </a>
           <a
             class="guide-related__card bracketed"
-            href="/guide/type-scale-systems"
+            href="/guide/padding-margin-different-jobs"
           >
-            <span class="badge">TYPOGRAPHY</span>
-            <h3>Font Size Is a Formula, Not a Feeling</h3>
+            <span class="badge">SPACING_LAYOUT</span>
+            <h3>
+              Padding and Margin Are Different Jobs, Not Interchangeable Values
+            </h3>
             <p>
-              The type scale and line-height math that vertical rhythm
-              depends on.
+              The internal/external token split this same 8pt scale gets applied
+              to.
             </p>
           </a>
           <a
@@ -1135,8 +1101,7 @@
             <span class="badge">WEB_LAYOUT</span>
             <h3>Responsive Layout Is a Contract, Not a Breakpoint List</h3>
             <p>
-              How this same column/gutter system adapts across real
-              viewports.
+              How this same column/gutter system adapts across real viewports.
             </p>
           </a>
         </div>
@@ -1211,8 +1176,8 @@
         <div class="footer-col">
           <h2>Stay in the loop</h2>
           <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check
-            back or bookmark this page.
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
           </p>
         </div>
       </div>
