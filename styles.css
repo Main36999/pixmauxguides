@@ -391,6 +391,19 @@ ul {
 .hero-inner {
   max-width: 1160px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+  align-items: center;
+  gap: 32px 56px;
+}
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    max-width: 380px;
+    margin: 8px auto 0;
+  }
 }
 .fade-up {
   animation: fadeUp 0.6s ease both;
@@ -461,6 +474,227 @@ ul {
 }
 .hero-stats .dot {
   color: var(--cyan);
+}
+
+/* ---------- hero visual (right column) ----------
+   A small "interface being drafted" illustration that plays once on load,
+   built from the same vocabulary as the guide-card thumbnails: dimension
+   lines + ticks + mono labels (.thumb-dim-*) and corner selection handles
+   (.thumb-handle-dot), plus the .bracketed corner-accent already used on
+   cards/toolbar. Pure CSS + inline SVG, no JS — still renders (instantly,
+   fully drawn) for no-JS visitors, and collapses to its end state under
+   the prefers-reduced-motion override above. Hidden on narrow viewports
+   isn't necessary; it just drops below the text column (see the 860px
+   rule above) and scales down with it. */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+}
+.hv-canvas {
+  width: 100%;
+  max-width: 380px;
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(5, 15, 35, 0.35);
+}
+.hv-chrome {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 12px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--grid-line);
+}
+.hv-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.45;
+}
+.hv-address {
+  margin-left: 6px;
+  width: 46%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--grid-line);
+}
+.hv-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--text);
+}
+
+/* growing bars (nav / heading / paragraph lines): scale in from the left */
+.hv-navbar,
+.hv-heading,
+.hv-line {
+  fill: var(--grid-line);
+  transform: scaleX(0);
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+.hv-navbar {
+  animation: hvGrowX 0.3s ease 0.4s forwards;
+}
+.hv-heading {
+  fill: var(--ink);
+  opacity: 0.88;
+  animation: hvGrowX 0.25s ease 1.55s forwards;
+}
+.hv-line1 {
+  animation: hvGrowX 0.25s ease 1.75s forwards;
+}
+.hv-line2 {
+  animation: hvGrowX 0.25s ease 1.95s forwards;
+}
+
+/* image placeholder block: outline draws itself, then sun + mountains fade in */
+.hv-imgbox {
+  stroke: var(--action);
+  stroke-dasharray: 732;
+  stroke-dashoffset: 732;
+  animation: hvDrawStroke 0.4s ease 0.7s forwards;
+}
+.hv-imgsun,
+.hv-imgmtn {
+  stroke: var(--action);
+  opacity: 0;
+  animation: hvFadeIn 0.3s ease 1.25s forwards;
+}
+.hv-imgmtn {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* corner selection handles on the image block */
+.hv-handle {
+  fill: var(--card);
+  stroke: var(--cyan);
+  stroke-width: 1.4;
+  opacity: 0;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.hv-handle-a {
+  animation: hvPop 0.2s ease 1.05s forwards;
+}
+.hv-handle-b {
+  animation: hvPop 0.2s ease 1.18s forwards;
+}
+
+/* dimension annotations, echoing .thumb-dim-line / .thumb-dim-tick */
+.hv-dim-line,
+.hv-dim-tick {
+  stroke: var(--cyan);
+  stroke-dasharray: 2 3;
+  opacity: 0;
+}
+.hv-dim-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  fill: var(--cyan);
+  opacity: 0;
+}
+.hv-dim1,
+.hv-dim1-tick {
+  animation: hvFadeIn 0.2s ease 0.7s forwards;
+}
+.hv-dim1-label {
+  animation: hvFadeIn 0.15s ease 0.85s forwards;
+}
+.hv-dim2-tick,
+.hv-dim2 {
+  animation: hvFadeIn 0.15s ease 2.05s forwards;
+}
+.hv-dim2-label {
+  animation: hvFadeIn 0.15s ease 2.15s forwards;
+}
+
+/* button: pops in, then a quick cursor click + glow ring */
+.hv-btn {
+  fill: var(--action);
+  opacity: 0;
+  transform: scale(0.85);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hvPop 0.25s ease 2.2s forwards;
+}
+.hv-btn-label {
+  fill: #fff;
+  opacity: 0;
+  animation: hvFadeIn 0.15s ease 2.4s forwards;
+}
+.hv-btn-glow {
+  stroke: var(--cyan);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hvGlow 0.4s ease 2.85s forwards;
+}
+.hv-cursor {
+  fill: var(--ink);
+  opacity: 0;
+  transform: translate(276px, 8px);
+  animation:
+    hvCursorMove 0.4s ease 2.45s forwards,
+    hvCursorClick 0.2s ease 2.85s forwards;
+}
+
+@keyframes hvGrowX {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes hvDrawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes hvFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes hvPop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes hvCursorMove {
+  from {
+    opacity: 0;
+    transform: translate(276px, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(56px, 187px);
+  }
+}
+@keyframes hvCursorClick {
+  0% {
+    transform: translate(56px, 187px) scale(1);
+  }
+  50% {
+    transform: translate(56px, 187px) scale(0.82);
+  }
+  100% {
+    transform: translate(56px, 187px) scale(1);
+  }
+}
+@keyframes hvGlow {
+  0% {
+    opacity: 0.9;
+    stroke-width: 1.5;
+  }
+  100% {
+    opacity: 0;
+    stroke-width: 8;
+  }
 }
 
 /* ---------- toolbar ---------- */
