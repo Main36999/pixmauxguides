@@ -152,5 +152,16 @@
     "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png",
     "roadmapStage": 3,
     "roadmapStep": 8.5
+  },
+  {
+    "id": "components-variants-contract",
+    "category": "figma",
+    "level": "intermediate",
+    "readTime": 16,
+    "title": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
+    "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.",
+    "thumbnail": "/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png",
+    "roadmapStage": 3,
+    "roadmapStep": 8.25
   }
 ]

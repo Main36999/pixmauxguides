@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Components and Variants Are a Contract, Not a Copy-Paste Shortcut —
+      PIXMA UX Guides
+    </title>
+    <meta
+      name="description"
+      content="Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/components-variants-contract"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/components-variants-contract"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Components and Variants Are a Contract, Not a Copy-Paste Shortcut"
+    />
+    <meta
+      property="og:description"
+      content="What a component's property panel actually promises, why variants require structural parity to keep overrides alive, and the exact rule Figma uses to decide whether a change survives a swap."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PIXMA UX Guides — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Components and Variants Are a Contract, Not a Copy-Paste Shortcut"
+    />
+    <meta
+      name="twitter:description"
+      content="What a component's property panel actually promises, why variants require structural parity to keep overrides alive, and the exact rule Figma uses to decide whether a change survives a swap."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
+        "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.",
+        "image": "https://pixmauxguides.com/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://pixmauxguides.com/guide/components-variants-contract"
+        },
+        "datePublished": "2026-08-10",
+        "dateModified": "2026-08-10",
+        "articleSection": "Figma Workflow",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT16M"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pixmauxguides.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "All Guides",
+            "item": "https://pixmauxguides.com/index.html#guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
+            "item": "https://pixmauxguides.com/guide/components-variants-contract"
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      /* Scoped supplementary styles for long-form guide article bodies.
+         Reuses the site's existing .wrap / .mono / .badge / .bracketed
+         classes wherever they already cover a need; only adds new rules
+         for elements the card/roadmap-focused stylesheet doesn't style
+         (prose measure, headings, code, tables, callouts). Colors are
+         derived from currentColor / color-mix so this renders correctly
+         whether the inherited page background is light or dark. */
+
+      .guide-crumb {
+        padding-top: 24px;
+      }
+
+      .guide-hero {
+        padding: 40px 0 24px;
+      }
+      .guide-hero__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .guide-hero__title {
+        font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+        line-height: 1.15;
+        max-width: 20ch;
+        margin: 0 0 16px;
+      }
+      .guide-hero__dek {
+        max-width: 62ch;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        opacity: 0.82;
+        margin: 0 0 32px;
+      }
+      .guide-hero__figure {
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+        padding: 24px;
+        background: color-mix(in srgb, currentColor 4%, transparent);
+      }
+      .guide-hero__figure svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 220px;
+      }
+
+      .guide-toc {
+        margin: 0 0 48px;
+        padding: 20px 24px;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+      }
+      .guide-toc__label {
+        display: block;
+        margin-bottom: 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding-left: 1.25em;
+        columns: 2;
+        column-gap: 32px;
+      }
+      .guide-toc li {
+        break-inside: avoid;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .guide-toc a {
+        text-decoration: none;
+      }
+      .guide-toc a:hover,
+      .guide-toc a:focus-visible {
+        text-decoration: underline;
+      }
+
+      .guide-article {
+        max-width: 68ch;
+        font-size: 1.0625rem;
+        line-height: 1.7;
+      }
+      .guide-article > * + * {
+        margin-top: 24px;
+      }
+      .guide-article h2 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-top: 64px;
+        margin-bottom: 8px;
+        scroll-margin-top: 24px;
+      }
+      .guide-article h2 .guide-article__num {
+        opacity: 0.5;
+        margin-right: 0.5em;
+      }
+      .guide-article h3 {
+        font-size: 1.15rem;
+        line-height: 1.35;
+        margin-top: 40px;
+        margin-bottom: 8px;
+        scroll-margin-top: 24px;
+      }
+      .guide-article p,
+      .guide-article li {
+        max-width: 62ch;
+      }
+      .guide-article ul,
+      .guide-article ol {
+        padding-left: 1.4em;
+      }
+      .guide-article li + li {
+        margin-top: 8px;
+      }
+      .guide-article strong {
+        font-weight: 600;
+      }
+      .guide-article code {
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.875em;
+        padding: 0.15em 0.4em;
+        border-radius: 3px;
+        background: color-mix(in srgb, currentColor 10%, transparent);
+      }
+      .guide-article pre {
+        margin-top: 24px;
+        padding: 20px 24px;
+        overflow-x: auto;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+        background: color-mix(in srgb, currentColor 5%, transparent);
+      }
+      .guide-article pre code {
+        background: none;
+        padding: 0;
+        font-size: 0.85em;
+        line-height: 1.6;
+      }
+
+      .guide-callout {
+        padding: 20px 24px;
+        border-left: 3px solid currentColor;
+        background: color-mix(in srgb, currentColor 5%, transparent);
+        border-radius: 0 4px 4px 0;
+      }
+      .guide-callout p {
+        margin: 0;
+      }
+      .guide-callout p + p {
+        margin-top: 12px;
+      }
+
+      .guide-table-wrap {
+        margin-top: 24px;
+        overflow-x: auto;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+      }
+      .guide-article table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        min-width: 480px;
+      }
+      .guide-article caption {
+        text-align: left;
+        padding: 12px 16px 0;
+      }
+      .guide-article th,
+      .guide-article td {
+        text-align: left;
+        padding: 10px 16px;
+        border-bottom: 1px solid
+          color-mix(in srgb, currentColor 14%, transparent);
+        vertical-align: top;
+      }
+      .guide-article thead th {
+        border-bottom: 1px solid
+          color-mix(in srgb, currentColor 30%, transparent);
+        font-weight: 600;
+      }
+      .guide-article tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-example {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+        margin-top: 24px;
+      }
+      @media (min-width: 640px) {
+        .guide-example {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .guide-example figure {
+        margin: 0;
+        padding: 16px;
+        border: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+        border-radius: 4px;
+      }
+      .guide-example figcaption {
+        margin-top: 12px;
+        font-size: 0.8125rem;
+        opacity: 0.75;
+      }
+
+      .guide-related {
+        margin-top: 80px;
+        padding-top: 32px;
+        border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+      }
+      .guide-related__grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+        margin-top: 24px;
+      }
+      @media (min-width: 720px) {
+        .guide-related__grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .guide-related__card {
+        display: block;
+        padding: 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: inherit;
+      }
+      .guide-related__card h3 {
+        margin: 8px 0 8px;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+      .guide-related__card p {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.55;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <!--HEADER_START-->
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="/index.html#guides">All Guides</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="/index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="/index.html#guides">All Guides</a>
+          <a href="/roadmap.html">Roadmap</a>
+          <a href="/index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="/index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+    <!--HEADER_END-->
+
+    <div class="wrap guide-crumb">
+      <a href="/index.html#guides" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <main class="wrap" id="guide-content" tabindex="-1">
+      <section class="guide-hero" aria-labelledby="guide-heading">
+        <div class="guide-hero__meta">
+          <span class="badge">FIGMA</span>
+          <span class="card-meta mono">INT · 16 MIN</span>
+        </div>
+        <h1 class="guide-hero__title" id="guide-heading">
+          Components and Variants Are a Contract, Not a Copy-Paste Shortcut
+        </h1>
+        <p class="guide-hero__dek">
+          A component set's real product isn't its visual polish — it's the
+          property panel: the fixed set of Boolean, instance-swap, text, and
+          variant controls it exposes to whoever drops it on a frame. Skip
+          designing that contract on purpose, and "reusable" is just a label
+          pasted onto components that happen to share one visual origin
+          story, with overrides drifting, variants losing structure, and
+          every rebrand starting from zero.
+        </p>
+        <div class="guide-hero__figure">
+          <svg
+            viewBox="0 0 240 120"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="82" y="16" width="50" height="50" rx="6" />
+            <rect x="110" y="40" width="50" height="50" rx="6" />
+            <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5" />
+            <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5" />
+            <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5" />
+            <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5" />
+            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
+            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
+            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
+            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
+              STATE=HOVER
+            </text>
+          </svg>
+        </div>
+      </section>
+
+      <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+        <span class="section-label mono" id="guide-toc-heading"
+          >/ on_this_page</span
+        >
+        <ol>
+          <li>
+            <a href="#what-the-contract-protects"
+              >What the contract actually protects</a
+            >
+          </li>
+          <li><a href="#the-property-types">The five property types</a></li>
+          <li>
+            <a href="#boolean-and-instance-swap"
+              >Boolean and instance-swap in practice</a
+            >
+          </li>
+          <li>
+            <a href="#variants-are-a-contract"
+              >Variants are a contract, not a dropdown</a
+            >
+          </li>
+          <li>
+            <a href="#nested-override-inheritance"
+              >Nested override inheritance</a
+            >
+          </li>
+          <li>
+            <a href="#where-it-breaks">Where variant sets break under real content</a>
+          </li>
+          <li><a href="#worked-example">A worked example</a></li>
+          <li><a href="#cheat-sheet">Cheat sheet</a></li>
+        </ol>
+      </nav>
+
+      <article class="guide-article">
+        <p>
+          Most explanations of Figma variants start with the dropdown — click
+          the diamond icon, pick a state, watch the layer swap. That's the
+          interaction, not the design decision. The decision that actually
+          matters happened earlier, when someone decided which aspects of a
+          button, a card, or a list item were allowed to change and which
+          weren't — and that decision is what everyone downstream is quietly
+          relying on: a teammate dragging an instance onto a frame, another
+          component nesting this one three levels deep, a design engineer
+          translating it into code without opening the file. Call it a
+          contract — a fixed set of promises, phrased as properties, backed
+          by a structure that has to hold still underneath them.
+        </p>
+        <p>
+          Copy-pasting a frame and renaming it "Button — Secondary" produces
+          something that looks identical to a real component from ten feet
+          away, and behaves nothing like one. An edit to the original never
+          reaches the copy. An override made on one instance has no
+          relationship to overrides made on the others. Nothing in the file
+          tells anyone what's safe to change and what will quietly break the
+          layout. That gap isn't cosmetic — it's the difference between a
+          system a team can extend for years and one that gets rebuilt from
+          scratch every time someone touches it.
+        </p>
+
+        <h2 id="what-the-contract-protects">
+          <span class="guide-article__num mono">01</span>What the contract
+          actually protects
+        </h2>
+        <p>
+          A main component defines two things at once: the visual structure
+          — every layer, its name, its position, its z-order — and the
+          defaults for anything that will later become a property. A
+          component set is just several main components grouped together and
+          switched between as variants. An instance is neither of those; it's
+          a reference back to one specific main component (or, inside a set,
+          one specific variant) that can vary only along the properties that
+          were deliberately exposed, plus a narrow band of instance-level
+          overrides on top.
+        </p>
+        <p>
+          That narrowness is the whole point, not a limitation to work
+          around. An instance genuinely <strong>cannot</strong> reorder its
+          own layers, change their z-index, or reposition a layer that's
+          governed by auto layout — those changes can only be made on the
+          main component itself, or by detaching the instance and giving up
+          its connection entirely. It's exactly this restriction that makes
+          the rest of the system trustworthy: because an instance can't
+          quietly restructure itself, an edit made once on the main component
+          can propagate to every instance in the file with predictable
+          results. Loosen that restriction and the propagation guarantee
+          disappears with it.
+        </p>
+        <div class="guide-callout">
+          <p>
+            <strong>The contract, restated plainly:</strong> a property panel
+            is a promise about what's allowed to differ. Everything the panel
+            doesn't expose is implicitly promised to stay the same across
+            every instance, everywhere, until someone edits the main
+            component. A component with no thoughtfully designed properties
+            hasn't avoided making that promise — it's just making an empty
+            one.
+          </p>
+        </div>
+
+        <h2 id="the-property-types">
+          <span class="guide-article__num mono">02</span>The five property
+          types
+        </h2>
+        <p>
+          Figma's component properties come in a small, fixed vocabulary.
+          Four have been stable for years; a fifth, Slot, was added more
+          recently for cases where a component needs to accept
+          free-form content rather than a fixed value. Knowing which type
+          controls which kind of change — and which type can't — heads off
+          most of the "why won't this property show up" confusion before it
+          starts.
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Figma component property types, what they expose, and what they're bound to
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Controls</th>
+                <th scope="col">Must be bound to</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Boolean</strong></td>
+                <td>Layer visibility only — nothing else</td>
+                <td>A layer (any layer, shown or hidden)</td>
+              </tr>
+              <tr>
+                <td><strong>Instance swap</strong></td>
+                <td>Which component fills a nested slot</td>
+                <td>An actual nested instance layer</td>
+              </tr>
+              <tr>
+                <td><strong>Text</strong></td>
+                <td>Editable string content</td>
+                <td>A text layer</td>
+              </tr>
+              <tr>
+                <td><strong>Variant</strong></td>
+                <td>Which whole variant is shown</td>
+                <td>The component set itself</td>
+              </tr>
+              <tr>
+                <td><strong>Slot</strong></td>
+                <td>A free area for arbitrary child content</td>
+                <td>A designated slot region</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The "must be bound to" column is where most first attempts go
+          wrong. An instance-swap property can only attach to a genuine
+          nested instance — not a group, not a plain frame that merely looks
+          like one — and a text property can only attach to a text layer that
+          isn't itself buried inside a separate nested instance. Select the
+          wrong kind of layer and Figma won't offer the property at all,
+          which reads as a bug the first few times and is actually the type
+          system doing its job.
+        </p>
+
+        <h2 id="boolean-and-instance-swap">
+          <span class="guide-article__num mono">03</span>Boolean and
+          instance-swap in practice
+        </h2>
+        <p>
+          The most common misconception about Boolean properties is that they
+          can toggle anything — swap a color, change a corner radius, resize
+          a frame. They can't. A Boolean property does exactly one thing:
+          show or hide the specific layer it's bound to. If a design calls
+          for something that reads as "toggle the emphasis color," the actual
+          mechanism is two layers with opposite fills, each bound to the same
+          Boolean and set to opposite visibility — or, more often, that it's
+          not a Boolean at all and belongs on a Variant axis instead. Reaching
+          for Boolean by default and hitting this wall is usually the signal
+          that the property being modeled isn't actually binary in the way it
+          first looked.
+        </p>
+        <p>
+          Instance-swap properties are more powerful and more dangerous in
+          the same breath. Because the property swaps an entire nested
+          instance, not just its glyph or fill, the swap carries that nested
+          component's <strong>whole footprint</strong> along with it —
+          intrinsic width, height, internal padding, everything. Swapping a
+          16px icon slot for a 48px illustration slot doesn't just change
+          what's rendered; if the parent frame is set to Hug rather than a
+          fixed size, that size change propagates straight up through the
+          auto-layout chain and can blow out spacing several levels away from
+          where the swap actually happened. <strong>Preferred values</strong>
+          exist for exactly this reason — they let the property's author
+          curate a short list of components that are known to fit, instead of
+          exposing the entire library and trusting every future consumer to
+          pick something size-compatible.
+        </p>
+        <p>
+          A related, easy-to-miss detail: instance-swap and text properties
+          both require the target layer to sit directly inside the component
+          they're defined on. A text layer nested two instances deep isn't
+          reachable from the outer component's own property panel — the
+          property has to be created on whichever main component actually
+          owns that text layer, one level in. This is precisely the seam that
+          section 05 covers in more depth, because it's also where override
+          inheritance most often breaks down.
+        </p>
+
+        <h2 id="variants-are-a-contract">
+          <span class="guide-article__num mono">04</span>Variants are a
+          contract, not a dropdown
+        </h2>
+        <p>
+          Figma will technically let a component set contain variants with
+          completely different internal layer trees — a "Hover" state built
+          from a different set of layers than "Default," named differently,
+          nested differently. Nothing stops a designer from building it that
+          way. What breaks is the exact thing variants exist to provide:
+          overrides and edits that survive a switch instead of silently
+          resetting.
+        </p>
+        <p>
+          The rule Figma actually applies is narrow and unforgiving, and it's
+          worth knowing precisely because it explains almost every "why did
+          my change disappear" moment a design-systems team runs into. When
+          an instance's variant is switched, an override survives only if
+          <strong>both</strong> of these hold: the layer name where the
+          change was made has to be identical between the old variant and the
+          new one, and the property that changed has to have started out
+          holding the <em>same value</em> on both variants before the change
+          was made. Miss either condition and the instance quietly reverts to
+          whatever the new variant defines by default — no dialog, no
+          warning, just a change that no longer appears to have happened.
+        </p>
+        <p>
+          That's also why layer order and auto-layout position sit outside
+          what any override — variant switch or otherwise — can touch at all.
+          Reordering layers or moving something that auto layout is
+          positioning requires either editing the main component directly or
+          detaching the instance and giving up the contract entirely.
+          Structural changes are reserved for the main component on purpose;
+          if instances could make them too, propagation and override
+          preservation would both become unpredictable.
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Naming pattern for variant properties and how flat components merge into a set
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Convention</th>
+                <th scope="col">Example</th>
+                <th scope="col">Why it matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Property=Value pairs</td>
+                <td><code>Type=Primary, Size=Large</code></td>
+                <td>Each axis becomes its own dropdown in the panel</td>
+              </tr>
+              <tr>
+                <td>Forward-slash grouping</td>
+                <td><code>Button/Primary/Large</code></td>
+                <td>
+                  Flat, ungrouped components merge into these same axes when
+                  combined into a set
+                </td>
+              </tr>
+              <tr>
+                <td>Consistent layer names</td>
+                <td><code>Label</code>, <code>Icon</code> in every variant</td>
+                <td>The precondition for the override-survival rule above</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="nested-override-inheritance">
+          <span class="guide-article__num mono">05</span>Nested override
+          inheritance
+        </h2>
+        <p>
+          Every override an instance holds is tracked by its full layer
+          <strong>path</strong>, not just a layer name in isolation — "this
+          exact position, in this exact tree, inside this exact nested
+          instance." That distinction barely matters for a flat component,
+          but it's the whole story once components start nesting inside each
+          other, which is how most real design systems build compound
+          components like list items, cards, and form fields.
+        </p>
+        <p>
+          Figma supports <strong>exposing a nested instance's own
+          properties</strong> up to the parent component, so someone using
+          the outer component doesn't have to drill two levels in just to
+          swap an inner icon. It's a genuinely useful feature, and it comes
+          with a real cost: the inner component's contract effectively
+          flattens into the outer one, which means the two components' own
+          property names can collide. Two unrelated components each shipping
+          a property called simply <code>Icon</code> is fine in isolation and
+          ambiguous the moment one is nested inside the other and both get
+          exposed — the fix is a small naming discipline (prefixing nested,
+          exposed properties by their source component) rather than anything
+          Figma enforces automatically.
+        </p>
+        <p>
+          The more consequential fragility shows up with overrides made on a
+          nested instance itself — say, swapping the icon inside a button
+          that's nested inside a card. Because that override is chasing a
+          layer <em>path</em>, not just a name, anything that shifts the path
+          underneath it can strand the override even when every layer
+          involved is still correctly named. Swapping the outer component's
+          own variant, or duplicating an instance into a new context that
+          changes which nested component sits at that path, is enough to lose
+          it — a pattern experienced design-systems teams run into often
+          enough that the practical guidance has become: don't rely on a
+          doubly-nested override for anything that needs to be durable. If a
+          difference genuinely needs to survive variant switches reliably,
+          model it as a property on the main component directly rather than
+          as an override two or three instances deep.
+        </p>
+
+        <h2 id="where-it-breaks">
+          <span class="guide-article__num mono">06</span>Where variant sets
+          break under real content
+        </h2>
+        <p>
+          A variant grid built and tested against placeholder content —
+          "Button," a single short English word, a generic icon — can look
+          completely finished and still fail the moment real content, real
+          translations, or real edge cases reach it. The failures cluster
+          into a handful of repeatable patterns.
+        </p>
+        <p>
+          <strong>Combinatorial growth.</strong> Every axis added to a
+          variant set multiplies the total, not adds to it. A Button with
+          three types, three sizes, four states, and an icon toggle left
+          inside the grid produces the full cross product — and pulling just
+          that last axis out as a Boolean instead cuts the whole set in half:
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              How variant count grows when an axis stays in the grid vs. becomes a Boolean property
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Axes in the variant grid</th>
+                <th scope="col">Values</th>
+                <th scope="col">Total variants</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Type × Size × State × Icon</td>
+                <td>3 × 3 × 4 × 2</td>
+                <td>72</td>
+              </tr>
+              <tr>
+                <td>Type × Size × State (Icon pulled out as Boolean)</td>
+                <td>3 × 3 × 4</td>
+                <td>36</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Every axis that's genuinely a yes/no toggle and doesn't change the
+          component's underlying structure is a candidate for pulling out of
+          the grid this way — the variant count only grows for axes that
+          truly need to be there.
+        </p>
+        <ul>
+          <li>
+            <strong>Text that doesn't fit the placeholder.</strong> A variant
+            sized against a five-character label wraps, truncates, or blows
+            out its container the moment it meets a translated string or a
+            real person's name twice as long. A fixed-width variant and an
+            auto-layout Hug variant of the same component can behave in
+            completely different, untested ways once that happens — if only
+            one was checked against long content, the other ships broken.
+          </li>
+          <li>
+            <strong>States that can't legally coexist.</strong> If State is a
+            single variant axis, "Disabled" and "Hover" can never both be
+            true at once, because an axis only ever holds one value. Real
+            interfaces need a disabled button to suppress hover styling
+            entirely, which usually means Disabled has to live as an
+            independent property layered on top of the State axis, not as
+            just another value inside it.
+          </li>
+          <li>
+            <strong>Directional assumptions baked into names.</strong> An
+            icon-position axis named "Icon Left" / "Icon Right" encodes an
+            LTR-only assumption and won't flip automatically for a
+            right-to-left locale. Naming the same axis "Icon Leading" /
+            "Icon Trailing" keeps the property meaningful regardless of
+            reading direction — the rename costs nothing and the alternative
+            costs a localization bug.
+          </li>
+          <li>
+            <strong>States nobody modeled at all.</strong> Default, Hover,
+            Active, and Disabled cover the states a component looks like it
+            needs in a design file. Loading, Error, and Empty are the states
+            that only show up once a real API response is slow, fails, or
+            returns nothing — and a "complete" variant set with no cell for
+            any of them isn't actually complete, it's just untested against
+            failure.
+          </li>
+        </ul>
+
+        <h2 id="worked-example">
+          <span class="guide-article__num mono">07</span>A worked example
+        </h2>
+        <p>
+          A Button component makes the property-type choices concrete. Every
+          line below reflects a deliberate call about which mechanism fits
+          which kind of change — not a default reached for out of habit:
+        </p>
+        <pre><code>Button (component set)
+├─ Variant  Type   = Primary | Secondary | Ghost
+├─ Variant  Size    = Small | Medium | Large
+├─ Variant  State    = Default | Hover | Active
+├─ Boolean  Disabled          (independent of State — suppresses Hover/Active)
+├─ Boolean  Icon              (shown/hidden, not a variant axis)
+├─ Instance-swap  Icon*       (nested slot, preferred values: 16px icon set only)
+└─ Text     Label</code></pre>
+        <p>
+          <code>Type</code>, <code>Size</code>, and <code>State</code> stay
+          on the variant grid because each one genuinely changes structure or
+          styling in ways that need their own layer treatment. <code
+            >Disabled</code
+          >
+          sits outside the grid entirely so it can be combined with any
+          state. <code>Icon</code> is a Boolean paired with an instance-swap
+          property rather than a fourth variant axis, which is what keeps the
+          total variant count at 3 × 3 × 3 = 27 instead of 54.
+        </p>
+        <div class="guide-example">
+          <figure>
+            <svg
+              viewBox="0 0 220 140"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <rect x="14" y="18" width="70" height="30" rx="6" />
+              <rect x="14" y="58" width="70" height="30" rx="6" />
+              <rect x="14" y="98" width="70" height="30" rx="6" />
+              <circle cx="28" cy="33" r="4" />
+              <circle cx="28" cy="73" r="4" />
+              <circle cx="28" cy="113" r="4" />
+              <line x1="40" y1="33" x2="70" y2="33" />
+              <line x1="40" y1="73" x2="70" y2="73" />
+              <line x1="40" y1="113" x2="70" y2="113" />
+              <path
+                d="M130,33 L160,33 M130,73 L160,73 M130,113 L160,113"
+                opacity="0.35"
+              />
+              <text x="130" y="30" class="thumb-dim-label" font-size="8">
+                same layer names
+              </text>
+            </svg>
+            <figcaption>
+              One structural contract, three variants — an icon-fill override
+              made on any one survives switching between them.
+            </figcaption>
+          </figure>
+          <figure>
+            <svg
+              viewBox="0 0 220 140"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <rect x="14" y="14" width="66" height="28" rx="5" />
+              <rect x="18" y="56" width="72" height="30" rx="8" />
+              <rect x="12" y="98" width="68" height="26" rx="3" />
+              <circle cx="27" cy="28" r="3.4" />
+              <circle cx="33" cy="71" r="4.6" />
+              <circle cx="25" cy="111" r="3" />
+              <text x="130" y="30" class="thumb-dim-label" font-size="8">
+                three unrelated frames
+              </text>
+            </svg>
+            <figcaption>
+              Same button, copy-pasted three times — one fix means three
+              manual edits, and the radii and icon sizes have already begun
+              to drift.
+            </figcaption>
+          </figure>
+        </div>
+
+        <h2 id="cheat-sheet">
+          <span class="guide-article__num mono">08</span>Cheat sheet
+        </h2>
+        <ul>
+          <li>
+            Boolean toggles layer visibility only — nothing else. If a toggle
+            needs to change a color or a size, it isn't a Boolean.
+          </li>
+          <li>
+            Instance-swap carries the swapped-in component's full footprint
+            with it; use preferred values to keep swaps size-compatible
+            inside Hug-sized parents.
+          </li>
+          <li>
+            An override survives a variant switch only if the layer name
+            matches <em>and</em> the property held the same starting value on
+            both variants — keep layer names identical across every variant
+            in a set.
+          </li>
+          <li>
+            Layer order and auto-layout position can never be overridden on
+            an instance; those changes belong on the main component.
+          </li>
+          <li>
+            Nested overrides are tracked by path, not name — treat anything
+            overridden two or three instances deep as fragile, and push
+            durable differences up into the main component instead.
+          </li>
+          <li>
+            Every variant axis multiplies the grid; pull genuinely binary
+            axes out as Boolean properties before the combinatorics get out
+            of hand.
+          </li>
+          <li>
+            Test variants against real content — long translated strings,
+            Disabled+Hover together, RTL icon direction, Loading/Error/Empty
+            — not just the placeholder text used to build them.
+          </li>
+        </ul>
+      </article>
+
+      <section class="guide-related" aria-labelledby="guide-related-heading">
+        <span class="section-label mono" id="guide-related-heading"
+          >/ related_guides</span
+        >
+        <div class="guide-related__grid">
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/auto-layout-constraint-model"
+          >
+            <span class="badge">FIGMA</span>
+            <h3>
+              Auto Layout Is a Constraint System, Not a Convenience Toggle
+            </h3>
+            <p>
+              The Hug/Fill/Fixed sizing rules that decide what happens when a
+              variant's footprint changes underneath an auto-layout parent.
+            </p>
+          </a>
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/design-tokens-naming-system"
+          >
+            <span class="badge">DESIGN_SYSTEMS</span>
+            <h3>
+              Design Tokens Are a Naming System, Not a Style Guide
+            </h3>
+            <p>
+              The same naming discipline this guide applies to layers and
+              properties, applied one level up to the values components consume.
+            </p>
+          </a>
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/responsive-layout-contract"
+          >
+            <span class="badge">WEB_LAYOUT</span>
+            <h3>Responsive Layout Is a Contract, Not a Breakpoint List</h3>
+            <p>
+              The same "contract" framing applied to layout instead of
+              components — what a breakpoint is actually promising to hold.
+            </p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="/about.html">About us</a></li>
+            <li><a href="/contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="/privacy.html">Privacy policy</a></li>
+            <li><a href="/terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="/privacy.html">Privacy policy</a> ·
+          <a href="/terms.html">Terms of service</a> ·
+          <a href="/about.html">About</a> ·
+          <a href="/contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
