@@ -258,7 +258,7 @@ const ROADMAP_STAGES = [
     id: 4,
     title: "Systems & Motion",
     blurb:
-      "The advanced layer teams reach for once the basics are solid: naming conventions that survive a rebrand, and motion timing with real physics behind it.",
+      "The advanced layer teams reach for once the basics are solid: Figma's own data layer for theming, naming conventions that survive a rebrand, and motion timing with real physics behind it.",
   },
 ];
 

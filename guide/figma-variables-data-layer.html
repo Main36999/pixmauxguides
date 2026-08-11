@@ -1,0 +1,1344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Figma Variables Are a Data Layer, Not Just Color Styles — PIXMA UX
+      Guides
+    </title>
+    <meta
+      name="description"
+      content="Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/figma-variables-data-layer"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/figma-variables-data-layer"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Figma Variables Are a Data Layer, Not Just Color Styles"
+    />
+    <meta
+      property="og:description"
+      content="What a variable collection actually stores, how modes create parallel themes without duplicating layers, the exact rule Figma uses to resolve an alias across collections, and where a token pipeline breaks between Figma and code."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PIXMA UX Guides — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Figma Variables Are a Data Layer, Not Just Color Styles"
+    />
+    <meta
+      name="twitter:description"
+      content="What a variable collection actually stores, how modes create parallel themes without duplicating layers, the exact rule Figma uses to resolve an alias across collections, and where a token pipeline breaks between Figma and code."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Figma Variables Are a Data Layer, Not Just Color Styles",
+        "description": "Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.",
+        "image": "https://pixmauxguides.com/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://pixmauxguides.com/guide/figma-variables-data-layer"
+        },
+        "datePublished": "2026-08-11",
+        "dateModified": "2026-08-11",
+        "articleSection": "Figma Workflow",
+        "proficiencyLevel": "Advanced",
+        "timeRequired": "PT15M"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pixmauxguides.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "All Guides",
+            "item": "https://pixmauxguides.com/index.html#guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Figma Variables Are a Data Layer, Not Just Color Styles",
+            "item": "https://pixmauxguides.com/guide/figma-variables-data-layer"
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      /* Scoped supplementary styles for long-form guide article bodies.
+         Reuses the site's existing .wrap / .mono / .badge / .bracketed
+         classes wherever they already cover a need; only adds new rules
+         for elements the card/roadmap-focused stylesheet doesn't style
+         (prose measure, headings, code, tables, callouts). Colors are
+         derived from currentColor / color-mix so this renders correctly
+         whether the inherited page background is light or dark. */
+
+      .guide-crumb {
+        padding-top: 24px;
+      }
+
+      .guide-hero {
+        padding: 40px 0 24px;
+      }
+      .guide-hero__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .guide-hero__title {
+        font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+        line-height: 1.15;
+        max-width: 20ch;
+        margin: 0 0 16px;
+      }
+      .guide-hero__dek {
+        max-width: 62ch;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        opacity: 0.82;
+        margin: 0 0 32px;
+      }
+      .guide-hero__figure {
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+        padding: 24px;
+        background: color-mix(in srgb, currentColor 4%, transparent);
+      }
+      .guide-hero__figure svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 220px;
+      }
+
+      .guide-toc {
+        margin: 0 0 48px;
+        padding: 20px 24px;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+      }
+      .guide-toc__label {
+        display: block;
+        margin-bottom: 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding-left: 1.25em;
+        columns: 2;
+        column-gap: 32px;
+      }
+      .guide-toc li {
+        break-inside: avoid;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .guide-toc a {
+        text-decoration: none;
+      }
+      .guide-toc a:hover,
+      .guide-toc a:focus-visible {
+        text-decoration: underline;
+      }
+
+      .guide-article {
+        max-width: 68ch;
+        font-size: 1.0625rem;
+        line-height: 1.7;
+      }
+      .guide-article > * + * {
+        margin-top: 24px;
+      }
+      .guide-article h2 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-top: 64px;
+        margin-bottom: 8px;
+        scroll-margin-top: 24px;
+      }
+      .guide-article h2 .guide-article__num {
+        opacity: 0.5;
+        margin-right: 0.5em;
+      }
+      .guide-article h3 {
+        font-size: 1.15rem;
+        line-height: 1.35;
+        margin-top: 40px;
+        margin-bottom: 8px;
+        scroll-margin-top: 24px;
+      }
+      .guide-article p,
+      .guide-article li {
+        max-width: 62ch;
+      }
+      .guide-article ul,
+      .guide-article ol {
+        padding-left: 1.4em;
+      }
+      .guide-article li + li {
+        margin-top: 8px;
+      }
+      .guide-article strong {
+        font-weight: 600;
+      }
+      .guide-article code {
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.875em;
+        padding: 0.15em 0.4em;
+        border-radius: 3px;
+        background: color-mix(in srgb, currentColor 10%, transparent);
+      }
+      .guide-article pre {
+        margin-top: 24px;
+        padding: 20px 24px;
+        overflow-x: auto;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+        background: color-mix(in srgb, currentColor 5%, transparent);
+      }
+      .guide-article pre code {
+        background: none;
+        padding: 0;
+        font-size: 0.85em;
+        line-height: 1.6;
+      }
+
+      .guide-callout {
+        padding: 20px 24px;
+        border-left: 3px solid currentColor;
+        background: color-mix(in srgb, currentColor 5%, transparent);
+        border-radius: 0 4px 4px 0;
+      }
+      .guide-callout p {
+        margin: 0;
+      }
+      .guide-callout p + p {
+        margin-top: 12px;
+      }
+
+      .guide-table-wrap {
+        margin-top: 24px;
+        overflow-x: auto;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+      }
+      .guide-article table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        min-width: 480px;
+      }
+      .guide-article caption {
+        text-align: left;
+        padding: 12px 16px 0;
+      }
+      .guide-article th,
+      .guide-article td {
+        text-align: left;
+        padding: 10px 16px;
+        border-bottom: 1px solid
+          color-mix(in srgb, currentColor 14%, transparent);
+        vertical-align: top;
+      }
+      .guide-article thead th {
+        border-bottom: 1px solid
+          color-mix(in srgb, currentColor 30%, transparent);
+        font-weight: 600;
+      }
+      .guide-article tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-example {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+        margin-top: 24px;
+      }
+      @media (min-width: 640px) {
+        .guide-example {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .guide-example figure {
+        margin: 0;
+        padding: 16px;
+        border: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+        border-radius: 4px;
+      }
+      .guide-example figcaption {
+        margin-top: 12px;
+        font-size: 0.8125rem;
+        opacity: 0.75;
+      }
+
+      .guide-related {
+        margin-top: 80px;
+        padding-top: 32px;
+        border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+      }
+      .guide-related__grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+        margin-top: 24px;
+      }
+      @media (min-width: 720px) {
+        .guide-related__grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .guide-related__card {
+        display: block;
+        padding: 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: inherit;
+      }
+      .guide-related__card h3 {
+        margin: 8px 0 8px;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+      .guide-related__card p {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.55;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+<!--HEADER_START-->
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="/index.html#guides">All Guides</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="/index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="/index.html#guides">All Guides</a>
+          <a href="/roadmap.html">Roadmap</a>
+          <a href="/index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="/index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+    <!--HEADER_END-->
+
+    <div class="wrap guide-crumb">
+      <a href="/index.html#guides" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <main class="wrap" id="guide-content" tabindex="-1">
+      <section class="guide-hero" aria-labelledby="guide-heading">
+        <div class="guide-hero__meta">
+          <span class="badge">FIGMA</span>
+          <span class="card-meta mono">ADV · 15 MIN</span>
+        </div>
+        <h1 class="guide-hero__title" id="guide-heading">
+          Figma Variables Are a Data Layer, Not Just Color Styles
+        </h1>
+        <p class="guide-hero__dek">
+          Most first encounters with Variables treat them as styles with a
+          rename — a fancier way to store a hex code. That reading survives
+          exactly until someone needs a second theme, a second brand, or a
+          number that has to stay a multiple of four across three platforms.
+          Underneath the color swatch, a variable is a typed, aliasable
+          reference that resolves differently depending on which mode is
+          active where it's consumed — a small data layer sitting inside the
+          design file, with its own resolution rules and its own ways of
+          quietly returning the wrong value.
+        </p>
+        <div class="guide-hero__figure">
+          <svg
+            viewBox="0 0 240 120"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="18" y="34" width="46" height="26" rx="5" />
+            <rect x="97" y="14" width="46" height="26" rx="5" />
+            <rect x="97" y="58" width="46" height="26" rx="5" />
+            <rect x="176" y="34" width="46" height="26" rx="5" />
+            <line x1="64" y1="40" x2="97" y2="27" stroke-width="1.2" />
+            <line x1="64" y1="54" x2="97" y2="71" stroke-width="1.2" />
+            <line x1="143" y1="27" x2="176" y2="42" stroke-width="1.2" />
+            <line x1="143" y1="71" x2="176" y2="52" stroke-width="1.2" />
+            <rect class="thumb-fill" x="59" y="35" width="5" height="5" />
+            <rect class="thumb-fill" x="92" y="22" width="5" height="5" />
+            <rect class="thumb-fill" x="92" y="66" width="5" height="5" />
+            <rect class="thumb-fill" x="171" y="37" width="5" height="5" />
+            <text x="41" y="28" text-anchor="middle" class="thumb-dim-label" font-size="7">
+              PRIMITIVE
+            </text>
+            <text x="120" y="10" text-anchor="middle" class="thumb-dim-label" font-size="7">
+              SEMANTIC
+            </text>
+            <text x="199" y="28" text-anchor="middle" class="thumb-dim-label" font-size="7">
+              COMPONENT
+            </text>
+            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
+            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
+            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
+            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
+              MODE=DARK
+            </text>
+          </svg>
+        </div>
+      </section>
+
+      <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+        <span class="section-label mono" id="guide-toc-heading"
+          >/ on_this_page</span
+        >
+        <ol>
+          <li>
+            <a href="#variables-vs-styles">Variables vs. styles</a>
+          </li>
+          <li>
+            <a href="#the-four-variable-types"
+              >The four variable types and what they bind to</a
+            >
+          </li>
+          <li>
+            <a href="#collections-and-modes"
+              >Collections and modes: the parallel-value-set model</a
+            >
+          </li>
+          <li>
+            <a href="#scoping-the-picker"
+              >Scoping narrows the picker, not the value</a
+            >
+          </li>
+          <li>
+            <a href="#the-aliasing-chain"
+              >The aliasing chain: primitive → semantic → component</a
+            >
+          </li>
+          <li>
+            <a href="#where-theming-breaks"
+              >Where theming breaks under real combinations</a
+            >
+          </li>
+          <li>
+            <a href="#syncing-with-code">Syncing variables with code</a>
+          </li>
+          <li><a href="#worked-example">A worked example</a></li>
+          <li><a href="#cheat-sheet">Cheat sheet</a></li>
+        </ol>
+      </nav>
+
+      <article class="guide-article">
+        <p>
+          Styles and variables solve the same surface problem — reuse a value
+          in more than one place — and that surface similarity is exactly
+          what causes teams to reach for a variable and stop thinking about
+          it the way they would a style. A style is a name attached to one
+          fixed value; apply it in ten places and all ten places hold that
+          same literal value until someone edits the style. A variable is a
+          name attached to a <em>reference</em>, and the value that reference
+          resolves to can depend on context — which mode is active, on which
+          node, at the moment it's read. That single difference is what
+          turns a color palette into a theming system, a spacing scale into
+          something a density toggle can drive, and a well-organized set of
+          variables into a genuine data layer the rest of the file reads
+          from.
+        </p>
+        <p>
+          It's also exactly the property that makes variables harder to
+          reason about than styles ever were. A style either applies or it
+          doesn't; a variable can be bound correctly and still show the
+          wrong value, because the value it resolves to depends on a mode
+          assignment sitting somewhere else in the node tree — sometimes
+          several collections away. Understanding variables well enough to
+          debug that means understanding modes, scoping, and aliasing as a
+          system, not as three independent settings in an editing panel.
+        </p>
+
+        <h2 id="variables-vs-styles">
+          <span class="guide-article__num mono">01</span>Variables vs. styles
+        </h2>
+        <p>
+          Figma still supports text, effect, and grid styles, and for a
+          single fixed value with no theming requirement, a style remains
+          the simpler tool — there's no mode machinery to reason about.
+          Variables become the better fit the moment a value needs to be
+          <strong>the same reference resolving differently</strong> rather
+          than a single fixed value: a background that has to be white in
+          one theme and near-black in another, a corner radius that has to
+          shrink uniformly in a "Compact" density mode, a button label that
+          has to hold different placeholder text per locale for layout
+          testing.
+        </p>
+        <p>
+          One boundary catches almost everyone at least once: color
+          variables store solid values only — hex, RGB, or an alias to
+          another color variable — and bind to fills, strokes, and
+          backgrounds. They cannot store a gradient. A gradient fill still
+          has to be a style, full stop, regardless of how central that
+          gradient is to the brand's theming. Teams building a "everything
+          is a variable" token pipeline run into this fast, and the
+          practical fix is boring but effective: keep gradients on styles,
+          keep every solid color on variables, and don't treat the two
+          systems as interchangeable just because both live in the same
+          Assets panel.
+        </p>
+
+        <h2 id="the-four-variable-types">
+          <span class="guide-article__num mono">02</span>The four variable
+          types and what they bind to
+        </h2>
+        <p>
+          Every variable is created as exactly one of four types, fixed at
+          creation and never mixed within a single collection. A collection
+          holding Color variables can't also hold a Number variable — a
+          second collection is the only way to combine types side by side in
+          the same organizational group.
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Figma variable types, what they control, and what they bind to
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Controls</th>
+                <th scope="col">Typical bindings</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Color</strong></td>
+                <td>A solid color value (no gradients)</td>
+                <td>Fills, strokes, backgrounds</td>
+              </tr>
+              <tr>
+                <td><strong>Number</strong></td>
+                <td>Any numeric value</td>
+                <td>
+                  Corner radius, padding, gap, width/height, opacity, stroke
+                  weight, effect values, and several text properties
+                </td>
+              </tr>
+              <tr>
+                <td><strong>String</strong></td>
+                <td>Editable text</td>
+                <td>Text content, font family, font style</td>
+              </tr>
+              <tr>
+                <td><strong>Boolean</strong></td>
+                <td>True/false only</td>
+                <td>Layer visibility — nothing else</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The Boolean row reads short because it is: exactly like a Boolean
+          component property, a Boolean variable can only ever show or hide
+          the layer it's bound to. Reaching for a Boolean variable to
+          "toggle" a color or a size runs into the same wall Boolean
+          component properties do, for the same reason — that isn't binary
+          data, it's a value, and it belongs on a Number or Color variable
+          instead, usually switched through a mode rather than a true/false
+          flag. Number variables carry the most surface area of the four:
+          beyond the obvious spacing and sizing fields, a Number variable can
+          also render directly as a text layer's content, which is what
+          makes a variable-driven line-item counter or a live numeric label
+          possible without a plugin.
+        </p>
+
+        <h2 id="collections-and-modes">
+          <span class="guide-article__num mono">03</span>Collections and
+          modes: the parallel-value-set model
+        </h2>
+        <p>
+          A collection is a named group of variables that all share the
+          exact same set of modes — Light and Dark, Comfortable and Compact,
+          Brand A and Brand B, or just a single default mode if theming
+          isn't needed yet. Every variable in that collection gets one value
+          per mode, laid out as columns in the variables panel; the
+          left-most column is always the collection's <strong>default
+          mode</strong>, and any object using a variable from that
+          collection falls back to the default mode's value until something
+          explicitly says otherwise.
+        </p>
+        <p>
+          That "something" is an <strong>explicit mode</strong> set on a
+          frame, section, or page — pick Dark from a dropdown on a top-level
+          frame, and every descendant that reads from that collection
+          inherits Dark unless one of those descendants sets its own
+          explicit mode instead. This inheritance is what makes a single
+          toggle capable of re-theming an entire screen: nothing on the
+          canvas has to be touched individually, because none of those
+          layers holds a literal value to begin with — they hold a reference
+          that re-resolves the moment the ancestor's mode changes.
+        </p>
+        <div class="guide-callout">
+          <p>
+            <strong>One axis, one collection.</strong> It's tempting to put
+            every themeable dimension into a single collection's modes —
+            "Light", "Dark", "Light-Compact", "Dark-Compact" — but that
+            approach cross-multiplies by hand instead of letting Figma do it
+            per node. A Color-scheme collection with two modes and a
+            separate Density collection with two modes let any frame combine
+            them independently; a single four-mode collection forces every
+            future combination to be authored explicitly, and the count only
+            gets worse as axes are added. Section 06 works through exactly
+            how fast that grows.
+          </p>
+        </div>
+
+        <h2 id="scoping-the-picker">
+          <span class="guide-article__num mono">04</span>Scoping narrows the
+          picker, not the value
+        </h2>
+        <p>
+          Scoping is the part of the variables system most often confused
+          with validation. It isn't one. A scoped variable still holds
+          exactly the same value it would unscoped — scoping only controls
+          which property fields offer that variable as a pickable option in
+          Figma's UI. A Number variable scoped to Gap doesn't stop being a
+          number, and nothing stops a plugin or the REST API from binding it
+          to corner radius anyway; scoping is a UI-level guardrail against
+          accidental misuse inside the design tool, not a type constraint
+          enforced everywhere the variable is used.
+        </p>
+        <p>
+          Scoping is available on Number, Color, and String variables.
+          Boolean variables aren't scoped at all, because visibility is
+          already the only field a Boolean can bind to — there's nothing
+          left to narrow. The available scopes differ by type:
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Available variable scopes grouped by variable type
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Available scopes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Color</strong></td>
+                <td>
+                  All fills, Frame fill, Shape fill, Text fill, Stroke color,
+                  Effect color
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Number</strong></td>
+                <td>
+                  Corner radius, Width &amp; height, Gap, Opacity, Stroke
+                  weight, Effect value, Text content, Font weight, Font
+                  size, Line height, Letter spacing, Paragraph spacing,
+                  Paragraph indent
+                </td>
+              </tr>
+              <tr>
+                <td><strong>String</strong></td>
+                <td>Text content, Font family, Font style</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>All Scopes</strong> is a special case rather than just
+          another checkbox: setting it makes the variable available
+          everywhere its type is supported and disables every other scope
+          option, since a variable can't be both "shown everywhere" and
+          "shown only in these specific fields" at once. In practice, the
+          tighter scope wins the maintenance argument almost every time — a
+          spacing variable scoped to Gap and nothing else can't accidentally
+          end up bound to a corner radius by someone skimming a long,
+          unscoped variable list at 2am before a release.
+        </p>
+
+        <h2 id="the-aliasing-chain">
+          <span class="guide-article__num mono">05</span>The aliasing chain:
+          primitive → semantic → component
+        </h2>
+        <p>
+          A variable's value, for a given mode, doesn't have to be a literal
+          number or hex code — it can instead be a reference to another
+          variable, called an <strong>alias</strong>. Aliasing is what turns
+          a flat list of variables into a layered system, and the
+          convention most design-systems teams converge on independently is
+          a three-tier chain: <strong>primitive</strong> variables hold raw,
+          context-free values (a palette step, a spacing unit on a base-4
+          scale); <strong>semantic</strong> variables carry intent-based
+          names — <code>color/bg/surface</code>, <code>color/text/primary</code>
+          — and alias into the primitives, with the theming modes (Light,
+          Dark, Brand) living at this tier; <strong>component-level</strong>
+          variables alias into the semantics again, scoped tightly to one
+          property on one component, one step removed from anything a
+          designer typically needs to touch directly.
+        </p>
+        <p>
+          The mechanism behind that chain has one detail that trips up
+          almost every team the first time a theme doesn't switch the way
+          it's supposed to: <strong>an alias points at a variable, not at
+          one of its modes.</strong> Setting <code>color/bg/surface</code>'s
+          Light-mode cell to alias <code>gray/100</code> doesn't lock that
+          link to whichever mode of the Primitives collection "means" light
+          — if the Primitives collection itself carries more than one mode,
+          the resolved value still depends on whichever mode of
+          <em>that</em> collection the consuming node has selected,
+          independently of the semantic tier's own mode. Figma's own
+          engineers have confirmed there's no way to pin an alias to one
+          specific mode of the target variable in the editor UI at all —
+          aliases simply don't carry that information.
+        </p>
+        <p>
+          The practical consequence is resolution that has to be walked
+          collection by collection, not read off in one step. With N
+          collections chained together by aliases and M modes in each, the
+          same named variable can resolve to as many as M
+          <sup>N</sup> different literal values depending purely on which
+          mode each collection has active on the node actually consuming it
+          — explicit where one was set, inherited from an ancestor
+          otherwise. Most teams sidestep the ambiguity at the source rather
+          than debug it after the fact: keep the Primitives collection to a
+          single mode wherever possible, so theming only ever branches at
+          the semantic tier, and the alias chain has exactly one place where
+          "which mode?" is a live question instead of two or three.
+        </p>
+
+        <h2 id="where-theming-breaks">
+          <span class="guide-article__num mono">06</span>Where theming
+          breaks under real combinations
+        </h2>
+        <p>
+          A token system built and tested with one theme active can look
+          completely solid and still come apart once real combinations of
+          modes, collections, and nested overrides start interacting. Three
+          patterns account for most of it.
+        </p>
+        <p>
+          <strong>Modes crammed into one collection instead of split
+          across several.</strong> A single collection with modes named
+          "Light", "Dark", "Light-Compact", "Dark-Compact" has to be
+          authored by hand for every combination that exists today, and
+          every new axis doubles that list again:
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Collection structure compared against how many mode combinations must be authored by hand
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Structure</th>
+                <th scope="col">Axes</th>
+                <th scope="col">Combinations to author</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>One collection, cross-produced modes</td>
+                <td>Scheme × Density × Brand</td>
+                <td>2 × 2 × 2 = 8 modes, defined explicitly</td>
+              </tr>
+              <tr>
+                <td>Three collections, one axis each</td>
+                <td>Scheme + Density + Brand</td>
+                <td>
+                  2 + 2 + 2 = 6 modes total; any of the 8 combinations
+                  resolves automatically per node
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The second row isn't a modeling trick — it's the actual advantage
+          of keeping independent axes in independent collections. A node's
+          resolved value already depends on the mode selected in
+          <em>every</em> collection in its alias chain, so three collections
+          with two modes each already cover all eight combinations without
+          anyone defining "Dark-Compact-BrandB" as its own named thing
+          anywhere.
+        </p>
+        <p>
+          <strong>An explicit mode set low in the tree.</strong> Because
+          mode inheritance flows down from ancestor to descendant, setting
+          an explicit mode on a small nested frame — often left over from
+          testing a component in isolation — silently opts that one subtree
+          out of whatever a page-level toggle does afterward. A card that
+          "won't switch to dark mode" is very often not a binding problem at
+          all; it's an explicit override sitting a few frames up that a
+          page-level toggle can no longer reach.
+        </p>
+        <p>
+          <strong>Aliases that reach into a separate published library.</strong>
+          Cross-file aliasing works the same way structurally, but tooling
+          built around it has a real, documented gap: the Variables REST API
+          currently can't be used to <em>create</em> a new alias pointing at
+          a variable that lives in a different, already-published library —
+          that specific edit still has to happen by hand inside the file
+          that owns the alias. Automation that assumes every edit is
+          scriptable end-to-end tends to discover this gap the first time it
+          tries to wire two libraries together programmatically rather than
+          by hand.
+        </p>
+
+        <h2 id="syncing-with-code">
+          <span class="guide-article__num mono">07</span>Syncing variables
+          with code
+        </h2>
+        <p>
+          Every variable can carry a separate <strong>code syntax</strong> —
+          up to one name each for Web, iOS, and Android — layered on top of
+          its Figma-facing name. That separation matters more than it looks:
+          a variable named <code>color/action/primary</code> in the
+          variables panel can surface in Dev Mode's inspect panel as
+          <code>--color-action-primary</code> for a web engineer without
+          Figma's own hierarchical naming convention having to match
+          whatever convention the codebase already uses. Renaming one side
+          doesn't rename the other automatically — someone has to keep both
+          in sync deliberately, but at least the two naming systems are
+          allowed to diverge on purpose instead of by accident.
+        </p>
+        <p>
+          For teams that need more than a one-way glance in Dev Mode, the
+          <strong>Variables REST API</strong> exposes endpoints to query,
+          create, update, and delete variables and collections directly —
+          enough to build a real two-way pipeline between a Figma file and a
+          codebase's token source. It's gated more tightly than most of
+          Figma's REST surface, though: both the GET and POST endpoints
+          require an Enterprise plan and a Full seat, which rules out Guests
+          and lower-tier plans regardless of how the rest of the workflow is
+          built.
+        </p>
+        <p>
+          A typical pipeline treats Figma as the source of truth, pulls the
+          current variable set, remaps Figma's naming to the codebase's own
+          convention — <code>color/green/100</code> in Figma might need to
+          become <code>theme.colors.green-100</code> in a stylesheet — and
+          emits output through a tool like Style Dictionary, often
+          validated against the draft W3C Design Tokens Community Group
+          format so the same exported JSON stays usable outside any one
+          vendor's tooling. Two details catch teams building this for the
+          first time:
+        </p>
+        <ul>
+          <li>
+            The raw API response represents an alias as a pointer to another
+            variable's ID, not as a resolved literal — a sync script has to
+            walk the same alias chain covered in section 05 itself if the
+            destination format expects a flat value rather than a
+            reference.
+          </li>
+          <li>
+            Syncing in the other direction — pushing token changes from code
+            back into Figma — works for literal values, but, as in section
+            06, can't create new cross-library aliases through the API;
+            anything that needs to reference a separate published library
+            still needs a manual step inside the file.
+          </li>
+        </ul>
+
+        <h2 id="worked-example">
+          <span class="guide-article__num mono">08</span>A worked example
+        </h2>
+        <p>
+          A small token architecture makes the three tiers concrete. Every
+          line reflects a deliberate choice about which tier a value belongs
+          on, not a default reached for out of habit:
+        </p>
+        <pre><code>Primitives (collection · 1 mode: Value)
+├─ color/gray/50 … color/gray/950
+├─ color/blue/50 … color/blue/900
+└─ space/1, space/2, space/3 … space/16
+
+Semantic/Color (collection · modes: Light | Dark)
+├─ color/bg/page         → alias color/gray/50    | color/gray/950
+├─ color/bg/surface      → alias color/gray/100   | color/gray/900
+├─ color/text/primary    → alias color/gray/900   | color/gray/50
+└─ color/action/primary  → alias color/blue/600   | color/blue/400
+
+Button (component-level, scoped)
+├─ Fill   → alias color/action/primary   (scope: Frame fill)
+├─ Label  → alias color/text/on-action   (scope: Text fill)
+└─ Gap    → alias space/2                (scope: Gap)</code></pre>
+        <p>
+          Nothing about the Button component's own definition changes
+          between themes — its Fill property holds an alias, not a color,
+          and that alias resolves through Semantic/Color, which is the only
+          collection in this chain that carries more than one mode. Flip the
+          page's mode from Light to Dark and every Button instance's fill
+          and label color update together, because the thing that changed
+          is which mode the Semantic collection is resolving against, not
+          any property on any individual instance.
+        </p>
+        <div class="guide-example">
+          <figure>
+            <svg
+              viewBox="0 0 220 140"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <rect x="76" y="52" width="60" height="36" rx="6" />
+              <circle class="thumb-fill" cx="106" cy="70" r="3.2" />
+              <line
+                x1="136"
+                y1="62"
+                x2="172"
+                y2="30"
+                stroke-dasharray="3 3"
+              />
+              <line
+                x1="136"
+                y1="78"
+                x2="172"
+                y2="106"
+                stroke-dasharray="3 3"
+              />
+              <rect x="172" y="16" width="32" height="26" rx="4" />
+              <rect x="172" y="94" width="32" height="26" rx="4" />
+              <text x="106" y="40" text-anchor="middle" class="thumb-dim-label" font-size="8">
+                one alias
+              </text>
+            </svg>
+            <figcaption>
+              One Fill property, aliased once — the Light and Dark swatches
+              both come from the same reference; only the resolved value
+              changes with the mode.
+            </figcaption>
+          </figure>
+          <figure>
+            <svg
+              viewBox="0 0 220 140"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <rect x="18" y="46" width="70" height="42" rx="6" />
+              <rect x="122" y="46" width="70" height="42" rx="6" />
+              <circle class="thumb-fill" cx="53" cy="67" r="3.4" />
+              <circle class="thumb-fill" cx="157" cy="67" r="4.6" />
+              <text x="105" y="30" text-anchor="middle" class="thumb-dim-label" font-size="8">
+                two hardcoded values
+              </text>
+            </svg>
+            <figcaption>
+              Two independent components, one hardcoded per theme — nothing
+              ties their fills together, so a rebrand means finding every
+              copy by hand, and drift between them goes unnoticed until
+              someone screenshots both side by side.
+            </figcaption>
+          </figure>
+        </div>
+
+        <h2 id="cheat-sheet">
+          <span class="guide-article__num mono">09</span>Cheat sheet
+        </h2>
+        <ul>
+          <li>
+            Scope narrows where a variable shows up in property pickers —
+            it never restricts what value the variable is actually allowed
+            to hold.
+          </li>
+          <li>
+            Gradients still require styles; a solid-color variable can't
+            store one, no matter how central that gradient is to the brand.
+          </li>
+          <li>
+            Boolean variables aren't scoped, because layer visibility is
+            already the only field they can bind to.
+          </li>
+          <li>
+            An alias points at a variable, not at one of its modes — the
+            resolved value always depends on whichever mode the consuming
+            node has selected, explicitly or inherited, for every collection
+            in the chain.
+          </li>
+          <li>
+            Keep a Primitives collection to a single mode wherever possible;
+            that's what stops the alias chain from branching in two places
+            at once.
+          </li>
+          <li>
+            Model independent axes — color scheme, density, brand — as
+            separate collections rather than as one collection's
+            cross-produced modes. Each stays independently toggleable, and a
+            new axis never touches the others.
+          </li>
+          <li>
+            A "won't switch to dark mode" bug is very often an explicit
+            mode set on a nested frame, not a binding problem — check for a
+            stray override before assuming the alias chain is broken.
+          </li>
+          <li>
+            Code syntax is a separate, per-platform name layered on top of a
+            variable; renaming the variable in Figma doesn't rename the
+            token in code, or the other way around, unless someone updates
+            both deliberately.
+          </li>
+          <li>
+            The Variables REST API is gated to Enterprise plans with a Full
+            seat, and can't create new aliases against a variable in a
+            separate published library — plan a sync pipeline around both
+            limits before building on top of it.
+          </li>
+        </ul>
+      </article>
+
+      <section class="guide-related" aria-labelledby="guide-related-heading">
+        <span class="section-label mono" id="guide-related-heading"
+          >/ related_guides</span
+        >
+        <div class="guide-related__grid">
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/components-variants-contract"
+          >
+            <span class="badge">FIGMA</span>
+            <h3>
+              Components and Variants Are a Contract, Not a Copy-Paste
+              Shortcut
+            </h3>
+            <p>
+              The same "which override survives" question this guide asks
+              about modes, asked instead about component variant switches.
+            </p>
+          </a>
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/design-tokens-naming-system"
+          >
+            <span class="badge">DESIGN_SYSTEMS</span>
+            <h3>Design Tokens Are a Naming System, Not a Style Guide</h3>
+            <p>
+              The primitive/semantic/component tiers this guide builds
+              inside Figma, generalized one level up to the rest of a
+              design system.
+            </p>
+          </a>
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/color-palette-token-system"
+          >
+            <span class="badge">COLOR_THEORY</span>
+            <h3>
+              A Color Palette Is a Token System, Not a Row of Swatches
+            </h3>
+            <p>
+              The OKLCH tonal ramp and tiered palette structure this guide's
+              Primitives collection is built to hold.
+            </p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="/about.html">About us</a></li>
+            <li><a href="/contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="/privacy.html">Privacy policy</a></li>
+            <li><a href="/terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="/privacy.html">Privacy policy</a> ·
+          <a href="/terms.html">Terms of service</a> ·
+          <a href="/about.html">About</a> ·
+          <a href="/contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

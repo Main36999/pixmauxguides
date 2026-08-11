@@ -163,5 +163,16 @@
     "thumbnail": "/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png",
     "roadmapStage": 3,
     "roadmapStep": 8.25
+  },
+  {
+    "id": "figma-variables-data-layer",
+    "category": "figma",
+    "level": "advanced",
+    "readTime": 15,
+    "title": "Figma Variables Are a Data Layer, Not Just Color Styles",
+    "description": "Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.",
+    "thumbnail": "/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png",
+    "roadmapStage": 4,
+    "roadmapStep": 10.5
   }
 ]
