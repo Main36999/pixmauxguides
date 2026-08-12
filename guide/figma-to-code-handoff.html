@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Figma-to-Code Handoff Is a Translation, Not a Screenshot — PIXMA UX
+      Guides
+    </title>
+    <meta
+      name="description"
+      content="How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/figma-to-code-handoff"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/figma-to-code-handoff"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Figma-to-Code Handoff Is a Translation, Not a Screenshot"
+    />
+    <meta
+      property="og:description"
+      content="What Dev Mode gets right automatically, the exact rules it uses to turn Auto Layout into Flexbox or Grid, where a developer still has to make a judgment call, and the annotation habits that keep a spec from drifting out of sync with the file."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PIXMA UX Guides — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Figma-to-Code Handoff Is a Translation, Not a Screenshot"
+    />
+    <meta
+      name="twitter:description"
+      content="What Dev Mode gets right automatically, the exact rules it uses to turn Auto Layout into Flexbox or Grid, where a developer still has to make a judgment call, and the annotation habits that keep a spec from drifting out of sync with the file."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
+        "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.",
+        "image": "https://pixmauxguides.com/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png",
+        "author": { "@type": "Organization", "name": "PIXMA UX Guides" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://pixmauxguides.com/guide/figma-to-code-handoff"
+        },
+        "datePublished": "2026-08-12",
+        "dateModified": "2026-08-12",
+        "articleSection": "Figma Workflow",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT14M"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pixmauxguides.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "All Guides",
+            "item": "https://pixmauxguides.com/index.html#guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
+            "item": "https://pixmauxguides.com/guide/figma-to-code-handoff"
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      /* Scoped supplementary styles for long-form guide article bodies.
+         Reuses the site's existing .wrap / .mono / .badge / .bracketed
+         classes wherever they already cover a need; only adds new rules
+         for elements the card/roadmap-focused stylesheet doesn't style
+         (prose measure, headings, code, tables, callouts). Colors are
+         derived from currentColor / color-mix so this renders correctly
+         whether the inherited page background is light or dark. */
+
+      .guide-crumb {
+        padding-top: 24px;
+      }
+
+      .guide-hero {
+        padding: 40px 0 24px;
+      }
+      .guide-hero__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .guide-hero__title {
+        font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+        line-height: 1.15;
+        max-width: 20ch;
+        margin: 0 0 16px;
+      }
+      .guide-hero__dek {
+        max-width: 62ch;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        opacity: 0.82;
+        margin: 0 0 32px;
+      }
+      .guide-hero__figure {
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+        padding: 24px;
+        background: color-mix(in srgb, currentColor 4%, transparent);
+      }
+      .guide-hero__figure svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 220px;
+      }
+
+      .guide-toc {
+        margin: 0 0 48px;
+        padding: 20px 24px;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+      }
+      .guide-toc__label {
+        display: block;
+        margin-bottom: 12px;
+      }
+      .guide-toc ol {
+        margin: 0;
+        padding-left: 1.25em;
+        columns: 2;
+        column-gap: 32px;
+      }
+      .guide-toc li {
+        break-inside: avoid;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .guide-toc a {
+        text-decoration: none;
+      }
+      .guide-toc a:hover,
+      .guide-toc a:focus-visible {
+        text-decoration: underline;
+      }
+
+      .guide-article {
+        max-width: 68ch;
+        font-size: 1.0625rem;
+        line-height: 1.7;
+      }
+      .guide-article > * + * {
+        margin-top: 24px;
+      }
+      .guide-article h2 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-top: 64px;
+        margin-bottom: 8px;
+        scroll-margin-top: 24px;
+      }
+      .guide-article h2 .guide-article__num {
+        opacity: 0.5;
+        margin-right: 0.5em;
+      }
+      .guide-article h3 {
+        font-size: 1.15rem;
+        line-height: 1.35;
+        margin-top: 40px;
+        margin-bottom: 8px;
+        scroll-margin-top: 24px;
+      }
+      .guide-article p,
+      .guide-article li {
+        max-width: 62ch;
+      }
+      .guide-article ul,
+      .guide-article ol {
+        padding-left: 1.4em;
+      }
+      .guide-article li + li {
+        margin-top: 8px;
+      }
+      .guide-article strong {
+        font-weight: 600;
+      }
+      .guide-article code {
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.875em;
+        padding: 0.15em 0.4em;
+        border-radius: 3px;
+        background: color-mix(in srgb, currentColor 10%, transparent);
+      }
+      .guide-article pre {
+        margin-top: 24px;
+        padding: 20px 24px;
+        overflow-x: auto;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+        background: color-mix(in srgb, currentColor 5%, transparent);
+      }
+      .guide-article pre code {
+        background: none;
+        padding: 0;
+        font-size: 0.85em;
+        line-height: 1.6;
+      }
+
+      .guide-callout {
+        padding: 20px 24px;
+        border-left: 3px solid currentColor;
+        background: color-mix(in srgb, currentColor 5%, transparent);
+        border-radius: 0 4px 4px 0;
+      }
+      .guide-callout p {
+        margin: 0;
+      }
+      .guide-callout p + p {
+        margin-top: 12px;
+      }
+
+      .guide-table-wrap {
+        margin-top: 24px;
+        overflow-x: auto;
+        border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+        border-radius: 4px;
+      }
+      .guide-article table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        min-width: 480px;
+      }
+      .guide-article caption {
+        text-align: left;
+        padding: 12px 16px 0;
+      }
+      .guide-article th,
+      .guide-article td {
+        text-align: left;
+        padding: 10px 16px;
+        border-bottom: 1px solid
+          color-mix(in srgb, currentColor 14%, transparent);
+        vertical-align: top;
+      }
+      .guide-article thead th {
+        border-bottom: 1px solid
+          color-mix(in srgb, currentColor 30%, transparent);
+        font-weight: 600;
+      }
+      .guide-article tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .guide-example {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+        margin-top: 24px;
+      }
+      @media (min-width: 640px) {
+        .guide-example {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .guide-example figure {
+        margin: 0;
+        padding: 16px;
+        border: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+        border-radius: 4px;
+      }
+      .guide-example figcaption {
+        margin-top: 12px;
+        font-size: 0.8125rem;
+        opacity: 0.75;
+      }
+
+      .guide-related {
+        margin-top: 80px;
+        padding-top: 32px;
+        border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+      }
+      .guide-related__grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+        margin-top: 24px;
+      }
+      @media (min-width: 720px) {
+        .guide-related__grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .guide-related__card {
+        display: block;
+        padding: 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: inherit;
+      }
+      .guide-related__card h3 {
+        margin: 8px 0 8px;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+      .guide-related__card p {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.55;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+<!--HEADER_START-->
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" class="brand" aria-label="PIXMA UX Guides home">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-text"><strong>PIXMA</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="/index.html#guides">All Guides</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/index.html#toolbar">Categories</a>
+          </nav>
+          <form
+            class="header-search"
+            role="search"
+            action="/index.html"
+            method="get"
+          >
+            <label for="header-search-input" class="sr-only"
+              >Search guides</label
+            >
+            <input
+              type="search"
+              id="header-search-input"
+              name="q"
+              placeholder="Search guides…"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="header-search__submit"
+              aria-label="Search guides"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.2" y2="16.2" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <a href="/index.html#guides">All Guides</a>
+          <a href="/roadmap.html">Roadmap</a>
+          <a href="/index.html#toolbar">Categories</a>
+        </nav>
+        <form
+          class="header-search mobile-menu__search"
+          role="search"
+          action="/index.html"
+          method="get"
+        >
+          <label for="mobile-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="mobile-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+    <!--HEADER_END-->
+
+    <div class="wrap guide-crumb">
+      <a href="/index.html#guides" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <main class="wrap" id="guide-content" tabindex="-1">
+      <section class="guide-hero" aria-labelledby="guide-heading">
+        <div class="guide-hero__meta">
+          <span class="badge">FIGMA</span>
+          <span class="card-meta mono">INT · 14 MIN</span>
+        </div>
+        <h1 class="guide-hero__title" id="guide-heading">
+          Figma-to-Code Handoff Is a Translation, Not a Screenshot
+        </h1>
+        <p class="guide-hero__dek">
+          Dev Mode reads like it closes the gap between design and code: hover
+          a frame, copy a snippet, done. What it actually produces is a
+          faithful description of one static frame at one viewport, one
+          content state, and one set of interaction states — a translation of
+          what the file says, not of what the interface needs to do. Every
+          property Auto Layout tracked maps cleanly. Everything Auto Layout
+          never had a field for — real content, other viewports, focus and
+          error states, why a spacing value is what it is — doesn't
+          disappear. It just stops being visible, and becomes the
+          developer's problem to notice.
+        </p>
+        <div class="guide-hero__figure">
+          <svg
+            viewBox="0 0 240 120"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="20" y="24" width="80" height="72" rx="5" />
+            <line x1="32" y1="40" x2="88" y2="40" stroke-width="1.2" />
+            <rect x="32" y="50" width="56" height="34" rx="3" stroke-width="1.2" />
+            <rect class="thumb-fill" x="27" y="35" width="5" height="5" />
+            <path
+              d="M108,60 L140,60"
+              stroke-width="1.4"
+              marker-end="url(#arrow)"
+            />
+            <defs>
+              <marker
+                id="arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="4"
+                orient="auto"
+              >
+                <path d="M0,0 L8,4 L0,8 Z" fill="currentColor" stroke="none" />
+              </marker>
+            </defs>
+            <rect x="150" y="24" width="80" height="72" rx="5" class="thumb-handle" />
+            <text x="190" y="18" text-anchor="middle" class="thumb-dim-label" font-size="7">
+              flex-direction: column
+            </text>
+            <line x1="160" y1="40" x2="216" y2="40" stroke-width="1.2" />
+            <rect x="160" y="50" width="56" height="34" rx="3" stroke-width="1.2" />
+            <text x="60" y="112" text-anchor="middle" class="thumb-dim-label" font-size="7">
+              AUTO LAYOUT FRAME
+            </text>
+            <text x="190" y="112" text-anchor="middle" class="thumb-dim-label" font-size="7">
+              CSS (one state)
+            </text>
+          </svg>
+        </div>
+      </section>
+
+      <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+        <span class="section-label mono" id="guide-toc-heading"
+          >/ on_this_page</span
+        >
+        <ol>
+          <li>
+            <a href="#translation-not-export">A translation, not an export</a>
+          </li>
+          <li>
+            <a href="#auto-layout-to-flexbox"
+              >How Dev Mode maps Auto Layout to Flexbox</a
+            >
+          </li>
+          <li>
+            <a href="#when-grid-is-the-real-target"
+              >When the honest target is Grid, not Flexbox</a
+            >
+          </li>
+          <li>
+            <a href="#resizing-modes">Hug, Fill, and Fixed under real content</a>
+          </li>
+          <li>
+            <a href="#what-dev-mode-cannot-see"
+              >What Dev Mode structurally cannot see</a
+            >
+          </li>
+          <li>
+            <a href="#components-to-props"
+              >Variants and props: a lossy translation both ways</a
+            >
+          </li>
+          <li>
+            <a href="#annotation-habits"
+              >Annotation habits that prevent drift</a
+            >
+          </li>
+          <li><a href="#worked-example">A worked example</a></li>
+          <li><a href="#cheat-sheet">Cheat sheet</a></li>
+        </ol>
+      </nav>
+
+      <article class="guide-article">
+        <p>
+          "Just hand it off to Dev Mode" treats handoff as a file format
+          problem — get the right numbers out of Figma and into CSS. Numbers
+          are the easy 80%. Auto Layout was built with a direct CSS analogue
+          in mind, so its properties translate almost mechanically. The
+          other 20% is everything Auto Layout was never asked to represent:
+          what happens when a name is forty characters instead of ten, what
+          the button looks like focused instead of hovered, which breakpoint
+          this frame collapses at, why the gap is 12px here and 16px two
+          frames over. None of that is hidden from Dev Mode on purpose — it
+          simply isn't data the design tool was ever tracking, so there's
+          nothing for an inspector panel to surface.
+        </p>
+        <p>
+          Treating handoff as translation instead of export changes what
+          "done" means. A translator doesn't just swap words for their
+          dictionary equivalents; they decide what the original was actually
+          trying to say and find the target language's own way of saying it.
+          A developer doing the same thing with a Figma frame isn't failing
+          to use Dev Mode correctly if they diverge from the exported
+          snippet — they're doing the part of the job Dev Mode was never
+          going to do for them.
+        </p>
+
+        <h2 id="translation-not-export">
+          <span class="guide-article__num mono">01</span>A translation, not
+          an export
+        </h2>
+        <p>
+          Dev Mode's inspector is genuinely accurate about one thing: the
+          state of the frame exactly as designed, exactly as sized, exactly
+          as populated. That's a narrower claim than it sounds like. A card
+          component designed with a two-line heading and a 40-character
+          description is a specification for <em>that</em> heading and
+          <em>that</em> description — not a guarantee about what a
+          three-line heading or a 200-character description will do to the
+          layout, because the design frame doesn't hold those states to
+          measure. The exported CSS is correct and, on its own, incomplete;
+          it describes a single frozen instant of a component that in
+          production will run through dozens of instants a design frame
+          never modeled.
+        </p>
+        <div class="guide-callout">
+          <p>
+            <strong>The tell that handoff is being treated as export:</strong>
+            a developer who copies Dev Mode's CSS variable-for-variable and
+            ships it without testing what happens when the real API response
+            is longer, shorter, or empty. The code will match the frame
+            perfectly and still break the first time a user with a long name
+            logs in.
+          </p>
+        </div>
+
+        <h2 id="auto-layout-to-flexbox">
+          <span class="guide-article__num mono">02</span>How Dev Mode maps
+          Auto Layout to Flexbox
+        </h2>
+        <p>
+          This part really is close to mechanical, because Auto Layout's
+          properties were modeled on Flexbox in the first place. Dev Mode's
+          inspector panel and its exported CSS both follow the same
+          property-for-property mapping:
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Auto Layout properties mapped to their Flexbox equivalents
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Auto Layout property</th>
+                <th scope="col">Flexbox equivalent</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Direction (vertical / horizontal)</td>
+                <td><code>flex-direction: column / row</code></td>
+                <td>Wrap adds <code>flex-wrap: wrap</code></td>
+              </tr>
+              <tr>
+                <td>Gap</td>
+                <td><code>gap</code></td>
+                <td>
+                  A single value unless "Independent spacing" is on, which
+                  splits it into per-child margins
+                </td>
+              </tr>
+              <tr>
+                <td>Padding</td>
+                <td><code>padding</code></td>
+                <td>Per-side values map 1:1</td>
+              </tr>
+              <tr>
+                <td>Primary axis alignment</td>
+                <td><code>justify-content</code></td>
+                <td>Packed vs. Space Between changes the keyword used</td>
+              </tr>
+              <tr>
+                <td>Counter axis alignment</td>
+                <td><code>align-items</code></td>
+                <td>Per-child override becomes <code>align-self</code></td>
+              </tr>
+              <tr>
+                <td>Resizing: Hug contents</td>
+                <td><code>width / height: fit-content</code></td>
+                <td>See the resizing section below for the real behavior</td>
+              </tr>
+              <tr>
+                <td>Resizing: Fill container</td>
+                <td><code>flex: 1 1 0%</code></td>
+                <td>Requires the parent to itself be a flex container</td>
+              </tr>
+              <tr>
+                <td>Resizing: Fixed</td>
+                <td><code>width / height: &lt;value&gt;px</code></td>
+                <td>The one mapping that carries no intent, only a number</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          That last row is worth sitting with. "Fixed" in Figma can mean two
+          very different things that produce identical CSS: <em>this value
+          must never change</em> (a 24px icon), or <em>nobody has decided
+          what this should do yet</em> (a designer picked a width that
+          looked right for the one string they tested with). Dev Mode
+          exports both as the same hardcoded pixel value, because the
+          distinction between "constrained on purpose" and "not yet
+          resolved" was never a property Figma had a field for. A developer
+          reading only the exported number has no way to tell which one
+          they're looking at — which is exactly why this is a judgment call
+          and not a lookup.
+        </p>
+
+        <h2 id="when-grid-is-the-real-target">
+          <span class="guide-article__num mono">03</span>When the honest
+          target is Grid, not Flexbox
+        </h2>
+        <p>
+          Dev Mode always exports Auto Layout as flex properties, because
+          that's the CSS model Auto Layout was built to mirror — it has no
+          concept of a grid frame and never emits <code>display: grid</code>
+          on its own. That's a reasonable default for the single-axis stacks
+          Auto Layout handles well, and a poor fit the moment a layout is
+          genuinely two-dimensional: a card grid that needs to reflow column
+          count by available width, a form where labels and inputs must
+          align across rows, a dashboard of tiles with mixed spans. Frames
+          built with nested Auto Layout containers can <em>simulate</em> a
+          grid, but the export still comes back as nested flex, and a
+          developer who implements it that way inherits every alignment bug
+          Grid exists to solve — labels drifting out of column, gutters that
+          don't stay even when one cell wraps to a second line.
+        </p>
+        <p>
+          The judgment call here isn't "ignore what Dev Mode exported" —
+          it's recognizing the pattern the nested frames were standing in
+          for, and reaching for <code>display: grid</code> with
+          <code>grid-template-columns</code> when the shape is truly a grid,
+          rather than replicating the nested-flex structure the design tool
+          was forced into because it had no native alternative.
+        </p>
+
+        <h2 id="resizing-modes">
+          <span class="guide-article__num mono">04</span>Hug, Fill, and Fixed
+          under real content
+        </h2>
+        <p>
+          Resizing modes are where the single-state-frame problem shows up
+          most directly, because each mode encodes an assumption about
+          content that only holds for the content the designer happened to
+          type in.
+        </p>
+        <ul>
+          <li>
+            <strong>Hug contents</strong> assumes the container should always
+            be exactly as big as what's inside it. That's correct for a
+            badge or a button label. It's a bug waiting to happen on a card
+            in a grid, where every sibling needs to hug its own content and
+            the row ends up with mismatched heights the moment descriptions
+            run to different lengths — a layout that looked even in Figma
+            because every test card happened to have a two-line
+            description.
+          </li>
+          <li>
+            <strong>Fill container</strong> only resolves relative to a
+            parent that is itself flexible. Dev Mode will happily export
+            <code>flex: 1</code> for a child whose parent has a fixed pixel
+            width, and the code will compile and look identical to the
+            design — right up until the parent's width actually needs to
+            change, at which point Fill was never really "filling"
+            anything.
+          </li>
+          <li>
+            <strong>Fixed</strong> is accurate until real data doesn't fit
+            it. A fixed-width name field sized to "Alexandra Petrov" will
+            truncate or overflow the first name forty characters long — a
+            state Figma never rendered because nobody typed a forty-character
+            name into the mock.
+          </li>
+        </ul>
+        <p>
+          None of these are Dev Mode reporting the wrong value. Each one is
+          reporting the right value for a frame that, by construction, only
+          ever holds one version of the content. Reproducing the resizing
+          mode faithfully is necessary; treating it as sufficient is the
+          mistake.
+        </p>
+
+        <h2 id="what-dev-mode-cannot-see">
+          <span class="guide-article__num mono">05</span>What Dev Mode
+          structurally cannot see
+        </h2>
+        <p>
+          Some gaps aren't oversights in a particular file — they're outside
+          what a static, single-state design frame is capable of encoding
+          in the first place, no matter how carefully it was built.
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Categories of information Dev Mode cannot export, and where a
+              developer has to supply the decision instead
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Why the frame can't hold it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Semantic HTML</td>
+                <td>
+                  A layer named "Button" exports as a positioned
+                  <code>&lt;div&gt;</code>, not a <code>&lt;button&gt;</code>
+                  — Figma has no concept of an element's semantic role,
+                  only its visual layer type
+                </td>
+              </tr>
+              <tr>
+                <td>Interaction states</td>
+                <td>
+                  Focus, active, disabled, and error states exist only if
+                  someone built a separate frame or variant for each one;
+                  most files stop at hover
+                </td>
+              </tr>
+              <tr>
+                <td>Other viewports</td>
+                <td>
+                  A frame is one fixed width; how it reflows at every size
+                  between mobile and desktop is a decision the frame was
+                  never asked to make
+                </td>
+              </tr>
+              <tr>
+                <td>Real / variable content</td>
+                <td>
+                  Empty states, loading states, error messages, and
+                  long-tail content lengths aren't in the mock unless
+                  someone explicitly designed them
+                </td>
+              </tr>
+              <tr>
+                <td>Accessible names and roles</td>
+                <td>
+                  ARIA attributes, alt text, and landmark structure have no
+                  Figma equivalent to export at all
+                </td>
+              </tr>
+              <tr>
+                <td>Intent behind a value</td>
+                <td>
+                  Dev Mode reports that padding is 24px; it can't say
+                  whether that's a deliberate token or a value someone
+                  nudged once and forgot to reconcile
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          None of this is a criticism of Dev Mode doing its job badly — a
+          design tool that only ever renders static frames has no channel
+          to carry information that only exists in motion, in an error
+          condition, or in a screen reader's accessibility tree. The
+          practical implication is that "Dev Mode coverage" and "handoff
+          complete" are different milestones, and treating the first as the
+          second is where specs quietly go stale.
+        </p>
+
+        <h2 id="components-to-props">
+          <span class="guide-article__num mono">06</span>Variants and props:
+          a lossy translation both ways
+        </h2>
+        <p>
+          Figma's component properties — boolean, variant, instance-swap,
+          text — map conceptually to a code component's props, but the
+          translation loses information moving in either direction. A
+          variant set organizes states as a flat grid of named combinations
+          (<code>size=large, state=hover</code>); a well-built code
+          component usually wants those same axes as independent typed
+          props (<code>size</code>, <code>state</code>) so invalid
+          combinations can't be constructed. Reproducing the variant grid
+          literally — a giant switch statement keyed to variant names —
+          tends to reintroduce the exact copy-paste drift variants were
+          supposed to eliminate on the design side, just relocated into
+          code.
+        </p>
+        <p>
+          The reverse gap matters too: nested instance overrides deep inside
+          a variant frequently don't survive Dev Mode's export cleanly, and
+          a developer working strictly from the generated snippet can miss
+          an override that was clearly visible — and clearly intentional —
+          in the design file itself. Reading the component structure in
+          Figma directly, not just its Dev Mode output, is often the only
+          way to catch that before it ships as a silent regression.
+        </p>
+
+        <h2 id="annotation-habits">
+          <span class="guide-article__num mono">07</span>Annotation habits
+          that prevent drift
+        </h2>
+        <p>
+          Everything above is a one-time translation problem. Drift is what
+          happens after that first handoff, once the design file and the
+          codebase start evolving independently and nothing keeps them
+          honest about which one is current. A handful of habits catch most
+          of it before it reaches production:
+        </p>
+        <ul>
+          <li>
+            <strong>State the intent, not just the value.</strong> A Dev
+            Mode comment or annotation layer that says "24px — spacing/xl
+            token, not a one-off" turns an ambiguous fixed number into a
+            traceable decision a future editor won't second-guess or quietly
+            change.
+          </li>
+          <li>
+            <strong>Design the states you expect in production,</strong>
+            or say explicitly which ones weren't designed. A component
+            missing an error or empty state should say so on the frame —
+            "no error state designed, follow the pattern in
+            [related component]" — rather than leave a developer guessing
+            whether the omission was deliberate.
+          </li>
+          <li>
+            <strong>Gate on a status, not a stage.</strong> A "Ready for
+            dev" label on the frame itself, kept current as the design
+            changes, is a clearer signal than a Slack message that ages out
+            of everyone's memory within a week.
+          </li>
+          <li>
+            <strong>Link the frame to the code, not just to a ticket.</strong>
+            A comment pointing at the actual component file or PR lets
+            anyone jump from spec to implementation and back, instead of
+            relying on two people's memory of which commit shipped which
+            design.
+          </li>
+          <li>
+            <strong>Version the frame when the design changes post-handoff.</strong>
+            A duplicated "v2" frame with a dated note on what changed is
+            worth more than editing the original in place and leaving
+            developers to notice the diff on their own — or not notice it at
+            all.
+          </li>
+          <li>
+            <strong>Close the loop after implementation.</strong> A
+            developer who had to make a judgment call Dev Mode couldn't
+            resolve — which resizing mode was really intended, what an
+            empty state should look like — should be able to report that
+            decision back onto the frame, so the next person reads the
+            resolved answer instead of hitting the same ambiguity cold.
+          </li>
+        </ul>
+        <div class="guide-callout">
+          <p>
+            <strong>A cheap test for drift risk:</strong> open a component
+            that shipped more than a few months ago and check whether the
+            Figma frame still matches production. If it doesn't, and
+            nothing on the frame explains why, that's the annotation habit
+            that was skipped — not a one-off mistake.
+          </p>
+        </div>
+
+        <h2 id="worked-example">
+          <span class="guide-article__num mono">08</span>A worked example
+        </h2>
+        <p>
+          A card component, Auto Layout vertical, Hug contents on height,
+          Fill container on width, 16px gap, 24px padding, nested inside a
+          horizontal Auto Layout row with Space Between:
+        </p>
+        <div class="guide-example">
+          <figure>
+            <svg
+              viewBox="0 0 220 140"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <rect x="14" y="20" width="192" height="100" rx="6" stroke-width="1.2" />
+              <rect x="30" y="34" width="70" height="72" rx="5" />
+              <rect x="112" y="34" width="70" height="72" rx="5" />
+              <text x="65" y="30" text-anchor="middle" class="thumb-dim-label" font-size="7">
+                hug height
+              </text>
+              <text x="147" y="30" text-anchor="middle" class="thumb-dim-label" font-size="7">
+                hug height
+              </text>
+              <line x1="100" y1="70" x2="112" y2="70" class="thumb-dim-line" />
+            </svg>
+            <figcaption>
+              Design frame: two cards, each sized to its own content — 16px
+              gap between them, tested with matched two-line descriptions.
+            </figcaption>
+          </figure>
+          <figure>
+            <svg
+              viewBox="0 0 220 140"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <rect x="14" y="20" width="192" height="100" rx="6" stroke-width="1.2" />
+              <rect x="30" y="34" width="70" height="52" rx="5" />
+              <rect x="112" y="34" width="70" height="86" rx="5" />
+              <circle class="thumb-fill" cx="147" cy="112" r="3.4" />
+              <text x="147" y="128" text-anchor="middle" class="thumb-dim-label" font-size="7">
+                real content, longer
+              </text>
+            </svg>
+            <figcaption>
+              Production: one card gets a longer description from the API —
+              Hug still works, but the row's cards no longer share a
+              bottom edge, which the single-state frame never surfaced.
+            </figcaption>
+          </figure>
+        </div>
+        <p>
+          Dev Mode's export for the card is accurate and directly usable:
+        </p>
+        <pre><code>.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  flex: 1 1 0%;      /* Fill container, relative to the row */
+}
+.card-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+}</code></pre>
+        <p>
+          That CSS is correct and also silent about the one decision that
+          actually matters here: should mismatched card heights in a row be
+          acceptable, or does this pattern need <code>align-items: stretch</code>
+          on the row plus an internal strategy — a line-clamp on the
+          description, a fixed-height content area — to keep the row
+          visually even once real content stops matching the mock? Dev Mode
+          has no opinion, because the design frame never modeled a mismatch
+          to have an opinion about. That's the judgment call, and it's a
+          five-minute conversation with design that's far cheaper before
+          the row ships than after someone screenshots the uneven grid in
+          production.
+        </p>
+
+        <h2 id="cheat-sheet">
+          <span class="guide-article__num mono">09</span>Cheat sheet
+        </h2>
+        <ul>
+          <li>
+            Auto Layout maps to Flexbox almost mechanically — direction,
+            gap, padding, and alignment translate 1:1. Treat that mapping as
+            reliable; it's the part Dev Mode was built to get right.
+          </li>
+          <li>
+            Dev Mode never emits <code>display: grid</code> on its own.
+            Nested Auto Layout simulating a two-dimensional grid is a sign
+            to reach for real CSS Grid, not to replicate the nested-flex
+            structure literally.
+          </li>
+          <li>
+            A "Fixed" resizing value carries no signal about whether it was
+            a deliberate constraint or an untested guess — that distinction
+            has to come from a conversation or an annotation, never from the
+            number alone.
+          </li>
+          <li>
+            Hug and Fill are only as safe as the content that was in the
+            frame when they were set. Test every resizing decision against
+            the longest and shortest real content it will actually see.
+          </li>
+          <li>
+            Semantic HTML, ARIA roles, and accessible names have no Figma
+            equivalent. A layer named "Button" is still a
+            <code>&lt;div&gt;</code> until a developer decides otherwise.
+          </li>
+          <li>
+            A missing state — error, empty, focus — usually means nobody
+            designed it, not that it doesn't need to exist. Confirm which
+            one it is before shipping a guess.
+          </li>
+          <li>
+            Read nested component overrides in the Figma file directly for
+            anything with deep variant nesting; Dev Mode's flat export can
+            miss an override that's clearly visible in the layers panel.
+          </li>
+          <li>
+            Annotate intent, not just values — "token, not a one-off" on a
+            padding number saves the next editor from re-litigating a
+            decision that was already made.
+          </li>
+          <li>
+            When a design changes after handoff, version the frame instead
+            of editing it silently in place. A dated "v2" with a note on
+            what changed is what actually stops drift.
+          </li>
+        </ul>
+      </article>
+
+      <section class="guide-related" aria-labelledby="guide-related-heading">
+        <span class="section-label mono" id="guide-related-heading"
+          >/ related_guides</span
+        >
+        <div class="guide-related__grid">
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/auto-layout-constraint-model"
+          >
+            <span class="badge">FIGMA</span>
+            <h3>
+              Auto Layout Is a Constraint System, Not a Convenience Toggle
+            </h3>
+            <p>
+              The Figma-side mental model this guide's Flexbox mapping is
+              built on — Fixed, Hug, and Fill, and how they resolve against
+              a parent.
+            </p>
+          </a>
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/components-variants-contract"
+          >
+            <span class="badge">FIGMA</span>
+            <h3>
+              Components and Variants Are a Contract, Not a Copy-Paste
+              Shortcut
+            </h3>
+            <p>
+              The variant and override structure this guide's props
+              translation section builds on, from the design side of the
+              same handoff.
+            </p>
+          </a>
+          <a
+            class="guide-related__card bracketed"
+            href="/guide/responsive-layout-contract"
+          >
+            <span class="badge">WEB_LAYOUT</span>
+            <h3>
+              Responsive Layout Is a Contract, Not a Breakpoint List
+            </h3>
+            <p>
+              What a single Figma frame's fixed width has to become in code
+              — the fluid, multi-viewport contract Dev Mode never has to
+              define.
+            </p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="/about.html">About us</a></li>
+            <li><a href="/contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="/privacy.html">Privacy policy</a></li>
+            <li><a href="/terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="/privacy.html">Privacy policy</a> ·
+          <a href="/terms.html">Terms of service</a> ·
+          <a href="/about.html">About</a> ·
+          <a href="/contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

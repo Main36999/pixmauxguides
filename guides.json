@@ -174,5 +174,16 @@
     "thumbnail": "/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png",
     "roadmapStage": 4,
     "roadmapStep": 10.5
+  },
+  {
+    "id": "figma-to-code-handoff",
+    "category": "figma",
+    "level": "intermediate",
+    "readTime": 14,
+    "title": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
+    "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.",
+    "thumbnail": "/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png",
+    "roadmapStage": 3,
+    "roadmapStep": 8.4
   }
 ]
