@@ -78,9 +78,17 @@ const HEADER_PARTIAL_PATH = path.join(ROOT, "partials", "header.html");
 const START_MARKER = "<!--HEADER_START-->";
 const END_MARKER = "<!--HEADER_END-->";
 
-// The literal home-link text the partial is authored with (one level
-// deep, i.e. as it should appear on a /guide/*.html page).
-const PARTIAL_HOME_LINK = "../index.html";
+// Root-relative links in the partial that need per-page depth
+// rewriting. Each `partialText` is the literal substring the partial is
+// authored with (one level deep, i.e. exactly as it should appear on a
+// /guide/*.html page) — same convention this script has always used for
+// the home link, generalized to a list so additional root pages (e.g.
+// roadmap.html) can share the rewrite logic instead of only living in
+// partials/header.html and drifting out of sync on every other page.
+const ROOT_LINKS = [
+  { file: "index.html", partialText: "../index.html" },
+  { file: "roadmap.html", partialText: "../roadmap.html" },
+];
 
 // Directories we never want to walk into looking for .html files.
 const IGNORED_DIRS = new Set(["node_modules", ".git", "partials"]);
@@ -109,25 +117,57 @@ function replaceBetween(html, startMarker, endMarker, replacement) {
   );
 }
 
+// Marks the single `<a href="FILE">…</a>` link that points at the page
+// currently being rendered as the active nav item, the same way the
+// hand-authored headers used to flag roadmap.html's own "Roadmap" link.
+// Only ever called with the href of the page being rendered, so the
+// match is unique within the header markup.
+function markCurrent(html, file) {
+  return html
+    .split(`href="${file}"`)
+    .join(`href="${file}" aria-current="page"`);
+}
+
 // Rewrites the canonical (one-level-deep) header partial for a page at
 // `relPath` (POSIX-style, relative to project root, e.g. "about.html" or
 // "guide/foo.html").
 function headerFor(relPath, partial) {
+  const [homeLinkDef, ...otherLinks] = ROOT_LINKS;
+
   if (relPath === "index.html") {
     // Home page: brand + nav become in-page jumps; the search form's
     // action keeps pointing at a real file (index.html) since it needs
     // a real GET target for no-JS submits.
-    return partial
-      .split(`href="${PARTIAL_HOME_LINK}"`)
+    let html = partial
+      .split(`href="${homeLinkDef.partialText}"`)
       .join('href="#"')
-      .split(`action="${PARTIAL_HOME_LINK}"`)
+      .split(`action="${homeLinkDef.partialText}"`)
       .join('action="index.html"')
-      .split(PARTIAL_HOME_LINK)
+      .split(homeLinkDef.partialText)
       .join("");
+    // Every other root link (e.g. roadmap.html) still needs its normal
+    // depth-based rewrite even on the home page itself.
+    for (const link of otherLinks) {
+      html = html.split(link.partialText).join(link.file);
+    }
+    return html;
   }
+
   const depth = relPath.split("/").length - 1; // "about.html" -> 0, "guide/x.html" -> 1
-  const homeLink = "../".repeat(depth) + "index.html";
-  return partial.split(PARTIAL_HOME_LINK).join(homeLink);
+  const prefix = "../".repeat(depth);
+  let html = partial;
+  for (const link of ROOT_LINKS) {
+    html = html.split(link.partialText).join(prefix + link.file);
+  }
+
+  // If this page IS one of the root-linked pages (e.g. roadmap.html),
+  // mark its own nav link as current.
+  const self = ROOT_LINKS.find((link) => link.file === relPath);
+  if (self) {
+    html = markCurrent(html, prefix + self.file);
+  }
+
+  return html;
 }
 
 function main() {
