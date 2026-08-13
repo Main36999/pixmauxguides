@@ -185,5 +185,14 @@
     "thumbnail": "/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png",
     "roadmapStage": 3,
     "roadmapStep": 8.4
+  },
+  {
+    "id": "migrating-from-xd-rebuild",
+    "category": "adobe-xd",
+    "level": "intermediate",
+    "readTime": 12,
+    "title": "Migrating From XD Is a Rebuild, Not a File Import",
+    "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) — a practical checklist.",
+    "thumbnail": "/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import_thumbnail.png"
   }
 ]
