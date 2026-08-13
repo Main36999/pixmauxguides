@@ -406,7 +406,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-guide-id="grid-systems-rhythm">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START-->
@@ -539,7 +539,9 @@
     </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
-      <section class="guide-hero" aria-labelledby="guide-heading">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <section class="guide-hero" aria-labelledby="guide-heading">
         <div class="guide-hero__meta">
           <span class="badge">SPACING_LAYOUT</span>
           <span class="card-meta mono">INT · 14 MIN</span>
@@ -1063,49 +1065,10 @@
             never a different base unit.
           </li>
         </ul>
-      </article>
-
-      <section class="guide-related" aria-labelledby="guide-related-heading">
-        <span class="section-label mono" id="guide-related-heading"
-          >/ related_guides</span
-        >
-        <div class="guide-related__grid">
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/whitespace-as-ui-component"
-          >
-            <span class="badge">SPACING_LAYOUT</span>
-            <h3>Whitespace as a UI Component, Not a Leftover</h3>
-            <p>
-              The foundational principle this guide's spacing scale builds on
-              top of.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/padding-margin-different-jobs"
-          >
-            <span class="badge">SPACING_LAYOUT</span>
-            <h3>
-              Padding and Margin Are Different Jobs, Not Interchangeable Values
-            </h3>
-            <p>
-              The internal/external token split this same 8pt scale gets applied
-              to.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/responsive-layout-contract"
-          >
-            <span class="badge">WEB_LAYOUT</span>
-            <h3>Responsive Layout Is a Contract, Not a Breakpoint List</h3>
-            <p>
-              How this same column/gutter system adapts across real viewports.
-            </p>
-          </a>
+          </article>
         </div>
-      </section>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -409,7 +409,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-guide-id="figma-to-code-handoff">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
 <!--HEADER_START-->
@@ -542,7 +542,9 @@
     </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
-      <section class="guide-hero" aria-labelledby="guide-heading">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <section class="guide-hero" aria-labelledby="guide-heading">
         <div class="guide-hero__meta">
           <span class="badge">FIGMA</span>
           <span class="card-meta mono">INT · 14 MIN</span>
@@ -1176,58 +1178,10 @@
             what changed is what actually stops drift.
           </li>
         </ul>
-      </article>
-
-      <section class="guide-related" aria-labelledby="guide-related-heading">
-        <span class="section-label mono" id="guide-related-heading"
-          >/ related_guides</span
-        >
-        <div class="guide-related__grid">
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/auto-layout-constraint-model"
-          >
-            <span class="badge">FIGMA</span>
-            <h3>
-              Auto Layout Is a Constraint System, Not a Convenience Toggle
-            </h3>
-            <p>
-              The Figma-side mental model this guide's Flexbox mapping is
-              built on — Fixed, Hug, and Fill, and how they resolve against
-              a parent.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/components-variants-contract"
-          >
-            <span class="badge">FIGMA</span>
-            <h3>
-              Components and Variants Are a Contract, Not a Copy-Paste
-              Shortcut
-            </h3>
-            <p>
-              The variant and override structure this guide's props
-              translation section builds on, from the design side of the
-              same handoff.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/responsive-layout-contract"
-          >
-            <span class="badge">WEB_LAYOUT</span>
-            <h3>
-              Responsive Layout Is a Contract, Not a Breakpoint List
-            </h3>
-            <p>
-              What a single Figma frame's fixed width has to become in code
-              — the fluid, multi-viewport contract Dev Mode never has to
-              define.
-            </p>
-          </a>
+          </article>
         </div>
-      </section>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

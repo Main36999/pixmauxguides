@@ -519,7 +519,7 @@
       }
     </style>
   </head>
-  <body class="guide-page">
+  <body class="guide-page" data-guide-id="type-scale-systems">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START-->
@@ -654,7 +654,9 @@
     </nav>
 
     <main class="wrap guide-main" id="guide-content" tabindex="-1">
-      <article class="guide-article">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <article class="guide-article">
         <header class="guide-article__head">
           <p class="guide-eyebrow mono">// typography · type_scale_spec</p>
           <h1 class="guide-title">Font Size Is a Formula, Not a Feeling</h1>
@@ -1066,29 +1068,11 @@
             <span>ACCESSIBILITY</span>
             <span>DESIGN SYSTEMS</span>
           </div>
-          <div class="guide-related">
-            <h2 class="mono">/ related_guides</h2>
-            <ul>
-              <li>
-                <a href="whitespace-as-ui-component"
-                  >Whitespace as a UI Component, Not a Leftover</a
-                >
-              </li>
-              <li>
-                <a href="color-contrast-systems"
-                  >Color Contrast Is Math, Not Taste</a
-                >
-              </li>
-              <li>
-                <a href="font-pairing-hierarchy-decision"
-                  >Font Pairing Is a Hierarchy Decision, Not a Personality
-                  Match</a
-                >
-              </li>
-            </ul>
-          </div>
         </footer>
-      </article>
+          </article>
+        </div>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

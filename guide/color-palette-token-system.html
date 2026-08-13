@@ -530,7 +530,7 @@
       }
     </style>
   </head>
-  <body class="guide-page">
+  <body class="guide-page" data-guide-id="color-palette-token-system">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START-->
@@ -664,7 +664,9 @@
     </nav>
 
     <main class="wrap guide-main" id="guide-content" tabindex="-1">
-      <article class="guide-article">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <article class="guide-article">
         <header class="guide-article__head">
           <p class="guide-eyebrow mono">
             // color_theory · palette_token_system
@@ -1630,28 +1632,11 @@
             <span>TONAL RAMPS</span>
             <span>DARK MODE</span>
           </div>
-          <div class="guide-related">
-            <h2 class="mono">/ related_guides</h2>
-            <ul>
-              <li>
-                <a href="color-contrast-systems"
-                  >Color Contrast Is Math, Not Taste</a
-                >
-              </li>
-              <li>
-                <a href="design-tokens-naming-system"
-                  >Design Tokens Are a Naming System, Not a Style Guide</a
-                >
-              </li>
-              <li>
-                <a href="dark-mode-second-palette"
-                  >Dark Mode Is a Second Palette, Not an Inverted Filter</a
-                >
-              </li>
-            </ul>
-          </div>
         </footer>
-      </article>
+          </article>
+        </div>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

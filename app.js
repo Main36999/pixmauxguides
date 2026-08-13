@@ -523,6 +523,94 @@
     );
   }
 
+  // ---------- related-guides rail (every /guide/ page) ----------
+  // Every guide page ships a static, empty <aside id="guide-rail"> (see
+  // the .guide-layout / .guide-primary wrapper added around the
+  // article) plus a <body data-guide-id="..."> attribute identifying
+  // which guide it is. initRelatedGuides() below fills that aside in
+  // once GUIDES has loaded, so "related guides" is driven entirely by
+  // guides.json — add/remove/recategorize a guide there and every
+  // rail across the site picks it up automatically, with no per-page
+  // related-guides list to hand-maintain (that's what used to live
+  // directly in each guide's markup, and drifted between pages).
+
+  // Same-category guides are the most relevant match (mirrors the
+  // toolbar's own category grouping); same-level is a lighter,
+  // secondary signal. Ties keep guides.json's own order (Array#sort is
+  // stable), which is also roughly the order guides were added in.
+  function relatedGuides(current, count) {
+    return GUIDES.filter(function (g) {
+      return g.id !== current.id;
+    })
+      .map(function (g) {
+        var score = 0;
+        if (g.category === current.category) score += 2;
+        if (g.level === current.level) score += 1;
+        return { g: g, score: score };
+      })
+      .sort(function (a, b) {
+        return b.score - a.score;
+      })
+      .slice(0, count)
+      .map(function (x) {
+        return x.g;
+      });
+  }
+
+  // Compact variant of cardHtml() sized for a narrow sidebar: smaller
+  // horizontal thumbnail, no description/button. Reuses thumbMediaHtml()
+  // so it stays visually consistent with the homepage cards for free.
+  function railCardHtml(g) {
+    var cat = CATEGORIES[g.category];
+    return (
+      '<a class="guide-rail__card bracketed" href="/guide/' +
+      g.id +
+      '">' +
+      '<div class="guide-rail__thumb">' +
+      thumbMediaHtml(g) +
+      '<span class="badge">' +
+      cat.code +
+      "</span>" +
+      "</div>" +
+      '<div class="guide-rail__body">' +
+      '<h3 class="guide-rail__title">' +
+      escapeHtml(g.title) +
+      "</h3>" +
+      '<span class="guide-rail__meta mono">' +
+      LEVEL_ABBR[g.level] +
+      " · " +
+      g.readTime +
+      " MIN</span>" +
+      "</div>" +
+      "</a>"
+    );
+  }
+
+  function initRelatedGuides() {
+    var rail = document.getElementById("guide-rail");
+    if (!rail) return; // not a guide page (or an older page without one)
+
+    var currentId = document.body.getAttribute("data-guide-id");
+    var current = GUIDES.filter(function (g) {
+      return g.id === currentId;
+    })[0];
+
+    // No match means either GUIDES failed to load or this guide was
+    // retired from guides.json — either way there's nothing relevant
+    // to show, so drop the empty rail rather than leave a blank box.
+    var related = current ? relatedGuides(current, 5) : [];
+    if (!related.length) {
+      rail.remove();
+      return;
+    }
+
+    rail.innerHTML =
+      '<span class="section-label mono guide-rail__label">/ related_guides</span>' +
+      '<div class="guide-rail__list">' +
+      related.map(railCardHtml).join("") +
+      "</div>";
+  }
+
   function render() {
     if (!isHomePage) return;
     var filtered = getFiltered();
@@ -1040,12 +1128,14 @@
       populateSelects();
       renderLoadError();
       handleRoute();
+      initRelatedGuides();
       return;
     }
 
     populateSelects();
     render();
     handleRoute();
+    initRelatedGuides();
 
     // Arriving from another page's header search (e.g. a guide page's
     // search form -> index.html?q=spacing#guides): pick the term back

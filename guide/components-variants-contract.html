@@ -409,7 +409,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-guide-id="components-variants-contract">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START-->
@@ -542,7 +542,9 @@
     </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
-      <section class="guide-hero" aria-labelledby="guide-heading">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <section class="guide-hero" aria-labelledby="guide-heading">
         <div class="guide-hero__meta">
           <span class="badge">FIGMA</span>
           <span class="card-meta mono">INT · 16 MIN</span>
@@ -1121,52 +1123,10 @@
             — not just the placeholder text used to build them.
           </li>
         </ul>
-      </article>
-
-      <section class="guide-related" aria-labelledby="guide-related-heading">
-        <span class="section-label mono" id="guide-related-heading"
-          >/ related_guides</span
-        >
-        <div class="guide-related__grid">
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/auto-layout-constraint-model"
-          >
-            <span class="badge">FIGMA</span>
-            <h3>
-              Auto Layout Is a Constraint System, Not a Convenience Toggle
-            </h3>
-            <p>
-              The Hug/Fill/Fixed sizing rules that decide what happens when a
-              variant's footprint changes underneath an auto-layout parent.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/design-tokens-naming-system"
-          >
-            <span class="badge">DESIGN_SYSTEMS</span>
-            <h3>
-              Design Tokens Are a Naming System, Not a Style Guide
-            </h3>
-            <p>
-              The same naming discipline this guide applies to layers and
-              properties, applied one level up to the values components consume.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/responsive-layout-contract"
-          >
-            <span class="badge">WEB_LAYOUT</span>
-            <h3>Responsive Layout Is a Contract, Not a Breakpoint List</h3>
-            <p>
-              The same "contract" framing applied to layout instead of
-              components — what a breakpoint is actually promising to hold.
-            </p>
-          </a>
+          </article>
         </div>
-      </section>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -409,7 +409,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-guide-id="figma-variables-data-layer">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
 <!--HEADER_START-->
@@ -542,7 +542,9 @@
     </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
-      <section class="guide-hero" aria-labelledby="guide-heading">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <section class="guide-hero" aria-labelledby="guide-heading">
         <div class="guide-hero__meta">
           <span class="badge">FIGMA</span>
           <span class="card-meta mono">ADV · 15 MIN</span>
@@ -1204,54 +1206,10 @@ Button (component-level, scoped)
             limits before building on top of it.
           </li>
         </ul>
-      </article>
-
-      <section class="guide-related" aria-labelledby="guide-related-heading">
-        <span class="section-label mono" id="guide-related-heading"
-          >/ related_guides</span
-        >
-        <div class="guide-related__grid">
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/components-variants-contract"
-          >
-            <span class="badge">FIGMA</span>
-            <h3>
-              Components and Variants Are a Contract, Not a Copy-Paste
-              Shortcut
-            </h3>
-            <p>
-              The same "which override survives" question this guide asks
-              about modes, asked instead about component variant switches.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/design-tokens-naming-system"
-          >
-            <span class="badge">DESIGN_SYSTEMS</span>
-            <h3>Design Tokens Are a Naming System, Not a Style Guide</h3>
-            <p>
-              The primitive/semantic/component tiers this guide builds
-              inside Figma, generalized one level up to the rest of a
-              design system.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/color-palette-token-system"
-          >
-            <span class="badge">COLOR_THEORY</span>
-            <h3>
-              A Color Palette Is a Token System, Not a Row of Swatches
-            </h3>
-            <p>
-              The OKLCH tonal ramp and tiered palette structure this guide's
-              Primitives collection is built to hold.
-            </p>
-          </a>
+          </article>
         </div>
-      </section>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

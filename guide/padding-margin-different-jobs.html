@@ -409,7 +409,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-guide-id="padding-margin-different-jobs">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START-->
@@ -544,7 +544,9 @@
     </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
-      <section class="guide-hero" aria-labelledby="guide-heading">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <section class="guide-hero" aria-labelledby="guide-heading">
         <div class="guide-hero__meta">
           <span class="badge">SPACING_LAYOUT</span>
           <span class="card-meta mono">BEG · 8 MIN</span>
@@ -1029,48 +1031,10 @@
             from its neighbor? Reach for margin or <code>gap</code>.
           </li>
         </ul>
-      </article>
-
-      <section class="guide-related" aria-labelledby="guide-related-heading">
-        <span class="section-label mono" id="guide-related-heading"
-          >/ related_guides</span
-        >
-        <div class="guide-related__grid">
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/whitespace-as-ui-component"
-          >
-            <span class="badge">SPACING_LAYOUT</span>
-            <h3>Whitespace as a UI Component, Not a Leftover</h3>
-            <p>
-              The foundational principle this guide's padding/margin split
-              puts into practice.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/grid-systems-rhythm"
-          >
-            <span class="badge">SPACING_LAYOUT</span>
-            <h3>Grid Systems Are a Rhythm, Not a Ruler</h3>
-            <p>
-              The spacing scale that padding, margin, and gap values should
-              all be pulled from.
-            </p>
-          </a>
-          <a
-            class="guide-related__card bracketed"
-            href="/guide/design-tokens-naming-system"
-          >
-            <span class="badge">DESIGN_SYSTEMS</span>
-            <h3>Design Tokens Are a Naming System, Not a Style Guide</h3>
-            <p>
-              A deeper look at the primitive/semantic/component tiers this
-              guide's token-naming split is built on.
-            </p>
-          </a>
+          </article>
         </div>
-      </section>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

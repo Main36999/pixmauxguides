@@ -1627,6 +1627,141 @@ ul {
   margin-top: 32px;
 }
 
+/* ---------- guide page: two-column layout + related-guides rail ----------
+   Every page under /guide/ wraps its reading content in
+   .guide-layout > .guide-primary, with a sibling <aside id="guide-rail">
+   sitting to the right — a sticky "related guides" panel, the same idea
+   as YouTube's related-videos column. The aside ships empty in the
+   static HTML; app.js's initRelatedGuides() fills it in at runtime from
+   guides.json (matching first on category, then level), so this one
+   shared block of CSS is enough to cover every guide page, current and
+   future, with no per-page related-guides markup to hand-maintain.
+   Rail cards mirror the homepage .guide-card treatment (bordered plate,
+   bracketed corners, hover lift) at a slightly smaller scale, rather
+   than a compact text-only row, so the thumbnail stays the focal point
+   instead of shrinking down to an afterthought. */
+.guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 40px;
+  align-items: start;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.guide-primary {
+  min-width: 0;
+}
+.guide-rail {
+  position: sticky;
+  top: 88px;
+}
+.guide-rail:empty {
+  display: none;
+}
+.guide-rail__label {
+  display: block;
+  margin-bottom: 20px;
+}
+.guide-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.guide-rail__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+  border-radius: 2px;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+.guide-rail__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 42, 82, 0.1);
+  border-color: #c3d6f4;
+}
+.guide-rail__thumb {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  border-bottom: 1px solid var(--grid-line);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 18px 18px;
+  border-radius: 1px 1px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.guide-rail__thumb svg {
+  width: 84%;
+  height: auto;
+  color: var(--action);
+  overflow: visible;
+}
+.guide-rail__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.guide-rail__thumb .badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--card);
+}
+.guide-rail__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 16px;
+}
+.guide-rail__title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.004em;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.guide-rail__meta {
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+@media (max-width: 960px) {
+  .guide-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .guide-rail {
+    position: static;
+    top: auto;
+  }
+  .guide-rail__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .guide-rail__list {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* legal / static pages */
 /* Standalone pages (about.html, contact.html, privacy.html,
          terms.html) use real heading levels — h1 for the page title,

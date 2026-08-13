@@ -530,7 +530,7 @@
       }
     </style>
   </head>
-  <body class="guide-page">
+  <body class="guide-page" data-guide-id="motion-timing-model">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START-->
@@ -664,7 +664,9 @@
     </nav>
 
     <main class="wrap guide-main" id="guide-content" tabindex="-1">
-      <article class="guide-article">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <article class="guide-article">
         <header class="guide-article__head">
           <p class="guide-eyebrow mono">
             // prototyping_motion · easing_and_duration_model
@@ -1673,29 +1675,11 @@
             <span>MOTION TOKENS</span>
             <span>REDUCED MOTION</span>
           </div>
-          <div class="guide-related">
-            <h2 class="mono">/ related_guides</h2>
-            <ul>
-              <li>
-                <a href="auto-layout-constraint-model"
-                  >Auto Layout Is a Constraint System, Not a Convenience
-                  Toggle</a
-                >
-              </li>
-              <li>
-                <a href="design-tokens-naming-system"
-                  >Design Tokens Are a Naming System, Not a Style Guide</a
-                >
-              </li>
-              <li>
-                <a href="accessibility-structural-model"
-                  >Accessibility Is a Structural Decision, Not a Final Pass</a
-                >
-              </li>
-            </ul>
-          </div>
         </footer>
-      </article>
+          </article>
+        </div>
+        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
