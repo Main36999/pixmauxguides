@@ -1,0 +1,16 @@
+# Netlify security headers. One rule block per path pattern.
+# https://docs.netlify.com/manage/routing/headers/
+#
+# NOTE: Netlify already force-redirects HTTP -> HTTPS on its own once
+# "Force HTTPS" is on for this site (Site settings > Domain management
+# > HTTPS), which is on by default -- unlike Apache/.htaccess, there's
+# no header-based way to do that redirect here, so it isn't listed
+# below. Double check that setting is on if you're not sure.
+
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://consent.cookiebot.com https://*.cookiebot.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.cookiebot.com; font-src 'self'; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.cookiebot.com; frame-src https://consent.cookiebot.com https://*.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
