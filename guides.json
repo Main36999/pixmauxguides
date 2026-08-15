@@ -187,6 +187,17 @@
     "roadmapStep": 8.4
   },
   {
+    "id": "thumb-zones-layout-constraint",
+    "category": "mobile",
+    "level": "beginner",
+    "readTime": 10,
+    "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have",
+    "description": "Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.",
+    "thumbnail": "/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have_thumbnail.png",
+    "roadmapStage": 3,
+    "roadmapStep": 9.5
+  },
+  {
     "id": "migrating-from-xd-rebuild",
     "category": "adobe-xd",
     "level": "intermediate",
