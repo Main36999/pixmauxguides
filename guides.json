@@ -5,7 +5,7 @@
     "level": "beginner",
     "readTime": 11,
     "title": "Whitespace as a UI Component, Not a Leftover",
-    "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
+    "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning \u2014 not whatever's left over after everything else is placed.",
     "thumbnail": "/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png",
     "roadmapStage": 1,
     "roadmapStep": 1
@@ -203,7 +203,18 @@
     "level": "intermediate",
     "readTime": 12,
     "title": "Migrating From XD Is a Rebuild, Not a File Import",
-    "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) — a practical checklist.",
+    "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) \u2014 a practical checklist.",
     "thumbnail": "/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import_thumbnail.png"
+  },
+  {
+    "id": "ios-android-different-systems",
+    "category": "mobile",
+    "level": "intermediate",
+    "readTime": 17,
+    "title": "iOS and Android Are Different Systems, Not One Design Reused Twice",
+    "description": "Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.",
+    "thumbnail": "/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png",
+    "roadmapStage": 3,
+    "roadmapStep": 9.75
   }
 ]
