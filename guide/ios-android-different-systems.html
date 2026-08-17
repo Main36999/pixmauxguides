@@ -38,8 +38,8 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>
-      iOS and Android Are Different Systems, Not One Design Reused Twice — PIXMA
-      UX Guides
+      iOS and Android Are Different Systems, Not One Design Reused Twice —
+      PIXMA UX Guides
     </title>
     <meta
       name="description"
@@ -701,8 +701,8 @@
               </h1>
               <p class="guide-dek">
                 Where HIG and Material genuinely diverge: navigation, back
-                behavior, type defaults, and which components need two designs,
-                not one resized.
+                behavior, type defaults, and which components need two
+                designs, not one resized.
               </p>
               <div class="guide-meta">
                 <span>INTERMEDIATE</span>
@@ -717,7 +717,9 @@
               <summary>On this page</summary>
               <ol>
                 <li>
-                  <a href="#the-shared-file-trap">The shared-Figma-file trap</a>
+                  <a href="#the-shared-file-trap"
+                    >The shared-Figma-file trap</a
+                  >
                 </li>
                 <li>
                   <a href="#two-philosophies-of-navigation"
@@ -772,51 +774,54 @@
             <div class="guide-body">
               <section id="the-shared-file-trap">
                 <h2>
-                  <span class="guide-h2-num">01</span>The shared-Figma-file trap
+                  <span class="guide-h2-num">01</span>The shared-Figma-file
+                  trap
                 </h2>
                 <p>
-                  There's a workflow that shows up in almost every team shipping
-                  to both platforms at once: design the iOS screen first,
-                  duplicate the frame, swap the corner radius from 8 to 4, swap
-                  San Francisco for Roboto, nudge a few paddings, and hand the
-                  second frame off labeled "Android." It's fast, it's defensible
-                  in a sprint review, and it produces two screens that look
-                  related. It does not produce two screens that behave like
-                  their platforms, because the differences that matter most
-                  aren't visual at all — they're in the navigation model, who
-                  owns the back gesture, and how the type system is actually
-                  built.
+                  There's a workflow that shows up in almost every team
+                  shipping to both platforms at once: design the iOS screen
+                  first, duplicate the frame, swap the corner radius from 8 to
+                  4, swap San Francisco for Roboto, nudge a few paddings, and
+                  hand the second frame off labeled "Android." It's fast, it's
+                  defensible in a sprint review, and it produces two screens
+                  that look related. It does not produce two screens that
+                  behave like their platforms, because the differences that
+                  matter most aren't visual at all — they're in the
+                  navigation model, who owns the back gesture, and how the
+                  type system is actually built.
                 </p>
                 <p>
-                  For about a decade this trap was easy to fall into and hard to
-                  notice, because the visual language of both platforms was
-                  genuinely close. iOS 7's 2013 flattening and Material Design's
-                  2014 debut landed within a year of each other and leaned on
-                  similar instincts — flat surfaces, card-based content,
-                  restrained ornamentation — so a shared visual baseline
-                  underneath brand styling felt like a reasonable assumption.
-                  That truce ended in 2025. Apple's Liquid Glass, announced at
-                  WWDC on June 9, 2025 and shipped that fall across iOS, iPadOS,
-                  macOS, watchOS, tvOS, and visionOS, pushed toward a
-                  translucent, lensing material borrowed from visionOS's
-                  spatial-computing language. Google's Material 3 Expressive,
-                  announced at Google I/O on May 13, 2025 and rolled out via the
-                  Android 16 QPR1 update that September, pushed the opposite way
-                  — bolder color, springier motion, more expressive shape. The
-                  two platforms' surfaces are further apart now than at any
-                  point since skeuomorphism gave way to flat design.
+                  For about a decade this trap was easy to fall into and hard
+                  to notice, because the visual language of both platforms was
+                  genuinely close. iOS 7's 2013 flattening and Material
+                  Design's 2014 debut landed within a year of each other and
+                  leaned on similar instincts — flat surfaces, card-based
+                  content, restrained ornamentation — so a shared visual
+                  baseline underneath brand styling felt like a reasonable
+                  assumption. That truce ended in 2025. Apple's Liquid Glass,
+                  announced at WWDC on June 9, 2025 and shipped that fall
+                  across iOS, iPadOS, macOS, watchOS, tvOS, and visionOS,
+                  pushed toward a translucent, lensing material borrowed from
+                  visionOS's spatial-computing language. Google's Material 3
+                  Expressive, announced at Google I/O on May 13, 2025 and
+                  rolled out via the Android 16 QPR1 update that September,
+                  pushed the opposite way — bolder color, springier motion,
+                  more expressive shape. The two platforms' surfaces are
+                  further apart now than at any point since skeuomorphism gave
+                  way to flat design.
                 </p>
                 <p>
-                  The visual gap is, honestly, the least important one. It's the
-                  easiest thing to notice and the easiest thing to fix with a
-                  token swap. The navigation model, the back gesture, and the
-                  type contract were already structurally different underneath
-                  any color refresh, and none of that gets solved by
-                  re-exporting a frame with new corner radii. That's what the
-                  rest of this guide is actually about — in the order they'd
-                  surface in a real build: navigation, then back behavior, then
-                  type, then the individual components that need genuinely
-                  separate treatment, then the units underneath all of it.
+                  The visual gap is, honestly, the least important one. It's
+                  the easiest thing to notice and the easiest thing to fix
+                  with a token swap. The navigation model, the back gesture,
+                  and the type contract were already structurally different
+                  underneath any color refresh, and none of that gets solved
+                  by re-exporting a frame with new corner radii. That's what
+                  the rest of this guide is actually about — in the order
+                  they'd surface in a real build: navigation, then back
+                  behavior, then type, then the individual components that
+                  need genuinely separate treatment, then the units
+                  underneath all of it.
                 </p>
               </section>
 
@@ -826,8 +831,8 @@
                   navigation
                 </h2>
                 <p>
-                  On the surface, iOS's tab bar and Android's navigation bar now
-                  look like they agree. Apple's Human Interface Guidelines
+                  On the surface, iOS's tab bar and Android's navigation bar
+                  now look like they agree. Apple's Human Interface Guidelines
                   recommend three to five tabs on iPhone, used strictly for
                   navigating between top-level, peer sections — never for
                   actions on the current view, which belong in a toolbar
@@ -839,9 +844,9 @@
                 </p>
                 <p>
                   What the shared count hides is a structural split that has
-                  nothing to do with how many icons sit in the bar. Android has
-                  always drawn a formal line between two navigation concepts
-                  that iOS never needed to separate:
+                  nothing to do with how many icons sit in the bar. Android
+                  has always drawn a formal line between two navigation
+                  concepts that iOS never needed to separate:
                 </p>
                 <ul>
                   <li>
@@ -851,21 +856,21 @@
                     not the order the user actually visited screens in.
                   </li>
                   <li>
-                    <strong>Back</strong> — follows the user's actual navigation
-                    history. It can retrace through a previous app entirely, and
-                    if there's nothing left to retrace, it exits to the home
-                    screen.
+                    <strong>Back</strong> — follows the user's actual
+                    navigation history. It can retrace through a previous app
+                    entirely, and if there's nothing left to retrace, it exits
+                    to the home screen.
                   </li>
                 </ul>
                 <p>
-                  iOS has no equivalent split. There is exactly one back concept
-                  — pop the current view off the navigation stack — and it never
-                  leaves the app. Leaving the app is a completely different,
-                  unrelated gesture (swiping up from the bottom edge to the App
-                  Switcher or Home Screen), assigned to a different part of the
-                  system. A screen that has no parent to go "up" to on iOS
-                  simply has no back button; there's no second fallback concept
-                  waiting behind it.
+                  iOS has no equivalent split. There is exactly one back
+                  concept — pop the current view off the navigation stack —
+                  and it never leaves the app. Leaving the app is a completely
+                  different, unrelated gesture (swiping up from the bottom
+                  edge to the App Switcher or Home Screen), assigned to a
+                  different part of the system. A screen that has no parent to
+                  go "up" to on iOS simply has no back button; there's no
+                  second fallback concept waiting behind it.
                 </p>
                 <p>
                   Android's own default guidance has also shifted, and it's
@@ -875,13 +880,13 @@
                   destinations — is no longer recommended under Material 3
                   Expressive (2025). Google's current guidance points apps
                   toward the bottom navigation bar on phones and an expanded
-                  navigation rail on larger windows instead, because both adapt
-                  across breakpoints more gracefully than a drawer does. That's
-                  real convergence at the surface level. It just doesn't touch
-                  the Up/Back split, which is a platform-level primitive, not a
-                  navigation-pattern choice — and it's the piece that breaks
-                  silently when a shared component library assumes "back" means
-                  the same thing on both sides.
+                  navigation rail on larger windows instead, because both
+                  adapt across breakpoints more gracefully than a drawer does.
+                  That's real convergence at the surface level. It just
+                  doesn't touch the Up/Back split, which is a platform-level
+                  primitive, not a navigation-pattern choice — and it's the
+                  piece that breaks silently when a shared component library
+                  assumes "back" means the same thing on both sides.
                 </p>
               </section>
 
@@ -893,8 +898,8 @@
                 <p>
                   This is the single biggest structural gap between the two
                   platforms, and it's almost entirely invisible in a static
-                  mockup, because it's not about how the back affordance looks —
-                  it's about who owns it.
+                  mockup, because it's not about how the back affordance
+                  looks — it's about who owns it.
                 </p>
                 <p>
                   On iOS, the back affordance is
@@ -902,25 +907,26 @@
                   <code>UINavigationBar</code>, automatically labeled with the
                   previous screen's title unless a developer overrides it, and
                   it's paired with a system-provided edge-swipe-from-the-left
-                  shortcut that's wired to that exact same pop action. There is
-                  no operating-system-level "back" primitive on iOS. If a screen
-                  isn't hosted inside a navigation controller, swiping from the
-                  left edge does nothing at all, because nothing is listening
-                  for it. Leaving the app is a categorically different gesture
-                  that has no relationship to any navigation stack.
+                  shortcut that's wired to that exact same pop action. There
+                  is no operating-system-level "back" primitive on iOS. If a
+                  screen isn't hosted inside a navigation controller, swiping
+                  from the left edge does nothing at all, because nothing is
+                  listening for it. Leaving the app is a categorically
+                  different gesture that has no relationship to any
+                  navigation stack.
                 </p>
                 <p>
                   On Android, back is <strong>dispatched by the system</strong>
                   to whatever currently owns the screen — an open keyboard, a
                   modal dialog, a bottom sheet, a fragment's own nested back
-                  stack, the hosting activity, and, if nothing along that chain
-                  intercepts it, all the way out to the home screen. That's a
-                  fundamentally different mental model to design against: on
-                  Android, every screen state has to answer "what does back do
-                  right here," because the same physical gesture routes through
-                  all of them. On iOS the question mostly doesn't come up,
-                  because navigation-stack pop and app-exit are different
-                  gestures with different owners.
+                  stack, the hosting activity, and, if nothing along that
+                  chain intercepts it, all the way out to the home screen.
+                  That's a fundamentally different mental model to design
+                  against: on Android, every screen state has to answer "what
+                  does back do right here," because the same physical gesture
+                  routes through all of them. On iOS the question mostly
+                  doesn't come up, because navigation-stack pop and app-exit
+                  are different gestures with different owners.
                 </p>
 
                 <figure class="guide-figure">
@@ -1100,15 +1106,16 @@
                     iOS's edge-swipe is wired to one navigation controller and
                     stops at the app's own root screen. Android's back gesture
                     is dispatched by the system to whatever's on screen, and
-                    keeps going past the app entirely if nothing intercepts it.
+                    keeps going past the app entirely if nothing intercepts
+                    it.
                   </figcaption>
                 </figure>
 
                 <p>
-                  The mechanics of that Android gesture have also been changing
-                  on a yearly cadence, which matters because a design spec
-                  written against last year's behavior can be quietly wrong
-                  today:
+                  The mechanics of that Android gesture have also been
+                  changing on a yearly cadence, which matters because a design
+                  spec written against last year's behavior can be quietly
+                  wrong today:
                 </p>
                 <div class="guide-table-wrap">
                   <table>
@@ -1132,79 +1139,83 @@
                       <tr>
                         <th scope="row">14 (API 34)</th>
                         <td>
-                          Adds in-app predictive back — the previous destination
-                          previews mid-swipe, and the user can cancel before
-                          committing.
+                          Adds in-app predictive back — the previous
+                          destination previews mid-swipe, and the user can
+                          cancel before committing.
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">15 (API 35)</th>
                         <td>
-                          Predictive back's developer-option toggle is removed;
-                          enabled by default for apps that have migrated.
-                          Edge-to-edge layout is enforced by default for apps
-                          targeting this level.
+                          Predictive back's developer-option toggle is
+                          removed; enabled by default for apps that have
+                          migrated. Edge-to-edge layout is enforced by
+                          default for apps targeting this level.
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">16 (API 36)</th>
                         <td>
-                          Remaining opt-outs for predictive-back animations and
-                          edge-to-edge enforcement are deprecated for apps
-                          targeting this level.
+                          Remaining opt-outs for predictive-back animations
+                          and edge-to-edge enforcement are deprecated for
+                          apps targeting this level.
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p>
-                  The practical consequence: for every Android screen that holds
-                  unsaved state — a half-filled form, an open bottom sheet, a
-                  nested flow — the design has to explicitly define what back
-                  does at each layer, because the platform fires that event by
-                  default whether or not anyone designed for it. An iOS screen
-                  with no navigation controller behind it simply never receives
-                  an unhandled back event in the first place.
+                  The practical consequence: for every Android screen that
+                  holds unsaved state — a half-filled form, an open bottom
+                  sheet, a nested flow — the design has to explicitly define
+                  what back does at each layer, because the platform fires
+                  that event by default whether or not anyone designed for it.
+                  An iOS screen with no navigation controller behind it simply
+                  never receives an unhandled back event in the first place.
                 </p>
               </section>
 
               <section id="typography-is-a-contract">
                 <h2>
-                  <span class="guide-h2-num">04</span>Typography is a contract,
-                  not a shared scale
+                  <span class="guide-h2-num">04</span>Typography is a
+                  contract, not a shared scale
                 </h2>
                 <p>
-                  iOS's type system is eleven named text styles — Large Title,
-                  Title 1, Title 2, Title 3, Headline, Body, Callout, Subhead,
-                  Footnote, Caption 1, Caption 2 — each with a fixed default
-                  point size and line height, all drawn from SF Pro. Every one
-                  of those styles scales along Dynamic Type's twelve steps:
-                  seven standard sizes from xSmall to xxxLarge, plus five larger
-                  accessibility sizes, AX1 through AX5. What changes app to app
-                  is which of the eleven named roles gets used where — the
-                  letterforms themselves are locked to a single system typeface.
+                  iOS's type system is eleven named text styles — Large
+                  Title, Title 1, Title 2, Title 3, Headline, Body, Callout,
+                  Subhead, Footnote, Caption 1, Caption 2 — each with a fixed
+                  default point size and line height, all drawn from SF Pro.
+                  Every one of those styles scales along Dynamic Type's
+                  twelve steps: seven standard sizes from xSmall to xxxLarge,
+                  plus five larger accessibility sizes, AX1 through AX5. What
+                  changes app to app is which of the eleven named roles gets
+                  used where — the letterforms themselves are locked to a
+                  single system typeface.
                 </p>
                 <p>
-                  Material 3's type system is organized differently: five roles
-                  — display, headline, title, body, label — each in three sizes,
-                  large/medium/small, for fifteen tokens total, built on Roboto
-                  Flex by default. The meaningful structural difference isn't
-                  the token count, though — it's that Material explicitly splits
-                  a "brand" typeface (used for display and headline) from a
-                  "plain" typeface (used for title, body, and label), making a
-                  per-brand typeface swap a supported, first-class customization
-                  rather than a workaround. SF Pro has no equivalent split; the
-                  system typeface is the typeface, by design.
+                  Material 3's type system is organized differently: five
+                  roles — display, headline, title, body, label — each in
+                  three sizes, large/medium/small, for fifteen tokens total,
+                  built on Roboto Flex by default. The meaningful structural
+                  difference isn't the token count, though — it's that
+                  Material explicitly splits a "brand" typeface (used for
+                  display and headline) from a "plain" typeface (used for
+                  title, body, and label), making a per-brand typeface swap a
+                  supported, first-class customization rather than a
+                  workaround. SF Pro has no equivalent split; the system
+                  typeface is the typeface, by design.
                 </p>
                 <p>
                   Lining the two scales up by nearest point size is a useful
                   exercise precisely because it shows why the naive version of
-                  this — copy the number, keep the role name — doesn't work:
+                  this — copy the number, keep the role name — doesn't
+                  work:
                 </p>
                 <div class="guide-table-wrap">
                   <table>
                     <caption>
-                      // approximate crosswalk by size — not an official mapping
+                      // approximate crosswalk by size — not an official
+                      mapping
                     </caption>
                     <thead>
                       <tr>
@@ -1259,14 +1270,14 @@
                   either spec sheet on its own. First, iOS separates Headline
                   from Body almost entirely by <strong>weight</strong> — both
                   sit at 17pt, and semibold is the only thing distinguishing
-                  them — while Material separates its comparable tier partly by
-                  size and partly by weight, so a same-named role doesn't land
-                  on a same-sized token. Second, at the small end the
+                  them — while Material separates its comparable tier partly
+                  by size and partly by weight, so a same-named role doesn't
+                  land on a same-sized token. Second, at the small end the
                   nearest-size match is a genuine tie between two different
-                  Material roles with different jobs (a body token and a label
-                  token), which is a sign the two scales weren't built to line
-                  up in the first place — they were each built to fit their own
-                  platform's density of named roles.
+                  Material roles with different jobs (a body token and a
+                  label token), which is a sign the two scales weren't built
+                  to line up in the first place — they were each built to fit
+                  their own platform's density of named roles.
                 </p>
                 <div class="guide-callout">
                   <p class="guide-callout-label">Worth knowing</p>
@@ -1274,10 +1285,11 @@
                     17pt and 17sp aren't the same physical size, either.
                     Android's <code>sp</code> unit is a density-independent
                     pixel additionally scaled by the user's system font-size
-                    preference — so identical numbers don't render identically
-                    even before any accessibility scaling is applied on either
-                    platform. Treat a hand-off spec as two scales to re-derive
-                    role by role, not one set of numbers to transliterate.
+                    preference — so identical numbers don't render
+                    identically even before any accessibility scaling is
+                    applied on either platform. Treat a hand-off spec as two
+                    scales to re-derive role by role, not one set of numbers
+                    to transliterate.
                   </p>
                 </div>
               </section>
@@ -1289,44 +1301,45 @@
                 </h2>
                 <p>
                   Both platforms face an identical problem — a phone-width
-                  layout and a tablet-or-larger layout need different navigation
-                  chrome, and nobody wants to hand-maintain two designs for it —
-                  and both have shipped a built-in, system-sanctioned answer.
-                  The answers don't collapse to the same breakpoints or the same
-                  shape.
+                  layout and a tablet-or-larger layout need different
+                  navigation chrome, and nobody wants to hand-maintain two
+                  designs for it — and both have shipped a built-in,
+                  system-sanctioned answer. The answers don't collapse to the
+                  same breakpoints or the same shape.
                 </p>
                 <p>
                   iOS 18 formalized a single <code>TabView</code> that a
                   developer marks <code>.sidebarAdaptable</code>. At compact
-                  width — iPhone, or an iPad in a narrower multitasking split —
-                  it renders as the familiar bottom tab bar. At regular width —
-                  full-screen iPad, Mac Catalyst — the same tab items become a
-                  sidebar, and tab groups become section headers. One data
-                  structure, two renderings, switched automatically by size
-                  class.
+                  width — iPhone, or an iPad in a narrower multitasking split
+                  — it renders as the familiar bottom tab bar. At regular
+                  width — full-screen iPad, Mac Catalyst — the same tab items
+                  become a sidebar, and tab groups become section headers.
+                  One data structure, two renderings, switched automatically
+                  by size class.
                 </p>
                 <p>
                   Material 3's <code>NavigationSuiteScaffold</code> solves the
-                  analogous problem across three window-size-class breakpoints —
-                  compact (under 600dp wide), medium (600–839dp), and expanded
-                  (840dp and up) — by swapping in a bottom navigation bar, a
-                  navigation rail, or a navigation drawer respectively. Material
-                  3 Expressive (2025) changed the top of that ladder: the
-                  navigation drawer is being deprecated in favor of an
-                  <em>expanded</em> navigation rail even at large widths,
-                  because a rail adapts across breakpoints more gracefully than
-                  a drawer does. The current recommended shape is closer to bar
-                  → rail → wider rail than it is to bar → rail → drawer.
+                  analogous problem across three window-size-class
+                  breakpoints — compact (under 600dp wide), medium
+                  (600–839dp), and expanded (840dp and up) — by swapping in a
+                  bottom navigation bar, a navigation rail, or a navigation
+                  drawer respectively. Material 3 Expressive (2025) changed
+                  the top of that ladder: the navigation drawer is being
+                  deprecated in favor of an <em>expanded</em> navigation
+                  rail even at large widths, because a rail adapts across
+                  breakpoints more gracefully than a drawer does. The current
+                  recommended shape is closer to bar → rail → wider rail than
+                  it is to bar → rail → drawer.
                 </p>
                 <p>
-                  For a cross-platform spec, the useful takeaway isn't to try to
-                  force matching breakpoints — Android's rail step has no iOS
-                  equivalent below a full sidebar, and the two platforms'
+                  For a cross-platform spec, the useful takeaway isn't to try
+                  to force matching breakpoints — Android's rail step has no
+                  iOS equivalent below a full sidebar, and the two platforms'
                   terminal states (rail vs. sidebar) aren't the same shape
-                  either. Describe the destinations and hierarchy once, then let
-                  each platform's own adaptive component do the actual
-                  rendering, rather than prescribing pixel-identical behavior at
-                  every width.
+                  either. Describe the destinations and hierarchy once, then
+                  let each platform's own adaptive component do the actual
+                  rendering, rather than prescribing pixel-identical
+                  behavior at every width.
                 </p>
               </section>
 
@@ -1339,37 +1352,38 @@
                   iOS sheets — partial- or full-height, with a grabber at the
                   top — dismiss with a discrete swipe-down gesture that's
                   independent of the edge-swipe-back gesture. The two never
-                  compete for the same touch input, so a sheet can safely stack
-                  on top of a screen that also supports edge-swipe-back without
-                  any gesture conflict between them.
+                  compete for the same touch input, so a sheet can safely
+                  stack on top of a screen that also supports edge-swipe-back
+                  without any gesture conflict between them.
                 </p>
                 <p>
-                  Android's bottom sheets, side sheets, and navigation drawers
-                  automatically animate with the predictive back gesture once an
-                  app has opted in and is running on API 33+. That's good for
-                  consistency, but it means the exact same edge-swipe that
-                  navigates a screen up a level is also the gesture that
-                  dismisses a modal sheet — a sheet's dismiss affordance and the
-                  screen's "go back" affordance are the same physical gesture on
-                  Android, where they're deliberately different gestures on iOS.
+                  Android's bottom sheets, side sheets, and navigation
+                  drawers automatically animate with the predictive back
+                  gesture once an app has opted in and is running on API
+                  33+. That's good for consistency, but it means the exact
+                  same edge-swipe that navigates a screen up a level is also
+                  the gesture that dismisses a modal sheet — a sheet's
+                  dismiss affordance and the screen's "go back" affordance
+                  are the same physical gesture on Android, where they're
+                  deliberately different gestures on iOS.
                 </p>
                 <div class="guide-callout">
                   <p class="guide-callout-label">Common misconception</p>
                   <p>
-                    There's a long-repeated claim that iOS orders dialog buttons
-                    Cancel-then-OK left-to-right while Android orders them the
-                    other way around. Current guidance for both platforms has
-                    mostly converged: modern HIG says to place the button people
-                    are most likely to choose on the trailing edge — so a
-                    destructive "Delete" sits to the right of "Cancel" — and
-                    Material's own dialog guidance places the dismissive action
-                    directly to the left of the affirmative one, the same
-                    left-to-right order. Don't design around a button-order
-                    split that mostly isn't there anymore. What still genuinely
-                    differs is styling — iOS colors a destructive action's text
-                    red; Material routes it through its own error color role —
-                    and how tap-outside-to-dismiss defaults behave per dialog
-                    type.
+                    There's a long-repeated claim that iOS orders dialog
+                    buttons Cancel-then-OK left-to-right while Android orders
+                    them the other way around. Current guidance for both
+                    platforms has mostly converged: modern HIG says to place
+                    the button people are most likely to choose on the
+                    trailing edge — so a destructive "Delete" sits to the
+                    right of "Cancel" — and Material's own dialog guidance
+                    places the dismissive action directly to the left of the
+                    affirmative one, the same left-to-right order. Don't
+                    design around a button-order split that mostly isn't
+                    there anymore. What still genuinely differs is styling —
+                    iOS colors a destructive action's text red; Material
+                    routes it through its own error color role — and how
+                    tap-outside-to-dismiss defaults behave per dialog type.
                   </p>
                 </div>
               </section>
@@ -1381,33 +1395,33 @@
                 </h2>
                 <p>
                   iOS's minimum touch target is 44×44 points. Material's is
-                  48×48dp, though WCAG's own Success Criterion 2.5.8 (Level AA)
-                  sets a lower absolute floor of 24×24dp, with the stricter
-                  Level AAA criterion, 2.5.5, landing at 44×44 — the same number
-                  as Apple's baseline, and a lower bar than Material's own
-                  recommendation.
+                  48×48dp, though WCAG's own Success Criterion 2.5.8 (Level
+                  AA) sets a lower absolute floor of 24×24dp, with the
+                  stricter Level AAA criterion, 2.5.5, landing at 44×44 —
+                  the same number as Apple's baseline, and a lower bar than
+                  Material's own recommendation.
                 </p>
                 <p>
                   A point and a density-independent pixel are not the same
-                  physical measurement, and treating them as unit-convertible is
-                  a quiet source of drift between platform specs. Android's
+                  physical measurement, and treating them as unit-convertible
+                  is a quiet source of drift between platform specs. Android's
                   <code>dp</code> has a published formula: it's anchored to a
                   160dpi reference density, applied uniformly across a
                   documented set of density buckets, so
                   <code>px = dp × (dpi ÷ 160)</code> everywhere. Apple's point
-                  has never had an equivalent public per-inch formula — it's a
-                  lookup table Apple maintains per device model, where each
+                  has never had an equivalent public per-inch formula — it's
+                  a lookup table Apple maintains per device model, where each
                   device is simply assigned a pixel scale factor (@1x, @2x,
                   @3x), not a value derived from a universal density formula.
-                  Don't assume 44pt and 48dp are the same size scaled by a fixed
-                  ratio; treat each as its own platform's independently tuned
-                  constant, verified against real devices.
+                  Don't assume 44pt and 48dp are the same size scaled by a
+                  fixed ratio; treat each as its own platform's independently
+                  tuned constant, verified against real devices.
                 </p>
                 <p>
                   Safe areas follow the same pattern of "similar problem,
-                  different mechanism." iOS exposes safe-area insets around the
-                  home indicator, notch or Dynamic Island, and rounded corners,
-                  opted into with <code>viewport-fit=cover</code>
+                  different mechanism." iOS exposes safe-area insets around
+                  the home indicator, notch or Dynamic Island, and rounded
+                  corners, opted into with <code>viewport-fit=cover</code>
                   and respected with the environment variable:
                 </p>
                 <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;</code></pre>
@@ -1415,33 +1429,34 @@
   padding-bottom: max(12px, env(safe-area-inset-bottom));
 }</code></pre>
                 <p>
-                  Android's model went from opt-in to enforced: apps targeting
-                  Android 15 (API 35) get edge-to-edge layout by default, with
-                  content expected to draw behind the system bars and use the
-                  platform's window-insets APIs to avoid placing touch targets
-                  under the gesture-navigation zones — not just the top and
-                  bottom bars, but the left and right edges too, since that's
-                  exactly where the back gesture lives. The previous opt-out
-                  attribute is deprecated for apps targeting Android 16. A
-                  control pinned flush to either screen edge on a modern Android
-                  build isn't just a reachability problem the way it would be on
-                  iOS — it's sitting directly in a zone the system gesture
-                  already claims.
+                  Android's model went from opt-in to enforced: apps
+                  targeting Android 15 (API 35) get edge-to-edge layout by
+                  default, with content expected to draw behind the system
+                  bars and use the platform's window-insets APIs to avoid
+                  placing touch targets under the gesture-navigation zones —
+                  not just the top and bottom bars, but the left and right
+                  edges too, since that's exactly where the back gesture
+                  lives. The previous opt-out attribute is deprecated for
+                  apps targeting Android 16. A control pinned flush to either
+                  screen edge on a modern Android build isn't just a
+                  reachability problem the way it would be on iOS — it's
+                  sitting directly in a zone the system gesture already
+                  claims.
                 </p>
               </section>
 
               <section id="depth-shadows-vs-glass">
-                <h2>
-                  <span class="guide-h2-num">08</span>Depth: shadows vs. glass
+                <h2><span class="guide-h2-num">08</span>Depth: shadows vs.
+                  glass
                 </h2>
                 <p>
                   Material's elevation model pairs a soft drawn shadow with a
-                  tonal surface-color shift — a translucent wash of the primary
-                  color layered over the surface, so higher elevation reads as
-                  more tinted, not just less flat. That tonal approach exists
-                  specifically because a drawn shadow barely registers in dark
-                  theme; the color shift keeps elevation legible even where a
-                  shadow alone would disappear.
+                  tonal surface-color shift — a translucent wash of the
+                  primary color layered over the surface, so higher elevation
+                  reads as more tinted, not just less flat. That tonal
+                  approach exists specifically because a drawn shadow barely
+                  registers in dark theme; the color shift keeps elevation
+                  legible even where a shadow alone would disappear.
                 </p>
                 <p>
                   iOS has historically leaned on blur-based materials and
@@ -1449,67 +1464,69 @@
                   frosted-glass tab bar background is the clearest everyday
                   example. Liquid Glass (2025) pushes that further into an
                   explicitly lensing, refractive material that simulates real
-                  glass optics — bending and magnifying whatever sits behind it,
-                  with a springy deformation on interaction — a genuinely
-                  different physical metaphor from Material's flat, tonal
-                  surfaces.
+                  glass optics — bending and magnifying whatever sits behind
+                  it, with a springy deformation on interaction — a
+                  genuinely different physical metaphor from Material's flat,
+                  tonal surfaces.
                 </p>
                 <p>
-                  The practical consequence: expressing "this card is elevated"
-                  with one drawn box-shadow token on both platforms isn't
-                  actually matched. On Android that's incomplete without the
-                  tonal shift, especially in dark theme; on iOS, a raised
-                  surface in current default styling more likely wants a
-                  translucent or vibrancy treatment than a shadow at all.
+                  The practical consequence: expressing "this card is
+                  elevated" with one drawn box-shadow token on both platforms
+                  isn't actually matched. On Android that's incomplete
+                  without the tonal shift, especially in dark theme; on iOS,
+                  a raised surface in current default styling more likely
+                  wants a translucent or vibrancy treatment than a shadow at
+                  all.
                 </p>
               </section>
 
               <section id="the-2025-reset">
                 <h2>
-                  <span class="guide-h2-num">09</span>2025 reset the gap: Liquid
-                  Glass vs. Material 3 Expressive
+                  <span class="guide-h2-num">09</span>2025 reset the gap:
+                  Liquid Glass vs. Material 3 Expressive
                 </h2>
                 <p>
                   Both redesigns landed within a few months of each other and
                   pull in opposite directions. Liquid Glass — announced by
                   Apple's VP of Human Interface Design, Alan Dye, at WWDC on
                   June 9, 2025, and shipped across the "26" generation of
-                  Apple's platforms that fall — emphasizes restraint and depth
-                  through translucency and refraction, drawing on visionOS's
-                  spatial visual language, and deliberately pulls emphasis
-                  toward the content underneath the UI chrome rather than the
-                  chrome itself.
+                  Apple's platforms that fall — emphasizes restraint and
+                  depth through translucency and refraction, drawing on
+                  visionOS's spatial visual language, and deliberately pulls
+                  emphasis toward the content underneath the UI chrome rather
+                  than the chrome itself.
                 </p>
                 <p>
                   Material 3 Expressive — announced at Google I/O on May 13,
                   2025 and rolled out through Android 16 QPR1 that September —
                   leans the opposite way: bolder, more saturated color,
                   springier motion curves, and shape used expressively, with
-                  components that morph rather than just resize, aimed at adding
-                  emotional warmth and personality rather than restraint.
+                  components that morph rather than just resize, aimed at
+                  adding emotional warmth and personality rather than
+                  restraint.
                 </p>
                 <p>
-                  Neither direction is more correct than the other — they're two
-                  different bets about what a mobile interface should feel like
-                  in the mid-2020s. What matters for a working designer is
-                  narrower: any shared token layer — shadow values, corner
-                  radii, translucency levels — that was "close enough" to bridge
-                  both platforms during the flat- design decade needs
-                  re-examining now, because the assumption of a shared visual
-                  baseline underneath brand styling is weaker than it's been in
-                  years.
+                  Neither direction is more correct than the other — they're
+                  two different bets about what a mobile interface should
+                  feel like in the mid-2020s. What matters for a working
+                  designer is narrower: any shared token layer — shadow
+                  values, corner radii, translucency levels — that was
+                  "close enough" to bridge both platforms during the flat-
+                  design decade needs re-examining now, because the
+                  assumption of a shared visual baseline underneath brand
+                  styling is weaker than it's been in years.
                 </p>
               </section>
 
               <section id="what-can-share-a-design">
                 <h2>
-                  <span class="guide-h2-num">10</span>What can actually share a
-                  design
+                  <span class="guide-h2-num">10</span>What can actually share
+                  a design
                 </h2>
                 <p>
-                  None of this means design two entirely independent apps. Most
-                  of the work is genuinely shareable — it's a specific, short
-                  list of things that aren't:
+                  None of this means design two entirely independent apps.
+                  Most of the work is genuinely shareable — it's a specific,
+                  short list of things that aren't:
                 </p>
                 <p><strong>Usually fine to share as-is:</strong></p>
                 <ul>
@@ -1520,39 +1537,41 @@
                   </li>
                   <li>Copy, content strategy, and voice.</li>
                   <li>
-                    Brand color values, as long as they're re-expressed through
-                    each platform's own token system rather than hardcoded.
+                    Brand color values, as long as they're re-expressed
+                    through each platform's own token system rather than
+                    hardcoded.
                   </li>
                   <li>Photography, illustration, and icon source assets.</li>
                   <li>
-                    The core interaction logic — what happens when someone taps
-                    a given control, independent of which gesture triggers it.
+                    The core interaction logic — what happens when someone
+                    taps a given control, independent of which gesture
+                    triggers it.
                   </li>
                 </ul>
                 <p><strong>Needs two designs, not one resized:</strong></p>
                 <ul>
                   <li>
-                    Navigation chrome and its adaptive behavior at larger widths
-                    — tab bar/sidebar vs. nav bar/rail/drawer.
+                    Navigation chrome and its adaptive behavior at larger
+                    widths — tab bar/sidebar vs. nav bar/rail/drawer.
                   </li>
                   <li>
-                    The back/up affordance, and everything that depends on "what
-                    does back do here."
+                    The back/up affordance, and everything that depends on
+                    "what does back do here."
                   </li>
                   <li>
-                    Sheet and modal dismissal grammar, given how differently the
-                    two platforms route that gesture.
+                    Sheet and modal dismissal grammar, given how differently
+                    the two platforms route that gesture.
                   </li>
                   <li>Elevation and depth treatment.</li>
                   <li>
-                    The type scale — re-derived role by role, not transliterated
-                    point-for-point.
+                    The type scale — re-derived role by role, not
+                    transliterated point-for-point.
                   </li>
                   <li>Touch-target and safe-area math.</li>
                   <li>
                     The base visual material itself, wherever a design is
-                    following either platform's current default rather than a
-                    fully custom system.
+                    following either platform's current default rather than
+                    a fully custom system.
                   </li>
                 </ul>
               </section>
@@ -1561,19 +1580,20 @@
                 <h2><span class="guide-h2-num">11</span>Common mistakes</h2>
                 <ul>
                   <li>
-                    Designing the iOS screen first, then "porting" it to Android
-                    by swapping the typeface and rounding the corners, without
-                    re-deriving the type scale or the navigation model
-                    underneath.
+                    Designing the iOS screen first, then "porting" it to
+                    Android by swapping the typeface and rounding the
+                    corners, without re-deriving the type scale or the
+                    navigation model underneath.
                   </li>
                   <li>
-                    Treating 44pt and 48dp as unit-convertible instead of as two
-                    independently tuned platform constants.
+                    Treating 44pt and 48dp as unit-convertible instead of as
+                    two independently tuned platform constants.
                   </li>
                   <li>
-                    Shipping a custom in-app back button on Android without also
-                    wiring it to the system's predictive-back callback,
-                    producing two different "back" behaviors half a swipe apart.
+                    Shipping a custom in-app back button on Android without
+                    also wiring it to the system's predictive-back callback,
+                    producing two different "back" behaviors half a swipe
+                    apart.
                   </li>
                   <li>
                     Placing an interactive control flush against the left or
@@ -1583,8 +1603,8 @@
                   </li>
                   <li>
                     Assuming a tab bar and a navigation bar can share one
-                    component with a class swap, when their adaptive behavior at
-                    larger widths — sidebar vs. rail or drawer — diverges
+                    component with a class swap, when their adaptive behavior
+                    at larger widths — sidebar vs. rail or drawer — diverges
                     completely.
                   </li>
                 </ul>
@@ -1603,8 +1623,8 @@
                     <dd>49pt tall, 3–5 tabs, edge-swipe-back is left only</dd>
                     <dt>Android nav bar</dt>
                     <dd>
-                      ~80dp container, 3–5 destinations, back gesture works from
-                      either edge
+                      ~80dp container, 3–5 destinations, back gesture works
+                      from either edge
                     </dd>
                     <dt>iOS Dynamic Type</dt>
                     <dd>
@@ -1620,8 +1640,8 @@
                     </dd>
                     <dt>2025 visual reset</dt>
                     <dd>
-                      Liquid Glass (iOS 26) vs. Material 3 Expressive (Android
-                      16 QPR1)
+                      Liquid Glass (iOS 26) vs. Material 3 Expressive
+                      (Android 16 QPR1)
                     </dd>
                     <dt>Validate on</dt>
                     <dd>
@@ -1634,20 +1654,22 @@
                   None of these numbers are permanent — Android alone has
                   changed its back-gesture defaults in three of the last four
                   annual releases, and both platforms just reset their visual
-                  language in the same year. Treat this spec as a snapshot worth
-                  re-checking against the current OS release, not a constant.
-                  What doesn't change from release to release is the underlying
-                  shape of the problem: iOS's navigation is component-owned and
-                  Android's is system-dispatched, and that one structural fact
-                  is why a screen "resized" from one platform to the other keeps
-                  quietly breaking in the same places.
+                  language in the same year. Treat this spec as a snapshot
+                  worth re-checking against the current OS release, not a
+                  constant. What doesn't change from release to release is
+                  the underlying shape of the problem: iOS's navigation is
+                  component-owned and Android's is system-dispatched, and
+                  that one structural fact is why a screen "resized" from one
+                  platform to the other keeps quietly breaking in the same
+                  places.
                 </p>
               </section>
             </div>
 
             <nav class="guide-footer-nav" aria-label="Guide navigation">
               <a href="thumb-zones-layout-constraint" class="prev"
-                >← Thumb Zones Are a Layout Constraint, Not a Nice-to-Have</a
+                >← Thumb Zones Are a Layout Constraint, Not a
+                Nice-to-Have</a
               >
               <a href="accessibility-structural-model" class="next"
                 >Accessibility Is a Structural Decision, Not a Final Pass →</a
