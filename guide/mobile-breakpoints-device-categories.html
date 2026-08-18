@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>
+      Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels — PIXMA
+      UX Guides
+    </title>
+    <meta
+      name="description"
+      content="Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market."
+    />
+    <link
+      rel="canonical"
+      href="https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+    />
+    <meta property="og:site_name" content="PIXMA UX Guides" />
+    <meta
+      property="og:title"
+      content="Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels"
+    />
+    <meta
+      property="og:description"
+      content="Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market."
+    />
+    <meta
+      property="og:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PIXMA UX Guides — UI/UX design guides documented like engineering blueprints."
+    />
+    <meta property="article:published_time" content="2026-08-18" />
+    <meta property="article:section" content="Mobile App Design" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels"
+    />
+    <meta
+      name="twitter:description"
+      content="Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pixmauxguides.com/og-image.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pixmauxguides.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Mobile App Design",
+            "item": "https://pixmauxguides.com/index.html#toolbar"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
+            "item": "https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
+        "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
+        "image": "https://pixmauxguides.com/og-image.png",
+        "datePublished": "2026-08-18",
+        "dateModified": "2026-08-18",
+        "author": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PIXMA UX Guides",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pixmauxguides.com/assets/logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+        }
+      }
+    </script>
+
+    <!--
+      Scoped, self-contained styles for the .guide-article shell below.
+      Namespaced under .guide-article so nothing here can collide with
+      site-wide rules in styles.css (which this page also loads above) —
+      if/when styles.css grows real .guide-* rules of its own, those can
+      simply replace this block wholesale.
+    -->
+    <style>
+      .guide-article {
+        --ink: #0f2a52;
+        --ink-soft: #33455f;
+        --muted: #5b6b82;
+        --line: #dde3ec;
+        --bg-soft: #f5f7fa;
+        --green: #1f9d55;
+        --green-soft: #e5f6ec;
+        --amber: #b5790f;
+        --amber-soft: #fbf1de;
+        --red: #c0392b;
+        --red-soft: #fbe9e7;
+        --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 40px 20px 88px;
+        color: var(--ink-soft);
+        line-height: 1.65;
+      }
+      .guide-article * {
+        box-sizing: border-box;
+      }
+      .guide-article .guide-label {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin: 0 0 14px;
+      }
+      .guide-article .guide-badge {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--ink);
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 3px 8px;
+        margin-bottom: 16px;
+      }
+      .guide-article h1 {
+        font-size: clamp(28px, 5vw, 40px);
+        line-height: 1.15;
+        color: var(--ink);
+        margin: 0 0 16px;
+        max-width: 22ch;
+      }
+      .guide-article .guide-dek {
+        font-size: clamp(17px, 2.4vw, 19px);
+        color: var(--muted);
+        max-width: 62ch;
+        margin: 0 0 20px;
+      }
+      .guide-article .guide-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 12px 0;
+        margin: 0 0 32px;
+      }
+      .guide-article .guide-meta .dot {
+        opacity: 0.5;
+      }
+      .guide-article .guide-toc {
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 4px 20px;
+        margin: 0 0 36px;
+      }
+      .guide-article .guide-toc summary {
+        cursor: pointer;
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding: 14px 0;
+      }
+      .guide-article .guide-toc ol {
+        margin: 0 0 16px;
+        padding-left: 1.2em;
+        columns: 1;
+      }
+      .guide-article .guide-toc li {
+        margin: 0 0 7px;
+        font-size: 14.5px;
+      }
+      .guide-article .guide-toc a {
+        color: var(--ink-soft);
+        text-decoration: none;
+      }
+      .guide-article .guide-toc a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+      .guide-article .guide-body p,
+      .guide-article .guide-body li {
+        max-width: 68ch;
+        font-size: 16.5px;
+      }
+      .guide-article .guide-body h2 {
+        font-size: clamp(21px, 3vw, 25px);
+        color: var(--ink);
+        margin: 44px 0 14px;
+        scroll-margin-top: 90px;
+        max-width: 30ch;
+      }
+      .guide-article .guide-body h2 .guide-h2-num {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--muted);
+        margin-right: 8px;
+      }
+      .guide-article .guide-body p {
+        margin: 0 0 16px;
+      }
+      .guide-article .guide-body ul,
+      .guide-article .guide-body ol {
+        margin: 0 0 16px;
+        padding-left: 1.3em;
+      }
+      .guide-article .guide-body li {
+        margin: 0 0 8px;
+      }
+      .guide-article .guide-body strong {
+        color: var(--ink);
+      }
+      .guide-article .guide-body a {
+        color: var(--ink);
+        text-decoration-color: var(--line);
+      }
+      .guide-article .guide-body a:hover {
+        text-decoration-color: currentColor;
+      }
+
+      .guide-article .guide-figure {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 24px;
+        margin: 28px 0 32px;
+        background: #fff;
+      }
+      .guide-article .guide-figure-media {
+        display: flex;
+        justify-content: center;
+      }
+      .guide-article .guide-figure-media svg {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+      }
+      .guide-article .guide-figure-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 18px 0 14px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+      .guide-article .zone-chip {
+        border-radius: 4px;
+        padding: 4px 9px;
+        border: 1px solid transparent;
+      }
+      .guide-article .zone-chip--green {
+        color: var(--green);
+        background: var(--green-soft);
+        border-color: #cdeedb;
+      }
+      .guide-article .zone-chip--amber {
+        color: var(--amber);
+        background: var(--amber-soft);
+        border-color: #f2ddb3;
+      }
+      .guide-article .zone-chip--red {
+        color: var(--red);
+        background: var(--red-soft);
+        border-color: #f3c9c3;
+      }
+      .guide-article figcaption {
+        font-size: 13.5px;
+        color: var(--muted);
+        text-align: center;
+        max-width: 46ch;
+        margin: 0 auto;
+      }
+
+      .guide-article .guide-table-wrap {
+        overflow-x: auto;
+        margin: 20px 0 28px;
+      }
+      .guide-article table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14.5px;
+        min-width: 460px;
+      }
+      .guide-article caption {
+        text-align: left;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        margin-bottom: 8px;
+      }
+      .guide-article th,
+      .guide-article td {
+        border: 1px solid var(--line);
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .guide-article thead th {
+        background: var(--bg-soft);
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.05em;
+        color: var(--ink);
+      }
+      .guide-article tbody th {
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+
+      .guide-article .guide-callout {
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--ink);
+        border-radius: 6px;
+        padding: 18px 20px;
+        margin: 24px 0;
+        background: var(--bg-soft);
+      }
+      .guide-article .guide-callout p:last-child {
+        margin-bottom: 0;
+      }
+      .guide-article .guide-callout .guide-callout-label {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+
+      .guide-article pre {
+        background: var(--ink);
+        color: #e7edf6;
+        border-radius: 8px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        font-size: 13px;
+        line-height: 1.6;
+        margin: 0 0 14px;
+      }
+      .guide-article code {
+        font-family: var(--mono);
+        font-size: 0.92em;
+      }
+      .guide-article :not(pre) > code {
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 1px 5px;
+        color: var(--ink);
+      }
+
+      .guide-article .guide-spec {
+        border: 1px solid var(--ink);
+        border-radius: 8px;
+        padding: 24px 26px;
+        margin: 30px 0 36px;
+        background: #fff;
+      }
+      .guide-article .guide-spec-label {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        color: var(--ink);
+        margin: 0 0 14px;
+      }
+      .guide-article .guide-spec dl {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 8px 18px;
+        margin: 0;
+      }
+      .guide-article .guide-spec dt {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .guide-article .guide-spec dd {
+        margin: 0;
+        font-size: 14.5px;
+        color: var(--ink-soft);
+      }
+
+      .guide-article .guide-footer-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        border-top: 1px solid var(--line);
+        padding-top: 24px;
+        margin-top: 44px;
+        font-size: 14px;
+      }
+      .guide-article .guide-footer-nav a {
+        color: var(--ink);
+        text-decoration: none;
+        max-width: 32ch;
+      }
+      .guide-article .guide-footer-nav a:hover {
+        text-decoration: underline;
+      }
+      .guide-article .guide-footer-nav .next {
+        text-align: right;
+        margin-left: auto;
+      }
+
+      .guide-article .guide-cta {
+        text-align: center;
+        margin-top: 28px;
+      }
+      .guide-article .guide-cta a {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        color: #fff;
+        background: var(--ink);
+        border-radius: 6px;
+        padding: 12px 20px;
+        text-decoration: none;
+      }
+      .guide-article .guide-cta a:hover {
+        background: var(--ink-soft);
+      }
+
+      .guide-crumb {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 22px 20px 0;
+      }
+      .guide-crumb a {
+        font-family: var(--mono, monospace);
+        font-size: 13px;
+        color: #33455f;
+        text-decoration: none;
+      }
+      .guide-crumb a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 640px) {
+        .guide-article {
+          padding: 28px 16px 64px;
+        }
+        .guide-article .guide-footer-nav {
+          flex-direction: column;
+        }
+        .guide-article .guide-footer-nav .next {
+          text-align: left;
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body data-guide-id="mobile-breakpoints-device-categories">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <!--HEADER_START--><header class="site-header">
+  <div class="wrap header-inner">
+    <a href="../index.html" class="brand" aria-label="PIXMA UX Guides home">
+      <img
+        class="brand-mark"
+        src="/assets/logo.png"
+        width="32"
+        height="32"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="brand-text"><strong>PIXMA</strong></span>
+    </a>
+    <div class="header-actions">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html#guides">All Guides</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../index.html#toolbar">Categories</a>
+      </nav>
+      <form
+        class="header-search"
+        role="search"
+        action="../index.html"
+        method="get"
+      >
+        <label for="header-search-input" class="sr-only">Search guides</label>
+        <input
+          type="search"
+          id="header-search-input"
+          name="q"
+          placeholder="Search guides…"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="header-search__submit"
+          aria-label="Search guides"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.2" y2="16.2" />
+          </svg>
+        </button>
+      </form>
+    </div>
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <a href="../index.html#guides">All Guides</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../index.html#toolbar">Categories</a>
+    </nav>
+    <form
+      class="header-search mobile-menu__search"
+      role="search"
+      action="../index.html"
+      method="get"
+    >
+      <label for="mobile-search-input" class="sr-only">Search guides</label>
+      <input
+        type="search"
+        id="mobile-search-input"
+        name="q"
+        placeholder="Search guides…"
+        autocomplete="off"
+      />
+      <button
+        type="submit"
+        class="header-search__submit"
+        aria-label="Search guides"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+    </form>
+  </div>
+</header><!--HEADER_END-->
+    <div class="wrap guide-crumb">
+      <a href="../index.html" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <main class="wrap" id="guide-content" tabindex="-1">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <article class="guide-article" aria-labelledby="guide-title">
+            <header class="guide-header">
+              <p class="guide-label">/ mobile_app_design</p>
+              <span class="guide-badge">MOBILE_APP</span>
+              <h1 id="guide-title">
+                Mobile Breakpoints Are Device Categories, Not Arbitrary
+                Pixels
+              </h1>
+              <p class="guide-dek">
+                Safe-area insets for notches, fluid vs. fixed mobile layout,
+                and why guessing pixel widths breaks on half the phones on
+                the market.
+              </p>
+              <div class="guide-meta">
+                <span>INTERMEDIATE</span>
+                <span class="dot">·</span>
+                <span>13 MIN READ</span>
+                <span class="dot">·</span>
+                <span>MOBILE APP DESIGN</span>
+              </div>
+            </header>
+
+            <details class="guide-toc" open>
+              <summary>On this page</summary>
+              <ol>
+                <li>
+                  <a href="#the-pixel-habit">The pixel habit worth breaking</a>
+                </li>
+                <li>
+                  <a href="#why-one-number-fails"
+                    >Why one pixel number keeps failing</a
+                  >
+                </li>
+                <li>
+                  <a href="#categories-not-devices"
+                    >Categories, not devices</a
+                  >
+                </li>
+                <li>
+                  <a href="#two-systems-agree"
+                    >Two breakpoint systems that already agree</a
+                  >
+                </li>
+                <li>
+                  <a href="#content-out-method"
+                    >Picking your own breakpoints: content-out, not
+                    device-out</a
+                  >
+                </li>
+                <li>
+                  <a href="#fluid-inside-category"
+                    >Fluid vs. fixed inside a category</a
+                  >
+                </li>
+                <li>
+                  <a href="#safe-area-insets"
+                    >Safe-area insets: designing for the notch</a
+                  >
+                </li>
+                <li>
+                  <a href="#viewport-height-trap"
+                    >The 100vh trap: dvh, svh, and lvh</a
+                  >
+                </li>
+                <li>
+                  <a href="#container-queries"
+                    >Container queries: the component-level complement</a
+                  >
+                </li>
+                <li><a href="#common-mistakes">Common mistakes</a></li>
+                <li><a href="#the-spec">The spec</a></li>
+              </ol>
+            </details>
+
+            <div class="guide-body">
+              <section id="the-pixel-habit">
+                <h2>
+                  <span class="guide-h2-num">01</span>The pixel habit worth
+                  breaking
+                </h2>
+                <p>
+                  Open the media queries in almost any mobile stylesheet and
+                  you'll usually find a number with no real justification
+                  behind it: <code>max-width: 375px</code> because that's
+                  what an iPhone SE reported in a Figma frame two redesigns
+                  ago, or <code>768px</code> because "that's what Bootstrap
+                  uses." The number gets typed once, works well enough on
+                  whatever device happened to be on the desk that day, and
+                  then calcifies — copied into the next component, the next
+                  project, eventually into a design system's official
+                  breakpoint token, with nobody left who remembers it was
+                  never actually derived from anything.
+                </p>
+                <p>
+                  That's backwards from how the breakpoint systems teams
+                  actually rely on were built. Tailwind's five default
+                  breakpoints and Material Design's window size classes
+                  weren't reverse-engineered from one popular phone's screen
+                  size — they mark the widths at which a layout's underlying
+                  assumptions about the person holding it have to change,
+                  regardless of which specific device is doing the reporting.
+                  A breakpoint is a category boundary, not a device
+                  fingerprint, and the rest of this guide is about designing
+                  from that boundary instead of from a screenshot.
+                </p>
+              </section>
+
+              <section id="why-one-number-fails">
+                <h2>
+                  <span class="guide-h2-num">02</span>Why one pixel number
+                  keeps failing
+                </h2>
+                <p>
+                  Part of the confusion is that "375px" doesn't mean what it
+                  sounds like it means. A CSS pixel is a
+                  <strong>density-independent</strong> unit — the browser has
+                  already scaled the screen's actual physical pixels down (or
+                  up) by the device's pixel ratio before your media query
+                  ever sees a number. A phone with a device pixel ratio of 3
+                  might have well over a thousand physical pixels across its
+                  short edge and still report a CSS viewport width in the
+                  low 400s; a mid-range Android phone with a different pixel
+                  ratio can report a completely different CSS width while
+                  physically measuring almost the same size in your hand.
+                  The number in your media query was never a measurement of
+                  the glass — it's a measurement of the browser's layout
+                  viewport, and that's a softer, more negotiable thing than
+                  it looks.
+                </p>
+                <p>
+                  It's softer for a second reason: it isn't fixed to one
+                  device, or even to one orientation of one device. Rotate a
+                  phone and the same physical screen reports a substantially
+                  wider CSS viewport — one that can land squarely inside the
+                  range a media query reserved for tablets. Unfold a
+                  book-style foldable and a phone-class device jumps into
+                  tablet-class viewport widths without ever leaving the
+                  user's hands. Drop a tablet into split-screen multitasking
+                  and it reports a viewport width closer to a phone's, even
+                  though a keyboard and a mouse might be sitting right next
+                  to it. Zoom the text larger for accessibility, and the
+                  effective layout width shrinks without the physical device
+                  changing at all. None of these are edge cases anymore —
+                  they're normal, frequent states for real people using real
+                  apps.
+                </p>
+                <p>
+                  Chasing an individual device's width is chasing a target
+                  that is simultaneously moving (new phones ship every year)
+                  and multiplying (the same device can report several
+                  different widths depending on how it's currently being
+                  held). What's stable underneath all of that isn't a
+                  device — it's the category of interaction it currently
+                  represents.
+                </p>
+              </section>
+
+              <section id="categories-not-devices">
+                <h2>
+                  <span class="guide-h2-num">03</span>Categories, not devices
+                </h2>
+                <p>
+                  A device category is a cluster of viewport widths that
+                  share the same ergonomic and input assumptions, regardless
+                  of which product happens to be reporting that width in a
+                  given moment:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Compact</strong> — held in one hand, portrait
+                    more often than not, touch is the only realistic input,
+                    and reading happens close to the face. This is the
+                    thumb-zone world covered in the companion guide on
+                    reachability.
+                  </li>
+                  <li>
+                    <strong>Medium</strong> — held with two hands or propped
+                    against something, touch is still primary but a keyboard
+                    or stylus is often nearby, and both portrait and
+                    landscape are equally normal.
+                  </li>
+                  <li>
+                    <strong>Expanded</strong> — resting on a lap or a desk,
+                    a keyboard and a pointer with real precision are the
+                    primary input even when a touchscreen is also present,
+                    and the layout can afford genuine multi-column structure.
+                  </li>
+                </ul>
+                <p>
+                  A breakpoint's job is to mark the width at which one of
+                  those assumptions stops holding — not the width at which
+                  "the next device in the lineup" happens to end. Framed
+                  that way, a breakpoint is a design decision about
+                  ergonomics that you can defend in a review, not a device
+                  chart you looked up and copied.
+                </p>
+
+                <figure class="guide-figure">
+                  <div class="guide-figure-media">
+                    <svg
+                      viewBox="0 0 240 290"
+                      xmlns="http://www.w3.org/2000/svg"
+                      role="img"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <line
+                        x1="120"
+                        y1="20"
+                        x2="120"
+                        y2="270"
+                        stroke="#0f2a52"
+                        stroke-width="1.2"
+                        stroke-dasharray="3 6"
+                        opacity="0.25"
+                      />
+                      <rect
+                        x="70"
+                        y="30"
+                        width="100"
+                        height="44"
+                        rx="6"
+                        fill="#1f9d55"
+                        fill-opacity="0.28"
+                        stroke="#0f2a52"
+                        stroke-width="1.5"
+                      />
+                      <text
+                        x="120"
+                        y="48"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="11"
+                        font-weight="700"
+                        fill="#0f2a52"
+                      >
+                        COMPACT
+                      </text>
+                      <text
+                        x="120"
+                        y="64"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="11"
+                        fill="#33455f"
+                      >
+                        0–599px
+                      </text>
+                      <text
+                        x="120"
+                        y="90"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="9.5"
+                        fill="#5b6b82"
+                      >
+                        one-handed · touch-only
+                      </text>
+
+                      <rect
+                        x="45"
+                        y="116"
+                        width="150"
+                        height="44"
+                        rx="6"
+                        fill="#b5790f"
+                        fill-opacity="0.28"
+                        stroke="#0f2a52"
+                        stroke-width="1.5"
+                      />
+                      <text
+                        x="120"
+                        y="134"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="11"
+                        font-weight="700"
+                        fill="#0f2a52"
+                      >
+                        MEDIUM
+                      </text>
+                      <text
+                        x="120"
+                        y="150"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="11"
+                        fill="#33455f"
+                      >
+                        600–839px
+                      </text>
+                      <text
+                        x="120"
+                        y="176"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="9.5"
+                        fill="#5b6b82"
+                      >
+                        two-handed or propped
+                      </text>
+
+                      <rect
+                        x="15"
+                        y="202"
+                        width="210"
+                        height="44"
+                        rx="6"
+                        fill="#c0392b"
+                        fill-opacity="0.28"
+                        stroke="#0f2a52"
+                        stroke-width="1.5"
+                      />
+                      <text
+                        x="120"
+                        y="220"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="11"
+                        font-weight="700"
+                        fill="#0f2a52"
+                      >
+                        EXPANDED
+                      </text>
+                      <text
+                        x="120"
+                        y="236"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="11"
+                        fill="#33455f"
+                      >
+                        840px+
+                      </text>
+                      <text
+                        x="120"
+                        y="262"
+                        text-anchor="middle"
+                        font-family="SFMono-Regular, Consolas, Menlo, monospace"
+                        font-size="9.5"
+                        fill="#5b6b82"
+                      >
+                        pointer + keyboard primary
+                      </text>
+                    </svg>
+                  </div>
+                  <div class="guide-figure-legend">
+                    <span class="zone-chip zone-chip--green"
+                      >GREEN · COMPACT</span
+                    >
+                    <span class="zone-chip zone-chip--amber"
+                      >AMBER · MEDIUM</span
+                    >
+                    <span class="zone-chip zone-chip--red"
+                      >RED · EXPANDED</span
+                    >
+                  </div>
+                  <figcaption>
+                    Three ergonomic categories, each spanning a range of CSS
+                    pixel widths rather than one exact device. The
+                    boundaries sit near 600px and 840px because that's
+                    roughly where Tailwind's and Material 3's independently
+                    built breakpoint systems already agree a layout's
+                    assumptions have to change — see the comparison below.
+                  </figcaption>
+                </figure>
+              </section>
+
+              <section id="two-systems-agree">
+                <h2>
+                  <span class="guide-h2-num">04</span>Two breakpoint systems
+                  that already agree
+                </h2>
+                <p>
+                  You don't have to invent these boundaries from nothing.
+                  Two of the most widely used breakpoint systems in the
+                  industry were built independently, for different
+                  platforms, by different teams — and they land in roughly
+                  the same place:
+                </p>
+                <div class="guide-table-wrap">
+                  <table>
+                    <caption>
+                      Tailwind's pixel scale vs. Material 3's window size
+                      classes
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Category</th>
+                        <th scope="col">Tailwind breakpoint</th>
+                        <th scope="col">Material 3 window size class</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Compact</th>
+                        <td>Below <code>sm</code> (&lt; 640px)</td>
+                        <td>Compact (&lt; 600dp)</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Medium</th>
+                        <td><code>sm</code> / <code>md</code> (640–1023px)</td>
+                        <td>Medium (600–839dp)</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Expanded</th>
+                        <td><code>lg</code> and up (≥ 1024px)</td>
+                        <td>Expanded (≥ 840dp)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>
+                  They aren't identical — Tailwind's <code>md</code> at 768px
+                  sits inside Material's medium band rather than marking its
+                  own edge, and Material's dp unit isn't a 1:1 match for a
+                  CSS pixel. But the structural agreement matters more than
+                  the exact numbers: both systems put their first real
+                  category shift somewhere in the 600–768px range (roughly
+                  where a large phone in landscape or a small tablet in
+                  portrait sits) and their second in the 1024–1200px range
+                  (roughly where a tablet in landscape becomes indistinguishable
+                  from a small laptop). Two teams solving unrelated problems
+                  arriving at the same two edges is evidence those edges
+                  track something real about how screens get held, not just
+                  a shared convention.
+                </p>
+                <p>
+                  Material also defines optional
+                  <strong>large</strong> (1200–1599dp) and
+                  <strong>extra-large</strong> (1600dp+) tiers, meant for
+                  genuinely multi-pane layouts on large tablets or external
+                  displays. Worth knowing they exist; rarely worth reaching
+                  for until you're actually building a three-pane dashboard
+                  or list-detail view that needs the extra room.
+                </p>
+              </section>
+
+              <section id="content-out-method">
+                <h2>
+                  <span class="guide-h2-num">05</span>Picking your own
+                  breakpoints: content-out, not device-out
+                </h2>
+                <p>
+                  The companion guide on
+                  <a href="responsive-layout-contract"
+                    >responsive layout as a contract</a
+                  >
+                  covers this principle in general; here it's worth spelling
+                  out for mobile specifically, because "mobile" is exactly
+                  where teams are most tempted to skip it and reach for a
+                  device chart instead.
+                </p>
+                <p>
+                  Build the smallest layout first, using fluid units rather
+                  than fixed pixel widths. Then take a real, freely resizable
+                  browser window — not a fixed-width device frame in a
+                  design tool — and drag it wider a few pixels at a time.
+                  The moment the content itself starts to look cramped,
+                  lines get awkwardly short, or a component runs out of room
+                  before the surrounding whitespace does, that's where a
+                  breakpoint belongs — not at a round number, and not at
+                  whatever a device chart says. If that point happens to land
+                  near 600, 768, or 1024, round to the shared boundary,
+                  because landing near a widely-tested edge is a signal your
+                  content is expressing the same real shift everyone else's
+                  data already found. If it lands somewhere else entirely,
+                  trust the content over the round number — your layout, not
+                  a spec sheet, is the actual source of truth.
+                </p>
+              </section>
+
+              <section id="fluid-inside-category">
+                <h2>
+                  <span class="guide-h2-num">06</span>Fluid vs. fixed inside
+                  a category
+                </h2>
+                <p>
+                  Landing on a category boundary isn't the finish line.
+                  Plenty of layouts get the breakpoint right and then lock
+                  every measurement inside that band to the one width they
+                  happened to test — which snaps awkwardly and leaves dead
+                  space at every other width within the same category. A
+                  380px phone and a 420px phone are both "compact"; a layout
+                  hard-coded to 375px doesn't know that.
+                </p>
+                <p>
+                  Keep the breakpoint itself reserved for structural changes
+                  — column count, navigation pattern, whether a sidebar
+                  exists at all — and let everything else flex continuously
+                  with fluid sizing:
+                </p>
+                <pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(12px, 3vw, 24px);
+}
+
+.section-padding {
+  padding-inline: clamp(16px, 5vw, 48px);
+}</code></pre>
+                <p>
+                  <code>auto-fit</code> with <code>minmax()</code> lets the
+                  grid add or drop columns on its own as space changes,
+                  without a single extra media query. <code>clamp()</code>
+                  does the same for spacing and type — a fluid value between
+                  a floor and a ceiling — so the layout keeps adjusting
+                  smoothly between breakpoints instead of jumping between a
+                  small set of fixed states. The breakpoint still exists;
+                  it's just doing structural work instead of pixel-chasing
+                  work.
+                </p>
+              </section>
+
+              <section id="safe-area-insets">
+                <h2>
+                  <span class="guide-h2-num">07</span>Safe-area insets:
+                  designing for the notch
+                </h2>
+                <p>
+                  A phone's screen isn't a clean rectangle anymore. Camera
+                  cutouts, status-bar islands, rounded corners, and the
+                  home-indicator bar on iOS, or the gesture-navigation strip
+                  on Android, all carve out space that content can be
+                  clipped by or hidden behind if a layout assumes a perfect
+                  rectangle. This is a separate problem from breakpoints —
+                  it can bite a layout at any category, though it's most
+                  visible on compact phones.
+                </p>
+                <p>
+                  The fix has two parts. First, opt in with
+                  <code>viewport-fit=cover</code> so the page is allowed to
+                  draw under those cutouts in the first place:
+                </p>
+                <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;</code></pre>
+                <p>
+                  Then pad anything pinned to an edge — a sticky header, a
+                  bottom tab bar, a floating action button — with the
+                  environment variables the platform exposes, keeping a
+                  sensible minimum for devices that don't need an inset at
+                  all:
+                </p>
+                <pre><code>.bottom-bar {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.top-bar {
+  padding-top: max(8px, env(safe-area-inset-top));
+}</code></pre>
+                <p>
+                  Foldables add a related wrinkle without a fully
+                  standardized fix: the hinge or seam running across an
+                  unfolded screen. There's no <code>env()</code> variable
+                  with the same broad support as the safe-area insets above
+                  for querying that geometry yet, so the practical
+                  mitigation is simpler and more durable — avoid placing a
+                  single critical control, or a line of text, exactly across
+                  the visual midline of a layout that might be running on an
+                  unfolded device.
+                </p>
+              </section>
+
+              <section id="viewport-height-trap">
+                <h2>
+                  <span class="guide-h2-num">08</span>The 100vh trap: dvh,
+                  svh, and lvh
+                </h2>
+                <p>
+                  <code>100vh</code> has a long-standing bug on mobile: a
+                  browser's address bar and toolbar expand and collapse as
+                  someone scrolls, but classic <code>vh</code> doesn't track
+                  that. The result is a full-height hero that's clipped at
+                  the bottom on first load, or one that leaves a jarring gap
+                  once the chrome retracts and the "full" height turns out
+                  to have been measured against a taller viewport than what
+                  was actually visible.
+                </p>
+                <p>
+                  Three newer units replace the guesswork:
+                </p>
+                <ul>
+                  <li>
+                    <strong><code>svh</code></strong> (small viewport height)
+                    — measured with browser chrome fully expanded. The
+                    safest default for anything that must never be clipped:
+                    a hero section, a full-screen modal, a bottom sheet.
+                  </li>
+                  <li>
+                    <strong><code>dvh</code></strong> (dynamic viewport
+                    height) — tracks the chrome's current state live, which
+                    is the most visually "correct" number moment to moment
+                    but can introduce its own resize jank while scrolling if
+                    the layout depending on it isn't tested on a real
+                    device.
+                  </li>
+                  <li>
+                    <strong><code>lvh</code></strong> (large viewport height)
+                    — measured with chrome fully collapsed. Mostly useful
+                    for a decorative background fill that should reach the
+                    true edge of the screen, rarely for anything a person
+                    needs to reliably reach or read.
+                  </li>
+                </ul>
+                <pre><code>.full-height-section {
+  height: 100vh; /* fallback for older browsers */
+  height: 100svh;
+}</code></pre>
+                <p>
+                  Support for all three is effectively universal by now
+                  (shipped in Chrome, Safari, and Firefox since 2023), but
+                  the plain <code>vh</code> fallback declared first — before
+                  the <code>svh</code> line overrides it — costs nothing and
+                  covers the remainder.
+                </p>
+                <p>
+                  One more wrinkle: opening the on-screen keyboard shrinks
+                  the browser's <em>visual</em> viewport, but the
+                  <em>layout</em> viewport — and therefore every one of the
+                  units above — doesn't shrink to match unless the page
+                  opts in with <code>interactive-widget=resizes-content</code>
+                  in its viewport meta tag. Without that, a form field near
+                  the bottom of a <code>100svh</code> section can still end
+                  up hidden behind the keyboard; track the visual viewport
+                  directly with the Visual Viewport API if a layout needs to
+                  react precisely to the keyboard opening.
+                </p>
+              </section>
+
+              <section id="container-queries">
+                <h2>
+                  <span class="guide-h2-num">09</span>Container queries: the
+                  component-level complement
+                </h2>
+                <p>
+                  Everything above governs the page as a whole. Container
+                  queries solve a narrower, different problem: a single
+                  reusable component — a card, a profile row, a stat tile —
+                  that needs to look right based on the space
+                  <em>it</em> has been given, independent of how wide the
+                  overall viewport happens to be. The same card component
+                  can sit in a three-column grid on one screen and a narrow
+                  sidebar on another; a page-level breakpoint can't express
+                  that difference, because both placements can occur at the
+                  exact same viewport width.
+                </p>
+                <pre><code>.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 320px) {
+  .card {
+    grid-template-columns: 96px 1fr;
+  }
+}</code></pre>
+                <p>
+                  Declare <code>container-type: inline-size</code> on the
+                  wrapping element, then write <code>@container</code> rules
+                  against its width the same way you'd write a media query
+                  against the viewport's. Support now exceeds 93% of global
+                  browser usage and degrades gracefully by design — a
+                  component without container-query support simply keeps
+                  its default, mobile-first styling, which is exactly the
+                  layout you'd want it to fall back to anyway.
+                </p>
+                <p>
+                  Container queries don't replace the device-category
+                  breakpoints from earlier sections — the page still needs
+                  to know whether it's compact, medium, or expanded to
+                  decide on navigation pattern and overall structure.
+                  Container queries handle the layer underneath that: making
+                  a component reusable across regions of the same page
+                  without hard-coding it to any single context.
+                </p>
+              </section>
+
+              <section id="common-mistakes">
+                <h2><span class="guide-h2-num">10</span>Common mistakes</h2>
+                <ul>
+                  <li>
+                    Naming a breakpoint after a specific device in code or
+                    comments — <code>/* iPhone 14 breakpoint */</code> — when
+                    the phone it was named for will be discontinued long
+                    before the layout is retired, and that exact viewport
+                    width will keep showing up on unrelated phones, resized
+                    desktop windows, and folded devices for years after.
+                  </li>
+                  <li>
+                    Testing exclusively in a fixed-size devtools emulator at
+                    100% zoom, which reports classic <code>vh</code> and
+                    <code>dvh</code> identically because there's no real,
+                    collapsing browser chrome to disagree about — the exact
+                    bug this guide covers is invisible there and only shows
+                    up on an actual phone.
+                  </li>
+                  <li>
+                    Treating "mobile" as a synonym for "narrow and
+                    portrait," and never checking a landscape phone, an
+                    unfolded foldable, or a tablet in split-screen — all of
+                    which can report a medium- or expanded-width viewport
+                    while still being touch-first, one-handed, and
+                    thumb-driven in every way that actually matters to the
+                    design.
+                  </li>
+                  <li>
+                    Locking a hero section to <code>100vh</code> once and
+                    never revisiting it — the layout looks fine in the
+                    first screenshot and then quietly clips or gaps the
+                    moment someone scrolls, rotates, or opens the keyboard.
+                  </li>
+                </ul>
+              </section>
+
+              <section id="the-spec">
+                <h2><span class="guide-h2-num">11</span>The spec</h2>
+                <div class="guide-spec">
+                  <p class="guide-spec-label">// mobile_breakpoints.spec</p>
+                  <dl>
+                    <dt>Compact</dt>
+                    <dd>
+                      0–599px — one-handed, portrait-first, touch-only
+                      assumptions
+                    </dd>
+                    <dt>Medium</dt>
+                    <dd>
+                      600–839px — two-handed or propped, touch-primary
+                    </dd>
+                    <dt>Expanded</dt>
+                    <dd>840px+ — pointer and keyboard primary</dd>
+                    <dt>Method</dt>
+                    <dd>
+                      Content-out — grow a real browser window until the
+                      content breaks, round to a shared boundary only if it
+                      lands nearby
+                    </dd>
+                    <dt>Full-height sections</dt>
+                    <dd>
+                      <code>100svh</code> with a plain <code>100vh</code>
+                      fallback — never <code>100vh</code> alone
+                    </dd>
+                    <dt>Safe area</dt>
+                    <dd>
+                      <code>viewport-fit=cover</code> plus
+                      <code>env(safe-area-inset-*)</code> padding on every
+                      edge-pinned element
+                    </dd>
+                    <dt>Component-level fit</dt>
+                    <dd>Container queries, not additional page breakpoints</dd>
+                    <dt>Validate on</dt>
+                    <dd>
+                      A real device, both orientations, with the on-screen
+                      keyboard opened at least once
+                    </dd>
+                  </dl>
+                </div>
+                <p>
+                  None of this replaces resizing a real browser window on a
+                  real device — the category boundaries above are a starting
+                  point tuned to today's screens, not a permanent law. Set
+                  them once from content and ergonomics rather than from a
+                  single device's width, and a layout stops breaking every
+                  time next year's phone ships a few pixels wider or
+                  narrower than the one it was tested on.
+                </p>
+              </section>
+            </div>
+
+            <nav class="guide-footer-nav" aria-label="Guide navigation">
+              <a href="responsive-layout-contract" class="prev"
+                >← Responsive Layout Is a Contract, Not a Breakpoint List</a
+              >
+              <a href="thumb-zones-layout-constraint" class="next"
+                >Thumb Zones Are a Layout Constraint, Not a Nice-to-Have →</a
+              >
+            </nav>
+
+            <div class="guide-cta">
+              <a href="../roadmap.html">Back to the learning roadmap →</a>
+            </div>
+          </article>
+        </div>
+        <aside
+          class="guide-rail"
+          id="guide-rail"
+          aria-label="Related guides"
+        ></aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img
+            class="brand-mark"
+            src="/assets/logo.png"
+            width="32"
+            height="32"
+            alt=""
+            aria-hidden="true"
+          />
+          <p>
+            Original, hand-written UI/UX tutorials — no filler, no affiliate
+            links, just the reasoning behind good interface decisions.
+          </p>
+          <div class="footer-social">
+            <h2 class="footer-social__heading">Follow us</h2>
+            <ul class="footer-social__list">
+              <li>
+                <a
+                  href="https://x.com/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.figma.com/@pixmauxguides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span aria-hidden="true">↗</span> Figma Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h2>Guides</h2>
+          <ul id="footer-categories"></ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="../about.html">About us</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="../privacy.html">Privacy policy</a></li>
+            <li><a href="../terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Stay in the loop</h2>
+          <p class="footer-note">
+            New guides ship most weeks. No newsletter, no spam — just check back
+            or bookmark this page.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PIXMA. All guides are original tutorials.</p>
+        <p>
+          <a href="../privacy.html">Privacy policy</a> ·
+          <a href="../terms.html">Terms of service</a> ·
+          <a href="../about.html">About</a> ·
+          <a href="../contact.html">Contact</a>
+        </p>
+        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
+      </div>
+    </footer>
+
+    <script src="../app.js"></script>
+  </body>
+</html>

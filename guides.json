@@ -216,5 +216,16 @@
     "thumbnail": "/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png",
     "roadmapStage": 3,
     "roadmapStep": 9.75
+  },
+  {
+    "id": "mobile-breakpoints-device-categories",
+    "category": "mobile",
+    "level": "intermediate",
+    "readTime": 13,
+    "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
+    "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
+    "thumbnail": "/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels_thumbnail.png",
+    "roadmapStage": 3,
+    "roadmapStep": 9.25
   }
 ]
