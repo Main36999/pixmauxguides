@@ -218,6 +218,15 @@
     "roadmapStep": 9.75
   },
   {
+    "id": "css-grid-two-dimensional-system",
+    "category": "web",
+    "level": "intermediate",
+    "readTime": 15,
+    "title": "CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps",
+    "description": "Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent's rhythm.",
+    "thumbnail": "/thumbnail_image/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps_thumbnail.png"
+  },
+  {
     "id": "mobile-breakpoints-device-categories",
     "category": "mobile",
     "level": "intermediate",
