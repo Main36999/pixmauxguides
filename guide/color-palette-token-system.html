@@ -107,6 +107,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -131,404 +132,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-
-      .guide-formula {
-        font-family: var(--gp-mono);
-        font-size: 0.95rem;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-blue-line);
-        padding: 12px 16px;
-        margin: 0 0 18px;
-        letter-spacing: 0.02em;
-      }
-      .guide-code {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 20px;
-        margin: 4px 0 32px;
-        overflow-x: auto;
-      }
-      .guide-code pre {
-        margin: 0;
-        font-family: var(--gp-mono);
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #e8edf4;
-      }
-      .guide-code pre code {
-        background: none;
-        border: none;
-        border-radius: 0;
-        padding: 0;
-        font-size: inherit;
-        color: inherit;
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="color-palette-token-system">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -661,18 +264,18 @@
       <span aria-current="page">Palette Tokens</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">
-            // color_theory · palette_token_system
-          </p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">COLOR_THEORY</span>
+            <span class="card-meta mono">INT · 14 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             A Color Palette Is a Token System, Not a Row of Swatches
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Most color palettes start as a handful of brand hex codes and grow
             by accretion — a slightly lighter blue added for a hover state here,
             a barely-different gray added for a border there — until no one can
@@ -682,79 +285,71 @@
             role instead of a name, and lets light and dark themes swap by
             reassigning aliases rather than redrawing the palette from scratch.
           </p>
-          <div class="guide-meta mono">
-            <span>INTERMEDIATE</span>
-            <span class="dot">·</span>
-            <span>14 MIN READ</span>
-            <span class="dot">·</span>
-            <span>COLOR THEORY</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#why-tokens"
-                ><span class="n">01</span> Why "Blue-500" Isn't a Palette</a
+                >Why "Blue-500" Isn't a Palette</a
               >
             </li>
             <li>
               <a href="#perceptual-space"
-                ><span class="n">02</span> HSL Lies About Lightness</a
+                >HSL Lies About Lightness</a
               >
             </li>
             <li>
               <a href="#tonal-ramp"
-                ><span class="n">03</span> Building a Tonal Ramp</a
+                >Building a Tonal Ramp</a
               >
             </li>
             <li>
               <a href="#three-tiers"
-                ><span class="n">04</span> Primitive, Semantic, Component</a
+                >Primitive, Semantic, Component</a
               >
             </li>
             <li>
               <a href="#naming-roles"
-                ><span class="n">05</span> Naming Roles, Not Appearances</a
+                >Naming Roles, Not Appearances</a
               >
             </li>
             <li>
               <a href="#light-dark"
-                ><span class="n">06</span> Light and Dark Without Duplication</a
+                >Light and Dark Without Duplication</a
               >
             </li>
             <li>
               <a href="#contrast-constraint"
-                ><span class="n">07</span> Contrast Is Downstream, Not
+                >Contrast Is Downstream, Not
                 Separate</a
               >
             </li>
             <li>
               <a href="#dtcg-color"
-                ><span class="n">08</span> Tokens as Data: the DTCG Color
+                >Tokens as Data: the DTCG Color
                 Type</a
               >
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">09</span> Five Pitfalls That Look Like
+                >Five Pitfalls That Look Like
                 Polish</a
               >
             </li>
             <li>
               <a href="#cheat-sheet"
-                ><span class="n">10</span> Quick Reference</a
+                >Quick Reference</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="why-tokens">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>Why "Blue-500" Isn't a Palette</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="why-tokens"><span class="guide-article__num mono">01</span>Why "Blue-500" Isn't a Palette</h2>
+
+          <p>
               Ask most teams how many blues are in their product and the honest
               answer is usually "we're not sure" — a brand blue picked once by a
               designer, a slightly lighter one added later for a hover state, a
@@ -795,12 +390,10 @@
               subtly wrong before a single semantic name is even chosen: the
               math behind the ramp itself.
             </p>
-          </section>
 
-          <section id="perceptual-space">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>HSL Lies About Lightness</h2>
-            <p>
+          <h2 id="perceptual-space"><span class="guide-article__num mono">02</span>HSL Lies About Lightness</h2>
+
+          <p>
               <code>hsl()</code> feels like the right tool for building a ramp —
               hold hue and saturation constant, sweep lightness from high to
               low, done. The problem is that HSL's <code>L</code> channel is a
@@ -826,10 +419,10 @@
               hue produces colors that actually look similarly light, something
               HSL cannot promise:
             </p>
-            <p class="guide-formula mono">
-              oklch(L C H) → L 0–1 (0 = black, 1 = white) · C 0–≈0.4 in sRGB · H
-              in degrees, cyclical
-            </p>
+            <div class="guide-callout">
+              <p class="mono">oklch(L C H) → L 0–1 (0 = black, 1 = white) · C 0–≈0.4 in sRGB · H
+              in degrees, cyclical</p>
+            </div>
             <p>
               <code>L</code> is lightness on that perceptual scale.
               <code>C</code> is chroma — roughly "how much color," unitless,
@@ -839,10 +432,9 @@
               degrees around a color wheel, same intuition as HSL's hue channel,
               wrapping back to 0 at 360.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 260"
                 xmlns="http://www.w3.org/2000/svg"
@@ -955,8 +547,7 @@
             </figcaption>
           </figure>
 
-          <section>
-            <p>
+          <p>
               One consequence worth planning around: in-gamut chroma isn't
               independent of lightness. A color can't be both extremely light
               (or extremely dark) <em>and</em> highly saturated — the maximum
@@ -967,12 +558,10 @@
               display can actually show — which is why the next section tapers
               chroma toward the ends of the ramp rather than holding it flat.
             </p>
-          </section>
 
-          <section id="tonal-ramp">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>Building a Tonal Ramp</h2>
-            <p>
+          <h2 id="tonal-ramp"><span class="guide-article__num mono">03</span>Building a Tonal Ramp</h2>
+
+          <p>
               A ramp starts from one fixed hue and produces an ordered set of
               lightness steps for it — commonly ten or eleven, numbered the way
               Tailwind popularized (<code>50</code> through <code>900</code> or
@@ -981,7 +570,7 @@
               vary together as the ramp descends from light to dark:
             </p>
             <div class="guide-table-wrap">
-              <table class="guide-table">
+              <table>
                 <caption>
                   / tonal_ramp_steps
                 </caption>
@@ -1062,12 +651,10 @@
               eleven separate colors and hoping they stay consistent the next
               time someone has to add a twelfth.
             </p>
-          </section>
 
-          <section id="three-tiers">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>Primitive, Semantic, Component</h2>
-            <p>
+          <h2 id="three-tiers"><span class="guide-article__num mono">04</span>Primitive, Semantic, Component</h2>
+
+          <p>
               A ramp is raw material, not a usable token set on its own — it
               needs to sit underneath the same three-tier structure that governs
               any well-run
@@ -1103,12 +690,10 @@
               until the semantic layer gets retuned and that one component
               doesn't move with it.
             </p>
-          </section>
 
-          <section id="naming-roles">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>Naming Roles, Not Appearances</h2>
-            <p>
+          <h2 id="naming-roles"><span class="guide-article__num mono">05</span>Naming Roles, Not Appearances</h2>
+
+          <p>
               A semantic color token's name is a promise about function, not a
               description of its current pixel value.
               <code>color.text.error</code> sounds reasonable until the brand's
@@ -1118,7 +703,7 @@
               that combine into most of what a UI actually needs:
             </p>
             <div class="guide-table-wrap">
-              <table class="guide-table">
+              <table>
                 <caption>
                   / semantic_color_roles
                 </caption>
@@ -1180,12 +765,10 @@
               describing appearance, not role, and it belongs one tier down at
               the primitive layer instead.
             </p>
-          </section>
 
-          <section id="light-dark">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>Light and Dark Without Duplication</h2>
-            <p>
+          <h2 id="light-dark"><span class="guide-article__num mono">06</span>Light and Dark Without Duplication</h2>
+
+          <p>
               The instinct when adding a dark theme is to design a second,
               parallel palette from scratch. That doubles the ramp-building work
               from section three and guarantees the two palettes drift apart the
@@ -1204,10 +787,9 @@
               lifted, low-chroma dark step reads as more legible and less harsh
               than pure <code>#000</code> once real content sits on top of it.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 240"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1359,8 +941,7 @@
             </figcaption>
           </figure>
 
-          <section>
-            <p>
+          <p>
               In practice that alias swap is usually just a custom-property
               reassignment under a theme selector — the semantic layer,
               expressed as CSS variables, gets a second definition scoped to a
@@ -1369,10 +950,8 @@
               component keeps referencing the same semantic variable name either
               way:
             </p>
-          </section>
 
-          <div class="guide-code">
-            <pre><code>:root {
+          <pre><code>:root {
   --color-background-surface: var(--gray-50);
   --color-text-primary:       var(--gray-900);
   --color-border-default:     var(--gray-200);
@@ -1383,12 +962,10 @@
   --color-text-primary:       var(--gray-50);
   --color-border-default:     var(--gray-700);
 }</code></pre>
-          </div>
 
-          <section id="contrast-constraint">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Contrast Is Downstream, Not Separate</h2>
-            <p>
+          <h2 id="contrast-constraint"><span class="guide-article__num mono">07</span>Contrast Is Downstream, Not Separate</h2>
+
+          <p>
               Every semantic pairing that will actually appear together on
               screen — text on a surface, an icon on a brand background, a
               danger label on its own fill — needs to clear a real WCAG contrast
@@ -1409,12 +986,10 @@
               pairings across a product at once, and the earlier that shows up,
               the cheaper it is to fix.
             </p>
-          </section>
 
-          <section id="dtcg-color">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Tokens as Data: the DTCG Color Type</h2>
-            <p>
+          <h2 id="dtcg-color"><span class="guide-article__num mono">08</span>Tokens as Data: the DTCG Color Type</h2>
+
+          <p>
               The W3C Design Tokens Community Group format defines
               <code>$type: "color"</code> as a structured value — a
               <code>colorSpace</code> string plus a
@@ -1425,10 +1000,8 @@
               of truth while still shipping a computed hex for tooling that
               hasn't caught up:
             </p>
-          </section>
 
-          <div class="guide-code">
-            <pre><code>{
+          <pre><code>{
   "color": {
     "blue": {
       "500": {
@@ -1460,10 +1033,8 @@
     }
   }
 }</code></pre>
-          </div>
 
-          <section>
-            <p>
+          <p>
               The brace syntax — <code>{color.blue.500}</code> — is a reference
               to another token by its path, resolved the same way regardless of
               which tier it crosses, which is what makes the primitive →
@@ -1471,14 +1042,12 @@
               literal, machine-readable data rather than just a naming
               convention teams have to remember to follow by hand.
             </p>
-          </section>
 
-          <section id="pitfalls">
-            <p class="guide-section__kicker mono">§ 09</p>
-            <h2>Five Pitfalls That Look Like Polish</h2>
-            <ul class="guide-pitfalls">
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">01</span>
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Five Pitfalls That Look Like Polish</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
                 <p>
                   <strong
                     >Picking steps in a color picker instead of a ramp
@@ -1491,8 +1060,8 @@
                   deadline.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">02</span>
+              <li>
+                <span class="guide-recap__n">02</span>
                 <p>
                   <strong
                     >Naming a semantic token after its current
@@ -1504,8 +1073,8 @@
                   red, every consumer of that name is quietly wrong.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">03</span>
+              <li>
+                <span class="guide-recap__n">03</span>
                 <p>
                   <strong>Building dark mode as a second full palette.</strong>
                   Two independently maintained ramps drift apart the first time
@@ -1514,8 +1083,8 @@
                   up in one theme.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">04</span>
+              <li>
+                <span class="guide-recap__n">04</span>
                 <p>
                   <strong
                     >Sharing one alias across unrelated roles because they
@@ -1530,8 +1099,8 @@
                   expensive to untangle later.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">05</span>
+              <li>
+                <span class="guide-recap__n">05</span>
                 <p>
                   <strong>Holding chroma flat across the whole ramp.</strong>
                   Skipping the taper from section three because a constant
@@ -1542,13 +1111,11 @@
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section id="cheat-sheet">
-            <p class="guide-section__kicker mono">§ 10</p>
-            <h2>Quick Reference</h2>
-            <div class="guide-table-wrap">
-              <table class="guide-table">
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
                 <caption>
                   / color_palette_reference
                 </caption>
@@ -1603,10 +1170,8 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               None of the specific lightness percentages or step counts in this
               guide are the point — a team will retune the exact numbers to fit
               its own brand, and that's expected. What's meant to outlast any
@@ -1619,19 +1184,7 @@
               top of it keeps working without anyone having to go find and
               update it by hand.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>COLOR THEORY</span>
-            <span>DESIGN TOKENS</span>
-            <span>OKLCH</span>
-            <span>TONAL RAMPS</span>
-            <span>DARK MODE</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>

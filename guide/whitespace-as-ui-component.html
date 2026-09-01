@@ -107,6 +107,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -131,398 +132,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-
-      .guide-recap {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 12px;
-      }
-      .guide-recap li {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 14px 18px;
-        background: var(--gp-paper);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-recap li .n {
-        font-family: var(--gp-mono);
-        font-size: 0.9rem;
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-        padding-top: 2px;
-      }
-      .guide-recap li p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="whitespace-as-ui-component">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -656,99 +265,91 @@
       <span aria-current="page">Whitespace</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">
-            // spacing_layout · whitespace_systems
-          </p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">SPACING_LAYOUT</span>
+            <span class="card-meta mono">BEG · 11 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             Whitespace as a UI Component, Not a Leftover
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Whitespace is the fastest way to learn to see UI/UX design at all —
             once you notice how space carries meaning, every other decision on
             the page starts making sense too.
           </p>
-          <div class="guide-meta mono">
-            <span>BEGINNER</span>
-            <span class="dot">·</span>
-            <span>11 MIN READ</span>
-            <span class="dot">·</span>
-            <span>SPACING &amp; LAYOUT</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#why-whitespace"
-                ><span class="n">01</span> Why whitespace is the right place to
+                >Why whitespace is the right place to
                 start</a
               >
             </li>
             <li>
               <a href="#not-empty"
-                ><span class="n">02</span> The blank page isn't empty</a
+                >The blank page isn't empty</a
               >
             </li>
             <li>
               <a href="#macro-micro"
-                ><span class="n">03</span> Two kinds of space: macro and
+                >Two kinds of space: macro and
                 micro</a
               >
             </li>
             <li>
               <a href="#grouping"
-                ><span class="n">04</span> Grouping is communication</a
+                >Grouping is communication</a
               >
             </li>
             <li>
               <a href="#hierarchy"
-                ><span class="n">05</span> Hierarchy without new colors or
+                >Hierarchy without new colors or
                 fonts</a
               >
             </li>
             <li>
               <a href="#density"
-                ><span class="n">06</span> Density is a deliberate choice, not
+                >Density is a deliberate choice, not
                 an accident</a
               >
             </li>
             <li>
               <a href="#spacing-scale"
-                ><span class="n">07</span> Building a spacing scale you can
+                >Building a spacing scale you can
                 actually use</a
               >
             </li>
             <li>
               <a href="#mistakes"
-                ><span class="n">08</span> Whitespace mistakes worth watching
+                >Whitespace mistakes worth watching
                 for</a
               >
             </li>
             <li>
               <a href="#auditing"
-                ><span class="n">09</span> Auditing whitespace on a screen you
+                >Auditing whitespace on a screen you
                 didn't design</a
               >
             </li>
             <li>
               <a href="#key-takeaways"
-                ><span class="n">10</span> Key Takeaways</a
+                >Key Takeaways</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="why-whitespace">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>Why whitespace is the right place to start</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="why-whitespace"><span class="guide-article__num mono">01</span>Why whitespace is the right place to start</h2>
+
+          <p>
               Most introductions to UI/UX start with color or typography,
               because they're the easiest things to point at. But color and type
               only work because of something more fundamental sitting underneath
@@ -765,12 +366,10 @@
               there's no default to hide behind — every gap on a screen is a
               decision, made well or made by accident.
             </p>
-          </section>
 
-          <section id="not-empty">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>The blank page isn't empty</h2>
-            <p>
+          <h2 id="not-empty"><span class="guide-article__num mono">02</span>The blank page isn't empty</h2>
+
+          <p>
               Call it whitespace, negative space, or just "the gaps" — the term
               doesn't have to mean white, or even blank. It means any area of a
               layout without content: the margin around a card, the gutter
@@ -787,12 +386,10 @@
               and hierarchy without adding a single new color, border, or line
               of text.
             </p>
-          </section>
 
-          <section id="macro-micro">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>Two kinds of space: macro and micro</h2>
-            <p>
+          <h2 id="macro-micro"><span class="guide-article__num mono">03</span>Two kinds of space: macro and micro</h2>
+
+          <p>
               Macro whitespace separates major regions of a page: the gap
               between a header and the content beneath it, the distance between
               two independent sections, the margin around the page itself. These
@@ -816,12 +413,10 @@
               The two scales solve different problems and shouldn't borrow each
               other's values.
             </p>
-          </section>
 
-          <section id="grouping">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>Grouping is communication</h2>
-            <p>
+          <h2 id="grouping"><span class="guide-article__num mono">04</span>Grouping is communication</h2>
+
+          <p>
               Human perception groups things automatically, and this isn't a
               design metaphor — it's a documented set of principles from Gestalt
               psychology, developed for general visual perception long before
@@ -847,12 +442,10 @@
               notices the contradiction even when the conscious mind never puts
               a name to it.
             </p>
-          </section>
 
-          <section id="hierarchy">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>Hierarchy without new colors or fonts</h2>
-            <p>
+          <h2 id="hierarchy"><span class="guide-article__num mono">05</span>Hierarchy without new colors or fonts</h2>
+
+          <p>
               A beginner's instinct for adding emphasis is usually to add
               something — a bolder weight, a brighter color, a border, a
               background tint. Every one of those additions is a real design
@@ -875,12 +468,10 @@
               than by re-coloring or re-labeling everything on it. The content
               doesn't need to shout louder if it has room to be heard.
             </p>
-          </section>
 
-          <section id="density">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>Density is a deliberate choice, not an accident</h2>
-            <p>
+          <h2 id="density"><span class="guide-article__num mono">06</span>Density is a deliberate choice, not an accident</h2>
+
+          <p>
               There's no single correct amount of whitespace — the right density
               depends entirely on what the interface is for. A financial
               dashboard or an admin table intentionally uses a tighter spacing
@@ -906,12 +497,10 @@
               ask which end of that spectrum actually serves the person using
               this specific screen, right now.
             </p>
-          </section>
 
-          <section id="spacing-scale">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Building a spacing scale you can actually use</h2>
-            <p>
+          <h2 id="spacing-scale"><span class="guide-article__num mono">07</span>Building a spacing scale you can actually use</h2>
+
+          <p>
               Random spacing values — one gap at 14px, the next at 22px, another
               at 18px — force every future decision to be a fresh guess. A
               spacing scale replaces guessing with a small, fixed set of numbers
@@ -936,12 +525,10 @@
               rather than just a nice idea sitting in a style guide nobody
               opens.
             </p>
-          </section>
 
-          <section id="mistakes">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Whitespace mistakes worth watching for</h2>
-            <p>
+          <h2 id="mistakes"><span class="guide-article__num mono">08</span>Whitespace mistakes worth watching for</h2>
+
+          <p>
               Uniform spacing everywhere is the most common mistake: giving
               every element on a screen the same gap regardless of its
               relationship to its neighbors. It feels safe and consistent, but
@@ -966,12 +553,10 @@
               unpolished in a way that's hard to pin down without comparing
               screens side by side.
             </p>
-          </section>
 
-          <section id="auditing">
-            <p class="guide-section__kicker mono">§ 09</p>
-            <h2>Auditing whitespace on a screen you didn't design</h2>
-            <p>
+          <h2 id="auditing"><span class="guide-article__num mono">09</span>Auditing whitespace on a screen you didn't design</h2>
+
+          <p>
               Whitespace is also one of the fastest things to audit on an
               existing product. Pick any screen and ask, for every gap you can
               see: does this value appear anywhere on the defined scale? An
@@ -997,14 +582,12 @@
               one that starts with color or type, precisely because space is
               invisible enough that nobody double-checks it by default.
             </p>
-          </section>
 
-          <section id="key-takeaways">
-            <p class="guide-section__kicker mono">§ 10</p>
-            <h2>Key Takeaways</h2>
-            <ul class="guide-recap">
+          <h2 id="key-takeaways"><span class="guide-article__num mono">10</span>Key Takeaways</h2>
+
+          <ul class="guide-recap">
               <li>
-                <span class="n" aria-hidden="true">→</span>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
                   Whitespace isn't empty — it's the one design tool that creates
                   separation and hierarchy without adding a single new color or
@@ -1012,7 +595,7 @@
                 </p>
               </li>
               <li>
-                <span class="n" aria-hidden="true">→</span>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
                   Separate macro spacing (between sections, 32px+) from micro
                   spacing (inside components, 4–16px) — they solve different
@@ -1020,7 +603,7 @@
                 </p>
               </li>
               <li>
-                <span class="n" aria-hidden="true">→</span>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
                   Smaller gaps signal grouping, larger gaps signal separation —
                   this is Gestalt proximity at work, and it does more
@@ -1028,14 +611,14 @@
                 </p>
               </li>
               <li>
-                <span class="n" aria-hidden="true">→</span>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
                   Match density to purpose: tighter scales for data-dense tools,
                   looser scales for storytelling and marketing pages.
                 </p>
               </li>
               <li>
-                <span class="n" aria-hidden="true">→</span>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
                   Build a small, named spacing scale (e.g.
                   4/8/12/16/24/32/48/64px) instead of typing one-off pixel
@@ -1043,7 +626,7 @@
                 </p>
               </li>
               <li>
-                <span class="n" aria-hidden="true">→</span>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
                   Audit any screen by checking whether every visible gap maps to
                   a defined scale value, and whether related items sit visibly
@@ -1051,10 +634,8 @@
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               Space is a genuinely good place to start learning UI/UX because
               getting it right doesn't depend on taste, a design degree, or a
               trained eye for color — it depends on noticing relationships and
@@ -1070,19 +651,7 @@
               just happens to be the clearest, lowest-stakes place to start
               practicing the habit of asking it.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>SPACING</span>
-            <span>LAYOUT</span>
-            <span>HIERARCHY</span>
-            <span>DESIGN SYSTEMS</span>
-            <span>UI FUNDAMENTALS</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>

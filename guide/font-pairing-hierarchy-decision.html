@@ -108,6 +108,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -132,406 +133,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. Identical token set
-         to the other guide pages so typography and spacing stay uniform
-         across the whole /guide/ section. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-
-      .guide-formula {
-        font-family: var(--gp-mono);
-        font-size: 0.95rem;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-blue-line);
-        padding: 12px 16px;
-        margin: 0 0 18px;
-        letter-spacing: 0.02em;
-      }
-      .guide-code {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 20px;
-        margin: 4px 0 32px;
-        overflow-x: auto;
-      }
-      .guide-code pre {
-        margin: 0;
-        font-family: var(--gp-mono);
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #e8edf4;
-      }
-      .guide-code pre code {
-        background: none;
-        border: none;
-        border-radius: 0;
-        padding: 0;
-        font-size: inherit;
-        color: inherit;
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="font-pairing-hierarchy-decision">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -664,18 +265,18 @@
       <span aria-current="page">Font Pairing</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">
-            // typography · font_pairing_hierarchy_decision
-          </p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">TYPOGRAPHY</span>
+            <span class="card-meta mono">BEG · 11 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             Font Pairing Is a Hierarchy Decision, Not a Personality Match
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Most pairing advice asks whether two typefaces "get along" — a
             vibe check with no way to fail until the page ships and
             something looks quietly wrong. The question that actually
@@ -687,72 +288,64 @@
             Answer those three and the "personality" argument mostly
             answers itself.
           </p>
-          <div class="guide-meta mono">
-            <span>BEGINNER</span>
-            <span class="dot">·</span>
-            <span>11 MIN READ</span>
-            <span class="dot">·</span>
-            <span>TYPOGRAPHY</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#wrong-question"
-                ><span class="n">01</span> Why "Do These Fonts Get Along" Is
+                >Why "Do These Fonts Get Along" Is
                 the Wrong Question</a
               >
             </li>
             <li>
               <a href="#contrast-not-similarity"
-                ><span class="n">02</span> Contrast Is the Job, Similarity
+                >Contrast Is the Job, Similarity
                 Is the Risk</a
               >
             </li>
             <li>
               <a href="#x-height"
-                ><span class="n">03</span> X-Height Is the Metric That
+                >X-Height Is the Metric That
                 Actually Predicts a Mismatch</a
               >
             </li>
             <li>
               <a href="#one-job-each"
-                ><span class="n">04</span> Give Each Font Exactly One Job</a
+                >Give Each Font Exactly One Job</a
               >
             </li>
             <li>
               <a href="#superfamily"
-                ><span class="n">05</span> Why a Superfamily Solves More
+                >Why a Superfamily Solves More
                 Problems Than a "Creative" Pairing</a
               >
             </li>
             <li>
               <a href="#pairing-test"
-                ><span class="n">06</span> A Practical Pairing Test Before
+                >A Practical Pairing Test Before
                 You Commit</a
               >
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">07</span> Four Pitfalls That Quietly Break
+                >Four Pitfalls That Quietly Break
                 a Pairing</a
               >
             </li>
             <li>
               <a href="#cheat-sheet"
-                ><span class="n">08</span> Quick Reference</a
+                >Quick Reference</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="wrong-question">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>Why "Do These Fonts Get Along" Is the Wrong Question</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="wrong-question"><span class="guide-article__num mono">01</span>Why "Do These Fonts Get Along" Is the Wrong Question</h2>
+
+          <p>
               The standard way to pick a font pairing is a specimen gallery:
               scroll a page of two-font combinations, stop on one that
               feels elegant-meets-modern or serious-meets-friendly, and
@@ -790,12 +383,10 @@
               this guide follows from treating pairing as that kind of
               decision instead of a matter of taste.
             </p>
-          </section>
 
-          <section id="contrast-not-similarity">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>Contrast Is the Job, Similarity Is the Risk</h2>
-            <p>
+          <h2 id="contrast-not-similarity"><span class="guide-article__num mono">02</span>Contrast Is the Job, Similarity Is the Risk</h2>
+
+          <p>
               A pairing exists because one font on its own can't carry
               every level of a page's hierarchy at once — a heading and a
               paragraph need to read as different things instantly, not
@@ -830,12 +421,10 @@
               happens when two faces are chosen for matching mood instead
               of a matching or opposing structural trait.
             </p>
-          </section>
 
-          <section id="x-height">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>X-Height Is the Metric That Actually Predicts a Mismatch</h2>
-            <p>
+          <h2 id="x-height"><span class="guide-article__num mono">03</span>X-Height Is the Metric That Actually Predicts a Mismatch</h2>
+
+          <p>
               X-height is the height of a typeface's lowercase letters that
               have no ascender or descender — the body of an "n," "o," or
               "x" — measured against the cap height above it. It's a fixed
@@ -872,10 +461,9 @@
               of ongoing, per-instance patchwork a good pairing is supposed
               to make unnecessary.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 260"
                 xmlns="http://www.w3.org/2000/svg"
@@ -967,10 +555,9 @@
             </figcaption>
           </figure>
 
-          <section id="one-job-each">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>Give Each Font Exactly One Job</h2>
-            <p>
+          <h2 id="one-job-each"><span class="guide-article__num mono">04</span>Give Each Font Exactly One Job</h2>
+
+          <p>
               Once a pairing is treated as a hierarchy decision rather than
               a mood decision, the natural next step is to assign each
               font a single, non-overlapping role instead of letting either
@@ -1012,15 +599,11 @@
               captions or labels just because it happens to be already
               loaded on the page.
             </p>
-          </section>
 
-          <section id="superfamily">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>
-              Why a Superfamily Solves More Problems Than a "Creative"
-              Pairing
-            </h2>
-            <p>
+          <h2 id="superfamily"><span class="guide-article__num mono">05</span>Why a Superfamily Solves More Problems Than a "Creative"
+              Pairing</h2>
+
+          <p>
               A superfamily is a set of typefaces — typically a serif and a
               sans, sometimes joined by a slab or a mono — designed
               together by the same team, on the same underlying skeleton
@@ -1058,12 +641,10 @@
               trade worth making before reaching for a more distinctive
               pairing that has to earn its contrast the hard way.
             </p>
-          </section>
 
-          <section id="pairing-test">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>A Practical Pairing Test Before You Commit</h2>
-            <p>
+          <h2 id="pairing-test"><span class="guide-article__num mono">06</span>A Practical Pairing Test Before You Commit</h2>
+
+          <p>
               A pairing should be evaluated in the actual conditions it
               will ship in, not in an isolated specimen graphic. Set the
               candidate display face at the real headline size the design
@@ -1099,8 +680,7 @@
               later by someone who wasn't in the room for the original
               choice:
             </p>
-            <div class="guide-code">
-              <pre><code>:root {
+            <pre><code>:root {
   --font-display: "Source Serif 4", Georgia, serif;
   --font-text: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
@@ -1121,14 +701,13 @@ code, pre, .tabular {
 }
 
 /* Variable-range woff2 covers Regular through Bold in one file,
-   so <strong> never falls back to a synthetic, faux-bold weight. */
+   so &lt;strong&gt; never falls back to a synthetic, faux-bold weight. */
 @font-face {
   font-family: "Source Sans 3";
   src: url("/fonts/source-sans-3-variable.woff2") format("woff2");
   font-weight: 400 700;
   font-display: swap;
 }</code></pre>
-            </div>
             <p>
               Naming the custom properties by role — <code>--font-display</code>
               and <code>--font-text</code>, not <code>--font-primary</code>
@@ -1138,14 +717,12 @@ code, pre, .tabular {
               hunting down every selector that happened to reference a
               specific font name.
             </p>
-          </section>
 
-          <section id="pitfalls">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Four Pitfalls That Quietly Break a Pairing</h2>
-            <ul class="guide-pitfalls">
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">01</span>
+          <h2 id="pitfalls"><span class="guide-article__num mono">07</span>Four Pitfalls That Quietly Break a Pairing</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
                 <p>
                   <strong>Two same-classification faces mistaken for
                     contrast.</strong>
@@ -1157,8 +734,8 @@ code, pre, .tabular {
                   inconsistency rather than a decision.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">02</span>
+              <li>
+                <span class="guide-recap__n">02</span>
                 <p>
                   <strong>Judging a pairing from an isolated specimen.</strong>
                   A combination that looks resolved in a large demo
@@ -1169,8 +746,8 @@ code, pre, .tabular {
                   in context, not in a gallery.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">03</span>
+              <li>
+                <span class="guide-recap__n">03</span>
                 <p>
                   <strong>No real bold in the text face.</strong>
                   When a text face is only licensed or loaded in Regular,
@@ -1182,8 +759,8 @@ code, pre, .tabular {
                   exactly where a reader is meant to notice it most.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">04</span>
+              <li>
+                <span class="guide-recap__n">04</span>
                 <p>
                   <strong>Skipping the x-height check because the mockup
                     "looked fine."</strong>
@@ -1197,13 +774,11 @@ code, pre, .tabular {
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section id="cheat-sheet">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Quick Reference</h2>
-            <div class="guide-table-wrap">
-              <table class="guide-table">
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">08</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
                 <caption>/ font_pairing_reference</caption>
                 <thead>
                   <tr>
@@ -1251,10 +826,8 @@ code, pre, .tabular {
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               None of this requires ruling out contrast, distinctiveness,
               or a pairing with real character — those are still worth
               having once the structural checks are satisfied. What
@@ -1270,19 +843,7 @@ code, pre, .tabular {
               already works — whether or not it happens to feel like a
               personality match.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>TYPOGRAPHY</span>
-            <span>TYPE PAIRING</span>
-            <span>X-HEIGHT</span>
-            <span>HIERARCHY</span>
-            <span>CSS</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>

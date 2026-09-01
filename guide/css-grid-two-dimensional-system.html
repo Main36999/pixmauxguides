@@ -107,6 +107,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -131,404 +132,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-
-      .guide-formula {
-        font-family: var(--gp-mono);
-        font-size: 0.95rem;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-blue-line);
-        padding: 12px 16px;
-        margin: 0 0 18px;
-        letter-spacing: 0.02em;
-      }
-      .guide-code {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 20px;
-        margin: 4px 0 32px;
-        overflow-x: auto;
-      }
-      .guide-code pre {
-        margin: 0;
-        font-family: var(--gp-mono);
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #e8edf4;
-      }
-      .guide-code pre code {
-        background: none;
-        border: none;
-        border-radius: 0;
-        padding: 0;
-        font-size: inherit;
-        color: inherit;
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="css-grid-two-dimensional-system">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -661,16 +264,18 @@
       <span aria-current="page">CSS Grid</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">// web_layout · css_grid</p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">WEB_LAYOUT</span>
+            <span class="card-meta mono">INT · 15 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Flexbox distributes space along one axis and calls it done; Grid
             controls rows and columns at the same time, which is a different
             class of problem, not a bigger version of the same one. This
@@ -679,82 +284,74 @@
             the subgrid behavior that lets a nested layout inherit its
             parent's rhythm instead of rebuilding it from scratch.
           </p>
-          <div class="guide-meta mono">
-            <span>INTERMEDIATE</span>
-            <span class="dot">·</span>
-            <span>15 MIN READ</span>
-            <span class="dot">·</span>
-            <span>WEB LAYOUT</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#two-axes"
-                ><span class="n">01</span> Two Axes, One Layout</a
+                >Two Axes, One Layout</a
               >
             </li>
             <li>
               <a href="#explicit-tracks"
-                ><span class="n">02</span> Explicit Tracks: The Grid You
+                >Explicit Tracks: The Grid You
                 Declare</a
               >
             </li>
             <li>
               <a href="#fr-minmax"
-                ><span class="n">03</span> The fr Unit and minmax()</a
+                >The fr Unit and minmax()</a
               >
             </li>
             <li>
               <a href="#implicit-tracks"
-                ><span class="n">04</span> Implicit Tracks: What the Browser
+                >Implicit Tracks: What the Browser
                 Adds for You</a
               >
             </li>
             <li>
               <a href="#placement"
-                ><span class="n">05</span> Placement: Lines, Spans, and
+                >Placement: Lines, Spans, and
                 Auto-Flow</a
               >
             </li>
             <li>
               <a href="#template-areas"
-                ><span class="n">06</span> grid-template-areas: A Layout You
+                >grid-template-areas: A Layout You
                 Can Read</a
               >
             </li>
             <li>
               <a href="#alignment"
-                ><span class="n">07</span> Alignment on Two Axes</a
+                >Alignment on Two Axes</a
               >
             </li>
             <li>
               <a href="#subgrid"
-                ><span class="n">08</span> Subgrid: Inheriting a Parent's
+                >Subgrid: Inheriting a Parent's
                 Rhythm</a
               >
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">09</span> Five Pitfalls That Look Like Grid
+                >Five Pitfalls That Look Like Grid
                 Bugs</a
               >
             </li>
             <li>
               <a href="#cheat-sheet"
-                ><span class="n">10</span> Quick Reference</a
+                >Quick Reference</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="two-axes">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>Two Axes, One Layout</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="two-axes"><span class="guide-article__num mono">01</span>Two Axes, One Layout</h2>
+
+          <p>
               Flexbox is fundamentally one-dimensional. <code>flex-direction</code>
               picks a single main axis, every item is laid out one after
               another along it, and the cross axis only gets alignment —
@@ -775,8 +372,8 @@
               flexbox has no vocabulary for without extra wrapper elements
               faking what Grid does natively.
             </p>
-            <figure class="guide-figure">
-              <div class="guide-figure__frame">
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
                 <svg
                   viewBox="0 0 700 330"
                   xmlns="http://www.w3.org/2000/svg"
@@ -947,24 +544,20 @@
               needs — tracks, lines, areas, and how a nested grid can share
               its parent's rather than invent its own.
             </p>
-          </section>
 
-          <section id="explicit-tracks">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>Explicit Tracks: The Grid You Declare</h2>
-            <p>
+          <h2 id="explicit-tracks"><span class="guide-article__num mono">02</span>Explicit Tracks: The Grid You Declare</h2>
+
+          <p>
               An <strong>explicit track</strong> is one you named yourself,
               with <code>grid-template-columns</code> or
               <code>grid-template-rows</code>:
             </p>
-            <div class="guide-code">
-              <pre><code>.layout {
+            <pre><code>.layout {
   display: grid;
   grid-template-columns: 220px repeat(3, 1fr);
   grid-template-rows: auto 1fr auto;
   gap: 24px;
 }</code></pre>
-            </div>
             <p>
               That declares a fixed 220px column followed by three equal
               flexible columns, and three rows sized to content, remaining
@@ -982,10 +575,10 @@
               first and tracks second. Lines can be named too, so placement
               reads by intent instead of by counting:
             </p>
-            <p class="guide-formula mono">
-              grid-template-columns: [sidebar-start] 220px [sidebar-end
-              main-start] 1fr [main-end];
-            </p>
+            <div class="guide-callout">
+              <p class="mono">grid-template-columns: [sidebar-start] 220px [sidebar-end
+              main-start] 1fr [main-end];</p>
+            </div>
             <p>
               An item can then be placed with
               <code>grid-column: sidebar-start / sidebar-end;</code> instead
@@ -995,12 +588,10 @@
               column later without renumbering every placement that referenced
               a line by position.
             </p>
-          </section>
 
-          <section id="fr-minmax">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>The fr Unit and minmax()</h2>
-            <p>
+          <h2 id="fr-minmax"><span class="guide-article__num mono">03</span>The fr Unit and minmax()</h2>
+
+          <p>
               <code>fr</code> stands for a <strong>fraction of the leftover
               space</strong> — space still unclaimed after every fixed-size
               and content-sized track in the same axis has already been
@@ -1017,9 +608,9 @@
               <code>repeat()</code> and an auto-repeat keyword, it produces a
               genuinely fluid grid with zero media queries:
             </p>
-            <p class="guide-formula mono">
-              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            </p>
+            <div class="guide-callout">
+              <p class="mono">grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));</p>
+            </div>
             <p>
               That reads as: fit as many 240px-minimum columns as the
               container allows, and let them stretch evenly to fill whatever
@@ -1044,12 +635,10 @@
               <code>auto-fill</code>; a card grid that should always look full
               wants <code>auto-fit</code>.
             </p>
-          </section>
 
-          <section id="implicit-tracks">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>Implicit Tracks: What the Browser Adds for You</h2>
-            <p>
+          <h2 id="implicit-tracks"><span class="guide-article__num mono">04</span>Implicit Tracks: What the Browser Adds for You</h2>
+
+          <p>
               An <strong>implicit track</strong> is one you never declared —
               the browser adds it automatically when content needs a row or
               column the explicit grid doesn't have. This happens two ways:
@@ -1057,13 +646,11 @@
               range, or simply running out of explicit cells during
               auto-placement, which is the far more common case in practice.
             </p>
-            <div class="guide-code">
-              <pre><code>.gallery {
+            <pre><code>.gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(140px, auto);
 }</code></pre>
-            </div>
             <p>
               <code>.gallery</code> only declares columns. Drop ten images
               into it and the browser fills three per row, then keeps adding
@@ -1083,21 +670,17 @@
               carefully and forget the implicit one entirely, which is exactly
               the gap pitfall five returns to.
             </p>
-          </section>
 
-          <section id="placement">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>Placement: Lines, Spans, and Auto-Flow</h2>
-            <p>
+          <h2 id="placement"><span class="guide-article__num mono">05</span>Placement: Lines, Spans, and Auto-Flow</h2>
+
+          <p>
               An item can be placed explicitly by line number, by name, or by
               a span count relative to wherever it starts:
             </p>
-            <div class="guide-code">
-              <pre><code>.hero {
+            <pre><code>.hero {
   grid-column: 2 / 4;      /* from line 2 to line 4 */
   grid-row: 1 / span 2;    /* start at line 1, cover 2 tracks */
 }</code></pre>
-            </div>
             <p>
               Anything not explicitly placed falls to
               <strong>auto-placement</strong>: the browser walks the grid in
@@ -1120,20 +703,17 @@
               designing around deliberately rather than discovering by
               accident, covered again in pitfall four.
             </p>
-          </section>
 
-          <section id="template-areas">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>grid-template-areas: A Layout You Can Read</h2>
-            <p>
+          <h2 id="template-areas"><span class="guide-article__num mono">06</span>grid-template-areas: A Layout You Can Read</h2>
+
+          <p>
               Line-based placement is precise, but it doesn't read like a
               layout — it reads like coordinates. <code>grid-template-areas</code>
               trades that precision for legibility: name each region, arrange
               the names into rows of ASCII art that mirror the actual page,
               and let each item claim its named area instead of a line range.
             </p>
-            <div class="guide-code">
-              <pre><code>.page {
+            <pre><code>.page {
   display: grid;
   grid-template-columns: 200px 1fr 160px;
   grid-template-rows: auto 1fr auto;
@@ -1149,7 +729,6 @@
 .main        { grid-area: main; }
 .aside       { grid-area: aside; }
 .site-footer { grid-area: footer; }</code></pre>
-            </div>
             <p>
               Each quoted string is one row; each word in it is one column's
               area for that row. Repeating a name across adjacent cells — in
@@ -1161,8 +740,8 @@
               block, not scattered around the grid — section nine covers what
               happens when that rule gets broken.
             </p>
-            <figure class="guide-figure">
-              <div class="guide-figure__frame">
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
                 <svg
                   viewBox="0 0 700 270"
                   xmlns="http://www.w3.org/2000/svg"
@@ -1218,8 +797,7 @@
               entire page is one property, not a rewrite of every item's
               placement.
             </p>
-            <div class="guide-code">
-              <pre><code>@media (max-width: 640px) {
+            <pre><code>@media (max-width: 640px) {
   .page {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -1230,19 +808,16 @@
       "footer";
   }
 }</code></pre>
-            </div>
             <p>
               Every element keeps the same <code>grid-area</code> declaration
               it always had — only the map they're placed against changes,
               including the reading order, since sidebar now falls after main
               instead of before it.
             </p>
-          </section>
 
-          <section id="alignment">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Alignment on Two Axes</h2>
-            <p>
+          <h2 id="alignment"><span class="guide-article__num mono">07</span>Alignment on Two Axes</h2>
+
+          <p>
               Grid uses the CSS Box Alignment properties on both of its axes,
               which is where the <code>justify-*</code> /
               <code>align-*</code> split actually earns its keep:
@@ -1252,7 +827,7 @@
               repeats at three different scopes:
             </p>
             <div class="guide-table-wrap">
-              <table class="guide-table">
+              <table>
                 <caption>/ grid_alignment_scopes</caption>
                 <thead>
                   <tr>
@@ -1298,7 +873,9 @@
               pair — <code>align</code> value first, <code>justify</code>
               second:
             </p>
-            <p class="guide-formula mono">place-items: center;</p>
+            <div class="guide-callout">
+              <p class="mono">place-items: center;</p>
+            </div>
             <p>
               And <code>gap</code> (plus <code>row-gap</code> /
               <code>column-gap</code> individually) puts space between
@@ -1307,12 +884,10 @@
               It only affects space between tracks, never the outer edge —
               padding on the grid container still handles that.
             </p>
-          </section>
 
-          <section id="subgrid">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Subgrid: Inheriting a Parent's Rhythm</h2>
-            <p>
+          <h2 id="subgrid"><span class="guide-article__num mono">08</span>Subgrid: Inheriting a Parent's Rhythm</h2>
+
+          <p>
               Nest a grid inside a grid item by default, and the nested grid
               computes its own tracks from scratch, sized to its own content
               — entirely independent of the parent's tracks, even when the
@@ -1329,8 +904,7 @@
               axis reuses the exact track sizes its parent already
               established for the lines it spans.
             </p>
-            <div class="guide-code">
-              <pre><code>.card-row {
+            <pre><code>.card-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -1341,7 +915,6 @@
   display: grid;
   grid-template-rows: subgrid;
 }</code></pre>
-            </div>
             <p>
               <code>.card-row</code> is an ordinary three-column parent grid.
               Each <code>.card</code> spans four of the parent's row lines and
@@ -1367,14 +940,12 @@
               call all along — a one-off component with no siblings to align
               against rarely benefits from it.
             </p>
-          </section>
 
-          <section id="pitfalls">
-            <p class="guide-section__kicker mono">§ 09</p>
-            <h2>Five Pitfalls That Look Like Grid Bugs</h2>
-            <ul class="guide-pitfalls">
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">01</span>
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Five Pitfalls That Look Like Grid Bugs</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
                 <p>
                   <strong
                     >A track sized 1fr can still overflow its
@@ -1392,8 +963,8 @@
                   an unyielding flex child.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">02</span>
+              <li>
+                <span class="guide-recap__n">02</span>
                 <p>
                   <strong
                     >A malformed grid-template-areas fails
@@ -1407,8 +978,8 @@
                   same number of words before looking anywhere else.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">03</span>
+              <li>
+                <span class="guide-recap__n">03</span>
                 <p>
                   <strong
                     >Negative line numbers only count the explicit
@@ -1423,8 +994,8 @@
                   implicit track appears past it.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">04</span>
+              <li>
+                <span class="guide-recap__n">04</span>
                 <p>
                   <strong
                     >grid-auto-flow: dense reorders visually, not in the
@@ -1438,8 +1009,8 @@
                   orderings of the same page.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">05</span>
+              <li>
+                <span class="guide-recap__n">05</span>
                 <p>
                   <strong
                     >An unset grid-auto-rows leaves implicit rows sized
@@ -1456,13 +1027,11 @@
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section id="cheat-sheet">
-            <p class="guide-section__kicker mono">§ 10</p>
-            <h2>Quick Reference</h2>
-            <div class="guide-table-wrap">
-              <table class="guide-table">
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
                 <caption>
                   / css_grid_reference
                 </caption>
@@ -1529,10 +1098,8 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               None of this is about memorizing every Grid property at once —
               it's about knowing which two or three actually apply to the
               layout in front of you. Declare the explicit tracks you want,
@@ -1547,19 +1114,7 @@
               is really one of the handful of defaults in section nine, not a
               gap in the model itself.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>WEB LAYOUT</span>
-            <span>CSS GRID</span>
-            <span>LAYOUT SYSTEMS</span>
-            <span>SUBGRID</span>
-            <span>CSS</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>

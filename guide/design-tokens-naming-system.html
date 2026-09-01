@@ -107,6 +107,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -131,404 +132,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-
-      .guide-formula {
-        font-family: var(--gp-mono);
-        font-size: 0.95rem;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-blue-line);
-        padding: 12px 16px;
-        margin: 0 0 18px;
-        letter-spacing: 0.02em;
-      }
-      .guide-code {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 20px;
-        margin: 4px 0 32px;
-        overflow-x: auto;
-      }
-      .guide-code pre {
-        margin: 0;
-        font-family: var(--gp-mono);
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #e8edf4;
-      }
-      .guide-code pre code {
-        background: none;
-        border: none;
-        border-radius: 0;
-        padding: 0;
-        font-size: inherit;
-        color: inherit;
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="design-tokens-naming-system">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -661,18 +264,18 @@
       <span aria-current="page">Design Tokens</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">
-            // design_systems · token_architecture
-          </p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">DESIGN_SYSTEMS</span>
+            <span class="card-meta mono">ADV · 17 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             Design Tokens Are a Naming System, Not a Style Guide
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Most teams "adopt design tokens" by renaming hex codes into
             variables and calling the job finished. The naming architecture
             underneath — tiers, aliasing, and who's allowed to add what — is the
@@ -680,78 +283,70 @@
             new platform, or three years of new hires who never read the
             original spec.
           </p>
-          <div class="guide-meta mono">
-            <span>ADVANCED</span>
-            <span class="dot">·</span>
-            <span>17 MIN READ</span>
-            <span class="dot">·</span>
-            <span>DESIGN SYSTEMS</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#what-is-a-token"
-                ><span class="n">01</span> What a Token Actually Is</a
+                >What a Token Actually Is</a
               >
             </li>
             <li>
               <a href="#three-tiers"
-                ><span class="n">02</span> Three Tiers, One Rule Each</a
+                >Three Tiers, One Rule Each</a
               >
             </li>
             <li>
               <a href="#aliasing-chain"
-                ><span class="n">03</span> The Aliasing Chain</a
+                >The Aliasing Chain</a
               >
             </li>
             <li>
               <a href="#naming"
-                ><span class="n">04</span> Naming Conventions That Survive
+                >Naming Conventions That Survive
                 Scale</a
               >
             </li>
             <li>
-              <a href="#dtcg"><span class="n">05</span> The W3C DTCG Format</a>
+              <a href="#dtcg">The W3C DTCG Format</a>
             </li>
             <li>
               <a href="#transforms"
-                ><span class="n">06</span> Transforms: One Source, Many
+                >Transforms: One Source, Many
                 Platforms</a
               >
             </li>
             <li>
               <a href="#theming"
-                ><span class="n">07</span> Theming Without Duplicating Every
+                >Theming Without Duplicating Every
                 Token</a
               >
             </li>
             <li>
               <a href="#governance"
-                ><span class="n">08</span> Governance: Who Adds a Token</a
+                >Governance: Who Adds a Token</a
               >
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">09</span> Five Pitfalls That Look Like Tooling
+                >Five Pitfalls That Look Like Tooling
                 Bugs</a
               >
             </li>
             <li>
               <a href="#cheat-sheet"
-                ><span class="n">10</span> Quick Reference</a
+                >Quick Reference</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="what-is-a-token">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>What a Token Actually Is</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="what-is-a-token"><span class="guide-article__num mono">01</span>What a Token Actually Is</h2>
+
+          <p>
               A design token is not a CSS variable with better branding. A
               custom property, a Swift constant, and an Android XML resource are
               three different <strong>outputs</strong> of a token — one export
@@ -788,12 +383,10 @@
               to auto-generate outputs for more than one platform from it,
               everything downstream has to guess.
             </p>
-          </section>
 
-          <section id="three-tiers">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>Three Tiers, One Rule Each</h2>
-            <p>
+          <h2 id="three-tiers"><span class="guide-article__num mono">02</span>Three Tiers, One Rule Each</h2>
+
+          <p>
               This is the piece most "getting started with tokens" articles
               skip, and it's the one that determines whether the system holds
               up. Tokens live in three tiers, each answering a different
@@ -825,10 +418,9 @@
               say), this tier is where that rule lives instead of leaking into
               the semantic layer.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 300"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1031,10 +623,9 @@
             </figcaption>
           </figure>
 
-          <section id="aliasing-chain">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>The Aliasing Chain</h2>
-            <p>
+          <h2 id="aliasing-chain"><span class="guide-article__num mono">03</span>The Aliasing Chain</h2>
+
+          <p>
               "Aliasing" is the mechanism that makes the three tiers actually
               work: a token's value can be a reference to another token's name —
               commonly written <code>{color.action.primary}</code> — instead of
@@ -1066,20 +657,18 @@
               tier is missing or misused, not a sign the chain should get
               longer.
             </p>
-          </section>
 
-          <section id="naming">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>Naming Conventions That Survive Scale</h2>
-            <p>
+          <h2 id="naming"><span class="guide-article__num mono">04</span>Naming Conventions That Survive Scale</h2>
+
+          <p>
               A naming structure that works at 40 tokens and a naming structure
               that works at 4,000 are different problems. The formula that
               scales, used with minor variations across most mature token
               systems, orders segments from broadest to most specific:
             </p>
-            <p class="guide-formula mono">
-              category . concept . property . variant . state
-            </p>
+            <div class="guide-callout">
+              <p class="mono">category . concept . property . variant . state</p>
+            </div>
             <p>
               For example: <code>color.background.action.primary.hover</code> —
               category <em>color</em>, concept <em>background</em>, property
@@ -1110,12 +699,10 @@
               <code>color.brand.red</code> — and the rebrand becomes a value
               change instead of a search-and-replace across the whole codebase.
             </p>
-          </section>
 
-          <section id="dtcg">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>The W3C DTCG Format</h2>
-            <p>
+          <h2 id="dtcg"><span class="guide-article__num mono">05</span>The W3C DTCG Format</h2>
+
+          <p>
               For years, every token tool shipped its own JSON shape, which
               meant moving from one to another meant rewriting the whole file.
               The
@@ -1133,10 +720,8 @@
               itself — a group is just an object, and a token inside it declares
               <code>$value</code> and <code>$type</code>:
             </p>
-          </section>
 
-          <div class="guide-code">
-            <pre><code>{
+          <pre><code>{
   "color": {
     "blue": {
       "500": { "$value": "#2563eb", "$type": "color" }
@@ -1158,10 +743,8 @@
     }
   }
 }</code></pre>
-          </div>
 
-          <section>
-            <p>
+          <p>
               Three things worth noticing in that shape:
               <code>$value</code> can be a literal (<code>"#2563eb"</code>) or
               an alias (<code>"{color.blue.500}"</code>) — the curly-brace
@@ -1176,12 +759,10 @@
               line-height as one resolvable unit instead of four
               separately-aliased tokens that have to be kept in sync by hand.
             </p>
-          </section>
 
-          <section id="transforms">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>Transforms: One Source, Many Platforms</h2>
-            <p>
+          <h2 id="transforms"><span class="guide-article__num mono">06</span>Transforms: One Source, Many Platforms</h2>
+
+          <p>
               The entire point of a shared, structured source format is that it
               can be fed through a build step once and produce every platform's
               native format as output, instead of a human copying values into
@@ -1209,10 +790,9 @@
               today and silently diverge from the token it should have
               referenced the next time that token's value changes.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 260"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1421,10 +1001,9 @@
             </figcaption>
           </figure>
 
-          <section id="theming">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Theming Without Duplicating Every Token</h2>
-            <p>
+          <h2 id="theming"><span class="guide-article__num mono">07</span>Theming Without Duplicating Every Token</h2>
+
+          <p>
               Dark mode is the case that proves whether the tier structure from
               section two was worth the trouble. Done right, the semantic and
               component tiers never learn that a "mode" exists at all —
@@ -1457,12 +1036,10 @@
               still applies here — it just needs re-running for every mode a
               token pair can resolve into, not once for the palette as a whole.
             </p>
-          </section>
 
-          <section id="governance">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Governance: Who Adds a Token</h2>
-            <p>
+          <h2 id="governance"><span class="guide-article__num mono">08</span>Governance: Who Adds a Token</h2>
+
+          <p>
               A token file with no review gate degrades the same way an
               unmoderated shared color palette always has: someone needs a blue
               that's <em>almost</em> the existing blue, doesn't find it in a
@@ -1498,14 +1075,12 @@
               semantic tier is missing a role, not a sign the component tier
               needs to grow.
             </p>
-          </section>
 
-          <section id="pitfalls">
-            <p class="guide-section__kicker mono">§ 09</p>
-            <h2>Five Pitfalls That Look Like Tooling Bugs</h2>
-            <ul class="guide-pitfalls">
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">01</span>
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Five Pitfalls That Look Like Tooling Bugs</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
                 <p>
                   <strong
                     >"Fixing" dark mode by editing a component token
@@ -1519,8 +1094,8 @@
                   value back to the semantic alias and fix it there.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">02</span>
+              <li>
+                <span class="guide-recap__n">02</span>
                 <p>
                   <strong
                     >Reviewing color tokens carefully and everything else
@@ -1534,8 +1109,8 @@
                   every token type, not just the palette.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">03</span>
+              <li>
+                <span class="guide-recap__n">03</span>
                 <p>
                   <strong>Deleting a token instead of deprecating it.</strong>
                   Removing an old token the moment its replacement ships breaks
@@ -1546,8 +1121,8 @@
                   name anymore.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">04</span>
+              <li>
+                <span class="guide-recap__n">04</span>
                 <p>
                   <strong
                     >Letting the primitive tier grow without a search
@@ -1562,8 +1137,8 @@
                   sprawl.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">05</span>
+              <li>
+                <span class="guide-recap__n">05</span>
                 <p>
                   <strong
                     >Assuming a matching name means a matching source.</strong
@@ -1579,13 +1154,11 @@
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section id="cheat-sheet">
-            <p class="guide-section__kicker mono">§ 10</p>
-            <h2>Quick Reference</h2>
-            <div class="guide-table-wrap">
-              <table class="guide-table">
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
                 <caption>
                   / token_tier_reference
                 </caption>
@@ -1630,10 +1203,8 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               None of this is really about tooling. Style Dictionary, Tokens
               Studio, and Figma Variables all change shape every year or two —
               the naming architecture underneath is the part built to outlast
@@ -1644,19 +1215,7 @@
               them, and "we use design tokens" just means the hardcoded values
               moved one file over.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>DESIGN SYSTEMS</span>
-            <span>DESIGN TOKENS</span>
-            <span>DTCG</span>
-            <span>THEMING</span>
-            <span>GOVERNANCE</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>

@@ -112,6 +112,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -174,386 +175,6 @@
       if/when styles.css grows real .guide-* rules of its own, those can
       simply replace this block wholesale.
     -->
-    <style>
-      .guide-article {
-        --ink: #0f2a52;
-        --ink-soft: #33455f;
-        --muted: #5b6b82;
-        --line: #dde3ec;
-        --bg-soft: #f5f7fa;
-        --green: #1f9d55;
-        --green-soft: #e5f6ec;
-        --amber: #b5790f;
-        --amber-soft: #fbf1de;
-        --red: #c0392b;
-        --red-soft: #fbe9e7;
-        --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-        max-width: 780px;
-        margin: 0 auto;
-        padding: 40px 20px 88px;
-        color: var(--ink-soft);
-        line-height: 1.65;
-      }
-      .guide-article * {
-        box-sizing: border-box;
-      }
-      .guide-article .guide-label {
-        font-family: var(--mono);
-        font-size: 12.5px;
-        letter-spacing: 0.06em;
-        color: var(--muted);
-        margin: 0 0 14px;
-      }
-      .guide-article .guide-badge {
-        display: inline-block;
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        color: var(--ink);
-        background: var(--bg-soft);
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        padding: 3px 8px;
-        margin-bottom: 16px;
-      }
-      .guide-article h1 {
-        font-size: clamp(28px, 5vw, 40px);
-        line-height: 1.15;
-        color: var(--ink);
-        margin: 0 0 16px;
-        max-width: 22ch;
-      }
-      .guide-article .guide-dek {
-        font-size: clamp(17px, 2.4vw, 19px);
-        color: var(--muted);
-        max-width: 62ch;
-        margin: 0 0 20px;
-      }
-      .guide-article .guide-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-        font-family: var(--mono);
-        font-size: 12.5px;
-        letter-spacing: 0.04em;
-        color: var(--muted);
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        padding: 12px 0;
-        margin: 0 0 32px;
-      }
-      .guide-article .guide-meta .dot {
-        opacity: 0.5;
-      }
-      .guide-article .guide-toc {
-        background: var(--bg-soft);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 4px 20px;
-        margin: 0 0 36px;
-      }
-      .guide-article .guide-toc summary {
-        cursor: pointer;
-        font-family: var(--mono);
-        font-size: 13px;
-        letter-spacing: 0.04em;
-        color: var(--ink);
-        padding: 14px 0;
-      }
-      .guide-article .guide-toc ol {
-        margin: 0 0 16px;
-        padding-left: 1.2em;
-        columns: 1;
-      }
-      .guide-article .guide-toc li {
-        margin: 0 0 7px;
-        font-size: 14.5px;
-      }
-      .guide-article .guide-toc a {
-        color: var(--ink-soft);
-        text-decoration: none;
-      }
-      .guide-article .guide-toc a:hover {
-        color: var(--ink);
-        text-decoration: underline;
-      }
-      .guide-article .guide-body p,
-      .guide-article .guide-body li {
-        max-width: 68ch;
-        font-size: 16.5px;
-      }
-      .guide-article .guide-body h2 {
-        font-size: clamp(21px, 3vw, 25px);
-        color: var(--ink);
-        margin: 44px 0 14px;
-        scroll-margin-top: 90px;
-        max-width: 30ch;
-      }
-      .guide-article .guide-body h2 .guide-h2-num {
-        font-family: var(--mono);
-        font-size: 14px;
-        color: var(--muted);
-        margin-right: 8px;
-      }
-      .guide-article .guide-body p {
-        margin: 0 0 16px;
-      }
-      .guide-article .guide-body ul,
-      .guide-article .guide-body ol {
-        margin: 0 0 16px;
-        padding-left: 1.3em;
-      }
-      .guide-article .guide-body li {
-        margin: 0 0 8px;
-      }
-      .guide-article .guide-body strong {
-        color: var(--ink);
-      }
-      .guide-article .guide-body a {
-        color: var(--ink);
-        text-decoration-color: var(--line);
-      }
-      .guide-article .guide-body a:hover {
-        text-decoration-color: currentColor;
-      }
-
-      .guide-article .guide-figure {
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 24px;
-        margin: 28px 0 32px;
-        background: #fff;
-      }
-      .guide-article .guide-figure-media {
-        display: flex;
-        justify-content: center;
-      }
-      .guide-article .guide-figure-media svg {
-        width: 100%;
-        max-width: 260px;
-        height: auto;
-      }
-      .guide-article .guide-figure-legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        margin: 18px 0 14px;
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.04em;
-      }
-      .guide-article .zone-chip {
-        border-radius: 4px;
-        padding: 4px 9px;
-        border: 1px solid transparent;
-      }
-      .guide-article .zone-chip--green {
-        color: var(--green);
-        background: var(--green-soft);
-        border-color: #cdeedb;
-      }
-      .guide-article .zone-chip--amber {
-        color: var(--amber);
-        background: var(--amber-soft);
-        border-color: #f2ddb3;
-      }
-      .guide-article .zone-chip--red {
-        color: var(--red);
-        background: var(--red-soft);
-        border-color: #f3c9c3;
-      }
-      .guide-article figcaption {
-        font-size: 13.5px;
-        color: var(--muted);
-        text-align: center;
-        max-width: 46ch;
-        margin: 0 auto;
-      }
-
-      .guide-article .guide-table-wrap {
-        overflow-x: auto;
-        margin: 20px 0 28px;
-      }
-      .guide-article table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 14.5px;
-        min-width: 460px;
-      }
-      .guide-article caption {
-        text-align: left;
-        font-family: var(--mono);
-        font-size: 12px;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-        margin-bottom: 8px;
-      }
-      .guide-article th,
-      .guide-article td {
-        border: 1px solid var(--line);
-        padding: 10px 12px;
-        text-align: left;
-        vertical-align: top;
-      }
-      .guide-article thead th {
-        background: var(--bg-soft);
-        font-family: var(--mono);
-        font-size: 11.5px;
-        letter-spacing: 0.05em;
-        color: var(--ink);
-      }
-      .guide-article tbody th {
-        font-weight: 600;
-        color: var(--ink);
-        white-space: nowrap;
-      }
-
-      .guide-article .guide-callout {
-        border: 1px solid var(--line);
-        border-left: 3px solid var(--ink);
-        border-radius: 6px;
-        padding: 18px 20px;
-        margin: 24px 0;
-        background: var(--bg-soft);
-      }
-      .guide-article .guide-callout p:last-child {
-        margin-bottom: 0;
-      }
-      .guide-article .guide-callout .guide-callout-label {
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        color: var(--muted);
-        margin: 0 0 8px;
-        text-transform: uppercase;
-      }
-
-      .guide-article pre {
-        background: var(--ink);
-        color: #e7edf6;
-        border-radius: 8px;
-        padding: 16px 18px;
-        overflow-x: auto;
-        font-size: 13px;
-        line-height: 1.6;
-        margin: 0 0 14px;
-      }
-      .guide-article code {
-        font-family: var(--mono);
-        font-size: 0.92em;
-      }
-      .guide-article :not(pre) > code {
-        background: var(--bg-soft);
-        border: 1px solid var(--line);
-        border-radius: 3px;
-        padding: 1px 5px;
-        color: var(--ink);
-      }
-
-      .guide-article .guide-spec {
-        border: 1px solid var(--ink);
-        border-radius: 8px;
-        padding: 24px 26px;
-        margin: 30px 0 36px;
-        background: #fff;
-      }
-      .guide-article .guide-spec-label {
-        font-family: var(--mono);
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        color: var(--ink);
-        margin: 0 0 14px;
-      }
-      .guide-article .guide-spec dl {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        gap: 8px 18px;
-        margin: 0;
-      }
-      .guide-article .guide-spec dt {
-        font-family: var(--mono);
-        font-size: 13px;
-        color: var(--muted);
-        white-space: nowrap;
-      }
-      .guide-article .guide-spec dd {
-        margin: 0;
-        font-size: 14.5px;
-        color: var(--ink-soft);
-      }
-
-      .guide-article .guide-footer-nav {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-        border-top: 1px solid var(--line);
-        padding-top: 24px;
-        margin-top: 44px;
-        font-size: 14px;
-      }
-      .guide-article .guide-footer-nav a {
-        color: var(--ink);
-        text-decoration: none;
-        max-width: 32ch;
-      }
-      .guide-article .guide-footer-nav a:hover {
-        text-decoration: underline;
-      }
-      .guide-article .guide-footer-nav .next {
-        text-align: right;
-        margin-left: auto;
-      }
-
-      .guide-article .guide-cta {
-        text-align: center;
-        margin-top: 28px;
-      }
-      .guide-article .guide-cta a {
-        display: inline-block;
-        font-family: var(--mono);
-        font-size: 13px;
-        letter-spacing: 0.03em;
-        color: #fff;
-        background: var(--ink);
-        border-radius: 6px;
-        padding: 12px 20px;
-        text-decoration: none;
-      }
-      .guide-article .guide-cta a:hover {
-        background: var(--ink-soft);
-      }
-
-      .guide-crumb {
-        max-width: 780px;
-        margin: 0 auto;
-        padding: 22px 20px 0;
-      }
-      .guide-crumb a {
-        font-family: var(--mono, monospace);
-        font-size: 13px;
-        color: #33455f;
-        text-decoration: none;
-      }
-      .guide-crumb a:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 640px) {
-        .guide-article {
-          padding: 28px 16px 64px;
-        }
-        .guide-article .guide-footer-nav {
-          flex-direction: column;
-        }
-        .guide-article .guide-footer-nav .next {
-          text-align: left;
-          margin-left: 0;
-        }
-      }
-    </style>
   </head>
   <body data-guide-id="thumb-zones-layout-constraint">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -686,30 +307,24 @@
     <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article" aria-labelledby="guide-title">
-            <header class="guide-header">
-              <p class="guide-label">/ mobile_app_design</p>
-              <span class="guide-badge">MOBILE_APP</span>
-              <h1 id="guide-title">
-                Thumb Zones Are a Layout Constraint, Not a Nice-to-Have
-              </h1>
-              <p class="guide-dek">
-                Reachability math for today's screen sizes, why primary actions
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">MOBILE_APP</span>
+            <span class="card-meta mono">BEG · 10 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
+            Thumb Zones Are a Layout Constraint, Not a Nice-to-Have
+          </h1>
+          <p class="guide-hero__dek">
+            Reachability math for today's screen sizes, why primary actions
                 sit low and destructive ones sit far, before color even enters
                 the decision.
-              </p>
-              <div class="guide-meta">
-                <span>BEGINNER</span>
-                <span class="dot">·</span>
-                <span>10 MIN READ</span>
-                <span class="dot">·</span>
-                <span>MOBILE APP DESIGN</span>
-              </div>
-            </header>
+          </p>
+        </section>
 
-            <details class="guide-toc" open>
-              <summary>On this page</summary>
-              <ol>
+            <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
+          <ol>
                 <li>
                   <a href="#the-habit-to-break">The habit worth breaking</a>
                 </li>
@@ -744,14 +359,14 @@
                 <li><a href="#common-mistakes">Common mistakes</a></li>
                 <li><a href="#the-spec">The spec</a></li>
               </ol>
-            </details>
+        </nav>
 
-            <div class="guide-body">
-              <section id="the-habit-to-break">
-                <h2>
-                  <span class="guide-h2-num">01</span>The habit worth breaking
+            <article class="guide-article">
+              <h2 id="the-habit-to-break">
+                  <span class="guide-article__num mono">01</span>The habit worth breaking
                 </h2>
-                <p>
+
+          <p>
                   Open a mobile mockup that's gone through a few rounds of
                   review and you can usually reconstruct the process that built
                   it: hierarchy first, color second, spacing third, and
@@ -774,14 +389,13 @@
                   bottom instead of the top, why the delete button is small and
                   far away — stop being style choices and start being math.
                 </p>
-              </section>
 
-              <section id="what-the-hand-does">
-                <h2>
-                  <span class="guide-h2-num">02</span>What the hand actually
+              <h2 id="what-the-hand-does">
+                  <span class="guide-article__num mono">02</span>What the hand actually
                   does
                 </h2>
-                <p>
+
+          <p>
                   The evidence for this isn't a hunch. In 2013, UX researcher
                   Steven Hoober and a small team observed 1,333 people using
                   phones in the wild — on the street, on trains, at bus stops —
@@ -810,11 +424,10 @@
                   the same thumb is covering proportionally less of a bigger
                   sheet of glass.
                 </p>
-              </section>
 
-              <section id="mapping-the-zone">
-                <h2><span class="guide-h2-num">03</span>Mapping the zone</h2>
-                <p>
+              <h2 id="mapping-the-zone"><span class="guide-article__num mono">03</span>Mapping the zone</h2>
+
+          <p>
                   Designer Josh Clark gave this constraint a name and a shape in
                   his book <em>Designing for Touch</em>: the thumb zone, usually
                   drawn as three overlapping bands radiating out from wherever
@@ -848,8 +461,8 @@
                   cover a wider span.
                 </p>
 
-                <figure class="guide-figure">
-                  <div class="guide-figure-media">
+                <figure class="guide-diagram guide-diagram--light">
+                  <div class="guide-diagram__frame">
                     <svg
                       viewBox="0 0 320 460"
                       xmlns="http://www.w3.org/2000/svg"
@@ -935,14 +548,14 @@
                       />
                     </svg>
                   </div>
-                  <div class="guide-figure-legend">
-                    <span class="zone-chip zone-chip--green"
+                  <div class="guide-diagram__legend">
+                    <span class="guide-diagram__chip guide-diagram__chip--success"
                       >GREEN · NATURAL</span
                     >
-                    <span class="zone-chip zone-chip--amber"
+                    <span class="guide-diagram__chip guide-diagram__chip--warning"
                       >AMBER · STRETCH</span
                     >
-                    <span class="zone-chip zone-chip--red"
+                    <span class="guide-diagram__chip guide-diagram__chip--danger"
                       >RED · REPOSITION</span
                     >
                   </div>
@@ -954,14 +567,13 @@
                     dominant factor either way.
                   </figcaption>
                 </figure>
-              </section>
 
-              <section id="the-layout-math">
-                <h2>
-                  <span class="guide-h2-num">04</span>Turning the map into
+              <h2 id="the-layout-math">
+                  <span class="guide-article__num mono">04</span>Turning the map into
                   layout math
                 </h2>
-                <p>
+
+          <p>
                   A heuristic is only useful once it becomes a rule applied at a
                   specific breakpoint, so translate the zone map into concrete
                   constraints:
@@ -994,14 +606,13 @@
                     gesture, not the primary path.
                   </li>
                 </ul>
-              </section>
 
-              <section id="why-destructive-actions-sit-far">
-                <h2>
-                  <span class="guide-h2-num">05</span>Why destructive actions
+              <h2 id="why-destructive-actions-sit-far">
+                  <span class="guide-article__num mono">05</span>Why destructive actions
                   sit far — before color
                 </h2>
-                <p>
+
+          <p>
                   This is also where the thumb zone earns the second half of
                   this guide's title. Placing "Delete Account" or "Remove
                   Payment Method" in the top corner, slightly undersized, isn't
@@ -1036,13 +647,12 @@
                   won't casually land, size it modestly, and still ask "are you
                   sure?" before it executes.
                 </p>
-              </section>
 
-              <section id="sizing-the-target">
-                <h2>
-                  <span class="guide-h2-num">06</span>Sizing the target itself
+              <h2 id="sizing-the-target">
+                  <span class="guide-article__num mono">06</span>Sizing the target itself
                 </h2>
-                <p>
+
+          <p>
                   Position says where a target sits relative to the thumb; size
                   says how forgiving it is once the thumb gets there. Every
                   major platform and accessibility standard has converged on a
@@ -1091,13 +701,12 @@
                   — that gutter is what turns a near-miss into a correct tap
                   instead of the wrong neighbor.
                 </p>
-              </section>
 
-              <section id="reach-is-not-constant">
-                <h2>
-                  <span class="guide-h2-num">07</span>Reach is not a constant
+              <h2 id="reach-is-not-constant">
+                  <span class="guide-article__num mono">07</span>Reach is not a constant
                 </h2>
-                <p>
+
+          <p>
                   The zone map is a default, not a boundary measured to the
                   pixel, because the hand behind it keeps changing:
                 </p>
@@ -1126,14 +735,13 @@
                   one grip, rather than treating any single diagram — including
                   the one above — as gospel.
                 </p>
-              </section>
 
-              <section id="the-accessibility-caveat">
-                <h2>
-                  <span class="guide-h2-num">08</span>The accessibility caveat
+              <h2 id="the-accessibility-caveat">
+                  <span class="guide-article__num mono">08</span>The accessibility caveat
                 </h2>
-                <div class="guide-callout">
-                  <p class="guide-callout-label">Read this one twice</p>
+
+          <div class="guide-callout">
+                  <p class="guide-callout__label">Read this one twice</p>
                   <p>
                     The thumb zone is a convenience model for where an average
                     one-handed grip happens to land — it is not a substitute for
@@ -1162,13 +770,12 @@
                     >.
                   </p>
                 </div>
-              </section>
 
-              <section id="implementation-patterns">
-                <h2>
-                  <span class="guide-h2-num">09</span>Implementation patterns
+              <h2 id="implementation-patterns">
+                  <span class="guide-article__num mono">09</span>Implementation patterns
                 </h2>
-                <p>
+
+          <p>
                   A few patterns turn the constraints above into something
                   shippable:
                 </p>
@@ -1207,11 +814,10 @@
                     than assuming portrait is the only layout that ships.
                   </li>
                 </ul>
-              </section>
 
-              <section id="common-mistakes">
-                <h2><span class="guide-h2-num">10</span>Common mistakes</h2>
-                <ul>
+              <h2 id="common-mistakes"><span class="guide-article__num mono">10</span>Common mistakes</h2>
+
+          <ul>
                   <li>
                     A hamburger or overflow menu stuck in a top corner on a
                     6.7-inch phone, forcing a full regrip for a control opened
@@ -1234,12 +840,11 @@
                     often toward the bottom third.
                   </li>
                 </ul>
-              </section>
 
-              <section id="the-spec">
-                <h2><span class="guide-h2-num">11</span>The spec</h2>
-                <div class="guide-spec">
-                  <p class="guide-spec-label">// thumb_zone.spec</p>
+              <h2 id="the-spec"><span class="guide-article__num mono">11</span>The spec</h2>
+
+          <div class="guide-spec">
+                  <p class="guide-spec__label">// thumb_zone.spec</p>
                   <dl>
                     <dt>Primary actions</dt>
                     <dd>Bottom 25–33% of viewport height</dd>
@@ -1271,23 +876,27 @@
                   that actually works in the one place it will always be used:
                   someone's hand.
                 </p>
-              </section>
-            </div>
+            </article>
 
             <nav class="guide-footer-nav" aria-label="Guide navigation">
-              <a href="responsive-layout-contract" class="prev"
-                >← Responsive Layout Is a Contract, Not a Breakpoint List</a
+              <a href="mobile-breakpoints-device-categories" class="prev"
+                >← Mobile Breakpoints Are Device Categories, Not Arbitrary
+                Pixels</a
               >
-              <a href="accessibility-structural-model" class="next"
-                >Accessibility Is a Structural Decision, Not a Final Pass →</a
+              <a href="ios-android-different-systems" class="next"
+                >iOS and Android Are Different Systems, Not One Design Reused
+                Twice →</a
               >
             </nav>
 
             <div class="guide-cta">
-              <a href="../roadmap.html">Back to the learning roadmap →</a>
+              <div class="guide-cta__text">
+                <strong>Keep going</strong>
+                <span>Continue with the next guide in the learning roadmap.</span>
+              </div>
+              <a href="../roadmap.html" class="btn-primary">Back to the learning roadmap →</a>
             </div>
-          </article>
-        </div>
+          </div>
         <aside
           class="guide-rail"
           id="guide-rail"

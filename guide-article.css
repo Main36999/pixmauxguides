@@ -1,0 +1,823 @@
+/* ==========================================================================
+   guide-article.css
+   ONE shared stylesheet for every /guide/*.html page.
+
+   Why this file exists:
+   Each of the 22 guide pages currently ships its own <style> block
+   (three different token sets, three different class systems: a
+   "--gp-*" breadcrumb/hero system, an "--ink/--muted" traffic-light
+   system, and a BEM/color-mix system). This file replaces all three
+   with one system that extends the tokens already defined in
+   /styles.css instead of re-declaring a fourth palette.
+
+   How to use it:
+   1. Keep the existing <link rel="stylesheet" href="../styles.css">
+   2. Add:  <link rel="stylesheet" href="../guide-article.css">
+   3. Delete the page's inline <style> block
+   4. Rename that page's markup to the class names below (see the
+      migration notes at the bottom of this file)
+
+   Nothing in here touches .guide-layout / .guide-primary / .guide-rail —
+   those already live in styles.css and are already consistent across
+   every guide, so they're left alone.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens — only ADDS what styles.css doesn't already have.
+   Layout, ink, action, cyan, paper, card, grid-line, text, mono, sans,
+   radius all already exist in :root in styles.css. The only genuinely
+   missing pieces are semantic callout colors. --danger below is not a
+   new invention — it's the same #c0392b already used by .form-error,
+   just promoted to a reusable token.
+   -------------------------------------------------------------------------- */
+:root {
+  --guide-info: var(--action);
+  --guide-info-bg: rgba(29, 95, 214, 0.08);
+  --guide-success: #1f9d55;
+  --guide-success-bg: #e5f6ec;
+  --guide-warning: #b5790f;
+  --guide-warning-bg: #fbf1de;
+  --guide-danger: #c0392b; /* matches .form-error — already the site's error red */
+  --guide-danger-bg: #fbe9e7;
+}
+
+/* --------------------------------------------------------------------------
+   2. Breadcrumb
+   guide-crumb is the simpler "← All guides" back-link wrapper (pairs with
+   the site's existing .page-view__back, already in styles.css) used by
+   the Family-C-authored pages instead of the full .guide-breadcrumb trail
+   below. Kept as its own rule rather than merged into .guide-breadcrumb
+   since the two aren't interchangeable — this one has no trail/current-page
+   parts, just top spacing for the back link.
+   -------------------------------------------------------------------------- */
+.guide-crumb {
+  padding-top: 24px;
+}
+
+.guide-breadcrumb {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  padding-top: 8px;
+  margin-bottom: 0;
+}
+.guide-breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.guide-breadcrumb a:hover {
+  color: var(--action);
+  border-bottom-color: var(--action);
+}
+.guide-breadcrumb span[aria-hidden] {
+  margin: 0 6px;
+  color: var(--grid-line);
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero (eyebrow + title + dek + optional figure)
+   Figure reuses the exact blueprint-grid look of .article-hero /
+   .card-thumb elsewhere on the site, so a diagram inside a guide reads
+   as the same "spec sheet" object as a guide-card thumbnail.
+   -------------------------------------------------------------------------- */
+.guide-hero {
+  padding: 28px 0 32px;
+  border-bottom: 1px solid var(--grid-line);
+  margin-bottom: 36px;
+}
+.guide-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.guide-hero__title {
+  font-size: clamp(28px, 3.6vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  max-width: 20ch;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.guide-hero__dek {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 62ch;
+  margin: 0;
+}
+.guide-hero__figure {
+  position: relative;
+  aspect-ratio: 20 / 9;
+  margin-top: 28px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 18px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.guide-hero__figure svg {
+  width: 46%;
+  height: auto;
+  color: var(--action);
+  overflow: visible;
+}
+
+/* --------------------------------------------------------------------------
+   4. Table of contents
+   -------------------------------------------------------------------------- */
+.guide-toc {
+  margin: 0 0 44px;
+  padding: 20px 24px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+/* Structural only — pair with the site's existing "section-label mono"
+   utility classes in the markup for color/type, e.g.:
+   <span class="section-label mono guide-toc__label">/ on_this_page</span> */
+.guide-toc__label {
+  display: block;
+  margin-bottom: 12px;
+}
+.guide-toc ol {
+  margin: 0;
+  padding-left: 1.25em;
+  columns: 2;
+  column-gap: 32px;
+}
+.guide-toc li {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  font-size: 14.5px;
+}
+.guide-toc a {
+  color: var(--text);
+  text-decoration: none;
+}
+.guide-toc a:hover,
+.guide-toc a:focus-visible {
+  color: var(--action);
+  text-decoration: underline;
+}
+@media (max-width: 560px) {
+  .guide-toc ol {
+    columns: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Prose — headings, paragraphs, lists, code, tables
+   -------------------------------------------------------------------------- */
+.guide-article {
+  max-width: 68ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.guide-article > * + * {
+  margin-top: 24px;
+}
+.guide-article h2 {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-top: 56px;
+  margin-bottom: 4px;
+  scroll-margin-top: 24px;
+  letter-spacing: -0.005em;
+}
+.guide-article h2 .guide-article__num {
+  font-family: var(--mono);
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-right: 0.5em;
+}
+.guide-article h3 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 36px;
+  margin-bottom: 4px;
+  scroll-margin-top: 24px;
+}
+.guide-article p,
+.guide-article li {
+  max-width: 62ch;
+}
+.guide-article ul,
+.guide-article ol {
+  padding-left: 1.4em;
+}
+.guide-article li + li {
+  margin-top: 8px;
+}
+.guide-article strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+.guide-article a {
+  color: var(--action);
+}
+.guide-article code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+  background: var(--paper);
+  border: 1px solid var(--grid-line);
+}
+.guide-article pre {
+  margin-top: 24px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--ink);
+}
+.guide-article pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.85em;
+  line-height: 1.6;
+  color: #e8edf4;
+}
+
+.guide-table-wrap {
+  margin-top: 24px;
+  overflow-x: auto;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+}
+.guide-article table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  min-width: 480px;
+}
+.guide-article caption {
+  text-align: left;
+  padding: 12px 16px 0;
+  color: var(--text-muted);
+}
+.guide-article th,
+.guide-article td {
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--grid-line);
+  vertical-align: top;
+}
+.guide-article thead th {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--ink);
+}
+.guide-article tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. Callouts — one component, four semantic variants.
+   Replaces the ad hoc "note" boxes each guide invented separately.
+   -------------------------------------------------------------------------- */
+.guide-callout {
+  padding: 18px 20px;
+  border-left: 3px solid var(--guide-info);
+  background: var(--guide-info-bg);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.guide-callout p {
+  margin: 0;
+  max-width: none;
+}
+.guide-callout p + p {
+  margin-top: 10px;
+}
+.guide-callout__label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--guide-info);
+}
+.guide-callout--success {
+  border-left-color: var(--guide-success);
+  background: var(--guide-success-bg);
+}
+.guide-callout--success .guide-callout__label {
+  color: var(--guide-success);
+}
+.guide-callout--warning {
+  border-left-color: var(--guide-warning);
+  background: var(--guide-warning-bg);
+}
+.guide-callout--warning .guide-callout__label {
+  color: var(--guide-warning);
+}
+.guide-callout--danger {
+  border-left-color: var(--guide-danger);
+  background: var(--guide-danger-bg);
+}
+.guide-callout--danger .guide-callout__label {
+  color: var(--guide-danger);
+}
+
+/* --------------------------------------------------------------------------
+   7. Example / comparison grid (do vs. don't, before vs. after)
+   -------------------------------------------------------------------------- */
+.guide-example {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  margin-top: 24px;
+}
+@media (min-width: 640px) {
+  .guide-example {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.guide-example figure {
+  margin: 0;
+  padding: 16px;
+  border: 1px dashed var(--grid-line);
+  border-radius: var(--radius);
+}
+.guide-example figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Recap — numbered end-of-section summary
+   -------------------------------------------------------------------------- */
+.guide-recap {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.guide-recap li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--paper);
+  border-left: 3px solid var(--ink);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.guide-recap li .guide-recap__n {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--cyan);
+  padding-top: 2px;
+}
+.guide-recap li p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+}
+/* Warning variant — for "common pitfalls / mistakes" lists, which are
+   structurally identical to a recap (numbered, left-bordered) but read
+   as cautionary rather than a neutral summary. Reuses the same warning
+   tokens --guide-warning / --guide-warning-bg already defined for
+   .guide-callout--warning above, so the two "this is a warning" looks
+   stay visually consistent wherever they appear. */
+.guide-recap--warning li {
+  background: var(--guide-warning-bg);
+  border-left-color: var(--guide-warning);
+}
+.guide-recap--warning li .guide-recap__n {
+  color: var(--guide-warning);
+}
+
+/* --------------------------------------------------------------------------
+   9. CTA — reuses the site's real .btn-primary instead of a bespoke button
+   -------------------------------------------------------------------------- */
+.guide-cta {
+  margin-top: 64px;
+  padding: 28px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--card);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.guide-cta__text strong {
+  display: block;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.guide-cta__text span {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. Diagram — dark-frame technical illustration, for mid-article figures
+   (as opposed to .guide-hero__figure, which is the lead image up top).
+   These are hand-authored, multi-color inline SVGs (accent lines, state
+   comparisons, etc.) with colors baked into the markup on purpose — the
+   goal here is only to give them a consistent frame, not to repaint each
+   guide's bespoke illustration into a single accent color. Mirrors
+   .guide-article pre's existing dark treatment below so code blocks and
+   diagrams read as the same family of "technical content" chrome.
+   -------------------------------------------------------------------------- */
+.guide-diagram {
+  max-width: 100%;
+  margin: 32px 0;
+}
+.guide-diagram__frame {
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 18px 18px 14px;
+}
+.guide-diagram__frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.guide-diagram figcaption {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+/* Light variant — for diagrams drawn with the constrained semantic
+   palette (ink / success / warning / danger) rather than Family A's
+   free-color illustrations. Those already read fine on a light card;
+   forcing them into the dark frame above would fight their own colors
+   instead of just framing them. */
+.guide-diagram--light .guide-diagram__frame {
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+}
+.guide-diagram--light .guide-diagram__frame svg {
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+/* Legend row of color-coded chips underneath a diagram (e.g. a
+   green/amber/red reachability map). Reuses the exact callout tokens
+   above so "this chip means the same thing as that callout" stays true
+   wherever the two appear on the same page. */
+.guide-diagram__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+.guide-diagram__chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  color: var(--guide-info);
+  background: var(--guide-info-bg);
+}
+.guide-diagram__chip--success {
+  color: var(--guide-success);
+  background: var(--guide-success-bg);
+}
+.guide-diagram__chip--warning {
+  color: var(--guide-warning);
+  background: var(--guide-warning-bg);
+}
+.guide-diagram__chip--danger {
+  color: var(--guide-danger);
+  background: var(--guide-danger-bg);
+}
+
+/* --------------------------------------------------------------------------
+   11. Spec sheet — a bordered term/value reference box (e.g. a "the spec"
+   closing section), distinct from .guide-callout (a note, not a lookup
+   table) and .guide-recap (a numbered list, not term/value pairs).
+   -------------------------------------------------------------------------- */
+.guide-spec {
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  margin: 24px 0;
+  background: var(--card);
+}
+.guide-spec__label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.guide-spec dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 18px;
+  margin: 0;
+}
+.guide-spec dt {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.guide-spec dd {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer nav — sequential prev/next between guides (roadmap order),
+   distinct from .guide-rail's topic-related suggestions in the sidebar.
+   -------------------------------------------------------------------------- */
+.guide-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--grid-line);
+  padding-top: 24px;
+  margin-top: 44px;
+  font-size: 14px;
+}
+.guide-footer-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  max-width: 32ch;
+}
+.guide-footer-nav a:hover {
+  text-decoration: underline;
+}
+.guide-footer-nav .next {
+  text-align: right;
+  margin-left: auto;
+}
+@media (max-width: 560px) {
+  .guide-footer-nav {
+    flex-direction: column;
+  }
+  .guide-footer-nav .next {
+    text-align: left;
+    margin-left: 0;
+  }
+}
+/* Light-frame variant — for diagrams authored with dark-on-light SVG
+   strokes (e.g. hex colors like #0f2a52 meant to sit on white), the
+   inverse of the dark-frame default above. Swapping frames rather than
+   repainting each guide's SVGs, same principle as the dark default. */
+.guide-diagram__frame--light {
+  background: #fff;
+  border-color: var(--grid-line);
+  display: flex;
+  justify-content: center;
+}
+.guide-diagram__frame--light svg {
+  width: auto;
+  max-width: 100%;
+}
+/* Legend row underneath a diagram (e.g. "which color means what"),
+   built from .guide-chip below. */
+.guide-diagram__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* Small labeled chip, e.g. for a diagram legend. Tied to the same
+   success/warning/danger tokens as .guide-callout and .guide-recap so
+   "this color means X" stays consistent everywhere it's used. */
+.guide-chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  padding: 4px 9px;
+}
+.guide-chip--success {
+  color: var(--guide-success);
+  background: var(--guide-success-bg);
+}
+.guide-chip--warning {
+  color: var(--guide-warning);
+  background: var(--guide-warning-bg);
+}
+.guide-chip--danger {
+  color: var(--guide-danger);
+  background: var(--guide-danger-bg);
+}
+
+/* --------------------------------------------------------------------------
+   11. Spec — a bordered "spec sheet" box for a flat list of key/value
+   technical facts (e.g. platform defaults). Distinct from .guide-callout:
+   callouts are prose notes, this is a <dl> of short facts, and forcing a
+   dl grid into the callout's plain-paragraph styling would just lose the
+   two-column layout entirely.
+   -------------------------------------------------------------------------- */
+.guide-spec {
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  margin: 30px 0;
+  background: var(--card);
+}
+.guide-spec__label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.guide-spec dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 18px;
+  margin: 0;
+}
+.guide-spec dt {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.guide-spec dd {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer nav — real prev/next article pagination (page-specific
+   content, not a reusable "related guides" widget like .guide-rail).
+   Sits as a sibling after .guide-article closes, same as .guide-cta.
+   -------------------------------------------------------------------------- */
+.guide-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--grid-line);
+  padding-top: 24px;
+  margin-top: 44px;
+  font-size: 14px;
+}
+.guide-footer-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  max-width: 32ch;
+}
+.guide-footer-nav a:hover {
+  text-decoration: underline;
+}
+.guide-footer-nav .next {
+  text-align: right;
+  margin-left: auto;
+}
+@media (max-width: 560px) {
+  .guide-footer-nav {
+    flex-direction: column;
+  }
+  .guide-footer-nav .next {
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+/* ==========================================================================
+   Migration notes (delete this comment block once all 22 pages are done)
+
+   Progress: 11 of 22 pages migrated so far (Family A batch 1 + all of
+   Family C). Family B and the rest of Family A haven't been touched yet.
+   Class renames needed per source family:
+
+   FAMILY A  (--gp-* tokens: accessibility, auto-layout, color-contrast,
+   color-palette-token, css-grid, dark-mode, design-tokens, font-pairing,
+   line-length, motion-timing, responsive-layout, type-scale, whitespace)
+   [DONE: accessibility, auto-layout, color-contrast, color-palette-token,
+    css-grid, dark-mode, design-tokens, font-pairing. Remaining: line-length,
+    motion-timing, responsive-layout, type-scale, whitespace.]
+     .guide-eyebrow        -> dropped; category becomes a real .badge and
+                               the old bottom .guide-meta line (level/time/
+                               category as plain text) merges into the same
+                               .guide-hero__meta row as "BEG/INT/ADV · N MIN"
+                               (.card-meta.mono, matching the homepage card
+                               convention) next to the badge.
+     .guide-title          -> .guide-hero__title (+ id="guide-heading")
+     .guide-dek            -> .guide-hero__dek
+     .guide-article__head  -> .guide-hero, and changed from <header> to
+                               <section aria-labelledby="guide-heading">
+                               to match the Family C pages exactly.
+     .guide-section__kicker -> dropped; each <section id> + kicker + <h2>
+                               flattens to one <h2 id><span class=
+                               "guide-article__num mono">NN</span>Title</h2>,
+                               with the section unwrapped (its contents
+                               become direct .guide-article children).
+                               Also drop the numbered <span class="n"> in
+                               each .guide-toc entry the same way — Family C
+                               already doesn't use them.
+     .guide-body            -> .guide-article (this is also the file's
+                               *outer* <article> tag now: the old outer
+                               <article class="guide-article"> wrapping
+                               header+toc+body+footer is removed, so
+                               .guide-hero / .guide-toc / .guide-article
+                               end up as plain siblings inside
+                               .guide-primary — matching Family C.)
+     .guide-figure(__frame)  -> .guide-diagram(__frame) (new component,
+                               section 10 below) for the multi-color
+                               mid-article SVG diagrams these pages embed —
+                               left over from the family split below.
+     .guide-pitfalls/-pitfall/-pitfall__n -> .guide-recap.guide-recap--warning
+                               / (bare <li>) / .guide-recap__n — structurally
+                               identical component, warning-tinted.
+     .guide-formula          -> .guide-callout, with the formula text as
+                               <p class="mono"> inside it.
+     .guide-code (div wrapper)-> removed; leave the bare <pre><code>, which
+                               .guide-article pre already styles directly.
+     .guide-table             -> drop the class from <table> itself (unused
+                               selector now); .guide-table-wrap stays.
+     .guide-tags            -> dropped (chose "drop" over folding into
+                               .guide-cta — none of these pages use a CTA
+                               today, and stuffing topic tags into a CTA's
+                               copy isn't a style change, it's new content).
+     .guide-main (on <main>) -> dropped; wasn't in this stylesheet's
+                               vocabulary and .guide-layout already
+                               constrains width. Matches Family C, which
+                               never had a .guide-main to begin with.
+
+   FAMILY B  (--ink/--muted tokens: ios-android, mobile-breakpoints,
+   thumb-zones — NOT 4 pages; see the count note below)
+   [NOT STARTED — no Family B source files reviewed yet, so the mapping
+    below is carried over from the original notes, unverified against
+    real markup.]
+     .guide-header          -> .guide-hero
+     .guide-label           -> .guide-hero__meta
+     .guide-h2-num           -> .guide-article__num
+     .guide-figure/-media/-legend -> .guide-hero__figure (or .guide-example
+                                       figure if it's a body diagram, not the
+                                       lead image)
+     .guide-spec/-label       -> .guide-callout (variant depends on content)
+
+   FAMILY C (BEM/color-mix: components-variants-contract, figma-to-code,
+   figma-variables, grid-systems, migrating-from-xd, padding-margin)
+   [DONE: components-variants-contract, figma-to-code, figma-variables.
+    Remaining: grid-systems, migrating-from-xd, padding-margin.]
+     Already matched this file's naming almost exactly — swapped the
+     color-mix() custom properties for the var(--...) tokens above and
+     deleted the inline <style> block. Also added the missing
+     .guide-toc__label class to the toc heading span (was only
+     "section-label mono", so it was missing the label's bottom margin),
+     and .guide-crumb (section 2 above) since that rule only ever lived in
+     each page's own deleted <style> block, never here.
+
+   guide/g6.html is not a live page — it's the pre-rename draft of
+   whitespace-as-ui-component.html, and /_redirects + /_htaccess already
+   301 it to the real URL. Safe to delete the file itself; nothing serves
+   it directly.
+
+   Component usage is inconsistent even within a family, not just across
+   families — worth deciding once, here, rather than per guide:
+     .guide-recap  is only actually used in 3 of the 13 Family-A pages
+     .guide-cta    is only actually used in the 3 Family-B pages
+     .guide-related — REMOVED (was section 10, dead code on every page
+                     sampled so far). Every guide already ships a working,
+                     JS-driven related-guides sidebar (.guide-rail, see
+                     styles.css + app.js's initRelatedGuides()), so a
+                     second, static, footer-level "related guides" block
+                     would just duplicate that feature. Section 10 is now
+                     .guide-diagram instead (see above).
+     FAMILY B page count — the original note above listed 4 names but said
+                     "3 Family-B pages" elsewhere; ios-android,
+                     mobile-breakpoints, and thumb-zones account for 3,
+                     matching the 13 + 3 + 6 = 22 total, so treat Family B
+                     as those 3 until real Family B source proves otherwise.
+   ========================================================================== */

@@ -113,6 +113,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -175,386 +176,6 @@
       if/when styles.css grows real .guide-* rules of its own, those can
       simply replace this block wholesale.
     -->
-    <style>
-      .guide-article {
-        --ink: #0f2a52;
-        --ink-soft: #33455f;
-        --muted: #5b6b82;
-        --line: #dde3ec;
-        --bg-soft: #f5f7fa;
-        --green: #1f9d55;
-        --green-soft: #e5f6ec;
-        --amber: #b5790f;
-        --amber-soft: #fbf1de;
-        --red: #c0392b;
-        --red-soft: #fbe9e7;
-        --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-        max-width: 780px;
-        margin: 0 auto;
-        padding: 40px 20px 88px;
-        color: var(--ink-soft);
-        line-height: 1.65;
-      }
-      .guide-article * {
-        box-sizing: border-box;
-      }
-      .guide-article .guide-label {
-        font-family: var(--mono);
-        font-size: 12.5px;
-        letter-spacing: 0.06em;
-        color: var(--muted);
-        margin: 0 0 14px;
-      }
-      .guide-article .guide-badge {
-        display: inline-block;
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        color: var(--ink);
-        background: var(--bg-soft);
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        padding: 3px 8px;
-        margin-bottom: 16px;
-      }
-      .guide-article h1 {
-        font-size: clamp(28px, 5vw, 40px);
-        line-height: 1.15;
-        color: var(--ink);
-        margin: 0 0 16px;
-        max-width: 22ch;
-      }
-      .guide-article .guide-dek {
-        font-size: clamp(17px, 2.4vw, 19px);
-        color: var(--muted);
-        max-width: 62ch;
-        margin: 0 0 20px;
-      }
-      .guide-article .guide-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-        font-family: var(--mono);
-        font-size: 12.5px;
-        letter-spacing: 0.04em;
-        color: var(--muted);
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        padding: 12px 0;
-        margin: 0 0 32px;
-      }
-      .guide-article .guide-meta .dot {
-        opacity: 0.5;
-      }
-      .guide-article .guide-toc {
-        background: var(--bg-soft);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 4px 20px;
-        margin: 0 0 36px;
-      }
-      .guide-article .guide-toc summary {
-        cursor: pointer;
-        font-family: var(--mono);
-        font-size: 13px;
-        letter-spacing: 0.04em;
-        color: var(--ink);
-        padding: 14px 0;
-      }
-      .guide-article .guide-toc ol {
-        margin: 0 0 16px;
-        padding-left: 1.2em;
-        columns: 1;
-      }
-      .guide-article .guide-toc li {
-        margin: 0 0 7px;
-        font-size: 14.5px;
-      }
-      .guide-article .guide-toc a {
-        color: var(--ink-soft);
-        text-decoration: none;
-      }
-      .guide-article .guide-toc a:hover {
-        color: var(--ink);
-        text-decoration: underline;
-      }
-      .guide-article .guide-body p,
-      .guide-article .guide-body li {
-        max-width: 68ch;
-        font-size: 16.5px;
-      }
-      .guide-article .guide-body h2 {
-        font-size: clamp(21px, 3vw, 25px);
-        color: var(--ink);
-        margin: 44px 0 14px;
-        scroll-margin-top: 90px;
-        max-width: 30ch;
-      }
-      .guide-article .guide-body h2 .guide-h2-num {
-        font-family: var(--mono);
-        font-size: 14px;
-        color: var(--muted);
-        margin-right: 8px;
-      }
-      .guide-article .guide-body p {
-        margin: 0 0 16px;
-      }
-      .guide-article .guide-body ul,
-      .guide-article .guide-body ol {
-        margin: 0 0 16px;
-        padding-left: 1.3em;
-      }
-      .guide-article .guide-body li {
-        margin: 0 0 8px;
-      }
-      .guide-article .guide-body strong {
-        color: var(--ink);
-      }
-      .guide-article .guide-body a {
-        color: var(--ink);
-        text-decoration-color: var(--line);
-      }
-      .guide-article .guide-body a:hover {
-        text-decoration-color: currentColor;
-      }
-
-      .guide-article .guide-figure {
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 24px;
-        margin: 28px 0 32px;
-        background: #fff;
-      }
-      .guide-article .guide-figure-media {
-        display: flex;
-        justify-content: center;
-      }
-      .guide-article .guide-figure-media svg {
-        width: 100%;
-        max-width: 260px;
-        height: auto;
-      }
-      .guide-article .guide-figure-legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        margin: 18px 0 14px;
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.04em;
-      }
-      .guide-article .zone-chip {
-        border-radius: 4px;
-        padding: 4px 9px;
-        border: 1px solid transparent;
-      }
-      .guide-article .zone-chip--green {
-        color: var(--green);
-        background: var(--green-soft);
-        border-color: #cdeedb;
-      }
-      .guide-article .zone-chip--amber {
-        color: var(--amber);
-        background: var(--amber-soft);
-        border-color: #f2ddb3;
-      }
-      .guide-article .zone-chip--red {
-        color: var(--red);
-        background: var(--red-soft);
-        border-color: #f3c9c3;
-      }
-      .guide-article figcaption {
-        font-size: 13.5px;
-        color: var(--muted);
-        text-align: center;
-        max-width: 46ch;
-        margin: 0 auto;
-      }
-
-      .guide-article .guide-table-wrap {
-        overflow-x: auto;
-        margin: 20px 0 28px;
-      }
-      .guide-article table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 14.5px;
-        min-width: 460px;
-      }
-      .guide-article caption {
-        text-align: left;
-        font-family: var(--mono);
-        font-size: 12px;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-        margin-bottom: 8px;
-      }
-      .guide-article th,
-      .guide-article td {
-        border: 1px solid var(--line);
-        padding: 10px 12px;
-        text-align: left;
-        vertical-align: top;
-      }
-      .guide-article thead th {
-        background: var(--bg-soft);
-        font-family: var(--mono);
-        font-size: 11.5px;
-        letter-spacing: 0.05em;
-        color: var(--ink);
-      }
-      .guide-article tbody th {
-        font-weight: 600;
-        color: var(--ink);
-        white-space: nowrap;
-      }
-
-      .guide-article .guide-callout {
-        border: 1px solid var(--line);
-        border-left: 3px solid var(--ink);
-        border-radius: 6px;
-        padding: 18px 20px;
-        margin: 24px 0;
-        background: var(--bg-soft);
-      }
-      .guide-article .guide-callout p:last-child {
-        margin-bottom: 0;
-      }
-      .guide-article .guide-callout .guide-callout-label {
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        color: var(--muted);
-        margin: 0 0 8px;
-        text-transform: uppercase;
-      }
-
-      .guide-article pre {
-        background: var(--ink);
-        color: #e7edf6;
-        border-radius: 8px;
-        padding: 16px 18px;
-        overflow-x: auto;
-        font-size: 13px;
-        line-height: 1.6;
-        margin: 0 0 14px;
-      }
-      .guide-article code {
-        font-family: var(--mono);
-        font-size: 0.92em;
-      }
-      .guide-article :not(pre) > code {
-        background: var(--bg-soft);
-        border: 1px solid var(--line);
-        border-radius: 3px;
-        padding: 1px 5px;
-        color: var(--ink);
-      }
-
-      .guide-article .guide-spec {
-        border: 1px solid var(--ink);
-        border-radius: 8px;
-        padding: 24px 26px;
-        margin: 30px 0 36px;
-        background: #fff;
-      }
-      .guide-article .guide-spec-label {
-        font-family: var(--mono);
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        color: var(--ink);
-        margin: 0 0 14px;
-      }
-      .guide-article .guide-spec dl {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        gap: 8px 18px;
-        margin: 0;
-      }
-      .guide-article .guide-spec dt {
-        font-family: var(--mono);
-        font-size: 13px;
-        color: var(--muted);
-        white-space: nowrap;
-      }
-      .guide-article .guide-spec dd {
-        margin: 0;
-        font-size: 14.5px;
-        color: var(--ink-soft);
-      }
-
-      .guide-article .guide-footer-nav {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-        border-top: 1px solid var(--line);
-        padding-top: 24px;
-        margin-top: 44px;
-        font-size: 14px;
-      }
-      .guide-article .guide-footer-nav a {
-        color: var(--ink);
-        text-decoration: none;
-        max-width: 32ch;
-      }
-      .guide-article .guide-footer-nav a:hover {
-        text-decoration: underline;
-      }
-      .guide-article .guide-footer-nav .next {
-        text-align: right;
-        margin-left: auto;
-      }
-
-      .guide-article .guide-cta {
-        text-align: center;
-        margin-top: 28px;
-      }
-      .guide-article .guide-cta a {
-        display: inline-block;
-        font-family: var(--mono);
-        font-size: 13px;
-        letter-spacing: 0.03em;
-        color: #fff;
-        background: var(--ink);
-        border-radius: 6px;
-        padding: 12px 20px;
-        text-decoration: none;
-      }
-      .guide-article .guide-cta a:hover {
-        background: var(--ink-soft);
-      }
-
-      .guide-crumb {
-        max-width: 780px;
-        margin: 0 auto;
-        padding: 22px 20px 0;
-      }
-      .guide-crumb a {
-        font-family: var(--mono, monospace);
-        font-size: 13px;
-        color: #33455f;
-        text-decoration: none;
-      }
-      .guide-crumb a:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 640px) {
-        .guide-article {
-          padding: 28px 16px 64px;
-        }
-        .guide-article .guide-footer-nav {
-          flex-direction: column;
-        }
-        .guide-article .guide-footer-nav .next {
-          text-align: left;
-          margin-left: 0;
-        }
-      }
-    </style>
   </head>
   <body data-guide-id="ios-android-different-systems">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -687,31 +308,25 @@
     <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article" aria-labelledby="guide-title">
-            <header class="guide-header">
-              <p class="guide-label">/ mobile_app_design</p>
-              <span class="guide-badge">MOBILE_APP</span>
-              <h1 id="guide-title">
-                iOS and Android Are Different Systems, Not One Design Reused
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">MOBILE_APP</span>
+            <span class="card-meta mono">INT · 17 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
+            iOS and Android Are Different Systems, Not One Design Reused
                 Twice
-              </h1>
-              <p class="guide-dek">
-                Where HIG and Material genuinely diverge: navigation, back
+          </h1>
+          <p class="guide-hero__dek">
+            Where HIG and Material genuinely diverge: navigation, back
                 behavior, type defaults, and which components need two
                 designs, not one resized.
-              </p>
-              <div class="guide-meta">
-                <span>INTERMEDIATE</span>
-                <span class="dot">·</span>
-                <span>17 MIN READ</span>
-                <span class="dot">·</span>
-                <span>MOBILE APP DESIGN</span>
-              </div>
-            </header>
+          </p>
+        </section>
 
-            <details class="guide-toc" open>
-              <summary>On this page</summary>
-              <ol>
+            <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
+          <ol>
                 <li>
                   <a href="#the-shared-file-trap"
                     >The shared-Figma-file trap</a
@@ -765,15 +380,15 @@
                 <li><a href="#common-mistakes">Common mistakes</a></li>
                 <li><a href="#the-spec">The spec</a></li>
               </ol>
-            </details>
+        </nav>
 
-            <div class="guide-body">
-              <section id="the-shared-file-trap">
-                <h2>
-                  <span class="guide-h2-num">01</span>The shared-Figma-file
+            <article class="guide-article">
+              <h2 id="the-shared-file-trap">
+                  <span class="guide-article__num mono">01</span>The shared-Figma-file
                   trap
                 </h2>
-                <p>
+
+          <p>
                   There's a workflow that shows up in almost every team
                   shipping to both platforms at once: design the iOS screen
                   first, duplicate the frame, swap the corner radius from 8 to
@@ -819,14 +434,13 @@
                   need genuinely separate treatment, then the units
                   underneath all of it.
                 </p>
-              </section>
 
-              <section id="two-philosophies-of-navigation">
-                <h2>
-                  <span class="guide-h2-num">02</span>Two philosophies of
+              <h2 id="two-philosophies-of-navigation">
+                  <span class="guide-article__num mono">02</span>Two philosophies of
                   navigation
                 </h2>
-                <p>
+
+          <p>
                   On the surface, iOS's tab bar and Android's navigation bar
                   now look like they agree. Apple's Human Interface Guidelines
                   recommend three to five tabs on iPhone, used strictly for
@@ -884,14 +498,13 @@
                   piece that breaks silently when a shared component library
                   assumes "back" means the same thing on both sides.
                 </p>
-              </section>
 
-              <section id="back-is-two-systems">
-                <h2>
-                  <span class="guide-h2-num">03</span>Back is two systems, not
+              <h2 id="back-is-two-systems">
+                  <span class="guide-article__num mono">03</span>Back is two systems, not
                   one gesture
                 </h2>
-                <p>
+
+          <p>
                   This is the single biggest structural gap between the two
                   platforms, and it's almost entirely invisible in a static
                   mockup, because it's not about how the back affordance
@@ -925,8 +538,8 @@
                   are different gestures with different owners.
                 </p>
 
-                <figure class="guide-figure">
-                  <div class="guide-figure-media">
+                <figure class="guide-diagram guide-diagram--light">
+                  <div class="guide-diagram__frame">
                     <svg
                       viewBox="0 0 340 210"
                       xmlns="http://www.w3.org/2000/svg"
@@ -1090,11 +703,11 @@
                       </text>
                     </svg>
                   </div>
-                  <div class="guide-figure-legend">
-                    <span class="zone-chip zone-chip--green"
+                  <div class="guide-diagram__legend">
+                    <span class="guide-diagram__chip guide-diagram__chip--success"
                       >iOS · POPS NAV STACK ONLY</span
                     >
-                    <span class="zone-chip zone-chip--red"
+                    <span class="guide-diagram__chip guide-diagram__chip--danger"
                       >ANDROID · CAN LEAVE THE APP</span
                     >
                   </div>
@@ -1169,14 +782,13 @@
                   An iOS screen with no navigation controller behind it simply
                   never receives an unhandled back event in the first place.
                 </p>
-              </section>
 
-              <section id="typography-is-a-contract">
-                <h2>
-                  <span class="guide-h2-num">04</span>Typography is a
+              <h2 id="typography-is-a-contract">
+                  <span class="guide-article__num mono">04</span>Typography is a
                   contract, not a shared scale
                 </h2>
-                <p>
+
+          <p>
                   iOS's type system is eleven named text styles — Large
                   Title, Title 1, Title 2, Title 3, Headline, Body, Callout,
                   Subhead, Footnote, Caption 1, Caption 2 — each with a fixed
@@ -1276,7 +888,7 @@
                   their own platform's density of named roles.
                 </p>
                 <div class="guide-callout">
-                  <p class="guide-callout-label">Worth knowing</p>
+                  <p class="guide-callout__label">Worth knowing</p>
                   <p>
                     17pt and 17sp aren't the same physical size, either.
                     Android's <code>sp</code> unit is a density-independent
@@ -1288,14 +900,13 @@
                     to transliterate.
                   </p>
                 </div>
-              </section>
 
-              <section id="adaptive-navigation">
-                <h2>
-                  <span class="guide-h2-num">05</span>Same problem, two
+              <h2 id="adaptive-navigation">
+                  <span class="guide-article__num mono">05</span>Same problem, two
                   different adaptive answers
                 </h2>
-                <p>
+
+          <p>
                   Both platforms face an identical problem — a phone-width
                   layout and a tablet-or-larger layout need different
                   navigation chrome, and nobody wants to hand-maintain two
@@ -1337,14 +948,13 @@
                   rendering, rather than prescribing pixel-identical
                   behavior at every width.
                 </p>
-              </section>
 
-              <section id="sheets-dialogs-gesture-grammar">
-                <h2>
-                  <span class="guide-h2-num">06</span>Sheets, dialogs, and the
+              <h2 id="sheets-dialogs-gesture-grammar">
+                  <span class="guide-article__num mono">06</span>Sheets, dialogs, and the
                   gesture grammar around them
                 </h2>
-                <p>
+
+          <p>
                   iOS sheets — partial- or full-height, with a grabber at the
                   top — dismiss with a discrete swipe-down gesture that's
                   independent of the edge-swipe-back gesture. The two never
@@ -1364,7 +974,7 @@
                   deliberately different gestures on iOS.
                 </p>
                 <div class="guide-callout">
-                  <p class="guide-callout-label">Common misconception</p>
+                  <p class="guide-callout__label">Common misconception</p>
                   <p>
                     There's a long-repeated claim that iOS orders dialog
                     buttons Cancel-then-OK left-to-right while Android orders
@@ -1382,14 +992,13 @@
                     tap-outside-to-dismiss defaults behave per dialog type.
                   </p>
                 </div>
-              </section>
 
-              <section id="touch-targets-safe-areas">
-                <h2>
-                  <span class="guide-h2-num">07</span>Touch targets and safe
+              <h2 id="touch-targets-safe-areas">
+                  <span class="guide-article__num mono">07</span>Touch targets and safe
                   areas aren't interchangeable units
                 </h2>
-                <p>
+
+          <p>
                   iOS's minimum touch target is 44×44 points. Material's is
                   48×48dp, though WCAG's own Success Criterion 2.5.8 (Level
                   AA) sets a lower absolute floor of 24×24dp, with the
@@ -1439,13 +1048,12 @@
                   sitting directly in a zone the system gesture already
                   claims.
                 </p>
-              </section>
 
-              <section id="depth-shadows-vs-glass">
-                <h2><span class="guide-h2-num">08</span>Depth: shadows vs.
+              <h2 id="depth-shadows-vs-glass"><span class="guide-article__num mono">08</span>Depth: shadows vs.
                   glass
                 </h2>
-                <p>
+
+          <p>
                   Material's elevation model pairs a soft drawn shadow with a
                   tonal surface-color shift — a translucent wash of the
                   primary color layered over the surface, so higher elevation
@@ -1474,14 +1082,13 @@
                   wants a translucent or vibrancy treatment than a shadow at
                   all.
                 </p>
-              </section>
 
-              <section id="the-2025-reset">
-                <h2>
-                  <span class="guide-h2-num">09</span>2025 reset the gap:
+              <h2 id="the-2025-reset">
+                  <span class="guide-article__num mono">09</span>2025 reset the gap:
                   Liquid Glass vs. Material 3 Expressive
                 </h2>
-                <p>
+
+          <p>
                   Both redesigns landed within a few months of each other and
                   pull in opposite directions. Liquid Glass — announced by
                   Apple's VP of Human Interface Design, Alan Dye, at WWDC on
@@ -1512,14 +1119,13 @@
                   assumption of a shared visual baseline underneath brand
                   styling is weaker than it's been in years.
                 </p>
-              </section>
 
-              <section id="what-can-share-a-design">
-                <h2>
-                  <span class="guide-h2-num">10</span>What can actually share
+              <h2 id="what-can-share-a-design">
+                  <span class="guide-article__num mono">10</span>What can actually share
                   a design
                 </h2>
-                <p>
+
+          <p>
                   None of this means design two entirely independent apps.
                   Most of the work is genuinely shareable — it's a specific,
                   short list of things that aren't:
@@ -1570,11 +1176,10 @@
                     a fully custom system.
                   </li>
                 </ul>
-              </section>
 
-              <section id="common-mistakes">
-                <h2><span class="guide-h2-num">11</span>Common mistakes</h2>
-                <ul>
+              <h2 id="common-mistakes"><span class="guide-article__num mono">11</span>Common mistakes</h2>
+
+          <ul>
                   <li>
                     Designing the iOS screen first, then "porting" it to
                     Android by swapping the typeface and rounding the
@@ -1604,12 +1209,11 @@
                     completely.
                   </li>
                 </ul>
-              </section>
 
-              <section id="the-spec">
-                <h2><span class="guide-h2-num">12</span>The spec</h2>
-                <div class="guide-spec">
-                  <p class="guide-spec-label">// platform_defaults.spec</p>
+              <h2 id="the-spec"><span class="guide-article__num mono">12</span>The spec</h2>
+
+          <div class="guide-spec">
+                  <p class="guide-spec__label">// platform_defaults.spec</p>
                   <dl>
                     <dt>iOS min touch target</dt>
                     <dd>44×44pt</dd>
@@ -1659,8 +1263,7 @@
                   platform to the other keeps quietly breaking in the same
                   places.
                 </p>
-              </section>
-            </div>
+            </article>
 
             <nav class="guide-footer-nav" aria-label="Guide navigation">
               <a href="thumb-zones-layout-constraint" class="prev"
@@ -1673,10 +1276,13 @@
             </nav>
 
             <div class="guide-cta">
-              <a href="../roadmap.html">Back to the learning roadmap →</a>
+              <div class="guide-cta__text">
+                <strong>Keep going</strong>
+                <span>Continue with the next guide in the learning roadmap.</span>
+              </div>
+              <a href="../roadmap.html" class="btn-primary">Back to the learning roadmap →</a>
             </div>
-          </article>
-        </div>
+          </div>
         <aside
           class="guide-rail"
           id="guide-rail"

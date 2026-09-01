@@ -108,6 +108,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -132,369 +133,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="auto-layout-constraint-model">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -628,98 +266,90 @@
       <span aria-current="page">Auto Layout</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">
-            // figma_workflows · auto_layout_spec
-          </p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">FIGMA</span>
+            <span class="card-meta mono">INT · 15 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             Auto Layout Is a Constraint System, Not a Convenience Toggle
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Most people learn Auto Layout by nudging settings until a frame
             looks right, then get stuck the first time it stretches, clips, or
             refuses to shrink. This is a spec-level read of what it's actually
             solving underneath the panel — resolvable rules, not guesses — so
             you can predict the outcome before you touch anything.
           </p>
-          <div class="guide-meta mono">
-            <span>INTERMEDIATE</span>
-            <span class="dot">·</span>
-            <span>15 MIN READ</span>
-            <span class="dot">·</span>
-            <span>FIGMA WORKFLOWS</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#mental-model"
-                ><span class="n">01</span> The Mental Model</a
+                >The Mental Model</a
               >
             </li>
             <li>
               <a href="#sizing-modes"
-                ><span class="n">02</span> Three Sizing Modes, One Rule Each</a
+                >Three Sizing Modes, One Rule Each</a
               >
             </li>
             <li>
               <a href="#padding-gap"
-                ><span class="n">03</span> Padding and Gap Are Different
+                >Padding and Gap Are Different
                 Properties</a
               >
             </li>
             <li>
               <a href="#alignment"
-                ><span class="n">04</span> Alignment: Two Axes, Nine
+                >Alignment: Two Axes, Nine
                 Positions</a
               >
             </li>
             <li>
               <a href="#nesting"
-                ><span class="n">05</span> Nesting: How Constraints Cascade</a
+                >Nesting: How Constraints Cascade</a
               >
             </li>
             <li>
               <a href="#wrap-minmax"
-                ><span class="n">06</span> Wrap and the Min/Max Escape
+                >Wrap and the Min/Max Escape
                 Hatches</a
               >
             </li>
             <li>
               <a href="#absolute"
-                ><span class="n">07</span> Absolute Position, On Purpose</a
+                >Absolute Position, On Purpose</a
               >
             </li>
             <li>
               <a href="#handoff"
-                ><span class="n">08</span> Dev Handoff: Mapping to CSS
+                >Dev Handoff: Mapping to CSS
                 Flexbox</a
               >
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">09</span> Five Pitfalls That Look Like Bugs</a
+                >Five Pitfalls That Look Like Bugs</a
               >
             </li>
             <li>
               <a href="#cheat-sheet"
-                ><span class="n">10</span> Quick Reference</a
+                >Quick Reference</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="mental-model">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>The Mental Model</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="mental-model"><span class="guide-article__num mono">01</span>The Mental Model</h2>
+
+          <p>
               A frame with Auto Layout applied does not have a size the way an
               ordinary rectangle does. Draw a plain rectangle and its width and
               height are data you typed in — fixed numbers, full stop. Apply
@@ -746,10 +376,9 @@
               children positioned within what's left (alignment). Get the order
               right and the rest of this page is mostly vocabulary.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 260"
                 xmlns="http://www.w3.org/2000/svg"
@@ -990,10 +619,9 @@
             </figcaption>
           </figure>
 
-          <section id="sizing-modes">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>Three Sizing Modes, One Rule Each</h2>
-            <p>
+          <h2 id="sizing-modes"><span class="guide-article__num mono">02</span>Three Sizing Modes, One Rule Each</h2>
+
+          <p>
               Every Auto Layout frame, and every direct child of one, picks a
               resizing mode independently for each axis — width and height are
               set separately, so a button can be Fill horizontally and Hug
@@ -1034,12 +662,10 @@
               on that axis has already landed on a real number, whether that's a
               Fixed frame, the artboard edge, or a browser viewport.
             </p>
-          </section>
 
-          <section id="padding-gap">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>Padding and Gap Are Different Properties</h2>
-            <p>
+          <h2 id="padding-gap"><span class="guide-article__num mono">03</span>Padding and Gap Are Different Properties</h2>
+
+          <p>
               Two spacing values live on every Auto Layout frame, and it's worth
               being precise about which one you're reaching for, because they
               resize completely different things.
@@ -1067,12 +693,10 @@
               space between children, and padding is the only spacing value that
               changes a Hug frame's outer size.
             </p>
-          </section>
 
-          <section id="alignment">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>Alignment: Two Axes, Nine Positions</h2>
-            <p>
+          <h2 id="alignment"><span class="guide-article__num mono">04</span>Alignment: Two Axes, Nine Positions</h2>
+
+          <p>
               Every Auto Layout frame has a <strong>primary axis</strong>
               (the direction of flow — the axis Gap operates on) and a
               <strong>counter axis</strong> (perpendicular to it). Alignment is
@@ -1099,12 +723,10 @@
               <code>align-items</code> (counter axis) — see the handoff table in
               section eight for the full property list.
             </p>
-          </section>
 
-          <section id="nesting">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>Nesting: How Constraints Cascade</h2>
-            <p>
+          <h2 id="nesting"><span class="guide-article__num mono">05</span>Nesting: How Constraints Cascade</h2>
+
+          <p>
               The real power of Auto Layout only shows up once frames are
               nested, and the reason it holds together is that each frame solves
               its own local system independently, then hands its resolved size
@@ -1112,10 +734,9 @@
               parent doesn't know or care that its child is itself a small
               layout engine with three more children inside it.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 300"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1347,8 +968,7 @@
             </figcaption>
           </figure>
 
-          <section id="nesting-cont">
-            <p>
+          <p>
               Take the comment card above: an outer vertical frame set to Hug
               (the card itself), containing an inner horizontal frame for the
               byline (an avatar at Fixed size, a name set to Fill, and a
@@ -1373,12 +993,10 @@
               you'd expect, the frame sitting between them is the first place to
               check.
             </p>
-          </section>
 
-          <section id="wrap-minmax">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>Wrap and the Min/Max Escape Hatches</h2>
-            <p>
+          <h2 id="wrap-minmax"><span class="guide-article__num mono">06</span>Wrap and the Min/Max Escape Hatches</h2>
+
+          <p>
               Horizontal and vertical flows (not the Grid flow) support a
               <strong>Wrap</strong> setting: once children run out of room on
               the primary axis, instead of overflowing or shrinking past their
@@ -1407,12 +1025,10 @@
               wrapped Fill items, test the actual file rather than assuming the
               numbers will resolve the way the panel implies.
             </p>
-          </section>
 
-          <section id="absolute">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Absolute Position, On Purpose</h2>
-            <p>
+          <h2 id="absolute"><span class="guide-article__num mono">07</span>Absolute Position, On Purpose</h2>
+
+          <p>
               Occasionally an element needs to sit on top of an Auto Layout
               frame without taking part in its flow at all — a notification
               badge overlapping the corner of an icon, a close button pinned to
@@ -1428,12 +1044,10 @@
               positioned children has quietly opted out of everything Auto
               Layout is for.
             </p>
-          </section>
 
-          <section id="handoff">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Dev Handoff: Mapping to CSS Flexbox</h2>
-            <p>
+          <h2 id="handoff"><span class="guide-article__num mono">08</span>Dev Handoff: Mapping to CSS Flexbox</h2>
+
+          <p>
               None of the vocabulary above is Figma-specific — it's a panel over
               the same model Flexbox already implements, which is exactly why
               "translate this frame to code" is usually a mechanical exercise
@@ -1441,7 +1055,7 @@
               same terms.
             </p>
             <div class="guide-table-wrap">
-              <table class="guide-table">
+              <table>
                 <caption>
                   / figma_to_flexbox_property_map
                 </caption>
@@ -1517,14 +1131,12 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section id="pitfalls">
-            <p class="guide-section__kicker mono">§ 09</p>
-            <h2>Five Pitfalls That Look Like Bugs</h2>
-            <ul class="guide-pitfalls">
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">01</span>
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Five Pitfalls That Look Like Bugs</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
                 <p>
                   <strong>Fill inside a Hug parent, same axis.</strong>
                   The circular dependency from section two — Figma silently
@@ -1533,8 +1145,8 @@
                   move the Fill child under a different parent.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">02</span>
+              <li>
+                <span class="guide-recap__n">02</span>
                 <p>
                   <strong
                     >Wrapping a shape-plus-text group instead of applying Auto
@@ -1549,8 +1161,8 @@
                   background with one fewer layer to reason about.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">03</span>
+              <li>
+                <span class="guide-recap__n">03</span>
                 <p>
                   <strong>Adjusting gap when the frame won't shrink.</strong>
                   If a Hug frame's outer size isn't moving, check padding, not
@@ -1558,8 +1170,8 @@
                   children.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">04</span>
+              <li>
+                <span class="guide-recap__n">04</span>
                 <p>
                   <strong>Forgetting counter-axis stretch.</strong>
                   Children default to Hug on the counter axis unless told
@@ -1569,8 +1181,8 @@
                   to Fill rather than adjusting alignment.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">05</span>
+              <li>
+                <span class="guide-recap__n">05</span>
                 <p>
                   <strong
                     >Trusting min/max precision across many wrapped Fill
@@ -1582,13 +1194,11 @@
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section id="cheat-sheet">
-            <p class="guide-section__kicker mono">§ 10</p>
-            <h2>Quick Reference</h2>
-            <div class="guide-table-wrap">
-              <table class="guide-table">
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
                 <caption>
                   / rules_of_thumb
                 </caption>
@@ -1642,28 +1252,14 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               Auto Layout rewards being read once, carefully, the way you'd read
               a spec instead of a tooltip. After that, most of what looks like
               unpredictable behavior turns out to be the constraint system doing
               exactly what it was asked to do.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>FIGMA</span>
-            <span>AUTO LAYOUT</span>
-            <span>FLEXBOX</span>
-            <span>DESIGN SYSTEMS</span>
-            <span>DEV HANDOFF</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>

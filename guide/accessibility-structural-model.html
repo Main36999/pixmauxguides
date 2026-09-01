@@ -107,6 +107,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -131,369 +132,6 @@
       }
     </script>
 
-    <style>
-      /* Scoped to this guide page only — reuses the site's shared classes
-         (site-header, wrap, brand, site-footer, etc.) for chrome, and only
-         defines new "guide-*" classes below so nothing here can collide
-         with rules already living in ../styles.css. */
-      :root {
-        --gp-paper: #fbfaf5;
-        --gp-ink: #16233a;
-        --gp-ink-soft: #4b5871;
-        --gp-navy: #0f2a52;
-        --gp-navy-deep: #081b38;
-        --gp-blue-line: #7fb3e0;
-        --gp-line: #e1ded2;
-        --gp-warn: #8a5a17;
-        --gp-warn-bg: #fbf1de;
-        --gp-mono:
-          ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-          monospace;
-        --gp-sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-          Helvetica, Arial, sans-serif;
-      }
-
-      .guide-breadcrumb {
-        max-width: 1040px;
-        margin: 28px auto 0;
-        padding: 0 24px;
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-      }
-      .guide-breadcrumb a {
-        color: var(--gp-navy);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .guide-breadcrumb a:hover {
-        border-bottom-color: var(--gp-navy);
-      }
-      .guide-breadcrumb span[aria-hidden] {
-        margin: 0 6px;
-        color: var(--gp-line);
-      }
-
-      .guide-main {
-        max-width: 1040px;
-        padding-top: 8px;
-        padding-bottom: 96px;
-      }
-
-      .guide-article__head {
-        padding: 28px 0 36px;
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-eyebrow {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.05s forwards;
-      }
-      .guide-title {
-        font-family: var(--gp-sans);
-        font-size: clamp(1.9rem, 1.35rem + 2.4vw, 3rem);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 18px;
-        max-width: 18ch;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.12s forwards;
-      }
-      .guide-dek {
-        font-family: var(--gp-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--gp-ink-soft);
-        max-width: 62ch;
-        margin: 0 0 22px;
-        opacity: 0;
-        animation: gp-fade-up 0.5s ease-out 0.18s forwards;
-      }
-      .guide-meta {
-        font-family: var(--gp-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-ink-soft);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .guide-meta .dot {
-        color: var(--gp-line);
-      }
-      @keyframes gp-fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .guide-eyebrow,
-        .guide-title,
-        .guide-dek {
-          animation: none;
-          opacity: 1;
-        }
-      }
-
-      .guide-toc {
-        margin: 36px 0 44px;
-        padding: 20px 22px;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-left: 3px solid var(--gp-navy);
-      }
-      .guide-toc__label {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.04em;
-        color: var(--gp-navy);
-        margin: 0 0 12px;
-      }
-      .guide-toc ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 24px;
-      }
-      @media (max-width: 640px) {
-        .guide-toc ol {
-          grid-template-columns: 1fr;
-        }
-      }
-      .guide-toc a {
-        display: flex;
-        gap: 10px;
-        font-family: var(--gp-sans);
-        font-size: 0.92rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 3px 0;
-      }
-      .guide-toc a:hover {
-        color: var(--gp-navy);
-      }
-      .guide-toc a .n {
-        font-family: var(--gp-mono);
-        color: var(--gp-blue-line);
-        filter: brightness(0.75);
-      }
-
-      .guide-body {
-        font-family: var(--gp-sans);
-        color: var(--gp-ink);
-        max-width: 68ch;
-      }
-      .guide-body p {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        margin: 0 0 18px;
-      }
-      .guide-body section {
-        margin: 0 0 52px;
-        scroll-margin-top: 24px;
-      }
-      .guide-section__kicker {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.05em;
-        color: var(--gp-blue-line);
-        filter: brightness(0.8);
-        margin: 0 0 6px;
-      }
-      .guide-body h2 {
-        font-family: var(--gp-sans);
-        font-size: 1.5rem;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        color: var(--gp-ink);
-        margin: 0 0 16px;
-      }
-      .guide-body strong {
-        color: var(--gp-navy);
-        font-weight: 600;
-      }
-      .guide-body code {
-        font-family: var(--gp-mono);
-        font-size: 0.88em;
-        background: var(--gp-paper);
-        border: 1px solid var(--gp-line);
-        border-radius: 3px;
-        padding: 0.1em 0.4em;
-      }
-
-      .guide-figure {
-        max-width: 100%;
-        margin: 8px 0 52px;
-      }
-      .guide-figure__frame {
-        background: var(--gp-navy-deep);
-        border: 1px solid var(--gp-navy);
-        border-radius: 6px;
-        padding: 18px 18px 14px;
-      }
-      .guide-figure__frame svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .guide-figure figcaption {
-        font-family: var(--gp-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.02em;
-        color: var(--gp-ink-soft);
-        margin-top: 10px;
-      }
-
-      .guide-table-wrap {
-        overflow-x: auto;
-        margin: 4px 0 52px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        min-width: 480px;
-      }
-      .guide-table caption {
-        text-align: left;
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        padding: 12px 14px;
-        background: var(--gp-paper);
-        border-bottom: 1px solid var(--gp-line);
-      }
-      .guide-table th,
-      .guide-table td {
-        text-align: left;
-        padding: 11px 14px;
-        border-bottom: 1px solid var(--gp-line);
-        vertical-align: top;
-        line-height: 1.5;
-      }
-      .guide-table thead th {
-        font-family: var(--gp-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        background: var(--gp-paper);
-      }
-      .guide-table td:first-child,
-      .guide-table th:first-child {
-        font-family: var(--gp-mono);
-        font-size: 0.86rem;
-        white-space: nowrap;
-        color: var(--gp-ink);
-      }
-      .guide-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      .guide-pitfalls {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 14px;
-        margin-bottom: 8px;
-      }
-      .guide-pitfall {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--gp-warn-bg);
-        border-left: 3px solid var(--gp-warn);
-      }
-      .guide-pitfall__n {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        color: var(--gp-warn);
-        padding-top: 2px;
-      }
-      .guide-pitfall p {
-        margin: 0;
-        font-size: 0.96rem;
-        line-height: 1.65;
-        color: var(--gp-ink);
-      }
-      .guide-pitfall p strong {
-        display: block;
-        color: var(--gp-ink);
-        margin-bottom: 4px;
-      }
-
-      .guide-closing {
-        padding-top: 8px;
-        border-top: 1px solid var(--gp-line);
-        margin-top: 4px;
-      }
-
-      .guide-article__footer {
-        margin-top: 12px;
-        padding-top: 32px;
-        border-top: 1px solid var(--gp-line);
-      }
-      .guide-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 40px;
-      }
-      .guide-tags span {
-        font-family: var(--gp-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        border: 1px solid var(--gp-line);
-        padding: 5px 10px;
-        border-radius: 3px;
-      }
-      .guide-related h2 {
-        font-family: var(--gp-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.03em;
-        color: var(--gp-navy);
-        margin: 0 0 14px;
-        text-transform: none;
-      }
-      .guide-related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .guide-related a {
-        display: block;
-        font-family: var(--gp-sans);
-        font-size: 0.98rem;
-        color: var(--gp-ink);
-        text-decoration: none;
-        padding: 12px 14px;
-        border: 1px solid var(--gp-line);
-      }
-      .guide-related a:hover {
-        border-color: var(--gp-navy);
-        color: var(--gp-navy);
-      }
-    </style>
   </head>
   <body class="guide-page" data-guide-id="accessibility-structural-model">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -627,16 +265,18 @@
       <span aria-current="page">Structural Model</span>
     </nav>
 
-    <main class="wrap guide-main" id="guide-content" tabindex="-1">
+    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
-          <article class="guide-article">
-        <header class="guide-article__head">
-          <p class="guide-eyebrow mono">// accessibility · structural_model</p>
-          <h1 class="guide-title">
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <div class="guide-hero__meta">
+            <span class="badge">ACCESSIBILITY</span>
+            <span class="card-meta mono">INT · 16 MIN</span>
+          </div>
+          <h1 class="guide-hero__title" id="guide-heading">
             Accessibility Is a Structural Decision, Not a Final Pass
           </h1>
-          <p class="guide-dek">
+          <p class="guide-hero__dek">
             Most teams learn accessibility as a checklist run at the end of a
             sprint — alt text, a contrast pass, an <code>aria-label</code>
             sprinkled onto anything that complains in an audit. This is a
@@ -645,81 +285,73 @@
             control's name gets computed, and why almost none of it can be
             patched on after the fact.
           </p>
-          <div class="guide-meta mono">
-            <span>INTERMEDIATE</span>
-            <span class="dot">·</span>
-            <span>16 MIN READ</span>
-            <span class="dot">·</span>
-            <span>ACCESSIBILITY</span>
-          </div>
-        </header>
+        </section>
 
-        <nav class="guide-toc" aria-label="On this page">
-          <p class="guide-toc__label mono">/ on_this_page</p>
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
           <ol>
             <li>
               <a href="#structural-model"
-                ><span class="n">01</span> The Structural Model</a
+                >The Structural Model</a
               >
             </li>
             <li>
               <a href="#semantic-html"
-                ><span class="n">02</span> Semantic HTML Is Free
+                >Semantic HTML Is Free
                 Accessibility</a
               >
             </li>
             <li>
               <a href="#accessible-name"
-                ><span class="n">03</span> The Accessible Name</a
+                >The Accessible Name</a
               >
             </li>
             <li>
               <a href="#aria-roles-states"
-                ><span class="n">04</span> ARIA: Roles, States, Properties</a
+                >ARIA: Roles, States, Properties</a
               >
             </li>
             <li>
               <a href="#focus-order-traps"
-                ><span class="n">05</span> Focus: Order, Visibility, Traps</a
+                >Focus: Order, Visibility, Traps</a
               >
             </li>
             <li>
               <a href="#keyboard-patterns"
-                ><span class="n">06</span> Keyboard Patterns for Custom
+                >Keyboard Patterns for Custom
                 Widgets</a
               >
             </li>
             <li>
               <a href="#forms-labels-errors"
-                ><span class="n">07</span> Forms: Labels, Errors,
+                >Forms: Labels, Errors,
                 Announcements</a
               >
             </li>
             <li>
               <a href="#testing-coverage"
-                ><span class="n">08</span> Testing: Coverage vs. What It
+                >Testing: Coverage vs. What It
                 Misses</a
               >
             </li>
             <li>
               <a href="#pitfalls"
-                ><span class="n">09</span> Six Pitfalls That Look Like Edge
+                >Six Pitfalls That Look Like Edge
                 Cases</a
               >
             </li>
             <li>
               <a href="#cheat-sheet"
-                ><span class="n">10</span> Quick Reference</a
+                >Quick Reference</a
               >
             </li>
           </ol>
         </nav>
 
-        <div class="guide-body">
-          <section id="structural-model">
-            <p class="guide-section__kicker mono">§ 01</p>
-            <h2>The Structural Model</h2>
-            <p>
+        <article class="guide-article">
+          <h2 id="structural-model"><span class="guide-article__num mono">01</span>The Structural Model</h2>
+
+          <p>
               A screen reader doesn't read your page. It reads a second,
               parallel data structure the browser builds from your markup called
               the <strong>accessibility tree</strong> — a filtered,
@@ -755,12 +387,10 @@
               right at the markup layer and most of what's normally called
               "accessibility work" turns out to already be done.
             </p>
-          </section>
 
-          <section id="semantic-html">
-            <p class="guide-section__kicker mono">§ 02</p>
-            <h2>Semantic HTML Is Free Accessibility You're Not Using</h2>
-            <p>
+          <h2 id="semantic-html"><span class="guide-article__num mono">02</span>Semantic HTML Is Free Accessibility You're Not Using</h2>
+
+          <p>
               Native HTML elements ship with role, keyboard behavior, and often
               state handling built in, at no cost. A
               <code>&lt;button&gt;</code> is focusable, already has
@@ -797,12 +427,10 @@
               right," breaks that outline for the people relying on it — even
               though nothing about it looks wrong.
             </p>
-          </section>
 
-          <section id="accessible-name">
-            <p class="guide-section__kicker mono">§ 03</p>
-            <h2>The Accessible Name</h2>
-            <p>
+          <h2 id="accessible-name"><span class="guide-article__num mono">03</span>The Accessible Name</h2>
+
+          <p>
               Every node in the accessibility tree carries an
               <strong>accessible name</strong> — the string a screen reader
               actually announces for it — and that string is not always the text
@@ -825,10 +453,9 @@
               often invisible until a mouse hover that keyboard and touch users
               never trigger.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 260"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1065,8 +692,7 @@
             </figcaption>
           </figure>
 
-          <section>
-            <p>
+          <p>
               Two failures come directly out of this order. The common one is an
               icon-only button — a magnifying glass, a hamburger, a trash-can —
               with no visible text and no <code>aria-label</code>, so its
@@ -1080,12 +706,10 @@
               success criterion (2.5.3, Label in Name) because it's common
               enough to name directly.
             </p>
-          </section>
 
-          <section id="aria-roles-states">
-            <p class="guide-section__kicker mono">§ 04</p>
-            <h2>ARIA: Roles, States, and Properties</h2>
-            <p>
+          <h2 id="aria-roles-states"><span class="guide-article__num mono">04</span>ARIA: Roles, States, and Properties</h2>
+
+          <p>
               ARIA is a vocabulary of attributes that describe roles, states,
               and properties to the accessibility tree — nothing more. It
               changes no styling, adds no keyboard behavior, and triggers no
@@ -1139,12 +763,10 @@
               spinner resolving — completely silent to anyone not looking
               directly at that pixel.
             </p>
-          </section>
 
-          <section id="focus-order-traps">
-            <p class="guide-section__kicker mono">§ 05</p>
-            <h2>Focus: Order, Visibility, and Traps</h2>
-            <p>
+          <h2 id="focus-order-traps"><span class="guide-article__num mono">05</span>Focus: Order, Visibility, and Traps</h2>
+
+          <p>
               Tab order follows <strong>DOM order</strong>, full stop — not the
               order things appear on screen. Reorder elements visually with CSS
               <code>order</code>, grid placement, or absolute positioning
@@ -1176,10 +798,9 @@
               focusable element, or that fails to move focus to the destination
               it points to.
             </p>
-          </section>
 
-          <figure class="guide-figure">
-            <div class="guide-figure__frame">
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
               <svg
                 viewBox="0 0 720 300"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1494,8 +1115,7 @@
             </figcaption>
           </figure>
 
-          <section>
-            <p>
+          <p>
               That right-hand pattern is worth stating as a checklist on its
               own, because a modal is one of the highest-stakes focus
               interactions on most sites: on open, focus should move into the
@@ -1518,12 +1138,10 @@
               reader user can trigger a navigation and simply never learn that
               anything changed.
             </p>
-          </section>
 
-          <section id="keyboard-patterns">
-            <p class="guide-section__kicker mono">§ 06</p>
-            <h2>Keyboard Patterns for Custom Widgets</h2>
-            <p>
+          <h2 id="keyboard-patterns"><span class="guide-article__num mono">06</span>Keyboard Patterns for Custom Widgets</h2>
+
+          <p>
               For genuinely custom widgets — tabs, menus, comboboxes, sliders,
               listboxes — there's an established set of keyboard conventions
               (the WAI-ARIA Authoring Practices patterns) that exist so a tab
@@ -1555,12 +1173,10 @@
               can't click. ARIA describes intent; your event handlers are what
               actually deliver it.
             </p>
-          </section>
 
-          <section id="forms-labels-errors">
-            <p class="guide-section__kicker mono">§ 07</p>
-            <h2>Forms: Labels, Errors, and Announcements</h2>
-            <p>
+          <h2 id="forms-labels-errors"><span class="guide-article__num mono">07</span>Forms: Labels, Errors, and Announcements</h2>
+
+          <p>
               Every input needs a programmatically associated label — a real
               <code>&lt;label for="id"&gt;</code>, or the input wrapped inside
               one — not placeholder text standing in for it. Placeholder text
@@ -1593,12 +1209,10 @@
               over-announcing: a live region that fires on every keystroke turns
               a helpful signal into constant noise.
             </p>
-          </section>
 
-          <section id="testing-coverage">
-            <p class="guide-section__kicker mono">§ 08</p>
-            <h2>Testing: Coverage vs. What It Misses</h2>
-            <p>
+          <h2 id="testing-coverage"><span class="guide-article__num mono">08</span>Testing: Coverage vs. What It Misses</h2>
+
+          <p>
               Automated scanners — axe, Lighthouse, WAVE — are genuinely good at
               what they check: missing alt text, insufficient color contrast,
               unlabeled form fields, invalid ARIA attribute values, duplicate
@@ -1629,14 +1243,12 @@
               roughly half of real issues automated tooling was never built to
               see.
             </p>
-          </section>
 
-          <section id="pitfalls">
-            <p class="guide-section__kicker mono">§ 09</p>
-            <h2>Six Pitfalls That Look Like Edge Cases</h2>
-            <ul class="guide-pitfalls">
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">01</span>
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Six Pitfalls That Look Like Edge Cases</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
                 <p>
                   <strong>Icon-only buttons with no accessible name.</strong>
                   The single most common failure from section three — a search
@@ -1646,8 +1258,8 @@
                   icon stands in for a word.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">02</span>
+              <li>
+                <span class="guide-recap__n">02</span>
                 <p>
                   <strong
                     ><code>outline: none</code> with no
@@ -1657,8 +1269,8 @@
                   position on the page. Replace it, never just delete it.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">03</span>
+              <li>
+                <span class="guide-recap__n">03</span>
                 <p>
                   <strong
                     >Reordering visually with CSS without reordering the
@@ -1668,8 +1280,8 @@
                   moving the markup, not adding an ARIA attribute on top of it.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">04</span>
+              <li>
+                <span class="guide-recap__n">04</span>
                 <p>
                   <strong>Correct roles, no behavior.</strong>
                   A custom widget with every appropriate ARIA role wired up, and
@@ -1678,8 +1290,8 @@
                   presence.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">05</span>
+              <li>
+                <span class="guide-recap__n">05</span>
                 <p>
                   <strong>Modals that don't return focus on close.</strong>
                   A keyboard user who opened a dialog loses their place in the
@@ -1687,8 +1299,8 @@
                   trigger.
                 </p>
               </li>
-              <li class="guide-pitfall">
-                <span class="guide-pitfall__n">06</span>
+              <li>
+                <span class="guide-recap__n">06</span>
                 <p>
                   <strong>Ignoring <code>prefers-reduced-motion</code>.</strong>
                   Parallax, autoplaying carousels, and large animated
@@ -1699,13 +1311,11 @@
                 </p>
               </li>
             </ul>
-          </section>
 
-          <section id="cheat-sheet">
-            <p class="guide-section__kicker mono">§ 10</p>
-            <h2>Quick Reference</h2>
-            <div class="guide-table-wrap">
-              <table class="guide-table">
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
                 <caption>
                   / rules_of_thumb
                 </caption>
@@ -1760,10 +1370,8 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="guide-closing">
-            <p>
+          <p>
               Almost everything in this guide is cheaper the earlier it's
               decided. A heading level, a native <code>&lt;button&gt;</code>, a
               label wired to its input — each one costs nothing extra when it's
@@ -1771,19 +1379,7 @@
               retrofitted after launch. Accessibility rewards being treated as a
               structural decision made once, not a final pass run at the end.
             </p>
-          </section>
-        </div>
-
-        <footer class="guide-article__footer">
-          <div class="guide-tags mono">
-            <span>ACCESSIBILITY</span>
-            <span>ARIA</span>
-            <span>KEYBOARD NAV</span>
-            <span>SEMANTIC HTML</span>
-            <span>WCAG</span>
-          </div>
-        </footer>
-          </article>
+        </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
       </div>
