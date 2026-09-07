@@ -158,11 +158,11 @@
   // #/terms hash links still resolve to something inside the SPA.
   var PAGES = {
     about: {
-      title: "About PIXMA UX Guides",
+      title: "About POINT UX Guides",
       updated: null,
       render: function () {
         return `
-          <p>PIXMA UX Guides is a small, independent library of practical interface-design tutorials, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
+          <p>POINT UX Guides is a small, independent library of practical interface-design tutorials, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
           <h3>What "documented like blueprints" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
@@ -179,7 +179,7 @@
       updated: "Effective date: August 4, 2026",
       render: function () {
         return `
-          <p>This Privacy Policy explains what information PIXMA UX Guides ("PIXMA," "we," "us") collects, how it's used, and the choices available to you. By using this site, you agree to the practices described here.</p>
+          <p>This Privacy Policy explains what information POINT UX Guides ("POINT," "we," "us") collects, how it's used, and the choices available to you. By using this site, you agree to the practices described here.</p>
           <h3>Information we collect</h3>
           <p>We collect two kinds of information. First, information you provide directly — for example, your name, email address, and message when you use the <a href="contact.html">contact form</a>. Second, information collected automatically as you browse, such as approximate location derived from IP address, browser and device type, pages viewed, and referring site, typically gathered through standard analytics and advertising cookies.</p>
           <h3>Cookies and advertising (Google AdSense)</h3>
@@ -210,11 +210,11 @@
       updated: "Effective date: August 4, 2026",
       render: function () {
         return `
-          <p>These Terms of Service govern your use of PIXMA UX Guides. By accessing or using this site, you agree to be bound by these terms. If you don't agree, please don't use the site.</p>
+          <p>These Terms of Service govern your use of POINT UX Guides. By accessing or using this site, you agree to be bound by these terms. If you don't agree, please don't use the site.</p>
           <h3>Use of the site</h3>
           <p>You're welcome to browse and read guides for personal or internal professional reference. You may not scrape, republish, or redistribute substantial portions of our guide content without prior written permission.</p>
           <h3>Content ownership</h3>
-          <p>All original guide text, structure, and illustrations on this site are the property of PIXMA UX Guides unless otherwise noted. References to third-party tools, such as Figma or Adobe XD, are used descriptively and belong to their respective owners; PIXMA is not affiliated with or endorsed by those companies.</p>
+          <p>All original guide text, structure, and illustrations on this site are the property of POINT UX Guides unless otherwise noted. References to third-party tools, such as Figma or Adobe XD, are used descriptively and belong to their respective owners; POINT is not affiliated with or endorsed by those companies.</p>
           <h3>Advertising and third-party content</h3>
           <p>This site displays advertising, including ads served through Google AdSense. Ads are clearly labeled as advertising and are not editorial content. We do not control, and are not responsible for, the content of third-party advertisements, or the products and services they promote.</p>
           <h3>No professional advice</h3>
@@ -222,7 +222,7 @@
           <h3>Disclaimer of warranties</h3>
           <p>This site and its content are provided "as is," without warranties of any kind, express or implied, including but not limited to accuracy, completeness, or fitness for a particular purpose.</p>
           <h3>Limitation of liability</h3>
-          <p>To the fullest extent permitted by law, PIXMA UX Guides is not liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this site.</p>
+          <p>To the fullest extent permitted by law, POINT UX Guides is not liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this site.</p>
           <h3>Changes to these terms</h3>
           <p>We may revise these terms from time to time. Continued use of the site after a revision constitutes acceptance of the updated terms.</p>
           <h3>Contact</h3>
@@ -963,7 +963,7 @@
     var track = document.querySelector(".roadmap-track");
     if (!track) return;
 
-    var STORAGE_KEY = "pixma-roadmap-progress";
+    var STORAGE_KEY = "point-roadmap-progress";
     var checkboxes = Array.prototype.slice.call(
       track.querySelectorAll(".roadmap-step-checkbox"),
     );

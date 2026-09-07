@@ -227,6 +227,7 @@ ul {
   font-size: 10px;
   color: var(--text-muted);
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .site-nav {
   display: flex;
