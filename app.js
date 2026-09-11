@@ -162,7 +162,7 @@
       updated: null,
       render: function () {
         return `
-          <p>POINT UX Guides is a small, independent library of practical interface-design tutorials, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
+          <p>POINT UX Guides — often shortened to PUG — is a small, independent library of practical interface-design tutorials, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
           <h3>What "documented like blueprints" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
