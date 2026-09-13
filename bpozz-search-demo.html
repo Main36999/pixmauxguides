@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>bpozz! — live search preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0f2a52;
+    --action: #1d5fd6;
+    --action-hover: #164ec0;
+    --cyan: #22a6c4;
+    --paper: #f5f8fc;
+    --card: #ffffff;
+    --grid-line: #dbe6f7;
+    --text: #000000;
+    --text-muted: #5c6b85;
+    --header-bg: #101010;
+    --radius: 3px;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ---------- demo chrome ---------- */
+  .demo-note {
+    max-width: 720px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .demo-note code {
+    font-family: var(--mono);
+    background: rgba(29, 95, 214, 0.08);
+    border-radius: 2px;
+    padding: 1px 5px;
+    font-size: 12px;
+  }
+  .demo-toast {
+    max-width: 720px;
+    margin: 14px auto 0;
+    padding: 0 24px;
+  }
+  .demo-toast span {
+    display: none;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--action);
+    background: rgba(29, 95, 214, 0.08);
+    border: 1px solid rgba(29, 95, 214, 0.22);
+    border-radius: 2px;
+    padding: 6px 10px;
+  }
+  .demo-toast span[data-visible="true"] { display: inline-block; }
+
+  /* ---------- site header (compact search) ---------- */
+  .site-header {
+    background: var(--header-bg);
+    padding: 0 32px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .brand-text { font-size: 24px; font-weight: 800; color: #fff; }
+  .site-nav { display: none; }
+  @media (min-width: 860px) {
+    .site-nav {
+      display: flex;
+      gap: 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #9db3da;
+      margin-right: auto;
+    }
+  }
+  .header-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    margin-left: auto;
+  }
+  .header-search input {
+    width: 190px;
+    max-width: 40vw;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 2px;
+    padding: 7px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .header-search input::placeholder { color: #8a93a6; }
+  .header-search input:focus { border-color: var(--cyan); outline: none; }
+  .header-search__submit {
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; width: 30px; height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 2px;
+    background: rgba(255, 255, 255, 0.06); color: #9db3da;
+  }
+  .header-search__submit svg { width: 15px; height: 15px; }
+  .header-search__submit:hover { color: #fff; border-color: var(--cyan); }
+
+  /* ---------- hero + hero search pill ---------- */
+  .hero { padding: 56px 24px 64px; text-align: center; }
+  .hero h1 {
+    margin: 0 0 26px; font-size: clamp(26px, 4vw, 38px); font-weight: 800;
+    letter-spacing: -0.01em; line-height: 1.15;
+  }
+  .hero-search {
+    display: flex; align-items: center; max-width: 620px; margin: 0 auto;
+    background: var(--card); border: 1px solid var(--grid-line);
+    border-radius: 999px; padding: 6px 6px 6px 24px;
+    transition: border-color 0.15s ease; position: relative;
+  }
+  .hero-search:focus-within { border-color: var(--action); }
+  .hero-search input {
+    flex: 1 1 auto; border: 0; background: transparent; padding: 13px 8px;
+    font-family: inherit; font-size: 15px; color: var(--text); width: auto;
+  }
+  .hero-search input::placeholder { color: var(--text-muted); }
+  .hero-search input:focus { outline: none; }
+  .hero-search__submit {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 0;
+    background: var(--action); color: #fff; display: flex; align-items: center;
+    justify-content: center;
+  }
+  .hero-search__submit svg { width: 18px; height: 18px; }
+  .hero-search__submit:hover { background: var(--action-hover); }
+
+  /* ---------- live search dropdown ---------- */
+  .search-results {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 5;
+    background: var(--card); border: 1px solid var(--grid-line);
+    border-radius: var(--radius); box-shadow: 0 16px 32px rgba(15, 42, 82, 0.18);
+    overflow: hidden; text-align: left;
+  }
+  .search-results[hidden] { display: none; }
+  .search-result-list { max-height: 360px; overflow-y: auto; }
+  .search-result {
+    display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+    text-decoration: none; color: var(--text); border-bottom: 1px solid var(--grid-line);
+  }
+  .search-result:last-child { border-bottom: 0; }
+  .search-result:hover, .search-result[aria-selected="true"] { background: var(--paper); }
+  .search-result__thumb {
+    position: relative; width: 56px; height: 34px; flex-shrink: 0;
+    border-radius: 2px; overflow: hidden; background: var(--ink); color: #6f88b8;
+  }
+  .search-result__thumb svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+  .search-result__body { min-width: 0; }
+  .search-result__title {
+    display: block; font-size: 13.5px; font-weight: 600; line-height: 1.3;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .search-result__title mark {
+    background: rgba(29, 95, 214, 0.14); color: var(--action);
+    border-radius: 2px; padding: 0 1px;
+  }
+  .search-result__meta {
+    display: block; font-size: 11.5px; color: var(--text-muted); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .search-result--empty { margin: 0; padding: 14px 12px; font-size: 13px; color: var(--text-muted); }
+  .search-result--all { justify-content: space-between; font-size: 12.5px; font-weight: 700; color: var(--action); }
+  .search-result--all:hover, .search-result--all[aria-selected="true"] { background: var(--paper); }
+
+  .thumb-guide { stroke: currentColor; stroke-width: 1; stroke-dasharray: 2 3; opacity: 0.4; }
+  .thumb-glyph { font-family: Georgia, "Times New Roman", serif; font-size: 58px; fill: currentColor; stroke: none; }
+  .thumb-fill { fill: currentColor; stroke: none; }
+  .thumb-handle { stroke: var(--cyan); stroke-width: 1; stroke-dasharray: 2 3; }
+  .thumb-handle-dot { stroke: var(--cyan); fill: var(--card); stroke-width: 1.4; }
+  .thumb-dim-line { stroke: var(--cyan); stroke-width: 1; stroke-dasharray: 2 3; }
+  .thumb-dim-tick { stroke: var(--cyan); stroke-width: 1; }
+  .thumb-dim-label { font-family: var(--mono); font-size: 9px; fill: var(--cyan); letter-spacing: 0.03em; }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <span class="brand-text">bpozz!</span>
+    <nav class="site-nav">
+      <span>All</span><span>Color Theory</span><span>Typography</span><span>Figma</span><span>Accessibility</span>
+    </nav>
+    <form class="header-search" role="search" onsubmit="return false">
+      <label for="hs-input" style="position:absolute;width:1px;height:1px;overflow:hidden;">Search guides</label>
+      <input type="search" id="hs-input" placeholder="Search guides…" autocomplete="off"
+        role="combobox" aria-expanded="false" aria-autocomplete="list" aria-haspopup="listbox" />
+      <button type="submit" class="header-search__submit" aria-label="Search guides">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg>
+      </button>
+    </form>
+  </header>
+
+  <section class="hero">
+    <h1>Design guides, documented like engineering blueprints.</h1>
+    <form class="header-search hero-search" role="search" onsubmit="return false">
+      <label for="hero-input" style="position:absolute;width:1px;height:1px;overflow:hidden;">Search guides</label>
+      <input type="search" id="hero-input" placeholder="Search guides — grid systems, dark mode, type scale…" autocomplete="off"
+        role="combobox" aria-expanded="false" aria-autocomplete="list" aria-haspopup="listbox" />
+      <button type="submit" class="hero-search__submit" aria-label="Search guides">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg>
+      </button>
+    </form>
+  </section>
+
+  <p class="demo-note">
+    Try typing <code>dark</code>, <code>grid</code>, or <code>xd</code> in either box above. Arrow keys move
+    through results, Enter opens the highlighted one, Escape closes it. This preview stands in for the
+    header search and the homepage hero search — same markup, same behavior, same 22 real guides — just
+    without a live guide page to actually navigate to, so clicks below print where they'd go instead.
+  </p>
+  <div class="demo-toast"><span id="demo-toast"></span></div>
+
+<script>
+  var CATEGORIES = {
+    "color-theory": { label: "Color Theory" },
+    typography: { label: "Typography" },
+    spacing: { label: "Spacing & Layout" },
+    figma: { label: "Figma Workflow" },
+    "adobe-xd": { label: "Adobe XD Workflow" },
+    mobile: { label: "Mobile App Design" },
+    web: { label: "Web Layout" },
+    systems: { label: "Design Systems" },
+    accessibility: { label: "Accessibility" },
+    motion: { label: "Prototyping & Motion" },
+  };
+  var LEVEL_LABEL = { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" };
+  var THUMBS = {"color-theory": "\n      <circle cx=\"102\" cy=\"38\" r=\"20\"/>\n      <circle cx=\"138\" cy=\"38\" r=\"20\"/>\n      <circle cx=\"120\" cy=\"64\" r=\"20\"/>\n    ", "typography": "\n      <line x1=\"60\" y1=\"20\" x2=\"180\" y2=\"20\" class=\"thumb-guide\"/>\n      <line x1=\"60\" y1=\"78\" x2=\"180\" y2=\"78\" class=\"thumb-guide\"/>\n      <text x=\"78\" y=\"76\" class=\"thumb-glyph\">Aa</text>\n    ", "spacing": "\n      <circle class=\"thumb-fill\" cx=\"90\" cy=\"24\" r=\"3.4\"/><circle class=\"thumb-fill\" cx=\"120\" cy=\"24\" r=\"3.4\"/><circle class=\"thumb-fill\" cx=\"150\" cy=\"24\" r=\"3.4\"/>\n      <circle class=\"thumb-fill\" cx=\"90\" cy=\"44\" r=\"3.4\"/><circle class=\"thumb-fill\" cx=\"120\" cy=\"44\" r=\"3.4\"/><circle class=\"thumb-fill\" cx=\"150\" cy=\"44\" r=\"3.4\"/>\n      <circle class=\"thumb-fill\" cx=\"90\" cy=\"64\" r=\"3.4\"/><circle class=\"thumb-fill\" cx=\"120\" cy=\"64\" r=\"3.4\"/><circle class=\"thumb-fill\" cx=\"150\" cy=\"64\" r=\"3.4\"/>\n    ", "figma": "\n      <rect x=\"82\" y=\"16\" width=\"50\" height=\"50\" rx=\"6\"/>\n      <rect x=\"110\" y=\"40\" width=\"50\" height=\"50\" rx=\"6\"/>\n      <rect class=\"thumb-fill\" x=\"107.5\" y=\"37.5\" width=\"5\" height=\"5\"/>\n      <rect class=\"thumb-fill\" x=\"157.5\" y=\"37.5\" width=\"5\" height=\"5\"/>\n      <rect class=\"thumb-fill\" x=\"107.5\" y=\"87.5\" width=\"5\" height=\"5\"/>\n      <rect class=\"thumb-fill\" x=\"157.5\" y=\"87.5\" width=\"5\" height=\"5\"/>\n    ", "adobe-xd": "\n      <path d=\"M70,86 L100,20 L130,60 L170,16\"/>\n      <circle class=\"thumb-fill\" cx=\"100\" cy=\"20\" r=\"3.2\"/>\n      <circle class=\"thumb-fill\" cx=\"130\" cy=\"60\" r=\"3.2\"/>\n      <circle class=\"thumb-handle-dot\" cx=\"70\" cy=\"86\" r=\"3\"/>\n      <circle class=\"thumb-handle-dot\" cx=\"170\" cy=\"16\" r=\"3\"/>\n      <line x1=\"100\" y1=\"20\" x2=\"85\" y2=\"6\" class=\"thumb-handle\"/>\n      <circle class=\"thumb-handle-dot\" cx=\"85\" cy=\"6\" r=\"2.4\"/>\n    ", "mobile": "\n      <rect x=\"99\" y=\"12\" width=\"42\" height=\"78\" rx=\"7\"/>\n      <line x1=\"107\" y1=\"24\" x2=\"133\" y2=\"24\" stroke-width=\"1.2\"/>\n      <rect x=\"107\" y=\"32\" width=\"26\" height=\"12\" rx=\"2\" stroke-width=\"1.2\"/>\n      <line x1=\"107\" y1=\"50\" x2=\"133\" y2=\"50\" stroke-width=\"1.2\"/>\n      <line x1=\"107\" y1=\"56\" x2=\"133\" y2=\"56\" stroke-width=\"1.2\"/>\n      <line x1=\"113\" y1=\"84\" x2=\"127\" y2=\"84\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n    ", "web": "\n      <rect x=\"50\" y=\"18\" width=\"140\" height=\"70\" rx=\"4\"/>\n      <line x1=\"50\" y1=\"32\" x2=\"190\" y2=\"32\" stroke-width=\"1.2\"/>\n      <circle class=\"thumb-fill\" cx=\"60\" cy=\"25\" r=\"2\"/>\n      <circle class=\"thumb-fill\" cx=\"68\" cy=\"25\" r=\"2\"/>\n      <circle class=\"thumb-fill\" cx=\"76\" cy=\"25\" r=\"2\"/>\n      <rect x=\"58\" y=\"40\" width=\"26\" height=\"40\" stroke-width=\"1.2\"/>\n      <rect x=\"94\" y=\"40\" width=\"88\" height=\"16\" rx=\"1\" stroke-width=\"1.2\"/>\n      <rect x=\"94\" y=\"62\" width=\"60\" height=\"16\" rx=\"1\" stroke-width=\"1.2\"/>\n    ", "systems": "\n      <rect x=\"75\" y=\"18\" width=\"44\" height=\"18\" rx=\"4\"/>\n      <line x1=\"85\" y1=\"27\" x2=\"109\" y2=\"27\" stroke-width=\"1.2\"/>\n      <rect x=\"130\" y=\"18\" width=\"50\" height=\"18\" rx=\"2\"/>\n      <line x1=\"140\" y1=\"23\" x2=\"140\" y2=\"31\" stroke-width=\"1.2\"/>\n      <rect x=\"75\" y=\"50\" width=\"16\" height=\"16\" rx=\"3\"/>\n      <path d=\"M78,58 L82,62 L88,52\" stroke-width=\"1.8\"/>\n      <line x1=\"98\" y1=\"58\" x2=\"150\" y2=\"58\" stroke-width=\"1.2\"/>\n    ", "accessibility": "\n      <path d=\"M65,44 Q100,18 135,44 Q100,70 65,44 Z\"/>\n      <circle cx=\"100\" cy=\"44\" r=\"10\"/>\n      <circle class=\"thumb-fill\" cx=\"100\" cy=\"44\" r=\"3\"/>\n      <rect class=\"thumb-fill\" x=\"152\" y=\"60\" width=\"9\" height=\"14\" style=\"opacity:.35\"/>\n      <rect class=\"thumb-fill\" x=\"166\" y=\"52\" width=\"9\" height=\"22\" style=\"opacity:.65\"/>\n      <rect class=\"thumb-fill\" x=\"180\" y=\"44\" width=\"9\" height=\"30\"/>\n    ", "motion": "\n      <line x1=\"70\" y1=\"18\" x2=\"70\" y2=\"88\" stroke-width=\"1.2\"/>\n      <line x1=\"70\" y1=\"88\" x2=\"185\" y2=\"88\" stroke-width=\"1.2\"/>\n      <path d=\"M70,88 C110,80 145,28 185,20\" stroke-width=\"1.8\"/>\n      <line x1=\"70\" y1=\"88\" x2=\"110\" y2=\"80\" class=\"thumb-handle\"/>\n      <line x1=\"185\" y1=\"20\" x2=\"145\" y2=\"28\" class=\"thumb-handle\"/>\n      <circle class=\"thumb-handle-dot\" cx=\"110\" cy=\"80\" r=\"2.6\"/>\n      <circle class=\"thumb-handle-dot\" cx=\"145\" cy=\"28\" r=\"2.6\"/>\n      <circle class=\"thumb-fill\" cx=\"70\" cy=\"88\" r=\"3\"/>\n      <circle class=\"thumb-fill\" cx=\"185\" cy=\"20\" r=\"3\"/>\n    "};
+  var THUMB_DIM_LABEL = {"color-theory": "4.5:1", "typography": "16 / 24", "spacing": "8 \u00b7 16 \u00b7 24", "figma": "AUTO LAYOUT", "adobe-xd": "PEN TOOL", "mobile": "375 \u00d7 812", "web": "1440 \u00d7 900", "systems": "DESIGN TOKENS", "accessibility": "WCAG AA", "motion": "EASE-OUT"};
+  var GUIDES = [{"id": "whitespace-as-ui-component", "category": "spacing", "level": "beginner", "readTime": 11, "title": "Whitespace as a UI Component, Not a Leftover", "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning \u2014 not whatever's left over after everything else is placed.", "thumbnail": "/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png", "roadmapStage": 1, "roadmapStep": 1}, {"id": "padding-margin-different-jobs", "category": "spacing", "level": "beginner", "readTime": 8, "title": "Padding and Margin Are Different Jobs, Not Interchangeable Values", "description": "Padding as internal breathing room vs. margin as separation, and the token-naming split that keeps the two from getting swapped.", "thumbnail": "/thumbnail_image/Padding and Margin Are Different Jobs, Not Interchangeable Values_thumbnail.png", "roadmapStage": 1, "roadmapStep": 1.5}, {"id": "color-contrast-systems", "category": "color-theory", "level": "beginner", "readTime": 10, "title": "Color Contrast Is Math, Not Taste", "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.", "thumbnail": "/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png", "roadmapStage": 1, "roadmapStep": 3}, {"id": "color-palette-token-system", "category": "color-theory", "level": "intermediate", "readTime": 14, "title": "A Color Palette Is a Token System, Not a Row of Swatches", "description": "Why HSL's lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.", "thumbnail": "/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches_thumbnail.png", "roadmapStage": 2, "roadmapStep": 6}, {"id": "type-scale-systems", "category": "typography", "level": "intermediate", "readTime": 12, "title": "Font Size Is a Formula, Not a Feeling", "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.", "thumbnail": "/thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png", "roadmapStage": 2, "roadmapStep": 4}, {"id": "auto-layout-constraint-model", "category": "figma", "level": "intermediate", "readTime": 15, "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle", "description": "The mental model behind Figma's most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.", "thumbnail": "/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png", "roadmapStage": 3, "roadmapStep": 8}, {"id": "accessibility-structural-model", "category": "accessibility", "level": "intermediate", "readTime": 16, "title": "Accessibility Is a Structural Decision, Not a Final Pass", "description": "How the accessibility tree actually gets built from markup, how a control's accessible name is computed, ARIA's real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses.", "thumbnail": "/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png", "roadmapStage": 3, "roadmapStep": 10}, {"id": "design-tokens-naming-system", "category": "systems", "level": "advanced", "readTime": 17, "title": "Design Tokens Are a Naming System, Not a Style Guide", "description": "The part of a design system that actually decides whether it survives a rebrand: primitive, semantic, and component token tiers, the aliasing chain between them, and the naming rules that keep tokens from drifting back into hardcoded values.", "thumbnail": "/thumbnail_image/Design Tokens Are a Naming System, Not a Style Guide_thumbnail.png", "roadmapStage": 4, "roadmapStep": 11}, {"id": "responsive-layout-contract", "category": "web", "level": "intermediate", "readTime": 18, "title": "Responsive Layout Is a Contract, Not a Breakpoint List", "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.", "thumbnail": "/thumbnail_image/Responsive Layout Is a Contract, Not a Breakpoint List_thumbnail.png", "roadmapStage": 3, "roadmapStep": 9}, {"id": "motion-timing-model", "category": "motion", "level": "advanced", "readTime": 15, "title": "Motion Timing Is a Physics Model, Not a Preset", "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.", "thumbnail": "/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset_thumbnail.png", "roadmapStage": 4, "roadmapStep": 12}, {"id": "dark-mode-second-palette", "category": "color-theory", "level": "intermediate", "readTime": 12, "title": "Dark Mode Is a Second Palette, Not an Inverted Filter", "description": "Elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch.", "thumbnail": "/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter_thumbnail.png", "roadmapStage": 2, "roadmapStep": 7}, {"id": "font-pairing-hierarchy-decision", "category": "typography", "level": "beginner", "readTime": 11, "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match", "description": "Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a \"creative\" pairing.", "thumbnail": "/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png", "roadmapStage": 2, "roadmapStep": 5}, {"id": "line-length-reading-constraint", "category": "typography", "level": "beginner", "readTime": 9, "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought", "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.", "thumbnail": "/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought_thumbnail.png", "roadmapStage": 1, "roadmapStep": 2}, {"id": "grid-systems-rhythm", "category": "spacing", "level": "intermediate", "readTime": 14, "title": "Grid Systems Are a Rhythm, Not a Ruler", "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.", "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png", "roadmapStage": 3, "roadmapStep": 8.5}, {"id": "components-variants-contract", "category": "figma", "level": "intermediate", "readTime": 16, "title": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut", "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.", "thumbnail": "/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png", "roadmapStage": 3, "roadmapStep": 8.25}, {"id": "figma-variables-data-layer", "category": "figma", "level": "advanced", "readTime": 15, "title": "Figma Variables Are a Data Layer, Not Just Color Styles", "description": "Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.", "thumbnail": "/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png", "roadmapStage": 4, "roadmapStep": 10.5}, {"id": "figma-to-code-handoff", "category": "figma", "level": "intermediate", "readTime": 14, "title": "Figma-to-Code Handoff Is a Translation, Not a Screenshot", "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.", "thumbnail": "/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png", "roadmapStage": 3, "roadmapStep": 8.4}, {"id": "thumb-zones-layout-constraint", "category": "mobile", "level": "beginner", "readTime": 10, "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have", "description": "Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.", "thumbnail": "/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have_thumbnail.png", "roadmapStage": 3, "roadmapStep": 9.5}, {"id": "migrating-from-xd-rebuild", "category": "adobe-xd", "level": "intermediate", "readTime": 12, "title": "Migrating From XD Is a Rebuild, Not a File Import", "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) \u2014 a practical checklist.", "thumbnail": "/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import_thumbnail.png"}, {"id": "ios-android-different-systems", "category": "mobile", "level": "intermediate", "readTime": 17, "title": "iOS and Android Are Different Systems, Not One Design Reused Twice", "description": "Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.", "thumbnail": "/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png", "roadmapStage": 3, "roadmapStep": 9.75}, {"id": "css-grid-two-dimensional-system", "category": "web", "level": "intermediate", "readTime": 15, "title": "CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps", "description": "Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent's rhythm.", "thumbnail": "/thumbnail_image/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps_thumbnail.png"}, {"id": "mobile-breakpoints-device-categories", "category": "mobile", "level": "intermediate", "readTime": 13, "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels", "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.", "thumbnail": "/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels_thumbnail.png", "roadmapStage": 3, "roadmapStep": 9.25}];
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+  function dimLine(label) {
+    var x1 = 64, x2 = 176, y = 99;
+    return '<line x1="'+x1+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'" class="thumb-dim-line"/>' +
+      '<line x1="'+x1+'" y1="'+(y-4)+'" x2="'+x1+'" y2="'+(y+4)+'" class="thumb-dim-tick"/>' +
+      '<line x1="'+x2+'" y1="'+(y-4)+'" x2="'+x2+'" y2="'+(y+4)+'" class="thumb-dim-tick"/>' +
+      '<text x="'+((x1+x2)/2)+'" y="'+(y+13)+'" text-anchor="middle" class="thumb-dim-label">'+escapeHtml(label)+'</text>';
+  }
+  function thumbMediaHtml(g) {
+    return '<svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      THUMBS[g.category] + dimLine(THUMB_DIM_LABEL[g.category]) + "</svg>";
+  }
+
+  var LIVE_SEARCH_MAX = 6;
+  function searchGuides(query) {
+    var q = query.trim().toLowerCase();
+    if (!q) return [];
+    var scored = [];
+    GUIDES.forEach(function (g) {
+      var title = g.title.toLowerCase();
+      var cat = (CATEGORIES[g.category] || {}).label || "";
+      var score = 0;
+      if (title.indexOf(q) === 0) score = 4;
+      else if (title.indexOf(q) !== -1) score = 3;
+      else if (cat.toLowerCase().indexOf(q) !== -1) score = 2;
+      else if (g.description.toLowerCase().indexOf(q) !== -1) score = 1;
+      if (score > 0) scored.push({ guide: g, score: score });
+    });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    return scored.map(function (s) { return s.guide; });
+  }
+  function highlightMatch(text, query) {
+    var q = query.trim();
+    if (!q) return escapeHtml(text);
+    var idx = text.toLowerCase().indexOf(q.toLowerCase());
+    if (idx === -1) return escapeHtml(text);
+    return escapeHtml(text.slice(0, idx)) + "<mark>" + escapeHtml(text.slice(idx, idx + q.length)) +
+      "</mark>" + escapeHtml(text.slice(idx + q.length));
+  }
+  function searchResultHtml(g, query, optionId) {
+    var cat = CATEGORIES[g.category];
+    var meta = cat.label + " · " + LEVEL_LABEL[g.level] + " · " + g.readTime + " min read";
+    return '<a href="/guide/' + g.id + '" role="option" id="' + optionId + '" class="search-result" aria-selected="false" data-id="' + g.id + '">' +
+      '<span class="search-result__thumb">' + thumbMediaHtml(g) + "</span>" +
+      '<span class="search-result__body">' +
+      '<span class="search-result__title">' + highlightMatch(g.title, query) + "</span>" +
+      '<span class="search-result__meta">' + escapeHtml(meta) + "</span></span></a>";
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById("demo-toast");
+    el.textContent = msg;
+    el.setAttribute("data-visible", "true");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { el.removeAttribute("data-visible"); }, 2600);
+  }
+
+  function debounce(fn, wait) {
+    var timer;
+    return function () {
+      var args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(null, args); }, wait);
+    };
+  }
+
+  function initLiveSearch(form, formIndex) {
+    var input = form.querySelector("input[type='search']");
+    var resultsId = "search-results-" + formIndex;
+    var panel = document.createElement("div");
+    panel.className = "search-results";
+    panel.id = resultsId;
+    panel.setAttribute("role", "listbox");
+    panel.hidden = true;
+    form.appendChild(panel);
+    input.setAttribute("aria-controls", resultsId);
+
+    var activeIndex = -1;
+
+    function closePanel() {
+      panel.hidden = true; panel.innerHTML = "";
+      input.setAttribute("aria-expanded", "false");
+      input.removeAttribute("aria-activedescendant");
+      activeIndex = -1;
+    }
+    function openPanel(html) {
+      panel.innerHTML = html; panel.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+      activeIndex = -1;
+      input.removeAttribute("aria-activedescendant");
+    }
+    function setActive(nextIndex, options) {
+      options.forEach(function (el) { el.setAttribute("aria-selected", "false"); });
+      activeIndex = nextIndex;
+      if (activeIndex < 0) { input.removeAttribute("aria-activedescendant"); return; }
+      var el = options[activeIndex];
+      el.setAttribute("aria-selected", "true");
+      input.setAttribute("aria-activedescendant", el.id);
+      el.scrollIntoView({ block: "nearest" });
+    }
+    function renderResults(query) {
+      if (!query) { closePanel(); return; }
+      var matches = searchGuides(query);
+      if (!matches.length) {
+        openPanel('<p class="search-result--empty">No matches for "' + escapeHtml(query) + '".</p>');
+        return;
+      }
+      var shown = matches.slice(0, LIVE_SEARCH_MAX);
+      var html = '<div class="search-result-list">' +
+        shown.map(function (g, i) { return searchResultHtml(g, query, resultsId + "-opt-" + i); }).join("") +
+        "</div>";
+      html += '<a href="#" role="option" id="' + resultsId + '-opt-all" class="search-result search-result--all" aria-selected="false" data-all="1">' +
+        "<span>See all " + matches.length + " result" + (matches.length === 1 ? "" : "s") + ' for "' + escapeHtml(query) + '"</span>' +
+        '<span aria-hidden="true">→</span></a>';
+      openPanel(html);
+
+      panel.querySelectorAll(".search-result").forEach(function (el) {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (el.getAttribute("data-all")) {
+            showToast('→ index.html?q=' + encodeURIComponent(query) + '#guides (filters the homepage grid)');
+          } else {
+            showToast("→ /guide/" + el.getAttribute("data-id"));
+          }
+          closePanel();
+        });
+      });
+    }
+
+    var debouncedRender = debounce(function () { renderResults(input.value.trim()); }, 90);
+    input.addEventListener("input", debouncedRender);
+    input.addEventListener("keydown", function (e) {
+      if (panel.hidden) return;
+      var options = Array.prototype.slice.call(panel.querySelectorAll("[role='option']"));
+      if (!options.length) return;
+      if (e.key === "ArrowDown") { e.preventDefault(); setActive(activeIndex + 1 >= options.length ? 0 : activeIndex + 1, options); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setActive(activeIndex - 1 < 0 ? options.length - 1 : activeIndex - 1, options); }
+      else if (e.key === "Enter") { if (activeIndex >= 0) { e.preventDefault(); options[activeIndex].click(); } }
+      else if (e.key === "Escape") { closePanel(); }
+    });
+    form.addEventListener("focusout", function () {
+      setTimeout(function () { if (!form.contains(document.activeElement)) closePanel(); }, 0);
+    });
+    document.addEventListener("click", function (e) {
+      if (!panel.hidden && !form.contains(e.target)) closePanel();
+    });
+  }
+
+  document.querySelectorAll(".header-search").forEach(initLiveSearch);
+</script>
+</body>
+</html>

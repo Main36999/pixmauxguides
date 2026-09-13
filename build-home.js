@@ -162,14 +162,10 @@ const THUMB_DIM_LABEL = {
   motion: "EASE-OUT",
 };
 
-const LEVEL_ABBR = { beginner: "BEG", intermediate: "INT", advanced: "ADV" };
-
-// Full-word level labels for the homepage card's minimal meta line
-// (e.g. "Spacing & Layout · Beginner · 11 min read"). LEVEL_ABBR above
-// still covers the roadmap, which keeps its compact "BEG · 11 MIN"
-// meta text (now in the same sans font as everything else, not mono).
-// The related-guides rail uses cardHtml() below, so it gets the same
-// full-word meta line as the homepage grid.
+// Full-word level labels, shared by the homepage card's minimal meta
+// line (e.g. "Spacing & Layout · Beginner · 11 min read") and the
+// roadmap's step meta line below — both use the exact same "Level ·
+// N min read" phrasing so the two pages read as one consistent system.
 const LEVEL_LABEL = {
   beginner: "Beginner",
   intermediate: "Intermediate",
@@ -289,7 +285,7 @@ function roadmapStepHtml(g) {
     `</label>` +
     `<a class="roadmap-step-link" href="/guide/${g.id}">` +
     `<span class="roadmap-step-title">${escapeHtml(g.title)}</span>` +
-    `<span class="roadmap-step-meta">${LEVEL_ABBR[g.level]} · ${g.readTime} MIN</span>` +
+    `<span class="roadmap-step-meta">${LEVEL_LABEL[g.level]} · ${g.readTime} min read</span>` +
     `</a>` +
     `</li>`
   );
@@ -299,11 +295,11 @@ function roadmapStageHtml(stage, guides) {
   const num = String(stage.id).padStart(2, "0");
   return (
     `<li class="roadmap-stage" data-stage="${stage.id}">` +
-    `<div class="roadmap-stage-marker"><span class="roadmap-stage-num">${num}</span></div>` +
+    `<div class="roadmap-stage-marker"><span class="roadmap-stage-num mono">${num}</span></div>` +
     `<div class="roadmap-stage-body">` +
     `<div class="roadmap-stage-headline">` +
     `<h3 class="roadmap-stage-title">${escapeHtml(stage.title)}</h3>` +
-    `<span class="badge roadmap-stage-count">${guides.length} GUIDE${guides.length === 1 ? "" : "S"}</span>` +
+    `<span class="roadmap-stage-count">${guides.length} guide${guides.length === 1 ? "" : "s"}</span>` +
     `</div>` +
     `<p class="roadmap-stage-blurb">${escapeHtml(stage.blurb)}</p>` +
     `<ul class="roadmap-steps">${guides.map(roadmapStepHtml).join("")}</ul>` +
@@ -315,9 +311,9 @@ function roadmapStageHtml(stage, guides) {
 function formatRoadmapTime(totalMinutes) {
   const h = Math.floor(totalMinutes / 60);
   const m = totalMinutes % 60;
-  if (h === 0) return `~${m}M`;
-  if (m === 0) return `~${h}H`;
-  return `~${h}H ${m}M`;
+  if (h === 0) return `~${m}m`;
+  if (m === 0) return `~${h}h`;
+  return `~${h}h ${m}m`;
 }
 
 // Builds every piece build-home.js needs to splice into roadmap.html's
