@@ -512,13 +512,28 @@
     var filtered = getFiltered();
     var cards = filtered.map(cardHtml);
     gridRoot.innerHTML = cards.join("");
-    resultsCount.textContent =
-      "Showing " + filtered.length + " of " + GUIDES.length + " guides";
+
+    var q = state.search.trim();
+    if (q) {
+      // Once a search term is active there's no fixed "total" to show
+      // it against (unlike browsing a category), so report a plain
+      // count-for-query instead — e.g. `12 Results for "grid"`, or
+      // `0 Results for "asdf"` when nothing matches.
+      resultsCount.textContent =
+        filtered.length +
+        " Result" +
+        (filtered.length === 1 ? "" : "s") +
+        ' for "' +
+        q +
+        '"';
+    } else {
+      resultsCount.textContent =
+        "Showing " + filtered.length + " of " + GUIDES.length + " guides";
+    }
+
     if (filtered.length === 0) {
       emptyState.setAttribute("data-visible", "true");
-      emptyQuery.textContent = state.search
-        ? '"' + state.search + '"'
-        : "your current filters";
+      emptyQuery.textContent = q ? '"' + q + '"' : "your current filters";
     } else {
       emptyState.removeAttribute("data-visible");
     }
@@ -800,247 +815,13 @@
     });
   });
 
-  // --- Live search dropdown ---
-  // Upgrades every ".header-search" input (the compact header bar, its
-  // mobile-collapsed twin, and the homepage hero pill) into a type-ahead
-  // combobox: a ranked preview of matching guides drops below the input
-  // as the person types, with thumbnails and the matched text
-  // highlighted, reachable by mouse or arrow keys. This runs on every
-  // page (not just index.html) because GUIDES is fetched once in init()
-  // regardless of isHomePage — see the comment there. Submitting the
-  // form (Enter with nothing highlighted, or the explicit submit button)
-  // still falls through to the existing runHeaderSearch()/native-GET
-  // behavior above; this only adds a fast preview on top of it.
-  var LIVE_SEARCH_MAX = 6;
-
-  function debounce(fn, wait) {
-    var timer;
-    return function () {
-      var args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        fn.apply(null, args);
-      }, wait);
-    };
-  }
-
-  // Simple relevance ranking so a title match always beats a match
-  // that's only in the description: an exact-prefix title hit outranks
-  // a mid-title hit, which outranks a category hit, which outranks a
-  // description-only hit. Good enough for a ~two-dozen-guide catalog
-  // without pulling in a real search library.
-  function searchGuides(query) {
-    var q = query.trim().toLowerCase();
-    if (!q) return [];
-    var scored = [];
-    GUIDES.forEach(function (g) {
-      var title = g.title.toLowerCase();
-      var cat = (CATEGORIES[g.category] || {}).label || "";
-      var score = 0;
-      if (title.indexOf(q) === 0) score = 4;
-      else if (title.indexOf(q) !== -1) score = 3;
-      else if (cat.toLowerCase().indexOf(q) !== -1) score = 2;
-      else if (g.description.toLowerCase().indexOf(q) !== -1) score = 1;
-      if (score > 0) scored.push({ guide: g, score: score });
-    });
-    scored.sort(function (a, b) {
-      return b.score - a.score;
-    });
-    return scored.map(function (s) {
-      return s.guide;
-    });
-  }
-
-  // Wraps the first occurrence of `query` inside `text` in <mark>,
-  // escaping everything (including the matched slice) so a query
-  // containing HTML-special characters can never inject markup.
-  function highlightMatch(text, query) {
-    var q = query.trim();
-    if (!q) return escapeHtml(text);
-    var idx = text.toLowerCase().indexOf(q.toLowerCase());
-    if (idx === -1) return escapeHtml(text);
-    return (
-      escapeHtml(text.slice(0, idx)) +
-      "<mark>" +
-      escapeHtml(text.slice(idx, idx + q.length)) +
-      "</mark>" +
-      escapeHtml(text.slice(idx + q.length))
-    );
-  }
-
-  function searchResultHtml(g, query, optionId) {
-    var cat = CATEGORIES[g.category];
-    var meta =
-      cat.label + " · " + LEVEL_LABEL[g.level] + " · " + g.readTime + " min read";
-    return (
-      '<a href="/guide/' +
-      g.id +
-      '" role="option" id="' +
-      optionId +
-      '" class="search-result" aria-selected="false">' +
-      '<span class="search-result__thumb">' +
-      thumbMediaHtml(g) +
-      "</span>" +
-      '<span class="search-result__body">' +
-      '<span class="search-result__title">' +
-      highlightMatch(g.title, query) +
-      "</span>" +
-      '<span class="search-result__meta">' +
-      escapeHtml(meta) +
-      "</span>" +
-      "</span>" +
-      "</a>"
-    );
-  }
-
-  function initLiveSearch(form, formIndex) {
-    var input = form.querySelector("input[type='search']");
-    if (!input) return;
-
-    var resultsId = "search-results-" + formIndex;
-    var panel = document.createElement("div");
-    panel.className = "search-results";
-    panel.id = resultsId;
-    panel.setAttribute("role", "listbox");
-    panel.setAttribute("aria-label", "Search suggestions");
-    panel.hidden = true;
-    form.appendChild(panel);
-    input.setAttribute("aria-controls", resultsId);
-
-    var activeIndex = -1;
-
-    function closePanel() {
-      panel.hidden = true;
-      panel.innerHTML = "";
-      input.setAttribute("aria-expanded", "false");
-      input.removeAttribute("aria-activedescendant");
-      activeIndex = -1;
-    }
-
-    function openPanel(html) {
-      panel.innerHTML = html;
-      panel.hidden = false;
-      input.setAttribute("aria-expanded", "true");
-      activeIndex = -1;
-      input.removeAttribute("aria-activedescendant");
-    }
-
-    function setActive(nextIndex, options) {
-      options.forEach(function (el) {
-        el.setAttribute("aria-selected", "false");
-      });
-      activeIndex = nextIndex;
-      if (activeIndex < 0) {
-        input.removeAttribute("aria-activedescendant");
-        return;
-      }
-      var el = options[activeIndex];
-      el.setAttribute("aria-selected", "true");
-      input.setAttribute("aria-activedescendant", el.id);
-      el.scrollIntoView({ block: "nearest" });
-    }
-
-    function renderResults(query) {
-      if (!query) {
-        closePanel();
-        return;
-      }
-      if (!GUIDES.length) {
-        openPanel('<p class="search-result--empty">Loading guides…</p>');
-        return;
-      }
-      var matches = searchGuides(query);
-      if (!matches.length) {
-        openPanel(
-          '<p class="search-result--empty">No matches for “' +
-            escapeHtml(query) +
-            "”.</p>",
-        );
-        return;
-      }
-      var shown = matches.slice(0, LIVE_SEARCH_MAX);
-      var html =
-        '<div class="search-result-list">' +
-        shown
-          .map(function (g, i) {
-            return searchResultHtml(g, query, resultsId + "-opt-" + i);
-          })
-          .join("") +
-        "</div>";
-      var seeAllHref =
-        form.getAttribute("action") + "?q=" + encodeURIComponent(query) + "#guides";
-      html +=
-        '<a href="' +
-        seeAllHref +
-        '" role="option" id="' +
-        resultsId +
-        '-opt-all" class="search-result search-result--all" aria-selected="false">' +
-        "<span>See all " +
-        matches.length +
-        " result" +
-        (matches.length === 1 ? "" : "s") +
-        ' for “' +
-        escapeHtml(query) +
-        '”</span><span aria-hidden="true">→</span></a>';
-      openPanel(html);
-
-      // On the home page, filter the grid in place instead of forcing a
-      // full reload through the "see all" link's own href.
-      if (isHomePage) {
-        var allLink = panel.querySelector(".search-result--all");
-        allLink.addEventListener("click", function (e) {
-          e.preventDefault();
-          runHeaderSearch(query);
-          closePanel();
-        });
-      }
-    }
-
-    var debouncedRender = debounce(function () {
-      renderResults(input.value.trim());
-    }, 90);
-
-    input.addEventListener("input", debouncedRender);
-
-    input.addEventListener("keydown", function (e) {
-      if (panel.hidden) return;
-      var options = Array.prototype.slice.call(
-        panel.querySelectorAll("[role='option']"),
-      );
-      if (!options.length) return;
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setActive(activeIndex + 1 >= options.length ? 0 : activeIndex + 1, options);
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setActive(activeIndex - 1 < 0 ? options.length - 1 : activeIndex - 1, options);
-      } else if (e.key === "Enter") {
-        if (activeIndex >= 0) {
-          e.preventDefault();
-          options[activeIndex].click();
-        }
-        // else: no item highlighted — let the normal submit handler
-        // above run its course (in-place filter or native GET).
-      } else if (e.key === "Escape") {
-        closePanel();
-      }
-    });
-
-    // Close when focus leaves the form entirely (e.g. Tab away). The
-    // timeout lets a mousedown-triggered click on a result still fire
-    // first, since that click moves focus to the result link itself.
-    form.addEventListener("focusout", function () {
-      setTimeout(function () {
-        if (!form.contains(document.activeElement)) closePanel();
-      }, 0);
-    });
-
-    document.addEventListener("click", function (e) {
-      if (!panel.hidden && !form.contains(e.target)) closePanel();
-    });
-  }
-
-  headerSearchForms.forEach(initLiveSearch);
+  // Note: this used to also wire up a live type-ahead dropdown (a
+  // ranked preview of matching guides, with thumbnails, appearing below
+  // the input as the person typed). That's intentionally gone — search
+  // now behaves like a normal search box: nothing happens until the
+  // form is submitted (Enter or the submit button), at which point
+  // runHeaderSearch() above takes over and the results page itself
+  // (render(), below) reports the count for that exact query.
 
   // --- Mobile menu toggle ---
   // Below 640px the header's nav links and search collapse behind this
