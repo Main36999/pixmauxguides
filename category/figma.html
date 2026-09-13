@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Figma Workflow Guides — bpozz</title>
+    <meta name="description" content="The mental models behind Figma&#39;s most misused features — Auto Layout, variables, and a clean handoff from design file to code." />
+    <link rel="canonical" href="https://bpozz.com/category/figma" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bpozz.com/category/figma" />
+    <meta property="og:site_name" content="bpozz" />
+    <meta property="og:title" content="Figma Workflow Guides — bpozz" />
+    <meta property="og:description" content="The mental models behind Figma&#39;s most misused features — Auto Layout, variables, and a clean handoff from design file to code." />
+    <meta property="og:image" content="https://bpozz.com/assets/Figma Workflow.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta name="twitter:title" content="Figma Workflow Guides — bpozz" />
+    <meta name="twitter:description" content="The mental models behind Figma&#39;s most misused features — Auto Layout, variables, and a clean handoff from design file to code." />
+    <meta name="twitter:image" content="https://bpozz.com/assets/Figma Workflow.png" />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Figma Workflow Guides",
+  "description": "The mental models behind Figma's most misused features — Auto Layout, variables, and a clean handoff from design file to code.",
+  "url": "https://bpozz.com/category/figma",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "bpozz",
+    "url": "https://bpozz.com/"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "All Guides",
+        "item": "https://bpozz.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Figma Workflow",
+        "item": "https://bpozz.com/category/figma"
+      }
+    ]
+  }
+}
+    </script>
+  </head>
+  <body class="category-page" data-category="figma">
+    <a href="#category-content" class="skip-link">Skip to guides</a>
+
+    <!--HEADER_START--><header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand" aria-label="bpozz! home">
+      <span class="brand-text">bpozz!</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma" aria-current="page">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.2" y2="16.2" />
+          </svg>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma" aria-current="page">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+</header><!--HEADER_END-->
+
+    <div class="wrap category-crumb">
+      <a href="../index.html#guides" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <main class="wrap guides-main" id="category-content" tabindex="-1">
+      <div class="category-hero">
+        <p class="section-label mono">/ figma</p>
+        <h1 class="category-hero__title">Figma Workflow</h1>
+        <p class="category-hero__dek">The mental models behind Figma&#39;s most misused features — Auto Layout, variables, and a clean handoff from design file to code.</p>
+      </div>
+      <div class="section-head">
+        <p class="results-count">Showing 4 of 4 guides</p>
+      </div>
+      <div class="grid"><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="82" y="16" width="50" height="50" rx="6"/>
+      <rect x="110" y="40" width="50" height="50" rx="6"/>
+      <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png" alt="Auto Layout Is a Constraint System, Not a Convenience Toggle" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/auto-layout-constraint-model">Auto Layout Is a Constraint System, Not a Convenience Toggle</a></h3><p class="card-meta">Figma Workflow · Intermediate · 15 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="82" y="16" width="50" height="50" rx="6"/>
+      <rect x="110" y="40" width="50" height="50" rx="6"/>
+      <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png" alt="Components and Variants Are a Contract, Not a Copy-Paste Shortcut" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/components-variants-contract">Components and Variants Are a Contract, Not a Copy-Paste Shortcut</a></h3><p class="card-meta">Figma Workflow · Intermediate · 16 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="82" y="16" width="50" height="50" rx="6"/>
+      <rect x="110" y="40" width="50" height="50" rx="6"/>
+      <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png" alt="Figma Variables Are a Data Layer, Not Just Color Styles" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/figma-variables-data-layer">Figma Variables Are a Data Layer, Not Just Color Styles</a></h3><p class="card-meta">Figma Workflow · Advanced · 15 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="82" y="16" width="50" height="50" rx="6"/>
+      <rect x="110" y="40" width="50" height="50" rx="6"/>
+      <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
+      <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png" alt="Figma-to-Code Handoff Is a Translation, Not a Screenshot" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/figma-to-code-handoff">Figma-to-Code Handoff Is a Translation, Not a Screenshot</a></h3><p class="card-meta">Figma Workflow · Intermediate · 14 min read</p></div></article></div>
+    </main>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <script src="../app.js"></script>
+  </body>
+</html>

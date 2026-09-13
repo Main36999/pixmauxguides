@@ -181,7 +181,16 @@ function main() {
   for (const file of files) {
     const relPath = path.relative(ROOT, file).split(path.sep).join("/");
     const original = fs.readFileSync(file, "utf8");
-    const headerHtml = headerFor(relPath, partial);
+    let headerHtml = headerFor(relPath, partial);
+    // Category pages (category/<slug>.html) aren't in ROOT_LINKS since
+    // they're absolute-root-relative in the partial already (/category/
+    // <slug>, unlike index.html/roadmap.html's ../-prefixed convention)
+    // and need no depth rewriting — but they still deserve the same
+    // "you are here" nav highlight headerFor() gives roadmap.html.
+    const categoryMatch = relPath.match(/^category\/([a-z0-9-]+)\.html$/);
+    if (categoryMatch) {
+      headerHtml = markCurrent(headerHtml, `/category/${categoryMatch[1]}`);
+    }
     const result = replaceBetween(
       original,
       START_MARKER,

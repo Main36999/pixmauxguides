@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile App Design Guides — bpozz</title>
+    <meta name="description" content="Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge." />
+    <link rel="canonical" href="https://bpozz.com/category/mobile" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bpozz.com/category/mobile" />
+    <meta property="og:site_name" content="bpozz" />
+    <meta property="og:title" content="Mobile App Design Guides — bpozz" />
+    <meta property="og:description" content="Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge." />
+    <meta property="og:image" content="https://bpozz.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta name="twitter:title" content="Mobile App Design Guides — bpozz" />
+    <meta name="twitter:description" content="Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge." />
+    <meta name="twitter:image" content="https://bpozz.com/og-image.png" />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+
+    <script type="application/ld+json">
+      {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Mobile App Design Guides",
+  "description": "Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge.",
+  "url": "https://bpozz.com/category/mobile",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "bpozz",
+    "url": "https://bpozz.com/"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "All Guides",
+        "item": "https://bpozz.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Mobile App Design",
+        "item": "https://bpozz.com/category/mobile"
+      }
+    ]
+  }
+}
+    </script>
+  </head>
+  <body class="category-page" data-category="mobile">
+    <a href="#category-content" class="skip-link">Skip to guides</a>
+
+    <!--HEADER_START--><header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand" aria-label="bpozz! home">
+      <span class="brand-text">bpozz!</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile" aria-current="page">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.2" y2="16.2" />
+          </svg>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile" aria-current="page">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+</header><!--HEADER_END-->
+
+    <div class="wrap category-crumb">
+      <a href="../index.html#guides" class="page-view__back mono">← All guides</a>
+    </div>
+
+    <main class="wrap guides-main" id="category-content" tabindex="-1">
+      <div class="category-hero">
+        <p class="section-label mono">/ mobile_app</p>
+        <h1 class="category-hero__title">Mobile App Design</h1>
+        <p class="category-hero__dek">Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge.</p>
+      </div>
+      <div class="section-head">
+        <p class="results-count">Showing 3 of 3 guides</p>
+      </div>
+      <div class="grid"><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="99" y="12" width="42" height="78" rx="7"/>
+      <line x1="107" y1="24" x2="133" y2="24" stroke-width="1.2"/>
+      <rect x="107" y="32" width="26" height="12" rx="2" stroke-width="1.2"/>
+      <line x1="107" y1="50" x2="133" y2="50" stroke-width="1.2"/>
+      <line x1="107" y1="56" x2="133" y2="56" stroke-width="1.2"/>
+      <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have_thumbnail.png" alt="Thumb Zones Are a Layout Constraint, Not a Nice-to-Have" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/thumb-zones-layout-constraint">Thumb Zones Are a Layout Constraint, Not a Nice-to-Have</a></h3><p class="card-meta">Mobile App Design · Beginner · 10 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="99" y="12" width="42" height="78" rx="7"/>
+      <line x1="107" y1="24" x2="133" y2="24" stroke-width="1.2"/>
+      <rect x="107" y="32" width="26" height="12" rx="2" stroke-width="1.2"/>
+      <line x1="107" y1="50" x2="133" y2="50" stroke-width="1.2"/>
+      <line x1="107" y1="56" x2="133" y2="56" stroke-width="1.2"/>
+      <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png" alt="iOS and Android Are Different Systems, Not One Design Reused Twice" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/ios-android-different-systems">iOS and Android Are Different Systems, Not One Design Reused Twice</a></h3><p class="card-meta">Mobile App Design · Intermediate · 17 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="99" y="12" width="42" height="78" rx="7"/>
+      <line x1="107" y1="24" x2="133" y2="24" stroke-width="1.2"/>
+      <rect x="107" y="32" width="26" height="12" rx="2" stroke-width="1.2"/>
+      <line x1="107" y1="50" x2="133" y2="50" stroke-width="1.2"/>
+      <line x1="107" y1="56" x2="133" y2="56" stroke-width="1.2"/>
+      <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels_thumbnail.png" alt="Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/mobile-breakpoints-device-categories">Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels</a></h3><p class="card-meta">Mobile App Design · Intermediate · 13 min read</p></div></article></div>
+    </main>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <script src="../app.js"></script>
+  </body>
+</html>

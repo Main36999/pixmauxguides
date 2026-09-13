@@ -21,6 +21,12 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^guide/([a-z0-9-]+)/?$ guide/$1.html [L]
 
+# Same clean-URL treatment for the /category/<slug> archive pages
+# (see build-categories.js) as /guide/<slug> gets above.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^category/([a-z0-9-]+)/?$ category/$1.html [L]
+
 # ── Security headers ─────────────────────────────────────────────
 <IfModule mod_headers.c>
   # Force HTTPS for 2 years, including subdomains. Add "preload" only
