@@ -11,7 +11,7 @@ in the same order, and nothing else:
 ```
 
 No guide page has its own `<style>` block. Across all 22 pages there are
-only **63 distinct CSS classes** in total, used in the same order every
+only **62 distinct CSS classes** in total, used in the same order every
 time: `guide-layout → guide-primary → guide-hero → guide-toc →
 guide-article → (content components) → guide-rail`. That's already one
 style template applied consistently — this doc and `guide/_TEMPLATE.html`
@@ -29,7 +29,6 @@ system.
 
 | Component | Class | Use for |
 |---|---|---|
-| Breadcrumb | `.guide-crumb` | "← All guides" back-link, every page |
 | Hero | `.guide-hero`, `__meta`, `__title`, `__dek`, `__figure` | Title block, required |
 | Table of contents | `.guide-toc` | Jump links, required |
 | Section heading | `.guide-article h2` + `.guide-article__num` | Numbered `01`, `02`… headings |

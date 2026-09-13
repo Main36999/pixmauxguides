@@ -42,23 +42,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Breadcrumb
-   guide-crumb is the "← All guides" back-link wrapper (pairs with the
-   site's existing .page-view__back, already in styles.css). This is now
-   the ONE breadcrumb treatment for every /guide/*.html page — it used to
-   coexist with a separate, denser .guide-breadcrumb trail (a three-level
-   "All guides / Category / Title" nav in mono type, missing the .wrap
-   container so it sat flush against the viewport edge, and its middle
-   link pointed at a "#toolbar" anchor that doesn't exist on index.html).
-   That variant has been retired so every guide lines up with the same
-   flat, minimal back-link the rest of the site already uses.
-   -------------------------------------------------------------------------- */
-.guide-crumb {
-  padding-top: 24px;
-}
-
-/* --------------------------------------------------------------------------
-   3. Hero (eyebrow + title + dek + optional figure)
+   2. Hero (eyebrow + title + dek + optional figure)
    Figure reuses the exact blueprint-grid look of .article-hero /
    .card-thumb elsewhere on the site, so a diagram inside a guide reads
    as the same "spec sheet" object as a guide-card thumbnail.
@@ -120,7 +104,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   4. Table of contents
+   3. Table of contents
    -------------------------------------------------------------------------- */
 .guide-toc {
   margin: 0 0 44px;
@@ -169,7 +153,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. Prose — headings, paragraphs, lists, code, tables
+   4. Prose — headings, paragraphs, lists, code, tables
    -------------------------------------------------------------------------- */
 .guide-article {
   max-width: 68ch;
@@ -292,7 +276,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   6. Callouts — one component, four semantic variants.
+   5. Callouts — one component, four semantic variants.
    Replaces the ad hoc "note" boxes each guide invented separately.
    -------------------------------------------------------------------------- */
 .guide-callout {
@@ -331,7 +315,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   7. Example / comparison grid (do vs. don't, before vs. after)
+   6. Example / comparison grid (do vs. don't, before vs. after)
    -------------------------------------------------------------------------- */
 .guide-example {
   display: grid;
@@ -357,7 +341,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   8. Recap — numbered end-of-section summary
+   7. Recap — numbered end-of-section summary
    -------------------------------------------------------------------------- */
 .guide-recap {
   margin: 0;
@@ -402,7 +386,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   9. CTA — reuses the site's real .btn-primary instead of a bespoke button
+   8. CTA — reuses the site's real .btn-primary instead of a bespoke button
    -------------------------------------------------------------------------- */
 .guide-cta {
   margin-top: 64px;
@@ -428,7 +412,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   10. Diagram — dark-frame technical illustration, for mid-article figures
+   9. Diagram — dark-frame technical illustration, for mid-article figures
    (as opposed to .guide-hero__figure, which is the lead image up top).
    These are hand-authored, multi-color inline SVGs (accent lines, state
    comparisons, etc.) with colors baked into the markup on purpose — the
@@ -508,7 +492,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   11. Footer nav — sequential prev/next between guides (roadmap order),
+   10. Footer nav — sequential prev/next between guides (roadmap order),
    distinct from .guide-rail's topic-related suggestions below the article.
    -------------------------------------------------------------------------- */
 .guide-footer-nav {
@@ -546,7 +530,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   12. Spec sheet — a bordered term/value reference box (e.g. a "the spec"
+   11. Spec sheet — a bordered term/value reference box (e.g. a "the spec"
    closing section), distinct from .guide-callout (a note, not a lookup
    table) and .guide-recap (a numbered list, not term/value pairs).
    -------------------------------------------------------------------------- */

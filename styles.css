@@ -990,20 +990,15 @@ body:has(#mobile-menu:not([hidden])) {
 }
 
 /* ---------- category pages (/category/<slug>.html) ----------
-   Minimal per-category archive page, resourceboy.com-style: a plain
-   breadcrumb back-link, a short title + one-line description, then the
-   exact same .guides-main/.grid/.guide-card markup as the homepage grid
-   (see build-categories.js) so a category page reads as a filtered
-   slice of the homepage rather than a separately-designed template.
+   Minimal per-category archive page, resourceboy.com-style: a short
+   title + one-line description, then the exact same
+   .guides-main/.grid/.guide-card markup as the homepage grid (see
+   build-categories.js) so a category page reads as a filtered slice
+   of the homepage rather than a separately-designed template.
    Deliberately NOT reusing guide-article.css's .guide-hero here — that
-   stylesheet is article-only and isn't linked on these pages — these
-   two rules give an equivalent title/dek treatment at the same type
-   scale, scoped to this file instead. .category-crumb mirrors
-   guide-article.css's .guide-crumb (same padding-top) for the same
-   reason. */
-.category-crumb {
-  padding-top: 24px;
-}
+   stylesheet is article-only and isn't linked on these pages — this
+   rule gives an equivalent title/dek treatment at the same type
+   scale, scoped to this file instead. */
 .category-hero {
   padding: 20px 0 8px;
 }
@@ -1442,21 +1437,6 @@ body:has(#mobile-menu:not([hidden])) {
     opacity: 1;
     transform: translateY(0);
   }
-}
-.page-view__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--action);
-  text-decoration: none;
-  margin-bottom: 28px;
-}
-.page-view__back:hover {
-  color: var(--action-hover);
-  text-decoration: underline;
 }
 .page-view-body {
   max-width: 760px;

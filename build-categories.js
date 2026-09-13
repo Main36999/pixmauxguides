@@ -5,8 +5,8 @@
  * Generates one standalone, crawlable archive page per category —
  * category/color-theory.html, category/typography.html, etc. — from
  * guides.json. Each page is a resourceboy.com/fonts/-style listing: a
- * "← All guides" back-link, a short title + one-line description, then
- * the SAME .guides-main/.grid/.guide-card markup the homepage grid uses
+ * short title + one-line description, then the SAME
+ * .guides-main/.grid/.guide-card markup the homepage grid uses
  * (cardHtml() below is ported 1:1 from build-home.js — keep the two in
  * sync the same way build-home.js already keeps itself in sync with
  * app.js's client-side renderer; see the note at the top of that file).
@@ -405,10 +405,6 @@ function pageHtml(slug, guides, headerPartial, footerPartial) {
     <a href="#category-content" class="skip-link">Skip to guides</a>
 
     <!--HEADER_START-->${headerPartial}<!--HEADER_END-->
-
-    <div class="wrap category-crumb">
-      <a href="../index.html#guides" class="page-view__back mono">← All guides</a>
-    </div>
 
     <main class="wrap guides-main" id="category-content" tabindex="-1">
       <div class="category-hero">
