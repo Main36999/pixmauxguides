@@ -239,19 +239,19 @@
           <div id="contact-form-wrap">
             <form id="contact-form" class="contact-form" novalidate>
               <div class="form-row">
-                <label for="contact-name">Name <span class="req">*</span></label>
-                <input type="text" id="contact-name" name="name" autocomplete="name" required />
+                <label for="contact-name" class="sr-only">Name</label>
+                <input type="text" id="contact-name" name="name" autocomplete="name" placeholder="Your name" required />
               </div>
               <div class="form-row">
-                <label for="contact-email">Email <span class="req">*</span></label>
-                <input type="email" id="contact-email" name="email" autocomplete="email" required />
+                <label for="contact-email" class="sr-only">Email</label>
+                <input type="email" id="contact-email" name="email" autocomplete="email" placeholder="Your email" required />
               </div>
               <div class="form-row">
-                <label for="contact-subject">Subject <span class="req">*</span></label>
-                <input type="text" id="contact-subject" name="subject" autocomplete="off" required />
+                <label for="contact-subject" class="sr-only">Subject</label>
+                <input type="text" id="contact-subject" name="subject" autocomplete="off" placeholder="Subject" required />
               </div>
               <div class="form-row">
-                <label for="contact-topic">Topic</label>
+                <label for="contact-topic" class="sr-only">Topic</label>
                 <select id="contact-topic" name="topic">
                   <option value="general">General question</option>
                   <option value="correction">Report a correction</option>
@@ -261,24 +261,28 @@
                 </select>
               </div>
               <div class="form-row">
-                <label for="contact-message">Message <span class="req">*</span></label>
-                <textarea id="contact-message" name="message" required></textarea>
+                <label for="contact-message" class="sr-only">Message</label>
+                <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
               </div>
               <div class="form-error" id="contact-form-error" role="alert"></div>
               <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px" aria-hidden="true" />
               <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send message</button>
             </form>
-            <p class="contact-alt">You can also reach us directly at <a href="mailto:hello@pixmauxguides.com">hello@pixmauxguides.com</a>. We typically respond within two business days.</p>
+            <p class="contact-alt">You can also reach us directly at <a href="mailto:hello@bpozz.com">hello@bpozz.com</a>. We typically respond within two business days.</p>
           </div>
         `;
       },
     },
   };
 
-  var LEVEL_ABBR = {
-    beginner: "BEG",
-    intermediate: "INT",
-    advanced: "ADV",
+  // Full-word level labels for the guide-card meta line (e.g. "Spacing &
+  // Layout · Beginner · 11 min read"), shared by the homepage grid and
+  // the related-guides row below each article — both render with the
+  // exact same cardHtml().
+  var LEVEL_LABEL = {
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
   };
 
   var state = { search: "", category: "all", level: "all" };
@@ -287,7 +291,6 @@
   var resultsCount = document.getElementById("results-count");
   var emptyState = document.getElementById("empty-state");
   var emptyQuery = document.getElementById("empty-query");
-  var categorySelect = document.getElementById("category-select");
   var levelSelect = document.getElementById("level-select");
   var toast = document.getElementById("toast");
   var toastTimer = null;
@@ -296,10 +299,10 @@
   var pageViewBody = document.getElementById("page-view-body");
   var DEFAULT_TITLE = document.title;
 
-  // Only index.html has the guide grid + filter toolbar. Guide pages
+  // Only index.html has the guide grid + filters. Guide pages
   // (/guide/*.html) and the standalone about/contact/privacy/terms
   // pages load this same app.js for the shared header search + mobile
-  // menu behavior, but don't have grid-root, category-select, etc.
+  // menu behavior, but don't have grid-root, level-select, etc.
   // Every home-only code path below checks this flag (or guards
   // itself internally) instead of assuming those elements exist.
   var isHomePage = !!gridRoot;
@@ -317,87 +320,8 @@
   }
 
   function populateSelects() {
-    // How many loaded guides sit in each category — used below to
-    // disable/label categories that don't have any guides yet, instead
-    // of letting someone pick one and land on the empty state.
-    var categoryCounts = {};
-    GUIDES.forEach(function (g) {
-      categoryCounts[g.category] = (categoryCounts[g.category] || 0) + 1;
-    });
-
-    if (categorySelect) {
-      Object.keys(CATEGORIES).forEach(function (key) {
-        var opt = document.createElement("option");
-        opt.value = key;
-        var count = categoryCounts[key] || 0;
-        if (count === 0) {
-          opt.textContent = CATEGORIES[key].label + " — Coming soon";
-          opt.disabled = true;
-        } else {
-          opt.textContent = CATEGORIES[key].label;
-        }
-        categorySelect.appendChild(opt);
-      });
-    }
-
     var statCount = document.getElementById("stat-count");
     if (statCount) statCount.textContent = GUIDES.length;
-
-    // footer-categories exists on every page that uses the newer
-    // shared footer (home, guide pages, and root-level pages like
-    // roadmap.html), so this part always runs. From the home page the
-    // links jump-filter in place; everywhere else they're plain links
-    // back to the toolbar on index.html.
-    //
-    // Categories with at least one guide are shown first (as real
-    // links) so the 6 footer slots aren't wasted on dead ends; only if
-    // fewer than 6 categories have guides yet do the remaining slots
-    // fill in with non-clickable "Coming soon" entries.
-    var footerList = document.getElementById("footer-categories");
-    if (footerList) {
-      var allKeys = Object.keys(CATEGORIES);
-      var populatedKeys = allKeys.filter(function (key) {
-        return (categoryCounts[key] || 0) > 0;
-      });
-      var emptyKeys = allKeys.filter(function (key) {
-        return !(categoryCounts[key] || 0);
-      });
-      populatedKeys
-        .concat(emptyKeys)
-        .slice(0, 6)
-        .forEach(function (key) {
-          var li = document.createElement("li");
-          var count = categoryCounts[key] || 0;
-          if (count > 0) {
-            var a = document.createElement("a");
-            if (isHomePage) {
-              a.href = "#toolbar";
-              a.setAttribute("data-jump-category", key);
-            } else {
-              // Absolute path: footer-categories now renders on pages
-              // at different depths (one level down at /guide/*.html,
-              // and at the root alongside index.html on pages like
-              // roadmap.html) — a relative "../index.html" only
-              // resolves correctly from the first of those. Same fix
-              // as loadGuides()'s absolute fetch("/guides.json") below.
-              a.href = "/index.html#toolbar";
-            }
-            a.textContent = CATEGORIES[key].label;
-            li.appendChild(a);
-          } else {
-            var span = document.createElement("span");
-            span.className = "footer-cat-soon";
-            span.textContent = CATEGORIES[key].label;
-            var tag = document.createElement("span");
-            tag.className = "footer-cat-soon__tag";
-            tag.textContent = "Soon";
-            span.appendChild(document.createTextNode(" "));
-            span.appendChild(tag);
-            li.appendChild(span);
-          }
-          footerList.appendChild(li);
-        });
-    }
   }
 
   function getFiltered() {
@@ -486,38 +410,35 @@
   }
 
   function thumbHtml(g) {
-    var cat = CATEGORIES[g.category];
-    return (
-      '<div class="card-thumb">' +
-      thumbMediaHtml(g) +
-      '<span class="badge">' +
-      cat.code +
-      "</span>" +
-      "</div>"
-    );
+    return '<div class="card-thumb">' + thumbMediaHtml(g) + "</div>";
   }
 
+  // Minimal, resourceboy.com-style card: plain thumbnail, a title, and
+  // one small muted meta line ("category · level · read time") — no
+  // badge overlay, no description paragraph, no separate button. The
+  // title's .card-link stretches over the whole .guide-card (see
+  // styles.css), so the entire tile is one click target.
   function cardHtml(g) {
-    return (
-      '<article class="guide-card bracketed">' +
-      thumbHtml(g) +
-      '<div class="card-body">' +
-      '<h3 class="card-title">' +
-      escapeHtml(g.title) +
-      "</h3>" +
-      '<p class="card-desc">' +
-      escapeHtml(g.description) +
-      "</p>" +
-      '<div class="card-footer">' +
-      '<span class="card-meta mono">' +
-      LEVEL_ABBR[g.level] +
+    var cat = CATEGORIES[g.category];
+    var meta =
+      cat.label +
+      " · " +
+      LEVEL_LABEL[g.level] +
       " · " +
       g.readTime +
-      " MIN</span>" +
-      '<a class="btn btn-card" href="/guide/' +
+      " min read";
+    return (
+      '<article class="guide-card">' +
+      thumbHtml(g) +
+      '<div class="card-body">' +
+      '<h3 class="card-title"><a class="card-link" href="/guide/' +
       g.id +
-      '">Read guide <span aria-hidden="true">→</span></a>' +
-      "</div>" +
+      '">' +
+      escapeHtml(g.title) +
+      "</a></h3>" +
+      '<p class="card-meta">' +
+      escapeHtml(meta) +
+      "</p>" +
       "</div>" +
       "</article>"
     );
@@ -535,7 +456,7 @@
   // directly in each guide's markup, and drifted between pages).
 
   // Same-category guides are the most relevant match (mirrors the
-  // toolbar's own category grouping); same-level is a lighter,
+  // site's own category grouping); same-level is a lighter,
   // secondary signal. Ties keep guides.json's own order (Array#sort is
   // stable), which is also roughly the order guides were added in.
   function relatedGuides(current, count) {
@@ -557,35 +478,6 @@
       });
   }
 
-  // Compact variant of cardHtml() sized for a narrow sidebar: smaller
-  // horizontal thumbnail, no description/button. Reuses thumbMediaHtml()
-  // so it stays visually consistent with the homepage cards for free.
-  function railCardHtml(g) {
-    var cat = CATEGORIES[g.category];
-    return (
-      '<a class="guide-rail__card bracketed" href="/guide/' +
-      g.id +
-      '">' +
-      '<div class="guide-rail__thumb">' +
-      thumbMediaHtml(g) +
-      '<span class="badge">' +
-      cat.code +
-      "</span>" +
-      "</div>" +
-      '<div class="guide-rail__body">' +
-      '<h3 class="guide-rail__title">' +
-      escapeHtml(g.title) +
-      "</h3>" +
-      '<span class="guide-rail__meta mono">' +
-      LEVEL_ABBR[g.level] +
-      " · " +
-      g.readTime +
-      " MIN</span>" +
-      "</div>" +
-      "</a>"
-    );
-  }
-
   function initRelatedGuides() {
     var rail = document.getElementById("guide-rail");
     if (!rail) return; // not a guide page (or an older page without one)
@@ -597,8 +489,12 @@
 
     // No match means either GUIDES failed to load or this guide was
     // retired from guides.json — either way there's nothing relevant
-    // to show, so drop the empty rail rather than leave a blank box.
-    var related = current ? relatedGuides(current, 5) : [];
+    // to show, so drop the empty section rather than leave a blank box.
+    // Shows up to 10, laid out as a full-width row below the article —
+    // reusing cardHtml() (the exact homepage guide-card markup) instead
+    // of a bespoke bordered/bracketed rail card, so "related guides"
+    // reads as the same minimal card used everywhere else on the site.
+    var related = current ? relatedGuides(current, 10) : [];
     if (!related.length) {
       rail.remove();
       return;
@@ -606,8 +502,8 @@
 
     rail.innerHTML =
       '<span class="section-label mono guide-rail__label">/ related_guides</span>' +
-      '<div class="guide-rail__list">' +
-      related.map(railCardHtml).join("") +
+      '<div class="grid guide-rail__list">' +
+      related.map(cardHtml).join("") +
       "</div>";
   }
 
@@ -816,13 +712,11 @@
 
   window.addEventListener("hashchange", handleRoute);
 
-  // Shared by the toolbar's "All Guides" button and the empty-state's
-  // "reset filters" button. Also clears any query left in the header
-  // search inputs so a stale search term can't silently keep filtering
-  // the grid after a reset.
+  // Shared by the empty-state's "reset filters" button. Also clears any
+  // query left in the header search inputs so a stale search term can't
+  // silently keep filtering the grid after a reset.
   function resetFilters() {
     state = { search: "", category: "all", level: "all" };
-    if (categorySelect) categorySelect.value = "all";
     if (levelSelect) levelSelect.value = "all";
     headerSearchForms.forEach(function (form) {
       var input = form.querySelector("input[type='search']");
@@ -831,24 +725,14 @@
     render();
   }
 
-  // The filter toolbar (#all-guides-btn, #category-select, #level-select,
-  // #reset-filters) only exists on index.html — this whole block is
-  // skipped on guide/legal pages instead of throwing on the missing
-  // elements.
+  // The level filter (#level-select) and the empty-state's #reset-filters
+  // button only exist on index.html — this whole block is skipped on
+  // guide/legal pages instead of throwing on the missing elements.
   if (isHomePage) {
-    categorySelect.addEventListener("change", function (e) {
-      state.category = e.target.value;
-      render();
-    });
     levelSelect.addEventListener("change", function (e) {
       state.level = e.target.value;
       render();
     });
-    document
-      .getElementById("all-guides-btn")
-      .addEventListener("click", function () {
-        resetFilters();
-      });
     document
       .getElementById("reset-filters")
       .addEventListener("click", function () {
@@ -857,20 +741,20 @@
       });
   }
 
-  // Footer "jump to category" links only carry data-jump-category (and
-  // only need in-place filtering) on the home page — see populateSelects().
-  // On other pages they're plain links to ../index.html#toolbar, so this
-  // delegate simply never matches there.
+  // Category links (trending cards, header nav, footer) carry
+  // data-jump-category. On the home page this filters the grid in place
+  // and scrolls to it; on any other page isHomePage is false, so this
+  // delegate does nothing and the link's own href does a real navigation
+  // to index.html#guides instead.
   document.addEventListener("click", function (e) {
     var jumpLink = e.target.closest("[data-jump-category]");
-    if (jumpLink && categorySelect) {
+    if (jumpLink && isHomePage) {
       e.preventDefault();
-      categorySelect.value = jumpLink.getAttribute("data-jump-category");
-      state.category = categorySelect.value;
+      state.category = jumpLink.getAttribute("data-jump-category");
       render();
-      var toolbarEl = document.getElementById("toolbar");
-      if (toolbarEl) {
-        toolbarEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      var guidesEl = document.getElementById("guides");
+      if (guidesEl) {
+        guidesEl.scrollIntoView({ behavior: "smooth", block: "start" });
       }
       return;
     }
@@ -892,7 +776,6 @@
       var input = form.querySelector("input[type='search']");
       if (input) input.value = query;
     });
-    categorySelect.value = "all";
     levelSelect.value = "all";
     state.category = "all";
     state.level = "all";

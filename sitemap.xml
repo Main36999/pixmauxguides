@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Core & Static Pages -->
   <url>
-    <loc>https://pixmauxguides.com/</loc>
+    <loc>https://bpozz.com/</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/about.html</loc>
+    <loc>https://bpozz.com/about.html</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/contact.html</loc>
+    <loc>https://bpozz.com/contact.html</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/roadmap.html</loc>
+    <loc>https://bpozz.com/roadmap.html</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/privacy.html</loc>
+    <loc>https://bpozz.com/privacy.html</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/terms.html</loc>
+    <loc>https://bpozz.com/terms.html</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -40,133 +40,133 @@
 
   <!-- Individual Guide Pages -->
   <url>
-    <loc>https://pixmauxguides.com/guide/whitespace-as-ui-component</loc>
+    <loc>https://bpozz.com/guide/whitespace-as-ui-component</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/padding-margin-different-jobs</loc>
+    <loc>https://bpozz.com/guide/padding-margin-different-jobs</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/color-contrast-systems</loc>
+    <loc>https://bpozz.com/guide/color-contrast-systems</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/color-palette-token-system</loc>
+    <loc>https://bpozz.com/guide/color-palette-token-system</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/type-scale-systems</loc>
+    <loc>https://bpozz.com/guide/type-scale-systems</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/auto-layout-constraint-model</loc>
+    <loc>https://bpozz.com/guide/auto-layout-constraint-model</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/accessibility-structural-model</loc>
+    <loc>https://bpozz.com/guide/accessibility-structural-model</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/design-tokens-naming-system</loc>
+    <loc>https://bpozz.com/guide/design-tokens-naming-system</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/responsive-layout-contract</loc>
+    <loc>https://bpozz.com/guide/responsive-layout-contract</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/motion-timing-model</loc>
+    <loc>https://bpozz.com/guide/motion-timing-model</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/dark-mode-second-palette</loc>
+    <loc>https://bpozz.com/guide/dark-mode-second-palette</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/font-pairing-hierarchy-decision</loc>
+    <loc>https://bpozz.com/guide/font-pairing-hierarchy-decision</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/line-length-reading-constraint</loc>
+    <loc>https://bpozz.com/guide/line-length-reading-constraint</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/grid-systems-rhythm</loc>
+    <loc>https://bpozz.com/guide/grid-systems-rhythm</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/components-variants-contract</loc>
+    <loc>https://bpozz.com/guide/components-variants-contract</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/figma-variables-data-layer</loc>
+    <loc>https://bpozz.com/guide/figma-variables-data-layer</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/figma-to-code-handoff</loc>
+    <loc>https://bpozz.com/guide/figma-to-code-handoff</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/migrating-from-xd-rebuild</loc>
+    <loc>https://bpozz.com/guide/migrating-from-xd-rebuild</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/thumb-zones-layout-constraint</loc>
+    <loc>https://bpozz.com/guide/thumb-zones-layout-constraint</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/ios-android-different-systems</loc>
+    <loc>https://bpozz.com/guide/ios-android-different-systems</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/mobile-breakpoints-device-categories</loc>
+    <loc>https://bpozz.com/guide/mobile-breakpoints-device-categories</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pixmauxguides.com/guide/css-grid-two-dimensional-system</loc>
+    <loc>https://bpozz.com/guide/css-grid-two-dimensional-system</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

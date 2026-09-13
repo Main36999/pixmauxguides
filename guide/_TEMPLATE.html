@@ -1,0 +1,561 @@
+<!--
+  ============================================================================
+  guide/_TEMPLATE.html — THE one starting point for every new guide page.
+  ============================================================================
+  Audit note (checked against all 22 live guides in this folder): every
+  /guide/*.html page already shares exactly one style system —
+  ../styles.css (site-wide tokens) + ../guide-article.css (guide-only
+  components) — and zero pages carry their own <style> block anymore.
+  This file exists so that stays true forever, instead of relying on
+  whoever writes the next guide to remember/copy the pattern by eye.
+
+  HOW TO USE THIS FILE
+  1. Copy it to guide/your-new-slug.html (do NOT edit _TEMPLATE.html itself).
+  2. Fill in every {{PLACEHOLDER}} — head metadata, hero, TOC, JSON-LD.
+  3. Write the article inside <article class="guide-article">, using ONLY
+     the components below (section 4). Delete any component block you
+     don't need for this guide. Never add a new class name or a <style>
+     block — if a component you need doesn't exist here, add it to
+     guide-article.css first, as a component everyone can reuse, not as
+     one-off inline CSS on a single page.
+  4. Run `node build-header.js` and `node build-footer.js` from the repo
+     root before you commit — they resync the header/footer markers
+     below from partials/header.html / partials/footer.html so this page
+     can't drift from the rest of the site.
+  5. Register the guide in guides.json (id, category, level, readTime,
+     title, description, thumbnail, roadmapStage/Step) — that's what
+     populates the homepage grid and the "Related guides" rail
+     (#guide-rail below, filled in by app.js — leave it empty here).
+  6. Add the real thumbnail to /thumbnail_image/ and add the page to
+     sitemap.xml.
+  ============================================================================
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{Guide Title}} — bpozz</title>
+    <meta name="description" content="{{One or two sentence description, same text used for og:description / twitter:description below.}}" />
+    <link rel="canonical" href="https://bpozz.com/guide/{{slug}}" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://bpozz.com/guide/{{slug}}" />
+    <meta property="og:site_name" content="bpozz" />
+    <meta property="og:title" content="{{Guide Title}}" />
+    <meta property="og:description" content="{{Same description as above.}}" />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/thumbnail_image/{{slug}}-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="{{Short description of the thumbnail image.}}" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta name="twitter:title" content="{{Guide Title}}" />
+    <meta name="twitter:description" content="{{Same description as above.}}" />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/thumbnail_image/{{slug}}-thumbnail.png"
+    />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- These two — and ONLY these two — stylesheets. Never add a page-level
+         <style> block; every visual pattern a guide needs already exists
+         below in section 4, or belongs in guide-article.css as a new
+         reusable component. -->
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "{{Guide Title}}",
+        "description": "{{Same description as above.}}",
+        "mainEntityOfPage": "https://bpozz.com/guide/{{slug}}",
+        "image": "https://bpozz.com/thumbnail_image/{{slug}}-thumbnail.png",
+        "author": {
+          "@type": "Organization",
+          "name": "bpozz"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "bpozz",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://bpozz.com/assets/logo.png"
+          }
+        },
+        "datePublished": "{{YYYY-MM-DD}}",
+        "dateModified": "{{YYYY-MM-DD}}",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body class="guide-page" data-guide-id="{{slug}}">
+    <a href="#guide-content" class="skip-link">Skip to guide</a>
+
+    <!--HEADER_START--><header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand" aria-label="bpozz! home">
+      <span class="brand-text">bpozz!</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
+      >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.2" y2="16.2" />
+          </svg>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
+      >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+</header><!--HEADER_END-->
+
+    <div class="wrap guide-crumb">
+      <a href="../index.html#guides" class="page-view__back mono"
+        >← All guides</a
+      >
+    </div>
+
+    <main class="wrap" id="guide-content" tabindex="-1">
+      <div class="guide-layout">
+        <div class="guide-primary">
+          <!-- ==================================================================
+               1. HERO — required, identical structure on every guide.
+               ================================================================== -->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+            <p class="guide-hero__meta">
+              {{Category}} · {{Beginner/Intermediate/Advanced}} · {{N}} min read
+            </p>
+            <h1 class="guide-hero__title" id="guide-heading">
+              {{Guide Title}}
+            </h1>
+            <p class="guide-hero__dek">
+              {{One to two sentence sub-headline — the "why read this" line
+              shown under the title. Max ~62ch wide by design.}}
+            </p>
+            <!-- OPTIONAL lead figure. Delete the whole block if this guide
+                 doesn't open with one; only a few guides do. -->
+            <!--
+            <div class="guide-hero__figure">
+              <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                ...
+              </svg>
+            </div>
+            -->
+          </section>
+
+          <!-- ==================================================================
+               2. TABLE OF CONTENTS — required. One <li> per h2 below, in the
+               same order, including "Key Takeaways" as the last item.
+               ================================================================== -->
+          <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+            <span
+              class="section-label mono guide-toc__label"
+              id="guide-toc-heading"
+              >/ on_this_page</span
+            >
+            <ol>
+              <li><a href="#section-one">{{Section 1 heading}}</a></li>
+              <li><a href="#section-two">{{Section 2 heading}}</a></li>
+              <li><a href="#key-takeaways">Key Takeaways</a></li>
+            </ol>
+          </nav>
+
+          <!-- ==================================================================
+               3. ARTICLE BODY — required wrapper. Everything inside follows
+               section 4's component list below; nothing else.
+               ================================================================== -->
+          <article class="guide-article">
+            <h2 id="section-one">
+              <span class="guide-article__num mono">01</span>{{Section 1 heading}}
+            </h2>
+            <p>{{Body copy. Plain <p> tags; the stylesheet handles measure,
+              line-height, and spacing automatically — don't add inline
+              width/margin styles.}}</p>
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: Callout — a note worth pulling out of the reading
+                 flow. Default = info (blue). Delete the whole block if this
+                 section doesn't need one.
+                 Variants: add --success / --warning / --danger to the class
+                 for the matching semantic color (see guide-article.css §6).
+                 ———————————————————————————————————————————————————————————— -->
+            <div class="guide-callout">
+              <p>{{Callout text. Add class="guide-callout__label" span above
+                the <p> for a short eyebrow like "NOTE" if useful.}}</p>
+            </div>
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: Diagram — dark-framed technical SVG illustration.
+                 Delete the whole block if this section doesn't need one.
+                 Add class="guide-diagram--light" on the <figure> if the SVG
+                 uses only ink/success/warning/danger tones (reads better on
+                 a light card than the default dark frame).
+                 ———————————————————————————————————————————————————————————— -->
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 240 120"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig1-title fig1-desc"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <title id="fig1-title">{{Short, literal title of what the figure shows}}</title>
+                  <desc id="fig1-desc">{{One sentence description for screen readers.}}</desc>
+                  <!-- diagram shapes go here -->
+                </svg>
+              </div>
+              <figcaption>FIG. 01 — {{Caption explaining the figure.}}</figcaption>
+            </figure>
+            <!-- Optional color-coded legend under a diagram, e.g. a
+                 green/amber/red map. Delete if unused. -->
+            <!--
+            <div class="guide-diagram__legend">
+              <span class="guide-diagram__chip guide-diagram__chip--success">{{Label}}</span>
+              <span class="guide-diagram__chip guide-diagram__chip--warning">{{Label}}</span>
+              <span class="guide-diagram__chip guide-diagram__chip--danger">{{Label}}</span>
+            </div>
+            -->
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: Table — always wrap in guide-table-wrap for the
+                 scroll container. Delete the whole block if unused.
+                 ———————————————————————————————————————————————————————————— -->
+            <div class="guide-table-wrap">
+              <table>
+                <caption class="sr-only">{{What this table compares — for screen readers.}}</caption>
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">{{Column A}}</th>
+                    <th scope="col">{{Column B}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{{Row label}}</th>
+                    <td>{{Value}}</td>
+                    <td>{{Value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: Do/Don't comparison grid. Delete if unused.
+                 ———————————————————————————————————————————————————————————— -->
+            <div class="guide-example">
+              <figure>
+                <div>{{✕ wrong example — code, mock, or short description}}</div>
+                <figcaption>✕ Don't: {{why this is wrong}}</figcaption>
+              </figure>
+              <figure>
+                <div>{{✓ right example}}</div>
+                <figcaption>✓ Do: {{why this is right}}</figcaption>
+              </figure>
+            </div>
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: Spec sheet — bordered term/value lookup box, for
+                 a closing reference table (distinct from a data <table>).
+                 Delete if unused.
+                 ———————————————————————————————————————————————————————————— -->
+            <div class="guide-spec">
+              <p class="guide-spec__label">/ the_spec</p>
+              <dl>
+                <dt>{{Term}}</dt>
+                <dd>{{Value}}</dd>
+              </dl>
+            </div>
+
+            <h2 id="section-two">
+              <span class="guide-article__num mono">02</span>{{Section 2 heading}}
+            </h2>
+            <p>{{Body copy…}}</p>
+
+            <!-- ==================================================================
+                 KEY TAKEAWAYS — required, always the final numbered section.
+                 ================================================================== -->
+            <h2 id="key-takeaways">
+              <span class="guide-article__num mono">NN</span>Key Takeaways
+            </h2>
+            <ul class="guide-recap">
+              <li>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
+                <p>{{Takeaway one.}}</p>
+              </li>
+              <li>
+                <span class="guide-recap__n" aria-hidden="true">→</span>
+                <p>{{Takeaway two.}}</p>
+              </li>
+            </ul>
+            <!-- Use class="guide-recap guide-recap--warning" instead for a
+                 "common mistakes / pitfalls" list — same shape, cautionary
+                 color. Don't use both variants in one guide. -->
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: CTA banner. Delete if unused — no guide currently
+                 uses one, so treat this as opt-in, not a required closer.
+                 ———————————————————————————————————————————————————————————— -->
+            <div class="guide-cta">
+              <div class="guide-cta__text">
+                <strong>{{Heading}}</strong>
+                <span>{{Supporting line.}}</span>
+              </div>
+              <a class="btn-primary" href="{{url}}">{{Button label}}</a>
+            </div>
+
+            <!-- ————————————————————————————————————————————————————————————
+                 COMPONENT: Prev/next sequential nav (roadmap order). Distinct
+                 from #guide-rail below (topic-related, auto-filled by JS).
+                 Delete if unused.
+                 ———————————————————————————————————————————————————————————— -->
+            <nav class="guide-footer-nav" aria-label="More guides">
+              <a class="prev" href="../guide/{{previous-slug}}.html"
+                >← {{Previous guide title}}</a
+              >
+              <a class="next" href="../guide/{{next-slug}}.html"
+                >{{Next guide title}} →</a
+              >
+            </nav>
+          </article>
+        </div>
+
+        <!-- Always leave empty — app.js fills this from guides.json based
+             on category/roadmap order. Do not hand-write related links
+             here. -->
+        <aside
+          class="guide-rail"
+          id="guide-rail"
+          aria-label="Related guides"
+        ></aside>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <script src="../app.js"></script>
+  </body>
+</html>

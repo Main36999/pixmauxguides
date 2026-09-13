@@ -39,7 +39,7 @@
       name="description"
       content="bpozz is a curated library of practical UI/UX tutorials — color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile & web layout, written like engineering specs."
     />
-    <link rel="canonical" href="https://pixmauxguides.com/" />
+    <link rel="canonical" href="https://bpozz.com/" />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -58,7 +58,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://pixmauxguides.com/" />
+    <meta property="og:url" content="https://bpozz.com/" />
     <meta property="og:site_name" content="bpozz" />
     <meta
       property="og:title"
@@ -70,7 +70,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -92,13 +92,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
 
     <script type="application/ld+json">
@@ -107,7 +113,7 @@
         "@type": "WebSite",
         "name": "bpozz",
         "alternateName": ["bpozz!"],
-        "url": "https://pixmauxguides.com/",
+        "url": "https://bpozz.com/",
         "description": "A curated library of practical UI/UX tutorials — color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile & web layout, written like engineering specs.",
         "publisher": {
           "@type": "Organization",
@@ -115,56 +121,55 @@
           "alternateName": ["bpozz!"],
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "potentialAction": {
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://pixmauxguides.com/?q={search_term_string}"
+            "urlTemplate": "https://bpozz.com/?q={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }
       }
     </script>
   </head>
-  <body>
+  <body class="page-home">
     <a href="#guides" class="skip-link">Skip to guides</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="#" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#guides">All Guides</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#guides">All</a>
+      <a href="#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="#guides" data-jump-category="spacing">Spacing</a>
+      <a href="#guides" data-jump-category="figma">Figma</a>
+      <a href="#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="#guides" data-jump-category="mobile">Mobile</a>
+      <a href="#guides" data-jump-category="web">Web Layout</a>
+      <a href="#guides" data-jump-category="systems">Systems</a>
+      <a href="#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="#guides" data-jump-category="motion">Motion</a>
+      <a href="roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -177,9 +182,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -189,6 +243,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -202,318 +257,206 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="#guides">All Guides</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="#guides">All</a>
+      <a href="#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="#guides" data-jump-category="spacing">Spacing</a>
+      <a href="#guides" data-jump-category="figma">Figma</a>
+      <a href="#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="#guides" data-jump-category="mobile">Mobile</a>
+      <a href="#guides" data-jump-category="web">Web Layout</a>
+      <a href="#guides" data-jump-category="systems">Systems</a>
+      <a href="#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="#guides" data-jump-category="motion">Motion</a>
+      <a href="roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
     <div id="home-view">
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-content">
-            <p class="eyebrow fade-up">// interface_specifications</p>
+          <div class="hero-copy">
             <h1 class="fade-up">
               Design guides, documented like engineering blueprints.
             </h1>
-            <p class="tagline fade-up">
-              A practical, no-fluff library on color theory, typography, spacing
-              systems, and the Figma / Adobe XD workflows that turn a sketch
-              into a shippable interface.
-            </p>
-            <div class="hero-actions fade-up">
-              <a href="roadmap.html" class="btn btn-primary"
-                >Start the learning roadmap <span aria-hidden="true">→</span></a
+            <form
+              class="header-search hero-search fade-up"
+              role="search"
+              action="index.html"
+              method="get"
+            >
+              <label for="hero-search-input" class="sr-only"
+                >Search guides</label
               >
-            </div>
-            <div class="hero-stats fade-up">
-              <span
-                ><strong id="stat-count"
-                  ><!--STAT_COUNT-->22<!--/STAT_COUNT--></strong
+              <input
+                type="search"
+                id="hero-search-input"
+                name="q"
+                placeholder="Search guides — grid systems, dark mode, type scale…"
+                autocomplete="off"
+              />
+              <button
+                type="submit"
+                class="hero-search__submit"
+                aria-label="Search guides"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
                 >
-                GUIDES</span
-              >
-              <span class="dot">·</span>
-              <span>10 CATEGORIES</span>
-              <span class="dot">·</span>
-              <span>NEW GUIDES WEEKLY</span>
-            </div>
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.2" y2="16.2" />
+                </svg>
+              </button>
+            </form>
           </div>
 
-          <div class="hero-visual" aria-hidden="true">
-            <div class="hv-canvas bracketed">
-              <div class="hv-chrome">
-                <span class="hv-dot"></span>
-                <span class="hv-dot"></span>
-                <span class="hv-dot"></span>
-                <span class="hv-address"></span>
-              </div>
-              <svg
-                class="hv-svg"
-                viewBox="0 0 320 220"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
+          <div class="trending fade-up">
+            <p class="trending__label">/ trending_categories</p>
+            <div class="trending__grid">
+              <a
+                class="trending-card"
+                href="#guides"
+                data-jump-category="color-theory"
               >
-                <rect
-                  class="hv-navbar"
-                  x="16"
-                  y="16"
-                  width="288"
-                  height="14"
-                  rx="2"
-                />
-
-                <rect
-                  class="hv-imgbox"
-                  x="16"
-                  y="44"
-                  width="288"
-                  height="78"
-                  rx="2"
-                  stroke-width="1.5"
-                />
-                <circle
-                  class="hv-imgsun"
-                  cx="42"
-                  cy="63"
-                  r="6.5"
-                  stroke-width="1.4"
-                />
-                <polyline
-                  class="hv-imgmtn"
-                  points="26,114 70,86 108,104 152,76 200,104 242,90 294,114"
-                  stroke-width="1.4"
-                />
-                <circle class="hv-handle hv-handle-a" cx="16" cy="44" r="3.6" />
-                <circle
-                  class="hv-handle hv-handle-b"
-                  cx="304"
-                  cy="122"
-                  r="3.6"
-                />
-
-                <line
-                  class="hv-dim-line hv-dim1"
-                  x1="311"
-                  y1="30"
-                  x2="311"
-                  y2="44"
-                  stroke-width="1"
-                />
-                <line
-                  class="hv-dim-tick hv-dim1-tick"
-                  x1="307"
-                  y1="30"
-                  x2="315"
-                  y2="30"
-                  stroke-width="1"
-                />
-                <line
-                  class="hv-dim-tick hv-dim1-tick"
-                  x1="307"
-                  y1="44"
-                  x2="315"
-                  y2="44"
-                  stroke-width="1"
-                />
-                <text class="hv-dim-label hv-dim1-label" x="317" y="40">
-                  14
-                </text>
-
-                <rect
-                  class="hv-heading"
-                  x="16"
-                  y="132"
-                  width="140"
-                  height="10"
-                  rx="2"
-                />
-                <rect
-                  class="hv-line hv-line1"
-                  x="16"
-                  y="150"
-                  width="288"
-                  height="6"
-                  rx="2"
-                />
-                <rect
-                  class="hv-line hv-line2"
-                  x="16"
-                  y="162"
-                  width="200"
-                  height="6"
-                  rx="2"
-                />
-
-                <line
-                  class="hv-dim-line hv-dim2"
-                  x1="311"
-                  y1="168"
-                  x2="311"
-                  y2="182"
-                  stroke-width="1"
-                />
-                <line
-                  class="hv-dim-tick hv-dim2-tick"
-                  x1="307"
-                  y1="168"
-                  x2="315"
-                  y2="168"
-                  stroke-width="1"
-                />
-                <line
-                  class="hv-dim-tick hv-dim2-tick"
-                  x1="307"
-                  y1="182"
-                  x2="315"
-                  y2="182"
-                  stroke-width="1"
-                />
-                <text class="hv-dim-label hv-dim2-label" x="317" y="178">
-                  8
-                </text>
-
-                <rect
-                  class="hv-btn"
-                  x="16"
-                  y="182"
-                  width="92"
-                  height="24"
-                  rx="4"
-                />
-                <rect
-                  class="hv-btn-glow"
-                  x="16"
-                  y="182"
-                  width="92"
-                  height="24"
-                  rx="4"
-                  stroke-width="1.5"
-                />
-                <rect
-                  class="hv-btn-label"
-                  x="38"
-                  y="191"
-                  width="46"
-                  height="6"
-                  rx="2"
-                />
-
-                <path
-                  class="hv-cursor"
-                  d="M0,0 L0,15.5 L3.8,12 L6.6,17.8 L9,16.7 L6.2,10.9 L11,10.6 Z"
-                />
-              </svg>
+                <span class="trending-card__thumb"
+                  ><img src="/assets/Color Theory.png" alt="" loading="lazy"
+                /></span>
+                <span class="trending-card__label">Color Theory</span>
+              </a>
+              <a
+                class="trending-card"
+                href="#guides"
+                data-jump-category="typography"
+              >
+                <span class="trending-card__thumb"
+                  ><img src="/assets/Typography.png" alt="" loading="lazy"
+                /></span>
+                <span class="trending-card__label">Typography</span>
+              </a>
+              <a
+                class="trending-card"
+                href="#guides"
+                data-jump-category="spacing"
+              >
+                <span class="trending-card__thumb"
+                  ><img
+                    src="/assets/Spacing & Layout.png"
+                    alt=""
+                    loading="lazy"
+                /></span>
+                <span class="trending-card__label">Spacing &amp; Layout</span>
+              </a>
+              <a
+                class="trending-card"
+                href="#guides"
+                data-jump-category="figma"
+              >
+                <span class="trending-card__thumb"
+                  ><img src="/assets/Figma Workflow.png" alt="" loading="lazy"
+                /></span>
+                <span class="trending-card__label">Figma Workflow</span>
+              </a>
+              <a
+                class="trending-card"
+                href="#guides"
+                data-jump-category="accessibility"
+              >
+                <span class="trending-card__thumb"
+                  ><img src="/assets/Accessibility.png" alt="" loading="lazy"
+                /></span>
+                <span class="trending-card__label">Accessibility</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <div class="toolbar-wrap">
-        <div class="toolbar bracketed" id="toolbar">
-          <div class="field toolbar-reset">
-            <button type="button" id="all-guides-btn">All Guides</button>
-          </div>
-          <div class="field select-field">
-            <label for="category-select" class="sr-only">Category</label>
-            <select id="category-select">
-              <option value="all">All Categories</option>
-            </select>
-          </div>
-          <div class="field select-field">
-            <label for="level-select" class="sr-only">Level</label>
-            <select id="level-select">
-              <option value="all">All Level</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
       <main class="wrap guides-main" id="guides" tabindex="-1">
         <div class="section-head">
-          <h2 class="section-label mono">/ all_guides</h2>
-          <p class="results-count mono" id="results-count">
-            <!--RESULTS_COUNT-->Showing 22 of 22 guides<!--/RESULTS_COUNT-->
-          </p>
+          <h2 class="section-label">/ all_guides</h2>
+          <div class="section-head__meta">
+            <p class="results-count" id="results-count">
+              <!--RESULTS_COUNT-->Showing 22 of 22 guides<!--/RESULTS_COUNT-->
+            </p>
+            <div class="field select-field level-filter">
+              <label for="level-select" class="sr-only">Level</label>
+              <select id="level-select">
+                <option value="all">All Level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="grid" id="grid-root">
-          <!--GUIDES_GRID_START--><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <!--GUIDES_GRID_START--><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle class="thumb-fill" cx="90" cy="24" r="3.4"/><circle class="thumb-fill" cx="120" cy="24" r="3.4"/><circle class="thumb-fill" cx="150" cy="24" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="44" r="3.4"/><circle class="thumb-fill" cx="120" cy="44" r="3.4"/><circle class="thumb-fill" cx="150" cy="44" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="64" r="3.4"/><circle class="thumb-fill" cx="120" cy="64" r="3.4"/><circle class="thumb-fill" cx="150" cy="64" r="3.4"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">8 · 16 · 24</text></svg><img src="/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png" alt="Whitespace as a UI Component, Not a Leftover" loading="lazy" onerror="this.style.display='none'"><span class="badge">SPACING_LAYOUT</span></div><div class="card-body"><h3 class="card-title">Whitespace as a UI Component, Not a Leftover</h3><p class="card-desc">The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever&#39;s left over after everything else is placed.</p><div class="card-footer"><span class="card-meta mono">BEG · 11 MIN</span><a class="btn btn-card" href="/guide/whitespace-as-ui-component">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">8 · 16 · 24</text></svg><img src="/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png" alt="Whitespace as a UI Component, Not a Leftover" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/whitespace-as-ui-component">Whitespace as a UI Component, Not a Leftover</a></h3><p class="card-meta">Spacing &amp; Layout · Beginner · 11 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle class="thumb-fill" cx="90" cy="24" r="3.4"/><circle class="thumb-fill" cx="120" cy="24" r="3.4"/><circle class="thumb-fill" cx="150" cy="24" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="44" r="3.4"/><circle class="thumb-fill" cx="120" cy="44" r="3.4"/><circle class="thumb-fill" cx="150" cy="44" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="64" r="3.4"/><circle class="thumb-fill" cx="120" cy="64" r="3.4"/><circle class="thumb-fill" cx="150" cy="64" r="3.4"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">8 · 16 · 24</text></svg><img src="/thumbnail_image/Padding and Margin Are Different Jobs, Not Interchangeable Values_thumbnail.png" alt="Padding and Margin Are Different Jobs, Not Interchangeable Values" loading="lazy" onerror="this.style.display='none'"><span class="badge">SPACING_LAYOUT</span></div><div class="card-body"><h3 class="card-title">Padding and Margin Are Different Jobs, Not Interchangeable Values</h3><p class="card-desc">Padding as internal breathing room vs. margin as separation, and the token-naming split that keeps the two from getting swapped.</p><div class="card-footer"><span class="card-meta mono">BEG · 8 MIN</span><a class="btn btn-card" href="/guide/padding-margin-different-jobs">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">8 · 16 · 24</text></svg><img src="/thumbnail_image/Padding and Margin Are Different Jobs, Not Interchangeable Values_thumbnail.png" alt="Padding and Margin Are Different Jobs, Not Interchangeable Values" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/padding-margin-different-jobs">Padding and Margin Are Different Jobs, Not Interchangeable Values</a></h3><p class="card-meta">Spacing &amp; Layout · Beginner · 8 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle cx="102" cy="38" r="20"/>
       <circle cx="138" cy="38" r="20"/>
       <circle cx="120" cy="64" r="20"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">4.5:1</text></svg><img src="/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png" alt="Color Contrast Is Math, Not Taste" loading="lazy" onerror="this.style.display='none'"><span class="badge">COLOR_THEORY</span></div><div class="card-body"><h3 class="card-title">Color Contrast Is Math, Not Taste</h3><p class="card-desc">The one part of color theory that isn&#39;t a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.</p><div class="card-footer"><span class="card-meta mono">BEG · 10 MIN</span><a class="btn btn-card" href="/guide/color-contrast-systems">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">4.5:1</text></svg><img src="/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png" alt="Color Contrast Is Math, Not Taste" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/color-contrast-systems">Color Contrast Is Math, Not Taste</a></h3><p class="card-meta">Color Theory · Beginner · 10 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle cx="102" cy="38" r="20"/>
       <circle cx="138" cy="38" r="20"/>
       <circle cx="120" cy="64" r="20"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">4.5:1</text></svg><img src="/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches_thumbnail.png" alt="A Color Palette Is a Token System, Not a Row of Swatches" loading="lazy" onerror="this.style.display='none'"><span class="badge">COLOR_THEORY</span></div><div class="card-body"><h3 class="card-title">A Color Palette Is a Token System, Not a Row of Swatches</h3><p class="card-desc">Why HSL&#39;s lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.</p><div class="card-footer"><span class="card-meta mono">INT · 14 MIN</span><a class="btn btn-card" href="/guide/color-palette-token-system">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">4.5:1</text></svg><img src="/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches_thumbnail.png" alt="A Color Palette Is a Token System, Not a Row of Swatches" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/color-palette-token-system">A Color Palette Is a Token System, Not a Row of Swatches</a></h3><p class="card-meta">Color Theory · Intermediate · 14 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <line x1="60" y1="20" x2="180" y2="20" class="thumb-guide"/>
       <line x1="60" y1="78" x2="180" y2="78" class="thumb-guide"/>
       <text x="78" y="76" class="thumb-glyph">Aa</text>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">16 / 24</text></svg><img src="/thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png" alt="Font Size Is a Formula, Not a Feeling" loading="lazy" onerror="this.style.display='none'"><span class="badge">TYPOGRAPHY</span></div><div class="card-body"><h3 class="card-title">Font Size Is a Formula, Not a Feeling</h3><p class="card-desc">The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.</p><div class="card-footer"><span class="card-meta mono">INT · 12 MIN</span><a class="btn btn-card" href="/guide/type-scale-systems">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">16 / 24</text></svg><img src="/thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png" alt="Font Size Is a Formula, Not a Feeling" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/type-scale-systems">Font Size Is a Formula, Not a Feeling</a></h3><p class="card-meta">Typography · Intermediate · 12 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="82" y="16" width="50" height="50" rx="6"/>
       <rect x="110" y="40" width="50" height="50" rx="6"/>
       <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png" alt="Auto Layout Is a Constraint System, Not a Convenience Toggle" loading="lazy" onerror="this.style.display='none'"><span class="badge">FIGMA</span></div><div class="card-body"><h3 class="card-title">Auto Layout Is a Constraint System, Not a Convenience Toggle</h3><p class="card-desc">The mental model behind Figma&#39;s most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.</p><div class="card-footer"><span class="card-meta mono">INT · 15 MIN</span><a class="btn btn-card" href="/guide/auto-layout-constraint-model">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png" alt="Auto Layout Is a Constraint System, Not a Convenience Toggle" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/auto-layout-constraint-model">Auto Layout Is a Constraint System, Not a Convenience Toggle</a></h3><p class="card-meta">Figma Workflow · Intermediate · 15 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M65,44 Q100,18 135,44 Q100,70 65,44 Z"/>
       <circle cx="100" cy="44" r="10"/>
       <circle class="thumb-fill" cx="100" cy="44" r="3"/>
       <rect class="thumb-fill" x="152" y="60" width="9" height="14" style="opacity:.35"/>
       <rect class="thumb-fill" x="166" y="52" width="9" height="22" style="opacity:.65"/>
       <rect class="thumb-fill" x="180" y="44" width="9" height="30"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">WCAG AA</text></svg><img src="/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png" alt="Accessibility Is a Structural Decision, Not a Final Pass" loading="lazy" onerror="this.style.display='none'"><span class="badge">ACCESSIBILITY</span></div><div class="card-body"><h3 class="card-title">Accessibility Is a Structural Decision, Not a Final Pass</h3><p class="card-desc">How the accessibility tree actually gets built from markup, how a control&#39;s accessible name is computed, ARIA&#39;s real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses.</p><div class="card-footer"><span class="card-meta mono">INT · 16 MIN</span><a class="btn btn-card" href="/guide/accessibility-structural-model">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">WCAG AA</text></svg><img src="/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png" alt="Accessibility Is a Structural Decision, Not a Final Pass" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/accessibility-structural-model">Accessibility Is a Structural Decision, Not a Final Pass</a></h3><p class="card-meta">Accessibility · Intermediate · 16 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="75" y="18" width="44" height="18" rx="4"/>
       <line x1="85" y1="27" x2="109" y2="27" stroke-width="1.2"/>
       <rect x="130" y="18" width="50" height="18" rx="2"/>
@@ -521,7 +464,7 @@
       <rect x="75" y="50" width="16" height="16" rx="3"/>
       <path d="M78,58 L82,62 L88,52" stroke-width="1.8"/>
       <line x1="98" y1="58" x2="150" y2="58" stroke-width="1.2"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">DESIGN TOKENS</text></svg><img src="/thumbnail_image/Design Tokens Are a Naming System, Not a Style Guide_thumbnail.png" alt="Design Tokens Are a Naming System, Not a Style Guide" loading="lazy" onerror="this.style.display='none'"><span class="badge">DESIGN_SYSTEMS</span></div><div class="card-body"><h3 class="card-title">Design Tokens Are a Naming System, Not a Style Guide</h3><p class="card-desc">The part of a design system that actually decides whether it survives a rebrand: primitive, semantic, and component token tiers, the aliasing chain between them, and the naming rules that keep tokens from drifting back into hardcoded values.</p><div class="card-footer"><span class="card-meta mono">ADV · 17 MIN</span><a class="btn btn-card" href="/guide/design-tokens-naming-system">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">DESIGN TOKENS</text></svg><img src="/thumbnail_image/Design Tokens Are a Naming System, Not a Style Guide_thumbnail.png" alt="Design Tokens Are a Naming System, Not a Style Guide" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/design-tokens-naming-system">Design Tokens Are a Naming System, Not a Style Guide</a></h3><p class="card-meta">Design Systems · Advanced · 17 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="50" y="18" width="140" height="70" rx="4"/>
       <line x1="50" y1="32" x2="190" y2="32" stroke-width="1.2"/>
       <circle class="thumb-fill" cx="60" cy="25" r="2"/>
@@ -530,7 +473,7 @@
       <rect x="58" y="40" width="26" height="40" stroke-width="1.2"/>
       <rect x="94" y="40" width="88" height="16" rx="1" stroke-width="1.2"/>
       <rect x="94" y="62" width="60" height="16" rx="1" stroke-width="1.2"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">1440 × 900</text></svg><img src="/thumbnail_image/Responsive Layout Is a Contract, Not a Breakpoint List_thumbnail.png" alt="Responsive Layout Is a Contract, Not a Breakpoint List" loading="lazy" onerror="this.style.display='none'"><span class="badge">WEB_LAYOUT</span></div><div class="card-body"><h3 class="card-title">Responsive Layout Is a Contract, Not a Breakpoint List</h3><p class="card-desc">A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.</p><div class="card-footer"><span class="card-meta mono">INT · 18 MIN</span><a class="btn btn-card" href="/guide/responsive-layout-contract">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">1440 × 900</text></svg><img src="/thumbnail_image/Responsive Layout Is a Contract, Not a Breakpoint List_thumbnail.png" alt="Responsive Layout Is a Contract, Not a Breakpoint List" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/responsive-layout-contract">Responsive Layout Is a Contract, Not a Breakpoint List</a></h3><p class="card-meta">Web Layout · Intermediate · 18 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <line x1="70" y1="18" x2="70" y2="88" stroke-width="1.2"/>
       <line x1="70" y1="88" x2="185" y2="88" stroke-width="1.2"/>
       <path d="M70,88 C110,80 145,28 185,20" stroke-width="1.8"/>
@@ -540,51 +483,51 @@
       <circle class="thumb-handle-dot" cx="145" cy="28" r="2.6"/>
       <circle class="thumb-fill" cx="70" cy="88" r="3"/>
       <circle class="thumb-fill" cx="185" cy="20" r="3"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">EASE-OUT</text></svg><img src="/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset_thumbnail.png" alt="Motion Timing Is a Physics Model, Not a Preset" loading="lazy" onerror="this.style.display='none'"><span class="badge">PROTOTYPING</span></div><div class="card-body"><h3 class="card-title">Motion Timing Is a Physics Model, Not a Preset</h3><p class="card-desc">The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve&#39;s control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn&#39;t the same as no motion.</p><div class="card-footer"><span class="card-meta mono">ADV · 15 MIN</span><a class="btn btn-card" href="/guide/motion-timing-model">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">EASE-OUT</text></svg><img src="/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset_thumbnail.png" alt="Motion Timing Is a Physics Model, Not a Preset" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/motion-timing-model">Motion Timing Is a Physics Model, Not a Preset</a></h3><p class="card-meta">Prototyping &amp; Motion · Advanced · 15 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle cx="102" cy="38" r="20"/>
       <circle cx="138" cy="38" r="20"/>
       <circle cx="120" cy="64" r="20"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">4.5:1</text></svg><img src="/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter_thumbnail.png" alt="Dark Mode Is a Second Palette, Not an Inverted Filter" loading="lazy" onerror="this.style.display='none'"><span class="badge">COLOR_THEORY</span></div><div class="card-body"><h3 class="card-title">Dark Mode Is a Second Palette, Not an Inverted Filter</h3><p class="card-desc">Elevation through lightness instead of shadow, desaturating hues so they don&#39;t vibrate on black, and re-deriving contrast ratios from scratch.</p><div class="card-footer"><span class="card-meta mono">INT · 12 MIN</span><a class="btn btn-card" href="/guide/dark-mode-second-palette">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">4.5:1</text></svg><img src="/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter_thumbnail.png" alt="Dark Mode Is a Second Palette, Not an Inverted Filter" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/dark-mode-second-palette">Dark Mode Is a Second Palette, Not an Inverted Filter</a></h3><p class="card-meta">Color Theory · Intermediate · 12 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <line x1="60" y1="20" x2="180" y2="20" class="thumb-guide"/>
       <line x1="60" y1="78" x2="180" y2="78" class="thumb-guide"/>
       <text x="78" y="76" class="thumb-glyph">Aa</text>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">16 / 24</text></svg><img src="/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png" alt="Font Pairing Is a Hierarchy Decision, Not a Personality Match" loading="lazy" onerror="this.style.display='none'"><span class="badge">TYPOGRAPHY</span></div><div class="card-body"><h3 class="card-title">Font Pairing Is a Hierarchy Decision, Not a Personality Match</h3><p class="card-desc">Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a &quot;creative&quot; pairing.</p><div class="card-footer"><span class="card-meta mono">BEG · 11 MIN</span><a class="btn btn-card" href="/guide/font-pairing-hierarchy-decision">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">16 / 24</text></svg><img src="/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png" alt="Font Pairing Is a Hierarchy Decision, Not a Personality Match" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/font-pairing-hierarchy-decision">Font Pairing Is a Hierarchy Decision, Not a Personality Match</a></h3><p class="card-meta">Typography · Beginner · 11 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <line x1="60" y1="20" x2="180" y2="20" class="thumb-guide"/>
       <line x1="60" y1="78" x2="180" y2="78" class="thumb-guide"/>
       <text x="78" y="76" class="thumb-glyph">Aa</text>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">16 / 24</text></svg><img src="/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought_thumbnail.png" alt="Line Length Is a Reading Constraint, Not a Layout Afterthought" loading="lazy" onerror="this.style.display='none'"><span class="badge">TYPOGRAPHY</span></div><div class="card-body"><h3 class="card-title">Line Length Is a Reading Constraint, Not a Layout Afterthought</h3><p class="card-desc">The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.</p><div class="card-footer"><span class="card-meta mono">BEG · 9 MIN</span><a class="btn btn-card" href="/guide/line-length-reading-constraint">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">16 / 24</text></svg><img src="/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought_thumbnail.png" alt="Line Length Is a Reading Constraint, Not a Layout Afterthought" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/line-length-reading-constraint">Line Length Is a Reading Constraint, Not a Layout Afterthought</a></h3><p class="card-meta">Typography · Beginner · 9 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle class="thumb-fill" cx="90" cy="24" r="3.4"/><circle class="thumb-fill" cx="120" cy="24" r="3.4"/><circle class="thumb-fill" cx="150" cy="24" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="44" r="3.4"/><circle class="thumb-fill" cx="120" cy="44" r="3.4"/><circle class="thumb-fill" cx="150" cy="44" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="64" r="3.4"/><circle class="thumb-fill" cx="120" cy="64" r="3.4"/><circle class="thumb-fill" cx="150" cy="64" r="3.4"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">8 · 16 · 24</text></svg><img src="/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png" alt="Grid Systems Are a Rhythm, Not a Ruler" loading="lazy" onerror="this.style.display='none'"><span class="badge">SPACING_LAYOUT</span></div><div class="card-body"><h3 class="card-title">Grid Systems Are a Rhythm, Not a Ruler</h3><p class="card-desc">8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.</p><div class="card-footer"><span class="card-meta mono">INT · 14 MIN</span><a class="btn btn-card" href="/guide/grid-systems-rhythm">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">8 · 16 · 24</text></svg><img src="/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png" alt="Grid Systems Are a Rhythm, Not a Ruler" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/grid-systems-rhythm">Grid Systems Are a Rhythm, Not a Ruler</a></h3><p class="card-meta">Spacing &amp; Layout · Intermediate · 14 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="82" y="16" width="50" height="50" rx="6"/>
       <rect x="110" y="40" width="50" height="50" rx="6"/>
       <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png" alt="Components and Variants Are a Contract, Not a Copy-Paste Shortcut" loading="lazy" onerror="this.style.display='none'"><span class="badge">FIGMA</span></div><div class="card-body"><h3 class="card-title">Components and Variants Are a Contract, Not a Copy-Paste Shortcut</h3><p class="card-desc">Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.</p><div class="card-footer"><span class="card-meta mono">INT · 16 MIN</span><a class="btn btn-card" href="/guide/components-variants-contract">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png" alt="Components and Variants Are a Contract, Not a Copy-Paste Shortcut" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/components-variants-contract">Components and Variants Are a Contract, Not a Copy-Paste Shortcut</a></h3><p class="card-meta">Figma Workflow · Intermediate · 16 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="82" y="16" width="50" height="50" rx="6"/>
       <rect x="110" y="40" width="50" height="50" rx="6"/>
       <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png" alt="Figma Variables Are a Data Layer, Not Just Color Styles" loading="lazy" onerror="this.style.display='none'"><span class="badge">FIGMA</span></div><div class="card-body"><h3 class="card-title">Figma Variables Are a Data Layer, Not Just Color Styles</h3><p class="card-desc">Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.</p><div class="card-footer"><span class="card-meta mono">ADV · 15 MIN</span><a class="btn btn-card" href="/guide/figma-variables-data-layer">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png" alt="Figma Variables Are a Data Layer, Not Just Color Styles" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/figma-variables-data-layer">Figma Variables Are a Data Layer, Not Just Color Styles</a></h3><p class="card-meta">Figma Workflow · Advanced · 15 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="82" y="16" width="50" height="50" rx="6"/>
       <rect x="110" y="40" width="50" height="50" rx="6"/>
       <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5"/>
       <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5"/>
       <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png" alt="Figma-to-Code Handoff Is a Translation, Not a Screenshot" loading="lazy" onerror="this.style.display='none'"><span class="badge">FIGMA</span></div><div class="card-body"><h3 class="card-title">Figma-to-Code Handoff Is a Translation, Not a Screenshot</h3><p class="card-desc">How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.</p><div class="card-footer"><span class="card-meta mono">INT · 14 MIN</span><a class="btn btn-card" href="/guide/figma-to-code-handoff">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">AUTO LAYOUT</text></svg><img src="/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png" alt="Figma-to-Code Handoff Is a Translation, Not a Screenshot" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/figma-to-code-handoff">Figma-to-Code Handoff Is a Translation, Not a Screenshot</a></h3><p class="card-meta">Figma Workflow · Intermediate · 14 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="99" y="12" width="42" height="78" rx="7"/>
       <line x1="107" y1="24" x2="133" y2="24" stroke-width="1.2"/>
       <rect x="107" y="32" width="26" height="12" rx="2" stroke-width="1.2"/>
       <line x1="107" y1="50" x2="133" y2="50" stroke-width="1.2"/>
       <line x1="107" y1="56" x2="133" y2="56" stroke-width="1.2"/>
       <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have_thumbnail.png" alt="Thumb Zones Are a Layout Constraint, Not a Nice-to-Have" loading="lazy" onerror="this.style.display='none'"><span class="badge">MOBILE_APP</span></div><div class="card-body"><h3 class="card-title">Thumb Zones Are a Layout Constraint, Not a Nice-to-Have</h3><p class="card-desc">Reachability math for today&#39;s screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.</p><div class="card-footer"><span class="card-meta mono">BEG · 10 MIN</span><a class="btn btn-card" href="/guide/thumb-zones-layout-constraint">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have_thumbnail.png" alt="Thumb Zones Are a Layout Constraint, Not a Nice-to-Have" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/thumb-zones-layout-constraint">Thumb Zones Are a Layout Constraint, Not a Nice-to-Have</a></h3><p class="card-meta">Mobile App Design · Beginner · 10 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M70,86 L100,20 L130,60 L170,16"/>
       <circle class="thumb-fill" cx="100" cy="20" r="3.2"/>
       <circle class="thumb-fill" cx="130" cy="60" r="3.2"/>
@@ -592,14 +535,14 @@
       <circle class="thumb-handle-dot" cx="170" cy="16" r="3"/>
       <line x1="100" y1="20" x2="85" y2="6" class="thumb-handle"/>
       <circle class="thumb-handle-dot" cx="85" cy="6" r="2.4"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">PEN TOOL</text></svg><img src="/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import_thumbnail.png" alt="Migrating From XD Is a Rebuild, Not a File Import" loading="lazy" onerror="this.style.display='none'"><span class="badge">ADOBE_XD</span></div><div class="card-body"><h3 class="card-title">Migrating From XD Is a Rebuild, Not a File Import</h3><p class="card-desc">What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) — a practical checklist.</p><div class="card-footer"><span class="card-meta mono">INT · 12 MIN</span><a class="btn btn-card" href="/guide/migrating-from-xd-rebuild">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">PEN TOOL</text></svg><img src="/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import_thumbnail.png" alt="Migrating From XD Is a Rebuild, Not a File Import" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/migrating-from-xd-rebuild">Migrating From XD Is a Rebuild, Not a File Import</a></h3><p class="card-meta">Adobe XD Workflow · Intermediate · 12 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="99" y="12" width="42" height="78" rx="7"/>
       <line x1="107" y1="24" x2="133" y2="24" stroke-width="1.2"/>
       <rect x="107" y="32" width="26" height="12" rx="2" stroke-width="1.2"/>
       <line x1="107" y1="50" x2="133" y2="50" stroke-width="1.2"/>
       <line x1="107" y1="56" x2="133" y2="56" stroke-width="1.2"/>
       <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png" alt="iOS and Android Are Different Systems, Not One Design Reused Twice" loading="lazy" onerror="this.style.display='none'"><span class="badge">MOBILE_APP</span></div><div class="card-body"><h3 class="card-title">iOS and Android Are Different Systems, Not One Design Reused Twice</h3><p class="card-desc">Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.</p><div class="card-footer"><span class="card-meta mono">INT · 17 MIN</span><a class="btn btn-card" href="/guide/ios-android-different-systems">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png" alt="iOS and Android Are Different Systems, Not One Design Reused Twice" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/ios-android-different-systems">iOS and Android Are Different Systems, Not One Design Reused Twice</a></h3><p class="card-meta">Mobile App Design · Intermediate · 17 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="50" y="18" width="140" height="70" rx="4"/>
       <line x1="50" y1="32" x2="190" y2="32" stroke-width="1.2"/>
       <circle class="thumb-fill" cx="60" cy="25" r="2"/>
@@ -608,14 +551,14 @@
       <rect x="58" y="40" width="26" height="40" stroke-width="1.2"/>
       <rect x="94" y="40" width="88" height="16" rx="1" stroke-width="1.2"/>
       <rect x="94" y="62" width="60" height="16" rx="1" stroke-width="1.2"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">1440 × 900</text></svg><img src="/thumbnail_image/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps_thumbnail.png" alt="CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps" loading="lazy" onerror="this.style.display='none'"><span class="badge">WEB_LAYOUT</span></div><div class="card-body"><h3 class="card-title">CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps</h3><p class="card-desc">Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent&#39;s rhythm.</p><div class="card-footer"><span class="card-meta mono">INT · 15 MIN</span><a class="btn btn-card" href="/guide/css-grid-two-dimensional-system">Read guide <span aria-hidden="true">→</span></a></div></div></article><article class="guide-card bracketed"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">1440 × 900</text></svg><img src="/thumbnail_image/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps_thumbnail.png" alt="CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/css-grid-two-dimensional-system">CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps</a></h3><p class="card-meta">Web Layout · Intermediate · 15 min read</p></div></article><article class="guide-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="99" y="12" width="42" height="78" rx="7"/>
       <line x1="107" y1="24" x2="133" y2="24" stroke-width="1.2"/>
       <rect x="107" y="32" width="26" height="12" rx="2" stroke-width="1.2"/>
       <line x1="107" y1="50" x2="133" y2="50" stroke-width="1.2"/>
       <line x1="107" y1="56" x2="133" y2="56" stroke-width="1.2"/>
       <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
-    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels_thumbnail.png" alt="Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels" loading="lazy" onerror="this.style.display='none'"><span class="badge">MOBILE_APP</span></div><div class="card-body"><h3 class="card-title">Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels</h3><p class="card-desc">Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.</p><div class="card-footer"><span class="card-meta mono">INT · 13 MIN</span><a class="btn btn-card" href="/guide/mobile-breakpoints-device-categories">Read guide <span aria-hidden="true">→</span></a></div></div></article><!--GUIDES_GRID_END-->
+    <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels_thumbnail.png" alt="Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/mobile-breakpoints-device-categories">Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels</a></h3><p class="card-meta">Mobile App Design · Intermediate · 13 min read</p></div></article><!--GUIDES_GRID_END-->
         </div>
         <div class="empty-state" id="empty-state">
           <p>No guides matched <strong id="empty-query"></strong>.</p>
@@ -658,88 +601,18 @@
       <div class="page-view-body" id="page-view-body"></div>
     </div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/bpozz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/bpozz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@bpozz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="privacy.html">Privacy policy</a></li>
-            <li><a href="terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="privacy.html">Privacy policy</a> ·
-          <a href="terms.html">Terms of service</a> ·
-          <a href="about.html">About</a> ·
-          <a href="contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="app.js"></script>
   </body>

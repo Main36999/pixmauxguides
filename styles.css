@@ -8,16 +8,14 @@
   --card: #ffffff;
   --grid-line: #dbe6f7;
   --grid-line-dark: rgba(255, 255, 255, 0.06);
-  --text: #16233d;
+  --text: #000000;
   --text-muted: #5c6b85;
+  --header-bg: #101010;
   --radius: 3px;
-  --grid-size: 34px;
   --mono:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
     monospace;
-  --sans:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  --sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -30,22 +28,16 @@ body {
   margin: 0;
   padding: 0;
 }
+/* Flat, borderless backdrop site-wide — the "clean, minimalist,
+   resourceboy.com-style" treatment. This used to be homepage-only
+   (body.page-home overrode a graph-paper grid + radial glow that every
+   other template — guide, roadmap, legal — kept), which made the home
+   page look like a different site from the rest. Every page now shares
+   this same plain background so the whole site reads as one template. */
 body {
   font-family: var(--sans);
   color: var(--text);
   background-color: var(--paper);
-  background-image:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(29, 95, 214, 0.07),
-      transparent 55%
-    ),
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size:
-    100% 100%,
-    var(--grid-size) var(--grid-size),
-    var(--grid-size) var(--grid-size);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
@@ -181,29 +173,34 @@ ul {
   border-color: #fff;
 }
 
-/* ---------- header ---------- */
+/* ---------- header ----------
+   Rebuilt to match resourceboy.com's header 1:1: one full-bleed,
+   near-black bar (--header-bg, not the site's navy --ink) with the
+   wordmark on the left and every browse link spread across the row —
+   the old light search row plus a *separate* dark .cat-nav strip
+   underneath have been merged into this single row, and those category
+   links now live directly in .site-nav / .mobile-menu__nav. Since bpozz
+   has no accounts, nothing stands in for resourceboy's "Sign in" pill;
+   the search that used to share this row keeps its place at the far
+   right instead. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(245, 248, 252, 0.88);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--grid-line);
+  background: var(--header-bg);
 }
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  height: 64px;
+  gap: 32px;
+  height: 84px;
+  padding: 0 32px;
 }
 .brand {
   display: flex;
   align-items: center;
-  align-self: stretch;
-  gap: 10px;
+  flex-shrink: 0;
   text-decoration: none;
-  color: var(--text);
 }
 .brand-mark {
   width: 48px;
@@ -213,40 +210,41 @@ ul {
   flex-shrink: 0;
   display: block;
   object-fit: cover;
-  align-self: flex-end;
 }
 .brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-.brand-text strong {
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: 800;
   letter-spacing: 0.01em;
-}
-.brand-text small {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: #fff;
 }
 .site-nav {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 28px;
   font-size: 14px;
+  font-weight: 600;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.site-nav::-webkit-scrollbar {
+  display: none;
 }
 .site-nav a {
+  flex: 0 0 auto;
   text-decoration: none;
-  color: var(--text-muted);
-  font-weight: 500;
+  color: #9db3da;
+  white-space: nowrap;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
 }
 .site-nav a:hover {
-  color: var(--action);
+  color: #fff;
+  border-bottom-color: var(--cyan);
 }
 .site-nav a[aria-current="page"],
 .mobile-menu__nav a[aria-current="page"] {
-  color: var(--action);
+  color: #fff;
+  border-bottom-color: var(--cyan);
 }
 .version-pill {
   font-size: 11px;
@@ -257,13 +255,14 @@ ul {
   background: rgba(34, 166, 196, 0.07);
   white-space: nowrap;
 }
-/* Groups the primary nav + quick search together so the header keeps its
-   original two-column layout: brand on the left, everything else on the
-   right. */
+/* Pushed to the far right (margin-left: auto below) so it lands exactly
+   where resourceboy's "Sign in" button sits — nothing else fills that
+   slot, per the no-accounts / no-sign-in brief. */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 .header-search {
   display: flex;
@@ -273,15 +272,19 @@ ul {
 .header-search input {
   width: 180px;
   max-width: 40vw;
-  border: 1px solid var(--grid-line);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 2px;
   padding: 7px 10px;
+  font-family: inherit;
   font-size: 13px;
-  color: var(--text);
-  background: var(--paper);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.header-search input::placeholder {
+  color: #8a93a6;
 }
 .header-search input:focus {
-  border-color: var(--action);
+  border-color: var(--cyan);
   outline: none;
 }
 .header-search__submit {
@@ -291,19 +294,116 @@ ul {
   flex-shrink: 0;
   width: 30px;
   height: 30px;
-  border: 1px solid var(--grid-line);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 2px;
-  background: var(--paper);
-  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  color: #9db3da;
 }
 .header-search__submit svg {
   width: 15px;
   height: 15px;
 }
 .header-search__submit:hover {
-  color: var(--action);
-  border-color: var(--action);
+  color: #fff;
+  border-color: var(--cyan);
 }
+
+/* ---------- collapsible header search (mobile) ----------
+   <details>/<summary> instead of JS: the toggle works even with
+   JS disabled. Desktop is untouched — the form is forced visible at
+   all times, same as before. Below 640px the form collapses to just
+   the icon in the header row (next to the logo, not in the nav list);
+   opening it drops a full-width pill under the header, resourceboy-
+   style, styled after the site's existing .hero-search pill so it
+   matches bpozz's own visual language rather than copying resourceboy's
+   icon-in-input treatment exactly. */
+.header-search-collapse {
+  display: contents;
+}
+.header-search-toggle {
+  display: none;
+  list-style: none;
+  cursor: pointer;
+}
+.header-search-toggle::-webkit-details-marker {
+  display: none;
+}
+.header-search-toggle__icon--close {
+  display: none;
+}
+.header-search-collapse[open] .header-search-toggle__icon--open {
+  display: none;
+}
+.header-search-collapse[open] .header-search-toggle__icon--close {
+  display: block;
+}
+@media (min-width: 641px) {
+  /* No JS sets [open] on desktop, so without this the native <details>
+     behavior would hide the form entirely; force it visible instead,
+     preserving the original always-on search bar. */
+  .header-search-collapse > .header-search {
+    display: flex !important;
+  }
+}
+@media (max-width: 640px) {
+  .header-search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 2px;
+    color: #9db3da;
+  }
+  .header-search-toggle svg {
+    width: 15px;
+    height: 15px;
+  }
+  .header-search-toggle:hover {
+    color: #fff;
+    border-color: var(--cyan);
+  }
+  .header-search-collapse[open] > .header-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 14px 20px;
+    background: var(--header-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .header-search-collapse[open] > .header-search input {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 18px;
+    background: #fff;
+    color: var(--text);
+  }
+  .header-search-collapse[open] > .header-search input::placeholder {
+    color: var(--text-muted);
+  }
+  .header-search-collapse[open] > .header-search__submit {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--action);
+    color: #fff;
+  }
+  .header-search-collapse[open] > .header-search__submit:hover {
+    background: var(--action-hover);
+  }
+}
+
 /* ---------- mobile menu ---------- */
 .menu-toggle {
   display: none;
@@ -312,54 +412,73 @@ ul {
   flex-shrink: 0;
   width: 38px;
   height: 38px;
-  border: 1px solid var(--grid-line);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 2px;
-  background: var(--paper);
-  color: var(--text);
+  background: transparent;
+  color: #fff;
 }
 .menu-toggle svg {
   width: 18px;
   height: 18px;
 }
 .menu-toggle:hover {
-  border-color: var(--action);
-  color: var(--action);
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+/* Two icons live in the button; only one shows at a time, keyed off the
+   aria-expanded state app.js already toggles when the menu opens. */
+.menu-toggle__icon--close {
+  display: none;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon--open {
+  display: none;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon--close {
+  display: block;
 }
 .mobile-menu {
   display: none;
   flex-direction: column;
-  gap: 14px;
-  padding: 16px 24px 20px;
-  border-top: 1px solid var(--grid-line);
+  gap: 32px;
+  position: fixed;
+  inset: 84px 0 0 0;
+  padding: 28px 28px 40px;
+  background: var(--header-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .mobile-menu[hidden] {
   display: none;
 }
+/* Keep the page underneath from scrolling behind the full-screen panel. */
+body:has(#mobile-menu:not([hidden])) {
+  overflow: hidden;
+}
 .mobile-menu__nav {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 .mobile-menu__nav a {
   text-decoration: none;
-  color: var(--text);
+  color: #cdd6e8;
   font-weight: 600;
-  font-size: 15px;
-  padding: 10px 2px;
-  border-bottom: 1px solid var(--grid-line);
+  font-size: 18px;
+  padding: 14px 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-.mobile-menu__nav a:hover {
-  color: var(--action);
+.mobile-menu__nav a:last-child {
+  border-bottom: none;
 }
-.mobile-menu__search {
-  width: 100%;
-}
-.mobile-menu__search input {
-  width: 100%;
-  max-width: none;
+.mobile-menu__nav a:hover,
+.mobile-menu__nav a:active {
+  color: #fff;
 }
 @media (max-width: 640px) {
-  .header-actions {
+  .header-inner {
+    padding: 0 20px;
+  }
+  .site-nav {
     display: none;
   }
   .menu-toggle {
@@ -377,36 +496,21 @@ ul {
   }
 }
 
-/* ---------- hero ---------- */
+/* ---------- hero ----------
+   Flat and light, resourceboy.com-style: no dark gradient panel, no
+   graph-paper backdrop, no glow. It sits on the same plain body
+   background as the rest of the site, separated only by whitespace
+   and a hairline rule — minimalism through spacing and type, not
+   color blocking. */
 .hero {
-  color: #fff;
-  padding: 64px 24px 96px;
-  background-image:
-    linear-gradient(var(--grid-line-dark) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line-dark) 1px, transparent 1px),
-    linear-gradient(180deg, var(--ink), var(--ink-2));
-  background-size:
-    var(--grid-size) var(--grid-size),
-    var(--grid-size) var(--grid-size),
-    100% 100%;
-  text-align: left;
+  padding: 88px 24px 72px;
+  text-align: center;
+  background-color: rgb(233, 240, 245);
+  border-bottom: 1px solid var(--grid-line);
 }
 .hero-inner {
   max-width: 1160px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
-  align-items: center;
-  gap: 32px 56px;
-}
-@media (max-width: 860px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-  }
-  .hero-visual {
-    max-width: 380px;
-    margin: 8px auto 0;
-  }
 }
 .fade-up {
   animation: fadeUp 0.6s ease both;
@@ -437,314 +541,204 @@ ul {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.14em;
-  color: var(--cyan);
+  color: var(--action);
   text-transform: uppercase;
   margin: 0 0 14px;
 }
+.hero-copy {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 .hero h1 {
-  font-size: clamp(30px, 4.6vw, 50px);
-  margin: 0 0 16px;
+  color: var(--header-bg);
+  font-size: clamp(24px, 3.4vw, 38px);
+  margin: 0 0 34px;
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.12;
-  max-width: 16ch;
 }
 .hero .tagline {
-  color: #c7d5ef;
-  max-width: 600px;
-  margin: 0 0 28px;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto 28px;
   font-size: 16px;
   line-height: 1.6;
 }
-.hero-actions {
+
+/* ---------- hero search ----------
+   Same functional contract as .header-search (shares the class, so
+   app.js's existing querySelectorAll(".header-search") wiring binds
+   this form too — no JS changes needed), just restyled as the big
+   resourceboy-style pill search bar that anchors the hero. */
+.hero-search {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 32px;
+  align-items: center;
+  max-width: 620px;
+  margin: 0 auto 22px;
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+  border-radius: 999px;
+  padding: 6px 6px 6px 24px;
+  transition: border-color 0.15s ease;
+}
+.hero-search:focus-within {
+  border-color: var(--action);
+}
+.hero-search input {
+  flex: 1 1 auto;
+  width: auto;
+  max-width: none;
+  border: 0;
+  background: transparent;
+  padding: 13px 8px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+}
+.hero-search input::placeholder {
+  color: var(--text-muted);
+}
+.hero-search input:focus {
+  outline: none;
+}
+.hero-search__submit {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--action);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-search__submit svg {
+  width: 18px;
+  height: 18px;
+}
+.hero-search__submit:hover {
+  background: var(--action-hover);
+}
+
+.hero-actions {
+  margin: 0 0 18px;
+}
+.hero-roadmap-link {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--grid-line);
+}
+.hero-roadmap-link:hover {
+  color: var(--action);
 }
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   align-items: center;
   font-size: 11.5px;
   letter-spacing: 0.06em;
-  color: #9db3da;
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 .hero-stats strong {
-  color: #fff;
+  color: var(--text);
 }
 .hero-stats .dot {
   color: var(--cyan);
 }
 
-/* ---------- hero visual (right column) ----------
-   A small "interface being drafted" illustration that plays once on load,
-   built from the same vocabulary as the guide-card thumbnails: dimension
-   lines + ticks + mono labels (.thumb-dim-*) and corner selection handles
-   (.thumb-handle-dot), plus the .bracketed corner-accent already used on
-   cards/toolbar. Pure CSS + inline SVG, no JS — still renders (instantly,
-   fully drawn) for no-JS visitors, and collapses to its end state under
-   the prefers-reduced-motion override above. Hidden on narrow viewports
-   isn't necessary; it just drops below the text column (see the 860px
-   rule above) and scales down with it. */
-.hero-visual {
-  display: flex;
-  justify-content: center;
-}
-.hv-canvas {
-  width: 100%;
-  max-width: 380px;
-  background: var(--card);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 24px 48px rgba(5, 15, 35, 0.35);
-}
-.hv-chrome {
+/* ---------- trending categories ----------
+   Sits right under the hero search bar — same page flow as
+   resourceboy's hero -> search -> trending-categories sequence, now
+   flat on the same light page background rather than floating as a
+   shadowed plate over a dark panel. Cards reuse the data-jump-category
+   contract (see app.js's delegated [data-jump-category] click
+   handler) so clicking one filters the grid straight to that category
+   with no new JS. */
+.trending {
+  max-width: 1160px;
+  margin: 56px auto 0;
+  text-align: left;
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 9px 12px;
-  background: var(--paper);
-  border-bottom: 1px solid var(--grid-line);
+  gap: 26px;
 }
-.hv-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--text-muted);
-  opacity: 0.45;
-}
-.hv-address {
-  margin-left: 6px;
-  width: 46%;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--grid-line);
-}
-.hv-svg {
-  display: block;
-  width: 100%;
-  height: auto;
+.trending__label {
+  flex: 0 0 auto;
+  font-size: 12px;
+  letter-spacing: 0.1em;
   color: var(--text);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-
-/* growing bars (nav / heading / paragraph lines): scale in from the left */
-.hv-navbar,
-.hv-heading,
-.hv-line {
-  fill: var(--grid-line);
-  transform: scaleX(0);
-  transform-box: fill-box;
-  transform-origin: left center;
+.trending__grid {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
 }
-.hv-navbar {
-  animation: hvGrowX 0.3s ease 0.4s forwards;
+.trending__grid::-webkit-scrollbar {
+  display: none;
 }
-.hv-heading {
-  fill: var(--ink);
-  opacity: 0.88;
-  animation: hvGrowX 0.25s ease 1.55s forwards;
-}
-.hv-line1 {
-  animation: hvGrowX 0.25s ease 1.75s forwards;
-}
-.hv-line2 {
-  animation: hvGrowX 0.25s ease 1.95s forwards;
-}
-
-/* image placeholder block: outline draws itself, then sun + mountains fade in */
-.hv-imgbox {
-  stroke: var(--action);
-  stroke-dasharray: 732;
-  stroke-dashoffset: 732;
-  animation: hvDrawStroke 0.4s ease 0.7s forwards;
-}
-.hv-imgsun,
-.hv-imgmtn {
-  stroke: var(--action);
-  opacity: 0;
-  animation: hvFadeIn 0.3s ease 1.25s forwards;
-}
-.hv-imgmtn {
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
-/* corner selection handles on the image block */
-.hv-handle {
-  fill: var(--card);
-  stroke: var(--cyan);
-  stroke-width: 1.4;
-  opacity: 0;
-  transform: scale(0);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.hv-handle-a {
-  animation: hvPop 0.2s ease 1.05s forwards;
-}
-.hv-handle-b {
-  animation: hvPop 0.2s ease 1.18s forwards;
-}
-
-/* dimension annotations, echoing .thumb-dim-line / .thumb-dim-tick */
-.hv-dim-line,
-.hv-dim-tick {
-  stroke: var(--cyan);
-  stroke-dasharray: 2 3;
-  opacity: 0;
-}
-.hv-dim-label {
-  font-family: var(--mono);
-  font-size: 8px;
-  fill: var(--cyan);
-  opacity: 0;
-}
-.hv-dim1,
-.hv-dim1-tick {
-  animation: hvFadeIn 0.2s ease 0.7s forwards;
-}
-.hv-dim1-label {
-  animation: hvFadeIn 0.15s ease 0.85s forwards;
-}
-.hv-dim2-tick,
-.hv-dim2 {
-  animation: hvFadeIn 0.15s ease 2.05s forwards;
-}
-.hv-dim2-label {
-  animation: hvFadeIn 0.15s ease 2.15s forwards;
-}
-
-/* button: pops in, then a quick cursor click + glow ring */
-.hv-btn {
-  fill: var(--action);
-  opacity: 0;
-  transform: scale(0.85);
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hvPop 0.25s ease 2.2s forwards;
-}
-.hv-btn-label {
-  fill: #fff;
-  opacity: 0;
-  animation: hvFadeIn 0.15s ease 2.4s forwards;
-}
-.hv-btn-glow {
-  stroke: var(--cyan);
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hvGlow 0.4s ease 2.85s forwards;
-}
-.hv-cursor {
-  fill: var(--ink);
-  opacity: 0;
-  transform: translate(276px, 8px);
-  animation:
-    hvCursorMove 0.4s ease 2.45s forwards,
-    hvCursorClick 0.2s ease 2.85s forwards;
-}
-
-@keyframes hvGrowX {
-  to {
-    transform: scaleX(1);
-  }
-}
-@keyframes hvDrawStroke {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes hvFadeIn {
-  to {
-    opacity: 1;
-  }
-}
-@keyframes hvPop {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes hvCursorMove {
-  from {
-    opacity: 0;
-    transform: translate(276px, 8px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(56px, 187px);
-  }
-}
-@keyframes hvCursorClick {
-  0% {
-    transform: translate(56px, 187px) scale(1);
-  }
-  50% {
-    transform: translate(56px, 187px) scale(0.82);
-  }
-  100% {
-    transform: translate(56px, 187px) scale(1);
-  }
-}
-@keyframes hvGlow {
-  0% {
-    opacity: 0.9;
-    stroke-width: 1.5;
-  }
-  100% {
-    opacity: 0;
-    stroke-width: 8;
-  }
-}
-
-/* ---------- toolbar ---------- */
-.toolbar-wrap {
-  max-width: 1160px;
-  margin: -46px auto 8px;
-  padding: 0 24px;
-  position: relative;
-  z-index: 10;
-}
-.toolbar {
+.trending-card {
+  flex: 0 0 168px;
+  text-decoration: none;
+  color: var(--text);
   background: var(--card);
   border: 1px solid var(--grid-line);
-  border-radius: 2px;
-  padding: 16px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  box-shadow: 0 12px 30px rgba(15, 42, 82, 0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
 }
+.trending-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15, 42, 82, 0.1);
+}
+.trending-card__thumb {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #eef2f8;
+}
+.trending-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.trending-card__label {
+  display: block;
+  padding: 12px 14px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .trending {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .trending__grid {
+    width: 100%;
+  }
+}
+
+/* ---------- filter controls (select-style fields) ---------- */
 .field {
   position: relative;
   display: flex;
   align-items: center;
-}
-.toolbar-reset {
-  flex: 1 1 190px;
-}
-.toolbar-reset button {
-  width: 100%;
-  border: 1px solid var(--grid-line);
-  border-radius: 2px;
-  padding: 11px 12px;
-  font-size: 13.5px;
-  font-family: inherit;
-  text-align: left;
-  color: var(--text);
-  background: var(--paper);
-  cursor: pointer;
-}
-.toolbar-reset button:hover {
-  border-color: var(--action);
-  color: var(--action);
-}
-.toolbar-reset button:focus {
-  border-color: var(--action);
-  outline: none;
 }
 .select-field {
   flex: 1 1 190px;
@@ -752,39 +746,42 @@ ul {
 .select-field select {
   width: 100%;
   appearance: none;
-  border: 1px solid var(--grid-line);
-  border-radius: 2px;
-  padding: 11px 34px 11px 12px;
+  border: none;
+  border-radius: 0;
+  padding: 4px 20px 4px 0;
+  font-family: inherit;
   font-size: 13.5px;
+  font-weight: 600;
   color: var(--text);
-  background: var(--paper);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231D5FD6' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235c6b85' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-position: right center;
   background-size: 11px 7px;
+  cursor: pointer;
+  transition: color 0.15s ease;
 }
+.select-field select:hover,
 .select-field select:focus {
-  border-color: var(--action);
+  color: var(--action);
   outline: none;
 }
 .select-field select option:disabled {
   color: var(--text-muted);
   font-style: italic;
 }
-@media (max-width: 640px) {
-  .toolbar-wrap {
-    margin-top: 20px;
-  }
-  .toolbar-reset,
-  .select-field {
-    flex: 1 1 100%;
-  }
-}
 
-/* ---------- guides section ---------- */
+/* ---------- guides section ----------
+   Widens .wrap's 1160px cap: on wide screens the centered column was
+   leaving large empty gutters on either side while the guide cards
+   themselves stayed cramped into 5 columns. A much wider (but still
+   capped, so cards don't balloon on ultra-wide monitors) container
+   lets the grid actually fill the viewport the way resourceboy.com's
+   does, while staying centered like the rest of .wrap. */
 .guides-main {
-  padding-top: 44px;
-  padding-bottom: 88px;
+  max-width: 1800px;
+  padding: 44px 32px 88px;
+  background-color: #ffffff;
 }
 .section-head {
   display: flex;
@@ -796,32 +793,74 @@ ul {
   padding-bottom: 14px;
   border-bottom: 1px solid var(--grid-line);
 }
+/* Black everywhere, matching the home page's plain black, DM Sans body
+   copy — used to be blue by default with a home-page-only override back
+   to black; every page now gets the same black treatment directly. */
 .section-label {
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: var(--action);
+  color: var(--text);
   text-transform: uppercase;
 }
 .results-count {
   font-size: 12px;
   color: var(--text-muted);
 }
+.section-head__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.level-filter {
+  flex: 0 0 168px;
+  padding-left: 16px;
+  border-left: 1px solid var(--grid-line);
+}
+@media (max-width: 640px) {
+  .section-head__meta {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+  .level-filter {
+    flex: 0 0 150px;
+  }
+}
+/* Fixed 5-column grid on desktop, matching resourceboy.com's card
+   layout, stepping down at narrower widths instead of auto-fill's
+   variable column count (which was only landing on 4 at this
+   container's max-width). */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px 20px;
+}
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+}
+@media (max-width: 420px) {
+  .grid {
+    gap: 18px 10px;
+  }
 }
 
+/* Minimal, resourceboy.com-style card: no border/box/shadow — just a
+   plain rounded thumbnail with a title and a small muted meta line
+   underneath. The whole tile is a single click target via .card-link's
+   ::after (stretched over .guide-card, which is the positioning
+   context), so there's no separate "read guide" button to style. */
 .guide-card {
-  background: var(--card);
-  border: 1px solid var(--grid-line);
-  border-radius: 2px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.16s ease,
-    box-shadow 0.16s ease,
-    border-color 0.16s ease;
   animation: cardIn 0.28s ease both;
 }
 @keyframes cardIn {
@@ -833,11 +872,6 @@ ul {
     opacity: 1;
     transform: translateY(0);
   }
-}
-.guide-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(15, 42, 82, 0.1);
-  border-color: #c3d6f4;
 }
 .badge {
   font-family: var(--mono);
@@ -854,23 +888,19 @@ ul {
 /* ---------- guide-card thumbnail plate ---------- */
 .card-thumb {
   position: relative;
-  aspect-ratio: 2 / 1;
-  border-bottom: 1px solid var(--grid-line);
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 18px 18px;
-  border-radius: 1px 1px 0 0;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  background-color: #eef2f8;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 .card-thumb svg {
-  width: 84%;
+  width: 60%;
   height: auto;
   color: var(--action);
+  opacity: 0.55;
   overflow: visible;
 }
 .card-thumb img {
@@ -878,14 +908,8 @@ ul {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
-}
-.card-thumb .badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: var(--card);
 }
 .thumb-guide {
   stroke: currentColor;
@@ -931,52 +955,45 @@ ul {
 .card-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px 20px 20px;
-  flex-grow: 1;
+  gap: 4px;
+  padding: 14px 2px 0;
 }
 .card-title {
-  font-size: 16.5px;
+  font-size: 15.5px;
   font-weight: 700;
-  line-height: 1.32;
+  line-height: 1.35;
   letter-spacing: -0.005em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.card-desc {
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--text-muted);
-  flex-grow: 1;
+/* Covers the whole .guide-card (its positioning context) so the entire
+   tile is clickable from a single, accessible link — the image and
+   meta text below aren't separately interactive. */
+.card-link {
+  color: inherit;
+  text-decoration: none;
 }
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--grid-line);
+.card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.card-link:hover {
+  color: var(--action);
 }
 .card-meta {
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-.btn-card {
-  background: var(--action);
-  color: #fff;
   font-size: 12.5px;
-  padding: 8px 12px;
-  border-radius: 2px;
-}
-.btn-card:hover {
-  background: var(--action-hover);
+  line-height: 1.4;
+  color: var(--text-muted);
 }
 
 .empty-state {
   display: none;
   text-align: center;
   padding: 64px 20px;
-  border: 1px dashed var(--grid-line);
+  border: 1px solid var(--grid-line);
   border-radius: 3px;
   color: var(--text-muted);
 }
@@ -996,19 +1013,16 @@ ul {
   padding: 68px 0 96px;
   border-top: 1px solid var(--grid-line);
 }
-/* On roadmap.html the section opens the page itself (after the small
-   "← All guides" crumb below) rather than following the homepage's
-   guide grid, so it doesn't need the divider border or as much
-   top padding — .roadmap-crumb already provides that breathing room. */
+/* On roadmap.html the section opens the page itself (there's no "← All
+   guides" crumb above it anymore, nor the homepage's guide grid before
+   it), so it carries its own top breathing room directly instead of
+   relying on a now-removed sibling, and skips the divider border. */
 .roadmap-section--page {
-  padding-top: 8px;
+  padding-top: 44px;
   border-top: none;
 }
-.roadmap-crumb {
-  padding: 44px 0 0;
-}
 @media (max-width: 640px) {
-  .roadmap-crumb {
+  .roadmap-section--page {
     padding-top: 32px;
   }
 }
@@ -1305,136 +1319,42 @@ ul {
 }
 
 /* ---------- footer ---------- */
+/* ---------- footer ----------
+   resourceboy.com-style footer: one centered row of flat links plus a
+   single copyright line underneath — no columns, no social list, no
+   JS-filled category list. Now shares the header's exact dark treatment
+   (--header-bg + the same light-blue-gray link color / white hover) so
+   the page is bookended by matching dark bars, light content between. */
 .site-footer {
-  color: #dce6f7;
-  background-image:
-    linear-gradient(var(--grid-line-dark) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line-dark) 1px, transparent 1px),
-    linear-gradient(180deg, var(--ink-2), var(--ink));
-  background-size:
-    var(--grid-size) var(--grid-size),
-    var(--grid-size) var(--grid-size),
-    100% 100%;
-  padding-top: 52px;
+  background: var(--header-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 36px 0;
 }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 0.85fr 0.85fr 0.85fr 1fr;
-  gap: 32px;
-  padding-bottom: 40px;
-}
-.footer-brand .brand-mark {
-  box-sizing: content-box;
-  padding: 4px;
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.1);
-}
-.footer-brand p {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #9db3da;
-  margin-top: 12px;
-  max-width: 32ch;
-}
-.footer-col h2 {
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #7d93bf;
-  margin-bottom: 14px;
-}
-.footer-social {
-  margin-top: 20px;
-}
-.footer-social__heading {
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #7d93bf;
-  margin-bottom: 10px;
-}
-.footer-social__list {
+.footer-inner {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
 }
-.footer-social__list a {
-  font-size: 13.5px;
-  color: #dce6f7;
-  text-decoration: none;
-}
-.footer-social__list a:hover {
-  color: var(--cyan);
-}
-.footer-social__list a span {
-  display: inline-block;
-  color: var(--cyan);
-}
-.footer-col li {
-  margin-bottom: 9px;
-  font-size: 13.5px;
-}
-.footer-col a {
-  text-decoration: none;
-  color: #dce6f7;
-}
-.footer-col a:hover {
-  color: var(--cyan);
-}
-.footer-cat-soon {
-  color: #7d93bf;
-  cursor: default;
-}
-.footer-cat-soon__tag {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #7d93bf;
-  border: 1px solid rgba(125, 147, 191, 0.4);
-  border-radius: 2px;
-  padding: 1px 5px;
-  vertical-align: middle;
-}
-.footer-note {
-  font-size: 13px;
-  color: #9db3da;
-  line-height: 1.6;
-  max-width: 26ch;
-}
-.footer-bottom {
+.footer-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
-  font-size: 12px;
-  color: #8ea3cc;
+  justify-content: center;
+  gap: 8px 28px;
+  font-size: 14px;
 }
-.footer-bottom a {
-  color: #8ea3cc;
+.footer-nav a {
+  color: #9db3da;
   text-decoration: none;
+  font-weight: 500;
 }
-.footer-bottom a:hover {
-  color: var(--cyan);
+.footer-nav a:hover {
+  color: #fff;
 }
-@media (max-width: 860px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-@media (max-width: 560px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 380px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
+.footer-copyright {
+  font-size: 13px;
+  color: #8a93a6;
 }
 
 /* ---------- toast ---------- */
@@ -1544,7 +1464,7 @@ ul {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .article-hero .badge {
@@ -1630,138 +1550,47 @@ ul {
   margin-top: 32px;
 }
 
-/* ---------- guide page: two-column layout + related-guides rail ----------
+/* ---------- guide page: single reading column + related-guides row ----------
    Every page under /guide/ wraps its reading content in
-   .guide-layout > .guide-primary, with a sibling <aside id="guide-rail">
-   sitting to the right — a sticky "related guides" panel, the same idea
-   as YouTube's related-videos column. The aside ships empty in the
-   static HTML; app.js's initRelatedGuides() fills it in at runtime from
-   guides.json (matching first on category, then level), so this one
-   shared block of CSS is enough to cover every guide page, current and
-   future, with no per-page related-guides markup to hand-maintain.
-   Rail cards mirror the homepage .guide-card treatment (bordered plate,
-   bracketed corners, hover lift) at a slightly smaller scale, rather
-   than a compact text-only row, so the thumbnail stays the focal point
-   instead of shrinking down to an afterthought. */
+   .guide-layout > .guide-primary, with a sibling <section id="guide-rail">
+   directly after it in the markup. This used to render as a sticky
+   right-hand sidebar (a second grid column next to the article); it's
+   now a plain block, so that same sibling simply falls below the
+   article — no per-page markup changes needed, only this layout.
+   .guide-primary keeps prose at a comfortable reading width and centers
+   it, rather than stretching paragraphs across the full row now that
+   there's no sidebar constraining it.
+   The related-guides row itself ships empty in the static HTML; app.js's
+   initRelatedGuides() fills it in at runtime from guides.json (matching
+   first on category, then level) with up to 10 guides, reusing cardHtml()
+   — the exact same markup/classes (.guide-card/.card-thumb/.card-body)
+   as the homepage grid — so "related guides" is the identical minimal
+   card, not a bespoke bordered/bracketed rail treatment. */
 .guide-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 40px;
-  align-items: start;
   max-width: 1120px;
   margin: 0 auto;
 }
 .guide-primary {
-  min-width: 0;
+  max-width: 760px;
+  margin: 0 auto;
 }
 .guide-rail {
-  position: sticky;
-  top: 88px;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--grid-line);
 }
 .guide-rail:empty {
   display: none;
 }
 .guide-rail__label {
   display: block;
-  margin-bottom: 20px;
-}
-.guide-rail__list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.guide-rail__card {
-  display: flex;
-  flex-direction: column;
-  background: var(--card);
-  border: 1px solid var(--grid-line);
-  border-radius: 2px;
-  text-decoration: none;
-  color: inherit;
-  transition:
-    transform 0.16s ease,
-    box-shadow 0.16s ease,
-    border-color 0.16s ease;
-}
-.guide-rail__card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(15, 42, 82, 0.1);
-  border-color: #c3d6f4;
-}
-.guide-rail__thumb {
-  position: relative;
-  aspect-ratio: 2 / 1;
-  border-bottom: 1px solid var(--grid-line);
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 18px 18px;
-  border-radius: 1px 1px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.guide-rail__thumb svg {
-  width: 84%;
-  height: auto;
+  margin-bottom: 22px;
   color: var(--action);
-  overflow: visible;
 }
-.guide-rail__thumb img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.guide-rail__thumb .badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: var(--card);
-}
-.guide-rail__body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 14px 16px 16px;
-}
-.guide-rail__title {
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.32;
-  letter-spacing: -0.004em;
-  color: var(--text);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.guide-rail__meta {
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-}
-@media (max-width: 960px) {
-  .guide-layout {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
+@media (max-width: 640px) {
   .guide-rail {
-    position: static;
-    top: auto;
-  }
-  .guide-rail__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
-}
-@media (max-width: 480px) {
-  .guide-rail__list {
-    grid-template-columns: 1fr;
+    margin-top: 52px;
+    padding-top: 32px;
   }
 }
 
@@ -1832,38 +1661,61 @@ ul {
   text-decoration: underline;
 }
 
-/* contact form */
+/* ---------- contact page ----------
+   Modeled on resourceboy.com/contact/: no visible field labels at
+   all — placeholder text carries each field, labels are kept for
+   screen readers only (.sr-only) — no boxed inputs, no fill, just a
+   hairline rule under each field. Same "minimalism through spacing
+   and type, not color blocking" language as .hero — just dialed up
+   here with a bigger heading and a lot more room between fields.
+   Scoped to .contact-content so about/privacy/terms (which share
+   .legal-content/.legal-title) keep their original, smaller scale. */
+.contact-content .legal-title {
+  font-size: clamp(28px, 4vw, 40px);
+  margin-bottom: 16px;
+}
+.contact-content .contact-lede {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0;
+}
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 38px;
+  margin-top: 48px;
 }
 .form-row {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-.form-row label {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--text);
-}
-.form-row .req {
-  color: var(--action);
-  font-weight: 400;
 }
 .form-row input,
 .form-row select,
 .form-row textarea {
   width: 100%;
-  border: 1px solid var(--grid-line);
-  border-radius: 2px;
-  padding: 11px 12px;
-  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid var(--grid-line);
+  border-radius: 0;
+  padding: 16px 2px 18px;
+  font-size: 17px;
   font-family: inherit;
   color: var(--text);
-  background: var(--paper);
+  background: transparent;
+  transition: border-color 0.15s ease;
+}
+.form-row input::placeholder,
+.form-row textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-row select {
+  appearance: none;
+  padding-right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231D5FD6' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  background-size: 11px 7px;
 }
 .form-row input:focus,
 .form-row select:focus,
@@ -1873,7 +1725,7 @@ ul {
 }
 .form-row textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 150px;
 }
 .form-hint {
   font-size: 12px;
@@ -1881,32 +1733,54 @@ ul {
   margin-top: -6px;
 }
 .form-error {
-  font-size: 12px;
+  font-size: 13px;
   color: #c0392b;
   min-height: 14px;
 }
-.contact-alt {
-  margin-top: 20px;
-  font-size: 13px;
+/* Scoped to .contact-form so the bigger scale here doesn't affect
+   .btn-primary on the homepage / roadmap CTA links, which share the
+   base .btn-primary class. */
+.contact-form .btn-primary {
+  padding: 16px 36px;
+  font-size: 15px;
+  margin-top: 6px;
+}
+.contact-content .contact-alt {
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid var(--grid-line);
+  font-size: 14px;
   color: var(--text-muted);
 }
 .form-success {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-  padding: 22px;
-  border: 1px solid var(--grid-line);
-  border-radius: 2px;
-  background: var(--paper);
-  margin-top: 24px;
+  gap: 14px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grid-line);
+  margin-top: 36px;
 }
 .form-success strong {
-  font-size: 15px;
+  font-size: 17px;
 }
 .form-success p {
-  font-size: 13.5px;
+  font-size: 14.5px;
   color: var(--text-muted);
   line-height: 1.6;
   margin: 0;
+}
+@media (max-width: 640px) {
+  .contact-form {
+    gap: 28px;
+    margin-top: 36px;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    padding: 14px 2px 16px;
+  }
+  .form-row textarea {
+    min-height: 130px;
+  }
 }

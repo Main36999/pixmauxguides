@@ -164,6 +164,16 @@ const THUMB_DIM_LABEL = {
 
 const LEVEL_ABBR = { beginner: "BEG", intermediate: "INT", advanced: "ADV" };
 
+// Full-word level labels for the homepage card's minimal meta line
+// (e.g. "Spacing & Layout · Beginner · 11 min read"). LEVEL_ABBR above
+// still covers the roadmap and the related-guides rail, which keep
+// their compact mono-style meta text.
+const LEVEL_LABEL = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+
 function escapeHtml(str) {
   return String(str).replace(
     /[&<>"']/g,
@@ -202,21 +212,26 @@ function thumbMediaHtml(g) {
 }
 
 function thumbHtml(g) {
-  const cat = CATEGORIES[g.category];
-  return `<div class="card-thumb">${thumbMediaHtml(g)}<span class="badge">${cat.code}</span></div>`;
+  return `<div class="card-thumb">${thumbMediaHtml(g)}</div>`;
 }
 
+// Minimal, resourceboy.com-style card: plain thumbnail, a title, and
+// one small muted meta line ("category · level · read time") — no
+// badge overlay, no description paragraph, no separate button. The
+// title's .card-link stretches over the whole .guide-card (see
+// styles.css), so the entire tile is one click target. Keep this in
+// sync with app.js's cardHtml()/thumbHtml() — see the note at the top
+// of this file.
 function cardHtml(g) {
+  const cat = CATEGORIES[g.category];
+  const meta = `${cat.label} · ${LEVEL_LABEL[g.level]} · ${g.readTime} min read`;
   return (
-    `<article class="guide-card bracketed">` +
+    `<article class="guide-card">` +
     thumbHtml(g) +
     `<div class="card-body">` +
-    `<h3 class="card-title">${escapeHtml(g.title)}</h3>` +
-    `<p class="card-desc">${escapeHtml(g.description)}</p>` +
-    `<div class="card-footer">` +
-    `<span class="card-meta mono">${LEVEL_ABBR[g.level]} · ${g.readTime} MIN</span>` +
-    `<a class="btn btn-card" href="/guide/${g.id}">Read guide <span aria-hidden="true">→</span></a>` +
-    `</div></div></article>`
+    `<h3 class="card-title"><a class="card-link" href="/guide/${g.id}">${escapeHtml(g.title)}</a></h3>` +
+    `<p class="card-meta">${escapeHtml(meta)}</p>` +
+    `</div></article>`
   );
 }
 
@@ -362,13 +377,6 @@ function buildIndexHtml(guides) {
     "<!--GUIDES_GRID_START-->",
     "<!--GUIDES_GRID_END-->",
     cardsHtml,
-  );
-
-  html = replaceBetween(
-    html,
-    "<!--STAT_COUNT-->",
-    "<!--/STAT_COUNT-->",
-    String(guides.length),
   );
 
   html = replaceBetween(

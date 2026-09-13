@@ -39,7 +39,7 @@
       name="description"
       content="How bpozz collects, uses, and protects information, including details on advertising cookies and your privacy choices."
     />
-    <link rel="canonical" href="https://pixmauxguides.com/privacy.html" />
+    <link rel="canonical" href="https://bpozz.com/privacy.html" />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -58,7 +58,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://pixmauxguides.com/privacy.html" />
+    <meta property="og:url" content="https://bpozz.com/privacy.html" />
     <meta property="og:site_name" content="bpozz" />
     <meta property="og:title" content="Privacy Policy — bpozz" />
     <meta
@@ -67,7 +67,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -83,51 +83,56 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="index.html#guides">All Guides</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html#guides">All</a>
+      <a href="index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -140,9 +145,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -152,6 +206,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -165,62 +220,55 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="index.html#guides">All Guides</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="index.html#guides">All</a>
+      <a href="index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
     <div class="wrap page-view" id="page-view">
-      <a href="index.html" class="page-view__back mono">← Back to home</a>
       <main class="page-view-body" id="main" tabindex="-1">
         <div class="legal-content">
           <h1 class="legal-title">Privacy Policy</h1>
           <p class="legal-updated mono">Effective date: August 4, 2026</p>
           <p>
-            This Privacy Policy explains what information bpozz
-            ("bpozz," "we," "us") collects, how it's used, and the choices
-            available to you. By using this site, you agree to the practices
-            described here.
+            This Privacy Policy explains what information bpozz ("bpozz," "we,"
+            "us") collects, how it's used, and the choices available to you. By
+            using this site, you agree to the practices described here.
           </p>
           <h2 class="legal-subheading">Information we collect</h2>
           <p>
@@ -308,95 +356,18 @@
       </main>
     </div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-col footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/bpozz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/bpozz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@bpozz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul>
-            <li><a href="index.html#toolbar">Color Theory</a></li>
-            <li><a href="index.html#toolbar">Typography</a></li>
-            <li><a href="index.html#toolbar">Spacing &amp; Layout</a></li>
-            <li><a href="index.html#toolbar">Figma Workflow</a></li>
-            <li><a href="index.html#toolbar">Adobe XD Workflow</a></li>
-            <li><a href="index.html#toolbar">Mobile App Design</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="privacy.html">Privacy policy</a></li>
-            <li><a href="terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="privacy.html">Privacy policy</a> ·
-          <a href="terms.html">Terms of service</a> ·
-          <a href="about.html">About</a> ·
-          <a href="contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <!-- Mobile menu toggle (kept in sync with app.js's "Mobile menu toggle" block —
          this page loads no other script, so the wiring lives here too). -->

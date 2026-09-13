@@ -46,7 +46,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+      href="https://bpozz.com/guide/mobile-breakpoints-device-categories"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -68,7 +68,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+      content="https://bpozz.com/guide/mobile-breakpoints-device-categories"
     />
     <meta property="og:site_name" content="bpozz" />
     <meta
@@ -81,7 +81,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -105,13 +105,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../guide-article.css" />
 
@@ -124,19 +130,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://pixmauxguides.com/"
+            "item": "https://bpozz.com/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Mobile App Design",
-            "item": "https://pixmauxguides.com/index.html#toolbar"
+            "item": "https://bpozz.com/index.html#toolbar"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
-            "item": "https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+            "item": "https://bpozz.com/guide/mobile-breakpoints-device-categories"
           }
         ]
       }
@@ -147,7 +153,7 @@
         "@type": "Article",
         "headline": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
         "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
-        "image": "https://pixmauxguides.com/og-image.png",
+        "image": "https://bpozz.com/og-image.png",
         "datePublished": "2026-08-18",
         "dateModified": "2026-08-18",
         "author": {
@@ -159,12 +165,12 @@
           "name": "bpozz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://pixmauxguides.com/guide/mobile-breakpoints-device-categories"
+          "@id": "https://bpozz.com/guide/mobile-breakpoints-device-categories"
         }
       }
     </script>
@@ -181,38 +187,37 @@
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#guides">All Guides</a>
-        <a href="../roadmap.html">Roadmap</a>
-        <a href="../index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="../index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -225,9 +230,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -237,6 +291,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -250,48 +305,43 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="../index.html#guides">All Guides</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="../index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
     <div class="wrap guide-crumb">
@@ -302,10 +352,7 @@
       <div class="guide-layout">
         <div class="guide-primary">
           <section class="guide-hero" aria-labelledby="guide-heading">
-          <div class="guide-hero__meta">
-            <span class="badge">MOBILE_APP</span>
-            <span class="card-meta mono">INT · 13 MIN</span>
-          </div>
+          <p class="guide-hero__meta">Mobile App Design · Intermediate · 13 min read</p>
           <h1 class="guide-hero__title" id="guide-heading">
             Mobile Breakpoints Are Device Categories, Not Arbitrary
                 Pixels
@@ -998,46 +1045,65 @@
 
               <h2 id="the-spec"><span class="guide-article__num mono">11</span>The spec</h2>
 
-          <div class="guide-spec">
-                  <p class="guide-spec__label">// mobile_breakpoints.spec</p>
-                  <dl>
-                    <dt>Compact</dt>
-                    <dd>
-                      0–599px — one-handed, portrait-first, touch-only
-                      assumptions
-                    </dd>
-                    <dt>Medium</dt>
-                    <dd>
-                      600–839px — two-handed or propped, touch-primary
-                    </dd>
-                    <dt>Expanded</dt>
-                    <dd>840px+ — pointer and keyboard primary</dd>
-                    <dt>Method</dt>
-                    <dd>
+          <div class="guide-table-wrap">
+              <table>
+                <caption>/ mobile_breakpoints_spec</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Property</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Compact</td>
+                    <td>0–599px — one-handed, portrait-first, touch-only assumptions</td>
+                  </tr>
+                  <tr>
+                    <td>Medium</td>
+                    <td>600–839px — two-handed or propped, touch-primary</td>
+                  </tr>
+                  <tr>
+                    <td>Expanded</td>
+                    <td>840px+ — pointer and keyboard primary</td>
+                  </tr>
+                  <tr>
+                    <td>Method</td>
+                    <td>
                       Content-out — grow a real browser window until the
                       content breaks, round to a shared boundary only if it
                       lands nearby
-                    </dd>
-                    <dt>Full-height sections</dt>
-                    <dd>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Full-height sections</td>
+                    <td>
                       <code>100svh</code> with a plain <code>100vh</code>
                       fallback — never <code>100vh</code> alone
-                    </dd>
-                    <dt>Safe area</dt>
-                    <dd>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Safe area</td>
+                    <td>
                       <code>viewport-fit=cover</code> plus
                       <code>env(safe-area-inset-*)</code> padding on every
                       edge-pinned element
-                    </dd>
-                    <dt>Component-level fit</dt>
-                    <dd>Container queries, not additional page breakpoints</dd>
-                    <dt>Validate on</dt>
-                    <dd>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Component-level fit</td>
+                    <td>Container queries, not additional page breakpoints</td>
+                  </tr>
+                  <tr>
+                    <td>Validate on</td>
+                    <td>
                       A real device, both orientations, with the on-screen
                       keyboard opened at least once
-                    </dd>
-                  </dl>
-                </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
                 <p>
                   None of this replaces resizing a real browser window on a
                   real device — the category boundaries above are a starting
@@ -1048,23 +1114,6 @@
                   narrower than the one it was tested on.
                 </p>
             </article>
-
-            <nav class="guide-footer-nav" aria-label="Guide navigation">
-              <a href="responsive-layout-contract" class="prev"
-                >← Responsive Layout Is a Contract, Not a Breakpoint List</a
-              >
-              <a href="thumb-zones-layout-constraint" class="next"
-                >Thumb Zones Are a Layout Constraint, Not a Nice-to-Have →</a
-              >
-            </nav>
-
-            <div class="guide-cta">
-              <div class="guide-cta__text">
-                <strong>Keep going</strong>
-                <span>Continue with the next guide in the learning roadmap.</span>
-              </div>
-              <a href="../roadmap.html" class="btn-primary">Back to the learning roadmap →</a>
-            </div>
           </div>
         <aside
           class="guide-rail"
@@ -1074,88 +1123,18 @@
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="../about.html">About us</a></li>
-            <li><a href="../contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="../privacy.html">Privacy policy</a></li>
-            <li><a href="../terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="../privacy.html">Privacy policy</a> ·
-          <a href="../terms.html">Terms of service</a> ·
-          <a href="../about.html">About</a> ·
-          <a href="../contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="../app.js"></script>
   </body>

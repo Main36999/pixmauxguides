@@ -41,7 +41,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/grid-systems-rhythm"
+      href="https://bpozz.com/guide/grid-systems-rhythm"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -63,7 +63,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/grid-systems-rhythm"
+      content="https://bpozz.com/guide/grid-systems-rhythm"
     />
     <meta property="og:site_name" content="bpozz" />
     <meta
@@ -76,7 +76,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -98,13 +98,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/guide-article.css" />
 
@@ -114,7 +120,7 @@
         "@type": "TechArticle",
         "headline": "Grid Systems Are a Rhythm, Not a Ruler",
         "description": "8pt spacing grids, 12-column/gutter ratios, and the vertical baseline rhythm that keeps unrelated sections feeling like one system.",
-        "image": "https://pixmauxguides.com/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png",
         "author": {
           "@type": "Organization",
           "name": "bpozz"
@@ -124,12 +130,12 @@
           "name": "bpozz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://pixmauxguides.com/guide/grid-systems-rhythm"
+          "@id": "https://bpozz.com/guide/grid-systems-rhythm"
         },
         "datePublished": "2026-08-09",
         "dateModified": "2026-08-09",
@@ -147,19 +153,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://pixmauxguides.com/"
+            "item": "https://bpozz.com/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "All Guides",
-            "item": "https://pixmauxguides.com/index.html#guides"
+            "item": "https://bpozz.com/index.html#guides"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Grid Systems Are a Rhythm, Not a Ruler",
-            "item": "https://pixmauxguides.com/guide/grid-systems-rhythm"
+            "item": "https://bpozz.com/guide/grid-systems-rhythm"
           }
         ]
       }
@@ -170,38 +176,37 @@
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#guides">All Guides</a>
-        <a href="../roadmap.html">Roadmap</a>
-        <a href="../index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="../index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -214,9 +219,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -226,6 +280,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -239,48 +294,43 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="../index.html#guides">All Guides</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="../index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
@@ -292,10 +342,7 @@
       <div class="guide-layout">
         <div class="guide-primary">
           <section class="guide-hero" aria-labelledby="guide-heading">
-        <div class="guide-hero__meta">
-          <span class="badge">SPACING_LAYOUT</span>
-          <span class="card-meta mono">INT · 14 MIN</span>
-        </div>
+        <p class="guide-hero__meta">Spacing &amp; Layout · Intermediate · 14 min read</p>
         <h1 class="guide-hero__title" id="guide-heading">
           Grid Systems Are a Rhythm, Not a Ruler
         </h1>
@@ -306,33 +353,6 @@
           and line-heights all have to agree on before any of them mean anything
           next to each other.
         </p>
-        <div class="guide-hero__figure">
-          <svg
-            viewBox="0 0 240 120"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <circle class="thumb-fill" cx="90" cy="24" r="3.4" />
-            <circle class="thumb-fill" cx="120" cy="24" r="3.4" />
-            <circle class="thumb-fill" cx="150" cy="24" r="3.4" />
-            <circle class="thumb-fill" cx="90" cy="44" r="3.4" />
-            <circle class="thumb-fill" cx="120" cy="44" r="3.4" />
-            <circle class="thumb-fill" cx="150" cy="44" r="3.4" />
-            <circle class="thumb-fill" cx="90" cy="64" r="3.4" />
-            <circle class="thumb-fill" cx="120" cy="64" r="3.4" />
-            <circle class="thumb-fill" cx="150" cy="64" r="3.4" />
-            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
-            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
-            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
-            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
-              8 · 16 · 24
-            </text>
-          </svg>
-        </div>
       </section>
 
       <nav class="guide-toc" aria-labelledby="guide-toc-heading">
@@ -358,6 +378,9 @@
       </nav>
 
       <article class="guide-article">
+        <h2 id="the-unit-comes-first">
+          <span class="guide-article__num mono">01</span>The unit comes first
+        </h2>
         <p>
           Ask most people what a grid system is for and they'll describe
           columns: twelve of them, probably, evenly spaced across the page.
@@ -379,9 +402,46 @@
           before columns, before gutters, before any layout decision at all.
         </p>
 
-        <h2 id="the-unit-comes-first">
-          <span class="guide-article__num mono">01</span>The unit comes first
-        </h2>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
+            <svg
+              viewBox="0 0 240 120"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig1-title fig1-desc"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <title id="fig1-title">A 3x3 dot grid at 8, 16, and 24 pixels</title>
+              <desc id="fig1-desc">
+                A grid of nine dots measured against a dimension line
+                annotated with the spacing values 8, 16, and 24 pixels.
+              </desc>
+              <circle class="thumb-fill" cx="90" cy="24" r="3.4" />
+              <circle class="thumb-fill" cx="120" cy="24" r="3.4" />
+              <circle class="thumb-fill" cx="150" cy="24" r="3.4" />
+              <circle class="thumb-fill" cx="90" cy="44" r="3.4" />
+              <circle class="thumb-fill" cx="120" cy="44" r="3.4" />
+              <circle class="thumb-fill" cx="150" cy="44" r="3.4" />
+              <circle class="thumb-fill" cx="90" cy="64" r="3.4" />
+              <circle class="thumb-fill" cx="120" cy="64" r="3.4" />
+              <circle class="thumb-fill" cx="150" cy="64" r="3.4" />
+              <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
+              <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
+              <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
+              <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
+                8 · 16 · 24
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            FIG. 01 — A spacing unit stays constant while every distance in
+            the interface — 8, 16, or 24px — is built as a multiple of it.
+          </figcaption>
+        </figure>
         <p>
           Most mature design systems standardize on an
           <strong>8-point base unit</strong> — Google's Material Design
@@ -739,15 +799,22 @@
 .card + .card {
   margin-top: var(--space-3); /* 24px between stacked cards */
 }</code></pre>
-        <div class="guide-example">
-          <figure>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
             <svg
               viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig2-title fig2-desc"
               fill="none"
               stroke="currentColor"
               stroke-width="1.4"
-              aria-hidden="true"
             >
+              <title id="fig2-title">Card built entirely from scale tokens</title>
+              <desc id="fig2-desc">
+                A card mockup with icon, title, and body lines, every gap
+                drawn from the defined spacing scale.
+              </desc>
               <rect x="10" y="10" width="200" height="120" rx="4" />
               <rect x="26" y="26" width="16" height="16" rx="3" />
               <line x1="50" y1="34" x2="110" y2="34" />
@@ -755,16 +822,28 @@
               <line x1="26" y1="74" x2="194" y2="74" opacity="0.4" />
               <line x1="26" y1="90" x2="160" y2="90" opacity="0.4" />
             </svg>
-            <figcaption>Every gap is a scale token, none guessed.</figcaption>
-          </figure>
-          <figure>
+          </div>
+          <figcaption>
+            FIG. 02 — Every gap is a scale token, none guessed.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
             <svg
               viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig3-title fig3-desc"
               fill="none"
               stroke="currentColor"
               stroke-width="1.4"
-              aria-hidden="true"
             >
+              <title id="fig3-title">Same card with one-off pixel values</title>
+              <desc id="fig3-desc">
+                The same card mockup with slightly uneven, eyeballed gaps
+                instead of scale tokens.
+              </desc>
               <rect x="14" y="9" width="192" height="121" rx="4" />
               <rect x="29" y="23" width="15" height="17" rx="2" />
               <line x1="49" y1="33" x2="105" y2="35" />
@@ -772,12 +851,12 @@
               <line x1="30" y1="78" x2="197" y2="75" opacity="0.4" />
               <line x1="28" y1="93" x2="158" y2="91" opacity="0.4" />
             </svg>
-            <figcaption>
-              Same card, one-off pixel values — close enough to pass review,
-              never quite aligned with its neighbors.
-            </figcaption>
-          </figure>
-        </div>
+          </div>
+          <figcaption>
+            FIG. 03 — Same card, one-off pixel values — close enough to pass
+            review, never quite aligned with its neighbors.
+          </figcaption>
+        </figure>
 
         <h2 id="cheat-sheet">
           <span class="guide-article__num mono">08</span>Cheat sheet
@@ -823,88 +902,18 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="/about.html">About us</a></li>
-            <li><a href="/contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="/privacy.html">Privacy policy</a></li>
-            <li><a href="/terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="/privacy.html">Privacy policy</a> ·
-          <a href="/terms.html">Terms of service</a> ·
-          <a href="/about.html">About</a> ·
-          <a href="/contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="/app.js"></script>
   </body>

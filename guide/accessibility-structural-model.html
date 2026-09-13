@@ -43,7 +43,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/accessibility-structural-model"
+      href="https://bpozz.com/guide/accessibility-structural-model"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -65,7 +65,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/accessibility-structural-model"
+      content="https://bpozz.com/guide/accessibility-structural-model"
     />
     <meta property="og:site_name" content="bpozz" />
     <meta
@@ -78,7 +78,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
+      content="https://bpozz.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -100,13 +100,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
+      content="https://bpozz.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../guide-article.css" />
 
@@ -116,8 +122,8 @@
         "@type": "TechArticle",
         "headline": "Accessibility Is a Structural Decision, Not a Final Pass",
         "description": "A structural read of web accessibility: how the accessibility tree is built, how a control's accessible name actually gets computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing quietly misses.",
-        "mainEntityOfPage": "https://pixmauxguides.com/guide/accessibility-structural-model",
-        "image": "https://pixmauxguides.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png",
+        "mainEntityOfPage": "https://bpozz.com/guide/accessibility-structural-model",
+        "image": "https://bpozz.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png",
         "author": {
           "@type": "Organization",
           "name": "bpozz"
@@ -127,7 +133,7 @@
           "name": "bpozz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "datePublished": "2026-08-07",
@@ -135,44 +141,42 @@
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="accessibility-structural-model">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#guides">All Guides</a>
-        <a href="../roadmap.html">Roadmap</a>
-        <a href="../index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="../index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -185,9 +189,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -197,6 +250,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -210,146 +264,126 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="../index.html#guides">All Guides</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="../index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
-    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
-      <a href="../index.html">All guides</a>
-      <span aria-hidden="true">/</span>
-      <a href="../index.html#toolbar">Accessibility guides</a>
-      <span aria-hidden="true">/</span>
-      <span aria-current="page">Structural Model</span>
-    </nav>
+    <div class="wrap guide-crumb">
+      <a href="../index.html#guides" class="page-view__back mono"
+        >← All guides</a
+      >
+    </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
           <section class="guide-hero" aria-labelledby="guide-heading">
-          <div class="guide-hero__meta">
-            <span class="badge">ACCESSIBILITY</span>
-            <span class="card-meta mono">INT · 16 MIN</span>
-          </div>
-          <h1 class="guide-hero__title" id="guide-heading">
-            Accessibility Is a Structural Decision, Not a Final Pass
-          </h1>
-          <p class="guide-hero__dek">
-            Most teams learn accessibility as a checklist run at the end of a
-            sprint — alt text, a contrast pass, an <code>aria-label</code>
-            sprinkled onto anything that complains in an audit. This is a
-            structural read of what that checklist is actually testing
-            underneath: how markup produces an accessibility tree, how a
-            control's name gets computed, and why almost none of it can be
-            patched on after the fact.
-          </p>
-        </section>
+            <p class="guide-hero__meta">
+              Accessibility · Intermediate · 16 min read
+            </p>
+            <h1 class="guide-hero__title" id="guide-heading">
+              Accessibility Is a Structural Decision, Not a Final Pass
+            </h1>
+            <p class="guide-hero__dek">
+              Most teams learn accessibility as a checklist run at the end of a
+              sprint — alt text, a contrast pass, an <code>aria-label</code>
+              sprinkled onto anything that complains in an audit. This is a
+              structural read of what that checklist is actually testing
+              underneath: how markup produces an accessibility tree, how a
+              control's name gets computed, and why almost none of it can be
+              patched on after the fact.
+            </p>
+          </section>
 
-        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
-          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
-          <ol>
-            <li>
-              <a href="#structural-model"
-                >The Structural Model</a
-              >
-            </li>
-            <li>
-              <a href="#semantic-html"
-                >Semantic HTML Is Free
-                Accessibility</a
-              >
-            </li>
-            <li>
-              <a href="#accessible-name"
-                >The Accessible Name</a
-              >
-            </li>
-            <li>
-              <a href="#aria-roles-states"
-                >ARIA: Roles, States, Properties</a
-              >
-            </li>
-            <li>
-              <a href="#focus-order-traps"
-                >Focus: Order, Visibility, Traps</a
-              >
-            </li>
-            <li>
-              <a href="#keyboard-patterns"
-                >Keyboard Patterns for Custom
-                Widgets</a
-              >
-            </li>
-            <li>
-              <a href="#forms-labels-errors"
-                >Forms: Labels, Errors,
-                Announcements</a
-              >
-            </li>
-            <li>
-              <a href="#testing-coverage"
-                >Testing: Coverage vs. What It
-                Misses</a
-              >
-            </li>
-            <li>
-              <a href="#pitfalls"
-                >Six Pitfalls That Look Like Edge
-                Cases</a
-              >
-            </li>
-            <li>
-              <a href="#cheat-sheet"
-                >Quick Reference</a
-              >
-            </li>
-          </ol>
-        </nav>
+          <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+            <span
+              class="section-label mono guide-toc__label"
+              id="guide-toc-heading"
+              >/ on_this_page</span
+            >
+            <ol>
+              <li>
+                <a href="#structural-model">The Structural Model</a>
+              </li>
+              <li>
+                <a href="#semantic-html">Semantic HTML Is Free Accessibility</a>
+              </li>
+              <li>
+                <a href="#accessible-name">The Accessible Name</a>
+              </li>
+              <li>
+                <a href="#aria-roles-states">ARIA: Roles, States, Properties</a>
+              </li>
+              <li>
+                <a href="#focus-order-traps">Focus: Order, Visibility, Traps</a>
+              </li>
+              <li>
+                <a href="#keyboard-patterns"
+                  >Keyboard Patterns for Custom Widgets</a
+                >
+              </li>
+              <li>
+                <a href="#forms-labels-errors"
+                  >Forms: Labels, Errors, Announcements</a
+                >
+              </li>
+              <li>
+                <a href="#testing-coverage"
+                  >Testing: Coverage vs. What It Misses</a
+                >
+              </li>
+              <li>
+                <a href="#pitfalls">Six Pitfalls That Look Like Edge Cases</a>
+              </li>
+              <li>
+                <a href="#cheat-sheet">Quick Reference</a>
+              </li>
+            </ol>
+          </nav>
 
-        <article class="guide-article">
-          <h2 id="structural-model"><span class="guide-article__num mono">01</span>The Structural Model</h2>
+          <article class="guide-article">
+            <h2 id="structural-model">
+              <span class="guide-article__num mono">01</span>The Structural
+              Model
+            </h2>
 
-          <p>
+            <p>
               A screen reader doesn't read your page. It reads a second,
               parallel data structure the browser builds from your markup called
               the <strong>accessibility tree</strong> — a filtered,
@@ -386,9 +420,12 @@
               "accessibility work" turns out to already be done.
             </p>
 
-          <h2 id="semantic-html"><span class="guide-article__num mono">02</span>Semantic HTML Is Free Accessibility You're Not Using</h2>
+            <h2 id="semantic-html">
+              <span class="guide-article__num mono">02</span>Semantic HTML Is
+              Free Accessibility You're Not Using
+            </h2>
 
-          <p>
+            <p>
               Native HTML elements ship with role, keyboard behavior, and often
               state handling built in, at no cost. A
               <code>&lt;button&gt;</code> is focusable, already has
@@ -426,9 +463,11 @@
               though nothing about it looks wrong.
             </p>
 
-          <h2 id="accessible-name"><span class="guide-article__num mono">03</span>The Accessible Name</h2>
+            <h2 id="accessible-name">
+              <span class="guide-article__num mono">03</span>The Accessible Name
+            </h2>
 
-          <p>
+            <p>
               Every node in the accessibility tree carries an
               <strong>accessible name</strong> — the string a screen reader
               actually announces for it — and that string is not always the text
@@ -452,245 +491,248 @@
               never trigger.
             </p>
 
-          <figure class="guide-diagram">
-            <div class="guide-diagram__frame">
-              <svg
-                viewBox="0 0 720 260"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-labelledby="fig1-title fig1-desc"
-              >
-                <title id="fig1-title">Accessible name computation order</title>
-                <desc id="fig1-desc">
-                  Four priority tiers for how a control's accessible name is
-                  computed — aria-labelledby, then aria-label, then native
-                  labelling, then the title attribute as a last resort — next to
-                  a before-and-after example of the same icon button with and
-                  without a name.
-                </desc>
-                <defs>
-                  <marker
-                    id="a11y-arrow"
-                    viewBox="0 0 8 8"
-                    refX="4"
-                    refY="4"
-                    markerWidth="6"
-                    markerHeight="6"
-                    orient="auto-start-reverse"
-                  >
-                    <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
-                  </marker>
-                </defs>
-                <g font-family="ui-monospace,Menlo,Consolas,monospace">
-                  <text
-                    x="20"
-                    y="20"
-                    fill="#7fb3e0"
-                    font-size="11"
-                    letter-spacing="0.5"
-                  >
-                    FIRST MATCH WINS ↓
-                  </text>
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 720 260"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig1-title fig1-desc"
+                >
+                  <title id="fig1-title">
+                    Accessible name computation order
+                  </title>
+                  <desc id="fig1-desc">
+                    Four priority tiers for how a control's accessible name is
+                    computed — aria-labelledby, then aria-label, then native
+                    labelling, then the title attribute as a last resort — next
+                    to a before-and-after example of the same icon button with
+                    and without a name.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="a11y-arrow"
+                      viewBox="0 0 8 8"
+                      refX="4"
+                      refY="4"
+                      markerWidth="6"
+                      markerHeight="6"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                    </marker>
+                  </defs>
+                  <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                    <text
+                      x="20"
+                      y="20"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      FIRST MATCH WINS ↓
+                    </text>
 
-                  <rect
-                    x="20"
-                    y="34"
-                    width="330"
-                    height="42"
-                    rx="2"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1.5"
-                  />
-                  <text x="34" y="52" fill="#e8edf4" font-size="12">
-                    1 · aria-labelledby
-                  </text>
-                  <text x="34" y="68" fill="#9fb2cc" font-size="9.5">
-                    points to text elsewhere on the page
-                  </text>
+                    <rect
+                      x="20"
+                      y="34"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.5"
+                    />
+                    <text x="34" y="52" fill="#e8edf4" font-size="12">
+                      1 · aria-labelledby
+                    </text>
+                    <text x="34" y="68" fill="#9fb2cc" font-size="9.5">
+                      points to text elsewhere on the page
+                    </text>
 
-                  <line
-                    x1="185"
-                    y1="76"
-                    x2="185"
-                    y2="90"
-                    stroke="#7fb3e0"
-                    stroke-width="1"
-                    marker-end="url(#a11y-arrow)"
-                  />
+                    <line
+                      x1="185"
+                      y1="76"
+                      x2="185"
+                      y2="90"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#a11y-arrow)"
+                    />
 
-                  <rect
-                    x="20"
-                    y="92"
-                    width="330"
-                    height="42"
-                    rx="2"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1.2"
-                    opacity="0.85"
-                  />
-                  <text x="34" y="110" fill="#e8edf4" font-size="12">
-                    2 · aria-label
-                  </text>
-                  <text x="34" y="126" fill="#9fb2cc" font-size="9.5">
-                    a literal string set on the element itself
-                  </text>
+                    <rect
+                      x="20"
+                      y="92"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      opacity="0.85"
+                    />
+                    <text x="34" y="110" fill="#e8edf4" font-size="12">
+                      2 · aria-label
+                    </text>
+                    <text x="34" y="126" fill="#9fb2cc" font-size="9.5">
+                      a literal string set on the element itself
+                    </text>
 
-                  <line
-                    x1="185"
-                    y1="134"
-                    x2="185"
-                    y2="148"
-                    stroke="#7fb3e0"
-                    stroke-width="1"
-                    marker-end="url(#a11y-arrow)"
-                  />
+                    <line
+                      x1="185"
+                      y1="134"
+                      x2="185"
+                      y2="148"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#a11y-arrow)"
+                    />
 
-                  <rect
-                    x="20"
-                    y="150"
-                    width="330"
-                    height="42"
-                    rx="2"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1"
-                    opacity="0.7"
-                  />
-                  <text x="34" y="168" fill="#e8edf4" font-size="12">
-                    3 · native labelling
-                  </text>
-                  <text x="34" y="184" fill="#9fb2cc" font-size="9.5">
-                    label-for, alt text, visible text content
-                  </text>
+                    <rect
+                      x="20"
+                      y="150"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      opacity="0.7"
+                    />
+                    <text x="34" y="168" fill="#e8edf4" font-size="12">
+                      3 · native labelling
+                    </text>
+                    <text x="34" y="184" fill="#9fb2cc" font-size="9.5">
+                      label-for, alt text, visible text content
+                    </text>
 
-                  <line
-                    x1="185"
-                    y1="192"
-                    x2="185"
-                    y2="206"
-                    stroke="#5b789f"
-                    stroke-width="1"
-                    marker-end="url(#a11y-arrow)"
-                  />
+                    <line
+                      x1="185"
+                      y1="192"
+                      x2="185"
+                      y2="206"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      marker-end="url(#a11y-arrow)"
+                    />
 
-                  <rect
-                    x="20"
-                    y="208"
-                    width="330"
-                    height="42"
-                    rx="2"
-                    fill="none"
-                    stroke="#5b789f"
-                    stroke-width="1"
-                    stroke-dasharray="3 3"
-                    opacity="0.6"
-                  />
-                  <text x="34" y="226" fill="#9fb2cc" font-size="12">
-                    4 · title attribute
-                  </text>
-                  <text x="34" y="242" fill="#5b789f" font-size="9.5">
-                    last resort — inconsistent, easy to miss
-                  </text>
+                    <rect
+                      x="20"
+                      y="208"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      stroke-dasharray="3 3"
+                      opacity="0.6"
+                    />
+                    <text x="34" y="226" fill="#9fb2cc" font-size="12">
+                      4 · title attribute
+                    </text>
+                    <text x="34" y="242" fill="#5b789f" font-size="9.5">
+                      last resort — inconsistent, easy to miss
+                    </text>
 
-                  <line
-                    x1="392"
-                    y1="18"
-                    x2="392"
-                    y2="252"
-                    stroke="#12335f"
-                    stroke-width="1"
-                  />
+                    <line
+                      x1="392"
+                      y1="18"
+                      x2="392"
+                      y2="252"
+                      stroke="#12335f"
+                      stroke-width="1"
+                    />
 
-                  <text
-                    x="412"
-                    y="20"
-                    fill="#7fb3e0"
-                    font-size="11"
-                    letter-spacing="0.5"
-                  >
-                    SAME ICON, TWO NAMES
-                  </text>
+                    <text
+                      x="412"
+                      y="20"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      SAME ICON, TWO NAMES
+                    </text>
 
-                  <rect
-                    x="412"
-                    y="40"
-                    width="130"
-                    height="36"
-                    rx="4"
-                    fill="none"
-                    stroke="#c9788a"
-                    stroke-width="1.2"
-                  />
-                  <circle
-                    cx="432"
-                    cy="58"
-                    r="7"
-                    fill="none"
-                    stroke="#c9788a"
-                    stroke-width="1.4"
-                  />
-                  <line
-                    x1="437"
-                    y1="63"
-                    x2="443"
-                    y2="69"
-                    stroke="#c9788a"
-                    stroke-width="1.4"
-                  />
-                  <text x="454" y="62" fill="#c9788a" font-size="9">
-                    icon button
-                  </text>
-                  <text x="412" y="90" fill="#c9788a" font-size="9.5">
-                    name: "" — announced only "button"
-                  </text>
+                    <rect
+                      x="412"
+                      y="40"
+                      width="130"
+                      height="36"
+                      rx="4"
+                      fill="none"
+                      stroke="#c9788a"
+                      stroke-width="1.2"
+                    />
+                    <circle
+                      cx="432"
+                      cy="58"
+                      r="7"
+                      fill="none"
+                      stroke="#c9788a"
+                      stroke-width="1.4"
+                    />
+                    <line
+                      x1="437"
+                      y1="63"
+                      x2="443"
+                      y2="69"
+                      stroke="#c9788a"
+                      stroke-width="1.4"
+                    />
+                    <text x="454" y="62" fill="#c9788a" font-size="9">
+                      icon button
+                    </text>
+                    <text x="412" y="90" fill="#c9788a" font-size="9.5">
+                      name: "" — announced only "button"
+                    </text>
 
-                  <rect
-                    x="412"
-                    y="112"
-                    width="130"
-                    height="36"
-                    rx="4"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1.4"
-                  />
-                  <circle
-                    cx="432"
-                    cy="130"
-                    r="7"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1.4"
-                  />
-                  <line
-                    x1="437"
-                    y1="135"
-                    x2="443"
-                    y2="141"
-                    stroke="#7fb3e0"
-                    stroke-width="1.4"
-                  />
-                  <text x="454" y="134" fill="#7fb3e0" font-size="9">
-                    icon button
-                  </text>
-                  <text x="412" y="162" fill="#7fb3e0" font-size="9.5">
-                    aria-label="Search"
-                  </text>
-                  <text x="412" y="176" fill="#9fb2cc" font-size="9.5">
-                    name: "Search" — announced correctly
-                  </text>
-                </g>
-              </svg>
-            </div>
-            <figcaption>
-              FIG. 01 — Accessible name computation order: the first source
-              present wins, and an icon with no label announces nothing at all.
-            </figcaption>
-          </figure>
+                    <rect
+                      x="412"
+                      y="112"
+                      width="130"
+                      height="36"
+                      rx="4"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <circle
+                      cx="432"
+                      cy="130"
+                      r="7"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <line
+                      x1="437"
+                      y1="135"
+                      x2="443"
+                      y2="141"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <text x="454" y="134" fill="#7fb3e0" font-size="9">
+                      icon button
+                    </text>
+                    <text x="412" y="162" fill="#7fb3e0" font-size="9.5">
+                      aria-label="Search"
+                    </text>
+                    <text x="412" y="176" fill="#9fb2cc" font-size="9.5">
+                      name: "Search" — announced correctly
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 01 — Accessible name computation order: the first source
+                present wins, and an icon with no label announces nothing at
+                all.
+              </figcaption>
+            </figure>
 
-          <p>
+            <p>
               Two failures come directly out of this order. The common one is an
               icon-only button — a magnifying glass, a hamburger, a trash-can —
               with no visible text and no <code>aria-label</code>, so its
@@ -705,9 +747,12 @@
               enough to name directly.
             </p>
 
-          <h2 id="aria-roles-states"><span class="guide-article__num mono">04</span>ARIA: Roles, States, and Properties</h2>
+            <h2 id="aria-roles-states">
+              <span class="guide-article__num mono">04</span>ARIA: Roles,
+              States, and Properties
+            </h2>
 
-          <p>
+            <p>
               ARIA is a vocabulary of attributes that describe roles, states,
               and properties to the accessibility tree — nothing more. It
               changes no styling, adds no keyboard behavior, and triggers no
@@ -762,9 +807,12 @@
               directly at that pixel.
             </p>
 
-          <h2 id="focus-order-traps"><span class="guide-article__num mono">05</span>Focus: Order, Visibility, and Traps</h2>
+            <h2 id="focus-order-traps">
+              <span class="guide-article__num mono">05</span>Focus: Order,
+              Visibility, and Traps
+            </h2>
 
-          <p>
+            <p>
               Tab order follows <strong>DOM order</strong>, full stop — not the
               order things appear on screen. Reorder elements visually with CSS
               <code>order</code>, grid placement, or absolute positioning
@@ -797,323 +845,327 @@
               it points to.
             </p>
 
-          <figure class="guide-diagram">
-            <div class="guide-diagram__frame">
-              <svg
-                viewBox="0 0 720 300"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-labelledby="fig2-title fig2-desc"
-              >
-                <title id="fig2-title">
-                  DOM order versus a modal's focus trap
-                </title>
-                <desc id="fig2-desc">
-                  Left: three boxes displayed in one visual order while their
-                  underlying DOM and Tab order stay fixed, producing a mismatch.
-                  Right: a modal dialog that traps Tab focus among its own three
-                  controls and returns focus to the trigger button once it
-                  closes.
-                </desc>
-                <defs>
-                  <marker
-                    id="a11y-arrow2"
-                    viewBox="0 0 8 8"
-                    refX="4"
-                    refY="4"
-                    markerWidth="6"
-                    markerHeight="6"
-                    orient="auto-start-reverse"
-                  >
-                    <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
-                  </marker>
-                </defs>
-                <g font-family="ui-monospace,Menlo,Consolas,monospace">
-                  <line
-                    x1="358"
-                    y1="14"
-                    x2="358"
-                    y2="286"
-                    stroke="#12335f"
-                    stroke-width="1"
-                  />
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 720 300"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig2-title fig2-desc"
+                >
+                  <title id="fig2-title">
+                    DOM order versus a modal's focus trap
+                  </title>
+                  <desc id="fig2-desc">
+                    Left: three boxes displayed in one visual order while their
+                    underlying DOM and Tab order stay fixed, producing a
+                    mismatch. Right: a modal dialog that traps Tab focus among
+                    its own three controls and returns focus to the trigger
+                    button once it closes.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="a11y-arrow2"
+                      viewBox="0 0 8 8"
+                      refX="4"
+                      refY="4"
+                      markerWidth="6"
+                      markerHeight="6"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                    </marker>
+                  </defs>
+                  <g font-family="ui-monospace,Menlo,Consolas,monospace">
+                    <line
+                      x1="358"
+                      y1="14"
+                      x2="358"
+                      y2="286"
+                      stroke="#12335f"
+                      stroke-width="1"
+                    />
 
-                  <text
-                    x="20"
-                    y="24"
-                    fill="#7fb3e0"
-                    font-size="11"
-                    letter-spacing="0.5"
-                  >
-                    VISUAL ORDER ≠ DOM ORDER
-                  </text>
-                  <text x="20" y="94" fill="#9fb2cc" font-size="9">
-                    displayed left → right, via CSS order
-                  </text>
+                    <text
+                      x="20"
+                      y="24"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      VISUAL ORDER ≠ DOM ORDER
+                    </text>
+                    <text x="20" y="94" fill="#9fb2cc" font-size="9">
+                      displayed left → right, via CSS order
+                    </text>
 
-                  <rect
-                    x="20"
-                    y="100"
-                    width="80"
-                    height="60"
-                    rx="3"
-                    fill="none"
-                    stroke="#e8edf4"
-                    stroke-width="1.4"
-                  />
-                  <text
-                    x="60"
-                    y="135"
-                    fill="#e8edf4"
-                    font-size="16"
-                    text-anchor="middle"
-                  >
-                    B
-                  </text>
-                  <rect
-                    x="130"
-                    y="100"
-                    width="80"
-                    height="60"
-                    rx="3"
-                    fill="none"
-                    stroke="#e8edf4"
-                    stroke-width="1.4"
-                  />
-                  <text
-                    x="170"
-                    y="135"
-                    fill="#e8edf4"
-                    font-size="16"
-                    text-anchor="middle"
-                  >
-                    C
-                  </text>
-                  <rect
-                    x="240"
-                    y="100"
-                    width="80"
-                    height="60"
-                    rx="3"
-                    fill="none"
-                    stroke="#e8edf4"
-                    stroke-width="1.4"
-                  />
-                  <text
-                    x="280"
-                    y="135"
-                    fill="#e8edf4"
-                    font-size="16"
-                    text-anchor="middle"
-                  >
-                    A
-                  </text>
+                    <rect
+                      x="20"
+                      y="100"
+                      width="80"
+                      height="60"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.4"
+                    />
+                    <text
+                      x="60"
+                      y="135"
+                      fill="#e8edf4"
+                      font-size="16"
+                      text-anchor="middle"
+                    >
+                      B
+                    </text>
+                    <rect
+                      x="130"
+                      y="100"
+                      width="80"
+                      height="60"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.4"
+                    />
+                    <text
+                      x="170"
+                      y="135"
+                      fill="#e8edf4"
+                      font-size="16"
+                      text-anchor="middle"
+                    >
+                      C
+                    </text>
+                    <rect
+                      x="240"
+                      y="100"
+                      width="80"
+                      height="60"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.4"
+                    />
+                    <text
+                      x="280"
+                      y="135"
+                      fill="#e8edf4"
+                      font-size="16"
+                      text-anchor="middle"
+                    >
+                      A
+                    </text>
 
-                  <polyline
-                    points="280,182 60,182 170,182"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1.2"
-                    stroke-dasharray="3 3"
-                    marker-end="url(#a11y-arrow2)"
-                  />
-                  <circle
-                    cx="280"
-                    cy="182"
-                    r="9"
-                    fill="#081b38"
-                    stroke="#7fb3e0"
-                    stroke-width="1.2"
-                  />
-                  <text
-                    x="280"
-                    y="186"
-                    fill="#7fb3e0"
-                    font-size="9.5"
-                    text-anchor="middle"
-                  >
-                    1
-                  </text>
-                  <circle
-                    cx="60"
-                    cy="182"
-                    r="9"
-                    fill="#081b38"
-                    stroke="#7fb3e0"
-                    stroke-width="1.2"
-                  />
-                  <text
-                    x="60"
-                    y="186"
-                    fill="#7fb3e0"
-                    font-size="9.5"
-                    text-anchor="middle"
-                  >
-                    2
-                  </text>
-                  <circle
-                    cx="170"
-                    cy="182"
-                    r="9"
-                    fill="#081b38"
-                    stroke="#7fb3e0"
-                    stroke-width="1.2"
-                  />
-                  <text
-                    x="170"
-                    y="186"
-                    fill="#7fb3e0"
-                    font-size="9.5"
-                    text-anchor="middle"
-                  >
-                    3
-                  </text>
+                    <polyline
+                      points="280,182 60,182 170,182"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      stroke-dasharray="3 3"
+                      marker-end="url(#a11y-arrow2)"
+                    />
+                    <circle
+                      cx="280"
+                      cy="182"
+                      r="9"
+                      fill="#081b38"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                    />
+                    <text
+                      x="280"
+                      y="186"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      1
+                    </text>
+                    <circle
+                      cx="60"
+                      cy="182"
+                      r="9"
+                      fill="#081b38"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                    />
+                    <text
+                      x="60"
+                      y="186"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      2
+                    </text>
+                    <circle
+                      cx="170"
+                      cy="182"
+                      r="9"
+                      fill="#081b38"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                    />
+                    <text
+                      x="170"
+                      y="186"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      3
+                    </text>
 
-                  <text
-                    x="170"
-                    y="226"
-                    fill="#7fb3e0"
-                    font-size="9"
-                    text-anchor="middle"
-                  >
-                    Tab still visits A → B → C, the DOM order
-                  </text>
-                  <text
-                    x="170"
-                    y="240"
-                    fill="#9fb2cc"
-                    font-size="9"
-                    text-anchor="middle"
-                  >
-                    — crossing back over what's on screen
-                  </text>
+                    <text
+                      x="170"
+                      y="226"
+                      fill="#7fb3e0"
+                      font-size="9"
+                      text-anchor="middle"
+                    >
+                      Tab still visits A → B → C, the DOM order
+                    </text>
+                    <text
+                      x="170"
+                      y="240"
+                      fill="#9fb2cc"
+                      font-size="9"
+                      text-anchor="middle"
+                    >
+                      — crossing back over what's on screen
+                    </text>
 
-                  <text
-                    x="378"
-                    y="24"
-                    fill="#7fb3e0"
-                    font-size="11"
-                    letter-spacing="0.5"
-                  >
-                    FOCUS TRAP INSIDE A DIALOG
-                  </text>
+                    <text
+                      x="378"
+                      y="24"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      FOCUS TRAP INSIDE A DIALOG
+                    </text>
 
-                  <rect
-                    x="398"
-                    y="44"
-                    width="282"
-                    height="150"
-                    rx="4"
-                    fill="none"
-                    stroke="#7fb3e0"
-                    stroke-width="1.4"
-                  />
-                  <text x="412" y="62" fill="#7fb3e0" font-size="9.5">
-                    role="dialog" aria-modal="true"
-                  </text>
+                    <rect
+                      x="398"
+                      y="44"
+                      width="282"
+                      height="150"
+                      rx="4"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <text x="412" y="62" fill="#7fb3e0" font-size="9.5">
+                      role="dialog" aria-modal="true"
+                    </text>
 
-                  <rect
-                    x="412"
-                    y="76"
-                    width="150"
-                    height="24"
-                    rx="2"
-                    fill="none"
-                    stroke="#e8edf4"
-                    stroke-width="1.1"
-                  />
-                  <text x="420" y="92" fill="#e8edf4" font-size="9">Field</text>
+                    <rect
+                      x="412"
+                      y="76"
+                      width="150"
+                      height="24"
+                      rx="2"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.1"
+                    />
+                    <text x="420" y="92" fill="#e8edf4" font-size="9">
+                      Field
+                    </text>
 
-                  <rect
-                    x="412"
-                    y="148"
-                    width="70"
-                    height="26"
-                    rx="2"
-                    fill="none"
-                    stroke="#e8edf4"
-                    stroke-width="1.1"
-                  />
-                  <text x="424" y="165" fill="#e8edf4" font-size="9">
-                    Cancel
-                  </text>
+                    <rect
+                      x="412"
+                      y="148"
+                      width="70"
+                      height="26"
+                      rx="2"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.1"
+                    />
+                    <text x="424" y="165" fill="#e8edf4" font-size="9">
+                      Cancel
+                    </text>
 
-                  <rect
-                    x="498"
-                    y="148"
-                    width="70"
-                    height="26"
-                    rx="2"
-                    fill="#7fb3e0"
-                    opacity="0.85"
-                  />
-                  <text x="516" y="165" fill="#081b38" font-size="9">Save</text>
+                    <rect
+                      x="498"
+                      y="148"
+                      width="70"
+                      height="26"
+                      rx="2"
+                      fill="#7fb3e0"
+                      opacity="0.85"
+                    />
+                    <text x="516" y="165" fill="#081b38" font-size="9">
+                      Save
+                    </text>
 
-                  <polyline
-                    points="487,88 568,88 568,161 482,161 412,161 412,88"
-                    fill="none"
-                    stroke="#5b789f"
-                    stroke-width="1"
-                    stroke-dasharray="2 2"
-                    marker-end="url(#a11y-arrow2)"
-                  />
-                  <text
-                    x="540"
-                    y="210"
-                    fill="#9fb2cc"
-                    font-size="8.5"
-                    text-anchor="middle"
-                  >
-                    Tab wraps: Field → Save → Cancel → Field
-                  </text>
+                    <polyline
+                      points="487,88 568,88 568,161 482,161 412,161 412,88"
+                      fill="none"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      stroke-dasharray="2 2"
+                      marker-end="url(#a11y-arrow2)"
+                    />
+                    <text
+                      x="540"
+                      y="210"
+                      fill="#9fb2cc"
+                      font-size="8.5"
+                      text-anchor="middle"
+                    >
+                      Tab wraps: Field → Save → Cancel → Field
+                    </text>
 
-                  <rect
-                    x="470"
-                    y="240"
-                    width="140"
-                    height="30"
-                    rx="3"
-                    fill="none"
-                    stroke="#e8edf4"
-                    stroke-width="1.2"
-                    stroke-dasharray="2 2"
-                  />
-                  <text
-                    x="540"
-                    y="259"
-                    fill="#e8edf4"
-                    font-size="9"
-                    text-anchor="middle"
-                  >
-                    trigger button
-                  </text>
-                  <line
-                    x1="470"
-                    y1="238"
-                    x2="440"
-                    y2="196"
-                    stroke="#7fb3e0"
-                    stroke-width="1.1"
-                    marker-end="url(#a11y-arrow2)"
-                  />
-                  <text x="398" y="222" fill="#7fb3e0" font-size="8.5">
-                    Esc / close →
-                  </text>
-                  <text x="398" y="234" fill="#7fb3e0" font-size="8.5">
-                    focus returns here
-                  </text>
-                </g>
-              </svg>
-            </div>
-            <figcaption>
-              FIG. 02 — Left: CSS reordered three boxes visually while their DOM
-              order stayed fixed, so Tab crosses back over the layout. Right: a
-              well-behaved dialog traps Tab among its own controls and hands
-              focus back to the button that opened it.
-            </figcaption>
-          </figure>
+                    <rect
+                      x="470"
+                      y="240"
+                      width="140"
+                      height="30"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.2"
+                      stroke-dasharray="2 2"
+                    />
+                    <text
+                      x="540"
+                      y="259"
+                      fill="#e8edf4"
+                      font-size="9"
+                      text-anchor="middle"
+                    >
+                      trigger button
+                    </text>
+                    <line
+                      x1="470"
+                      y1="238"
+                      x2="440"
+                      y2="196"
+                      stroke="#7fb3e0"
+                      stroke-width="1.1"
+                      marker-end="url(#a11y-arrow2)"
+                    />
+                    <text x="398" y="222" fill="#7fb3e0" font-size="8.5">
+                      Esc / close →
+                    </text>
+                    <text x="398" y="234" fill="#7fb3e0" font-size="8.5">
+                      focus returns here
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 02 — Left: CSS reordered three boxes visually while their
+                DOM order stayed fixed, so Tab crosses back over the layout.
+                Right: a well-behaved dialog traps Tab among its own controls
+                and hands focus back to the button that opened it.
+              </figcaption>
+            </figure>
 
-          <p>
+            <p>
               That right-hand pattern is worth stating as a checklist on its
               own, because a modal is one of the highest-stakes focus
               interactions on most sites: on open, focus should move into the
@@ -1137,9 +1189,12 @@
               anything changed.
             </p>
 
-          <h2 id="keyboard-patterns"><span class="guide-article__num mono">06</span>Keyboard Patterns for Custom Widgets</h2>
+            <h2 id="keyboard-patterns">
+              <span class="guide-article__num mono">06</span>Keyboard Patterns
+              for Custom Widgets
+            </h2>
 
-          <p>
+            <p>
               For genuinely custom widgets — tabs, menus, comboboxes, sliders,
               listboxes — there's an established set of keyboard conventions
               (the WAI-ARIA Authoring Practices patterns) that exist so a tab
@@ -1172,9 +1227,12 @@
               actually deliver it.
             </p>
 
-          <h2 id="forms-labels-errors"><span class="guide-article__num mono">07</span>Forms: Labels, Errors, and Announcements</h2>
+            <h2 id="forms-labels-errors">
+              <span class="guide-article__num mono">07</span>Forms: Labels,
+              Errors, and Announcements
+            </h2>
 
-          <p>
+            <p>
               Every input needs a programmatically associated label — a real
               <code>&lt;label for="id"&gt;</code>, or the input wrapped inside
               one — not placeholder text standing in for it. Placeholder text
@@ -1208,9 +1266,12 @@
               a helpful signal into constant noise.
             </p>
 
-          <h2 id="testing-coverage"><span class="guide-article__num mono">08</span>Testing: Coverage vs. What It Misses</h2>
+            <h2 id="testing-coverage">
+              <span class="guide-article__num mono">08</span>Testing: Coverage
+              vs. What It Misses
+            </h2>
 
-          <p>
+            <p>
               Automated scanners — axe, Lighthouse, WAVE — are genuinely good at
               what they check: missing alt text, insufficient color contrast,
               unlabeled form fields, invalid ARIA attribute values, duplicate
@@ -1242,9 +1303,12 @@
               see.
             </p>
 
-          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Six Pitfalls That Look Like Edge Cases</h2>
+            <h2 id="pitfalls">
+              <span class="guide-article__num mono">09</span>Six Pitfalls That
+              Look Like Edge Cases
+            </h2>
 
-          <ul class="guide-recap guide-recap--warning">
+            <ul class="guide-recap guide-recap--warning">
               <li>
                 <span class="guide-recap__n">01</span>
                 <p>
@@ -1310,9 +1374,11 @@
               </li>
             </ul>
 
-          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+            <h2 id="cheat-sheet">
+              <span class="guide-article__num mono">10</span>Quick Reference
+            </h2>
 
-          <div class="guide-table-wrap">
+            <div class="guide-table-wrap">
               <table>
                 <caption>
                   / rules_of_thumb
@@ -1369,7 +1435,7 @@
               </table>
             </div>
 
-          <p>
+            <p>
               Almost everything in this guide is cheaper the earlier it's
               decided. A heading level, a native <code>&lt;button&gt;</code>, a
               label wired to its input — each one costs nothing extra when it's
@@ -1377,96 +1443,30 @@
               retrofitted after launch. Accessibility rewards being treated as a
               structural decision made once, not a final pass run at the end.
             </p>
-        </article>
+          </article>
         </div>
-        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+        <aside
+          class="guide-rail"
+          id="guide-rail"
+          aria-label="Related guides"
+        ></aside>
       </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="../about.html">About us</a></li>
-            <li><a href="../contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="../privacy.html">Privacy policy</a></li>
-            <li><a href="../terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="../privacy.html">Privacy policy</a> ·
-          <a href="../terms.html">Terms of service</a> ·
-          <a href="../about.html">About</a> ·
-          <a href="../contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="../app.js"></script>
   </body>

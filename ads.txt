@@ -1,4 +1,4 @@
-# ads.txt for pixmauxguides.com
+# ads.txt for bpozz.com
 # Spec: https://iabtechlab.com/ads-txt/
 #
 # ── Google AdSense ──────────────────────────────────────────────
@@ -14,5 +14,5 @@
 #
 # google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
 
-# This file must be served at exactly https://pixmauxguides.com/ads.txt
+# This file must be served at exactly https://bpozz.com/ads.txt
 # (site root, not /assets/ or any subfolder) for Google to detect it.

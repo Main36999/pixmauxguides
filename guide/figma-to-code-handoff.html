@@ -43,7 +43,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/figma-to-code-handoff"
+      href="https://bpozz.com/guide/figma-to-code-handoff"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -65,7 +65,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/figma-to-code-handoff"
+      content="https://bpozz.com/guide/figma-to-code-handoff"
     />
     <meta property="og:site_name" content="bpozz" />
     <meta
@@ -78,7 +78,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -100,13 +100,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/guide-article.css" />
 
@@ -116,7 +122,7 @@
         "@type": "TechArticle",
         "headline": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
         "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.",
-        "image": "https://pixmauxguides.com/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png",
         "author": {
           "@type": "Organization",
           "name": "bpozz"
@@ -126,12 +132,12 @@
           "name": "bpozz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://pixmauxguides.com/guide/figma-to-code-handoff"
+          "@id": "https://bpozz.com/guide/figma-to-code-handoff"
         },
         "datePublished": "2026-08-12",
         "dateModified": "2026-08-12",
@@ -149,19 +155,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://pixmauxguides.com/"
+            "item": "https://bpozz.com/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "All Guides",
-            "item": "https://pixmauxguides.com/index.html#guides"
+            "item": "https://bpozz.com/index.html#guides"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
-            "item": "https://pixmauxguides.com/guide/figma-to-code-handoff"
+            "item": "https://bpozz.com/guide/figma-to-code-handoff"
           }
         ]
       }
@@ -172,38 +178,37 @@
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
 <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#guides">All Guides</a>
-        <a href="../roadmap.html">Roadmap</a>
-        <a href="../index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="../index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -216,9 +221,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -228,6 +282,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -241,48 +296,43 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="../index.html#guides">All Guides</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="../index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
@@ -294,10 +344,7 @@
       <div class="guide-layout">
         <div class="guide-primary">
           <section class="guide-hero" aria-labelledby="guide-heading">
-        <div class="guide-hero__meta">
-          <span class="badge">FIGMA</span>
-          <span class="card-meta mono">INT · 14 MIN</span>
-        </div>
+        <p class="guide-hero__meta">Figma Workflow · Intermediate · 14 min read</p>
         <h1 class="guide-hero__title" id="guide-heading">
           Figma-to-Code Handoff Is a Translation, Not a Screenshot
         </h1>
@@ -313,51 +360,6 @@
           disappear. It just stops being visible, and becomes the
           developer's problem to notice.
         </p>
-        <div class="guide-hero__figure">
-          <svg
-            viewBox="0 0 240 120"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <rect x="20" y="24" width="80" height="72" rx="5" />
-            <line x1="32" y1="40" x2="88" y2="40" stroke-width="1.2" />
-            <rect x="32" y="50" width="56" height="34" rx="3" stroke-width="1.2" />
-            <rect class="thumb-fill" x="27" y="35" width="5" height="5" />
-            <path
-              d="M108,60 L140,60"
-              stroke-width="1.4"
-              marker-end="url(#arrow)"
-            />
-            <defs>
-              <marker
-                id="arrow"
-                markerWidth="8"
-                markerHeight="8"
-                refX="6"
-                refY="4"
-                orient="auto"
-              >
-                <path d="M0,0 L8,4 L0,8 Z" fill="currentColor" stroke="none" />
-              </marker>
-            </defs>
-            <rect x="150" y="24" width="80" height="72" rx="5" class="thumb-handle" />
-            <text x="190" y="18" text-anchor="middle" class="thumb-dim-label" font-size="7">
-              flex-direction: column
-            </text>
-            <line x1="160" y1="40" x2="216" y2="40" stroke-width="1.2" />
-            <rect x="160" y="50" width="56" height="34" rx="3" stroke-width="1.2" />
-            <text x="60" y="112" text-anchor="middle" class="thumb-dim-label" font-size="7">
-              AUTO LAYOUT FRAME
-            </text>
-            <text x="190" y="112" text-anchor="middle" class="thumb-dim-label" font-size="7">
-              CSS (one state)
-            </text>
-          </svg>
-        </div>
       </section>
 
       <nav class="guide-toc" aria-labelledby="guide-toc-heading">
@@ -402,6 +404,10 @@
       </nav>
 
       <article class="guide-article">
+        <h2 id="translation-not-export">
+          <span class="guide-article__num mono">01</span>A translation, not
+          an export
+        </h2>
         <p>
           "Just hand it off to Dev Mode" treats handoff as a file format
           problem — get the right numbers out of Figma and into CSS. Numbers
@@ -426,10 +432,66 @@
           going to do for them.
         </p>
 
-        <h2 id="translation-not-export">
-          <span class="guide-article__num mono">01</span>A translation, not
-          an export
-        </h2>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
+            <svg
+              viewBox="0 0 240 120"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig1-title fig1-desc"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <title id="fig1-title">Auto Layout frame translating to one CSS state</title>
+              <desc id="fig1-desc">
+                An Auto Layout frame on the left with an arrow pointing to a
+                CSS panel on the right, labeled flex-direction column and CSS
+                for one state only.
+              </desc>
+              <rect x="20" y="24" width="80" height="72" rx="5" />
+              <line x1="32" y1="40" x2="88" y2="40" stroke-width="1.2" />
+              <rect x="32" y="50" width="56" height="34" rx="3" stroke-width="1.2" />
+              <rect class="thumb-fill" x="27" y="35" width="5" height="5" />
+              <path
+                d="M108,60 L140,60"
+                stroke-width="1.4"
+                marker-end="url(#arrow)"
+              />
+              <defs>
+                <marker
+                  id="arrow"
+                  markerWidth="8"
+                  markerHeight="8"
+                  refX="6"
+                  refY="4"
+                  orient="auto"
+                >
+                  <path d="M0,0 L8,4 L0,8 Z" fill="currentColor" stroke="none" />
+                </marker>
+              </defs>
+              <rect x="150" y="24" width="80" height="72" rx="5" class="thumb-handle" />
+              <text x="190" y="18" text-anchor="middle" class="thumb-dim-label" font-size="7">
+                flex-direction: column
+              </text>
+              <line x1="160" y1="40" x2="216" y2="40" stroke-width="1.2" />
+              <rect x="160" y="50" width="56" height="34" rx="3" stroke-width="1.2" />
+              <text x="60" y="112" text-anchor="middle" class="thumb-dim-label" font-size="7">
+                AUTO LAYOUT FRAME
+              </text>
+              <text x="190" y="112" text-anchor="middle" class="thumb-dim-label" font-size="7">
+                CSS (one state)
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            FIG. 01 — Dev Mode translates one Auto Layout frame into CSS for
+            one state — everything outside that single snapshot is left for
+            the developer to notice.
+          </figcaption>
+        </figure>
         <p>
           Dev Mode's inspector is genuinely accurate about one thing: the
           state of the frame exactly as designed, exactly as sized, exactly
@@ -797,15 +859,22 @@
           Fill container on width, 16px gap, 24px padding, nested inside a
           horizontal Auto Layout row with Space Between:
         </p>
-        <div class="guide-example">
-          <figure>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
             <svg
               viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig2-title fig2-desc"
               fill="none"
               stroke="currentColor"
               stroke-width="1.4"
-              aria-hidden="true"
             >
+              <title id="fig2-title">Design frame with matched card heights</title>
+              <desc id="fig2-desc">
+                Two cards inside a row, each hugging its own content, with
+                matched two-line descriptions producing equal heights.
+              </desc>
               <rect x="14" y="20" width="192" height="100" rx="6" stroke-width="1.2" />
               <rect x="30" y="34" width="70" height="72" rx="5" />
               <rect x="112" y="34" width="70" height="72" rx="5" />
@@ -817,19 +886,29 @@
               </text>
               <line x1="100" y1="70" x2="112" y2="70" class="thumb-dim-line" />
             </svg>
-            <figcaption>
-              Design frame: two cards, each sized to its own content — 16px
-              gap between them, tested with matched two-line descriptions.
-            </figcaption>
-          </figure>
-          <figure>
+          </div>
+          <figcaption>
+            FIG. 02 — Design frame: two cards, each sized to its own content —
+            16px gap between them, tested with matched two-line descriptions.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
             <svg
               viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig3-title fig3-desc"
               fill="none"
               stroke="currentColor"
               stroke-width="1.4"
-              aria-hidden="true"
             >
+              <title id="fig3-title">Production row with mismatched card heights</title>
+              <desc id="fig3-desc">
+                The same row in production, where one card's longer content
+                makes the two cards no longer share a bottom edge.
+              </desc>
               <rect x="14" y="20" width="192" height="100" rx="6" stroke-width="1.2" />
               <rect x="30" y="34" width="70" height="52" rx="5" />
               <rect x="112" y="34" width="70" height="86" rx="5" />
@@ -838,13 +917,13 @@
                 real content, longer
               </text>
             </svg>
-            <figcaption>
-              Production: one card gets a longer description from the API —
-              Hug still works, but the row's cards no longer share a
-              bottom edge, which the single-state frame never surfaced.
-            </figcaption>
-          </figure>
-        </div>
+          </div>
+          <figcaption>
+            FIG. 03 — Production: one card gets a longer description from the
+            API — Hug still works, but the row's cards no longer share a
+            bottom edge, which the single-state frame never surfaced.
+          </figcaption>
+        </figure>
         <p>
           Dev Mode's export for the card is accurate and directly usable:
         </p>
@@ -935,88 +1014,18 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="/about.html">About us</a></li>
-            <li><a href="/contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="/privacy.html">Privacy policy</a></li>
-            <li><a href="/terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="/privacy.html">Privacy policy</a> ·
-          <a href="/terms.html">Terms of service</a> ·
-          <a href="/about.html">About</a> ·
-          <a href="/contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="/app.js"></script>
   </body>

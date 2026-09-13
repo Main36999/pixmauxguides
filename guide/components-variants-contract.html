@@ -43,7 +43,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/components-variants-contract"
+      href="https://bpozz.com/guide/components-variants-contract"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -65,7 +65,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/components-variants-contract"
+      content="https://bpozz.com/guide/components-variants-contract"
     />
     <meta property="og:site_name" content="bpozz" />
     <meta
@@ -78,7 +78,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -100,13 +100,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/og-image.png"
+      content="https://bpozz.com/og-image.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/guide-article.css" />
 
@@ -116,7 +122,7 @@
         "@type": "TechArticle",
         "headline": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
         "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.",
-        "image": "https://pixmauxguides.com/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png",
         "author": {
           "@type": "Organization",
           "name": "bpozz"
@@ -126,12 +132,12 @@
           "name": "bpozz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://pixmauxguides.com/guide/components-variants-contract"
+          "@id": "https://bpozz.com/guide/components-variants-contract"
         },
         "datePublished": "2026-08-10",
         "dateModified": "2026-08-10",
@@ -149,19 +155,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://pixmauxguides.com/"
+            "item": "https://bpozz.com/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "All Guides",
-            "item": "https://pixmauxguides.com/index.html#guides"
+            "item": "https://bpozz.com/index.html#guides"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
-            "item": "https://pixmauxguides.com/guide/components-variants-contract"
+            "item": "https://bpozz.com/guide/components-variants-contract"
           }
         ]
       }
@@ -172,38 +178,37 @@
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#guides">All Guides</a>
-        <a href="../roadmap.html">Roadmap</a>
-        <a href="../index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="../index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -216,9 +221,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -228,6 +282,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -241,48 +296,43 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="../index.html#guides">All Guides</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="../index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
@@ -294,10 +344,7 @@
       <div class="guide-layout">
         <div class="guide-primary">
           <section class="guide-hero" aria-labelledby="guide-heading">
-        <div class="guide-hero__meta">
-          <span class="badge">FIGMA</span>
-          <span class="card-meta mono">INT · 16 MIN</span>
-        </div>
+        <p class="guide-hero__meta">Figma Workflow · Intermediate · 16 min read</p>
         <h1 class="guide-hero__title" id="guide-heading">
           Components and Variants Are a Contract, Not a Copy-Paste Shortcut
         </h1>
@@ -310,30 +357,6 @@
           story, with overrides drifting, variants losing structure, and
           every rebrand starting from zero.
         </p>
-        <div class="guide-hero__figure">
-          <svg
-            viewBox="0 0 240 120"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <rect x="82" y="16" width="50" height="50" rx="6" />
-            <rect x="110" y="40" width="50" height="50" rx="6" />
-            <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5" />
-            <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5" />
-            <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5" />
-            <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5" />
-            <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
-            <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
-            <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
-            <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
-              STATE=HOVER
-            </text>
-          </svg>
-        </div>
       </section>
 
       <nav class="guide-toc" aria-labelledby="guide-toc-heading">
@@ -371,6 +394,10 @@
       </nav>
 
       <article class="guide-article">
+        <h2 id="what-the-contract-protects">
+          <span class="guide-article__num mono">01</span>What the contract
+          actually protects
+        </h2>
         <p>
           Most explanations of Figma variants start with the dropdown — click
           the diamond icon, pick a state, watch the layer swap. That's the
@@ -396,10 +423,43 @@
           scratch every time someone touches it.
         </p>
 
-        <h2 id="what-the-contract-protects">
-          <span class="guide-article__num mono">01</span>What the contract
-          actually protects
-        </h2>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
+            <svg
+              viewBox="0 0 240 120"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig1-title fig1-desc"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <title id="fig1-title">Two overlapping component frames marked State=Hover</title>
+              <desc id="fig1-desc">
+                Two overlapping rounded rectangles with small marker squares
+                at each corner, dimensioned and labeled State equals Hover.
+              </desc>
+              <rect x="82" y="16" width="50" height="50" rx="6" />
+              <rect x="110" y="40" width="50" height="50" rx="6" />
+              <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5" />
+              <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5" />
+              <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5" />
+              <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5" />
+              <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
+              <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
+              <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
+              <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
+                STATE=HOVER
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            FIG. 01 — A variant property like State swaps which frame is
+            shown while the rest of the component's structure holds still.
+          </figcaption>
+        </figure>
         <p>
           A main component defines two things at once: the visual structure
           — every layer, its name, its position, its z-order — and the
@@ -776,15 +836,22 @@
           property rather than a fourth variant axis, which is what keeps the
           total variant count at 3 × 3 × 3 = 27 instead of 54.
         </p>
-        <div class="guide-example">
-          <figure>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
             <svg
               viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig2-title fig2-desc"
               fill="none"
               stroke="currentColor"
               stroke-width="1.4"
-              aria-hidden="true"
             >
+              <title id="fig2-title">One contract, three variants</title>
+              <desc id="fig2-desc">
+                Three button rows sharing identical layer names, connected by
+                dashed lines to show they share one underlying structure.
+              </desc>
               <rect x="14" y="18" width="70" height="30" rx="6" />
               <rect x="14" y="58" width="70" height="30" rx="6" />
               <rect x="14" y="98" width="70" height="30" rx="6" />
@@ -802,19 +869,29 @@
                 same layer names
               </text>
             </svg>
-            <figcaption>
-              One structural contract, three variants — an icon-fill override
-              made on any one survives switching between them.
-            </figcaption>
-          </figure>
-          <figure>
+          </div>
+          <figcaption>
+            FIG. 02 — One structural contract, three variants — an icon-fill
+            override made on any one survives switching between them.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
             <svg
               viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig3-title fig3-desc"
               fill="none"
               stroke="currentColor"
               stroke-width="1.4"
-              aria-hidden="true"
             >
+              <title id="fig3-title">Same button, copy-pasted three times</title>
+              <desc id="fig3-desc">
+                Three unrelated button frames with slightly different
+                corner radii and icon sizes, unconnected to one another.
+              </desc>
               <rect x="14" y="14" width="66" height="28" rx="5" />
               <rect x="18" y="56" width="72" height="30" rx="8" />
               <rect x="12" y="98" width="68" height="26" rx="3" />
@@ -825,13 +902,13 @@
                 three unrelated frames
               </text>
             </svg>
-            <figcaption>
-              Same button, copy-pasted three times — one fix means three
-              manual edits, and the radii and icon sizes have already begun
-              to drift.
-            </figcaption>
-          </figure>
-        </div>
+          </div>
+          <figcaption>
+            FIG. 03 — Same button, copy-pasted three times — one fix means
+            three manual edits, and the radii and icon sizes have already
+            begun to drift.
+          </figcaption>
+        </figure>
 
         <h2 id="cheat-sheet">
           <span class="guide-article__num mono">08</span>Cheat sheet
@@ -880,88 +957,18 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="/about.html">About us</a></li>
-            <li><a href="/contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="/privacy.html">Privacy policy</a></li>
-            <li><a href="/terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="/privacy.html">Privacy policy</a> ·
-          <a href="/terms.html">Terms of service</a> ·
-          <a href="/about.html">About</a> ·
-          <a href="/contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="/app.js"></script>
   </body>

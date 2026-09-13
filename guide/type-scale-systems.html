@@ -41,7 +41,7 @@
     />
     <link
       rel="canonical"
-      href="https://pixmauxguides.com/guide/type-scale-systems"
+      href="https://bpozz.com/guide/type-scale-systems"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -63,7 +63,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="og:url"
-      content="https://pixmauxguides.com/guide/type-scale-systems"
+      content="https://bpozz.com/guide/type-scale-systems"
     />
     <meta property="og:site_name" content="bpozz" />
     <meta property="og:title" content="Font Size Is a Formula, Not a Feeling" />
@@ -73,7 +73,7 @@
     />
     <meta
       property="og:image"
-      content="https://pixmauxguides.com/thumbnail_image/type-scale-systems-thumbnail.png"
+      content="https://bpozz.com/thumbnail_image/type-scale-systems-thumbnail.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -95,13 +95,19 @@
     />
     <meta
       name="twitter:image"
-      content="https://pixmauxguides.com/thumbnail_image/type-scale-systems-thumbnail.png"
+      content="https://bpozz.com/thumbnail_image/type-scale-systems-thumbnail.png"
     />
 
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../guide-article.css" />
 
@@ -111,8 +117,8 @@
         "@type": "TechArticle",
         "headline": "Font Size Is a Formula, Not a Feeling",
         "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
-        "mainEntityOfPage": "https://pixmauxguides.com/guide/type-scale-systems",
-        "image": "https://pixmauxguides.com/thumbnail_image/type-scale-systems-thumbnail.png",
+        "mainEntityOfPage": "https://bpozz.com/guide/type-scale-systems",
+        "image": "https://bpozz.com/thumbnail_image/type-scale-systems-thumbnail.png",
         "author": {
           "@type": "Organization",
           "name": "bpozz"
@@ -122,7 +128,7 @@
           "name": "bpozz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://pixmauxguides.com/assets/logo.png"
+            "url": "https://bpozz.com/assets/logo.png"
           }
         },
         "datePublished": "2026-08-06",
@@ -130,44 +136,42 @@
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="type-scale-systems">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
     <!--HEADER_START--><header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <span class="brand-text">
-        <strong>bpozz!</strong>
-      </span>
+      <span class="brand-text">bpozz!</span>
     </a>
-    <div class="header-actions">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#guides">All Guides</a>
-        <a href="../roadmap.html">Roadmap</a>
-        <a href="../index.html#toolbar">Categories</a>
-      </nav>
-      <form
-        class="header-search"
-        role="search"
-        action="../index.html"
-        method="get"
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <label for="header-search-input" class="sr-only">Search guides</label>
-        <input
-          type="search"
-          id="header-search-input"
-          name="q"
-          placeholder="Search guides…"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="header-search__submit"
-          aria-label="Search guides"
-        >
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
           <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -180,9 +184,58 @@
             <circle cx="11" cy="11" r="7" />
             <line x1="21" y1="21" x2="16.2" y2="16.2" />
           </svg>
-        </button>
-      </form>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="../index.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="q"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
     </div>
+
     <button
       type="button"
       class="menu-toggle"
@@ -192,6 +245,7 @@
       aria-label="Open menu"
     >
       <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -205,145 +259,129 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="../index.html#guides">All Guides</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../index.html#toolbar">Categories</a>
-    </nav>
-    <form
-      class="header-search mobile-menu__search"
-      role="search"
-      action="../index.html"
-      method="get"
-    >
-      <label for="mobile-search-input" class="sr-only">Search guides</label>
-      <input
-        type="search"
-        id="mobile-search-input"
-        name="q"
-        placeholder="Search guides…"
-        autocomplete="off"
-      />
-      <button
-        type="submit"
-        class="header-search__submit"
-        aria-label="Search guides"
+      <a href="../index.html#guides">All</a>
+      <a href="../index.html#guides" data-jump-category="color-theory"
+        >Color Theory</a
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-    </form>
+      <a href="../index.html#guides" data-jump-category="typography"
+        >Typography</a
+      >
+      <a href="../index.html#guides" data-jump-category="spacing">Spacing</a>
+      <a href="../index.html#guides" data-jump-category="figma">Figma</a>
+      <a href="../index.html#guides" data-jump-category="adobe-xd">Adobe XD</a>
+      <a href="../index.html#guides" data-jump-category="mobile">Mobile</a>
+      <a href="../index.html#guides" data-jump-category="web">Web Layout</a>
+      <a href="../index.html#guides" data-jump-category="systems">Systems</a>
+      <a href="../index.html#guides" data-jump-category="accessibility"
+        >Accessibility</a
+      >
+      <a href="../index.html#guides" data-jump-category="motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
   </div>
 </header><!--HEADER_END-->
 
-    <nav class="guide-breadcrumb mono" aria-label="Breadcrumb">
-      <a href="../index.html">All guides</a>
-      <span aria-hidden="true">/</span>
-      <a href="../index.html#toolbar">Typography</a>
-      <span aria-hidden="true">/</span>
-      <span aria-current="page">Type Scale</span>
-    </nav>
+    <div class="wrap guide-crumb">
+      <a href="../index.html#guides" class="page-view__back mono"
+        >← All guides</a
+      >
+    </div>
 
     <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
           <section class="guide-hero" aria-labelledby="guide-heading">
-          <div class="guide-hero__meta">
-            <span class="badge">TYPOGRAPHY</span>
-            <span class="card-meta mono">INT · 12 MIN</span>
-          </div>
-          <h1 class="guide-hero__title" id="guide-heading">
-            Font Size Is a Formula, Not a Feeling
-          </h1>
-          <p class="guide-hero__dek">
-            Font size is usually the last thing anyone actually systemizes — a
-            modular scale, paired with the line-height and measure rules that
-            govern real readability, turns picking a size into a lookup instead
-            of a guess.
-          </p>
-        </section>
+            <p class="guide-hero__meta">Typography · Intermediate · 12 min read</p>
+            <h1 class="guide-hero__title" id="guide-heading">
+              Font Size Is a Formula, Not a Feeling
+            </h1>
+            <p class="guide-hero__dek">
+              Font size is usually the last thing anyone actually systemizes — a
+              modular scale, paired with the line-height and measure rules that
+              govern real readability, turns picking a size into a lookup
+              instead of a guess.
+            </p>
+          </section>
 
-        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
-          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
-          <ol>
-            <li>
-              <a href="#why-type-scale"
-                >Why a type scale is the right place
-                to start</a
-              >
-            </li>
-            <li>
-              <a href="#modular-scale"
-                >What a modular scale actually is</a
-              >
-            </li>
-            <li>
-              <a href="#base-and-ratio"
-                >Picking a base size and a ratio</a
-              >
-            </li>
-            <li>
-              <a href="#line-height"
-                >Line-height belongs to the scale, not
-                to taste</a
-              >
-            </li>
-            <li>
-              <a href="#measure"
-                >Measure: the line length nobody sets
-                on purpose</a
-              >
-            </li>
-            <li>
-              <a href="#fluid-type"
-                >Fluid type: scaling without
-                breakpoints</a
-              >
-            </li>
-            <li>
-              <a href="#naming-pairing"
-                >Naming the scale and pairing
-                typefaces</a
-              >
-            </li>
-            <li>
-              <a href="#accessibility"
-                >Accessibility minimums text needs to
-                clear</a
-              >
-            </li>
-            <li>
-              <a href="#auditing"
-                >Auditing type on a screen you didn't
-                design</a
-              >
-            </li>
-            <li>
-              <a href="#key-takeaways"
-                >Key Takeaways</a
-              >
-            </li>
-          </ol>
-        </nav>
+          <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+            <span
+              class="section-label mono guide-toc__label"
+              id="guide-toc-heading"
+              >/ on_this_page</span
+            >
+            <ol>
+              <li>
+                <a href="#why-type-scale"
+                  >Why a type scale is the right place to start</a
+                >
+              </li>
+              <li>
+                <a href="#modular-scale">What a modular scale actually is</a>
+              </li>
+              <li>
+                <a href="#base-and-ratio">Picking a base size and a ratio</a>
+              </li>
+              <li>
+                <a href="#line-height"
+                  >Line-height belongs to the scale, not to taste</a
+                >
+              </li>
+              <li>
+                <a href="#measure"
+                  >Measure: the line length nobody sets on purpose</a
+                >
+              </li>
+              <li>
+                <a href="#fluid-type"
+                  >Fluid type: scaling without breakpoints</a
+                >
+              </li>
+              <li>
+                <a href="#naming-pairing"
+                  >Naming the scale and pairing typefaces</a
+                >
+              </li>
+              <li>
+                <a href="#accessibility"
+                  >Accessibility minimums text needs to clear</a
+                >
+              </li>
+              <li>
+                <a href="#auditing"
+                  >Auditing type on a screen you didn't design</a
+                >
+              </li>
+              <li>
+                <a href="#key-takeaways">Key Takeaways</a>
+              </li>
+            </ol>
+          </nav>
 
-        <article class="guide-article">
-          <h2 id="why-type-scale"><span class="guide-article__num mono">01</span>Why a type scale is the right place to start</h2>
+          <article class="guide-article">
+            <h2 id="why-type-scale">
+              <span class="guide-article__num mono">01</span>Why a type scale is
+              the right place to start
+            </h2>
 
-          <p>
+            <p>
               Most people treat font size as a series of independent decisions —
               this heading looks about right at 28px, that caption feels fine at
               12px — chosen one at a time by eye, the same way ad-hoc spacing
@@ -361,9 +399,12 @@
               checkable, not just defensible.
             </p>
 
-          <h2 id="modular-scale"><span class="guide-article__num mono">02</span>What a modular scale actually is</h2>
+            <h2 id="modular-scale">
+              <span class="guide-article__num mono">02</span>What a modular
+              scale actually is
+            </h2>
 
-          <p>
+            <p>
               A modular scale multiplies a base size by a fixed ratio, once per
               step: size = base × ratio^n. Starting from a 16px base and a 1.25
               ratio, the next step up is 16 × 1.25 = 20px, then 20 × 1.25 =
@@ -381,9 +422,12 @@
               visual weight.
             </p>
 
-          <h2 id="base-and-ratio"><span class="guide-article__num mono">03</span>Picking a base size and a ratio</h2>
+            <h2 id="base-and-ratio">
+              <span class="guide-article__num mono">03</span>Picking a base size
+              and a ratio
+            </h2>
 
-          <p>
+            <p>
               16px is the de facto standard base size for body text on the web —
               it's the default a browser applies with no CSS at all, and
               dropping below it on any real block of reading text makes a page
@@ -408,9 +452,12 @@
               heading is meant to dominate the page it sits on.
             </p>
 
-          <h2 id="line-height"><span class="guide-article__num mono">04</span>Line-height belongs to the scale, not to taste</h2>
+            <h2 id="line-height">
+              <span class="guide-article__num mono">04</span>Line-height belongs
+              to the scale, not to taste
+            </h2>
 
-          <p>
+            <p>
               Line-height needs its own rule, and it moves in the opposite
               direction from font size: as text gets larger, it needs
               proportionally less line-height, not more. Body copy at 16px
@@ -436,9 +483,12 @@
               force exactly that spacing.
             </p>
 
-          <h2 id="measure"><span class="guide-article__num mono">05</span>Measure: the line length nobody sets on purpose</h2>
+            <h2 id="measure">
+              <span class="guide-article__num mono">05</span>Measure: the line
+              length nobody sets on purpose
+            </h2>
 
-          <p>
+            <p>
               Measure is the line length of a paragraph, and it's one of the
               most consistently under-designed properties on the web, because
               unlike font size or color, nothing renders visibly wrong when it's
@@ -464,9 +514,12 @@
               per line.
             </p>
 
-          <h2 id="fluid-type"><span class="guide-article__num mono">06</span>Fluid type: scaling without breakpoints</h2>
+            <h2 id="fluid-type">
+              <span class="guide-article__num mono">06</span>Fluid type: scaling
+              without breakpoints
+            </h2>
 
-          <p>
+            <p>
               A traditional responsive approach sets a handful of fixed sizes
               and swaps between them at breakpoints, which means a heading is
               32px right up until a 768px breakpoint and instantly 24px one
@@ -491,9 +544,12 @@
               readability gain.
             </p>
 
-          <h2 id="naming-pairing"><span class="guide-article__num mono">07</span>Naming the scale and pairing typefaces</h2>
+            <h2 id="naming-pairing">
+              <span class="guide-article__num mono">07</span>Naming the scale
+              and pairing typefaces
+            </h2>
 
-          <p>
+            <p>
               Give each step a name instead of writing raw rem or pixel values
               into code: text-xs, text-sm, text-base, text-lg, text-xl,
               text-2xl, text-3xl, and so on, each mapped to one value from the
@@ -518,9 +574,12 @@
               good at.
             </p>
 
-          <h2 id="accessibility"><span class="guide-article__num mono">08</span>Accessibility minimums text needs to clear</h2>
+            <h2 id="accessibility">
+              <span class="guide-article__num mono">08</span>Accessibility
+              minimums text needs to clear
+            </h2>
 
-          <p>
+            <p>
               WCAG's resize-text criterion requires that text can be scaled up
               to 200% by a user, using nothing but standard browser zoom,
               without losing content or breaking functionality — a requirement
@@ -547,9 +606,12 @@
               relies on and measurably slow reading speed.
             </p>
 
-          <h2 id="auditing"><span class="guide-article__num mono">09</span>Auditing type on a screen you didn't design</h2>
+            <h2 id="auditing">
+              <span class="guide-article__num mono">09</span>Auditing type on a
+              screen you didn't design
+            </h2>
 
-          <p>
+            <p>
               Pick any existing screen and list every distinct font size
               actually in use. If that list has no relationship to a consistent
               ratio — 13px next to 15px next to 22px, none of them derived from
@@ -572,9 +634,11 @@
               container, rather than a full pass through the type scale.
             </p>
 
-          <h2 id="key-takeaways"><span class="guide-article__num mono">10</span>Key Takeaways</h2>
+            <h2 id="key-takeaways">
+              <span class="guide-article__num mono">10</span>Key Takeaways
+            </h2>
 
-          <ul class="guide-recap">
+            <ul class="guide-recap">
               <li>
                 <span class="guide-recap__n" aria-hidden="true">→</span>
                 <p>
@@ -623,7 +687,7 @@
               </li>
             </ul>
 
-          <p>
+            <p>
               A type scale is worth learning early for the same reason
               whitespace and contrast are: it replaces a size-by-size guess with
               a formula that produces every other value on the page
@@ -638,96 +702,30 @@
               gets the mechanics right, rather than trying to compensate for a
               page where nothing was actually decided on purpose.
             </p>
-        </article>
+          </article>
         </div>
-        <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>
+        <aside
+          class="guide-rail"
+          id="guide-rail"
+          aria-label="Related guides"
+        ></aside>
       </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div class="footer-brand">
-          <img
-            class="brand-mark"
-            src="/assets/logo.png"
-            width="32"
-            height="32"
-            alt=""
-            aria-hidden="true"
-          />
-          <p>
-            Original, hand-written UI/UX tutorials — no filler, no affiliate
-            links, just the reasoning behind good interface decisions.
-          </p>
-          <div class="footer-social">
-            <h2 class="footer-social__heading">Follow us</h2>
-            <ul class="footer-social__list">
-              <li>
-                <a
-                  href="https://x.com/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Twitter / X</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> LinkedIn</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.figma.com/@pointuxguides"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><span aria-hidden="true">↗</span> Figma Community</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h2>Guides</h2>
-          <ul id="footer-categories"></ul>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="../about.html">About us</a></li>
-            <li><a href="../contact.html">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="../privacy.html">Privacy policy</a></li>
-            <li><a href="../terms.html">Terms of service</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Stay in the loop</h2>
-          <p class="footer-note">
-            New guides ship most weeks. No newsletter, no spam — just check back
-            or bookmark this page.
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 bpozz. All guides are original tutorials.</p>
-        <p>
-          <a href="../privacy.html">Privacy policy</a> ·
-          <a href="../terms.html">Terms of service</a> ·
-          <a href="../about.html">About</a> ·
-          <a href="../contact.html">Contact</a>
-        </p>
-        <p class="mono">BUILD v1.1.0 · REV 2026.08</p>
-      </div>
-    </footer>
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
 
     <script src="../app.js"></script>
   </body>
