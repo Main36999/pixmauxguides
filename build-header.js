@@ -44,11 +44,11 @@
  *     -> "index.html"
  *   - a page nested N levels deep: "../index.html" -> "../".repeat(N) +
  *     "index.html"
- *   - index.html itself is special-cased: brand link -> "#", nav links
- *     -> "#guides" / "#toolbar" (in-page jumps, no reload), but the
- *     search form's action stays "index.html" (a real fallback target
- *     for no-JS submits) — this matches index.html's original markup
- *     exactly.
+ *   - index.html itself is special-cased: the brand link and the "All"
+ *     nav link both -> "/" (clean root URL, no filename and no trailing
+ *     "#"), since a bare "#" would leave a stray hash in the address
+ *     bar. The search form's action stays "index.html" (a real fallback
+ *     target for no-JS submits).
  *
  * ONE-TIME SETUP PER PAGE
  * Wrap the page's existing <header class="site-header">…</header> block
@@ -135,12 +135,13 @@ function headerFor(relPath, partial) {
   const [homeLinkDef, ...otherLinks] = ROOT_LINKS;
 
   if (relPath === "index.html") {
-    // Home page: brand + nav become in-page jumps; the search form's
-    // action keeps pointing at a real file (index.html) since it needs
-    // a real GET target for no-JS submits.
+    // Home page: brand + "All" both become the clean root URL ("/"),
+    // not a bare "#", so the address bar doesn't pick up a stray hash.
+    // The search form's action keeps pointing at a real file
+    // (index.html) since it needs a real GET target for no-JS submits.
     let html = partial
       .split(`href="${homeLinkDef.partialText}"`)
-      .join('href="#"')
+      .join('href="/"')
       .split(`action="${homeLinkDef.partialText}"`)
       .join('action="index.html"')
       .split(homeLinkDef.partialText)
