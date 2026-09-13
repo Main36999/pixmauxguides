@@ -1675,6 +1675,39 @@ body:has(#mobile-menu:not([hidden])) {
   text-decoration: underline;
 }
 
+/* ---------- about page: founder signature ----------
+   Modeled on the founder photo + name + title block at the end of
+   resourceboy.com/about — a small centered portrait with a name and
+   title underneath, set off from the copy above by a hairline rule. */
+.about-founder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 36px;
+  padding-top: 30px;
+  border-top: 1px solid var(--grid-line);
+}
+.about-founder__photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--grid-line);
+  margin-bottom: 14px;
+}
+.about-founder__name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 3px;
+}
+.about-founder__title {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 /* ---------- contact page ----------
    Modeled on resourceboy.com/contact/: no visible field labels at
    all — placeholder text carries each field, labels are kept for
