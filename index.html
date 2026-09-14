@@ -122,7 +122,7 @@
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://bpozz.com/search.html?query={search_term_string}"
+            "urlTemplate": "https://bpozz.com/search?s={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }
@@ -188,14 +188,14 @@
         <form
           class="header-search"
           role="search"
-          action="search.html"
+          action="/search"
           method="get"
         >
           <label for="header-search-input" class="sr-only">Search guides</label>
           <input
             type="search"
             id="header-search-input"
-            name="query"
+            name="s"
             placeholder="Search guides…"
             autocomplete="off"
           />
@@ -289,7 +289,7 @@
             <form
               class="header-search hero-search fade-up"
               role="search"
-              action="search.html"
+              action="/search"
               method="get"
             >
               <label for="hero-search-input" class="sr-only"
@@ -298,7 +298,7 @@
               <input
                 type="search"
                 id="hero-search-input"
-                name="query"
+                name="s"
                 placeholder="Search guides — grid systems, dark mode, type scale…"
                 autocomplete="off"
               />

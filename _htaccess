@@ -27,6 +27,18 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^category/([a-z0-9-]+)/?$ category/$1.html [L]
 
+# Same clean-URL treatment for search.html as /guide/<slug> and
+# /category/<slug> get above -- /search resolves to search.html without
+# changing what's shown in the address bar.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^search/?$ search.html [L]
+
+# Consolidate any already-shared /search.html?... link onto the clean
+# /search URL, carrying the query string along (QSA).
+RewriteCond %{THE_REQUEST} \s/+search\.html[\s?] [NC]
+RewriteRule ^ /search [R=301,L,QSA]
+
 # ── Security headers ─────────────────────────────────────────────
 <IfModule mod_headers.c>
   # Force HTTPS for 2 years, including subdomains. Add "preload" only

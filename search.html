@@ -39,7 +39,7 @@
          out of it stay crawlable) with a canonical pointing at the bare,
          query-less URL. -->
     <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href="https://bpozz.com/search.html" />
+    <link rel="canonical" href="https://bpozz.com/search" />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -143,14 +143,14 @@
         <form
           class="header-search"
           role="search"
-          action="search.html"
+          action="/search"
           method="get"
         >
           <label for="header-search-input" class="sr-only">Search guides</label>
           <input
             type="search"
             id="header-search-input"
-            name="query"
+            name="s"
             placeholder="Search guides…"
             autocomplete="off"
           />
@@ -357,7 +357,7 @@
           },
         ];
 
-        var query = (new URLSearchParams(location.search).get("query") || "").trim();
+        var query = (new URLSearchParams(location.search).get("s") || "").trim();
 
         var headingEl = document.getElementById("search-heading");
         var dekEl = document.getElementById("search-dek");

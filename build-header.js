@@ -88,7 +88,6 @@ const END_MARKER = "<!--HEADER_END-->";
 const ROOT_LINKS = [
   { file: "index.html", partialText: "../index.html" },
   { file: "roadmap.html", partialText: "../roadmap.html" },
-  { file: "search.html", partialText: "../search.html" },
 ];
 
 // Directories we never want to walk into looking for .html files.
