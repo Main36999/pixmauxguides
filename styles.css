@@ -149,27 +149,42 @@ ul {
 }
 
 /* ---------- header ----------
-   Rebuilt to match resourceboy.com's header 1:1: one full-bleed,
-   near-black bar (--header-bg, not the site's navy --ink) with the
-   wordmark on the left and every browse link spread across the row —
-   the old light search row plus a *separate* dark .cat-nav strip
-   underneath have been merged into this single row, and those category
-   links now live directly in .site-nav / .mobile-menu__nav. Since bpozz
-   has no accounts, nothing stands in for resourceboy's "Sign in" pill;
-   the search that used to share this row keeps its place at the far
-   right instead. */
+   Two structural variants now, matching how resourceboy.com itself
+   splits its header rather than running one shape everywhere:
+     - .site-header--home (index.html only): a single full-bleed,
+       near-black bar (--header-bg) — wordmark left, every browse link
+       spread across the same row, right where resourceboy's own home
+       header sits. No search lives here because the home page already
+       has a large, prominent search box in the hero right below —
+       duplicating it in the header would just be noise.
+     - .site-header--inner (every other page — guide, category,
+       roadmap, search, about, contact, privacy, terms): two rows on
+       the same dark bar. Top row is wordmark + a persistent,
+       full-width search field, because these pages have no hero to
+       carry search instead. Bottom row is the nav link list. This
+       mirrors resourceboy's own inner-page header (logo+search on
+       top, category nav underneath).
+   Since bpozz has no accounts, neither variant has a stand-in for
+   resourceboy's "Sign in" pill — the home row's nav simply runs the
+   full width, and the inner header's search fills that same slot on
+   its own row. Both variants share .brand, .site-nav, .menu-toggle
+   and #mobile-menu markup/styles below. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
   background: var(--header-bg);
 }
-.header-inner {
+.header-inner,
+.header-top {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
   height: 84px;
   padding: 0 32px;
+}
+.header-inner {
+  gap: 32px;
 }
 .brand {
   display: flex;
@@ -230,20 +245,23 @@ ul {
   background: rgba(34, 166, 196, 0.07);
   white-space: nowrap;
 }
-/* Pushed to the far right (margin-left: auto below) so it lands exactly
-   where resourceboy's "Sign in" button sits — nothing else fills that
-   slot, per the no-accounts / no-sign-in brief. */
-.header-actions {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left: auto;
-}
+/* ---------- inner-header search + nav row ----------
+   .header-search is shared with the homepage's big .hero-search (see
+   below) but sized small here by default; .header-search--full is the
+   modifier that stretches it to fill .header-top's top row on every
+   non-home page, matching resourceboy's inner-page search bar. No
+   collapse/toggle behavior anymore — it's plain and always visible at
+   every viewport width, since these pages have no hero to fall back
+   on for search. */
 .header-search {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   position: relative;
+}
+.header-search--full {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .header-search input {
   width: 180px;
@@ -255,6 +273,11 @@ ul {
   font-size: 13px;
   color: #fff;
   background: rgba(255, 255, 255, 0.06);
+}
+.header-search--full input {
+  width: 100%;
+  max-width: none;
+  padding: 10px 14px;
 }
 .header-search input::placeholder {
   color: #8a93a6;
@@ -275,6 +298,10 @@ ul {
   background: rgba(255, 255, 255, 0.06);
   color: #9db3da;
 }
+.header-search--full .header-search__submit {
+  width: 38px;
+  height: 38px;
+}
 .header-search__submit svg {
   width: 15px;
   height: 15px;
@@ -283,101 +310,15 @@ ul {
   color: #fff;
   border-color: var(--cyan);
 }
-
-/* ---------- collapsible header search (mobile) ----------
-   <details>/<summary> instead of JS: the toggle works even with
-   JS disabled. Desktop is untouched — the form is forced visible at
-   all times, same as before. Below 640px the form collapses to just
-   the icon in the header row (next to the logo, not in the nav list);
-   opening it drops a full-width pill under the header, resourceboy-
-   style, styled after the site's existing .hero-search pill so it
-   matches bpozz's own visual language rather than copying resourceboy's
-   icon-in-input treatment exactly. */
-.header-search-collapse {
-  display: contents;
-}
-.header-search-toggle {
-  display: none;
-  list-style: none;
-  cursor: pointer;
-}
-.header-search-toggle::-webkit-details-marker {
-  display: none;
-}
-.header-search-toggle__icon--close {
-  display: none;
-}
-.header-search-collapse[open] .header-search-toggle__icon--open {
-  display: none;
-}
-.header-search-collapse[open] .header-search-toggle__icon--close {
-  display: block;
-}
-@media (min-width: 641px) {
-  /* No JS sets [open] on desktop, so without this the native <details>
-     behavior would hide the form entirely; force it visible instead,
-     preserving the original always-on search bar. */
-  .header-search-collapse > .header-search {
-    display: flex !important;
-  }
-}
-@media (max-width: 640px) {
-  .header-search-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 2px;
-    color: #9db3da;
-  }
-  .header-search-toggle svg {
-    width: 15px;
-    height: 15px;
-  }
-  .header-search-toggle:hover {
-    color: #fff;
-    border-color: var(--cyan);
-  }
-  .header-search-collapse[open] > .header-search {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    padding: 14px 20px;
-    background: var(--header-bg);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .header-search-collapse[open] > .header-search input {
-    flex: 1 1 auto;
-    width: auto;
-    max-width: none;
-    border: 0;
-    border-radius: 999px;
-    padding: 12px 18px;
-    background: #fff;
-    color: var(--text);
-  }
-  .header-search-collapse[open] > .header-search input::placeholder {
-    color: var(--text-muted);
-  }
-  .header-search-collapse[open] > .header-search__submit {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 0;
-    background: var(--action);
-    color: #fff;
-  }
-  .header-search-collapse[open] > .header-search__submit:hover {
-    background: var(--action-hover);
-  }
+/* Bottom row of .site-header--inner: just the nav list, on a hairline
+   rule so it still reads as one dark bar rather than two stacked
+   blocks. */
+.header-bottom {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ---------- mobile menu ---------- */
@@ -451,14 +392,26 @@ body:has(#mobile-menu:not([hidden])) {
   color: #fff;
 }
 @media (max-width: 640px) {
-  .header-inner {
+  .header-inner,
+  .header-top {
     padding: 0 20px;
   }
   .site-nav {
     display: none;
   }
+  /* The inner header's nav row has nothing left to show once .site-nav
+     is hidden above — fold it away entirely rather than leave an empty
+     bar under the search row. */
+  .header-bottom {
+    display: none;
+  }
   .menu-toggle {
     display: inline-flex;
+    /* On the home header nothing else claims the row's remaining
+       space once .site-nav hides, so pin the button to the right
+       edge explicitly. (On the inner header .header-search--full's
+       flex-grow already does this; the rule is a no-op there.) */
+    margin-left: auto;
   }
   .mobile-menu:not([hidden]) {
     display: flex;

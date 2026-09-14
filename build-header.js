@@ -2,26 +2,29 @@
 /**
  * build-header.js
  * -----------------------------------------------------------------------
- * Pre-renders the shared site header into every .html page from a single
- * source of truth: partials/header.html.
+ * Pre-renders the shared site header into every .html page from two
+ * sources of truth: partials/header-home.html (index.html only) and
+ * partials/header.html (every other page) — see "TWO HEADER VARIANTS"
+ * below for why there are two.
  *
  * WHY THIS EXISTS
  * <header class="site-header">…</header> (nav links, search form, mobile
- * menu) is meant to be identical everywhere — app.js's comments say guide
- * *and legal* pages share "header search + mobile menu behavior" — but it
- * was hand-duplicated per page and had drifted:
+ * menu) is meant to be identical across all pages of the same variant —
+ * app.js's comments say guide *and legal* pages share "header search +
+ * mobile menu behavior" — but it used to be hand-duplicated per page and
+ * had drifted:
  *
  *   - index.html and every /guide/*.html page: full header, INCLUDING the
  *     hamburger button (#menu-toggle) and the #mobile-menu panel.
  *   - about.html, contact.html, privacy.html, terms.html: missing the
  *     hamburger and #mobile-menu entirely.
  *
- * That's not a cosmetic gap. styles.css hides .header-actions outright
- * at max-width:640px and relies on #menu-toggle to reveal #mobile-menu
- * in its place (see the "mobile menu" rules in styles.css). Pages without
- * that markup have NO nav and NO search on any phone-width viewport —
- * just the logo. This script fixes that by making the full header (with
- * mobile menu) the one version that ships everywhere.
+ * That's not a cosmetic gap: without #menu-toggle/#mobile-menu markup, a
+ * page has no way to reach its nav links at all at phone width once
+ * .site-nav hides there (see the "mobile menu" rules in styles.css) —
+ * just the logo, nothing else reachable. This script fixes that by
+ * making the full header (with mobile menu) the one version that ships
+ * everywhere, generated from the matching partial instead of by hand.
  *
  * This does NOT switch to fetching the header client-side with fetch().
  * Two reasons:
@@ -33,6 +36,25 @@
  *      <body>, not deferred). If the header were injected later by a
  *      fetch(), those elements wouldn't exist yet when app.js looks for
  *      them, and the menu/search would silently stop working.
+ *
+ * TWO HEADER VARIANTS: HOME VS. EVERY OTHER PAGE
+ * bpozz's header now structurally differs by page, matching how
+ * resourceboy.com does it:
+ *   - index.html renders partials/header-home.html: a single row
+ *     (logo + nav, no search) because the home page already has a
+ *     large, prominent search box in its hero section right below
+ *     the header.
+ *   - Every other page (guide, category, roadmap, search, about,
+ *     contact, privacy, terms — anything without that hero) renders
+ *     partials/header.html: a two-row header, logo + a persistent
+ *     full-width search bar on top, nav links on a second row
+ *     underneath — since those pages have no hero search to fall
+ *     back on, the header has to carry search itself.
+ * Both variants still share one #mobile-menu panel and #menu-toggle
+ * button markup/behavior, and both go through the exact same
+ * per-page link rewriting below — only which partial is loaded as
+ * the input to that rewriting differs, selected in main() by whether
+ * the target file's relPath is "index.html".
  *
  * PER-PAGE LINK REWRITING
  * partials/header.html is authored at "one level deep" (i.e. exactly as
@@ -75,6 +97,11 @@ const path = require("path");
 
 const ROOT = __dirname;
 const HEADER_PARTIAL_PATH = path.join(ROOT, "partials", "header.html");
+const HOME_HEADER_PARTIAL_PATH = path.join(
+  ROOT,
+  "partials",
+  "header-home.html",
+);
 const START_MARKER = "<!--HEADER_START-->";
 const END_MARKER = "<!--HEADER_END-->";
 
@@ -173,6 +200,7 @@ function headerFor(relPath, partial) {
 
 function main() {
   const partial = fs.readFileSync(HEADER_PARTIAL_PATH, "utf8").trim();
+  const homePartial = fs.readFileSync(HOME_HEADER_PARTIAL_PATH, "utf8").trim();
   const files = findHtmlFiles(ROOT);
 
   let updated = 0;
@@ -182,7 +210,10 @@ function main() {
   for (const file of files) {
     const relPath = path.relative(ROOT, file).split(path.sep).join("/");
     const original = fs.readFileSync(file, "utf8");
-    let headerHtml = headerFor(relPath, partial);
+    // index.html is the only page that gets the no-search, single-row
+    // home header; every other page gets the two-row partial.
+    const sourcePartial = relPath === "index.html" ? homePartial : partial;
+    let headerHtml = headerFor(relPath, sourcePartial);
     // Category pages (category/<slug>.html) aren't in ROOT_LINKS since
     // they're absolute-root-relative in the partial already (/category/
     // <slug>, unlike index.html/roadmap.html's ../-prefixed convention)

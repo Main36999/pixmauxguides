@@ -177,95 +177,46 @@
   <body data-guide-id="figma-variables-data-layer">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
 
-<!--HEADER_START--><header class="site-header">
-  <div class="header-inner">
+<!--HEADER_START--><header class="site-header site-header--inner">
+  <div class="header-top">
     <a href="../index.html" class="brand" aria-label="bpozz! home">
       <span class="brand-text">bpozz!</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
-      <a href="../index.html">All</a>
-      <a href="/category/color-theory">Color Theory</a>
-      <a href="/category/typography">Typography</a>
-      <a href="/category/spacing">Spacing</a>
-      <a href="/category/figma">Figma</a>
-      <a href="/category/adobe-xd">Adobe XD</a>
-      <a href="/category/mobile">Mobile</a>
-      <a href="/category/web">Web Layout</a>
-      <a href="/category/systems">Systems</a>
-      <a href="/category/accessibility">Accessibility</a>
-      <a href="/category/motion">Motion</a>
-      <a href="../roadmap.html">Roadmap</a>
-    </nav>
-
-    <div class="header-actions">
-      <details class="header-search-collapse">
-        <summary class="header-search-toggle" aria-label="Search guides">
-          <svg
-            class="header-search-toggle__icon header-search-toggle__icon--open"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <line x1="21" y1="21" x2="16.2" y2="16.2" />
-          </svg>
-          <svg
-            class="header-search-toggle__icon header-search-toggle__icon--close"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <line x1="5" y1="5" x2="19" y2="19" />
-            <line x1="19" y1="5" x2="5" y2="19" />
-          </svg>
-        </summary>
-        <form
-          class="header-search"
-          role="search"
-          action="/search"
-          method="get"
+    <form
+      class="header-search header-search--full"
+      role="search"
+      action="/search"
+      method="get"
+    >
+      <label for="header-search-input" class="sr-only">Search guides</label>
+      <input
+        type="search"
+        id="header-search-input"
+        name="s"
+        placeholder="Search guides…"
+        autocomplete="off"
+      />
+      <button
+        type="submit"
+        class="header-search__submit"
+        aria-label="Search guides"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
         >
-          <label for="header-search-input" class="sr-only">Search guides</label>
-          <input
-            type="search"
-            id="header-search-input"
-            name="s"
-            placeholder="Search guides…"
-            autocomplete="off"
-          />
-          <button
-            type="submit"
-            class="header-search__submit"
-            aria-label="Search guides"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.2" y2="16.2" />
-            </svg>
-          </button>
-        </form>
-      </details>
-    </div>
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+    </form>
 
     <button
       type="button"
@@ -306,6 +257,24 @@
       </svg>
     </button>
   </div>
+
+  <div class="header-bottom">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
       <a href="../index.html">All</a>
