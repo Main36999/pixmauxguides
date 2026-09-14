@@ -776,52 +776,18 @@
   });
 
   // --- Header quick search ---
-  // Both the desktop header form and the mobile menu form share the
-  // ".header-search" class, so this works for either without duplicating
-  // logic. Each form works with no JS at all too: its native GET to
-  // index.html?q=... is a real navigation that lands here from any page.
-  // This handler just upgrades that same action to filter in place when
-  // we're already on index.html, instead of doing a full page reload.
+  // Both the desktop header form and the homepage's hero search form
+  // share the ".header-search" class, so this covers either without
+  // duplicating logic. Each one is plain HTML (action="search.html",
+  // method="get", input name="query") and needs no JS to work:
+  // submitting it (Enter or the button) is a normal browser GET to
+  // search.html?query=... from any page, including this one — that
+  // page reads the query param itself, fetches guides.json, and
+  // renders matching results (or a "no results" message) there.
+  // Nothing here intercepts the submit or filters this page's grid
+  // in place anymore. headerSearchForms is kept only so
+  // resetFilters() (above) can blank a stale value left in the input.
   var headerSearchForms = document.querySelectorAll(".header-search");
-
-  function runHeaderSearch(query) {
-    if (!isHomePage) return;
-    state.search = query;
-    headerSearchForms.forEach(function (form) {
-      var input = form.querySelector("input[type='search']");
-      if (input) input.value = query;
-    });
-    levelSelect.value = "all";
-    state.category = "all";
-    state.level = "all";
-    render();
-    showHome();
-    if (location.hash !== "#guides") {
-      history.replaceState(null, "", "#guides");
-    }
-    document
-      .getElementById("guides")
-      .scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  headerSearchForms.forEach(function (form) {
-    form.addEventListener("submit", function (e) {
-      // Off the home page there's nothing to filter in place, so let
-      // the browser do its normal GET submit to ../index.html?q=...
-      if (!isHomePage) return;
-      e.preventDefault();
-      var input = form.querySelector("input[type='search']");
-      runHeaderSearch(((input && input.value) || "").trim());
-    });
-  });
-
-  // Note: this used to also wire up a live type-ahead dropdown (a
-  // ranked preview of matching guides, with thumbnails, appearing below
-  // the input as the person typed). That's intentionally gone — search
-  // now behaves like a normal search box: nothing happens until the
-  // form is submitted (Enter or the submit button), at which point
-  // runHeaderSearch() above takes over and the results page itself
-  // (render(), below) reports the count for that exact query.
 
   // --- Mobile menu toggle ---
   // Below 640px the header's nav links and search collapse behind this
@@ -1025,7 +991,7 @@
     // search + mobile menu behavior but have no grid/results UI to
     // report loading progress on, so this (and every home-only step
     // below) is skipped there — see the isHomePage checks inside
-    // render(), handleRoute(), renderLoadError(), and runHeaderSearch().
+    // render(), handleRoute(), and renderLoadError().
     if (isHomePage) resultsCount.textContent = "Loading guides…";
     try {
       GUIDES = await loadGuides();
@@ -1042,16 +1008,6 @@
     render();
     handleRoute();
     initRelatedGuides();
-
-    // Arriving from another page's header search (e.g. a guide page's
-    // search form -> index.html?q=spacing#guides): pick the term back
-    // up and filter. Only meaningful on the home page itself.
-    if (isHomePage) {
-      var initialQuery = new URLSearchParams(location.search).get("q");
-      if (initialQuery) {
-        runHeaderSearch(initialQuery);
-      }
-    }
   }
 
   init();

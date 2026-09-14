@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search guides — bpozz</title>
+    <meta
+      name="description"
+      content="Search bpozz's library of UI/UX design tutorials by title, topic, or category."
+    />
+    <!-- Search results are per-query and not meaningfully unique content
+         to index, so this page is noindex (still followable, so links
+         out of it stay crawlable) with a canonical pointing at the bare,
+         query-less URL. -->
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://bpozz.com/search.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Small, page-specific rule only — everything else (.wrap,
+         .guides-main, .grid, .guide-card, .empty-state, .btn, ...) comes
+         from styles.css and is already shared with the homepage and the
+         /category/ pages, so search results look identical to guides
+         found any other way on the site. Move this into styles.css
+         alongside the other card rules if you'd rather keep every style
+         in one file. -->
+    <style>
+      mark {
+        background: rgba(29, 95, 214, 0.16);
+        color: inherit;
+        border-radius: 2px;
+        padding: 0 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#search-content" class="skip-link">Skip to results</a>
+
+    <!--HEADER_START--><header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand" aria-label="bpozz! home">
+      <span class="brand-text">bpozz!</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="roadmap.html">Roadmap</a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="header-search-collapse">
+        <summary class="header-search-toggle" aria-label="Search guides">
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.2" y2="16.2" />
+          </svg>
+          <svg
+            class="header-search-toggle__icon header-search-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </summary>
+        <form
+          class="header-search"
+          role="search"
+          action="search.html"
+          method="get"
+        >
+          <label for="header-search-input" class="sr-only">Search guides</label>
+          <input
+            type="search"
+            id="header-search-input"
+            name="query"
+            placeholder="Search guides…"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            class="header-search__submit"
+            aria-label="Search guides"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+        </form>
+      </details>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <a href="index.html">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+</header><!--HEADER_END-->
+
+    <main class="wrap guides-main" id="search-content" tabindex="-1">
+      <div class="category-hero">
+        <p class="section-label mono">/ search</p>
+        <h1 class="category-hero__title" id="search-heading">Search guides</h1>
+        <p class="category-hero__dek" id="search-dek">
+          Use the search box above to find a guide by title, topic, or category.
+        </p>
+      </div>
+
+      <div class="section-head">
+        <p class="results-count" id="search-results-count"></p>
+      </div>
+
+      <div class="grid" id="search-grid-root"></div>
+
+      <div class="empty-state" id="search-empty-state">
+        <p>No guides matched <strong id="search-empty-query"></strong>.</p>
+        <a href="index.html" class="btn btn-primary">Browse all guides</a>
+      </div>
+    </main>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <script src="app.js"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        // ---------- label maps (mirror app.js's CATEGORIES/LEVEL_LABEL,
+        // kept here too so this page has no hard dependency on app.js
+        // internals — app.js is only relied on for the shared header/
+        // mobile-menu behavior on this page) ----------
+        var CATEGORY_LABELS = {
+          "color-theory": "Color Theory",
+          typography: "Typography",
+          spacing: "Spacing & Layout",
+          figma: "Figma Workflow",
+          "adobe-xd": "Adobe XD Workflow",
+          mobile: "Mobile App Design",
+          web: "Web Layout",
+          systems: "Design Systems",
+          accessibility: "Accessibility",
+          motion: "Prototyping & Motion",
+        };
+        var LEVEL_LABELS = {
+          beginner: "Beginner",
+          intermediate: "Intermediate",
+          advanced: "Advanced",
+        };
+
+        // Small local fallback list so this page still renders something
+        // if /guides.json can't be fetched — e.g. the file is opened
+        // directly as file:// instead of through a local server, which
+        // blocks fetch() on most browsers. On the live site the real
+        // fetch below is what actually runs.
+        var SAMPLE_GUIDES = [
+          {
+            id: "whitespace-as-ui-component",
+            category: "spacing",
+            level: "beginner",
+            readTime: 11,
+            title: "Whitespace as a UI Component, Not a Leftover",
+            description:
+              "Treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning.",
+          },
+          {
+            id: "color-contrast-systems",
+            category: "color-theory",
+            level: "beginner",
+            readTime: 10,
+            title: "Color Contrast Is Math, Not Taste",
+            description:
+              "Measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
+          },
+          {
+            id: "type-scale-systems",
+            category: "typography",
+            level: "intermediate",
+            readTime: 12,
+            title: "Font Size Is a Formula, Not a Feeling",
+            description:
+              "Modular scale ratios, line-height and measure numbers, and the clamp() formula for type that resizes itself.",
+          },
+          {
+            id: "auto-layout-constraint-model",
+            category: "figma",
+            level: "intermediate",
+            readTime: 15,
+            title: "Auto Layout Is a Constraint System, Not a Convenience Toggle",
+            description:
+              "The mental model behind Figma's Auto Layout, and where it breaks down if you treat it like a shortcut.",
+          },
+          {
+            id: "responsive-layout-contract",
+            category: "web",
+            level: "intermediate",
+            readTime: 18,
+            title: "Responsive Layout Is a Contract, Not a Breakpoint List",
+            description:
+              "CSS Grid, fluid sizing, and the traps no toolbar preview catches.",
+          },
+          {
+            id: "accessibility-structural-model",
+            category: "accessibility",
+            level: "intermediate",
+            readTime: 13,
+            title: "Accessibility Is a Structural Decision, Not a Final Pass",
+            description:
+              "Why accessibility baked into the structure beats an audit bolted on at the end.",
+          },
+        ];
+
+        var query = (new URLSearchParams(location.search).get("query") || "").trim();
+
+        var headingEl = document.getElementById("search-heading");
+        var dekEl = document.getElementById("search-dek");
+        var countEl = document.getElementById("search-results-count");
+        var gridEl = document.getElementById("search-grid-root");
+        var emptyEl = document.getElementById("search-empty-state");
+        var emptyQueryEl = document.getElementById("search-empty-query");
+
+        function escapeHtml(str) {
+          return String(str).replace(/[&<>"']/g, function (ch) {
+            return {
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            }[ch];
+          });
+        }
+
+        function escapeRegExp(str) {
+          return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+
+        // Wraps the matched query term in <mark>, operating on the
+        // already-HTML-escaped text so nothing user-supplied ever lands
+        // in innerHTML unescaped.
+        function highlight(text, needle) {
+          var safeText = escapeHtml(text);
+          var safeNeedle = escapeHtml(needle);
+          if (!safeNeedle) return safeText;
+          var re = new RegExp("(" + escapeRegExp(safeNeedle) + ")", "gi");
+          return safeText.replace(re, "<mark>$1</mark>");
+        }
+
+        // Same matching rule as the homepage grid used to apply in
+        // place (title + description + category label, case-insensitive
+        // substring) — see getFiltered() in app.js.
+        function filterGuides(guides, q) {
+          var needle = q.toLowerCase();
+          if (!needle) return [];
+          return guides.filter(function (g) {
+            var label = CATEGORY_LABELS[g.category] || g.category || "";
+            var haystack = (
+              g.title +
+              " " +
+              g.description +
+              " " +
+              label
+            ).toLowerCase();
+            return haystack.indexOf(needle) !== -1;
+          });
+        }
+
+        function cardHtml(g) {
+          var label = CATEGORY_LABELS[g.category] || g.category || "";
+          var level = LEVEL_LABELS[g.level] || g.level || "";
+          var meta = label + " · " + level + " · " + g.readTime + " min read";
+          var thumb = g.thumbnail
+            ? '<img src="' +
+              escapeHtml(g.thumbnail) +
+              '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+            : "";
+          return (
+            '<article class="guide-card">' +
+            '<div class="card-thumb">' +
+            thumb +
+            "</div>" +
+            '<div class="card-body">' +
+            '<h3 class="card-title"><a class="card-link" href="/guide/' +
+            g.id +
+            '">' +
+            highlight(g.title, query) +
+            "</a></h3>" +
+            '<p class="card-meta">' +
+            escapeHtml(meta) +
+            "</p>" +
+            "</div>" +
+            "</article>"
+          );
+        }
+
+        function render(guides) {
+          // Keep the header search box showing the term the results on
+          // this page actually match, in case the person glances back up.
+          document
+            .querySelectorAll('.header-search input[type="search"]')
+            .forEach(function (input) {
+              input.value = query;
+            });
+
+          if (!query) {
+            headingEl.textContent = "Search guides";
+            dekEl.textContent =
+              "Use the search box above to find a guide by title, topic, or category.";
+            document.title = "Search guides — bpozz";
+            countEl.textContent = "";
+            gridEl.innerHTML = "";
+            emptyEl.removeAttribute("data-visible");
+            return;
+          }
+
+          document.title = 'Search results for "' + query + '" — bpozz';
+          headingEl.textContent = 'Search results for "' + query + '"';
+          dekEl.textContent =
+            "Showing guides whose title, description, or category matches your search.";
+
+          var results = filterGuides(guides, query);
+
+          if (results.length === 0) {
+            countEl.textContent = "";
+            gridEl.innerHTML = "";
+            emptyQueryEl.textContent = '"' + query + '"';
+            emptyEl.setAttribute("data-visible", "true");
+          } else {
+            countEl.textContent =
+              results.length +
+              " Result" +
+              (results.length === 1 ? "" : "s") +
+              ' for "' +
+              query +
+              '"';
+            gridEl.innerHTML = results.map(cardHtml).join("");
+            emptyEl.removeAttribute("data-visible");
+          }
+        }
+
+        fetch("/guides.json")
+          .then(function (response) {
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            return response.json();
+          })
+          .then(function (data) {
+            render(Array.isArray(data) ? data : SAMPLE_GUIDES);
+          })
+          .catch(function (err) {
+            console.error("Couldn't load guides.json, using sample data:", err);
+            render(SAMPLE_GUIDES);
+          });
+      })();
+    </script>
+  </body>
+</html>
