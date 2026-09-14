@@ -310,15 +310,90 @@ ul {
   color: #fff;
   border-color: var(--cyan);
 }
-/* Bottom row of .site-header--inner: just the nav list, on a hairline
-   rule so it still reads as one dark bar rather than two stacked
-   blocks. */
+/* ---------- inner-header search pill (Uiverse.io, @satyamchaudharydev) ----------
+   Restyles #header-search-input's form (.header-search.header-search--full,
+   now also carrying a "form" class) into the rounded white pill from the
+   requested Uiverse component. Every selector here is scoped under
+   .site-header--inner, which only wraps the non-home header — so the
+   homepage's big hero search (.hero-search, index.html only) still shares
+   the base .header-search rules above completely untouched, even though
+   both forms carry the .header-search class. Specificity note: each rule
+   here uses two classes (".site-header--inner .input" etc.), which is
+   deliberately higher-specificity than the old single-class/element rules
+   above (".header-search input" etc.), so this cleanly wins on the inner
+   header without needing !important or deleting the shared rules.
+   No focus-state styling on purpose: the pill looks identical clicked or
+   not (outline: none below only cancels the browser's own default focus
+   ring, which would otherwise be the one appearance change left). */
+.site-header--inner .form {
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --input-bg: #fff;
+  --border-radius: 30px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  background: var(--input-bg, #fff);
+}
+.site-header--inner .form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+.site-header--inner .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+  color: var(--text);
+}
+.site-header--inner .input::placeholder {
+  color: #8b8ba7;
+}
+.site-header--inner .input:focus {
+  outline: none;
+}
+.site-header--inner .reset {
+  opacity: 0;
+  visibility: hidden;
+}
+.site-header--inner .input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+.site-header--inner .form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+/* Bottom row of .site-header--inner: just the nav list, white background
+   per request. .site-nav a's default colors above are tuned for the dark
+   .header-inner (home header) and would be near-invisible here, so this
+   overrides them with dark, on-white-appropriate colors — scoped to
+   .header-bottom only, so the home header's nav (still on the dark bar)
+   is untouched. */
 .header-bottom {
   display: flex;
   align-items: center;
   height: 52px;
   padding: 0 32px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #ffffff;
+}
+.header-bottom .site-nav a {
+  color: var(--text-muted);
+}
+.header-bottom .site-nav a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--cyan);
+}
+.header-bottom .site-nav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--cyan);
 }
 
 /* ---------- mobile menu ---------- */
