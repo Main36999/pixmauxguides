@@ -175,7 +175,7 @@
   letter-spacing: -0.005em;
 }
 .guide-article h2 .guide-article__num {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-weight: 400;
   color: var(--text-muted);
   margin-right: 0.5em;
@@ -215,7 +215,7 @@
   text-decoration-color: currentColor;
 }
 .guide-article code {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 0.875em;
   padding: 0.15em 0.4em;
   border-radius: 2px;
@@ -264,7 +264,7 @@
   vertical-align: top;
 }
 .guide-article thead th {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -294,7 +294,7 @@
 }
 .guide-callout__label {
   display: block;
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -360,7 +360,7 @@
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 .guide-recap li .guide-recap__n {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 13px;
   color: var(--text);
   padding-top: 2px;
@@ -437,7 +437,7 @@
   height: auto;
 }
 .guide-diagram figcaption {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 12px;
   letter-spacing: 0.02em;
   color: var(--text-muted);
@@ -469,7 +469,7 @@
   margin: 14px 0 4px;
 }
 .guide-diagram__chip {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.04em;
   border-radius: 4px;
@@ -542,7 +542,7 @@
   background: var(--card);
 }
 .guide-spec__label {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--text);
@@ -555,7 +555,7 @@
   margin: 0;
 }
 .guide-spec dt {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 13px;
   color: var(--text-muted);
   white-space: nowrap;

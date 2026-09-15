@@ -188,7 +188,7 @@
     if (previewEl.__built) return;
     previewEl.__built = true;
     previewEl.innerHTML =
-      '<div style="font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;opacity:.65;margin-bottom:10px;">Preview</div>' +
+      '<div style="font-family:var(--sans);font-size:10px;letter-spacing:.06em;text-transform:uppercase;opacity:.65;margin-bottom:10px;">Preview</div>' +
       '<strong style="display:block;font-size:17px;margin-bottom:6px;">Heading text</strong>' +
       '<p style="font-size:13px;line-height:1.55;margin:0 0 16px;opacity:.85;">Body copy, rendered with your text role on your background role.</p>' +
       '<button type="button" style="background:var(--tok-primary);color:var(--tok-on-primary,#fff);border:0;border-radius:4px;padding:9px 16px;font-size:13px;font-weight:600;cursor:default;">Primary action</button>';
