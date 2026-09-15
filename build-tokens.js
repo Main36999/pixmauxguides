@@ -382,6 +382,8 @@ function detailPageHtml(p, bySlug, headerPartial, footerPartial) {
         <p class="section-label mono" id="related-heading">/ related guides</p>
         <div class="token-related">${relatedGuidesHtml(p)}</div>
       </section>
+
+      <aside class="guide-rail" id="token-rail" aria-label="More palettes"></aside>
     </main>`;
 
   return pageShell({

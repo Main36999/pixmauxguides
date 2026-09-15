@@ -3,13 +3,15 @@
  * -----------------------------------------------------------------------
  * Page-specific script for every /tokens/<slug>.html page: the hero's
  * like/copy buttons, the export panel's tab switching + per-format
- * copy, and the light/dark mode toggle (when a paired variant exists).
+ * copy, the light/dark mode toggle (when a paired variant exists), and
+ * the "more palettes" rail at the bottom of the page.
  *
- * Everything this file needs — the palette's own colors, and its
- * paired variant's colors — is already embedded in the page's markup
- * by build-tokens.js (data-colors / data-self-colors / data-other-
- * colors attributes), so there's no tokens.json fetch on this page at
- * all: the detail page works fully offline once loaded.
+ * Everything except the rail is already embedded in the page's own
+ * markup by build-tokens.js (data-colors / data-self-colors / data-
+ * other-colors attributes), so only the rail needs a tokens.json fetch
+ * — same as app.js's related-guides rail needing guides.json. Without
+ * that fetch (offline, blocked), the page still works; the rail's
+ * <aside> just stays empty and hidden (see .guide-rail:empty).
  * -----------------------------------------------------------------------
  */
 (function () {
@@ -70,5 +72,41 @@
         }
       });
     });
+  }
+
+  // ---- "more palettes" rail --------------------------------------------
+  // Ships as a static, empty <aside id="token-rail"> (see build-tokens.js)
+  // and gets filled in here once tokens.json resolves — same pattern as
+  // app.js's initRelatedGuides() for the /guide/ pages' related rail:
+  // reuse cardHtml() so this reads as the identical minimal card used on
+  // the gallery, not a bespoke rail treatment, and drop the section
+  // entirely (rather than leave an empty box) if there's nothing to show.
+  var tokenRail = document.getElementById("token-rail");
+  if (tokenRail) {
+    var currentSlug = document.body.getAttribute("data-slug");
+    BpozzTokens.fetchAll()
+      .then(function (all) {
+        var current = all.filter(function (p) {
+          return p.slug === currentSlug;
+        })[0];
+        var related = current ? BpozzTokens.relatedPalettes(current, all, 10) : [];
+        if (!related.length) {
+          tokenRail.remove();
+          return;
+        }
+        tokenRail.innerHTML =
+          '<span class="section-label mono guide-rail__label">/ more palettes</span>' +
+          '<div class="grid guide-rail__list">' +
+          related.map(BpozzTokens.cardHtml).join("") +
+          "</div>";
+        BpozzTokens.wireCardActions(tokenRail);
+        BpozzTokens.syncLikedState(tokenRail);
+      })
+      .catch(function (err) {
+        console.error(err);
+        // Leave the <aside> empty rather than remove it — .guide-rail:empty
+        // already hides it, and a later retry (e.g. back-forward cache
+        // restore) still has a hook to fill in.
+      });
   }
 })();

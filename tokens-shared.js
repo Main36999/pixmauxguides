@@ -270,6 +270,33 @@
     );
   }
 
+  // Same-family palettes are the most relevant match (mirrors app.js's
+  // relatedGuides(), which scores on category then level for guides);
+  // each shared mood is a lighter, secondary signal. Ties keep the
+  // source array's own order (Array#sort is stable).
+  function relatedPalettes(current, all, count) {
+    var currentMoods = current.moods || [];
+    return (all || [])
+      .filter(function (p) {
+        return p.slug !== current.slug;
+      })
+      .map(function (p) {
+        var score = 0;
+        if (p.family === current.family) score += 2;
+        score += (p.moods || []).filter(function (m) {
+          return currentMoods.indexOf(m) !== -1;
+        }).length;
+        return { p: p, score: score };
+      })
+      .sort(function (a, b) {
+        return b.score - a.score;
+      })
+      .slice(0, count)
+      .map(function (x) {
+        return x.p;
+      });
+  }
+
   // ---- data loading (browser) ---------------------------------------
   var tokensPromise = null;
   function fetchAll() {
@@ -456,6 +483,7 @@
     contrastSummaryFor: contrastSummaryFor,
     contrastTextHtml: contrastTextHtml,
     cardHtml: cardHtml,
+    relatedPalettes: relatedPalettes,
     ICONS: ICONS,
     fetchAll: fetchAll,
     getCollectionSlugs: getCollectionSlugs,
