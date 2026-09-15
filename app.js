@@ -548,6 +548,15 @@
     }, 2600);
   }
 
+  // Exposed globally so other page-specific scripts (tokens-*.js, which
+  // handle the /tokens/* pages) can reuse this exact toast element and
+  // timing instead of re-implementing their own. Guarded on `toast`
+  // existing at all, since every page that loads app.js also ships the
+  // shared <div class="toast" id="toast">.
+  if (toast) {
+    window.bpozzShowToast = showToast;
+  }
+
   /* ---------- page routing ----------
      Each guide and static page lives at its own URL and is
      rendered as a real page here, replacing the guide list —

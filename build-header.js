@@ -223,6 +223,9 @@ function main() {
     if (categoryMatch) {
       headerHtml = markCurrent(headerHtml, `/category/${categoryMatch[1]}`);
     }
+    if (relPath === "tokens/index.html" || relPath.startsWith("tokens/")) {
+      headerHtml = markCurrent(headerHtml, "/tokens");
+    }
     const result = replaceBetween(
       original,
       START_MARKER,

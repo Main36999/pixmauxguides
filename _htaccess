@@ -27,6 +27,22 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^category/([a-z0-9-]+)/?$ category/$1.html [L]
 
+# Same clean-URL treatment for /tokens/<slug> (palette detail pages),
+# /tokens/create, and /tokens/collection (see build-tokens.js) — one
+# rule covers all three since "create" and "collection" are just slugs
+# that happen to have their own .html file, same mechanism as any
+# palette slug. /tokens itself (no trailing segment) needs no rule: like
+# any directory containing an index.html, Apache's mod_dir already
+# resolves it to tokens/index.html.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^tokens/([a-z0-9-]+)/?$ tokens/$1.html [L]
+
+# Consolidate any already-indexed/bookmarked .html tokens URLs onto the
+# clean version, same reasoning as the /guide consolidation rule above.
+RewriteCond %{THE_REQUEST} \s/+tokens/([a-z0-9-]+)\.html[\s?] [NC]
+RewriteRule ^ /tokens/%1 [R=301,L]
+
 # Same clean-URL treatment for search.html as /guide/<slug> and
 # /category/<slug> get above -- /search resolves to search.html without
 # changing what's shown in the address bar.

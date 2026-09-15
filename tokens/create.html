@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Build a Color Palette — bpozz</title>
+    <meta name="description" content="Assign semantic roles to colors — by hand or extracted from an image — with a live WCAG contrast checker that flags failing pairings as you go, following the same math as guide/color-contrast-systems." />
+    <link rel="canonical" href="https://bpozz.com/tokens/create" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bpozz.com/tokens/create" />
+    <meta property="og:site_name" content="bpozz" />
+    <meta property="og:title" content="Build a Color Palette — bpozz" />
+    <meta property="og:description" content="Assign semantic roles to colors — by hand or extracted from an image — with a live WCAG contrast checker that flags failing pairings as you go, following the same math as guide/color-contrast-systems." />
+    <meta property="og:image" content="https://bpozz.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta name="twitter:title" content="Build a Color Palette — bpozz" />
+    <meta name="twitter:description" content="Assign semantic roles to colors — by hand or extracted from an image — with a live WCAG contrast checker that flags failing pairings as you go, following the same math as guide/color-contrast-systems." />
+    <meta name="twitter:image" content="https://bpozz.com/og-image.png" />
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../guide-article.css" />
+    <link rel="stylesheet" href="../tokens.css" />
+  </head>
+  <body class="tokens-page tokens-create-page">
+    <a href="#tokens-content" class="skip-link">Skip to content</a>
+
+    <!--HEADER_START--><header class="site-header site-header--inner">
+  <div class="header-top">
+    <a href="../index.html" class="brand" aria-label="bpozz! home">
+      <span class="brand-text">bpozz!</span>
+    </a>
+
+    <form
+      class="header-search header-search--full form"
+      role="search"
+      action="/search"
+      method="get"
+    >
+      <label for="header-search-input" class="sr-only">Search guides</label>
+      <button type="submit" aria-label="Search guides">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+      <input
+        type="search"
+        id="header-search-input"
+        name="s"
+        placeholder="Search guides…"
+        autocomplete="off"
+        class="input"
+      />
+      <button type="reset" class="reset" aria-label="Clear search">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+    </form>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="header-bottom">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/tokens">Tokens</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <a href="../index.html">All</a>
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/tokens">Tokens</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing</a>
+      <a href="/category/figma">Figma</a>
+      <a href="/category/adobe-xd">Adobe XD</a>
+      <a href="/category/mobile">Mobile</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Motion</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </nav>
+  </div>
+</header><!--HEADER_END-->
+
+    <main class="wrap" id="tokens-content" tabindex="-1">
+      <div class="tokens-hero">
+        <span class="tokens-hero__eyebrow">/ builder</span>
+        <h1>Build a palette, not a swatch row.</h1>
+        <p>Assign a semantic role to every color. The contrast checker on the right runs the same accessibility engine as the rest of the library — live, as you go — following <a href="/guide/color-contrast-systems">Color Contrast Is Math, Not Taste</a>.</p>
+      </div>
+
+      <div class="token-mode-tabs" role="tablist">
+        <button type="button" data-step="manual" aria-pressed="true">Manual</button>
+        <button type="button" data-step="image" aria-pressed="false">From an image</button>
+      </div>
+
+      <div class="token-builder">
+        <div>
+          <div class="token-builder__step" data-step-panel="manual" data-active="true">
+            <div class="token-builder__panel">
+              <h2>Roles &amp; colors</h2>
+              <datalist id="role-datalist">
+                <option value="background"></option>
+                <option value="surface"></option>
+                <option value="primary"></option>
+                <option value="secondary"></option>
+                <option value="accent"></option>
+                <option value="text"></option>
+                <option value="border"></option>
+              </datalist>
+              <div id="role-rows"></div>
+              <button type="button" class="token-add-role" id="add-role-btn">+ Add another role</button>
+            </div>
+          </div>
+          <div class="token-builder__step" data-step-panel="image">
+            <div class="token-builder__panel">
+              <h2>Extract from an image</h2>
+              <label class="token-dropzone" id="dropzone" for="image-input">
+                <span>Drop an image here, or click to choose one.<br />Colors are extracted locally in your browser — nothing is uploaded.</span>
+                <input type="file" id="image-input" accept="image/*" />
+              </label>
+              <img class="token-extracted-preview" id="extracted-preview" alt="" />
+              <div class="token-extracted-swatches" id="extracted-swatches"></div>
+              <p class="card-meta" id="extracted-hint" style="margin-top:10px;"></p>
+            </div>
+          </div>
+
+          <div class="token-builder__panel" style="margin-top:24px;">
+            <h2>Name your palette</h2>
+            <div class="token-builder__field">
+              <label for="palette-name">Name</label>
+              <input type="text" id="palette-name" placeholder="e.g. Coastal Fog" />
+            </div>
+            <button type="button" class="btn btn-primary" id="save-palette-btn">Save to your collection</button>
+            <p class="card-meta" style="margin-top:10px;">Saved locally to this browser — see <a href="/tokens/collection">your collection</a>. bpozz doesn't have an account system, so there's no server-side save (or sign-in) yet.</p>
+          </div>
+        </div>
+
+        <div class="token-builder__side">
+          <div class="token-builder__panel">
+            <h2>Live preview</h2>
+            <div class="token-live-preview-mini" id="builder-preview"></div>
+            <div class="token-score-line">
+              <span>Accessibility score</span>
+              <strong id="builder-score">—</strong>
+            </div>
+          </div>
+          <div id="builder-warnings"></div>
+        </div>
+      </div>
+    </main>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../about.html">About</a>
+      <a href="../roadmap.html">Roadmap</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../app.js"></script>
+    <script src="../tokens-color.js"></script>
+    <script src="../tokens-a11y.js"></script>
+    <script src="../tokens-export.js"></script>
+    <script src="../tokens-shared.js"></script>
+    <script src="../tokens-create.js"></script>
+  </body>
+</html>
