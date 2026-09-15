@@ -6,7 +6,7 @@
 
    Load order on every /tokens/*.html page:
      1. ../styles.css          (site tokens, header/footer, .grid/.guide-card,
-                                 .badge, .field/.select-field, .btn, .toast)
+                                 .field/.select-field, .btn, .toast)
      2. ../guide-article.css   (.guide-callout, .guide-cta, --guide-* colors —
                                  reused as-is for the builder's live contrast
                                  warnings and the detail page's guide CTA)
@@ -69,9 +69,13 @@
 
 /* --------------------------------------------------------------------------
    1. Gallery filter bar — the level-style <select> (styles.css's
-   .field/.select-field, reused verbatim) plus a mood-chip row built
-   from the site's real .badge component rather than colorful pills
-   (brief §5 / the Color-Hunt-comparison table in §2).
+   .field/.select-field, reused verbatim) plus a mood-chip row: a
+   bordered toggle button rather than colorful pills (brief §5 / the
+   Color-Hunt-comparison table in §2). Typography matches the site's
+   other real controls (.select-field select, .btn) — plain sans,
+   normal case, weight for emphasis — not the retired mono/uppercase
+   ".badge" label treatment, which was never meant for anything
+   clickable.
    -------------------------------------------------------------------------- */
 .token-filters {
   display: flex;
@@ -87,10 +91,9 @@
   margin-bottom: 24px;
 }
 .token-mood-chip {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text-muted);
   background: transparent;
   border: 1px solid var(--grid-line);
@@ -199,27 +202,19 @@
   width: 15px;
   height: 15px;
 }
-.token-copy-btn {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+/* Plain-text contrast readout, inline inside a meta line — not a
+   bordered/mono chip. The site retired that "badge" look for passive
+   metadata (see guide-article.css's guide-hero__meta comment); state
+   is conveyed with color and weight only, same as the rest of the
+   site's minimal card meta. */
+.token-contrast-text {
+  font-weight: 600;
 }
-.token-contrast-badge {
-  /* Extends .badge — same monospace-chip visual system used for 4.5:1 /
-     WCAG AA on guide thumbnails, not a bespoke pill. */
-  margin-top: 10px;
-  display: inline-flex;
-}
-.token-contrast-badge--pass {
+.token-contrast-text--pass {
   color: var(--guide-success);
-  background: var(--guide-success-bg);
-  border-color: rgba(31, 157, 85, 0.3);
 }
-.token-contrast-badge--fail {
+.token-contrast-text--fail {
   color: var(--guide-danger);
-  background: var(--guide-danger-bg);
-  border-color: rgba(192, 57, 43, 0.3);
 }
 .token-card .card-meta {
   display: flex;
@@ -237,10 +232,12 @@
   border-bottom: 1px solid var(--grid-line);
   margin-bottom: 32px;
 }
+/* Plain text, matching guide-article.css's guide-hero__meta — one
+   "family · moods · contrast" line, not a row of badge chips. */
 .token-detail-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text-muted);
   margin-bottom: 14px;
 }
 .token-detail-hero h1 {
@@ -311,6 +308,14 @@
 }
 .token-breakdown tbody tr:last-child td {
   border-bottom: none;
+}
+.token-breakdown td.token-wcag-pass {
+  color: var(--guide-success);
+  font-weight: 600;
+}
+.token-breakdown td.token-wcag-fail {
+  color: var(--guide-danger);
+  font-weight: 600;
 }
 .token-breakdown__swatch {
   display: inline-block;
@@ -402,10 +407,9 @@
   margin-bottom: 16px;
 }
 .token-mode-toggle button {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
   padding: 8px 14px;
   border: 0;
   background: var(--card);
@@ -426,10 +430,9 @@
   margin-bottom: 0;
 }
 .token-export__tab {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
   padding: 10px 14px;
   border: 0;
   background: transparent;
@@ -603,10 +606,9 @@
 }
 .token-add-role {
   margin-top: 14px;
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
   color: var(--action);
   background: none;
   border: 1px dashed rgba(29, 95, 214, 0.4);

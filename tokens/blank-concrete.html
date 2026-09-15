@@ -192,7 +192,7 @@
     <nav class="site-nav" aria-label="Primary">
       <a href="../index.html">All</a>
       <a href="/category/color-theory">Color Theory</a>
-      <a href="/tokens">Tokens</a>
+      <a href="/tokens" aria-current="page">Tokens</a>
       <a href="/category/typography">Typography</a>
       <a href="/category/spacing">Spacing</a>
       <a href="/category/figma">Figma</a>
@@ -210,7 +210,7 @@
     <nav class="mobile-menu__nav" aria-label="Primary">
       <a href="../index.html">All</a>
       <a href="/category/color-theory">Color Theory</a>
-      <a href="/tokens">Tokens</a>
+      <a href="/tokens" aria-current="page">Tokens</a>
       <a href="/category/typography">Typography</a>
       <a href="/category/spacing">Spacing</a>
       <a href="/category/figma">Figma</a>
@@ -227,11 +227,7 @@
 
     <main class="wrap" id="tokens-content" tabindex="-1">
       <div class="token-detail-hero">
-        <div class="token-detail-hero__meta">
-          <span class="badge">Neutral</span>
-          <span class="badge">Monochrome</span>
-          <span class="badge token-contrast-badge token-contrast-badge--fail" title="secondary on background">2.69:1 Fail</span>
-        </div>
+        <p class="token-detail-hero__meta">Neutral · Monochrome · <span class="token-contrast-text token-contrast-text--fail" title="secondary on background">2.69:1 Fail</span></p>
         <h1>Blank Concrete</h1>
         <p class="card-meta">Weakest pairing: 2.69:1 (Fail) — secondary on background · Added 2026-02-11</p>
         <div class="token-detail-hero__swatches"><div class="token-swatch" style="--tok-hex:#f2f4f4"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Background</strong> #f2f4f4</span></div><div class="token-swatch" style="--tok-hex:#e3e8e6"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Surface</strong> #e3e8e6</span></div><div class="token-swatch" style="--tok-hex:#546c64"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Primary</strong> #546c64</span></div><div class="token-swatch" style="--tok-hex:#879a94"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Secondary</strong> #879a94</span></div><div class="token-swatch" style="--tok-hex:#1e2422"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Text</strong> #1e2422</span></div><div class="token-swatch" style="--tok-hex:#ced6d3"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Border</strong> #ced6d3</span></div></div>
@@ -257,7 +253,7 @@
         <td class="mono">180°, 8%, 95%</td>
         <td class="mono">1.10:1</td>
         <td class="mono">19.02:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#e3e8e6"></span><span class="token-breakdown__role">Surface</span></td>
@@ -266,7 +262,7 @@
         <td class="mono">156°, 10%, 90%</td>
         <td class="mono">1.24:1</td>
         <td class="mono">16.95:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#546c64"></span><span class="token-breakdown__role">Primary</span></td>
@@ -275,7 +271,7 @@
         <td class="mono">160°, 13%, 38%</td>
         <td class="mono">5.67:1</td>
         <td class="mono">3.71:1</td>
-        <td><span class="badge">AA</span></td>
+        <td class="mono token-wcag-pass">AA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#879a94"></span><span class="token-breakdown__role">Secondary</span></td>
@@ -284,7 +280,7 @@
         <td class="mono">161°, 9%, 57%</td>
         <td class="mono">2.97:1</td>
         <td class="mono">7.08:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#1e2422"></span><span class="token-breakdown__role">Text</span></td>
@@ -293,7 +289,7 @@
         <td class="mono">160°, 9%, 13%</td>
         <td class="mono">15.78:1</td>
         <td class="mono">1.33:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#ced6d3"></span><span class="token-breakdown__role">Border</span></td>
@@ -302,7 +298,7 @@
         <td class="mono">157°, 9%, 82%</td>
         <td class="mono">1.48:1</td>
         <td class="mono">14.18:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
         </tbody>
       </table>

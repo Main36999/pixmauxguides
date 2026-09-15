@@ -242,6 +242,8 @@ function breakdownRowHtml(c) {
   const vsWhite = BpozzA11y.contrastRatio(c.hex, "#ffffff");
   const vsBlack = BpozzA11y.contrastRatio(c.hex, "#000000");
   const bestRatio = Math.max(vsWhite, vsBlack);
+  const badge = BpozzA11y.wcagBadge(bestRatio);
+  const wcagClass = badge === "Fail" || badge === "—" ? "token-wcag-fail" : "token-wcag-pass";
   return `<tr>
         <td><span class="token-breakdown__swatch" style="background:${c.hex}"></span><span class="token-breakdown__role">${escapeHtml(BpozzTokens.roleLabel(c.role))}</span></td>
         <td class="mono">${c.hex}</td>
@@ -249,7 +251,7 @@ function breakdownRowHtml(c) {
         <td class="mono">${hsl.h}°, ${hsl.s}%, ${hsl.l}%</td>
         <td class="mono">${BpozzA11y.formatRatio(vsWhite)}</td>
         <td class="mono">${BpozzA11y.formatRatio(vsBlack)}</td>
-        <td><span class="badge">${BpozzA11y.wcagBadge(bestRatio)}</span></td>
+        <td class="mono ${wcagClass}">${badge}</td>
       </tr>`;
 }
 function breakdownTableHtml(colors) {
@@ -346,13 +348,11 @@ function detailPageHtml(p, bySlug, headerPartial, footerPartial) {
     ? `${summary.ratio.toFixed(2)}:1 (${summary.badge}) — ${escapeHtml(summary.pairing)}`
     : "Not enough roles to score";
 
+  const heroMetaText = (BpozzTokens.FAMILY_LABEL[p.family] || p.family) + (moods.length ? " · " + moods.join(", ") : "");
+  const heroContrastText = BpozzTokens.contrastTextHtml(p);
   const mainHtml = `    <main class="wrap" id="tokens-content" tabindex="-1">
       <div class="token-detail-hero">
-        <div class="token-detail-hero__meta">
-          <span class="badge">${escapeHtml(BpozzTokens.FAMILY_LABEL[p.family] || p.family)}</span>
-          ${moods.map((m) => `<span class="badge">${escapeHtml(m)}</span>`).join("")}
-          ${BpozzTokens.contrastBadgeHtml(p)}
-        </div>
+        <p class="token-detail-hero__meta">${escapeHtml(heroMetaText)}${heroContrastText ? " · " + heroContrastText : ""}</p>
         <h1>${escapeHtml(p.name)}</h1>
         <p class="card-meta">Weakest pairing: ${scoreLabel} · Added ${escapeHtml(p.created_at)}</p>
         <div class="token-detail-hero__swatches">${BpozzTokens.swatchesHtml(colors)}</div>

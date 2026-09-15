@@ -176,13 +176,22 @@
     };
   }
 
-  function contrastBadgeHtml(p) {
+  // Plain-text contrast readout, meant to sit inline inside a meta line
+  // (card-meta / hero meta) rather than as a standalone chip. The site
+  // retired the bordered/mono ".badge" look for passive metadata — see
+  // guide-article.css's guide-hero__meta comment, which explains why
+  // that pairing "read as a different, more 'tech-spec' style than the
+  // rest of the site's minimal card meta" — so this renders as colored
+  // text only (no border, no background, no forced monospace),
+  // matching how the rest of the site conveys state through color and
+  // weight rather than a pill.
+  function contrastTextHtml(p) {
     var summary = contrastSummaryFor(p);
     if (!summary) return "";
     var pass = summary.badge !== "Fail";
     return (
-      '<span class="badge token-contrast-badge ' +
-      (pass ? "token-contrast-badge--pass" : "token-contrast-badge--fail") +
+      '<span class="token-contrast-text ' +
+      (pass ? "token-contrast-text--pass" : "token-contrast-text--fail") +
       '" title="' +
       escapeHtml(summary.pairing) +
       '">' +
@@ -215,6 +224,7 @@
       return MOOD_LABEL[m] || m;
     });
     var meta = (FAMILY_LABEL[p.family] || p.family) + (moods.length ? " · " + moods.join(", ") : "");
+    var contrast = contrastTextHtml(p);
     return (
       '<article class="guide-card token-card" data-slug="' +
       escapeHtml(p.slug) +
@@ -230,8 +240,8 @@
       "</a></h3>" +
       '<p class="card-meta">' +
       escapeHtml(meta) +
+      (contrast ? " · " + contrast : "") +
       "</p>" +
-      contrastBadgeHtml(p) +
       '<div class="token-card-actions">' +
       '<button type="button" class="token-icon-btn token-like-btn" data-action="like" data-slug="' +
       escapeHtml(p.slug) +
@@ -444,7 +454,7 @@
     cssVarsStyle: cssVarsStyle,
     swatchesHtml: swatchesHtml,
     contrastSummaryFor: contrastSummaryFor,
-    contrastBadgeHtml: contrastBadgeHtml,
+    contrastTextHtml: contrastTextHtml,
     cardHtml: cardHtml,
     ICONS: ICONS,
     fetchAll: fetchAll,

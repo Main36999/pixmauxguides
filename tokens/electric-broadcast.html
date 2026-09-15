@@ -192,7 +192,7 @@
     <nav class="site-nav" aria-label="Primary">
       <a href="../index.html">All</a>
       <a href="/category/color-theory">Color Theory</a>
-      <a href="/tokens">Tokens</a>
+      <a href="/tokens" aria-current="page">Tokens</a>
       <a href="/category/typography">Typography</a>
       <a href="/category/spacing">Spacing</a>
       <a href="/category/figma">Figma</a>
@@ -210,7 +210,7 @@
     <nav class="mobile-menu__nav" aria-label="Primary">
       <a href="../index.html">All</a>
       <a href="/category/color-theory">Color Theory</a>
-      <a href="/tokens">Tokens</a>
+      <a href="/tokens" aria-current="page">Tokens</a>
       <a href="/category/typography">Typography</a>
       <a href="/category/spacing">Spacing</a>
       <a href="/category/figma">Figma</a>
@@ -227,11 +227,7 @@
 
     <main class="wrap" id="tokens-content" tabindex="-1">
       <div class="token-detail-hero">
-        <div class="token-detail-hero__meta">
-          <span class="badge">Warm</span>
-          <span class="badge">Neon</span>
-          <span class="badge token-contrast-badge token-contrast-badge--pass" title="primary on background">5.28:1 AA</span>
-        </div>
+        <p class="token-detail-hero__meta">Warm · Neon · <span class="token-contrast-text token-contrast-text--pass" title="primary on background">5.28:1 AA</span></p>
         <h1>Electric Broadcast</h1>
         <p class="card-meta">Weakest pairing: 5.28:1 (AA) — primary on background · Added 2026-03-26</p>
         <div class="token-detail-hero__swatches"><div class="token-swatch" style="--tok-hex:#200e12"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Background</strong> #200e12</span></div><div class="token-swatch" style="--tok-hex:#30191f"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Surface</strong> #30191f</span></div><div class="token-swatch" style="--tok-hex:#f8426b"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Primary</strong> #f8426b</span></div><div class="token-swatch" style="--tok-hex:#6cea38"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Secondary</strong> #6cea38</span></div><div class="token-swatch" style="--tok-hex:#49f6ce"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Accent</strong> #49f6ce</span></div><div class="token-swatch" style="--tok-hex:#f1ebec"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Text</strong> #f1ebec</span></div><div class="token-swatch" style="--tok-hex:#542832"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Border</strong> #542832</span></div></div>
@@ -257,7 +253,7 @@
         <td class="mono">347°, 39%, 9%</td>
         <td class="mono">18.54:1</td>
         <td class="mono">1.13:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#30191f"></span><span class="token-breakdown__role">Surface</span></td>
@@ -266,7 +262,7 @@
         <td class="mono">344°, 32%, 14%</td>
         <td class="mono">16.35:1</td>
         <td class="mono">1.28:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#f8426b"></span><span class="token-breakdown__role">Primary</span></td>
@@ -275,7 +271,7 @@
         <td class="mono">346°, 93%, 62%</td>
         <td class="mono">3.51:1</td>
         <td class="mono">5.98:1</td>
-        <td><span class="badge">AA</span></td>
+        <td class="mono token-wcag-pass">AA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#6cea38"></span><span class="token-breakdown__role">Secondary</span></td>
@@ -284,7 +280,7 @@
         <td class="mono">102°, 81%, 57%</td>
         <td class="mono">1.56:1</td>
         <td class="mono">13.46:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#49f6ce"></span><span class="token-breakdown__role">Accent</span></td>
@@ -293,7 +289,7 @@
         <td class="mono">166°, 91%, 63%</td>
         <td class="mono">1.37:1</td>
         <td class="mono">15.36:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#f1ebec"></span><span class="token-breakdown__role">Text</span></td>
@@ -302,7 +298,7 @@
         <td class="mono">350°, 18%, 93%</td>
         <td class="mono">1.18:1</td>
         <td class="mono">17.83:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#542832"></span><span class="token-breakdown__role">Border</span></td>
@@ -311,7 +307,7 @@
         <td class="mono">346°, 35%, 24%</td>
         <td class="mono">12.16:1</td>
         <td class="mono">1.73:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
         </tbody>
       </table>

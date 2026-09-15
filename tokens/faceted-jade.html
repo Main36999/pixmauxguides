@@ -192,7 +192,7 @@
     <nav class="site-nav" aria-label="Primary">
       <a href="../index.html">All</a>
       <a href="/category/color-theory">Color Theory</a>
-      <a href="/tokens">Tokens</a>
+      <a href="/tokens" aria-current="page">Tokens</a>
       <a href="/category/typography">Typography</a>
       <a href="/category/spacing">Spacing</a>
       <a href="/category/figma">Figma</a>
@@ -210,7 +210,7 @@
     <nav class="mobile-menu__nav" aria-label="Primary">
       <a href="../index.html">All</a>
       <a href="/category/color-theory">Color Theory</a>
-      <a href="/tokens">Tokens</a>
+      <a href="/tokens" aria-current="page">Tokens</a>
       <a href="/category/typography">Typography</a>
       <a href="/category/spacing">Spacing</a>
       <a href="/category/figma">Figma</a>
@@ -227,11 +227,7 @@
 
     <main class="wrap" id="tokens-content" tabindex="-1">
       <div class="token-detail-hero">
-        <div class="token-detail-hero__meta">
-          <span class="badge">Cool</span>
-          <span class="badge">Jewel</span>
-          <span class="badge token-contrast-badge token-contrast-badge--pass" title="secondary on background">4.75:1 AA</span>
-        </div>
+        <p class="token-detail-hero__meta">Cool · Jewel · <span class="token-contrast-text token-contrast-text--pass" title="secondary on background">4.75:1 AA</span></p>
         <h1>Faceted Jade</h1>
         <p class="card-meta">Weakest pairing: 4.75:1 (AA) — secondary on background · Added 2026-01-30</p>
         <div class="token-detail-hero__swatches"><div class="token-swatch" style="--tok-hex:#182212"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Background</strong> #182212</span></div><div class="token-swatch" style="--tok-hex:#273d19"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Surface</strong> #273d19</span></div><div class="token-swatch" style="--tok-hex:#5ba42e"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Primary</strong> #5ba42e</span></div><div class="token-swatch" style="--tok-hex:#3794b5"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Secondary</strong> #3794b5</span></div><div class="token-swatch" style="--tok-hex:#5f67d5"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Accent</strong> #5f67d5</span></div><div class="token-swatch" style="--tok-hex:#ebeee9"><span class="token-swatch__label" style="--tok-label-color:rgba(0,0,0,0.62)"><strong>Text</strong> #ebeee9</span></div><div class="token-swatch" style="--tok-hex:#345221"><span class="token-swatch__label" style="--tok-label-color:rgba(255,255,255,0.85)"><strong>Border</strong> #345221</span></div></div>
@@ -257,7 +253,7 @@
         <td class="mono">98°, 31%, 10%</td>
         <td class="mono">16.45:1</td>
         <td class="mono">1.28:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#273d19"></span><span class="token-breakdown__role">Surface</span></td>
@@ -266,7 +262,7 @@
         <td class="mono">97°, 42%, 17%</td>
         <td class="mono">11.88:1</td>
         <td class="mono">1.77:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#5ba42e"></span><span class="token-breakdown__role">Primary</span></td>
@@ -275,7 +271,7 @@
         <td class="mono">97°, 56%, 41%</td>
         <td class="mono">3.09:1</td>
         <td class="mono">6.79:1</td>
-        <td><span class="badge">AA</span></td>
+        <td class="mono token-wcag-pass">AA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#3794b5"></span><span class="token-breakdown__role">Secondary</span></td>
@@ -284,7 +280,7 @@
         <td class="mono">196°, 53%, 46%</td>
         <td class="mono">3.46:1</td>
         <td class="mono">6.07:1</td>
-        <td><span class="badge">AA</span></td>
+        <td class="mono token-wcag-pass">AA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#5f67d5"></span><span class="token-breakdown__role">Accent</span></td>
@@ -293,7 +289,7 @@
         <td class="mono">236°, 58%, 60%</td>
         <td class="mono">4.79:1</td>
         <td class="mono">4.39:1</td>
-        <td><span class="badge">AA</span></td>
+        <td class="mono token-wcag-pass">AA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#ebeee9"></span><span class="token-breakdown__role">Text</span></td>
@@ -302,7 +298,7 @@
         <td class="mono">96°, 13%, 92%</td>
         <td class="mono">1.17:1</td>
         <td class="mono">17.94:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
           <tr>
         <td><span class="token-breakdown__swatch" style="background:#345221"></span><span class="token-breakdown__role">Border</span></td>
@@ -311,7 +307,7 @@
         <td class="mono">97°, 43%, 23%</td>
         <td class="mono">8.84:1</td>
         <td class="mono">2.37:1</td>
-        <td><span class="badge">AAA</span></td>
+        <td class="mono token-wcag-pass">AAA</td>
       </tr>
         </tbody>
       </table>
