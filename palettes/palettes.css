@@ -1,0 +1,186 @@
+/**
+ * palettes.css
+ * -----------------------------------------------------------------------
+ * Styles for /palettes only. Deliberately separate from tokens.css:
+ * that file backs the richer "palette as a token system" feature at
+ * /tokens (semantic roles, WCAG scoring, multi-format export) and
+ * pulls in matching visual weight (score badges, role labels, filter
+ * chips). /palettes is the opposite brief on purpose — a fast, Color
+ * Hunt-style grid with nothing to configure — so it gets its own small
+ * stylesheet instead of borrowing tokens.css and then stripping half
+ * of it back out. Reuses only the site-wide primitives from styles.css
+ * (--ink/--action/--paper/--card/--radius/--sans/--grid-line/--text/
+ * --text-muted, .wrap, .btn, .toast) — no legacy .badge anywhere here.
+ * -----------------------------------------------------------------------
+ */
+
+/* ---------- hero ---------- */
+.palettes-hero {
+  padding: 40px 0 8px;
+}
+.palettes-hero__eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--action);
+  margin-bottom: 10px;
+}
+.palettes-hero h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.palettes-hero p {
+  max-width: 640px;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ---------- sort tabs ---------- */
+.palettes-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 24px 0 20px;
+  border-bottom: 1px solid var(--grid-line);
+}
+.palettes-tab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 14px 12px;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.palettes-tab:hover {
+  color: var(--ink);
+}
+.palettes-tab[aria-pressed="true"] {
+  color: var(--action);
+  border-bottom-color: var(--action);
+}
+
+/* ---------- grid ---------- */
+.palettes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  padding-bottom: 48px;
+}
+@media (max-width: 960px) {
+  .palettes-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .palettes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+@media (max-width: 460px) {
+  .palettes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- card ---------- */
+.palette-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+}
+.palette-card__bars {
+  display: flex;
+  height: 150px;
+}
+.palette-swatch {
+  flex: 1 1 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: var(--sw-hex);
+  position: relative;
+}
+.palette-swatch:focus-visible {
+  outline-offset: -3px;
+}
+.palette-swatch__hex {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6px 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: var(--sw-label);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.palette-swatch:hover .palette-swatch__hex,
+.palette-swatch:focus-visible .palette-swatch__hex {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.palette-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+}
+.palette-like-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--sans);
+}
+.palette-like-btn svg {
+  width: 19px;
+  height: 19px;
+  transition: transform 0.12s ease;
+}
+.palette-like-btn:hover svg {
+  transform: scale(1.08);
+}
+.palette-like-btn[aria-pressed="true"] {
+  color: #e0245e;
+}
+.palette-like-btn[aria-pressed="true"] svg {
+  fill: #e0245e;
+  stroke: #e0245e;
+}
+.palette-like-btn:active svg {
+  transform: scale(0.9);
+}
+
+.palette-card__note {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Empty/error state reuses the site-wide .empty-state component from
+   styles.css (display:none by default, [data-visible="true"] shows
+   it) — nothing to add here. */

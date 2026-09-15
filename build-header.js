@@ -226,6 +226,9 @@ function main() {
     if (relPath === "tokens/index.html" || relPath.startsWith("tokens/")) {
       headerHtml = markCurrent(headerHtml, "/tokens");
     }
+    if (relPath === "palettes/index.html" || relPath.startsWith("palettes/")) {
+      headerHtml = markCurrent(headerHtml, "/palettes");
+    }
     const result = replaceBetween(
       original,
       START_MARKER,
