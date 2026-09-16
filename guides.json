@@ -6,7 +6,7 @@
     "readTime": 11,
     "title": "Whitespace as a UI Component, Not a Leftover",
     "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning \u2014 not whatever's left over after everything else is placed.",
-    "thumbnail": "/thumbnail_image/Whitespace as a UI Component, Not a Leftover_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Whitespace as a UI Component, Not a Leftover.png",
     "roadmapStage": 1,
     "roadmapStep": 1
   },
@@ -17,7 +17,7 @@
     "readTime": 8,
     "title": "Padding and Margin Are Different Jobs, Not Interchangeable Values",
     "description": "Padding as internal breathing room vs. margin as separation, and the token-naming split that keeps the two from getting swapped.",
-    "thumbnail": "/thumbnail_image/Padding and Margin Are Different Jobs, Not Interchangeable Values_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Padding and Margin Are Different Jobs, Not Interchangeable Values.png",
     "roadmapStage": 1,
     "roadmapStep": 1.5
   },
@@ -28,7 +28,7 @@
     "readTime": 10,
     "title": "Color Contrast Is Math, Not Taste",
     "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
-    "thumbnail": "/thumbnail_image/Color Contrast Is Math, Not Taste_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Color Contrast Is Math, Not Taste.png",
     "roadmapStage": 1,
     "roadmapStep": 3
   },
@@ -39,7 +39,7 @@
     "readTime": 14,
     "title": "A Color Palette Is a Token System, Not a Row of Swatches",
     "description": "Why HSL's lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.",
-    "thumbnail": "/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches_thumbnail.png",
+    "thumbnail": "/thumbnail_image/A Color Palette Is a Token System, Not a Row of Swatches.png",
     "roadmapStage": 2,
     "roadmapStep": 6
   },
@@ -50,7 +50,7 @@
     "readTime": 12,
     "title": "Font Size Is a Formula, Not a Feeling",
     "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
-    "thumbnail": "/thumbnail_image/Font Size Is a Formula, Not a Feeling_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Font Size Is a Formula, Not a Feeling.png",
     "roadmapStage": 2,
     "roadmapStep": 4
   },
@@ -61,7 +61,7 @@
     "readTime": 15,
     "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
     "description": "The mental model behind Figma's most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.",
-    "thumbnail": "/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Auto Layout Is a Constraint System, Not a Convenience Toggle.png",
     "roadmapStage": 3,
     "roadmapStep": 8
   },
@@ -72,7 +72,7 @@
     "readTime": 16,
     "title": "Accessibility Is a Structural Decision, Not a Final Pass",
     "description": "How the accessibility tree actually gets built from markup, how a control's accessible name is computed, ARIA's real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses.",
-    "thumbnail": "/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass.png",
     "roadmapStage": 3,
     "roadmapStep": 10
   },
@@ -83,7 +83,7 @@
     "readTime": 17,
     "title": "Design Tokens Are a Naming System, Not a Style Guide",
     "description": "The part of a design system that actually decides whether it survives a rebrand: primitive, semantic, and component token tiers, the aliasing chain between them, and the naming rules that keep tokens from drifting back into hardcoded values.",
-    "thumbnail": "/thumbnail_image/Design Tokens Are a Naming System, Not a Style Guide_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Design Tokens Are a Naming System, Not a Style Guide.png",
     "roadmapStage": 4,
     "roadmapStep": 11
   },
@@ -94,7 +94,7 @@
     "readTime": 18,
     "title": "Responsive Layout Is a Contract, Not a Breakpoint List",
     "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.",
-    "thumbnail": "/thumbnail_image/Responsive Layout Is a Contract, Not a Breakpoint List_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Responsive Layout Is a Contract, Not a Breakpoint List.png",
     "roadmapStage": 3,
     "roadmapStep": 9
   },
@@ -105,7 +105,7 @@
     "readTime": 15,
     "title": "Motion Timing Is a Physics Model, Not a Preset",
     "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
-    "thumbnail": "/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Motion Timing Is a Physics Model, Not a Preset.png",
     "roadmapStage": 4,
     "roadmapStep": 12
   },
@@ -116,7 +116,7 @@
     "readTime": 12,
     "title": "Dark Mode Is a Second Palette, Not an Inverted Filter",
     "description": "Elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch.",
-    "thumbnail": "/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Dark Mode Is a Second Palette, Not an Inverted Filter.png",
     "roadmapStage": 2,
     "roadmapStep": 7
   },
@@ -127,7 +127,7 @@
     "readTime": 11,
     "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match",
     "description": "Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a \"creative\" pairing.",
-    "thumbnail": "/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Font Pairing Is a Hierarchy Decision, Not a Personality Match.png",
     "roadmapStage": 2,
     "roadmapStep": 5
   },
@@ -138,7 +138,7 @@
     "readTime": 9,
     "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
     "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
-    "thumbnail": "/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Line Length Is a Reading Constraint, Not a Layout Afterthought.png",
     "roadmapStage": 1,
     "roadmapStep": 2
   },
@@ -149,7 +149,7 @@
     "readTime": 14,
     "title": "Grid Systems Are a Rhythm, Not a Ruler",
     "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
-    "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Grid Systems Are a Rhythm, Not a Ruler.png",
     "roadmapStage": 3,
     "roadmapStep": 8.5
   },
@@ -160,7 +160,7 @@
     "readTime": 16,
     "title": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
     "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.",
-    "thumbnail": "/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Components and Variants Are a Contract, Not a Copy-Paste Shortcut.png",
     "roadmapStage": 3,
     "roadmapStep": 8.25
   },
@@ -171,7 +171,7 @@
     "readTime": 15,
     "title": "Figma Variables Are a Data Layer, Not Just Color Styles",
     "description": "Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.",
-    "thumbnail": "/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Figma Variables Are a Data Layer, Not Just Color Styles.png",
     "roadmapStage": 4,
     "roadmapStep": 10.5
   },
@@ -182,7 +182,7 @@
     "readTime": 14,
     "title": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
     "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.",
-    "thumbnail": "/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Figma-to-Code Handoff Is a Translation, Not a Screenshot.png",
     "roadmapStage": 3,
     "roadmapStep": 8.4
   },
@@ -193,7 +193,7 @@
     "readTime": 10,
     "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have",
     "description": "Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.",
-    "thumbnail": "/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.png",
     "roadmapStage": 3,
     "roadmapStep": 9.5
   },
@@ -204,7 +204,7 @@
     "readTime": 12,
     "title": "Migrating From XD Is a Rebuild, Not a File Import",
     "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) \u2014 a practical checklist.",
-    "thumbnail": "/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import_thumbnail.png"
+    "thumbnail": "/thumbnail_image/Migrating From XD Is a Rebuild, Not a File Import.png"
   },
   {
     "id": "ios-android-different-systems",
@@ -213,7 +213,7 @@
     "readTime": 17,
     "title": "iOS and Android Are Different Systems, Not One Design Reused Twice",
     "description": "Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.",
-    "thumbnail": "/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice_thumbnail.png",
+    "thumbnail": "/thumbnail_image/iOS and Android Are Different Systems, Not One Design Reused Twice.png",
     "roadmapStage": 3,
     "roadmapStep": 9.75
   },
@@ -224,7 +224,7 @@
     "readTime": 15,
     "title": "CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps",
     "description": "Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent's rhythm.",
-    "thumbnail": "/thumbnail_image/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps_thumbnail.png"
+    "thumbnail": "/thumbnail_image/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps.png"
   },
   {
     "id": "mobile-breakpoints-device-categories",
@@ -233,7 +233,7 @@
     "readTime": 13,
     "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
     "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
-    "thumbnail": "/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels_thumbnail.png",
+    "thumbnail": "/thumbnail_image/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.png",
     "roadmapStage": 3,
     "roadmapStep": 9.25
   }

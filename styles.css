@@ -894,7 +894,7 @@ body:has(#mobile-menu:not([hidden])) {
   position: relative;
   aspect-ratio: 4 / 3;
   border-radius: 10px;
-  background-color: #eef2f8;
+  background-color: #e5e5e7;
   display: flex;
   align-items: center;
   justify-content: center;
