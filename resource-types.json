@@ -2,10 +2,10 @@
   {
     "type": "guide",
     "label": "Guides",
-    "landingUrl": "/#guides",
+    "landingUrl": "/guides",
     "nav": true,
-    "activePaths": ["guide/", "category/"],
-    "home": null
+    "activePaths": ["guide/", "guides/", "category/"],
+    "home": { "order": 0, "limit": 10, "sort": "roadmap" }
   },
   {
     "type": "token",

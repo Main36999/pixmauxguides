@@ -2,17 +2,28 @@
 /**
  * build-home.js
  * -----------------------------------------------------------------------
- * Pre-renders three pieces of static HTML at build time:
- *   - the homepage guide grid (index.html #grid-root), from guides.json —
- *     the exact same markup app.js's cardHtml() would produce client-side.
+ * Pre-renders three pages' worth of static HTML at build time:
+ *   - the Guides collection (guides/index.html — Phase 6): the full guide
+ *     grid (#grid-root, between GUIDES_GRID_START/END), its results count
+ *     (RESULTS_COUNT) and the category-discovery links
+ *     (GUIDE_CATEGORIES_START/END), from guides.json + categories.json.
+ *     The grid is the exact same markup app.js's cardHtml() would produce
+ *     client-side.
  *   - the homepage resource sections (index.html, between
  *     RESOURCE_SECTIONS_START/END — Phase 5), from resource-types.json +
- *     content-index.json. See "Homepage resource sections" below.
+ *     content-index.json (+ guides.json for the Guides section's cards and
+ *     roadmap ordering). See "Homepage resource sections" below. Since
+ *     Phase 6 the homepage no longer carries the full guide grid; its
+ *     Guides section is a 10-card "Featured Guides" preview.
  *   - the learning roadmap, which lives on its own page (roadmap.html
  *     #roadmap) rather than as a section of the homepage. It has no
  *     client-side equivalent at all (see the ROADMAP_STAGES section
  *     below) — app.js only layers "mark as read" checkbox/progress-bar
  *     behavior on top of what this script writes.
+ *
+ * Every marker pair is required: a missing marker in any of the three
+ * files fails the build with the file and marker named, instead of
+ * silently skipping that region.
  *
  * WHY THIS EXISTS
  * Previously #grid-root started empty and was only filled in by
@@ -20,9 +31,9 @@
  * guide list — and the site's core content — didn't exist in the raw
  * HTML at all until JavaScript ran. This script closes that gap:
  * guides.json stays the single source of truth, but running this
- * script writes its contents into index.html and roadmap.html as
- * plain HTML, so both pages are fully readable with JavaScript off
- * and by any crawler that doesn't execute JS.
+ * script writes its contents into guides/index.html, index.html and
+ * roadmap.html as plain HTML, so those pages are fully readable with
+ * JavaScript off and by any crawler that doesn't execute JS.
  *
  * app.js is otherwise UNCHANGED and still fetches guides.json on load
  * and re-renders #grid-root for live search/filter/category
@@ -36,8 +47,9 @@
  *   node build-home.js
  *
  * Run this locally (or as your host's build command) every time
- * guides.json, content-index.json or resource-types.json changes, before
- * you deploy/commit index.html and roadmap.html. Since Phase 5 this reads
+ * guides.json, categories.json, content-index.json or resource-types.json
+ * changes, before you deploy/commit guides/index.html, index.html and
+ * roadmap.html. Since Phase 5 this reads
  * content-index.json, so run `node build-content-index.js` first whenever
  * guides.json / tokens.json / palettes/palettes-data.json change (full
  * order: bpozz-phase-5-handoff.md, "Build commands").
@@ -51,7 +63,9 @@ const path = require("path");
 
 const ROOT = __dirname;
 const GUIDES_JSON_PATH = path.join(ROOT, "guides.json");
+const CATEGORIES_JSON_PATH = path.join(ROOT, "categories.json");
 const INDEX_HTML_PATH = path.join(ROOT, "index.html");
+const GUIDES_HTML_PATH = path.join(ROOT, "guides", "index.html");
 const ROADMAP_HTML_PATH = path.join(ROOT, "roadmap.html");
 const CONTENT_INDEX_PATH = path.join(ROOT, "content-index.json");
 const RESOURCE_TYPES_PATH = path.join(ROOT, "resource-types.json");
@@ -324,10 +338,12 @@ function formatRoadmapTime(totalMinutes) {
   return `~${h}h ${m}m`;
 }
 
-// Builds every piece build-home.js needs to splice into roadmap.html's
-// #roadmap section: the stage-by-stage markup, plus the small stats
-// (stage count / guide count / total reading time) shown above it.
-function buildRoadmap(guides) {
+// The roadmap's grouping/ordering, shared by buildRoadmap() (roadmap.html)
+// and roadmapOrder() (the homepage's Featured Guides section, Phase 6), so
+// both read guides in exactly one order. Guides with a numeric
+// `roadmapStage` are sorted by `roadmapStep`, grouped by stage, and the
+// stages are kept in ROADMAP_STAGES order.
+function groupRoadmap(guides) {
   const roadmapGuides = guides
     .filter((g) => typeof g.roadmapStage === "number")
     .slice()
@@ -340,6 +356,21 @@ function buildRoadmap(guides) {
   });
 
   const stagesUsed = ROADMAP_STAGES.filter((s) => byStage.has(s.id));
+  return { roadmapGuides, byStage, stagesUsed };
+}
+
+// The guides in the order roadmap.html displays them: stage by stage,
+// step by step. Guides not on the roadmap are not included.
+function roadmapOrder(guides) {
+  const { byStage, stagesUsed } = groupRoadmap(guides);
+  return stagesUsed.reduce((ordered, s) => ordered.concat(byStage.get(s.id)), []);
+}
+
+// Builds every piece build-home.js needs to splice into roadmap.html's
+// #roadmap section: the stage-by-stage markup, plus the small stats
+// (stage count / guide count / total reading time) shown above it.
+function buildRoadmap(guides) {
+  const { roadmapGuides, byStage, stagesUsed } = groupRoadmap(guides);
   const stagesHtml = stagesUsed
     .map((s) => roadmapStageHtml(s, byStage.get(s.id)))
     .join("");
@@ -358,19 +389,20 @@ function buildRoadmap(guides) {
 }
 
 // ---------------------------------------------------------------------
-// Homepage resource sections (Phase 5)
+// Homepage resource sections (Phase 5; Guides added in Phase 6)
 // ---------------------------------------------------------------------
-// index.html is still the Guides landing page: the guide grid above
-// (#grid-root, the Level filter, app.js's client-side render) is left
-// exactly as it was — the transitional exception until a dedicated
-// Guides page is intentionally designed. Every OTHER shipped resource
-// type is previewed below it in a generated "resource section", one per
-// resource-types.json entry whose `home` is an object (Guides' entry has
-// `home: null`, which is how it opts out of this loop).
+// The homepage is a discovery surface. Every shipped resource type is
+// previewed in a generated "resource section", one per
+// resource-types.json entry whose `home` is an object (`home: null` opts a
+// type out of this loop). Since Phase 6 that includes Guides (Featured
+// Guides, `sort: "roadmap"`); the full, filterable guide grid lives on
+// the Guides collection, guides/index.html (see buildGuidesHtml()).
 //
 // These sections are written between RESOURCE_SECTIONS_START/END, which
-// sit inside <main id="guides"> but OUTSIDE #grid-root — app.js replaces
-// #grid-root's innerHTML on load, so anything inside it would be wiped.
+// sit inside the homepage's <main id="guides">. The homepage has no
+// #grid-root since Phase 6; never put these sections inside one — app.js
+// replaces #grid-root's innerHTML on load, so anything inside it would be
+// wiped.
 // They're build-time only: no JS, no Firebase, no like/copy controls
 // (those belong to the Tokens/Palettes apps themselves).
 //
@@ -379,11 +411,17 @@ function buildRoadmap(guides) {
 // bespoke card below falls back to genericCardHtml(). A type with zero
 // records renders nothing (no empty/placeholder section).
 //
-// SORTS mirror each gallery's own client-side sort exactly, so a section
-// shows the same leading items that gallery shows for that sort:
+// SORTS mirror each collection's own existing ordering exactly, so a
+// section shows the same leading items that collection shows:
 //   popular — tokens-gallery.js getSorted() "popular"
 //   latest  — palettes/palettes.js sortedList() "new"
-// Array.prototype.sort is stable, so ties keep content-index.json order.
+//   roadmap — roadmap.html's reading order (groupRoadmap() above); Guides
+//             only. guides.json has no date or popularity, so Guides are
+//             never given a popular/latest sort. Guides that aren't on the
+//             roadmap sort after every roadmap guide, in guides.json order.
+// Each entry is a factory returning the comparator, given the build
+// context (only `roadmap` uses it). Array.prototype.sort is stable, so
+// ties keep content-index.json order.
 //
 // TWIN EXCLUSION
 // Every palette is a 1:1 "twin" of a token (build-content-index.js
@@ -398,17 +436,34 @@ function buildRoadmap(guides) {
 // without `colors` are never affected.
 
 const HOME_SORTS = {
-  popular: function (a, b) {
-    return (b.popularity || 0) - (a.popularity || 0);
+  popular: function () {
+    return function (a, b) {
+      return (b.popularity || 0) - (a.popularity || 0);
+    };
   },
-  latest: function (a, b) {
-    return (b.date || "").localeCompare(a.date || "");
+  latest: function () {
+    return function (a, b) {
+      return (b.date || "").localeCompare(a.date || "");
+    };
+  },
+  roadmap: function (context) {
+    const rank = context.roadmapRank;
+    const rankOf = function (record) {
+      return rank.has(record.slug) ? rank.get(record.slug) : rank.size;
+    };
+    return function (a, b) {
+      return rankOf(a) - rankOf(b);
+    };
   },
 };
 
-// Section label prefix per sort, in the homepage's existing "/ all_guides"
-// / "/ trending_categories" label style — e.g. "/ popular_tokens".
-const SORT_LABEL = { popular: "popular", latest: "latest" };
+// Sorts that only make sense for one resource type.
+const SORT_TYPE_ONLY = { roadmap: "guide" };
+
+// Section label prefix per sort, in the homepage's existing
+// "/ trending_categories" label style — e.g. "/ popular_tokens",
+// "/ featured_guides".
+const SORT_LABEL = { popular: "popular", latest: "latest", roadmap: "featured" };
 
 const HEX_RE = /^#[0-9a-f]{6}$/i;
 
@@ -455,6 +510,14 @@ function loadResourceTypes() {
     if (!Object.prototype.hasOwnProperty.call(HOME_SORTS, home.sort)) {
       throw new Error(
         `${where}.home.sort must be one of: ${Object.keys(HOME_SORTS).join(", ")}`,
+      );
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(SORT_TYPE_ONLY, home.sort) &&
+      SORT_TYPE_ONLY[home.sort] !== entry.type
+    ) {
+      throw new Error(
+        `${where}.home.sort "${home.sort}" is only valid for type "${SORT_TYPE_ONLY[home.sort]}"`,
       );
     }
     if (typeof entry.landingUrl !== "string" || !entry.landingUrl.trim()) {
@@ -559,7 +622,23 @@ function genericCardHtml(record) {
   );
 }
 
+// Guide (Phase 6): the exact card the /guides grid uses — cardHtml() on
+// the guides.json entry matching the content-index record — so Featured
+// Guides and the collection can never drift apart. Links to /guide/<id>.
+function guideCardHtml(record, context) {
+  const guide = context.guidesById.get(record.slug);
+  if (!guide) {
+    throw new Error(
+      `content-index record "${record.id}" has no matching guides.json entry — run build-content-index.js first`,
+    );
+  }
+  return cardHtml(guide);
+}
+
+// Renderers receive (record, context); token/palette cards only need the
+// record.
 const CARD_RENDERERS = {
+  guide: guideCardHtml,
   token: tokenCardHtml,
   palette: paletteCardHtml,
 };
@@ -572,7 +651,7 @@ function sectionLabelSlug(entry) {
   return `${SORT_LABEL[entry.home.sort]}_${words}`;
 }
 
-function resourceSectionHtml(entry, records, total) {
+function resourceSectionHtml(entry, records, total, context) {
   const headingId = `resource-section-${entry.type}`;
   const render = CARD_RENDERERS[entry.type] || genericCardHtml;
   return (
@@ -584,12 +663,16 @@ function resourceSectionHtml(entry, records, total) {
     `<a class="resource-section__all" href="${escapeHtml(entry.landingUrl)}" aria-label="View all ${escapeHtml(entry.label)}">View all<span aria-hidden="true"> →</span></a>` +
     `</div>` +
     `</div>` +
-    `<div class="grid">${records.map(render).join("")}</div>` +
+    `<div class="grid">${records
+      .map(function (record) {
+        return render(record, context);
+      })
+      .join("")}</div>` +
     `</section>`
   );
 }
 
-function buildResourceSections(registry, contentIndex) {
+function buildResourceSections(registry, contentIndex, context) {
   const entries = registry
     .filter(function (entry) {
       return entry.home;
@@ -607,7 +690,7 @@ function buildResourceSections(registry, contentIndex) {
     const all = contentIndex.filter(function (record) {
       return record.type === entry.type;
     });
-    const sorted = all.slice().sort(HOME_SORTS[entry.home.sort]);
+    const sorted = all.slice().sort(HOME_SORTS[entry.home.sort](context));
     const picked = [];
     let twinsSkipped = 0;
     for (const record of sorted) {
@@ -628,7 +711,7 @@ function buildResourceSections(registry, contentIndex) {
       summary.push(`${entry.type}: 0 records — section omitted`);
       return;
     }
-    sectionsHtml.push(resourceSectionHtml(entry, picked, all.length));
+    sectionsHtml.push(resourceSectionHtml(entry, picked, all.length, context));
     summary.push(
       `${entry.type}: ${picked.length} of ${all.length} (${entry.home.sort}` +
         (twinsSkipped ? `, ${twinsSkipped} twin${twinsSkipped === 1 ? "" : "s"} skipped` : "") +
@@ -640,15 +723,70 @@ function buildResourceSections(registry, contentIndex) {
 }
 
 // ---------------------------------------------------------------------
+// Guides collection: category discovery (guides/index.html — Phase 6)
+// ---------------------------------------------------------------------
+// One link per guide category, from categories.json (sorted by `order`,
+// labeled with the full `name`, linked as /category/<slug> — the same URL
+// form as the footer's category row). A category is listed only if at
+// least one guide in guides.json has it as its `category`: that is the
+// rule build-categories.js uses to decide whether /category/<slug> exists,
+// so a listed link never points at a page that isn't built. (This script
+// runs before build-categories.js, so it can't check the file on disk the
+// way build-footer.js does.)
+
+function loadGuideCategories(guides) {
+  const categories = readJson(CATEGORIES_JSON_PATH, "categories.json");
+  if (!Array.isArray(categories)) {
+    throw new Error("categories.json did not contain an array");
+  }
+  categories.forEach(function (category, i) {
+    if (!category || typeof category.slug !== "string" || !/^[a-z0-9-]+$/.test(category.slug)) {
+      throw new Error(`categories.json[${i}] has no valid slug`);
+    }
+    if (typeof category.name !== "string" || !category.name.trim()) {
+      throw new Error(`categories.json[${i}] ("${category.slug}") has no name`);
+    }
+  });
+  const withGuides = new Set(
+    guides.map(function (g) {
+      return g.category;
+    }),
+  );
+  const sorted = categories.slice().sort(function (a, b) {
+    return (a.order || 0) - (b.order || 0);
+  });
+  return {
+    listed: sorted.filter(function (category) {
+      return withGuides.has(category.slug);
+    }),
+    skipped: sorted
+      .filter(function (category) {
+        return !withGuides.has(category.slug);
+      })
+      .map(function (category) {
+        return category.slug;
+      }),
+  };
+}
+
+function guideCategoriesHtml(categories) {
+  return categories
+    .map(function (category) {
+      return `<li><a href="/category/${escapeHtml(category.slug)}">${escapeHtml(category.name)}</a></li>`;
+    })
+    .join("");
+}
+
+// ---------------------------------------------------------------------
 // Build
 // ---------------------------------------------------------------------
 
-function replaceBetween(html, startMarker, endMarker, replacement) {
+function replaceBetween(html, startMarker, endMarker, replacement, fileLabel) {
   const start = html.indexOf(startMarker);
   const end = html.indexOf(endMarker);
   if (start === -1 || end === -1 || end < start) {
     throw new Error(
-      `Could not find markers ${startMarker} / ${endMarker} in index.html — did the file structure change?`,
+      `Could not find markers ${startMarker} / ${endMarker} in ${fileLabel} — did the file structure change?`,
     );
   }
   return (
@@ -656,15 +794,37 @@ function replaceBetween(html, startMarker, endMarker, replacement) {
   );
 }
 
-function buildIndexHtml(guides, resourceSections) {
+// Homepage (Phase 6): only the generated resource sections. The full guide
+// grid, its results count and the Level filter moved to guides/index.html.
+function buildIndexHtml(resourceSections) {
   let html = fs.readFileSync(INDEX_HTML_PATH, "utf8");
 
-  const cardsHtml = guides.map(cardHtml).join("");
   html = replaceBetween(
     html,
-    "<!--GUIDES_GRID_START-->",
-    "<!--GUIDES_GRID_END-->",
-    cardsHtml,
+    "<!--RESOURCE_SECTIONS_START-->",
+    "<!--RESOURCE_SECTIONS_END-->",
+    resourceSections.html,
+    "index.html",
+  );
+
+  fs.writeFileSync(INDEX_HTML_PATH, html);
+  console.log(
+    `✓ index.html updated — ${resourceSections.count} resource section${resourceSections.count === 1 ? "" : "s"} (${resourceSections.summary.join("; ")}).`,
+  );
+}
+
+// Guides collection (Phase 6): the full guide grid + count (moved here from
+// the homepage unchanged) and the category-discovery links.
+function buildGuidesHtml(guides, guideCategories) {
+  const label = "guides/index.html";
+  let html = fs.readFileSync(GUIDES_HTML_PATH, "utf8");
+
+  html = replaceBetween(
+    html,
+    "<!--GUIDE_CATEGORIES_START-->",
+    "<!--GUIDE_CATEGORIES_END-->",
+    guideCategoriesHtml(guideCategories.listed),
+    label,
   );
 
   html = replaceBetween(
@@ -672,23 +832,32 @@ function buildIndexHtml(guides, resourceSections) {
     "<!--RESULTS_COUNT-->",
     "<!--/RESULTS_COUNT-->",
     `Showing ${guides.length} of ${guides.length} guides`,
+    label,
   );
 
+  const cardsHtml = guides.map(cardHtml).join("");
   html = replaceBetween(
     html,
-    "<!--RESOURCE_SECTIONS_START-->",
-    "<!--RESOURCE_SECTIONS_END-->",
-    resourceSections.html,
+    "<!--GUIDES_GRID_START-->",
+    "<!--GUIDES_GRID_END-->",
+    cardsHtml,
+    label,
   );
 
-  fs.writeFileSync(INDEX_HTML_PATH, html);
+  fs.writeFileSync(GUIDES_HTML_PATH, html);
   console.log(
-    `✓ index.html updated — ${guides.length} guide${guides.length === 1 ? "" : "s"} pre-rendered into #grid-root; ` +
-      `${resourceSections.count} resource section${resourceSections.count === 1 ? "" : "s"} (${resourceSections.summary.join("; ")}).`,
+    `✓ ${label} updated — ${guides.length} guide${guides.length === 1 ? "" : "s"} pre-rendered into #grid-root; ` +
+      `${guideCategories.listed.length} category link${guideCategories.listed.length === 1 ? "" : "s"}.`,
   );
+  if (guideCategories.skipped.length) {
+    console.warn(
+      `⚠ No guides in categories: ${guideCategories.skipped.join(", ")} — left out of ${label} (build-categories.js builds no page for them).`,
+    );
+  }
 }
 
 function buildRoadmapHtml(guides) {
+  const label = "roadmap.html";
   let html = fs.readFileSync(ROADMAP_HTML_PATH, "utf8");
 
   const roadmap = buildRoadmap(guides);
@@ -697,24 +866,28 @@ function buildRoadmapHtml(guides) {
     "<!--ROADMAP_STAGES_START-->",
     "<!--ROADMAP_STAGES_END-->",
     roadmap.stagesHtml,
+    label,
   );
   html = replaceBetween(
     html,
     "<!--ROADMAP_STAGE_COUNT-->",
     "<!--/ROADMAP_STAGE_COUNT-->",
     String(roadmap.stageCount),
+    label,
   );
   html = replaceBetween(
     html,
     "<!--ROADMAP_GUIDE_COUNT-->",
     "<!--/ROADMAP_GUIDE_COUNT-->",
     String(roadmap.guideCount),
+    label,
   );
   html = replaceBetween(
     html,
     "<!--ROADMAP_TOTAL_TIME-->",
     "<!--/ROADMAP_TOTAL_TIME-->",
     roadmap.totalTimeLabel,
+    label,
   );
 
   fs.writeFileSync(ROADMAP_HTML_PATH, html);
@@ -735,7 +908,21 @@ function main() {
     throw new Error("content-index.json did not contain an array");
   }
 
-  buildIndexHtml(guides, buildResourceSections(registry, contentIndex));
+  const context = {
+    guidesById: new Map(
+      guides.map(function (g) {
+        return [g.id, g];
+      }),
+    ),
+    roadmapRank: new Map(
+      roadmapOrder(guides).map(function (g, i) {
+        return [g.id, i];
+      }),
+    ),
+  };
+
+  buildIndexHtml(buildResourceSections(registry, contentIndex, context));
+  buildGuidesHtml(guides, loadGuideCategories(guides));
   buildRoadmapHtml(guides);
 }
 

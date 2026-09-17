@@ -38,6 +38,14 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- Guides Collection -->
+  <url>
+    <loc>https://bpozz.com/guides</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Category Archive Pages -->
   <url>
     <loc>https://bpozz.com/category/color-theory</loc>

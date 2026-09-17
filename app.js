@@ -299,13 +299,22 @@
   var pageViewBody = document.getElementById("page-view-body");
   var DEFAULT_TITLE = document.title;
 
-  // Only index.html has the guide grid + filters. Guide pages
-  // (/guide/*.html) and the standalone about/contact/privacy/terms
-  // pages load this same app.js for the shared header search + mobile
-  // menu behavior, but don't have grid-root, level-select, etc.
-  // Every home-only code path below checks this flag (or guards
-  // itself internally) instead of assuming those elements exist.
-  var isHomePage = !!gridRoot;
+  // Two separate questions, two flags (Phase 6):
+  //   hasGuideGrid — does this page carry the guide grid + filters
+  //     (#grid-root, #level-select, #results-count, #empty-state,
+  //     #reset-filters)? Since Phase 6 that is the Guides collection,
+  //     guides/index.html. Grid rendering, the Level filter, the
+  //     loading/empty/error states and reset all check this.
+  //   isHomePage — is this the homepage (index.html, the only page with
+  //     #home-view)? Only the homepage's legacy hash routes
+  //     (#/guide/<id>, #/about|contact|privacy|terms, #roadmap) check
+  //     this, so they keep working now that the homepage has no grid,
+  //     and never fire on /guides.
+  // Guide pages (/guide/*.html), search, tokens, palettes, roadmap and the
+  // standalone about/contact/privacy/terms pages load this same app.js
+  // for the shared header search + mobile menu behavior and have neither.
+  var hasGuideGrid = !!gridRoot;
+  var isHomePage = !!homeView;
 
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (ch) {
@@ -508,7 +517,7 @@
   }
 
   function render() {
-    if (!isHomePage) return;
+    if (!hasGuideGrid) return;
     var filtered = getFiltered();
     var cards = filtered.map(cardHtml);
     gridRoot.innerHTML = cards.join("");
@@ -705,7 +714,7 @@
   // #/guide/<id> link is redirected there instead of being rendered
   // inside the SPA. Unrecognized ids (e.g.
   // a link to one of the guides retired from GUIDES/guides.json) fall
-  // back to the guide list rather than redirecting to a 404.
+  // back to the guide list (/guides) rather than redirecting to a 404.
   function handleRoute() {
     if (!isHomePage) return;
     var hash = location.hash;
@@ -723,7 +732,7 @@
       var exists = GUIDES.some(function (g) {
         return g.id === id;
       });
-      location.replace(exists ? "/guide/" + id : "/index.html#guides");
+      location.replace(exists ? "/guide/" + id : "/guides");
       return;
     }
     var pageMatch = hash.match(/^#\/(about|contact|privacy|terms)$/);
@@ -750,9 +759,10 @@
   }
 
   // The level filter (#level-select) and the empty-state's #reset-filters
-  // button only exist on index.html — this whole block is skipped on
-  // guide/legal pages instead of throwing on the missing elements.
-  if (isHomePage) {
+  // button only exist on the guide-grid page (guides/index.html) — this
+  // whole block is skipped everywhere else instead of throwing on the
+  // missing elements.
+  if (hasGuideGrid) {
     levelSelect.addEventListener("change", function (e) {
       state.level = e.target.value;
       render();
@@ -766,13 +776,13 @@
   }
 
   // Category links (trending cards, header nav, footer) carry
-  // data-jump-category. On the home page this filters the grid in place
-  // and scrolls to it; on any other page isHomePage is false, so this
-  // delegate does nothing and the link's own href does a real navigation
-  // to index.html#guides instead.
+  // data-jump-category. On the guide-grid page this filters the grid in
+  // place and scrolls to it; on any page without the grid hasGuideGrid is
+  // false, so this delegate does nothing and the link's own href does a
+  // real navigation instead.
   document.addEventListener("click", function (e) {
     var jumpLink = e.target.closest("[data-jump-category]");
-    if (jumpLink && isHomePage) {
+    if (jumpLink && hasGuideGrid) {
       e.preventDefault();
       state.category = jumpLink.getAttribute("data-jump-category");
       render();
@@ -975,8 +985,8 @@
   }
 
   function renderLoadError() {
-    if (!isHomePage) return;
-    // index.html now ships with the guide grid pre-rendered at build
+    if (!hasGuideGrid) return;
+    // guides/index.html ships with the guide grid pre-rendered at build
     // time (see build-home.js) as a static fallback for crawlers, no-
     // JS visitors, and this exact case. If that pre-rendered markup
     // is already sitting in the DOM, keep it visible instead of
@@ -996,12 +1006,14 @@
   }
 
   async function init() {
-    // Guide/legal pages load this same app.js for the shared header
-    // search + mobile menu behavior but have no grid/results UI to
-    // report loading progress on, so this (and every home-only step
-    // below) is skipped there — see the isHomePage checks inside
-    // render(), handleRoute(), and renderLoadError().
-    if (isHomePage) resultsCount.textContent = "Loading guides…";
+    // Pages without the guide grid load this same app.js for the shared
+    // header search + mobile menu behavior but have no grid/results UI to
+    // report loading progress on, so this is skipped there — see the
+    // hasGuideGrid checks inside render() and renderLoadError(), and the
+    // isHomePage check inside handleRoute(). guides.json itself is still
+    // fetched on every page: guide pages' related-guides rail and the
+    // homepage's #/guide/<id> redirect both need it.
+    if (hasGuideGrid) resultsCount.textContent = "Loading guides…";
     try {
       GUIDES = await loadGuides();
     } catch (err) {

@@ -428,12 +428,18 @@ function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, foo
         {
           "@type": "ListItem",
           position: 1,
-          name: "All Guides",
+          name: "Home",
           item: "https://bpozz.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
+          name: "Guides",
+          item: "https://bpozz.com/guides",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
           name: cat.label,
           item: canonical,
         },

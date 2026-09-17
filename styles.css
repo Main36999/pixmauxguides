@@ -1883,3 +1883,46 @@ body:has(#mobile-menu:not([hidden])) {
 .footer-nav--categories {
   font-size: 13px;
 }
+
+/* ---------- Phase 6: homepage transition + /guides collection ----------
+   Additive only. The homepage's first resource section (Featured Guides)
+   now sits at the top of .guides-main, where the full guide grid's section
+   head used to be; drop its top margin so it keeps that position instead
+   of opening a gap under the hero. /guides reuses .category-hero,
+   .section-head, the Level filter, .grid, .guide-card and .empty-state
+   unchanged; only its category-discovery links (build-home.js, from
+   categories.json) are new. They wrap rather than scroll, so no row can
+   overflow on narrow screens. */
+.guides-main > .resource-section:first-child {
+  margin-top: 0;
+}
+.guide-categories {
+  margin: 24px 0 40px;
+}
+.guide-categories__label {
+  margin: 0 0 12px;
+}
+.guide-categories__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.guide-categories__list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 14px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.guide-categories__list a:hover,
+.guide-categories__list a:focus-visible {
+  border-color: var(--action);
+  color: var(--action);
+}
