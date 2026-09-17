@@ -1832,3 +1832,54 @@ body:has(#mobile-menu:not([hidden])) {
     min-height: 130px;
   }
 }
+
+/* ---------- Phase 5: homepage resource sections ----------
+   Additive only. index.html's generated resource sections (build-home.js,
+   driven by resource-types.json) reuse the existing .section-head /
+   .section-label / .results-count / .grid / .guide-card / .card-thumb
+   system; these rules only add the spacing between sections, the
+   "View all" link, and the two color-preview variants of the existing
+   4:3 .card-thumb plate (tokens: a row of role swatches; palettes: four
+   stacked bars, like the /palettes gallery). */
+.resource-section {
+  margin-top: 72px;
+}
+.resource-section__all {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--action);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.resource-section__all:hover,
+.resource-section__all:focus-visible {
+  text-decoration: underline;
+}
+.card-thumb--swatches,
+.card-thumb--bars {
+  align-items: stretch;
+  justify-content: stretch;
+}
+.card-thumb--bars {
+  flex-direction: column;
+}
+.card-thumb--swatches span,
+.card-thumb--bars span {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+}
+@media (max-width: 640px) {
+  .resource-section {
+    margin-top: 52px;
+  }
+}
+
+/* ---------- Phase 5: footer guide-category row ----------
+   Second .footer-nav (build-footer.js, from categories.json) that keeps
+   every /category/ page internally linked now that the header nav is
+   type-first. Same link styling as the existing footer row. */
+.footer-nav--categories {
+  font-size: 13px;
+}

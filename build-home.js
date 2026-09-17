@@ -2,9 +2,12 @@
 /**
  * build-home.js
  * -----------------------------------------------------------------------
- * Pre-renders two pieces of static HTML from guides.json at build time:
- *   - the homepage guide grid (index.html #grid-root) — the exact same
- *     markup app.js's cardHtml() would produce client-side.
+ * Pre-renders three pieces of static HTML at build time:
+ *   - the homepage guide grid (index.html #grid-root), from guides.json —
+ *     the exact same markup app.js's cardHtml() would produce client-side.
+ *   - the homepage resource sections (index.html, between
+ *     RESOURCE_SECTIONS_START/END — Phase 5), from resource-types.json +
+ *     content-index.json. See "Homepage resource sections" below.
  *   - the learning roadmap, which lives on its own page (roadmap.html
  *     #roadmap) rather than as a section of the homepage. It has no
  *     client-side equivalent at all (see the ROADMAP_STAGES section
@@ -33,8 +36,11 @@
  *   node build-home.js
  *
  * Run this locally (or as your host's build command) every time
- * guides.json changes, before you deploy/commit index.html and
- * roadmap.html.
+ * guides.json, content-index.json or resource-types.json changes, before
+ * you deploy/commit index.html and roadmap.html. Since Phase 5 this reads
+ * content-index.json, so run `node build-content-index.js` first whenever
+ * guides.json / tokens.json / palettes/palettes-data.json change (full
+ * order: bpozz-phase-5-handoff.md, "Build commands").
  * Netlify: set "Build command" to `node build-home.js` and
  * "Publish directory" to the repo root.
  * -----------------------------------------------------------------------
@@ -47,6 +53,8 @@ const ROOT = __dirname;
 const GUIDES_JSON_PATH = path.join(ROOT, "guides.json");
 const INDEX_HTML_PATH = path.join(ROOT, "index.html");
 const ROADMAP_HTML_PATH = path.join(ROOT, "roadmap.html");
+const CONTENT_INDEX_PATH = path.join(ROOT, "content-index.json");
+const RESOURCE_TYPES_PATH = path.join(ROOT, "resource-types.json");
 
 // ---------------------------------------------------------------------
 // Ported 1:1 from app.js. If you ever edit a card's markup/labels in
@@ -350,6 +358,288 @@ function buildRoadmap(guides) {
 }
 
 // ---------------------------------------------------------------------
+// Homepage resource sections (Phase 5)
+// ---------------------------------------------------------------------
+// index.html is still the Guides landing page: the guide grid above
+// (#grid-root, the Level filter, app.js's client-side render) is left
+// exactly as it was — the transitional exception until a dedicated
+// Guides page is intentionally designed. Every OTHER shipped resource
+// type is previewed below it in a generated "resource section", one per
+// resource-types.json entry whose `home` is an object (Guides' entry has
+// `home: null`, which is how it opts out of this loop).
+//
+// These sections are written between RESOURCE_SECTIONS_START/END, which
+// sit inside <main id="guides"> but OUTSIDE #grid-root — app.js replaces
+// #grid-root's innerHTML on load, so anything inside it would be wiped.
+// They're build-time only: no JS, no Firebase, no like/copy controls
+// (those belong to the Tokens/Palettes apps themselves).
+//
+// Adding a future resource type to the homepage = its records in
+// content-index.json + one resource-types.json entry. A type with no
+// bespoke card below falls back to genericCardHtml(). A type with zero
+// records renders nothing (no empty/placeholder section).
+//
+// SORTS mirror each gallery's own client-side sort exactly, so a section
+// shows the same leading items that gallery shows for that sort:
+//   popular — tokens-gallery.js getSorted() "popular"
+//   latest  — palettes/palettes.js sortedList() "new"
+// Array.prototype.sort is stable, so ties keep content-index.json order.
+//
+// TWIN EXCLUSION
+// Every palette is a 1:1 "twin" of a token (build-content-index.js
+// matches them on background/surface/primary/secondary hex values, and
+// gives the palette the token's title/tags/date). Without this rule the
+// Tokens and Palettes sections would repeat the same names. Sections are
+// filled in `home.order`; a record is skipped when the first four of its
+// `colors` (lowercased) match a record already shown in an earlier
+// section — the same four-color key the index builder uses to define a
+// twin. The skip happens BEFORE the limit is applied, so a section still
+// fills up to `limit` whenever enough non-twin records exist. Records
+// without `colors` are never affected.
+
+const HOME_SORTS = {
+  popular: function (a, b) {
+    return (b.popularity || 0) - (a.popularity || 0);
+  },
+  latest: function (a, b) {
+    return (b.date || "").localeCompare(a.date || "");
+  },
+};
+
+// Section label prefix per sort, in the homepage's existing "/ all_guides"
+// / "/ trending_categories" label style — e.g. "/ popular_tokens".
+const SORT_LABEL = { popular: "popular", latest: "latest" };
+
+const HEX_RE = /^#[0-9a-f]{6}$/i;
+
+function readJson(filePath, label) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    throw new Error(`Could not read ${label} (${filePath}): ${err.message}`);
+  }
+}
+
+function loadResourceTypes() {
+  const registry = readJson(RESOURCE_TYPES_PATH, "resource-types.json");
+  if (!Array.isArray(registry)) {
+    throw new Error("resource-types.json did not contain an array");
+  }
+  const seen = new Set();
+  registry.forEach(function (entry, i) {
+    const where = `resource-types.json[${i}]`;
+    if (!entry || typeof entry !== "object") {
+      throw new Error(`${where} is not an object`);
+    }
+    if (typeof entry.type !== "string" || !/^[a-z0-9-]+$/.test(entry.type)) {
+      throw new Error(`${where}.type must be a lowercase slug`);
+    }
+    if (seen.has(entry.type)) {
+      throw new Error(`${where}: duplicate type "${entry.type}"`);
+    }
+    seen.add(entry.type);
+    if (typeof entry.label !== "string" || !entry.label.trim()) {
+      throw new Error(`${where}.label must be a non-empty string`);
+    }
+    if (entry.home === null) return;
+    const home = entry.home;
+    if (!home || typeof home !== "object") {
+      throw new Error(`${where}.home must be null or an object`);
+    }
+    if (typeof home.order !== "number" || !Number.isFinite(home.order)) {
+      throw new Error(`${where}.home.order must be a number`);
+    }
+    if (!Number.isInteger(home.limit) || home.limit < 1) {
+      throw new Error(`${where}.home.limit must be a positive integer`);
+    }
+    if (!Object.prototype.hasOwnProperty.call(HOME_SORTS, home.sort)) {
+      throw new Error(
+        `${where}.home.sort must be one of: ${Object.keys(HOME_SORTS).join(", ")}`,
+      );
+    }
+    if (typeof entry.landingUrl !== "string" || !entry.landingUrl.trim()) {
+      throw new Error(`${where}.landingUrl must be a non-empty string`);
+    }
+  });
+  return registry;
+}
+
+function colorKey(record) {
+  if (!Array.isArray(record.colors) || record.colors.length < 4) return null;
+  return record.colors
+    .slice(0, 4)
+    .map(function (hex) {
+      return String(hex).trim().toLowerCase();
+    })
+    .join("|");
+}
+
+// Colors are written into inline style attributes, so each one is
+// validated as a plain #rrggbb value first — a malformed value fails the
+// build instead of reaching the page.
+function validatedColors(record) {
+  const colors = Array.isArray(record.colors) ? record.colors : [];
+  colors.forEach(function (hex) {
+    if (typeof hex !== "string" || !HEX_RE.test(hex)) {
+      throw new Error(
+        `content-index record "${record.id}" has an invalid color value: ${JSON.stringify(hex)}`,
+      );
+    }
+  });
+  return colors;
+}
+
+function colorThumbHtml(record, modifier) {
+  const colors = validatedColors(record);
+  if (!colors.length) return "";
+  return (
+    `<div class="card-thumb ${modifier}" aria-hidden="true">` +
+    colors
+      .map(function (hex) {
+        return `<span style="background-color:${hex}"></span>`;
+      })
+      .join("") +
+    `</div>`
+  );
+}
+
+// Title Cased tags, identical to build-categories.js's tagsMetaFor() and
+// search.html's Token/Palette snippet, so a record reads the same way on
+// every discovery surface.
+function tagsMetaFor(record) {
+  if (!Array.isArray(record.tags) || !record.tags.length) return "";
+  return record.tags
+    .map(function (t) {
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    })
+    .join(" · ");
+}
+
+function recordTitleHtml(record) {
+  return `<h3 class="card-title"><a class="card-link" href="${escapeHtml(record.url)}">${escapeHtml(record.title)}</a></h3>`;
+}
+
+// Token: its full role set as a swatch row (a token is a role system, not
+// a row of four swatches) + name + tags. Links to /tokens/<slug>.html.
+function tokenCardHtml(record) {
+  const meta = tagsMetaFor(record);
+  return (
+    `<article class="guide-card">` +
+    colorThumbHtml(record, "card-thumb--swatches") +
+    `<div class="card-body">` +
+    recordTitleHtml(record) +
+    (meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : "") +
+    `</div></article>`
+  );
+}
+
+// Palette: its four colors as stacked bars (the /palettes gallery's own
+// visual) + name. Links to /palettes#<id>, which palettes.js resolves.
+function paletteCardHtml(record) {
+  return (
+    `<article class="guide-card">` +
+    colorThumbHtml(record, "card-thumb--bars") +
+    `<div class="card-body">` +
+    recordTitleHtml(record) +
+    `</div></article>`
+  );
+}
+
+// Fallback for a resource type with no bespoke card yet: title + tags,
+// plus a swatch row only if the record carries colors.
+function genericCardHtml(record) {
+  const meta = tagsMetaFor(record);
+  return (
+    `<article class="guide-card">` +
+    colorThumbHtml(record, "card-thumb--swatches") +
+    `<div class="card-body">` +
+    recordTitleHtml(record) +
+    (meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : "") +
+    `</div></article>`
+  );
+}
+
+const CARD_RENDERERS = {
+  token: tokenCardHtml,
+  palette: paletteCardHtml,
+};
+
+function sectionLabelSlug(entry) {
+  const words = entry.label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+  return `${SORT_LABEL[entry.home.sort]}_${words}`;
+}
+
+function resourceSectionHtml(entry, records, total) {
+  const headingId = `resource-section-${entry.type}`;
+  const render = CARD_RENDERERS[entry.type] || genericCardHtml;
+  return (
+    `<section class="resource-section" aria-labelledby="${headingId}">` +
+    `<div class="section-head">` +
+    `<h2 class="section-label" id="${headingId}">/ ${escapeHtml(sectionLabelSlug(entry))}</h2>` +
+    `<div class="section-head__meta">` +
+    `<p class="results-count">Showing ${records.length} of ${total}</p>` +
+    `<a class="resource-section__all" href="${escapeHtml(entry.landingUrl)}" aria-label="View all ${escapeHtml(entry.label)}">View all<span aria-hidden="true"> →</span></a>` +
+    `</div>` +
+    `</div>` +
+    `<div class="grid">${records.map(render).join("")}</div>` +
+    `</section>`
+  );
+}
+
+function buildResourceSections(registry, contentIndex) {
+  const entries = registry
+    .filter(function (entry) {
+      return entry.home;
+    })
+    .slice()
+    .sort(function (a, b) {
+      return a.home.order - b.home.order;
+    });
+
+  const shownColorKeys = new Set();
+  const sectionsHtml = [];
+  const summary = [];
+
+  entries.forEach(function (entry) {
+    const all = contentIndex.filter(function (record) {
+      return record.type === entry.type;
+    });
+    const sorted = all.slice().sort(HOME_SORTS[entry.home.sort]);
+    const picked = [];
+    let twinsSkipped = 0;
+    for (const record of sorted) {
+      if (picked.length >= entry.home.limit) break;
+      const key = colorKey(record);
+      if (key && shownColorKeys.has(key)) {
+        twinsSkipped++;
+        continue;
+      }
+      if (typeof record.url !== "string" || !record.url) {
+        throw new Error(`content-index record "${record.id}" has no url`);
+      }
+      picked.push(record);
+      if (key) shownColorKeys.add(key);
+    }
+
+    if (!picked.length) {
+      summary.push(`${entry.type}: 0 records — section omitted`);
+      return;
+    }
+    sectionsHtml.push(resourceSectionHtml(entry, picked, all.length));
+    summary.push(
+      `${entry.type}: ${picked.length} of ${all.length} (${entry.home.sort}` +
+        (twinsSkipped ? `, ${twinsSkipped} twin${twinsSkipped === 1 ? "" : "s"} skipped` : "") +
+        `)`,
+    );
+  });
+
+  return { html: sectionsHtml.join(""), count: sectionsHtml.length, summary };
+}
+
+// ---------------------------------------------------------------------
 // Build
 // ---------------------------------------------------------------------
 
@@ -366,7 +656,7 @@ function replaceBetween(html, startMarker, endMarker, replacement) {
   );
 }
 
-function buildIndexHtml(guides) {
+function buildIndexHtml(guides, resourceSections) {
   let html = fs.readFileSync(INDEX_HTML_PATH, "utf8");
 
   const cardsHtml = guides.map(cardHtml).join("");
@@ -384,9 +674,17 @@ function buildIndexHtml(guides) {
     `Showing ${guides.length} of ${guides.length} guides`,
   );
 
+  html = replaceBetween(
+    html,
+    "<!--RESOURCE_SECTIONS_START-->",
+    "<!--RESOURCE_SECTIONS_END-->",
+    resourceSections.html,
+  );
+
   fs.writeFileSync(INDEX_HTML_PATH, html);
   console.log(
-    `✓ index.html updated — ${guides.length} guide${guides.length === 1 ? "" : "s"} pre-rendered into #grid-root.`,
+    `✓ index.html updated — ${guides.length} guide${guides.length === 1 ? "" : "s"} pre-rendered into #grid-root; ` +
+      `${resourceSections.count} resource section${resourceSections.count === 1 ? "" : "s"} (${resourceSections.summary.join("; ")}).`,
   );
 }
 
@@ -431,7 +729,13 @@ function main() {
     throw new Error("guides.json did not contain an array");
   }
 
-  buildIndexHtml(guides);
+  const registry = loadResourceTypes();
+  const contentIndex = readJson(CONTENT_INDEX_PATH, "content-index.json");
+  if (!Array.isArray(contentIndex)) {
+    throw new Error("content-index.json did not contain an array");
+  }
+
+  buildIndexHtml(guides, buildResourceSections(registry, contentIndex));
   buildRoadmapHtml(guides);
 }
 

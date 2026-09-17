@@ -36,6 +36,38 @@
  * Run alongside build-home.js/build-header.js/build-footer.js any time
  * guides.json or the header/footer partials change, before you
  * deploy/commit.
+ *
+ * PHASE 4 ADDITION — Tokens/Palettes preview rails
+ * Each page's Guide grid above is unchanged. Below it, this script now
+ * optionally appends up to two more sections — "related_tokens" and
+ * "related_palettes" — built from /content-index.json (Phase 2's
+ * generated index, already used by search.html since Phase 3), filtered
+ * to records whose `categories[]` includes this page's slug. Every
+ * Token and Palette currently carries the fixed pair
+ * ["color-theory", "systems"] (see build-content-index.js), so today
+ * only those two category pages gain a section; the other 8 render
+ * exactly as before — no section markup is emitted when there are no
+ * matching records, mirroring how this file already skips writing a
+ * page for a category with zero guides, and how app.js's
+ * initRelatedGuides() removes its own rail <aside> when empty rather
+ * than leaving a blank box.
+ *
+ * Preview size and ordering deliberately reuse two decisions the
+ * codebase already made elsewhere, instead of inventing new ones:
+ *   - Cap of 10 — the same number app.js's related-guides rail shows
+ *     on every /guide/ page (see "Shows up to 10" in app.js).
+ *   - Order — content-index.json preserves tokens.json's and
+ *     palettes-data.json's own record order, and both source files are
+ *     already stored newest-first (verified: matches each file's
+ *     `created_at`/`createdAt` sorted descending). That's also each
+ *     record's default "New" sort on /tokens and /palettes. So taking
+ *     the first N of the filtered list is already "the 10 newest," no
+ *     extra date-sorting logic needed here.
+ * This does not touch tokens.json or palettes/palettes-data.json —
+ * content-index.json's normalized {title, url, categories, tags} is
+ * sufficient for a discovery preview card, per the search spec's own
+ * "Search only needs a normalized representation of these records"
+ * principle (§23), applied here to category pages instead of Search.
  * -----------------------------------------------------------------------
  */
 
@@ -44,9 +76,19 @@ const path = require("path");
 
 const ROOT = __dirname;
 const GUIDES_JSON_PATH = path.join(ROOT, "guides.json");
+const CONTENT_INDEX_PATH = path.join(ROOT, "content-index.json");
 const CATEGORY_DIR = path.join(ROOT, "category");
 const HEADER_PARTIAL_PATH = path.join(ROOT, "partials", "header.html");
 const FOOTER_PARTIAL_PATH = path.join(ROOT, "partials", "footer.html");
+
+// Same cap app.js's related-guides rail uses (see the Phase 4 note
+// above) — one shared constant so the two "preview size" decisions
+// can't silently drift apart if either is changed later.
+const RAIL_PREVIEW_LIMIT = 10;
+
+// Matches search.html's own TYPE_LABELS map (Phase 3) — same wording
+// for the same content types across both discovery surfaces.
+const TYPE_BADGE_LABEL = { token: "Token", palette: "Palette" };
 
 // ---------------------------------------------------------------------
 // Ported 1:1 from app.js / build-home.js. Mirror any edit there here too.
@@ -273,6 +315,80 @@ function cardHtml(g) {
 }
 
 // ---------------------------------------------------------------------
+// Phase 4 — Tokens/Palettes preview rails (content-index.json)
+// ---------------------------------------------------------------------
+
+// Up to RAIL_PREVIEW_LIMIT content-index records of `type` whose
+// categories[] includes `slug`, in the index's own order (see the
+// Phase 4 note at the top of this file for why that order is already
+// "newest first" and needs no re-sorting here).
+function recordsForCategory(contentIndex, type, slug) {
+  const matches = [];
+  for (const record of contentIndex) {
+    if (record.type !== type) continue;
+    if (!Array.isArray(record.categories) || !record.categories.includes(slug)) continue;
+    matches.push(record);
+    if (matches.length >= RAIL_PREVIEW_LIMIT) break;
+  }
+  return matches;
+}
+
+// One tag list, Title Cased and joined — identical to search.html's
+// snippetFor() fallback for Token/Palette records (neither type has a
+// `description` in the index), reused here so the same record reads
+// the same way on both discovery surfaces.
+function tagsMetaFor(record) {
+  if (!record.tags || !record.tags.length) return "";
+  return record.tags
+    .map(function (t) {
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    })
+    .join(" · ");
+}
+
+// A lightweight, non-interactive preview card for a Token or Palette
+// content-index record. Deliberately NOT tokens-shared.js's cardHtml()
+// or palettes.js's cardHtml() — those render live like/save/copy
+// controls backed by tokens-collection.js / Firebase, which this page
+// never loads; embedding that markup here would ship dead buttons
+// (spec §22–23: don't move that business logic into a system that
+// doesn't own it). Instead this reuses the same plain
+// .guide-card/.card-body/.card-title/.card-meta classes the Guide grid
+// above already uses, plus .badge (already used by search.html) for
+// the type label, so no new CSS is needed anywhere in this file.
+function indexRecordCardHtml(record) {
+  const badge = TYPE_BADGE_LABEL[record.type] || record.type;
+  const meta = tagsMetaFor(record);
+  return (
+    `<article class="guide-card">` +
+    `<span class="badge">${escapeHtml(badge)}</span>` +
+    `<div class="card-body">` +
+    `<h3 class="card-title"><a class="card-link" href="${escapeHtml(record.url)}">${escapeHtml(record.title)}</a></h3>` +
+    (meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : "") +
+    `</div></article>`
+  );
+}
+
+// One optional rail section. Returns "" (renders nothing) when there
+// are no matching records — same "don't leave an empty box" behavior
+// as this file's own guide-count check in main(), and as app.js's
+// initRelatedGuides(), which removes its rail <aside> entirely when
+// there's nothing relevant to show. Reuses .guide-rail/.guide-rail__
+// label verbatim from styles.css's existing /guide/ page rail — a
+// generic "labeled divider + grid" component despite its name, and the
+// closest existing match to "capped preview section" in the codebase.
+function railHtml(labelSlug, ariaLabel, records) {
+  if (!records.length) return "";
+  const cardsHtml = records.map(indexRecordCardHtml).join("");
+  return (
+    `<aside class="guide-rail" aria-label="${escapeHtml(ariaLabel)}">` +
+    `<p class="section-label mono guide-rail__label">/ ${escapeHtml(labelSlug)}</p>` +
+    `<div class="grid">${cardsHtml}</div>` +
+    `</aside>`
+  );
+}
+
+// ---------------------------------------------------------------------
 // Page template
 // ---------------------------------------------------------------------
 
@@ -280,7 +396,7 @@ function monoLabel(code) {
   return code.toLowerCase();
 }
 
-function pageHtml(slug, guides, headerPartial, footerPartial) {
+function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, footerPartial) {
   const cat = CATEGORIES[slug];
   const meta = CATEGORY_META[slug];
   const title = `${cat.label} Guides — bpozz`;
@@ -291,6 +407,13 @@ function pageHtml(slug, guides, headerPartial, footerPartial) {
     : meta.ogImage;
   const cardsHtml = guides.map(cardHtml).join("");
   const count = guides.length;
+  const tokensRailHtml = railHtml("related_tokens", "Related tokens", tokenRecords);
+  const palettesRailHtml = railHtml("related_palettes", "Related palettes", paletteRecords);
+  // Concatenated (not just interpolated separately) so that when both
+  // are "" — every category except color-theory/systems today — this
+  // page's markup is byte-identical to before the Phase 4 change: no
+  // stray blank lines left behind for the 8 unaffected category pages.
+  const railsHtml = tokensRailHtml + palettesRailHtml;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -415,7 +538,7 @@ function pageHtml(slug, guides, headerPartial, footerPartial) {
       <div class="section-head">
         <p class="results-count">Showing ${count} of ${count} guide${count === 1 ? "" : "s"}</p>
       </div>
-      <div class="grid">${cardsHtml}</div>
+      <div class="grid">${cardsHtml}</div>${railsHtml ? `\n      ${railsHtml}` : ""}
     </main>
 
     <!--FOOTER_START-->${footerPartial}<!--FOOTER_END-->
@@ -430,6 +553,17 @@ function main() {
   const guides = JSON.parse(fs.readFileSync(GUIDES_JSON_PATH, "utf8"));
   if (!Array.isArray(guides)) {
     throw new Error("guides.json did not contain an array");
+  }
+  // Phase 4: content-index.json (Phase 2's generated index) drives the
+  // Tokens/Palettes preview rails below. Read-only — never written by
+  // this script. Not treated as optional/best-effort: it's committed,
+  // reproducible build output (see bpozz-phase-2/3-handoff.md), so a
+  // missing or malformed file here means the build is out of order,
+  // and this should fail loudly the same way a missing guides.json
+  // would rather than silently rendering pages with no rails at all.
+  const contentIndex = JSON.parse(fs.readFileSync(CONTENT_INDEX_PATH, "utf8"));
+  if (!Array.isArray(contentIndex)) {
+    throw new Error("content-index.json did not contain an array");
   }
   const headerPartial = fs.readFileSync(HEADER_PARTIAL_PATH, "utf8").trim();
   const footerPartial = fs.readFileSync(FOOTER_PARTIAL_PATH, "utf8").trim();
@@ -455,7 +589,9 @@ function main() {
       console.warn(`⚠ Category "${slug}" has no guides — skipping page.`);
       continue;
     }
-    const html = pageHtml(slug, guidesInCategory, headerPartial, footerPartial);
+    const tokenRecords = recordsForCategory(contentIndex, "token", slug);
+    const paletteRecords = recordsForCategory(contentIndex, "palette", slug);
+    const html = pageHtml(slug, guidesInCategory, tokenRecords, paletteRecords, headerPartial, footerPartial);
     fs.writeFileSync(path.join(CATEGORY_DIR, `${slug}.html`), html);
     written++;
   }

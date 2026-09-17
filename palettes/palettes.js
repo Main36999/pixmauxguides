@@ -282,6 +282,28 @@
     }
   }
 
+  // ---- deep-link focus (/palettes#<id>) -----------------------------------
+  // content-index.json (see /build-content-index.js) points every Palette
+  // search result at /palettes#<id> — there's no separate per-palette page
+  // to send it to, so this is what makes that link actually land on the
+  // right card instead of just opening the gallery at the top. Runs once,
+  // right after the first render, not on every re-sort.
+  function focusPaletteFromHash() {
+    var id = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+    if (!id) return;
+    var known = palettes.some(function (p) {
+      return p.id === id;
+    });
+    if (!known) return;
+    var card = gridRoot.querySelector('.palette-card[data-id="' + id + '"]');
+    if (!card) return;
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    card.classList.add("palette-card--highlight");
+    setTimeout(function () {
+      card.classList.remove("palette-card--highlight");
+    }, 2400);
+  }
+
   // ---- load seed data, then render ---------------------------------------
   fetch("./palettes-data.json")
     .then(function (r) {
@@ -293,6 +315,7 @@
         liveLikes[p.id] = p.likes;
       });
       render();
+      focusPaletteFromHash();
       if (FIREBASE_CONFIGURED) wireFirebase(data);
     })
     .catch(function (err) {

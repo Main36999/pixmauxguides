@@ -1,0 +1,2538 @@
+[
+  {
+    "id": "guide:whitespace-as-ui-component",
+    "type": "guide",
+    "title": "Whitespace as a UI Component, Not a Leftover",
+    "slug": "whitespace-as-ui-component",
+    "url": "/guide/whitespace-as-ui-component.html",
+    "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
+    "categories": [
+      "spacing"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "whitespace as a ui component, not leftover the foundational ui/ux principle every other design decision builds on: treat space deliberate, systematic tool for grouping, hierarchy, and meaning — whatever's left over after everything else is placed. spacing"
+  },
+  {
+    "id": "guide:padding-margin-different-jobs",
+    "type": "guide",
+    "title": "Padding and Margin Are Different Jobs, Not Interchangeable Values",
+    "slug": "padding-margin-different-jobs",
+    "url": "/guide/padding-margin-different-jobs.html",
+    "description": "Padding as internal breathing room vs. margin as separation, and the token-naming split that keeps the two from getting swapped.",
+    "categories": [
+      "spacing"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "padding and margin are different jobs, not interchangeable values as internal breathing room vs. separation, the token-naming split that keeps two from getting swapped. spacing"
+  },
+  {
+    "id": "guide:color-contrast-systems",
+    "type": "guide",
+    "title": "Color Contrast Is Math, Not Taste",
+    "slug": "color-contrast-systems",
+    "url": "/guide/color-contrast-systems.html",
+    "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
+    "categories": [
+      "color-theory"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "color contrast is math, not taste the one part of theory that isn't a matter opinion: measurable ratios, semantic tokens, and exact wcag numbers palette either passes or fails. color-theory"
+  },
+  {
+    "id": "guide:color-palette-token-system",
+    "type": "guide",
+    "title": "A Color Palette Is a Token System, Not a Row of Swatches",
+    "slug": "color-palette-token-system",
+    "url": "/guide/color-palette-token-system.html",
+    "description": "Why HSL's lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.",
+    "categories": [
+      "color-theory"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "a color palette is token system, not row of swatches why hsl's lightness value lies about perceived brightness, how to build perceptually even oklch tonal ramp, the primitive/semantic/component tiers that give each step role, and light dark themes should remap aliases instead duplicating palette. color-theory"
+  },
+  {
+    "id": "guide:type-scale-systems",
+    "type": "guide",
+    "title": "Font Size Is a Formula, Not a Feeling",
+    "slug": "type-scale-systems",
+    "url": "/guide/type-scale-systems.html",
+    "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
+    "categories": [
+      "typography"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "font size is a formula, not feeling the math that replaces font-size guesswork: modular scale ratios, line-height and measure numbers actually govern readability, exact clamp() formula for type resizes itself without breakpoints. typography"
+  },
+  {
+    "id": "guide:auto-layout-constraint-model",
+    "type": "guide",
+    "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
+    "slug": "auto-layout-constraint-model",
+    "url": "/guide/auto-layout-constraint-model.html",
+    "description": "The mental model behind Figma's most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.",
+    "categories": [
+      "figma"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "auto layout is a constraint system, not convenience toggle the mental model behind figma's most misunderstood feature: how fixed, hug, and fill actually resolve against each other, why nested frames break in predictable ways, exact property mapping developers need for css flexbox handoff. figma"
+  },
+  {
+    "id": "guide:accessibility-structural-model",
+    "type": "guide",
+    "title": "Accessibility Is a Structural Decision, Not a Final Pass",
+    "slug": "accessibility-structural-model",
+    "url": "/guide/accessibility-structural-model.html",
+    "description": "How the accessibility tree actually gets built from markup, how a control's accessible name is computed, ARIA's real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses.",
+    "categories": [
+      "accessibility"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "accessibility is a structural decision, not final pass how the tree actually gets built from markup, control's accessible name computed, aria's real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses."
+  },
+  {
+    "id": "guide:design-tokens-naming-system",
+    "type": "guide",
+    "title": "Design Tokens Are a Naming System, Not a Style Guide",
+    "slug": "design-tokens-naming-system",
+    "url": "/guide/design-tokens-naming-system.html",
+    "description": "The part of a design system that actually decides whether it survives a rebrand: primitive, semantic, and component token tiers, the aliasing chain between them, and the naming rules that keep tokens from drifting back into hardcoded values.",
+    "categories": [
+      "systems"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "design tokens are a naming system, not style guide the part of system that actually decides whether it survives rebrand: primitive, semantic, and component token tiers, aliasing chain between them, rules keep from drifting back into hardcoded values. systems"
+  },
+  {
+    "id": "guide:responsive-layout-contract",
+    "type": "guide",
+    "title": "Responsive Layout Is a Contract, Not a Breakpoint List",
+    "slug": "responsive-layout-contract",
+    "url": "/guide/responsive-layout-contract.html",
+    "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.",
+    "categories": [
+      "web"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "responsive layout is a contract, not breakpoint list spec-level guide to layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and overflow traps that break real devices no toolbar preview catches. web"
+  },
+  {
+    "id": "guide:motion-timing-model",
+    "type": "guide",
+    "title": "Motion Timing Is a Physics Model, Not a Preset",
+    "slug": "motion-timing-model",
+    "url": "/guide/motion-timing-model.html",
+    "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
+    "categories": [
+      "motion"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "motion timing is a physics model, not preset the math and that actually govern believable motion: distance-based duration bands, how to read cubic-bezier curve's control points, spring as an alternative fixed-duration easing, why reduced isn't same no motion."
+  },
+  {
+    "id": "guide:dark-mode-second-palette",
+    "type": "guide",
+    "title": "Dark Mode Is a Second Palette, Not an Inverted Filter",
+    "slug": "dark-mode-second-palette",
+    "url": "/guide/dark-mode-second-palette.html",
+    "description": "Elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch.",
+    "categories": [
+      "color-theory"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "dark mode is a second palette, not an inverted filter elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch. color-theory"
+  },
+  {
+    "id": "guide:font-pairing-hierarchy-decision",
+    "type": "guide",
+    "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match",
+    "slug": "font-pairing-hierarchy-decision",
+    "url": "/guide/font-pairing-hierarchy-decision.html",
+    "description": "Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a \"creative\" pairing.",
+    "categories": [
+      "typography"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "font pairing is a hierarchy decision, not personality match by contrast and function, x-height matching, why superfamily solves more problems than \"creative\" pairing. typography"
+  },
+  {
+    "id": "guide:line-length-reading-constraint",
+    "type": "guide",
+    "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
+    "slug": "line-length-reading-constraint",
+    "url": "/guide/line-length-reading-constraint.html",
+    "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
+    "categories": [
+      "typography"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "line length is a reading constraint, not layout afterthought the 45-75 character measure, how line-height must scale with length, and css that keeps both in sync at any viewport. typography"
+  },
+  {
+    "id": "guide:grid-systems-rhythm",
+    "type": "guide",
+    "title": "Grid Systems Are a Rhythm, Not a Ruler",
+    "slug": "grid-systems-rhythm",
+    "url": "/guide/grid-systems-rhythm.html",
+    "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
+    "categories": [
+      "spacing"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "grid systems are a rhythm, not ruler 8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary."
+  },
+  {
+    "id": "guide:components-variants-contract",
+    "type": "guide",
+    "title": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
+    "slug": "components-variants-contract",
+    "url": "/guide/components-variants-contract.html",
+    "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.",
+    "categories": [
+      "figma"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "components and variants are a contract, not copy-paste shortcut component properties, boolean instance-swap props, nested override inheritance, where variant sets break under real content. figma"
+  },
+  {
+    "id": "guide:figma-variables-data-layer",
+    "type": "guide",
+    "title": "Figma Variables Are a Data Layer, Not Just Color Styles",
+    "slug": "figma-variables-data-layer",
+    "url": "/guide/figma-variables-data-layer.html",
+    "description": "Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.",
+    "categories": [
+      "figma"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "figma variables are a data layer, not just color styles modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens."
+  },
+  {
+    "id": "guide:figma-to-code-handoff",
+    "type": "guide",
+    "title": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
+    "slug": "figma-to-code-handoff",
+    "url": "/guide/figma-to-code-handoff.html",
+    "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.",
+    "categories": [
+      "figma"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "figma-to-code handoff is a translation, not screenshot how dev mode maps auto layout to flexbox/grid, what still needs manual judgment, and annotation habits that prevent drift. figma"
+  },
+  {
+    "id": "guide:thumb-zones-layout-constraint",
+    "type": "guide",
+    "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have",
+    "slug": "thumb-zones-layout-constraint",
+    "url": "/guide/thumb-zones-layout-constraint.html",
+    "description": "Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.",
+    "categories": [
+      "mobile"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "thumb zones are a layout constraint, not nice-to-have reachability math for today's screen sizes, why primary actions sit low and destructive ones far, before color even enters the decision. mobile"
+  },
+  {
+    "id": "guide:migrating-from-xd-rebuild",
+    "type": "guide",
+    "title": "Migrating From XD Is a Rebuild, Not a File Import",
+    "slug": "migrating-from-xd-rebuild",
+    "url": "/guide/migrating-from-xd-rebuild.html",
+    "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) — a practical checklist.",
+    "categories": [
+      "adobe-xd"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "migrating from xd is a rebuild, not file import what survives an xd-to-figma migration (artboards, assets) vs. must be rebuilt (prototyping logic, master components) — practical checklist. adobe-xd"
+  },
+  {
+    "id": "guide:ios-android-different-systems",
+    "type": "guide",
+    "title": "iOS and Android Are Different Systems, Not One Design Reused Twice",
+    "slug": "ios-android-different-systems",
+    "url": "/guide/ios-android-different-systems.html",
+    "description": "Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.",
+    "categories": [
+      "mobile"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "ios and android are different systems, not one design reused twice where hig material genuinely diverge: navigation, back behavior, type defaults, which components need two designs, resized. mobile"
+  },
+  {
+    "id": "guide:css-grid-two-dimensional-system",
+    "type": "guide",
+    "title": "CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps",
+    "slug": "css-grid-two-dimensional-system",
+    "url": "/guide/css-grid-two-dimensional-system.html",
+    "description": "Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent's rhythm.",
+    "categories": [
+      "web"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "css grid is a two-dimensional system, not flexbox with extra steps explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit parent's rhythm. web"
+  },
+  {
+    "id": "guide:mobile-breakpoints-device-categories",
+    "type": "guide",
+    "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
+    "slug": "mobile-breakpoints-device-categories",
+    "url": "/guide/mobile-breakpoints-device-categories.html",
+    "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
+    "categories": [
+      "mobile"
+    ],
+    "tags": [],
+    "keywords": [],
+    "searchText": "mobile breakpoints are device categories, not arbitrary pixels safe-area insets for notches, fluid vs. fixed layout, and why guessing pixel widths breaks on half the phones market."
+  },
+  {
+    "id": "token:starless-frost",
+    "type": "token",
+    "title": "Starless Frost",
+    "slug": "starless-frost",
+    "url": "/tokens/starless-frost.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless frost cool night dark background surface primary secondary text border",
+    "colors": [
+      "#1e193b",
+      "#322a57",
+      "#5438e6",
+      "#3876c8",
+      "#f2f2f5",
+      "#433b6e"
+    ],
+    "date": "2026-09-05",
+    "popularity": 1075
+  },
+  {
+    "id": "token:terracotta-grove",
+    "type": "token",
+    "title": "Terracotta Grove",
+    "slug": "terracotta-grove",
+    "url": "/tokens/terracotta-grove.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "terracotta grove warm earth light background surface primary secondary text border",
+    "colors": [
+      "#edeee5",
+      "#d9dcc6",
+      "#7b8539",
+      "#4d9140",
+      "#393d1b",
+      "#c6cba4"
+    ],
+    "date": "2026-09-03",
+    "popularity": 3529
+  },
+  {
+    "id": "token:faceted-onyx",
+    "type": "token",
+    "title": "Faceted Onyx",
+    "slug": "faceted-onyx",
+    "url": "/tokens/faceted-onyx.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "faceted onyx warm jewel dark background surface primary secondary accent text border",
+    "colors": [
+      "#272312",
+      "#3e391a",
+      "#baa225",
+      "#30aa6b",
+      "#60c2d3",
+      "#f0efe9",
+      "#504821"
+    ],
+    "date": "2026-08-14",
+    "popularity": 4112
+  },
+  {
+    "id": "token:neon-pulse",
+    "type": "token",
+    "title": "Neon Pulse",
+    "slug": "neon-pulse",
+    "url": "/tokens/neon-pulse.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "neon pulse cool dark background surface primary secondary accent text border",
+    "colors": [
+      "#120b16",
+      "#2a1d32",
+      "#ab2bee",
+      "#fcf12a",
+      "#99f468",
+      "#f5f2f6",
+      "#3f214f"
+    ],
+    "date": "2026-08-14",
+    "popularity": 2636
+  },
+  {
+    "id": "token:bare-ledger-dark",
+    "type": "token",
+    "title": "Bare Ledger (Dark)",
+    "slug": "bare-ledger-dark",
+    "url": "/tokens/bare-ledger-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "bare ledger (dark) dark neutral monochrome night background surface primary secondary text border",
+    "colors": [
+      "#1a1717",
+      "#2e2929",
+      "#9c6d6b",
+      "#b99896",
+      "#f2f0f0",
+      "#484040"
+    ],
+    "date": "2026-08-08",
+    "popularity": 1564
+  },
+  {
+    "id": "token:bare-ledger",
+    "type": "token",
+    "title": "Bare Ledger",
+    "slug": "bare-ledger",
+    "url": "/tokens/bare-ledger.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "bare ledger neutral monochrome light background surface primary secondary text border",
+    "colors": [
+      "#f7f5f5",
+      "#ece8e8",
+      "#6c5554",
+      "#a69695",
+      "#2d2626",
+      "#dbd5d5"
+    ],
+    "date": "2026-08-08",
+    "popularity": 2050
+  },
+  {
+    "id": "token:powder-sorbet-dark",
+    "type": "token",
+    "title": "Powder Sorbet (Dark)",
+    "slug": "powder-sorbet-dark",
+    "url": "/tokens/powder-sorbet-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "powder sorbet (dark) dark cool pastel night background surface primary secondary text border",
+    "colors": [
+      "#1c141d",
+      "#312433",
+      "#ca82d0",
+      "#d7aecc",
+      "#f3eff3",
+      "#4c394e"
+    ],
+    "date": "2026-08-07",
+    "popularity": 1157
+  },
+  {
+    "id": "token:powder-sorbet",
+    "type": "token",
+    "title": "Powder Sorbet",
+    "slug": "powder-sorbet",
+    "url": "/tokens/powder-sorbet.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "powder sorbet cool pastel light background surface primary secondary text border",
+    "colors": [
+      "#f5ecf6",
+      "#eddfee",
+      "#cb6ad4",
+      "#d69bc6",
+      "#432d45",
+      "#decae0"
+    ],
+    "date": "2026-08-07",
+    "popularity": 1728
+  },
+  {
+    "id": "token:milky-sorbet-dark",
+    "type": "token",
+    "title": "Milky Sorbet (Dark)",
+    "slug": "milky-sorbet-dark",
+    "url": "/tokens/milky-sorbet-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "milky sorbet (dark) dark cool pastel night background surface primary secondary text border",
+    "colors": [
+      "#17141d",
+      "#292433",
+      "#a691d0",
+      "#d2a7d2",
+      "#f0eff3",
+      "#40394e"
+    ],
+    "date": "2026-08-04",
+    "popularity": 1116
+  },
+  {
+    "id": "token:milky-sorbet",
+    "type": "token",
+    "title": "Milky Sorbet",
+    "slug": "milky-sorbet",
+    "url": "/tokens/milky-sorbet.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "milky sorbet cool pastel light background surface primary secondary text border",
+    "colors": [
+      "#ebe7f4",
+      "#e4e0ec",
+      "#987bd1",
+      "#d194d1",
+      "#3b314e",
+      "#cec6de"
+    ],
+    "date": "2026-08-04",
+    "popularity": 1433
+  },
+  {
+    "id": "token:worn-darkroom",
+    "type": "token",
+    "title": "Worn Darkroom",
+    "slug": "worn-darkroom",
+    "url": "/tokens/worn-darkroom.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "worn darkroom warm vintage light background surface primary secondary text border",
+    "colors": [
+      "#eee9e0",
+      "#e5dccb",
+      "#ad833b",
+      "#499f49",
+      "#413623",
+      "#c6bba8"
+    ],
+    "date": "2026-07-27",
+    "popularity": 2568
+  },
+  {
+    "id": "token:studio-ledger-dark",
+    "type": "token",
+    "title": "Studio Ledger (Dark)",
+    "slug": "studio-ledger-dark",
+    "url": "/tokens/studio-ledger-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "studio ledger (dark) dark neutral monochrome night background surface primary secondary text border",
+    "colors": [
+      "#17181a",
+      "#292b2e",
+      "#667b99",
+      "#8798af",
+      "#f0f1f2",
+      "#404348"
+    ],
+    "date": "2026-07-14",
+    "popularity": 864
+  },
+  {
+    "id": "token:analog-lounge",
+    "type": "token",
+    "title": "Analog Lounge",
+    "slug": "analog-lounge",
+    "url": "/tokens/analog-lounge.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "analog lounge warm retro light background surface primary secondary accent text border",
+    "colors": [
+      "#ede4dc",
+      "#bccfd7",
+      "#d9853a",
+      "#2d84ac",
+      "#db7b76",
+      "#44301e",
+      "#c3a68c"
+    ],
+    "date": "2026-07-14",
+    "popularity": 1403
+  },
+  {
+    "id": "token:studio-ledger",
+    "type": "token",
+    "title": "Studio Ledger",
+    "slug": "studio-ledger",
+    "url": "/tokens/studio-ledger.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "studio ledger neutral monochrome light background surface primary secondary text border",
+    "colors": [
+      "#f4f5f6",
+      "#e4e6e9",
+      "#4f5a68",
+      "#878f9c",
+      "#24272c",
+      "#d4d7db"
+    ],
+    "date": "2026-07-14",
+    "popularity": 1704
+  },
+  {
+    "id": "token:radioactive-broadcast",
+    "type": "token",
+    "title": "Radioactive Broadcast",
+    "slug": "radioactive-broadcast",
+    "url": "/tokens/radioactive-broadcast.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "radioactive broadcast cool neon dark background surface primary secondary accent text border",
+    "colors": [
+      "#0c1c14",
+      "#1d3228",
+      "#30f695",
+      "#bc38eb",
+      "#ed4a99",
+      "#ecf4f0",
+      "#24543c"
+    ],
+    "date": "2026-06-17",
+    "popularity": 2646
+  },
+  {
+    "id": "token:dusty-darkroom",
+    "type": "token",
+    "title": "Dusty Darkroom",
+    "slug": "dusty-darkroom",
+    "url": "/tokens/dusty-darkroom.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "dusty darkroom warm vintage light background surface primary secondary text border",
+    "colors": [
+      "#ebe3d9",
+      "#dfd1bf",
+      "#a3773d",
+      "#639c50",
+      "#443523",
+      "#c7baa8"
+    ],
+    "date": "2026-06-13",
+    "popularity": 3351
+  },
+  {
+    "id": "token:weathered-meadow",
+    "type": "token",
+    "title": "Weathered Meadow",
+    "slug": "weathered-meadow",
+    "url": "/tokens/weathered-meadow.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "weathered meadow warm earth light background surface primary secondary text border",
+    "colors": [
+      "#eae1db",
+      "#dccbbf",
+      "#7f5132",
+      "#869f3e",
+      "#463224",
+      "#c5ab9a"
+    ],
+    "date": "2026-06-10",
+    "popularity": 3631
+  },
+  {
+    "id": "token:retro-lounge",
+    "type": "token",
+    "title": "Retro Lounge",
+    "slug": "retro-lounge",
+    "url": "/tokens/retro-lounge.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "retro lounge warm light background surface primary secondary accent text border",
+    "colors": [
+      "#ebded0",
+      "#bfd4d8",
+      "#cf7b28",
+      "#2f828f",
+      "#e57d73",
+      "#47321d",
+      "#c3af9a"
+    ],
+    "date": "2026-06-07",
+    "popularity": 970
+  },
+  {
+    "id": "token:starless-tide",
+    "type": "token",
+    "title": "Starless Tide",
+    "slug": "starless-tide",
+    "url": "/tokens/starless-tide.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless tide cool night dark background surface primary secondary text border",
+    "colors": [
+      "#1a2741",
+      "#2b3957",
+      "#507edb",
+      "#368db9",
+      "#f5f6f8",
+      "#2f446e"
+    ],
+    "date": "2026-05-21",
+    "popularity": 128
+  },
+  {
+    "id": "token:blush-feather-dark",
+    "type": "token",
+    "title": "Blush Feather (Dark)",
+    "slug": "blush-feather-dark",
+    "url": "/tokens/blush-feather-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "blush feather (dark) dark cool pastel night background surface primary secondary text border",
+    "colors": [
+      "#141c1d",
+      "#243133",
+      "#8ecbd5",
+      "#9cbad8",
+      "#eff2f3",
+      "#394b4e"
+    ],
+    "date": "2026-05-20",
+    "popularity": 2395
+  },
+  {
+    "id": "token:blush-feather",
+    "type": "token",
+    "title": "Blush Feather",
+    "slug": "blush-feather",
+    "url": "/tokens/blush-feather.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "blush feather cool pastel light background surface primary secondary text border",
+    "colors": [
+      "#edf5f6",
+      "#dae8ea",
+      "#76cad8",
+      "#86b0d9",
+      "#2b4246",
+      "#d1e2e5"
+    ],
+    "date": "2026-05-20",
+    "popularity": 3521
+  },
+  {
+    "id": "token:starless-observatory",
+    "type": "token",
+    "title": "Starless Observatory",
+    "slug": "starless-observatory",
+    "url": "/tokens/starless-observatory.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless observatory cool night dark background surface primary secondary text border",
+    "colors": [
+      "#1d2f41",
+      "#27435e",
+      "#3a8ee1",
+      "#427cb8",
+      "#f4f5f7",
+      "#324b65"
+    ],
+    "date": "2026-05-12",
+    "popularity": 896
+  },
+  {
+    "id": "token:weathered-darkroom",
+    "type": "token",
+    "title": "Weathered Darkroom",
+    "slug": "weathered-darkroom",
+    "url": "/tokens/weathered-darkroom.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "weathered darkroom warm vintage light background surface primary secondary text border",
+    "colors": [
+      "#e9e1d9",
+      "#dbcdbf",
+      "#9d6f44",
+      "#749c4b",
+      "#3f2e1e",
+      "#c7b6a5"
+    ],
+    "date": "2026-05-08",
+    "popularity": 3215
+  },
+  {
+    "id": "token:chalk-petal-dark",
+    "type": "token",
+    "title": "Chalk Petal (Dark)",
+    "slug": "chalk-petal-dark",
+    "url": "/tokens/chalk-petal-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "chalk petal (dark) dark cool pastel night background surface primary secondary text border",
+    "colors": [
+      "#16131e",
+      "#282334",
+      "#a896d3",
+      "#d4b1db",
+      "#f0eff3",
+      "#3e3750"
+    ],
+    "date": "2026-04-13",
+    "popularity": 243
+  },
+  {
+    "id": "token:chalk-petal",
+    "type": "token",
+    "title": "Chalk Petal",
+    "slug": "chalk-petal",
+    "url": "/tokens/chalk-petal.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "chalk petal cool pastel light background surface primary secondary text border",
+    "colors": [
+      "#efecf7",
+      "#e3deef",
+      "#9981d4",
+      "#d09dda",
+      "#322c41",
+      "#d0c8e2"
+    ],
+    "date": "2026-04-13",
+    "popularity": 366
+  },
+  {
+    "id": "token:rewind-motel",
+    "type": "token",
+    "title": "Rewind Motel",
+    "slug": "rewind-motel",
+    "url": "/tokens/rewind-motel.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "rewind motel warm retro light background surface primary secondary accent text border",
+    "colors": [
+      "#eaddd4",
+      "#c1d0d6",
+      "#d27531",
+      "#3a84a3",
+      "#e47a7a",
+      "#412a1a",
+      "#c1a795"
+    ],
+    "date": "2026-04-09",
+    "popularity": 3441
+  },
+  {
+    "id": "token:even-concrete-dark",
+    "type": "token",
+    "title": "Even Concrete (Dark)",
+    "slug": "even-concrete-dark",
+    "url": "/tokens/even-concrete-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "even concrete (dark) dark neutral monochrome night background surface primary secondary text border",
+    "colors": [
+      "#171a17",
+      "#292e29",
+      "#719c6b",
+      "#9cba98",
+      "#f0f2f0",
+      "#414840"
+    ],
+    "date": "2026-04-05",
+    "popularity": 2828
+  },
+  {
+    "id": "token:even-concrete",
+    "type": "token",
+    "title": "Even Concrete",
+    "slug": "even-concrete",
+    "url": "/tokens/even-concrete.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "even concrete neutral monochrome light background surface primary secondary text border",
+    "colors": [
+      "#f4f5f4",
+      "#e2e6e1",
+      "#576c53",
+      "#98a796",
+      "#20261f",
+      "#d3d9d2"
+    ],
+    "date": "2026-04-05",
+    "popularity": 3921
+  },
+  {
+    "id": "token:terracotta-riverbank",
+    "type": "token",
+    "title": "Terracotta Riverbank",
+    "slug": "terracotta-riverbank",
+    "url": "/tokens/terracotta-riverbank.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "terracotta riverbank warm earth light background surface primary secondary text border",
+    "colors": [
+      "#f0eee5",
+      "#e3dec9",
+      "#9c8933",
+      "#5f8b48",
+      "#484123",
+      "#c2bb9b"
+    ],
+    "date": "2026-03-27",
+    "popularity": 2271
+  },
+  {
+    "id": "token:electric-broadcast",
+    "type": "token",
+    "title": "Electric Broadcast",
+    "slug": "electric-broadcast",
+    "url": "/tokens/electric-broadcast.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "electric broadcast warm neon dark background surface primary secondary accent text border",
+    "colors": [
+      "#200e12",
+      "#30191f",
+      "#f8426b",
+      "#6cea38",
+      "#49f6ce",
+      "#f1ebec",
+      "#542832"
+    ],
+    "date": "2026-03-26",
+    "popularity": 562
+  },
+  {
+    "id": "token:sun-baked-canyon",
+    "type": "token",
+    "title": "Sun-Baked Canyon",
+    "slug": "sun-baked-canyon",
+    "url": "/tokens/sun-baked-canyon.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "sun-baked canyon sun baked warm earth light background surface primary secondary text border",
+    "colors": [
+      "#e7ead9",
+      "#dce0c9",
+      "#6f7d2c",
+      "#428247",
+      "#3c4221",
+      "#bec69b"
+    ],
+    "date": "2026-03-07",
+    "popularity": 483
+  },
+  {
+    "id": "token:lunar-harbor",
+    "type": "token",
+    "title": "Lunar Harbor",
+    "slug": "lunar-harbor",
+    "url": "/tokens/lunar-harbor.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "lunar harbor cool night dark background surface primary secondary text border",
+    "colors": [
+      "#213844",
+      "#274c60",
+      "#47aae1",
+      "#31b8a9",
+      "#f2f5f7",
+      "#30576c"
+    ],
+    "date": "2026-03-04",
+    "popularity": 1361
+  },
+  {
+    "id": "token:amber-arcade",
+    "type": "token",
+    "title": "Amber Arcade",
+    "slug": "amber-arcade",
+    "url": "/tokens/amber-arcade.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "amber arcade warm retro light background surface primary secondary accent text border",
+    "colors": [
+      "#ebdbd3",
+      "#c4dadb",
+      "#de601d",
+      "#2da2a8",
+      "#e2787f",
+      "#3f2a1e",
+      "#c8a38f"
+    ],
+    "date": "2026-02-20",
+    "popularity": 1868
+  },
+  {
+    "id": "token:laser-static",
+    "type": "token",
+    "title": "Laser Static",
+    "slug": "laser-static",
+    "url": "/tokens/laser-static.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "laser static warm neon dark background surface primary secondary accent text border",
+    "colors": [
+      "#19170d",
+      "#2a2614",
+      "#f7da37",
+      "#2ff9de",
+      "#4b64f2",
+      "#f6f6f2",
+      "#4a4423"
+    ],
+    "date": "2026-02-13",
+    "popularity": 972
+  },
+  {
+    "id": "token:blank-concrete-dark",
+    "type": "token",
+    "title": "Blank Concrete (Dark)",
+    "slug": "blank-concrete-dark",
+    "url": "/tokens/blank-concrete-dark.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "blank concrete (dark) dark neutral monochrome night background surface primary secondary text border",
+    "colors": [
+      "#171a19",
+      "#292e2c",
+      "#6b9d8c",
+      "#87afa2",
+      "#f0f2f1",
+      "#404845"
+    ],
+    "date": "2026-02-11",
+    "popularity": 206
+  },
+  {
+    "id": "token:blank-concrete",
+    "type": "token",
+    "title": "Blank Concrete",
+    "slug": "blank-concrete",
+    "url": "/tokens/blank-concrete.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "blank concrete neutral monochrome light background surface primary secondary text border",
+    "colors": [
+      "#f2f4f4",
+      "#e3e8e6",
+      "#546c64",
+      "#879a94",
+      "#1e2422",
+      "#ced6d3"
+    ],
+    "date": "2026-02-11",
+    "popularity": 396
+  },
+  {
+    "id": "token:royal-ruby",
+    "type": "token",
+    "title": "Royal Ruby",
+    "slug": "royal-ruby",
+    "url": "/tokens/royal-ruby.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "royal ruby warm jewel dark background surface primary secondary accent text border",
+    "colors": [
+      "#1c0e13",
+      "#3c1b26",
+      "#a82e56",
+      "#68a233",
+      "#63e27a",
+      "#f1ebed",
+      "#542333"
+    ],
+    "date": "2026-02-03",
+    "popularity": 3319
+  },
+  {
+    "id": "token:rich-sapphire",
+    "type": "token",
+    "title": "Rich Sapphire",
+    "slug": "rich-sapphire",
+    "url": "/tokens/rich-sapphire.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "rich sapphire cool jewel dark background surface primary secondary accent text border",
+    "colors": [
+      "#122a2b",
+      "#193637",
+      "#25a1a5",
+      "#79329d",
+      "#db6fb7",
+      "#e7eeef",
+      "#29585a"
+    ],
+    "date": "2026-02-01",
+    "popularity": 219
+  },
+  {
+    "id": "token:faceted-jade",
+    "type": "token",
+    "title": "Faceted Jade",
+    "slug": "faceted-jade",
+    "url": "/tokens/faceted-jade.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "faceted jade cool jewel dark background surface primary secondary accent text border",
+    "colors": [
+      "#182212",
+      "#273d19",
+      "#5ba42e",
+      "#3794b5",
+      "#5f67d5",
+      "#ebeee9",
+      "#345221"
+    ],
+    "date": "2026-01-30",
+    "popularity": 2020
+  },
+  {
+    "id": "token:old-world-darkroom",
+    "type": "token",
+    "title": "Old-World Darkroom",
+    "slug": "old-world-darkroom",
+    "url": "/tokens/old-world-darkroom.html",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "old-world darkroom old world warm vintage light background surface primary secondary text border",
+    "colors": [
+      "#e7e3d8",
+      "#ded8c3",
+      "#b39847",
+      "#57a556",
+      "#3e3722",
+      "#c9c0a2"
+    ],
+    "date": "2026-01-18",
+    "popularity": 403
+  },
+  {
+    "id": "palette:p001",
+    "type": "palette",
+    "title": "Starless Frost",
+    "slug": "p001",
+    "url": "/palettes#p001",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless frost p001 cool night dark",
+    "colors": [
+      "#1E193B",
+      "#322A57",
+      "#5438E6",
+      "#3876C8"
+    ],
+    "date": "2026-09-05"
+  },
+  {
+    "id": "palette:p002",
+    "type": "palette",
+    "title": "Terracotta Grove",
+    "slug": "p002",
+    "url": "/palettes#p002",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "terracotta grove p002 warm earth light",
+    "colors": [
+      "#EDEEE5",
+      "#D9DCC6",
+      "#7B8539",
+      "#4D9140"
+    ],
+    "date": "2026-09-03"
+  },
+  {
+    "id": "palette:p003",
+    "type": "palette",
+    "title": "Faceted Onyx",
+    "slug": "p003",
+    "url": "/palettes#p003",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "faceted onyx p003 warm jewel dark",
+    "colors": [
+      "#272312",
+      "#3E391A",
+      "#BAA225",
+      "#30AA6B"
+    ],
+    "date": "2026-08-14"
+  },
+  {
+    "id": "palette:p004",
+    "type": "palette",
+    "title": "Neon Pulse",
+    "slug": "p004",
+    "url": "/palettes#p004",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "neon pulse p004 cool dark",
+    "colors": [
+      "#120B16",
+      "#2A1D32",
+      "#AB2BEE",
+      "#FCF12A"
+    ],
+    "date": "2026-08-14"
+  },
+  {
+    "id": "palette:p005",
+    "type": "palette",
+    "title": "Bare Ledger (Dark)",
+    "slug": "p005",
+    "url": "/palettes#p005",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "bare ledger (dark) p005 neutral monochrome night dark",
+    "colors": [
+      "#1A1717",
+      "#2E2929",
+      "#9C6D6B",
+      "#B99896"
+    ],
+    "date": "2026-08-08"
+  },
+  {
+    "id": "palette:p006",
+    "type": "palette",
+    "title": "Bare Ledger",
+    "slug": "p006",
+    "url": "/palettes#p006",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "bare ledger p006 neutral monochrome light",
+    "colors": [
+      "#F7F5F5",
+      "#ECE8E8",
+      "#6C5554",
+      "#A69695"
+    ],
+    "date": "2026-08-08"
+  },
+  {
+    "id": "palette:p007",
+    "type": "palette",
+    "title": "Powder Sorbet (Dark)",
+    "slug": "p007",
+    "url": "/palettes#p007",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "powder sorbet (dark) p007 cool pastel night dark",
+    "colors": [
+      "#1C141D",
+      "#312433",
+      "#CA82D0",
+      "#D7AECC"
+    ],
+    "date": "2026-08-07"
+  },
+  {
+    "id": "palette:p008",
+    "type": "palette",
+    "title": "Powder Sorbet",
+    "slug": "p008",
+    "url": "/palettes#p008",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "powder sorbet p008 cool pastel light",
+    "colors": [
+      "#F5ECF6",
+      "#EDDFEE",
+      "#CB6AD4",
+      "#D69BC6"
+    ],
+    "date": "2026-08-07"
+  },
+  {
+    "id": "palette:p009",
+    "type": "palette",
+    "title": "Milky Sorbet (Dark)",
+    "slug": "p009",
+    "url": "/palettes#p009",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "milky sorbet (dark) p009 cool pastel night dark",
+    "colors": [
+      "#17141D",
+      "#292433",
+      "#A691D0",
+      "#D2A7D2"
+    ],
+    "date": "2026-08-04"
+  },
+  {
+    "id": "palette:p010",
+    "type": "palette",
+    "title": "Milky Sorbet",
+    "slug": "p010",
+    "url": "/palettes#p010",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "milky sorbet p010 cool pastel light",
+    "colors": [
+      "#EBE7F4",
+      "#E4E0EC",
+      "#987BD1",
+      "#D194D1"
+    ],
+    "date": "2026-08-04"
+  },
+  {
+    "id": "palette:p011",
+    "type": "palette",
+    "title": "Worn Darkroom",
+    "slug": "p011",
+    "url": "/palettes#p011",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "worn darkroom p011 warm vintage light",
+    "colors": [
+      "#EEE9E0",
+      "#E5DCCB",
+      "#AD833B",
+      "#499F49"
+    ],
+    "date": "2026-07-27"
+  },
+  {
+    "id": "palette:p012",
+    "type": "palette",
+    "title": "Studio Ledger (Dark)",
+    "slug": "p012",
+    "url": "/palettes#p012",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "studio ledger (dark) p012 neutral monochrome night dark",
+    "colors": [
+      "#17181A",
+      "#292B2E",
+      "#667B99",
+      "#8798AF"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "id": "palette:p013",
+    "type": "palette",
+    "title": "Analog Lounge",
+    "slug": "p013",
+    "url": "/palettes#p013",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "analog lounge p013 warm retro light",
+    "colors": [
+      "#EDE4DC",
+      "#BCCFD7",
+      "#D9853A",
+      "#2D84AC"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "id": "palette:p014",
+    "type": "palette",
+    "title": "Studio Ledger",
+    "slug": "p014",
+    "url": "/palettes#p014",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "studio ledger p014 neutral monochrome light",
+    "colors": [
+      "#F4F5F6",
+      "#E4E6E9",
+      "#4F5A68",
+      "#878F9C"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "id": "palette:p015",
+    "type": "palette",
+    "title": "Radioactive Broadcast",
+    "slug": "p015",
+    "url": "/palettes#p015",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "radioactive broadcast p015 cool neon dark",
+    "colors": [
+      "#0C1C14",
+      "#1D3228",
+      "#30F695",
+      "#BC38EB"
+    ],
+    "date": "2026-06-17"
+  },
+  {
+    "id": "palette:p016",
+    "type": "palette",
+    "title": "Dusty Darkroom",
+    "slug": "p016",
+    "url": "/palettes#p016",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "dusty darkroom p016 warm vintage light",
+    "colors": [
+      "#EBE3D9",
+      "#DFD1BF",
+      "#A3773D",
+      "#639C50"
+    ],
+    "date": "2026-06-13"
+  },
+  {
+    "id": "palette:p017",
+    "type": "palette",
+    "title": "Weathered Meadow",
+    "slug": "p017",
+    "url": "/palettes#p017",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "weathered meadow p017 warm earth light",
+    "colors": [
+      "#EAE1DB",
+      "#DCCBBF",
+      "#7F5132",
+      "#869F3E"
+    ],
+    "date": "2026-06-10"
+  },
+  {
+    "id": "palette:p018",
+    "type": "palette",
+    "title": "Retro Lounge",
+    "slug": "p018",
+    "url": "/palettes#p018",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "retro lounge p018 warm light",
+    "colors": [
+      "#EBDED0",
+      "#BFD4D8",
+      "#CF7B28",
+      "#2F828F"
+    ],
+    "date": "2026-06-07"
+  },
+  {
+    "id": "palette:p019",
+    "type": "palette",
+    "title": "Starless Tide",
+    "slug": "p019",
+    "url": "/palettes#p019",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless tide p019 cool night dark",
+    "colors": [
+      "#1A2741",
+      "#2B3957",
+      "#507EDB",
+      "#368DB9"
+    ],
+    "date": "2026-05-21"
+  },
+  {
+    "id": "palette:p020",
+    "type": "palette",
+    "title": "Blush Feather (Dark)",
+    "slug": "p020",
+    "url": "/palettes#p020",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "blush feather (dark) p020 cool pastel night dark",
+    "colors": [
+      "#141C1D",
+      "#243133",
+      "#8ECBD5",
+      "#9CBAD8"
+    ],
+    "date": "2026-05-20"
+  },
+  {
+    "id": "palette:p021",
+    "type": "palette",
+    "title": "Blush Feather",
+    "slug": "p021",
+    "url": "/palettes#p021",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "blush feather p021 cool pastel light",
+    "colors": [
+      "#EDF5F6",
+      "#DAE8EA",
+      "#76CAD8",
+      "#86B0D9"
+    ],
+    "date": "2026-05-20"
+  },
+  {
+    "id": "palette:p022",
+    "type": "palette",
+    "title": "Starless Observatory",
+    "slug": "p022",
+    "url": "/palettes#p022",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless observatory p022 cool night dark",
+    "colors": [
+      "#1D2F41",
+      "#27435E",
+      "#3A8EE1",
+      "#427CB8"
+    ],
+    "date": "2026-05-12"
+  },
+  {
+    "id": "palette:p023",
+    "type": "palette",
+    "title": "Weathered Darkroom",
+    "slug": "p023",
+    "url": "/palettes#p023",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "weathered darkroom p023 warm vintage light",
+    "colors": [
+      "#E9E1D9",
+      "#DBCDBF",
+      "#9D6F44",
+      "#749C4B"
+    ],
+    "date": "2026-05-08"
+  },
+  {
+    "id": "palette:p024",
+    "type": "palette",
+    "title": "Chalk Petal (Dark)",
+    "slug": "p024",
+    "url": "/palettes#p024",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "chalk petal (dark) p024 cool pastel night dark",
+    "colors": [
+      "#16131E",
+      "#282334",
+      "#A896D3",
+      "#D4B1DB"
+    ],
+    "date": "2026-04-13"
+  },
+  {
+    "id": "palette:p025",
+    "type": "palette",
+    "title": "Chalk Petal",
+    "slug": "p025",
+    "url": "/palettes#p025",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "chalk petal p025 cool pastel light",
+    "colors": [
+      "#EFECF7",
+      "#E3DEEF",
+      "#9981D4",
+      "#D09DDA"
+    ],
+    "date": "2026-04-13"
+  },
+  {
+    "id": "palette:p026",
+    "type": "palette",
+    "title": "Rewind Motel",
+    "slug": "p026",
+    "url": "/palettes#p026",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "rewind motel p026 warm retro light",
+    "colors": [
+      "#EADDD4",
+      "#C1D0D6",
+      "#D27531",
+      "#3A84A3"
+    ],
+    "date": "2026-04-09"
+  },
+  {
+    "id": "palette:p027",
+    "type": "palette",
+    "title": "Even Concrete (Dark)",
+    "slug": "p027",
+    "url": "/palettes#p027",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "even concrete (dark) p027 neutral monochrome night dark",
+    "colors": [
+      "#171A17",
+      "#292E29",
+      "#719C6B",
+      "#9CBA98"
+    ],
+    "date": "2026-04-05"
+  },
+  {
+    "id": "palette:p028",
+    "type": "palette",
+    "title": "Even Concrete",
+    "slug": "p028",
+    "url": "/palettes#p028",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "even concrete p028 neutral monochrome light",
+    "colors": [
+      "#F4F5F4",
+      "#E2E6E1",
+      "#576C53",
+      "#98A796"
+    ],
+    "date": "2026-04-05"
+  },
+  {
+    "id": "palette:p029",
+    "type": "palette",
+    "title": "Terracotta Riverbank",
+    "slug": "p029",
+    "url": "/palettes#p029",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "terracotta riverbank p029 warm earth light",
+    "colors": [
+      "#F0EEE5",
+      "#E3DEC9",
+      "#9C8933",
+      "#5F8B48"
+    ],
+    "date": "2026-03-27"
+  },
+  {
+    "id": "palette:p030",
+    "type": "palette",
+    "title": "Electric Broadcast",
+    "slug": "p030",
+    "url": "/palettes#p030",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "electric broadcast p030 warm neon dark",
+    "colors": [
+      "#200E12",
+      "#30191F",
+      "#F8426B",
+      "#6CEA38"
+    ],
+    "date": "2026-03-26"
+  },
+  {
+    "id": "palette:p031",
+    "type": "palette",
+    "title": "Sun-Baked Canyon",
+    "slug": "p031",
+    "url": "/palettes#p031",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "sun-baked canyon p031 warm earth light",
+    "colors": [
+      "#E7EAD9",
+      "#DCE0C9",
+      "#6F7D2C",
+      "#428247"
+    ],
+    "date": "2026-03-07"
+  },
+  {
+    "id": "palette:p032",
+    "type": "palette",
+    "title": "Lunar Harbor",
+    "slug": "p032",
+    "url": "/palettes#p032",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "lunar harbor p032 cool night dark",
+    "colors": [
+      "#213844",
+      "#274C60",
+      "#47AAE1",
+      "#31B8A9"
+    ],
+    "date": "2026-03-04"
+  },
+  {
+    "id": "palette:p033",
+    "type": "palette",
+    "title": "Amber Arcade",
+    "slug": "p033",
+    "url": "/palettes#p033",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "amber arcade p033 warm retro light",
+    "colors": [
+      "#EBDBD3",
+      "#C4DADB",
+      "#DE601D",
+      "#2DA2A8"
+    ],
+    "date": "2026-02-20"
+  },
+  {
+    "id": "palette:p034",
+    "type": "palette",
+    "title": "Laser Static",
+    "slug": "p034",
+    "url": "/palettes#p034",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "laser static p034 warm neon dark",
+    "colors": [
+      "#19170D",
+      "#2A2614",
+      "#F7DA37",
+      "#2FF9DE"
+    ],
+    "date": "2026-02-13"
+  },
+  {
+    "id": "palette:p035",
+    "type": "palette",
+    "title": "Blank Concrete (Dark)",
+    "slug": "p035",
+    "url": "/palettes#p035",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "blank concrete (dark) p035 neutral monochrome night dark",
+    "colors": [
+      "#171A19",
+      "#292E2C",
+      "#6B9D8C",
+      "#87AFA2"
+    ],
+    "date": "2026-02-11"
+  },
+  {
+    "id": "palette:p036",
+    "type": "palette",
+    "title": "Blank Concrete",
+    "slug": "p036",
+    "url": "/palettes#p036",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "blank concrete p036 neutral monochrome light",
+    "colors": [
+      "#F2F4F4",
+      "#E3E8E6",
+      "#546C64",
+      "#879A94"
+    ],
+    "date": "2026-02-11"
+  },
+  {
+    "id": "palette:p037",
+    "type": "palette",
+    "title": "Royal Ruby",
+    "slug": "p037",
+    "url": "/palettes#p037",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "royal ruby p037 warm jewel dark",
+    "colors": [
+      "#1C0E13",
+      "#3C1B26",
+      "#A82E56",
+      "#68A233"
+    ],
+    "date": "2026-02-03"
+  },
+  {
+    "id": "palette:p038",
+    "type": "palette",
+    "title": "Rich Sapphire",
+    "slug": "p038",
+    "url": "/palettes#p038",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "rich sapphire p038 cool jewel dark",
+    "colors": [
+      "#122A2B",
+      "#193637",
+      "#25A1A5",
+      "#79329D"
+    ],
+    "date": "2026-02-01"
+  },
+  {
+    "id": "palette:p039",
+    "type": "palette",
+    "title": "Faceted Jade",
+    "slug": "p039",
+    "url": "/palettes#p039",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "faceted jade p039 cool jewel dark",
+    "colors": [
+      "#182212",
+      "#273D19",
+      "#5BA42E",
+      "#3794B5"
+    ],
+    "date": "2026-01-30"
+  },
+  {
+    "id": "palette:p040",
+    "type": "palette",
+    "title": "Old-World Darkroom",
+    "slug": "p040",
+    "url": "/palettes#p040",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "old-world darkroom p040 warm vintage light",
+    "colors": [
+      "#E7E3D8",
+      "#DED8C3",
+      "#B39847",
+      "#57A556"
+    ],
+    "date": "2026-01-18"
+  }
+]

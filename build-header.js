@@ -72,6 +72,35 @@
  *     bar. The search form's action stays "index.html" (a real fallback
  *     target for no-JS submits).
  *
+ * PHASE 5 — TYPE-FIRST NAV FROM resource-types.json
+ * The primary nav (desktop .site-nav and the #mobile-menu nav, in both
+ * partials) lists resource TYPES — Guides · Tokens · Palettes — then the
+ * static Roadmap link. Guide categories are no longer in the header; they
+ * stay internally linked from every page via the footer's category row
+ * (build-footer.js, from categories.json).
+ *
+ * The resource-type links are generated, not hand-authored: each nav in
+ * each partial has a NAV_RESOURCES_START/END marker region, and main()
+ * rewrites every such region in partials/header.html and
+ * partials/header-home.html from resource-types.json (entries with
+ * `nav: true`, in array order) BEFORE syncing pages. Writing the result
+ * into the partial files themselves — rather than only into pages — keeps
+ * the partials complete, valid HTML for build-categories.js and
+ * build-tokens.js, which embed them verbatim. Don't hand-edit inside
+ * those regions; edit resource-types.json and re-run this script.
+ *
+ * A nav entry's `landingUrl` must resolve to a real file on disk (and, if
+ * it has a #fragment, to an element with that id), or this script fails.
+ * That is the guard against linking a future resource type before its
+ * destination exists.
+ *
+ * Active state ("you are here"): a page whose relPath starts with one of
+ * an entry's `activePaths` gets aria-current="page" on that entry's nav
+ * link (e.g. guide/ and category/ -> Guides, tokens/ -> Tokens,
+ * palettes/ -> Palettes). Roadmap keeps its existing ROOT_LINKS rule
+ * below. This replaces the pre-Phase-5 hard-coded category/tokens/
+ * palettes rules.
+ *
  * ONE-TIME SETUP PER PAGE
  * Wrap the page's existing <header class="site-header">…</header> block
  * in marker comments:
@@ -104,6 +133,13 @@ const HOME_HEADER_PARTIAL_PATH = path.join(
 );
 const START_MARKER = "<!--HEADER_START-->";
 const END_MARKER = "<!--HEADER_END-->";
+const RESOURCE_TYPES_PATH = path.join(ROOT, "resource-types.json");
+const NAV_START_MARKER = "<!--NAV_RESOURCES_START-->";
+const NAV_END_MARKER = "<!--NAV_RESOURCES_END-->";
+// Indentation of a nav link line inside the partials (both navs, both
+// partials), so the generated region reads like the hand-authored markup
+// around it.
+const NAV_LINK_INDENT = "      ";
 
 // Root-relative links in the partial that need per-page depth
 // rewriting. Each `partialText` is the literal substring the partial is
@@ -142,6 +178,128 @@ function replaceBetween(html, startMarker, endMarker, replacement) {
   return (
     html.slice(0, start + startMarker.length) + replacement + html.slice(end)
   );
+}
+
+// ---------------------------------------------------------------------
+// Phase 5 — resource-type nav (see "PHASE 5" in the header comment)
+// ---------------------------------------------------------------------
+
+function escapeHtml(str) {
+  return String(str).replace(
+    /[&<>"']/g,
+    (ch) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[ch],
+  );
+}
+
+// "/tokens" -> tokens.html or tokens/index.html; "/" -> index.html;
+// "/#guides" -> index.html, which must contain id="guides". Returns the
+// resolved file path, or null if the URL doesn't point at something real.
+function resolveLandingUrl(url) {
+  const hashIndex = url.indexOf("#");
+  const pathPart = hashIndex === -1 ? url : url.slice(0, hashIndex);
+  const fragment = hashIndex === -1 ? "" : url.slice(hashIndex + 1);
+  if (!pathPart.startsWith("/")) return null;
+  const rel = pathPart.replace(/^\/+/, "").replace(/\/+$/, "");
+  const candidates =
+    rel === "" ? ["index.html"] : [rel, `${rel}.html`, `${rel}/index.html`];
+  const file = candidates
+    .map((candidate) => path.join(ROOT, candidate))
+    .find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile());
+  if (!file) return null;
+  if (fragment && !fs.readFileSync(file, "utf8").includes(`id="${fragment}"`)) {
+    return null;
+  }
+  return file;
+}
+
+function loadNavEntries() {
+  const registry = JSON.parse(fs.readFileSync(RESOURCE_TYPES_PATH, "utf8"));
+  if (!Array.isArray(registry)) {
+    throw new Error("resource-types.json did not contain an array");
+  }
+  const seen = new Set();
+  const navEntries = [];
+  registry.forEach((entry, i) => {
+    const where = `resource-types.json[${i}]`;
+    if (!entry || typeof entry !== "object") {
+      throw new Error(`${where} is not an object`);
+    }
+    if (typeof entry.type !== "string" || !/^[a-z0-9-]+$/.test(entry.type)) {
+      throw new Error(`${where}.type must be a lowercase slug`);
+    }
+    if (seen.has(entry.type)) {
+      throw new Error(`${where}: duplicate type "${entry.type}"`);
+    }
+    seen.add(entry.type);
+    if (typeof entry.nav !== "boolean") {
+      throw new Error(`${where}.nav must be true or false`);
+    }
+    if (!entry.nav) return;
+    if (typeof entry.label !== "string" || !entry.label.trim()) {
+      throw new Error(`${where}.label must be a non-empty string`);
+    }
+    if (typeof entry.landingUrl !== "string" || !resolveLandingUrl(entry.landingUrl)) {
+      throw new Error(
+        `${where}.landingUrl ${JSON.stringify(entry.landingUrl)} does not resolve to an existing page — ` +
+          `only list a resource type in the nav once its destination exists.`,
+      );
+    }
+    if (
+      !Array.isArray(entry.activePaths) ||
+      !entry.activePaths.every((prefix) => typeof prefix === "string" && prefix)
+    ) {
+      throw new Error(`${where}.activePaths must be an array of path prefixes`);
+    }
+    navEntries.push(entry);
+  });
+  return navEntries;
+}
+
+function navLinksHtml(navEntries) {
+  return (
+    navEntries
+      .map(
+        (entry) =>
+          `\n${NAV_LINK_INDENT}<a href="${escapeHtml(entry.landingUrl)}">${escapeHtml(entry.label)}</a>`,
+      )
+      .join("") +
+    "\n" +
+    NAV_LINK_INDENT
+  );
+}
+
+// Rewrites EVERY NAV_RESOURCES_START/END region in one partial file
+// (each partial has two: desktop nav + mobile menu nav). Throws if the
+// partial has none, so a partial can't silently fall out of sync.
+function syncNavRegions(partialPath, linksHtml) {
+  const original = fs.readFileSync(partialPath, "utf8");
+  let html = original;
+  let regions = 0;
+  let from = 0;
+  while (true) {
+    const start = html.indexOf(NAV_START_MARKER, from);
+    if (start === -1) break;
+    const contentStart = start + NAV_START_MARKER.length;
+    const end = html.indexOf(NAV_END_MARKER, contentStart);
+    if (end === -1) {
+      throw new Error(`${partialPath}: ${NAV_START_MARKER} without a matching ${NAV_END_MARKER}`);
+    }
+    html = html.slice(0, contentStart) + linksHtml + html.slice(end);
+    from = contentStart + linksHtml.length + NAV_END_MARKER.length;
+    regions++;
+  }
+  if (regions === 0) {
+    throw new Error(`${partialPath} has no ${NAV_START_MARKER} / ${NAV_END_MARKER} region`);
+  }
+  if (html !== original) fs.writeFileSync(partialPath, html);
+  return { regions, changed: html !== original };
 }
 
 // Marks the single `<a href="FILE">…</a>` link that points at the page
@@ -199,6 +357,16 @@ function headerFor(relPath, partial) {
 }
 
 function main() {
+  const navEntries = loadNavEntries();
+  const linksHtml = navLinksHtml(navEntries);
+  for (const partialPath of [HEADER_PARTIAL_PATH, HOME_HEADER_PARTIAL_PATH]) {
+    const result = syncNavRegions(partialPath, linksHtml);
+    console.log(
+      `✓ ${path.relative(ROOT, partialPath)} nav — ${result.regions} region${result.regions === 1 ? "" : "s"} ` +
+        `${result.changed ? "regenerated" : "already up to date"} (${navEntries.map((e) => e.label).join(" · ")}).`,
+    );
+  }
+
   const partial = fs.readFileSync(HEADER_PARTIAL_PATH, "utf8").trim();
   const homePartial = fs.readFileSync(HOME_HEADER_PARTIAL_PATH, "utf8").trim();
   const files = findHtmlFiles(ROOT);
@@ -214,20 +382,15 @@ function main() {
     // home header; every other page gets the two-row partial.
     const sourcePartial = relPath === "index.html" ? homePartial : partial;
     let headerHtml = headerFor(relPath, sourcePartial);
-    // Category pages (category/<slug>.html) aren't in ROOT_LINKS since
-    // they're absolute-root-relative in the partial already (/category/
-    // <slug>, unlike index.html/roadmap.html's ../-prefixed convention)
-    // and need no depth rewriting — but they still deserve the same
-    // "you are here" nav highlight headerFor() gives roadmap.html.
-    const categoryMatch = relPath.match(/^category\/([a-z0-9-]+)\.html$/);
-    if (categoryMatch) {
-      headerHtml = markCurrent(headerHtml, `/category/${categoryMatch[1]}`);
-    }
-    if (relPath === "tokens/index.html" || relPath.startsWith("tokens/")) {
-      headerHtml = markCurrent(headerHtml, "/tokens");
-    }
-    if (relPath === "palettes/index.html" || relPath.startsWith("palettes/")) {
-      headerHtml = markCurrent(headerHtml, "/palettes");
+    // Resource-type links (/#guides, /tokens, /palettes) are absolute-
+    // root-relative, so they need no depth rewriting — but they get the
+    // same "you are here" highlight headerFor() gives roadmap.html, driven
+    // by each resource-types.json entry's activePaths (Phase 5; replaces
+    // the old hard-coded category/tokens/palettes rules).
+    for (const entry of navEntries) {
+      if (entry.activePaths.some((prefix) => relPath.startsWith(prefix))) {
+        headerHtml = markCurrent(headerHtml, escapeHtml(entry.landingUrl));
+      }
     }
     const result = replaceBetween(
       original,

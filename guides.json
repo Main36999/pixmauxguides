@@ -2,6 +2,9 @@
   {
     "id": "whitespace-as-ui-component",
     "category": "spacing",
+    "categories": [
+      "spacing"
+    ],
     "level": "beginner",
     "readTime": 11,
     "title": "Whitespace as a UI Component, Not a Leftover",
@@ -13,6 +16,9 @@
   {
     "id": "padding-margin-different-jobs",
     "category": "spacing",
+    "categories": [
+      "spacing"
+    ],
     "level": "beginner",
     "readTime": 8,
     "title": "Padding and Margin Are Different Jobs, Not Interchangeable Values",
@@ -24,6 +30,9 @@
   {
     "id": "color-contrast-systems",
     "category": "color-theory",
+    "categories": [
+      "color-theory"
+    ],
     "level": "beginner",
     "readTime": 10,
     "title": "Color Contrast Is Math, Not Taste",
@@ -35,6 +44,9 @@
   {
     "id": "color-palette-token-system",
     "category": "color-theory",
+    "categories": [
+      "color-theory"
+    ],
     "level": "intermediate",
     "readTime": 14,
     "title": "A Color Palette Is a Token System, Not a Row of Swatches",
@@ -46,6 +58,9 @@
   {
     "id": "type-scale-systems",
     "category": "typography",
+    "categories": [
+      "typography"
+    ],
     "level": "intermediate",
     "readTime": 12,
     "title": "Font Size Is a Formula, Not a Feeling",
@@ -57,6 +72,9 @@
   {
     "id": "auto-layout-constraint-model",
     "category": "figma",
+    "categories": [
+      "figma"
+    ],
     "level": "intermediate",
     "readTime": 15,
     "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
@@ -68,6 +86,9 @@
   {
     "id": "accessibility-structural-model",
     "category": "accessibility",
+    "categories": [
+      "accessibility"
+    ],
     "level": "intermediate",
     "readTime": 16,
     "title": "Accessibility Is a Structural Decision, Not a Final Pass",
@@ -79,6 +100,9 @@
   {
     "id": "design-tokens-naming-system",
     "category": "systems",
+    "categories": [
+      "systems"
+    ],
     "level": "advanced",
     "readTime": 17,
     "title": "Design Tokens Are a Naming System, Not a Style Guide",
@@ -90,6 +114,9 @@
   {
     "id": "responsive-layout-contract",
     "category": "web",
+    "categories": [
+      "web"
+    ],
     "level": "intermediate",
     "readTime": 18,
     "title": "Responsive Layout Is a Contract, Not a Breakpoint List",
@@ -101,6 +128,9 @@
   {
     "id": "motion-timing-model",
     "category": "motion",
+    "categories": [
+      "motion"
+    ],
     "level": "advanced",
     "readTime": 15,
     "title": "Motion Timing Is a Physics Model, Not a Preset",
@@ -112,6 +142,9 @@
   {
     "id": "dark-mode-second-palette",
     "category": "color-theory",
+    "categories": [
+      "color-theory"
+    ],
     "level": "intermediate",
     "readTime": 12,
     "title": "Dark Mode Is a Second Palette, Not an Inverted Filter",
@@ -123,6 +156,9 @@
   {
     "id": "font-pairing-hierarchy-decision",
     "category": "typography",
+    "categories": [
+      "typography"
+    ],
     "level": "beginner",
     "readTime": 11,
     "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match",
@@ -134,6 +170,9 @@
   {
     "id": "line-length-reading-constraint",
     "category": "typography",
+    "categories": [
+      "typography"
+    ],
     "level": "beginner",
     "readTime": 9,
     "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
@@ -145,6 +184,9 @@
   {
     "id": "grid-systems-rhythm",
     "category": "spacing",
+    "categories": [
+      "spacing"
+    ],
     "level": "intermediate",
     "readTime": 14,
     "title": "Grid Systems Are a Rhythm, Not a Ruler",
@@ -156,6 +198,9 @@
   {
     "id": "components-variants-contract",
     "category": "figma",
+    "categories": [
+      "figma"
+    ],
     "level": "intermediate",
     "readTime": 16,
     "title": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
@@ -167,6 +212,9 @@
   {
     "id": "figma-variables-data-layer",
     "category": "figma",
+    "categories": [
+      "figma"
+    ],
     "level": "advanced",
     "readTime": 15,
     "title": "Figma Variables Are a Data Layer, Not Just Color Styles",
@@ -178,6 +226,9 @@
   {
     "id": "figma-to-code-handoff",
     "category": "figma",
+    "categories": [
+      "figma"
+    ],
     "level": "intermediate",
     "readTime": 14,
     "title": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
@@ -189,6 +240,9 @@
   {
     "id": "thumb-zones-layout-constraint",
     "category": "mobile",
+    "categories": [
+      "mobile"
+    ],
     "level": "beginner",
     "readTime": 10,
     "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have",
@@ -200,6 +254,9 @@
   {
     "id": "migrating-from-xd-rebuild",
     "category": "adobe-xd",
+    "categories": [
+      "adobe-xd"
+    ],
     "level": "intermediate",
     "readTime": 12,
     "title": "Migrating From XD Is a Rebuild, Not a File Import",
@@ -209,6 +266,9 @@
   {
     "id": "ios-android-different-systems",
     "category": "mobile",
+    "categories": [
+      "mobile"
+    ],
     "level": "intermediate",
     "readTime": 17,
     "title": "iOS and Android Are Different Systems, Not One Design Reused Twice",
@@ -220,6 +280,9 @@
   {
     "id": "css-grid-two-dimensional-system",
     "category": "web",
+    "categories": [
+      "web"
+    ],
     "level": "intermediate",
     "readTime": 15,
     "title": "CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps",
@@ -229,6 +292,9 @@
   {
     "id": "mobile-breakpoints-device-categories",
     "category": "mobile",
+    "categories": [
+      "mobile"
+    ],
     "level": "intermediate",
     "readTime": 13,
     "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",

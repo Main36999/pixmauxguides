@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "color-theory",
+    "name": "Color Theory",
+    "description": "Color decisions that hold up to scrutiny: contrast ratios, token-based palettes, and systems that remap cleanly between light and dark.",
+    "order": 1,
+    "ogImage": "/assets/Color Theory.png"
+  },
+  {
+    "slug": "typography",
+    "name": "Typography",
+    "description": "Type scale, hierarchy, and pairing decisions backed by formulas and measurable readability \u2014 not gut feel.",
+    "order": 2,
+    "ogImage": "/assets/Typography.png"
+  },
+  {
+    "slug": "spacing",
+    "name": "Spacing & Layout",
+    "description": "Space as a deliberate, systematic tool: padding vs. margin, whitespace as a UI component, and the token scale that keeps gaps consistent.",
+    "order": 3,
+    "ogImage": "/assets/Spacing & Layout.png"
+  },
+  {
+    "slug": "figma",
+    "name": "Figma Workflow",
+    "description": "The mental models behind Figma's most misused features \u2014 Auto Layout, variables, and a clean handoff from design file to code.",
+    "order": 4,
+    "ogImage": "/assets/Figma Workflow.png"
+  },
+  {
+    "slug": "adobe-xd",
+    "name": "Adobe XD Workflow",
+    "description": "Rebuilding a design workflow around Adobe XD's shutdown \u2014 what actually needs remaking, and what safely carries over.",
+    "order": 5,
+    "ogImage": "/og-image.png"
+  },
+  {
+    "slug": "mobile",
+    "name": "Mobile App Design",
+    "description": "Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge.",
+    "order": 6,
+    "ogImage": "/og-image.png"
+  },
+  {
+    "slug": "web",
+    "name": "Web Layout",
+    "description": "Responsive layout as a contract, not a breakpoint list \u2014 CSS Grid, fluid sizing, and the traps no toolbar preview catches.",
+    "order": 7,
+    "ogImage": "/og-image.png"
+  },
+  {
+    "slug": "systems",
+    "name": "Design Systems",
+    "description": "Design tokens and naming conventions that survive a rebrand instead of drifting back into hardcoded values.",
+    "order": 8,
+    "ogImage": "/og-image.png"
+  },
+  {
+    "slug": "accessibility",
+    "name": "Accessibility",
+    "description": "Accessibility as a structural decision made in markup and states, not a final pass before shipping.",
+    "order": 9,
+    "ogImage": "/assets/Accessibility.png"
+  },
+  {
+    "slug": "motion",
+    "name": "Prototyping & Motion",
+    "description": "Motion timing backed by real physics \u2014 easing curves, duration, and when animation should exist at all.",
+    "order": 10,
+    "ogImage": "/og-image.png"
+  }
+]

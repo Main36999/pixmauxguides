@@ -29,10 +29,10 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search guides — bpozz</title>
+    <title>Search — bpozz</title>
     <meta
       name="description"
-      content="Search bpozz's library of UI/UX design tutorials by title, topic, or category."
+      content="Search bpozz's guides, color tokens, and palettes by title, topic, tag, or category."
     />
     <!-- Search results are per-query and not meaningfully unique content
          to index, so this page is noindex (still followable, so links
@@ -82,6 +82,94 @@
         border-radius: 2px;
         padding: 0 1px;
       }
+
+      /* ---------- Phase 3: type/category filters + multi-type result
+         list. Scoped to this page only, same as `mark` above — reuses
+         site-wide tokens (--action/--text-muted/--grid-line/--sans)
+         and existing global classes (.field/.select-field, .badge,
+         .card-meta) rather than duplicating their rules. ---------- */
+      .search-type-tabs {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .search-type-tab {
+        appearance: none;
+        background: none;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        font-family: var(--sans);
+        color: var(--text-muted);
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 4px 8px 6px;
+        cursor: pointer;
+        transition:
+          color 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .search-type-tab:hover {
+        color: var(--ink);
+      }
+      .search-type-tab[aria-pressed="true"] {
+        color: var(--action);
+        border-bottom-color: var(--action);
+      }
+
+      .search-result-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .search-result-row {
+        border-bottom: 1px solid var(--grid-line);
+        animation: cardIn 0.28s ease both;
+      }
+      .search-result-row:first-child {
+        border-top: 1px solid var(--grid-line);
+      }
+      .search-result-link {
+        display: block;
+        padding: 18px 2px;
+        color: inherit;
+        text-decoration: none;
+      }
+      .search-result-link:hover .search-result-title {
+        color: var(--action);
+      }
+      .search-result-title {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.35;
+        letter-spacing: -0.005em;
+      }
+      .search-result-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .search-result-desc {
+        margin-top: 6px;
+        max-width: 72ch;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .search-empty-tips {
+        text-align: left;
+        max-width: 300px;
+        margin: 0 auto 22px;
+        padding-left: 20px;
+        color: var(--text-muted);
+        font-size: 13.5px;
+        line-height: 1.7;
+      }
     </style>
   </head>
   <body>
@@ -99,8 +187,8 @@
       action="/search"
       method="get"
     >
-      <label for="header-search-input" class="sr-only">Search guides</label>
-      <button type="submit" aria-label="Search guides">
+      <label for="header-search-input" class="sr-only">Search bpozz</label>
+      <button type="submit" aria-label="Search bpozz">
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -119,7 +207,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides…"
+        placeholder="Search guides, tokens, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -182,38 +270,22 @@
 
   <div class="header-bottom">
     <nav class="site-nav" aria-label="Primary">
-      <a href="index.html">All</a>
-      <a href="/category/color-theory">Color Theory</a>
+      <!--NAV_RESOURCES_START-->
+      <a href="/#guides">Guides</a>
       <a href="/tokens">Tokens</a>
       <a href="/palettes">Palettes</a>
-      <a href="/category/typography">Typography</a>
-      <a href="/category/spacing">Spacing</a>
-      <a href="/category/figma">Figma</a>
-      <a href="/category/adobe-xd">Adobe XD</a>
-      <a href="/category/mobile">Mobile</a>
-      <a href="/category/web">Web Layout</a>
-      <a href="/category/systems">Systems</a>
-      <a href="/category/accessibility">Accessibility</a>
-      <a href="/category/motion">Motion</a>
+      <!--NAV_RESOURCES_END-->
       <a href="roadmap.html">Roadmap</a>
     </nav>
   </div>
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="mobile-menu__nav" aria-label="Primary">
-      <a href="index.html">All</a>
-      <a href="/category/color-theory">Color Theory</a>
+      <!--NAV_RESOURCES_START-->
+      <a href="/#guides">Guides</a>
       <a href="/tokens">Tokens</a>
       <a href="/palettes">Palettes</a>
-      <a href="/category/typography">Typography</a>
-      <a href="/category/spacing">Spacing</a>
-      <a href="/category/figma">Figma</a>
-      <a href="/category/adobe-xd">Adobe XD</a>
-      <a href="/category/mobile">Mobile</a>
-      <a href="/category/web">Web Layout</a>
-      <a href="/category/systems">Systems</a>
-      <a href="/category/accessibility">Accessibility</a>
-      <a href="/category/motion">Motion</a>
+      <!--NAV_RESOURCES_END-->
       <a href="roadmap.html">Roadmap</a>
     </nav>
   </div>
@@ -222,20 +294,47 @@
     <main class="wrap guides-main" id="search-content" tabindex="-1">
       <div class="category-hero">
         <p class="section-label mono">/ search</p>
-        <h1 class="category-hero__title" id="search-heading">Search guides</h1>
+        <h1 class="category-hero__title" id="search-heading">Search</h1>
         <p class="category-hero__dek" id="search-dek">
-          Use the search box above to find a guide by title, topic, or category.
+          Use the search box above to find a guide, token, or palette by
+          title, topic, tag, or category.
         </p>
       </div>
 
       <div class="section-head">
         <p class="results-count" id="search-results-count"></p>
+        <div class="section-head__meta" id="search-filters" hidden>
+          <div
+            class="search-type-tabs"
+            id="search-type-tabs"
+            role="group"
+            aria-label="Filter by type"
+          >
+            <button type="button" class="search-type-tab" data-type="all" aria-pressed="true">All</button>
+            <button type="button" class="search-type-tab" data-type="guide" aria-pressed="false">Guides</button>
+            <button type="button" class="search-type-tab" data-type="token" aria-pressed="false">Tokens</button>
+            <button type="button" class="search-type-tab" data-type="palette" aria-pressed="false">Palettes</button>
+          </div>
+          <div class="field select-field level-filter">
+            <label for="search-category-select" class="sr-only">Category</label>
+            <select id="search-category-select">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+        </div>
       </div>
 
-      <div class="grid" id="search-grid-root"></div>
+      <ul class="search-result-list" id="search-grid-root"></ul>
 
       <div class="empty-state" id="search-empty-state">
-        <p>No guides matched <strong id="search-empty-query"></strong>.</p>
+        <p id="search-empty-message">
+          No results found for <strong id="search-empty-query"></strong>.
+        </p>
+        <ul class="search-empty-tips">
+          <li>Try a broader keyword</li>
+          <li>Use fewer words</li>
+          <li>Check the spelling</li>
+        </ul>
         <a href="index.html" class="btn btn-primary">Browse all guides</a>
       </div>
     </main>
@@ -249,6 +348,20 @@
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
     </nav>
+    <nav class="footer-nav footer-nav--categories" aria-label="Guide categories">
+      <!--FOOTER_CATEGORIES_START-->
+      <a href="/category/color-theory">Color Theory</a>
+      <a href="/category/typography">Typography</a>
+      <a href="/category/spacing">Spacing &amp; Layout</a>
+      <a href="/category/figma">Figma Workflow</a>
+      <a href="/category/adobe-xd">Adobe XD Workflow</a>
+      <a href="/category/mobile">Mobile App Design</a>
+      <a href="/category/web">Web Layout</a>
+      <a href="/category/systems">Design Systems</a>
+      <a href="/category/accessibility">Accessibility</a>
+      <a href="/category/motion">Prototyping &amp; Motion</a>
+      <!--FOOTER_CATEGORIES_END-->
+    </nav>
     <p class="footer-copyright">© 2026 bpozz. All Rights Reserved.</p>
   </div>
 </footer><!--FOOTER_END-->
@@ -258,91 +371,36 @@
       (function () {
         "use strict";
 
-        // ---------- label maps (mirror app.js's CATEGORIES/LEVEL_LABEL,
-        // kept here too so this page has no hard dependency on app.js
-        // internals — app.js is only relied on for the shared header/
-        // mobile-menu behavior on this page) ----------
-        var CATEGORY_LABELS = {
-          "color-theory": "Color Theory",
-          typography: "Typography",
-          spacing: "Spacing & Layout",
-          figma: "Figma Workflow",
-          "adobe-xd": "Adobe XD Workflow",
-          mobile: "Mobile App Design",
-          web: "Web Layout",
-          systems: "Design Systems",
-          accessibility: "Accessibility",
-          motion: "Prototyping & Motion",
-        };
-        var LEVEL_LABELS = {
-          beginner: "Beginner",
-          intermediate: "Intermediate",
-          advanced: "Advanced",
-        };
+        // ---------------------------------------------------------------
+        // Phase 3: global search over content-index.json
+        // ---------------------------------------------------------------
+        // Replaces the guide-only pipeline this page used before (fetch
+        // /guides.json, filter title/description/category label — see
+        // bpozz-global-search-spec-v2.md §2 for what was wrong with that).
+        // This now fetches the generated /content-index.json
+        // (bpozz-phase-2-handoff.md), which already carries Guides,
+        // Tokens, and Palettes as one normalized record shape, plus
+        // /categories.json for category display names and for building
+        // the category filter's option list (spec §16: "Do not hard-code
+        // the filter list separately from the category data if it can be
+        // derived from the index").
+        // ---------------------------------------------------------------
 
-        // Small local fallback list so this page still renders something
-        // if /guides.json can't be fetched — e.g. the file is opened
-        // directly as file:// instead of through a local server, which
-        // blocks fetch() on most browsers. On the live site the real
-        // fetch below is what actually runs.
-        var SAMPLE_GUIDES = [
-          {
-            id: "whitespace-as-ui-component",
-            category: "spacing",
-            level: "beginner",
-            readTime: 11,
-            title: "Whitespace as a UI Component, Not a Leftover",
-            description:
-              "Treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning.",
-          },
-          {
-            id: "color-contrast-systems",
-            category: "color-theory",
-            level: "beginner",
-            readTime: 10,
-            title: "Color Contrast Is Math, Not Taste",
-            description:
-              "Measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
-          },
-          {
-            id: "type-scale-systems",
-            category: "typography",
-            level: "intermediate",
-            readTime: 12,
-            title: "Font Size Is a Formula, Not a Feeling",
-            description:
-              "Modular scale ratios, line-height and measure numbers, and the clamp() formula for type that resizes itself.",
-          },
-          {
-            id: "auto-layout-constraint-model",
-            category: "figma",
-            level: "intermediate",
-            readTime: 15,
-            title: "Auto Layout Is a Constraint System, Not a Convenience Toggle",
-            description:
-              "The mental model behind Figma's Auto Layout, and where it breaks down if you treat it like a shortcut.",
-          },
-          {
-            id: "responsive-layout-contract",
-            category: "web",
-            level: "intermediate",
-            readTime: 18,
-            title: "Responsive Layout Is a Contract, Not a Breakpoint List",
-            description:
-              "CSS Grid, fluid sizing, and the traps no toolbar preview catches.",
-          },
-          {
-            id: "accessibility-structural-model",
-            category: "accessibility",
-            level: "intermediate",
-            readTime: 13,
-            title: "Accessibility Is a Structural Decision, Not a Final Pass",
-            description:
-              "Why accessibility baked into the structure beats an audit bolted on at the end.",
-          },
-        ];
+        var TYPE_LABELS = { guide: "Guide", token: "Token", palette: "Palette" };
+        var TYPE_VALUES = ["all", "guide", "token", "palette"];
 
-        var query = (new URLSearchParams(location.search).get("s") || "").trim();
+        // Relevance weights — bpozz-global-search-spec-v2.md §12. Starting
+        // values from the spec, used as given ("not immutable
+        // requirements", but nothing here needed adjusting).
+        var WEIGHTS = {
+          exactTitle: 100,
+          titleWord: 50,
+          category: 35,
+          tag: 30,
+          keyword: 25,
+          description: 15,
+          searchText: 5,
+        };
 
         var headingEl = document.getElementById("search-heading");
         var dekEl = document.getElementById("search-dek");
@@ -350,6 +408,9 @@
         var gridEl = document.getElementById("search-grid-root");
         var emptyEl = document.getElementById("search-empty-state");
         var emptyQueryEl = document.getElementById("search-empty-query");
+        var filtersEl = document.getElementById("search-filters");
+        var typeTabsEl = document.getElementById("search-type-tabs");
+        var categorySelectEl = document.getElementById("search-category-select");
 
         function escapeHtml(str) {
           return String(str).replace(/[&<>"']/g, function (ch) {
@@ -367,65 +428,237 @@
           return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         }
 
-        // Wraps the matched query term in <mark>, operating on the
-        // already-HTML-escaped text so nothing user-supplied ever lands
-        // in innerHTML unescaped.
-        function highlight(text, needle) {
-          var safeText = escapeHtml(text);
-          var safeNeedle = escapeHtml(needle);
-          if (!safeNeedle) return safeText;
-          var re = new RegExp("(" + escapeRegExp(safeNeedle) + ")", "gi");
-          return safeText.replace(re, "<mark>$1</mark>");
+        // ---------- query normalization (spec §10) ----------
+        // 1. trim  2. collapse repeated whitespace  3. lowercase for
+        // comparison (done at match time, below)  4. empty query is
+        // handled explicitly in render()  5. multi-word support is the
+        // term split below  6. every piece of user text is HTML-escaped
+        // before it reaches innerHTML — see highlightTerms().
+        function normalizeQuery(raw) {
+          return String(raw == null ? "" : raw)
+            .replace(/\s+/g, " ")
+            .trim();
         }
 
-        // Same matching rule as the homepage grid used to apply in
-        // place (title + description + category label, case-insensitive
-        // substring) — see getFiltered() in app.js.
-        function filterGuides(guides, q) {
-          var needle = q.toLowerCase();
-          if (!needle) return [];
-          return guides.filter(function (g) {
-            var label = CATEGORY_LABELS[g.category] || g.category || "";
-            var haystack = (
-              g.title +
-              " " +
-              g.description +
-              " " +
-              label
-            ).toLowerCase();
-            return haystack.indexOf(needle) !== -1;
+        var initialParams = new URLSearchParams(location.search);
+        var query = normalizeQuery(initialParams.get("s") || "");
+        var queryLower = query.toLowerCase();
+        var terms = queryLower ? queryLower.split(" ").filter(Boolean) : [];
+
+        var typeFilter = initialParams.get("type") || "all";
+        if (TYPE_VALUES.indexOf(typeFilter) === -1) typeFilter = "all";
+        var categoryFilter = initialParams.get("category") || "all";
+
+        var INDEX_RECORDS = [];
+        var CATEGORY_NAME_BY_SLUG = {};
+        var CATEGORY_LIST = []; // [{slug, name}], in categories.json's own order
+        var dataLoaded = false;
+
+        // ---------- category-name query matching (categories.json) ----------
+        // content-index.json stores each record's categories as slugs (the
+        // same slugs categories.json uses) rather than display names — see
+        // bpozz-phase-2-handoff.md, "A categories field in Token/Palette
+        // searchText" and "Starting point for Phase 3". Resolving a slug to
+        // its display name at query time, here, is exactly what that
+        // handoff left for Phase 3 to decide.
+        function categoryName(slug) {
+          return CATEGORY_NAME_BY_SLUG[slug] || slug;
+        }
+
+        function categoryLabelsFor(record) {
+          return record.categories.map(categoryName);
+        }
+
+        // Matches a query term against both a category's display name
+        // ("Color Theory") and its slug's own words ("color theory"), so
+        // searching either the label or the raw slug finds it.
+        function categorySearchTextFor(record) {
+          return record.categories
+            .map(function (slug) {
+              return (categoryName(slug) + " " + slug.replace(/-/g, " ")).toLowerCase();
+            })
+            .join(" ");
+        }
+
+        // ---------- relevance scoring (spec §12–13) ----------
+        // Every query term is checked independently against every
+        // weighted field and matches are summed, so a record matching
+        // more of the query's terms accumulates a higher score than one
+        // matching only one term (§13's "color token" requirement) —
+        // without ever requiring the literal multi-word phrase to appear.
+        function scoreRecord(record) {
+          if (!terms.length) return 0;
+
+          var titleLower = record.title.toLowerCase();
+          var descLower = (record.description || "").toLowerCase();
+          var categoryText = categorySearchTextFor(record);
+          var tagsLower = record.tags.map(function (t) {
+            return t.toLowerCase();
+          });
+          var keywordsLower = record.keywords.map(function (k) {
+            return k.toLowerCase();
+          });
+          var searchTextLower = record.searchText || "";
+
+          var score = 0;
+
+          // Exact title match: the whole normalized query equals the
+          // whole title (e.g. "starless frost" against the Token titled
+          // "Starless Frost") — on top of, not instead of, the per-term
+          // title-word matches below.
+          if (queryLower && titleLower === queryLower) {
+            score += WEIGHTS.exactTitle;
+          }
+
+          terms.forEach(function (term) {
+            if (titleLower.indexOf(term) !== -1) score += WEIGHTS.titleWord;
+            if (categoryText.indexOf(term) !== -1) score += WEIGHTS.category;
+            if (
+              tagsLower.some(function (t) {
+                return t.indexOf(term) !== -1;
+              })
+            )
+              score += WEIGHTS.tag;
+            if (
+              keywordsLower.some(function (k) {
+                return k.indexOf(term) !== -1;
+              })
+            )
+              score += WEIGHTS.keyword;
+            if (descLower.indexOf(term) !== -1) score += WEIGHTS.description;
+            if (searchTextLower.indexOf(term) !== -1) score += WEIGHTS.searchText;
+          });
+
+          return score;
+        }
+
+        function passesFilters(record) {
+          if (typeFilter !== "all" && record.type !== typeFilter) return false;
+          if (
+            categoryFilter !== "all" &&
+            record.categories.indexOf(categoryFilter) === -1
+          )
+            return false;
+          return true;
+        }
+
+        function runSearch() {
+          if (!terms.length) return [];
+          var scored = [];
+          INDEX_RECORDS.forEach(function (record) {
+            if (!passesFilters(record)) return;
+            var score = scoreRecord(record);
+            if (score > 0) scored.push({ record: record, score: score });
+          });
+          // Higher combined score first (spec §12); ties broken by title
+          // so the same search renders in a stable order every time.
+          scored.sort(function (a, b) {
+            if (b.score !== a.score) return b.score - a.score;
+            return a.record.title.localeCompare(b.record.title);
+          });
+          return scored.map(function (s) {
+            return s.record;
           });
         }
 
-        function cardHtml(g) {
-          var label = CATEGORY_LABELS[g.category] || g.category || "";
-          var level = LEVEL_LABELS[g.level] || g.level || "";
-          var meta = label + " · " + level + " · " + g.readTime + " min read";
-          var thumb = g.thumbnail
-            ? '<img src="' +
-              escapeHtml(g.thumbnail) +
-              '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
-            : "";
+        // ---------- rendering ----------
+        // Wraps every matched query term in <mark>, operating on the
+        // already-HTML-escaped text so nothing user-supplied ever lands in
+        // innerHTML unescaped (spec §10, rule 6).
+        function highlightTerms(text) {
+          var safeText = escapeHtml(text);
+          if (!terms.length) return safeText;
+          var safeTerms = terms.map(escapeHtml).map(escapeRegExp).filter(Boolean);
+          if (!safeTerms.length) return safeText;
+          // Longest term first so a term that's a substring of another
+          // doesn't shadow the longer match.
+          safeTerms.sort(function (a, b) {
+            return b.length - a.length;
+          });
+          var re = new RegExp("(" + safeTerms.join("|") + ")", "gi");
+          return safeText.replace(re, "<mark>$1</mark>");
+        }
+
+        // Tokens/Palettes have no description in the index (tokens.json
+        // has no description field of its own — bpozz-phase-2-handoff.md),
+        // so their card shows a short tag summary instead ("Cool · Night ·
+        // Dark") rather than an empty line. Spec §15: "Do not force every
+        // result to use Guide-specific metadata... Only display fields
+        // that make sense for that type."
+        function snippetFor(record) {
+          if (record.description) return record.description;
+          if (record.tags && record.tags.length) {
+            return record.tags
+              .map(function (t) {
+                return t.charAt(0).toUpperCase() + t.slice(1);
+              })
+              .join(" · ");
+          }
+          return "";
+        }
+
+        function resultRowHtml(record) {
+          var categories = categoryLabelsFor(record);
+          var snippet = snippetFor(record);
+          var metaHtml =
+            '<span class="badge">' +
+            escapeHtml(TYPE_LABELS[record.type] || record.type) +
+            "</span>";
+          if (categories.length) {
+            metaHtml +=
+              '<span class="card-meta">' + escapeHtml(categories.join(" · ")) + "</span>";
+          }
           return (
-            '<article class="guide-card">' +
-            '<div class="card-thumb">' +
-            thumb +
-            "</div>" +
-            '<div class="card-body">' +
-            '<h3 class="card-title"><a class="card-link" href="/guide/' +
-            g.id +
+            '<li class="search-result-row">' +
+            '<a class="search-result-link" href="' +
+            escapeHtml(record.url) +
             '">' +
-            highlight(g.title, query) +
-            "</a></h3>" +
-            '<p class="card-meta">' +
-            escapeHtml(meta) +
+            '<h3 class="search-result-title">' +
+            highlightTerms(record.title) +
+            "</h3>" +
+            '<p class="search-result-meta">' +
+            metaHtml +
             "</p>" +
-            "</div>" +
-            "</article>"
+            (snippet
+              ? '<p class="search-result-desc card-meta">' + highlightTerms(snippet) + "</p>"
+              : "") +
+            "</a>" +
+            "</li>"
           );
         }
 
-        function render(guides) {
+        function countLabel(results) {
+          var n = results.length;
+          var base = n + " Result" + (n === 1 ? "" : "s") + ' for "' + query + '"';
+          if (typeFilter !== "all") return base;
+          var counts = { guide: 0, token: 0, palette: 0 };
+          results.forEach(function (r) {
+            if (counts[r.type] != null) counts[r.type]++;
+          });
+          var parts = [];
+          if (counts.guide) parts.push(counts.guide + " guide" + (counts.guide === 1 ? "" : "s"));
+          if (counts.token) parts.push(counts.token + " token" + (counts.token === 1 ? "" : "s"));
+          if (counts.palette)
+            parts.push(counts.palette + " palette" + (counts.palette === 1 ? "" : "s"));
+          return parts.length ? base + " (" + parts.join(" · ") + ")" : base;
+        }
+
+        // ---------- URL sync ----------
+        // Keeps /search.html?s=...&type=...&category=... shareable and
+        // reload-safe (spec §18) without a full navigation when a filter
+        // changes — filtering stays client-side, matching the rest of
+        // this static site (spec §11: "Do not fetch every Guide, Token,
+        // and Palette separately on every search").
+        function syncUrl() {
+          var params = new URLSearchParams();
+          if (query) params.set("s", query);
+          if (typeFilter !== "all") params.set("type", typeFilter);
+          if (categoryFilter !== "all") params.set("category", categoryFilter);
+          var qs = params.toString();
+          history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
+        }
+
+        function render() {
           // Keep the header search box showing the term the results on
           // this page actually match, in case the person glances back up.
           document
@@ -435,22 +668,33 @@
             });
 
           if (!query) {
-            headingEl.textContent = "Search guides";
+            headingEl.textContent = "Search";
             dekEl.textContent =
-              "Use the search box above to find a guide by title, topic, or category.";
-            document.title = "Search guides — bpozz";
+              "Use the search box above to find a guide, token, or palette by title, topic, tag, or category.";
+            document.title = "Search — bpozz";
             countEl.textContent = "";
             gridEl.innerHTML = "";
             emptyEl.removeAttribute("data-visible");
+            filtersEl.hidden = true;
             return;
           }
 
           document.title = 'Search results for "' + query + '" — bpozz';
           headingEl.textContent = 'Search results for "' + query + '"';
           dekEl.textContent =
-            "Showing guides whose title, description, or category matches your search.";
+            "Showing guides, tokens, and palettes whose title, description, tags, or category match your search.";
 
-          var results = filterGuides(guides, query);
+          if (!dataLoaded) {
+            filtersEl.hidden = true;
+            countEl.textContent = "Loading…";
+            gridEl.innerHTML = "";
+            emptyEl.removeAttribute("data-visible");
+            return;
+          }
+
+          filtersEl.hidden = false;
+
+          var results = runSearch();
 
           if (results.length === 0) {
             countEl.textContent = "";
@@ -458,30 +702,148 @@
             emptyQueryEl.textContent = '"' + query + '"';
             emptyEl.setAttribute("data-visible", "true");
           } else {
-            countEl.textContent =
-              results.length +
-              " Result" +
-              (results.length === 1 ? "" : "s") +
-              ' for "' +
-              query +
-              '"';
-            gridEl.innerHTML = results.map(cardHtml).join("");
+            countEl.textContent = countLabel(results);
+            gridEl.innerHTML = results.map(resultRowHtml).join("");
             emptyEl.removeAttribute("data-visible");
           }
         }
 
-        fetch("/guides.json")
-          .then(function (response) {
-            if (!response.ok) throw new Error("HTTP " + response.status);
+        // ---------- type + category filter controls (spec §16) ----------
+        function setTypeFilter(next) {
+          if (TYPE_VALUES.indexOf(next) === -1 || next === typeFilter) return;
+          typeFilter = next;
+          typeTabsEl.querySelectorAll(".search-type-tab").forEach(function (btn) {
+            btn.setAttribute(
+              "aria-pressed",
+              btn.getAttribute("data-type") === typeFilter ? "true" : "false",
+            );
+          });
+          syncUrl();
+          render();
+        }
+
+        typeTabsEl.querySelectorAll(".search-type-tab").forEach(function (btn) {
+          btn.setAttribute(
+            "aria-pressed",
+            btn.getAttribute("data-type") === typeFilter ? "true" : "false",
+          );
+          btn.addEventListener("click", function () {
+            setTypeFilter(btn.getAttribute("data-type"));
+          });
+        });
+
+        categorySelectEl.addEventListener("change", function () {
+          categoryFilter = categorySelectEl.value;
+          syncUrl();
+          render();
+        });
+
+        // Category options are derived entirely from categories.json, not
+        // hard-coded here (spec §16), sorted by that file's own `order`.
+        function populateCategorySelect() {
+          CATEGORY_LIST.forEach(function (c) {
+            var opt = document.createElement("option");
+            opt.value = c.slug;
+            opt.textContent = c.name;
+            categorySelectEl.appendChild(opt);
+          });
+          var validFromUrl = CATEGORY_LIST.some(function (c) {
+            return c.slug === categoryFilter;
+          });
+          categorySelectEl.value = validFromUrl ? categoryFilter : "all";
+          categoryFilter = categorySelectEl.value;
+        }
+
+        // ---------- data loading ----------
+        // Small local fallback so this page still renders something if
+        // /content-index.json can't be fetched — e.g. opened as file://
+        // instead of through a server, which blocks fetch() in most
+        // browsers. On the live site the real fetch below is what
+        // actually runs. Mirrors the shape content-index.json's records
+        // and categories.json actually have (bpozz-phase-2-handoff.md §7).
+        var SAMPLE_INDEX = [
+          {
+            id: "guide:color-contrast-systems",
+            type: "guide",
+            title: "Color Contrast Is Math, Not Taste",
+            slug: "color-contrast-systems",
+            url: "/guide/color-contrast-systems.html",
+            description:
+              "Measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
+            categories: ["color-theory"],
+            tags: [],
+            keywords: [],
+            searchText:
+              "color contrast is math, not taste measurable contrast ratios semantic color tokens wcag color theory",
+          },
+          {
+            id: "token:starless-frost",
+            type: "token",
+            title: "Starless Frost",
+            slug: "starless-frost",
+            url: "/tokens/starless-frost.html",
+            description: "",
+            categories: ["color-theory", "systems"],
+            tags: ["cool", "night", "dark"],
+            keywords: [],
+            searchText:
+              "starless frost cool night dark background surface primary secondary text border",
+          },
+          {
+            id: "palette:p001",
+            type: "palette",
+            title: "Starless Frost",
+            slug: "p001",
+            url: "/palettes#p001",
+            description: "",
+            categories: ["color-theory", "systems"],
+            tags: ["cool", "night", "dark"],
+            keywords: [],
+            searchText: "starless frost p001 cool night dark",
+          },
+        ];
+        var SAMPLE_CATEGORIES = [
+          { slug: "color-theory", name: "Color Theory", order: 1 },
+          { slug: "systems", name: "Design Systems", order: 8 },
+        ];
+
+        function loadJson(url) {
+          return fetch(url).then(function (response) {
+            if (!response.ok) throw new Error("HTTP " + response.status + " for " + url);
             return response.json();
-          })
-          .then(function (data) {
-            render(Array.isArray(data) ? data : SAMPLE_GUIDES);
+          });
+        }
+
+        function applyLoadedData(indexData, categoriesData) {
+          INDEX_RECORDS = Array.isArray(indexData) ? indexData : SAMPLE_INDEX;
+          var categories = Array.isArray(categoriesData) ? categoriesData : SAMPLE_CATEGORIES;
+          categories
+            .slice()
+            .sort(function (a, b) {
+              return (a.order || 0) - (b.order || 0);
+            })
+            .forEach(function (c) {
+              CATEGORY_NAME_BY_SLUG[c.slug] = c.name;
+              CATEGORY_LIST.push({ slug: c.slug, name: c.name });
+            });
+          populateCategorySelect();
+          dataLoaded = true;
+          render();
+        }
+
+        Promise.all([loadJson("/content-index.json"), loadJson("/categories.json")])
+          .then(function (results) {
+            applyLoadedData(results[0], results[1]);
           })
           .catch(function (err) {
-            console.error("Couldn't load guides.json, using sample data:", err);
-            render(SAMPLE_GUIDES);
+            console.error(
+              "Couldn't load content-index.json / categories.json, using sample data:",
+              err,
+            );
+            applyLoadedData(SAMPLE_INDEX, SAMPLE_CATEGORIES);
           });
+
+        render(); // initial paint (loading/empty state) before data resolves
       })();
     </script>
   </body>

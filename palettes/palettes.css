@@ -100,6 +100,16 @@
   overflow: hidden;
   background: var(--card);
   border: 1px solid var(--grid-line);
+  transition: box-shadow 0.6s ease;
+}
+/* Applied briefly by palettes.js when the page loads at /palettes#<id>
+   (e.g. from a Search result) so the linked-to card is findable, not
+   just present somewhere in the grid. Removed automatically after a
+   couple of seconds; the transition above fades it out. */
+.palette-card--highlight {
+  box-shadow:
+    0 0 0 3px var(--action),
+    0 0 24px 2px rgba(29, 95, 214, 0.35);
 }
 .palette-card__bars {
   display: flex;

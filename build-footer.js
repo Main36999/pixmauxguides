@@ -28,6 +28,25 @@
  *   - a page nested N levels deep: "../about.html" -> "../".repeat(N) +
  *     "about.html"
  *
+ * PHASE 5 — GUIDE CATEGORY CRAWL PATH
+ * Phase 5 made the header nav type-first (Guides · Tokens · Palettes ·
+ * Roadmap — see build-header.js), which removed the only sitewide
+ * internal links to the /category/ pages. To keep every category page
+ * internally discoverable from every page, the footer partial has a
+ * second nav, aria-label="Guide categories", whose links are generated
+ * here from categories.json (sorted by `order`, labeled with the full
+ * `name`, linked as /category/<slug> — the same URL form the sitemap and
+ * the old header used).
+ *
+ * The links live in a FOOTER_CATEGORIES_START/END region inside
+ * partials/footer.html, which main() rewrites BEFORE syncing pages, so the
+ * partial stays complete HTML for build-categories.js / build-tokens.js
+ * (they embed it verbatim). Don't hand-edit inside that region.
+ *
+ * A category link is only emitted if category/<slug>.html exists on disk
+ * (build-categories.js skips categories with no guides), so the footer
+ * can never link to a category page that wasn't generated.
+ *
  * ONE-TIME SETUP PER PAGE
  * Wrap the page's existing <footer class="site-footer">…</footer> block
  * in marker comments:
@@ -55,6 +74,10 @@ const ROOT = __dirname;
 const FOOTER_PARTIAL_PATH = path.join(ROOT, "partials", "footer.html");
 const START_MARKER = "<!--FOOTER_START-->";
 const END_MARKER = "<!--FOOTER_END-->";
+const CATEGORIES_JSON_PATH = path.join(ROOT, "categories.json");
+const CATEGORY_START_MARKER = "<!--FOOTER_CATEGORIES_START-->";
+const CATEGORY_END_MARKER = "<!--FOOTER_CATEGORIES_END-->";
+const FOOTER_LINK_INDENT = "      ";
 
 // Root-relative link targets the partial is authored with (one level
 // deep, i.e. exactly as they should appear on a /guide/*.html page).
@@ -93,6 +116,80 @@ function replaceBetween(html, startMarker, endMarker, replacement) {
   );
 }
 
+// ---------------------------------------------------------------------
+// Phase 5 — guide category links (see "PHASE 5" in the header comment)
+// ---------------------------------------------------------------------
+
+function escapeHtml(str) {
+  return String(str).replace(
+    /[&<>"']/g,
+    (ch) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[ch],
+  );
+}
+
+function categoryLinks() {
+  const categories = JSON.parse(fs.readFileSync(CATEGORIES_JSON_PATH, "utf8"));
+  if (!Array.isArray(categories)) {
+    throw new Error("categories.json did not contain an array");
+  }
+  const links = [];
+  const missing = [];
+  categories
+    .slice()
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .forEach((category, i) => {
+      if (!category || typeof category.slug !== "string" || !/^[a-z0-9-]+$/.test(category.slug)) {
+        throw new Error(`categories.json[${i}] has no valid slug`);
+      }
+      if (typeof category.name !== "string" || !category.name.trim()) {
+        throw new Error(`categories.json[${i}] ("${category.slug}") has no name`);
+      }
+      if (!fs.existsSync(path.join(ROOT, "category", `${category.slug}.html`))) {
+        missing.push(category.slug);
+        return;
+      }
+      links.push({ slug: category.slug, name: category.name });
+    });
+  return { links, missing };
+}
+
+function categoryLinksHtml(links) {
+  return (
+    links
+      .map(
+        (link) =>
+          `\n${FOOTER_LINK_INDENT}<a href="/category/${escapeHtml(link.slug)}">${escapeHtml(link.name)}</a>`,
+      )
+      .join("") +
+    "\n" +
+    FOOTER_LINK_INDENT
+  );
+}
+
+function syncCategoryRegion(linksHtml) {
+  const original = fs.readFileSync(FOOTER_PARTIAL_PATH, "utf8");
+  const start = original.indexOf(CATEGORY_START_MARKER);
+  const end = original.indexOf(CATEGORY_END_MARKER);
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error(
+      `partials/footer.html has no ${CATEGORY_START_MARKER} / ${CATEGORY_END_MARKER} region`,
+    );
+  }
+  const html =
+    original.slice(0, start + CATEGORY_START_MARKER.length) +
+    linksHtml +
+    original.slice(end);
+  if (html !== original) fs.writeFileSync(FOOTER_PARTIAL_PATH, html);
+  return html !== original;
+}
+
 // Rewrites the canonical (one-level-deep) footer partial for a page at
 // `relPath` (POSIX-style, relative to project root, e.g. "about.html" or
 // "guide/foo.html"). Unlike headerFor() in build-header.js, no page gets
@@ -109,6 +206,17 @@ function footerFor(relPath, partial) {
 }
 
 function main() {
+  const { links, missing } = categoryLinks();
+  const partialChanged = syncCategoryRegion(categoryLinksHtml(links));
+  console.log(
+    `✓ partials/footer.html category links — ${links.length} ${partialChanged ? "regenerated" : "already up to date"}.`,
+  );
+  if (missing.length) {
+    console.warn(
+      `⚠ No category/<slug>.html page for: ${missing.join(", ")} — left out of the footer (run build-categories.js first if that's unexpected).`,
+    );
+  }
+
   const partial = fs.readFileSync(FOOTER_PARTIAL_PATH, "utf8").trim();
   const files = findHtmlFiles(ROOT);
 
