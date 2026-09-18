@@ -4,8 +4,11 @@
   ============================================================================
   Audit note (checked against all 22 live guides in this folder): every
   /guide/*.html page already shares exactly one style system —
-  ../styles.css (site-wide tokens) + ../guide-article.css (guide-only
+  /styles.css (site-wide tokens) + /guide-article.css (guide-only
   components) — and zero pages carry their own <style> block anymore.
+  These are deliberately site-root paths, not ../ relative ones: a
+  visitor on /guide/<slug>/ (with a trailing slash) resolves ../ one
+  level too shallow and loses every stylesheet.
   This file exists so that stays true forever, instead of relying on
   whoever writes the next guide to remember/copy the pattern by eye.
 
@@ -123,8 +126,8 @@
          <style> block; every visual pattern a guide needs already exists
          below in section 4, or belongs in guide-article.css as a new
          reusable component. -->
-    <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="../guide-article.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/guide-article.css" />
 
     <script type="application/ld+json">
       {
@@ -532,6 +535,6 @@
   </div>
 </footer><!--FOOTER_END-->
 
-    <script src="../app.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>

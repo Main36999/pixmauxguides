@@ -103,7 +103,6 @@ function pageShell(opts) {
     footerPartial,
     mainHtml,
     jsonLd = null,
-    depthPrefix = "../",
     extraScripts = [],
   } = opts;
 
@@ -187,9 +186,9 @@ function pageShell(opts) {
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="${depthPrefix}styles.css" />
-    <link rel="stylesheet" href="${depthPrefix}guide-article.css" />
-    <link rel="stylesheet" href="${depthPrefix}tokens.css" />${jsonLdBlock}
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/guide-article.css" />
+    <link rel="stylesheet" href="/tokens.css" />${jsonLdBlock}
   </head>
   <body class="${bodyClass}"${bodyAttrs ? " " + bodyAttrs : ""}>
     <a href="${skipLinkHref}" class="skip-link">${escapeHtml(skipLinkLabel)}</a>
@@ -202,7 +201,7 @@ ${mainHtml}
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="${depthPrefix}app.js"></script>
+    <script src="/app.js"></script>
 ${scriptTags}
   </body>
 </html>
@@ -424,13 +423,12 @@ function detailPageHtml(p, bySlug, headerPartial, footerPartial) {
     footerPartial,
     mainHtml,
     jsonLd,
-    depthPrefix: "../",
     extraScripts: [
-      "../tokens-color.js",
-      "../tokens-a11y.js",
-      "../tokens-export.js",
-      "../tokens-shared.js",
-      "../tokens-detail.js",
+      "/tokens-color.js",
+      "/tokens-a11y.js",
+      "/tokens-export.js",
+      "/tokens-shared.js",
+      "/tokens-detail.js",
     ],
   });
 }
@@ -524,13 +522,12 @@ function galleryPageHtml(allPalettes, headerPartial, footerPartial) {
     footerPartial,
     mainHtml,
     jsonLd,
-    depthPrefix: "../",
     extraScripts: [
-      "../tokens-color.js",
-      "../tokens-a11y.js",
-      "../tokens-export.js",
-      "../tokens-shared.js",
-      "../tokens-gallery.js",
+      "/tokens-color.js",
+      "/tokens-a11y.js",
+      "/tokens-export.js",
+      "/tokens-shared.js",
+      "/tokens-gallery.js",
     ],
   });
 }
@@ -620,13 +617,12 @@ function createPageHtml(headerPartial, footerPartial) {
     headerPartial,
     footerPartial,
     mainHtml,
-    depthPrefix: "../",
     extraScripts: [
-      "../tokens-color.js",
-      "../tokens-a11y.js",
-      "../tokens-export.js",
-      "../tokens-shared.js",
-      "../tokens-create.js",
+      "/tokens-color.js",
+      "/tokens-a11y.js",
+      "/tokens-export.js",
+      "/tokens-shared.js",
+      "/tokens-create.js",
     ],
   });
 }
@@ -664,13 +660,12 @@ function collectionPageHtml(headerPartial, footerPartial) {
     headerPartial,
     footerPartial,
     mainHtml,
-    depthPrefix: "../",
     extraScripts: [
-      "../tokens-color.js",
-      "../tokens-a11y.js",
-      "../tokens-export.js",
-      "../tokens-shared.js",
-      "../tokens-collection.js",
+      "/tokens-color.js",
+      "/tokens-a11y.js",
+      "/tokens-export.js",
+      "/tokens-shared.js",
+      "/tokens-collection.js",
     ],
   });
 }
