@@ -7,7 +7,7 @@
    Load order on every /tokens/*.html page:
      1. ../styles.css          (site tokens, header/footer, .grid/.content-card,
                                  .field/.select-field, .btn, .toast)
-     2. ../guide-article.css   (.content-callout/.guide-callout, .guide-cta, --ui-*/--guide-* colors —
+     2. ../guide-article.css   (.content-callout/.guide-callout, .guide-cta, --ui-* / --guide-* colors —
                                  reused as-is for the builder's live contrast
                                  warnings and the detail page's guide CTA)
      3. ../tokens.css          (this file — only what's new)
