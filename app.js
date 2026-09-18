@@ -2,16 +2,16 @@
   "use strict";
 
   var CATEGORIES = {
-    "color-theory": { label: "Color Theory", code: "COLOR_THEORY" },
-    typography: { label: "Typography", code: "TYPOGRAPHY" },
-    spacing: { label: "Spacing & Layout", code: "SPACING_LAYOUT" },
-    figma: { label: "Figma Workflow", code: "FIGMA" },
-    "adobe-xd": { label: "Adobe XD Workflow", code: "ADOBE_XD" },
-    mobile: { label: "Mobile App Design", code: "MOBILE_APP" },
-    web: { label: "Web Layout", code: "WEB_LAYOUT" },
-    systems: { label: "Design Systems", code: "DESIGN_SYSTEMS" },
-    accessibility: { label: "Accessibility", code: "ACCESSIBILITY" },
-    motion: { label: "Prototyping & Motion", code: "PROTOTYPING" },
+    "color-theory": { label: "Color Theory" },
+    typography: { label: "Typography" },
+    spacing: { label: "Spacing & Layout" },
+    figma: { label: "Figma Workflow" },
+    "adobe-xd": { label: "Adobe XD Workflow" },
+    mobile: { label: "Mobile App Design" },
+    web: { label: "Web Layout" },
+    systems: { label: "Design Systems" },
+    accessibility: { label: "Accessibility" },
+    motion: { label: "Prototyping & Motion" },
   };
 
   var ICONS = {
@@ -275,7 +275,7 @@
     },
   };
 
-  // Full-word level labels for the guide-card meta line (e.g. "Spacing &
+  // Full-word level labels for the content-card meta line (e.g. "Spacing &
   // Layout · Beginner · 11 min read"), shared by the homepage grid and
   // the related-guides row below each article — both render with the
   // exact same cardHtml().
@@ -395,7 +395,7 @@
     );
   }
 
-  // Shared media layer for both the guide-card thumbnail and the
+  // Shared media layer for both the content-card thumbnail and the
   // article hero image. The blueprint-style SVG icon is always
   // rendered first as a base layer; if a `thumbnail` image is set,
   // it's layered on top and covers the icon once it loads. If that
@@ -425,7 +425,7 @@
   // Minimal, resourceboy.com-style card: plain thumbnail, a title, and
   // one small muted meta line ("category · level · read time") — no
   // badge overlay, no description paragraph, no separate button. The
-  // title's .card-link stretches over the whole .guide-card (see
+  // title's .card-link stretches over the whole .content-card (see
   // styles.css), so the entire tile is one click target.
   function cardHtml(g) {
     var cat = CATEGORIES[g.category];
@@ -437,7 +437,7 @@
       g.readTime +
       " min read";
     return (
-      '<article class="guide-card">' +
+      '<article class="content-card">' +
       thumbHtml(g) +
       '<div class="card-body">' +
       '<h3 class="card-title"><a class="card-link" href="/guide/' +
@@ -500,7 +500,7 @@
     // retired from guides.json — either way there's nothing relevant
     // to show, so drop the empty section rather than leave a blank box.
     // Shows up to 10, laid out as a full-width row below the article —
-    // reusing cardHtml() (the exact homepage guide-card markup) instead
+    // reusing cardHtml() (the exact homepage content-card markup) instead
     // of a bespoke bordered/bracketed rail card, so "related guides"
     // reads as the same minimal card used everywhere else on the site.
     var related = current ? relatedGuides(current, 10) : [];

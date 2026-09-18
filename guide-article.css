@@ -39,13 +39,28 @@
   --guide-warning-bg: #fbf1de;
   --guide-danger: #c0392b; /* matches .form-error — already the site's error red */
   --guide-danger-bg: #fbe9e7;
+
+  /* Phase 4 (D5): neutral aliases. This stylesheet is loaded by every
+     /tokens page as well as every /guide/ page, and tokens.css and
+     tokens-create.js consume these semantic colors for the palette
+     builder's WCAG warnings — nothing to do with Guides. Same values,
+     non-Guide names; the --guide-* originals stay so the existing
+     article rules keep working. */
+  --ui-info: var(--guide-info);
+  --ui-info-bg: var(--guide-info-bg);
+  --ui-success: var(--guide-success);
+  --ui-success-bg: var(--guide-success-bg);
+  --ui-warning: var(--guide-warning);
+  --ui-warning-bg: var(--guide-warning-bg);
+  --ui-danger: var(--guide-danger);
+  --ui-danger-bg: var(--guide-danger-bg);
 }
 
 /* --------------------------------------------------------------------------
    2. Hero (eyebrow + title + dek + optional figure)
    Figure reuses the exact blueprint-grid look of .article-hero /
    .card-thumb elsewhere on the site, so a diagram inside a guide reads
-   as the same "spec sheet" object as a guide-card thumbnail.
+   as the same "spec sheet" object as a content-card thumbnail.
    -------------------------------------------------------------------------- */
 .guide-hero {
   padding: 28px 0 32px;
@@ -278,20 +293,30 @@
 /* --------------------------------------------------------------------------
    5. Callouts — one component, four semantic variants.
    Replaces the ad hoc "note" boxes each guide invented separately.
+
+   Phase 4 (D5): .content-callout is the neutral alias, used by
+   tokens-create.js's contrast warnings on /tokens/create — Token UI
+   that borrowed this component and has no Guide semantics. Guide
+   articles keep emitting .guide-callout; both names resolve to the
+   identical rules below, so appearance is unchanged.
    -------------------------------------------------------------------------- */
+.content-callout,
 .guide-callout {
   padding: 18px 20px;
   border-left: 3px solid var(--guide-info);
   background: var(--guide-info-bg);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
+.content-callout p,
 .guide-callout p {
   margin: 0;
   max-width: none;
 }
+.content-callout p + p,
 .guide-callout p + p {
   margin-top: 10px;
 }
+.content-callout__label,
 .guide-callout__label {
   display: block;
   font-family: var(--sans);
@@ -301,14 +326,17 @@
   margin-bottom: 6px;
   color: var(--text);
 }
+.content-callout--success,
 .guide-callout--success {
   border-left-color: var(--guide-success);
   background: var(--guide-success-bg);
 }
+.content-callout--warning,
 .guide-callout--warning {
   border-left-color: var(--guide-warning);
   background: var(--guide-warning-bg);
 }
+.content-callout--danger,
 .guide-callout--danger {
   border-left-color: var(--guide-danger);
   background: var(--guide-danger-bg);

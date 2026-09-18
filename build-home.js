@@ -75,20 +75,36 @@ const RESOURCE_TYPES_PATH = path.join(ROOT, "resource-types.json");
 // app.js's cardHtml()/thumbHtml()/thumbMediaHtml()/dimLine(), mirror
 // the change here too so the pre-rendered HTML and the JS-rendered
 // HTML never drift apart.
+//
+// CATEGORIES is the exception to that mirroring: Phase 4 (D1) made
+// categories.json the single source of truth for category labels here,
+// so this map is derived rather than hand-copied. app.js keeps its own
+// literal on purpose — it runs in the browser with no build step, and
+// giving it a runtime fetch of categories.json was explicitly rejected
+// (D1 A). The two still have to agree; categories.json is what they
+// must agree WITH. The unused `code` field was dropped (D2 B): only
+// build-categories.js consumes a category code, for its hero eyebrow.
 // ---------------------------------------------------------------------
 
-const CATEGORIES = {
-  "color-theory": { label: "Color Theory", code: "COLOR_THEORY" },
-  typography: { label: "Typography", code: "TYPOGRAPHY" },
-  spacing: { label: "Spacing & Layout", code: "SPACING_LAYOUT" },
-  figma: { label: "Figma Workflow", code: "FIGMA" },
-  "adobe-xd": { label: "Adobe XD Workflow", code: "ADOBE_XD" },
-  mobile: { label: "Mobile App Design", code: "MOBILE_APP" },
-  web: { label: "Web Layout", code: "WEB_LAYOUT" },
-  systems: { label: "Design Systems", code: "DESIGN_SYSTEMS" },
-  accessibility: { label: "Accessibility", code: "ACCESSIBILITY" },
-  motion: { label: "Prototyping & Motion", code: "PROTOTYPING" },
-};
+const CATEGORIES = loadCategoryLabels();
+
+function loadCategoryLabels() {
+  const categories = readJson(CATEGORIES_JSON_PATH, "categories.json");
+  if (!Array.isArray(categories)) {
+    throw new Error("categories.json did not contain an array");
+  }
+  const map = {};
+  categories.forEach(function (category, i) {
+    if (!category || typeof category.slug !== "string" || !/^[a-z0-9-]+$/.test(category.slug)) {
+      throw new Error(`categories.json[${i}] has no valid slug`);
+    }
+    if (typeof category.name !== "string" || !category.name.trim()) {
+      throw new Error(`categories.json[${i}] ("${category.slug}") has no name`);
+    }
+    map[category.slug] = { label: category.name };
+  });
+  return map;
+}
 
 const THUMBS = {
   "color-theory": `
@@ -238,7 +254,7 @@ function thumbHtml(g) {
 // Minimal, resourceboy.com-style card: plain thumbnail, a title, and
 // one small muted meta line ("category · level · read time") — no
 // badge overlay, no description paragraph, no separate button. The
-// title's .card-link stretches over the whole .guide-card (see
+// title's .card-link stretches over the whole .content-card (see
 // styles.css), so the entire tile is one click target. Keep this in
 // sync with app.js's cardHtml()/thumbHtml() — see the note at the top
 // of this file.
@@ -258,7 +274,7 @@ function cardHtml(g, badgeHtml) {
   const cat = CATEGORIES[g.category];
   const meta = `${cat.label} · ${LEVEL_LABEL[g.level]} · ${g.readTime} min read`;
   return (
-    `<article class="guide-card">` +
+    `<article class="content-card">` +
     thumbHtml(g) +
     `<div class="card-body">` +
     (typeof badgeHtml === "string" ? badgeHtml : "") +
@@ -616,7 +632,7 @@ function typeBadgeHtml(type) {
 function tokenCardHtml(record) {
   const meta = tagsMetaFor(record);
   return (
-    `<article class="guide-card">` +
+    `<article class="content-card">` +
     colorThumbHtml(record, "card-thumb--swatches") +
     `<div class="card-body">` +
     typeBadgeHtml("token") +
@@ -630,7 +646,7 @@ function tokenCardHtml(record) {
 // visual) + name. Links to /palettes#<id>, which palettes.js resolves.
 function paletteCardHtml(record) {
   return (
-    `<article class="guide-card">` +
+    `<article class="content-card">` +
     colorThumbHtml(record, "card-thumb--bars") +
     `<div class="card-body">` +
     typeBadgeHtml("palette") +
@@ -644,7 +660,7 @@ function paletteCardHtml(record) {
 function genericCardHtml(record) {
   const meta = tagsMetaFor(record);
   return (
-    `<article class="guide-card">` +
+    `<article class="content-card">` +
     colorThumbHtml(record, "card-thumb--swatches") +
     `<div class="card-body">` +
     recordTitleHtml(record) +

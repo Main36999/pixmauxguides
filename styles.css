@@ -880,8 +880,17 @@ body:has(#mobile-menu:not([hidden])) {
 /* Minimal, resourceboy.com-style card: no border/box/shadow — just a
    plain rounded thumbnail with a title and a small muted meta line
    underneath. The whole tile is a single click target via .card-link's
-   ::after (stretched over .guide-card, which is the positioning
-   context), so there's no separate "read guide" button to style. */
+   ::after (stretched over .content-card, which is the positioning
+   context), so there's no separate "read guide" button to style.
+
+   Phase 4 (D3): this is the site's universal card primitive — Guides,
+   Tokens and Palettes all render through it, on the homepage, /guides,
+   /tokens and the category pages — so .content-card is now the
+   canonical name. .guide-card is retained as an alias for the duration
+   of the migration; every emitter in the repo now writes
+   .content-card. .card-thumb / .card-body / .card-title / .card-meta /
+   .card-link were already neutral and are unchanged. */
+.content-card,
 .guide-card {
   position: relative;
   display: flex;
@@ -914,7 +923,7 @@ body:has(#mobile-menu:not([hidden])) {
   white-space: nowrap;
 }
 
-/* ---------- guide-card thumbnail plate ---------- */
+/* ---------- content-card thumbnail plate ---------- */
 .card-thumb {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -997,7 +1006,7 @@ body:has(#mobile-menu:not([hidden])) {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-/* Covers the whole .guide-card (its positioning context) so the entire
+/* Covers the whole .content-card (its positioning context) so the entire
    tile is clickable from a single, accessible link — the image and
    meta text below aren't separately interactive. */
 .card-link {
@@ -1021,7 +1030,7 @@ body:has(#mobile-menu:not([hidden])) {
 /* ---------- category pages (/category/<slug>.html) ----------
    Minimal per-category archive page, resourceboy.com-style: a short
    title + one-line description, then the exact same
-   .guides-main/.grid/.guide-card markup as the homepage grid (see
+   .guides-main/.grid/.content-card markup as the homepage grid (see
    build-categories.js) so a category page reads as a filtered slice
    of the homepage rather than a separately-designed template.
    Deliberately NOT reusing guide-article.css's .guide-hero here — that
@@ -1623,7 +1632,7 @@ body:has(#mobile-menu:not([hidden])) {
    The related-guides row itself ships empty in the static HTML; app.js's
    initRelatedGuides() fills it in at runtime from guides.json (matching
    first on category, then level) with up to 10 guides, reusing cardHtml()
-   — the exact same markup/classes (.guide-card/.card-thumb/.card-body)
+   — the exact same markup/classes (.content-card/.card-thumb/.card-body)
    as the homepage grid — so "related guides" is the identical minimal
    card, not a bespoke bordered/bracketed rail treatment. */
 .guide-layout {
@@ -1881,7 +1890,7 @@ body:has(#mobile-menu:not([hidden])) {
 /* ---------- Phase 5: homepage resource sections ----------
    Additive only. index.html's generated resource sections (build-home.js,
    driven by resource-types.json) reuse the existing .section-head /
-   .section-label / .results-count / .grid / .guide-card / .card-thumb
+   .section-label / .results-count / .grid / .content-card / .card-thumb
    system; these rules only add the spacing between sections, the
    "View all" link, and the two color-preview variants of the existing
    4:3 .card-thumb plate (tokens: a row of role swatches; palettes: four
@@ -1934,7 +1943,7 @@ body:has(#mobile-menu:not([hidden])) {
    now sits at the top of .guides-main, where the full guide grid's section
    head used to be; drop its top margin so it keeps that position instead
    of opening a gap under the hero. /guides reuses .category-hero,
-   .section-head, the Level filter, .grid, .guide-card and .empty-state
+   .section-head, the Level filter, .grid, .content-card and .empty-state
    unchanged; only its category-discovery links (build-home.js, from
    categories.json) are new. They wrap rather than scroll, so no row can
    overflow on narrow screens. */

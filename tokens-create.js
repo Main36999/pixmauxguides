@@ -202,8 +202,8 @@
     if (!result) {
       scoreEl.textContent = "—";
       warningsEl.innerHTML =
-        '<div class="guide-callout guide-callout--warning">' +
-        '<span class="guide-callout__label">No text role yet</span>' +
+        '<div class="content-callout content-callout--warning">' +
+        '<span class="content-callout__label">No text role yet</span>' +
         "<p>Add a <code>text</code> role so the checker has something to measure against your background and surface colors.</p>" +
         "</div>";
       return;
@@ -215,8 +215,8 @@
     });
     if (!failing.length) {
       warningsEl.innerHTML =
-        '<div class="guide-callout guide-callout--success">' +
-        '<span class="guide-callout__label">Passing</span>' +
+        '<div class="content-callout content-callout--success">' +
+        '<span class="content-callout__label">Passing</span>' +
         "<p>Every pairing checked clears its WCAG threshold.</p>" +
         "</div>";
       return;
@@ -226,8 +226,8 @@
         var need = p.threshold.toFixed(1);
         var what = p.kind === "text" ? "text contrast" : "distinguishability from the page";
         return (
-          '<div class="guide-callout guide-callout--danger">' +
-          '<span class="guide-callout__label">' +
+          '<div class="content-callout content-callout--danger">' +
+          '<span class="content-callout__label">' +
           BpozzTokens.roleLabel(p.fg) +
           " on " +
           BpozzTokens.roleLabel(p.bg) +

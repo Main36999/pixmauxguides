@@ -6,7 +6,7 @@
  * category/color-theory.html, category/typography.html, etc. — from
  * guides.json. Each page is a resourceboy.com/fonts/-style listing: a
  * short title + one-line description, then the SAME
- * .guides-main/.grid/.guide-card markup the homepage grid uses
+ * .guides-main/.grid/.content-card markup the homepage grid uses
  * (cardHtml() below is ported 1:1 from build-home.js — keep the two in
  * sync the same way build-home.js already keeps itself in sync with
  * app.js's client-side renderer; see the note at the top of that file).
@@ -76,6 +76,7 @@ const path = require("path");
 
 const ROOT = __dirname;
 const GUIDES_JSON_PATH = path.join(ROOT, "guides.json");
+const CATEGORIES_JSON_PATH = path.join(ROOT, "categories.json");
 const CONTENT_INDEX_PATH = path.join(ROOT, "content-index.json");
 const CATEGORY_DIR = path.join(ROOT, "category");
 const HEADER_PARTIAL_PATH = path.join(ROOT, "partials", "header.html");
@@ -97,21 +98,82 @@ const RAIL_PREVIEW_LIMIT = 10;
 const TYPE_BADGE_LABEL = { guide: "Guide", token: "Token", palette: "Palette" };
 
 // ---------------------------------------------------------------------
-// Ported 1:1 from app.js / build-home.js. Mirror any edit there here too.
+// Category data — single source of truth
+// ---------------------------------------------------------------------
+// Phase 4 (D1/D2): `label`, `dek` and `ogImage` used to be hand-copied
+// literals here, duplicating categories.json exactly. They are now read
+// from categories.json, which every other consumer (build-footer.js,
+// build-content-index.js, build-home.js, search.html at runtime) already
+// treats as authoritative. The field mapping is:
+//     categories.json .name        -> cat.label
+//     categories.json .description -> meta.dek
+//     categories.json .ogImage     -> meta.ogImage
+// `code` stays here as a literal map: it is a presentation detail of
+// this script alone — the only consumer is monoLabel() for the hero
+// eyebrow — and it is NOT derivable from the slug (spacing ->
+// SPACING_LAYOUT, mobile -> MOBILE_APP, motion -> PROTOTYPING), so it is
+// kept rather than synthesized. It deliberately does not live in
+// categories.json (D2 B).
 // ---------------------------------------------------------------------
 
-const CATEGORIES = {
-  "color-theory": { label: "Color Theory", code: "COLOR_THEORY" },
-  typography: { label: "Typography", code: "TYPOGRAPHY" },
-  spacing: { label: "Spacing & Layout", code: "SPACING_LAYOUT" },
-  figma: { label: "Figma Workflow", code: "FIGMA" },
-  "adobe-xd": { label: "Adobe XD Workflow", code: "ADOBE_XD" },
-  mobile: { label: "Mobile App Design", code: "MOBILE_APP" },
-  web: { label: "Web Layout", code: "WEB_LAYOUT" },
-  systems: { label: "Design Systems", code: "DESIGN_SYSTEMS" },
-  accessibility: { label: "Accessibility", code: "ACCESSIBILITY" },
-  motion: { label: "Prototyping & Motion", code: "PROTOTYPING" },
+const CATEGORY_CODE = {
+  "color-theory": "COLOR_THEORY",
+  typography: "TYPOGRAPHY",
+  spacing: "SPACING_LAYOUT",
+  figma: "FIGMA",
+  "adobe-xd": "ADOBE_XD",
+  mobile: "MOBILE_APP",
+  web: "WEB_LAYOUT",
+  systems: "DESIGN_SYSTEMS",
+  accessibility: "ACCESSIBILITY",
+  motion: "PROTOTYPING",
 };
+
+function readJson(filePath, label) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    throw new Error(`Could not read ${label} (${filePath}): ${err.message}`);
+  }
+}
+
+// Builds { CATEGORIES, CATEGORY_META } from categories.json. Validates
+// the same way build-home.js and build-footer.js do, and fails loudly on
+// a slug that has no `code` above rather than emitting a broken eyebrow.
+function loadCategoryData() {
+  const categories = readJson(CATEGORIES_JSON_PATH, "categories.json");
+  if (!Array.isArray(categories)) {
+    throw new Error("categories.json did not contain an array");
+  }
+  const labels = {};
+  const meta = {};
+  categories.forEach(function (category, i) {
+    if (!category || typeof category.slug !== "string" || !/^[a-z0-9-]+$/.test(category.slug)) {
+      throw new Error(`categories.json[${i}] has no valid slug`);
+    }
+    if (typeof category.name !== "string" || !category.name.trim()) {
+      throw new Error(`categories.json[${i}] ("${category.slug}") has no name`);
+    }
+    if (!CATEGORY_CODE[category.slug]) {
+      throw new Error(
+        `categories.json[${i}] ("${category.slug}") has no entry in CATEGORY_CODE — add one in build-categories.js`,
+      );
+    }
+    labels[category.slug] = {
+      label: category.name,
+      code: CATEGORY_CODE[category.slug],
+    };
+    meta[category.slug] = {
+      dek: category.description,
+      ogImage: category.ogImage,
+    };
+  });
+  return { CATEGORIES: labels, CATEGORY_META: meta };
+}
+
+const CATEGORY_DATA = loadCategoryData();
+const CATEGORIES = CATEGORY_DATA.CATEGORIES;
+const CATEGORY_META = CATEGORY_DATA.CATEGORY_META;
 
 const THUMBS = {
   "color-theory": `
@@ -213,57 +275,6 @@ const LEVEL_LABEL = {
   advanced: "Advanced",
 };
 
-// ---------------------------------------------------------------------
-// Category-page-only metadata: a one-line description (used as the dek,
-// meta description, and OG/Twitter description) and an OG image. Five
-// categories already have a hero-ish image under /assets/ (used
-// elsewhere for the homepage's trending cards) — reuse it here too;
-// everything else falls back to the site's general /og-image.png.
-// ---------------------------------------------------------------------
-
-const CATEGORY_META = {
-  "color-theory": {
-    dek: "Color decisions that hold up to scrutiny: contrast ratios, token-based palettes, and systems that remap cleanly between light and dark.",
-    ogImage: "/assets/Color Theory.png",
-  },
-  typography: {
-    dek: "Type scale, hierarchy, and pairing decisions backed by formulas and measurable readability — not gut feel.",
-    ogImage: "/assets/Typography.png",
-  },
-  spacing: {
-    dek: "Space as a deliberate, systematic tool: padding vs. margin, whitespace as a UI component, and the token scale that keeps gaps consistent.",
-    ogImage: "/assets/Spacing & Layout.png",
-  },
-  figma: {
-    dek: "The mental models behind Figma's most misused features — Auto Layout, variables, and a clean handoff from design file to code.",
-    ogImage: "/assets/Figma Workflow.png",
-  },
-  "adobe-xd": {
-    dek: "Rebuilding a design workflow around Adobe XD's shutdown — what actually needs remaking, and what safely carries over.",
-    ogImage: "/og-image.png",
-  },
-  mobile: {
-    dek: "Designing for real devices: breakpoints as device categories, thumb zones, and where iOS and Android genuinely diverge.",
-    ogImage: "/og-image.png",
-  },
-  web: {
-    dek: "Responsive layout as a contract, not a breakpoint list — CSS Grid, fluid sizing, and the traps no toolbar preview catches.",
-    ogImage: "/og-image.png",
-  },
-  systems: {
-    dek: "Design tokens and naming conventions that survive a rebrand instead of drifting back into hardcoded values.",
-    ogImage: "/og-image.png",
-  },
-  accessibility: {
-    dek: "Accessibility as a structural decision made in markup and states, not a final pass before shipping.",
-    ogImage: "/assets/Accessibility.png",
-  },
-  motion: {
-    dek: "Motion timing backed by real physics — easing curves, duration, and when animation should exist at all.",
-    ogImage: "/og-image.png",
-  },
-};
-
 function escapeHtml(str) {
   return String(str).replace(
     /[&<>"']/g,
@@ -317,7 +328,7 @@ function cardHtml(g) {
   const cat = CATEGORIES[g.category];
   const meta = `${cat.label} · ${LEVEL_LABEL[g.level]} · ${g.readTime} min read`;
   return (
-    `<article class="guide-card">` +
+    `<article class="content-card">` +
     thumbHtml(g) +
     `<div class="card-body">` +
     `<span class="badge">${TYPE_BADGE_LABEL.guide}</span>` +
@@ -366,14 +377,14 @@ function tagsMetaFor(record) {
 // never loads; embedding that markup here would ship dead buttons
 // (spec §22–23: don't move that business logic into a system that
 // doesn't own it). Instead this reuses the same plain
-// .guide-card/.card-body/.card-title/.card-meta classes the Guide grid
+// .content-card/.card-body/.card-title/.card-meta classes the Guide grid
 // above already uses, plus .badge (already used by search.html) for
 // the type label, so no new CSS is needed anywhere in this file.
 function indexRecordCardHtml(record) {
   const badge = TYPE_BADGE_LABEL[record.type] || record.type;
   const meta = tagsMetaFor(record);
   return (
-    `<article class="guide-card">` +
+    `<article class="content-card">` +
     `<span class="badge">${escapeHtml(badge)}</span>` +
     `<div class="card-body">` +
     `<h3 class="card-title"><a class="card-link" href="${escapeHtml(record.url)}">${escapeHtml(record.title)}</a></h3>` +

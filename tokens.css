@@ -5,9 +5,9 @@
    guide-article.css has to /guide/*.html.
 
    Load order on every /tokens/*.html page:
-     1. ../styles.css          (site tokens, header/footer, .grid/.guide-card,
+     1. ../styles.css          (site tokens, header/footer, .grid/.content-card,
                                  .field/.select-field, .btn, .toast)
-     2. ../guide-article.css   (.guide-callout, .guide-cta, --guide-* colors —
+     2. ../guide-article.css   (.content-callout/.guide-callout, .guide-cta, --ui-*/--guide-* colors —
                                  reused as-is for the builder's live contrast
                                  warnings and the detail page's guide CTA)
      3. ../tokens.css          (this file — only what's new)
@@ -117,12 +117,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Palette card — sits inside the site's real .grid > .guide-card
+   2. Palette card — sits inside the site's real .grid > .content-card
    structure (same rhythm as the guide grid, per brief §5). Only the
    thumbnail area is new: instead of .card-thumb's single SVG/image,
    .token-swatches renders the palette's own role colors.
 
-   .card-link::after already stretches over the whole .guide-card as a
+   .card-link::after already stretches over the whole .content-card as a
    single click target (styles.css) — the action row below is lifted
    above it with z-index so its buttons stay independently clickable.
    -------------------------------------------------------------------------- */
@@ -211,10 +211,10 @@
   font-weight: 600;
 }
 .token-contrast-text--pass {
-  color: var(--guide-success);
+  color: var(--ui-success);
 }
 .token-contrast-text--fail {
-  color: var(--guide-danger);
+  color: var(--ui-danger);
 }
 .token-card .card-meta {
   display: flex;
@@ -310,11 +310,11 @@
   border-bottom: none;
 }
 .token-breakdown td.token-wcag-pass {
-  color: var(--guide-success);
+  color: var(--ui-success);
   font-weight: 600;
 }
 .token-breakdown td.token-wcag-fail {
-  color: var(--guide-danger);
+  color: var(--ui-danger);
   font-weight: 600;
 }
 .token-breakdown__swatch {
@@ -524,7 +524,7 @@
 
 /* --------------------------------------------------------------------------
    4. Builder (/tokens/create) — role rows, contrast checker, image
-   extraction dropzone. Contrast warnings reuse .guide-callout (loaded
+   extraction dropzone. Contrast warnings reuse .content-callout (loaded
    via guide-article.css) rather than a new alert component.
    -------------------------------------------------------------------------- */
 .token-builder {

@@ -215,7 +215,7 @@
 
   // The palette card — used by the gallery grid, the collection grid,
   // and pre-rendered at build time for /tokens/index.html. Sits inside
-  // the site's real .grid > .guide-card structure (styles.css) so the
+  // the site's real .grid > .content-card structure (styles.css) so the
   // rhythm matches the guide grid exactly; only .token-swatches and
   // .token-card-actions are new (see tokens.css §2).
   function cardHtml(p) {
@@ -226,7 +226,7 @@
     var meta = (FAMILY_LABEL[p.family] || p.family) + (moods.length ? " · " + moods.join(", ") : "");
     var contrast = contrastTextHtml(p);
     return (
-      '<article class="guide-card token-card" data-slug="' +
+      '<article class="content-card token-card" data-slug="' +
       escapeHtml(p.slug) +
       '">' +
       '<div class="token-swatches">' +
