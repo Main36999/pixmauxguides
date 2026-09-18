@@ -478,28 +478,35 @@ function galleryPageHtml(allPalettes, headerPartial, footerPartial) {
       </div>
 
       <div class="token-filters">
-        <div class="field select-field level-filter">
-          <label for="family-select" class="sr-only">Filter by family</label>
-          <select id="family-select">
-            <option value="all">All families</option>
-            <option value="warm">Warm</option>
-            <option value="cool">Cool</option>
-            <option value="neutral">Neutral</option>
-          </select>
+        <div class="token-filter-field">
+          <label for="family-select" class="token-filter-label">Family</label>
+          <div class="field select-field level-filter">
+            <select id="family-select">
+              <option value="all">All families</option>
+              <option value="warm">Warm</option>
+              <option value="cool">Cool</option>
+              <option value="neutral">Neutral</option>
+            </select>
+          </div>
         </div>
-        <div class="field select-field level-filter">
-          <label for="sort-select" class="sr-only">Sort</label>
-          <select id="sort-select">
-            <option value="new">New</option>
-            <option value="popular">Popular</option>
-            <option value="accessible">Most Accessible</option>
-          </select>
+        <div class="token-filter-field">
+          <label for="sort-select" class="token-filter-label">Sort</label>
+          <div class="field select-field level-filter">
+            <select id="sort-select">
+              <option value="new">New</option>
+              <option value="popular">Popular</option>
+              <option value="accessible">Most Accessible</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="token-mood-filters" role="group" aria-label="Filter by mood">${moodChips}</div>
+      <p class="token-mood-filters__label" id="tokens-mood-label">Mood</p>
+      <div class="token-mood-filters" role="group" aria-labelledby="tokens-mood-label"><button type="button" class="token-mood-chip token-mood-chip--all" data-mood="all" aria-pressed="true">All moods</button>${moodChips}</div>
+      <p class="token-filters-error" id="tokens-filters-error" role="status" hidden>Interactive filtering couldn't load. Every palette below is still listed and every link still works — reload to try again.</p>
 
       <div class="section-head">
-        <p class="results-count" id="tokens-results-count">Showing ${count} of ${count} palettes</p>
+        <h2 class="sr-only" id="tokens-results-heading">Palettes</h2>
+        <p class="results-count" id="tokens-results-count" aria-live="polite">Showing ${count} of ${count} palettes</p>
       </div>
       <div class="grid" id="tokens-grid-root">${cardsHtml}</div>
       <div class="empty-state" id="tokens-empty-state">

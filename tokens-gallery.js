@@ -20,9 +20,11 @@
 
   var familySelect = document.getElementById("family-select");
   var sortSelect = document.getElementById("sort-select");
-  var moodFilters = document.querySelectorAll(".token-mood-chip");
+  var allMoodsChip = document.querySelector(".token-mood-chip--all");
+  var moodFilters = document.querySelectorAll(".token-mood-chip:not(.token-mood-chip--all)");
   var resultsCount = document.getElementById("tokens-results-count");
   var emptyState = document.getElementById("tokens-empty-state");
+  var filtersError = document.getElementById("tokens-filters-error");
 
   var ALL = null; // populated once tokens.json resolves
   var state = { family: "all", moods: [], sort: "new" };
@@ -61,9 +63,42 @@
     return sorted;
   }
 
-  function render() {
+  // "All moods" is the reset: pressed exactly when no individual mood is
+  // active, so the row always shows one selected state.
+  function syncAllMoodsChip() {
+    if (!allMoodsChip) return;
+    allMoodsChip.setAttribute("aria-pressed", String(state.moods.length === 0));
+  }
+
+  // True when the visible grid would be identical to what build-tokens.js
+  // already shipped: default state, and the same slugs in the same order.
+  // Compared against the DOM rather than assumed, so a change to either
+  // side's ordering can't silently desync the two.
+  function matchesRenderedGrid(list) {
+    if (state.family !== "all" || state.moods.length || state.sort !== "new") return false;
+    // .token-card, not [data-slug] alone: the like button inside each
+    // card carries a data-slug too, so a bare attribute selector would
+    // match twice per card.
+    var rendered = gridRoot.querySelectorAll(".token-card[data-slug]");
+    if (rendered.length !== list.length) return false;
+    for (var i = 0; i < list.length; i++) {
+      if (rendered[i].getAttribute("data-slug") !== list[i].slug) return false;
+    }
+    return true;
+  }
+
+  function render(allowSkip) {
     if (!ALL) return; // still loading — leave the SSR'd grid as-is
     var filtered = getSorted(getFiltered());
+    // First pass after the fetch resolves: the server already rendered
+    // exactly this list, so replacing all 40 cards would throw away
+    // identical DOM (and the liked state just synced onto it) for
+    // nothing. Update the count and stop.
+    if (allowSkip && matchesRenderedGrid(filtered)) {
+      resultsCount.textContent = "Showing " + filtered.length + " of " + ALL.length + " palettes";
+      emptyState.removeAttribute("data-visible");
+      return;
+    }
     gridRoot.innerHTML = filtered.map(BpozzTokens.cardHtml).join("");
     BpozzTokens.syncLikedState(gridRoot);
     resultsCount.textContent = "Showing " + filtered.length + " of " + ALL.length + " palettes";
@@ -93,9 +128,21 @@
         state.moods.splice(idx, 1);
         btn.setAttribute("aria-pressed", "false");
       }
+      syncAllMoodsChip();
       render();
     });
   });
+  if (allMoodsChip) {
+    allMoodsChip.addEventListener("click", function () {
+      if (!state.moods.length) return; // already the active state
+      state.moods = [];
+      moodFilters.forEach(function (btn) {
+        btn.setAttribute("aria-pressed", "false");
+      });
+      syncAllMoodsChip();
+      render();
+    });
+  }
 
   BpozzTokens.wireCardActions(gridRoot);
   BpozzTokens.syncLikedState(gridRoot); // sync the SSR'd cards immediately, before fetch resolves
@@ -103,7 +150,7 @@
   BpozzTokens.fetchAll()
     .then(function (data) {
       ALL = data;
-      render();
+      render(true); // allowed to keep the server-rendered grid if it already matches
     })
     .catch(function (err) {
       console.error(err);
@@ -111,5 +158,7 @@
       // "New"-sorted grid exactly as build-tokens.js shipped it rather
       // than replacing it with an error state; filters/sort just won't
       // respond until the page is reloaded with a working connection.
+      // Say so, quietly, instead of leaving the controls silently inert.
+      if (filtersError) filtersError.hidden = false;
     });
 })();

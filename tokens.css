@@ -115,6 +115,74 @@
   background: rgba(37, 99, 235, 0.08);
   border-color: rgba(37, 99, 235, 0.35);
 }
+/* "All moods" is the reset, not a mood: same chip, but it reads as
+   pressed exactly when no mood is active, so the row always shows one
+   selected state and never looks like nothing is chosen. */
+.token-mood-chip--all {
+  font-weight: 700;
+}
+
+/* Visible labels for the filter controls. The selects previously had
+   sr-only labels only, so sighted users had two unexplained dropdowns.
+   Small, muted, sitting directly above their control — the same
+   quiet-label treatment the rest of the site uses for form rows. */
+.token-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* .level-filter's `flex: 0 0 168px` was a WIDTH while it sat directly
+     in the row-direction .token-filters. Inside this column wrapper that
+     basis would resolve against the main axis and make the control
+     168px TALL, so the wrapper takes over the row sizing and the
+     divider, and the basis is restated as an explicit width below. */
+  flex: 0 0 auto;
+  padding-left: 16px;
+  border-left: 1px solid var(--grid-line);
+}
+.token-filter-field .level-filter {
+  flex: 0 0 auto;
+  width: 168px;
+  padding-left: 0;
+  border-left: none;
+}
+.token-filter-label {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+.token-mood-filters__label {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+}
+
+/* Filtering needs tokens.json; if that fetch fails the pre-rendered grid
+   stays exactly as it is and this one line explains why the controls
+   don't respond. Not an alert, not a banner — a muted sentence under the
+   filters. */
+.token-filters-error {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  border-left: 2px solid var(--grid-line);
+  padding-left: 10px;
+  margin: 0 0 20px;
+}
+
+/* Touch targets: the chips are ~27px tall at desktop density, which is
+   fine for a mouse and too small for a thumb. Only raised where the
+   pointer is coarse, so desktop density is untouched. */
+@media (hover: none) {
+  .token-mood-chip {
+    min-height: 44px;
+    padding: 6px 14px;
+  }
+}
 
 /* --------------------------------------------------------------------------
    2. Palette card — sits inside the site's real .grid > .content-card
@@ -163,6 +231,16 @@
   opacity: 1;
   transform: translateY(0);
 }
+/* Touch devices have no hover, so the role + hex values — the whole
+   point of a token card — were unreachable there. Show them outright
+   when the primary pointer can't hover. Desktop keeps the reveal-on-
+   hover interaction unchanged. */
+@media (hover: none) {
+  .token-swatch__label {
+    opacity: 1;
+    transform: none;
+  }
+}
 .token-card-actions {
   position: relative;
   z-index: 1;
@@ -179,6 +257,11 @@
   justify-content: center;
   width: 30px;
   height: 30px;
+  /* Defensive: the icons ship their own width/height attributes
+     (tokens-shared.js ICONS), so this is a second line of defence only —
+     if an icon ever loses its intrinsic size again it is clipped to the
+     button instead of blowing the card open. */
+  overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--grid-line);
   background: var(--card);
