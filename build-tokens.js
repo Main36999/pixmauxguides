@@ -62,6 +62,29 @@ function orderedColors(colors) {
 }
 
 // ---------------------------------------------------------------------
+// Breadcrumb (structured data)
+// ---------------------------------------------------------------------
+// Tokens are their own resource type, not a sub-section of Guides, so
+// /tokens pages carry their own BreadcrumbList: Home / Tokens for the
+// library, Home / Tokens / <Name> for a detail page. Same JSON-LD-only
+// representation build-categories.js and guides/index.html already use —
+// this site has no visible breadcrumb component (one was deliberately
+// removed; see the .roadmap-section--page note in styles.css), so
+// nothing is added to the page's visible markup.
+//
+// `items` is [{ name, url }, …]; a trailing item may omit `url`.
+function breadcrumbList(items) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((entry, i) => {
+      const listItem = { "@type": "ListItem", position: i + 1, name: entry.name };
+      if (entry.url) listItem.item = entry.url;
+      return listItem;
+    }),
+  };
+}
+
+// ---------------------------------------------------------------------
 // Page shell — the shared <head>/<body> scaffolding every /tokens page
 // uses. Mirrors build-categories.js's pageHtml() head block field for
 // field (Cookiebot, gtag, OG/Twitter, theme-color, fonts, styles.css).
@@ -329,6 +352,11 @@ function detailPageHtml(p, bySlug, headerPartial, footerPartial) {
     keywords: (p.tags || []).join(", "),
     about: "Color palette / design tokens",
     isPartOf: { "@type": "CollectionPage", name: "Color Palette Library", url: `${SITE_URL}/tokens` },
+    breadcrumb: breadcrumbList([
+      { name: "Home", url: `${SITE_URL}/` },
+      { name: "Tokens", url: `${SITE_URL}/tokens` },
+      { name: p.name, url: canonical },
+    ]),
   };
 
   let darkToggleHtml = "";
@@ -425,6 +453,10 @@ function galleryPageHtml(allPalettes, headerPartial, footerPartial) {
     description,
     url: canonical,
     isPartOf: { "@type": "WebSite", name: "BPOZZ", url: `${SITE_URL}/` },
+    breadcrumb: breadcrumbList([
+      { name: "Home", url: `${SITE_URL}/` },
+      { name: "Tokens", url: canonical },
+    ]),
   };
 
   const moodChips = Object.keys(BpozzTokens.MOOD_LABEL)

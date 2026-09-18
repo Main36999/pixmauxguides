@@ -86,9 +86,15 @@ const FOOTER_PARTIAL_PATH = path.join(ROOT, "partials", "footer.html");
 // can't silently drift apart if either is changed later.
 const RAIL_PREVIEW_LIMIT = 10;
 
-// Matches search.html's own TYPE_LABELS map (Phase 3) — same wording
-// for the same content types across both discovery surfaces.
-const TYPE_BADGE_LABEL = { token: "Token", palette: "Palette" };
+// Matches search.html's own TYPE_LABELS map — same wording for the same
+// content types across both discovery surfaces. `guide` was added for
+// the Brand Positioning Migration's resource-type labels: a category
+// page is a mixed-resource surface (Guide grid + Token/Palette rails),
+// so every card on it says which of the three it is. The DOM text stays
+// Title Case here and in search.html; .badge in styles.css renders it
+// uppercase (GUIDE / TOKEN / PALETTE) so screen readers still get a
+// normal word.
+const TYPE_BADGE_LABEL = { guide: "Guide", token: "Token", palette: "Palette" };
 
 // ---------------------------------------------------------------------
 // Ported 1:1 from app.js / build-home.js. Mirror any edit there here too.
@@ -299,8 +305,14 @@ function thumbHtml(g) {
   return `<div class="card-thumb">${thumbMediaHtml(g)}</div>`;
 }
 
-// Identical to build-home.js's cardHtml() — see the note at the top of
-// this file for why the two copies must stay in sync.
+// Was identical to build-home.js's cardHtml() — see the note at the top
+// of this file for why the two copies must stay in sync. They now differ
+// in exactly one respect: this copy carries a "Guide" type badge,
+// because a category page is a mixed-resource surface (Guide grid +
+// Token/Palette rails). build-home.js keeps its shared cardHtml() badge-
+// free — it also feeds guides/index.html, whose grid app.js re-renders
+// client-side from its own cardHtml() copy — and adds the badge in its
+// homepage-only wrapper instead. Mirror any OTHER edit in both files.
 function cardHtml(g) {
   const cat = CATEGORIES[g.category];
   const meta = `${cat.label} · ${LEVEL_LABEL[g.level]} · ${g.readTime} min read`;
@@ -308,6 +320,7 @@ function cardHtml(g) {
     `<article class="guide-card">` +
     thumbHtml(g) +
     `<div class="card-body">` +
+    `<span class="badge">${TYPE_BADGE_LABEL.guide}</span>` +
     `<h3 class="card-title"><a class="card-link" href="/guide/${g.id}">${escapeHtml(g.title)}</a></h3>` +
     `<p class="card-meta">${escapeHtml(meta)}</p>` +
     `</div></article>`
@@ -399,7 +412,11 @@ function monoLabel(code) {
 function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, footerPartial) {
   const cat = CATEGORIES[slug];
   const meta = CATEGORY_META[slug];
-  const title = `${cat.label} Guides — bpozz`;
+  // Phase 3: neutral category framing. A category page is not a
+  // Guides-only archive — it also carries the related_tokens /
+  // related_palettes rails below — so the title names the category and
+  // the site, nothing else. The <h1> below was already neutral.
+  const title = `${cat.label} — BPOZZ`;
   const description = meta.dek;
   const canonical = `https://bpozz.com/category/${slug}`;
   const ogImage = meta.ogImage.startsWith("/")
@@ -418,10 +435,10 @@ function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, foo
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `${cat.label} Guides`,
+    name: cat.label,
     description,
     url: canonical,
-    isPartOf: { "@type": "WebSite", name: "bpozz", url: "https://bpozz.com/" },
+    isPartOf: { "@type": "WebSite", name: "BPOZZ", url: "https://bpozz.com/" },
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -432,10 +449,14 @@ function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, foo
           item: "https://bpozz.com/",
         },
         {
+          // Phase 3: a Category is NOT a child of Guides — it groups
+          // Guides, Tokens and Palettes alike. Deliberately no `item`
+          // URL: there is no /categories/ index on this site and adding
+          // one is out of scope, so this level is named without
+          // claiming a page that doesn't exist.
           "@type": "ListItem",
           position: 2,
-          name: "Guides",
-          item: "https://bpozz.com/guides",
+          name: "Categories",
         },
         {
           "@type": "ListItem",
@@ -500,7 +521,7 @@ function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, foo
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:site_name" content="bpozz" />
+    <meta property="og:site_name" content="BPOZZ" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:image" content="${escapeHtml(ogImage)}" />
@@ -531,7 +552,7 @@ function pageHtml(slug, guides, tokenRecords, paletteRecords, headerPartial, foo
     </script>
   </head>
   <body class="category-page" data-category="${slug}">
-    <a href="#category-content" class="skip-link">Skip to guides</a>
+    <a href="#category-content" class="skip-link">Skip to content</a>
 
     <!--HEADER_START-->${headerPartial}<!--HEADER_END-->
 

@@ -242,13 +242,26 @@ function thumbHtml(g) {
 // styles.css), so the entire tile is one click target. Keep this in
 // sync with app.js's cardHtml()/thumbHtml() — see the note at the top
 // of this file.
-function cardHtml(g) {
+//
+// `badgeHtml` is optional and empty by default: called with one
+// argument this produces byte-identical markup to app.js's cardHtml(),
+// which is what guides/index.html's grid needs (app.js re-renders that
+// grid client-side, so anything added there unconditionally would be
+// wiped on the first filter keystroke). The homepage's mixed-resource
+// section passes a "Guide" badge in — see guideCardHtml() below.
+//
+// The typeof check matters: this function is also used as
+// `guides.map(cardHtml)`, which hands every callback the array index as
+// its second argument. Only a string is accepted as badge markup, so
+// that call site keeps rendering badge-free cards.
+function cardHtml(g, badgeHtml) {
   const cat = CATEGORIES[g.category];
   const meta = `${cat.label} · ${LEVEL_LABEL[g.level]} · ${g.readTime} min read`;
   return (
     `<article class="guide-card">` +
     thumbHtml(g) +
     `<div class="card-body">` +
+    (typeof badgeHtml === "string" ? badgeHtml : "") +
     `<h3 class="card-title"><a class="card-link" href="/guide/${g.id}">${escapeHtml(g.title)}</a></h3>` +
     `<p class="card-meta">${escapeHtml(meta)}</p>` +
     `</div></article>`
@@ -582,6 +595,22 @@ function recordTitleHtml(record) {
   return `<h3 class="card-title"><a class="card-link" href="${escapeHtml(record.url)}">${escapeHtml(record.title)}</a></h3>`;
 }
 
+// Resource-type labels for the homepage's cards. The homepage is the
+// site's one all-types surface — Guides, Tokens and Palettes in three
+// sections of the same page — so a card has to say which of the three it
+// is on its own, not only via the section eyebrow above it. Same wording
+// as search.html's TYPE_LABELS and build-categories.js's
+// TYPE_BADGE_LABEL, and the same existing .badge class, so a record
+// reads the same way on every discovery surface and no new CSS is
+// needed. DOM text stays Title Case; .badge renders it uppercase
+// (GUIDE / TOKEN / PALETTE) so assistive tech still gets a normal word.
+const TYPE_BADGE_LABEL = { guide: "Guide", token: "Token", palette: "Palette" };
+
+function typeBadgeHtml(type) {
+  const label = TYPE_BADGE_LABEL[type];
+  return label ? `<span class="badge">${escapeHtml(label)}</span>` : "";
+}
+
 // Token: its full role set as a swatch row (a token is a role system, not
 // a row of four swatches) + name + tags. Links to /tokens/<slug>.html.
 function tokenCardHtml(record) {
@@ -590,6 +619,7 @@ function tokenCardHtml(record) {
     `<article class="guide-card">` +
     colorThumbHtml(record, "card-thumb--swatches") +
     `<div class="card-body">` +
+    typeBadgeHtml("token") +
     recordTitleHtml(record) +
     (meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : "") +
     `</div></article>`
@@ -603,6 +633,7 @@ function paletteCardHtml(record) {
     `<article class="guide-card">` +
     colorThumbHtml(record, "card-thumb--bars") +
     `<div class="card-body">` +
+    typeBadgeHtml("palette") +
     recordTitleHtml(record) +
     `</div></article>`
   );
@@ -632,7 +663,11 @@ function guideCardHtml(record, context) {
       `content-index record "${record.id}" has no matching guides.json entry — run build-content-index.js first`,
     );
   }
-  return cardHtml(guide);
+  // The badge is passed in here, not baked into cardHtml(), so it
+  // appears on the homepage's Featured Guides cards without also
+  // appearing in guides/index.html's grid — a single-type surface that
+  // app.js re-renders from its own copy of cardHtml().
+  return cardHtml(guide, typeBadgeHtml("guide"));
 }
 
 // Renderers receive (record, context); token/palette cards only need the

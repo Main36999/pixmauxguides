@@ -898,10 +898,14 @@ body:has(#mobile-menu:not([hidden])) {
     transform: translateY(0);
   }
 }
+/* Resource-type chip (GUIDE / TOKEN / PALETTE) on cards and search
+   results. Uppercased here rather than in markup so the DOM text stays
+   a normal word for assistive tech. */
 .badge {
   font-family: var(--sans);
   font-size: 10.5px;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--action);
   background: rgba(37, 99, 235, 0.08);
   border: 1px solid rgba(37, 99, 235, 0.22);
