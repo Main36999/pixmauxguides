@@ -1,8 +1,8 @@
 :root {
   --ink: #0f2a52;
   --ink-2: #132f5c;
-  --action: #1d5fd6;
-  --action-hover: #164ec0;
+  --action: #2563eb;
+  --action-hover: #1d4ed8;
   --cyan: #22a6c4;
   --paper: #f5f8fc;
   --card: #ffffff;
@@ -12,9 +12,6 @@
   --text-muted: #5c6b85;
   --header-bg: #101010;
   --radius: 3px;
-  --mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
-    monospace;
   --sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 * {
@@ -206,6 +203,30 @@ ul {
   font-weight: 800;
   letter-spacing: 0.01em;
   color: #fff;
+}
+/* ---------- header logo image (visual brand migration) ----------
+   Supplied SVG wordmark (assets/bpozz-logo.svg, viewBox 0 0 1200 300,
+   white glyphs on transparent) replaces the old .brand-text span in
+   both header partials.
+
+   The artwork carries symmetric transparent padding: the glyphs occupy
+   x 195.22-1004.79 of 1200 (16.27% dead space each side) and y 3.11-296.89
+   of 300. Their true aspect ratio is 2.7557:1, so an 88x32 box (2.75:1)
+   with object-fit: cover scales the art to 128x32 and clips exactly 20px
+   of transparent padding per side -- 0.82px short of the first glyph pixel
+   on each edge. No glyph is cropped; only dead space is removed.
+
+   Rendering at its natural 128x32 instead would spend 41.6px of the
+   header's 24px flex gap on invisible padding and push the wordmark off
+   the 32px/20px padding edge. The <img> width/height attributes match
+   this box so the header reserves the right space before the SVG loads,
+   holding .header-top at 84px. Only ever placed on the dark
+   --header-bg bar. */
+.brand-logo {
+  display: block;
+  width: 88px;
+  height: 32px;
+  object-fit: cover;
 }
 .site-nav {
   display: flex;
@@ -882,8 +903,8 @@ body:has(#mobile-menu:not([hidden])) {
   font-size: 10.5px;
   letter-spacing: 0.05em;
   color: var(--action);
-  background: rgba(29, 95, 214, 0.08);
-  border: 1px solid rgba(29, 95, 214, 0.22);
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.22);
   padding: 4px 8px;
   border-radius: 2px;
   white-space: nowrap;
@@ -1381,6 +1402,26 @@ body:has(#mobile-menu:not([hidden])) {
 }
 .footer-nav a:hover {
   color: #fff;
+}
+/* Footer brand block — "BPOZZ / Design Intelligence" (positioning
+   migration Phase 2). Reuses the footer's existing type sizes and
+   the same #9db3da the footer nav links already use; no new colors. */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.footer-brand__name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+.footer-brand__tagline {
+  margin: 0;
+  font-size: 13px;
+  color: #9db3da;
 }
 .footer-copyright {
   font-size: 13px;

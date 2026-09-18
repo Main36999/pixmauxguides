@@ -140,7 +140,7 @@ function pageShell(opts) {
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:site_name" content="bpozz" />
+    <meta property="og:site_name" content="BPOZZ" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:image" content="${escapeHtml(ogImage)}" />
@@ -315,7 +315,7 @@ function exportPanelHtml(colors, paletteName) {
 function detailPageHtml(p, bySlug, headerPartial, footerPartial) {
   const colors = orderedColors(p.colors);
   const canonical = `${SITE_URL}/tokens/${p.slug}`;
-  const title = `${p.name} — Color Palette & Tokens — bpozz`;
+  const title = `${p.name} — Color Palette & Tokens — BPOZZ`;
   const summary = BpozzTokens.contrastSummaryFor(p);
   const moods = (p.moods || []).map((m) => BpozzTokens.MOOD_LABEL[m] || m);
   const description = `${p.name}: a ${BpozzTokens.FAMILY_LABEL[p.family] || p.family}${moods.length ? ", " + moods.join("/").toLowerCase() : ""} color palette with WCAG contrast ratios computed for every role pairing, exportable as CSS, SCSS, Tailwind, JSON, Figma Variables, iOS, and Android.`;
@@ -412,7 +412,7 @@ function detailPageHtml(p, bySlug, headerPartial, footerPartial) {
 // ---------------------------------------------------------------------
 function galleryPageHtml(allPalettes, headerPartial, footerPartial) {
   const canonical = `${SITE_URL}/tokens`;
-  const title = "Color Palette Library — Tokens, Not Swatches — bpozz";
+  const title = "Color Palette Library — Tokens, Not Swatches — BPOZZ";
   const description =
     "Browse color palettes as real token sets: semantic roles, computed WCAG contrast on every pairing, paired dark-mode variants, and export to CSS, SCSS, Tailwind, JSON, Figma, iOS, and Android.";
   const cardsHtml = allPalettes.map(BpozzTokens.cardHtml).join("");
@@ -424,7 +424,7 @@ function galleryPageHtml(allPalettes, headerPartial, footerPartial) {
     name: "Color Palette Library",
     description,
     url: canonical,
-    isPartOf: { "@type": "WebSite", name: "bpozz", url: `${SITE_URL}/` },
+    isPartOf: { "@type": "WebSite", name: "BPOZZ", url: `${SITE_URL}/` },
   };
 
   const moodChips = Object.keys(BpozzTokens.MOOD_LABEL)
@@ -501,7 +501,7 @@ function galleryPageHtml(allPalettes, headerPartial, footerPartial) {
 // ---------------------------------------------------------------------
 function createPageHtml(headerPartial, footerPartial) {
   const canonical = `${SITE_URL}/tokens/create`;
-  const title = "Build a Color Palette — bpozz";
+  const title = "Build a Color Palette — BPOZZ";
   const description =
     "Assign semantic roles to colors — by hand or extracted from an image — with a live WCAG contrast checker that flags failing pairings as you go, following the same math as guide/color-contrast-systems.";
 
@@ -555,7 +555,7 @@ function createPageHtml(headerPartial, footerPartial) {
               <input type="text" id="palette-name" placeholder="e.g. Coastal Fog" />
             </div>
             <button type="button" class="btn btn-primary" id="save-palette-btn">Save to your collection</button>
-            <p class="card-meta" style="margin-top:10px;">Saved locally to this browser — see <a href="/tokens/collection">your collection</a>. bpozz doesn't have an account system, so there's no server-side save (or sign-in) yet.</p>
+            <p class="card-meta" style="margin-top:10px;">Saved locally to this browser — see <a href="/tokens/collection">your collection</a>. BPOZZ doesn't have an account system, so there's no server-side save (or sign-in) yet.</p>
           </div>
         </div>
 
@@ -597,14 +597,14 @@ function createPageHtml(headerPartial, footerPartial) {
 // ---------------------------------------------------------------------
 function collectionPageHtml(headerPartial, footerPartial) {
   const canonical = `${SITE_URL}/tokens/collection`;
-  const title = "Your Collection — bpozz";
+  const title = "Your Collection — BPOZZ";
   const description = "Palettes you've saved or built, stored in this browser.";
 
   const mainHtml = `    <main class="wrap guides-main" id="tokens-content" tabindex="-1">
       <div class="tokens-hero">
         <span class="tokens-hero__eyebrow">/ your_collection</span>
         <h1>Your collection</h1>
-        <p>Palettes you've saved from the library, plus anything you've built yourself — stored in this browser only (bpozz has no account system, so there's nothing to sync across devices yet).</p>
+        <p>Palettes you've saved from the library, plus anything you've built yourself — stored in this browser only (BPOZZ has no account system, so there's nothing to sync across devices yet).</p>
       </div>
       <div class="token-collection-toolbar">
         <p class="results-count" id="collection-count">Loading your collection…</p>

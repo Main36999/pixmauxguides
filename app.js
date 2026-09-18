@@ -158,15 +158,15 @@
   // #/terms hash links still resolve to something inside the SPA.
   var PAGES = {
     about: {
-      title: "About bpozz",
+      title: "About BPOZZ",
       updated: null,
       render: function () {
         return `
-          <p>bpozz is a small, independent library of practical interface-design tutorials, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
+          <p>BPOZZ is a small, independent design intelligence library — guides, design tokens, and color palettes, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
           <h3>What "documented like blueprints" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
-          <p>Every guide on this site is written first and monetized second. We don't accept payment to feature a tool, and guide content itself is never sponsored. Where the site does carry advertising, it's kept clearly separate from the tutorials themselves and labeled as an advertisement — see our <a href="privacy.html">Privacy Policy</a> for the specifics of how that works.</p>
+          <p>Every guide on this site is written first and monetized second. We don't accept payment to feature a tool, and guide content itself is never sponsored. Where the site does carry advertising, it's kept clearly separate from the guides themselves and labeled as an advertisement — see our <a href="privacy.html">Privacy Policy</a> for the specifics of how that works.</p>
           <h3>Who this is for</h3>
           <p>Designers moving from visual intuition toward a more systematic practice, and developers who need to understand the reasoning behind a spec, not just the pixel values in it. Guides are labeled beginner, intermediate, or advanced so you can find your level quickly.</p>
           <h3>Get in touch</h3>
@@ -179,7 +179,7 @@
       updated: "Effective date: August 4, 2026",
       render: function () {
         return `
-          <p>This Privacy Policy explains what information bpozz ("bpozz," "we," "us") collects, how it's used, and the choices available to you. By using this site, you agree to the practices described here.</p>
+          <p>This Privacy Policy explains what information BPOZZ ("BPOZZ," "we," "us") collects, how it's used, and the choices available to you. By using this site, you agree to the practices described here.</p>
           <h3>Information we collect</h3>
           <p>We collect two kinds of information. First, information you provide directly — for example, your name, email address, and message when you use the <a href="contact.html">contact form</a>. Second, information collected automatically as you browse, such as approximate location derived from IP address, browser and device type, pages viewed, and referring site, typically gathered through standard analytics and advertising cookies.</p>
           <h3>Cookies and advertising (Google AdSense)</h3>
@@ -210,11 +210,11 @@
       updated: "Effective date: August 4, 2026",
       render: function () {
         return `
-          <p>These Terms of Service govern your use of bpozz. By accessing or using this site, you agree to be bound by these terms. If you don't agree, please don't use the site.</p>
+          <p>These Terms of Service govern your use of BPOZZ. By accessing or using this site, you agree to be bound by these terms. If you don't agree, please don't use the site.</p>
           <h3>Use of the site</h3>
           <p>You're welcome to browse and read guides for personal or internal professional reference. You may not scrape, republish, or redistribute substantial portions of our guide content without prior written permission.</p>
           <h3>Content ownership</h3>
-          <p>All original guide text, structure, and illustrations on this site are the property of bpozz unless otherwise noted. References to third-party tools, such as Figma or Adobe XD, are used descriptively and belong to their respective owners; bpozz is not affiliated with or endorsed by those companies.</p>
+          <p>All original guide text, structure, and illustrations on this site are the property of BPOZZ unless otherwise noted. References to third-party tools, such as Figma or Adobe XD, are used descriptively and belong to their respective owners; BPOZZ is not affiliated with or endorsed by those companies.</p>
           <h3>Advertising and third-party content</h3>
           <p>This site displays advertising, including ads served through Google AdSense. Ads are clearly labeled as advertising and are not editorial content. We do not control, and are not responsible for, the content of third-party advertisements, or the products and services they promote.</p>
           <h3>No professional advice</h3>
@@ -222,7 +222,7 @@
           <h3>Disclaimer of warranties</h3>
           <p>This site and its content are provided "as is," without warranties of any kind, express or implied, including but not limited to accuracy, completeness, or fitness for a particular purpose.</p>
           <h3>Limitation of liability</h3>
-          <p>To the fullest extent permitted by law, bpozz is not liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this site.</p>
+          <p>To the fullest extent permitted by law, BPOZZ is not liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this site.</p>
           <h3>Changes to these terms</h3>
           <p>We may revise these terms from time to time. Continued use of the site after a revision constitutes acceptance of the updated terms.</p>
           <h3>Contact</h3>

@@ -32,7 +32,7 @@
    -------------------------------------------------------------------------- */
 :root {
   --guide-info: var(--action);
-  --guide-info-bg: rgba(29, 95, 214, 0.08);
+  --guide-info-bg: rgba(37, 99, 235, 0.08);
   --guide-success: #1f9d55;
   --guide-success-bg: #e5f6ec;
   --guide-warning: #b5790f;

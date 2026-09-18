@@ -112,8 +112,8 @@
 }
 .token-mood-chip[aria-pressed="true"] {
   color: var(--action);
-  background: rgba(29, 95, 214, 0.08);
-  border-color: rgba(29, 95, 214, 0.35);
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.35);
 }
 
 /* --------------------------------------------------------------------------
@@ -611,7 +611,7 @@
   font-weight: 600;
   color: var(--action);
   background: none;
-  border: 1px dashed rgba(29, 95, 214, 0.4);
+  border: 1px dashed rgba(37, 99, 235, 0.4);
   border-radius: var(--radius);
   padding: 8px 12px;
   cursor: pointer;
@@ -630,7 +630,7 @@
 .token-dropzone:hover,
 .token-dropzone[data-active="true"] {
   border-color: var(--action);
-  background: rgba(29, 95, 214, 0.04);
+  background: rgba(37, 99, 235, 0.04);
 }
 .token-dropzone input[type="file"] {
   display: none;

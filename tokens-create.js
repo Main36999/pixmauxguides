@@ -34,7 +34,7 @@
     roles: [
       { role: "background", hex: "#f5f8fc" },
       { role: "surface", hex: "#ffffff" },
-      { role: "primary", hex: "#1d5fd6" },
+      { role: "primary", hex: "#2563eb" },
       { role: "text", hex: "#000000" },
       { role: "border", hex: "#dbe6f7" },
     ],
