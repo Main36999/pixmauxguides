@@ -180,14 +180,23 @@
     });
   }
 
+  // names[] is positional against colors[] (see palettes-data.json).
+  // Falls back to an empty label if a record predates the field, so a
+  // partially-migrated data file still renders a working row instead of
+  // printing "undefined" for a missing name. Moved off the swatches and
+  // into the card foot as plain, non-interactive text.
+  function namesHtml(p) {
+    return p.colors
+      .map(function (hex, i) {
+        return p.names && typeof p.names[i] === "string" ? p.names[i] : "";
+      })
+      .map(escapeHtml)
+      .join(" · ");
+  }
+
   function cardHtml(p) {
     var bars = p.colors
-      .map(function (hex, i) {
-        // names[] is positional against colors[] (see palettes-data.json).
-        // Falls back to an empty label if a record predates the field, so
-        // a partially-migrated data file still renders a working grid
-        // rather than printing "undefined" across every swatch.
-        var name = p.names && typeof p.names[i] === "string" ? p.names[i] : "";
+      .map(function (hex) {
         return (
           '<button type="button" class="palette-swatch" data-hex="' +
           hex +
@@ -197,9 +206,7 @@
           labelColorFor(hex) +
           '" aria-label="Copy ' +
           hex +
-          '"><span class="palette-swatch__name">' +
-          escapeHtml(name) +
-          '</span><span class="palette-swatch__hex">' +
+          '"><span class="palette-swatch__hex">' +
           hex +
           "</span></button>"
         );
@@ -218,6 +225,9 @@
       '" aria-label="Like this palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg><span class="palette-like-count">' +
       (liveLikes[p.id] != null ? liveLikes[p.id] : p.likes) +
       "</span></button>" +
+      '<span class="palette-card__names">' +
+      namesHtml(p) +
+      "</span>" +
       (FIREBASE_CONFIGURED
         ? ""
         : '<span class="palette-card__note">preview</span>') +
