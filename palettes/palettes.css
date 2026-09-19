@@ -160,33 +160,25 @@
    overflow at any width. */
 .palettes-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 26px 20px;
   padding-bottom: 24px;
 }
-@media (max-width: 1399px) {
-  .palettes-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
+
 @media (max-width: 1159px) {
   .palettes-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px 20px;
   }
 }
+
 @media (max-width: 959px) {
   .palettes-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px 18px;
   }
 }
-@media (max-width: 719px) {
-  .palettes-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 14px;
-  }
-}
+
 @media (max-width: 459px) {
   .palettes-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -199,11 +191,15 @@
   position: relative;
   border-radius: var(--palette-radius, 10px);
   background: var(--card);
-  /* box-shadow's 600ms belongs to .palette-card--highlight below; the
-     hover shadow is on ::after so it can run at 180ms independently. */
-  transition:
-    transform 0.18s var(--palette-ease),
-    box-shadow 0.6s ease;
+  /* Subtle shadow, present at rest and unaffected by hover — the card
+     itself no longer moves or gains any shadow on hover. Only
+     .palette-card--highlight (the deep-link ring) below overrides this
+     box-shadow, at equal specificity via source order; the 600ms
+     transition is for that ring fading in and back out. */
+  box-shadow:
+    0 1px 2px rgba(15, 42, 82, 0.05),
+    0 2px 6px rgba(15, 42, 82, 0.06);
+  transition: box-shadow 0.6s ease;
   animation: palette-card-in 0.2s var(--palette-ease) backwards;
 }
 /* `backwards`, not `both`: a forwards fill would keep the keyframe's
@@ -256,33 +252,13 @@
   animation-delay: 132ms;
 }
 
-/* Hover shadow overlay. pointer-events:none keeps every click landing
-   on the swatch/like button underneath it. */
-.palette-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  box-shadow:
-    0 10px 24px -10px rgba(15, 42, 82, 0.22),
-    0 2px 6px -2px rgba(15, 42, 82, 0.1);
-  transition: opacity 0.18s var(--palette-ease);
-}
-.palette-card:hover {
-  transform: translateY(-2px);
-}
-.palette-card:hover::after {
-  opacity: 1;
-}
-
 /* Applied briefly by palettes.js when the page loads at /palettes#<id>
    (e.g. from a Search result) so the linked-to card is findable, not
    just present somewhere in the grid. Removed automatically after a
    couple of seconds; the 0.6s box-shadow transition above fades it out.
-   MUST stay declared after .palette-card:hover — same specificity, so
-   source order is what keeps the ring visible while hovering. */
+   MUST stay declared after .palette-card — same specificity, so
+   source order is what keeps the deep-link ring winning over the
+   resting shadow. */
 .palette-card--highlight {
   box-shadow:
     0 0 0 3px var(--action),
@@ -344,66 +320,6 @@
   flex-grow: 1.9;
   outline-offset: -3px;
 }
-/* Hover/focus ring, keyed to the same --sw-label value palettes.js
-   already computes from the swatch's own luminance — so it stays
-   visible on a near-white and a near-black swatch alike. Held at 55%
-   so it reads as a highlight, not a border. */
-.palette-swatch::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 2px var(--sw-label);
-  opacity: 0;
-  transition: opacity 0.15s var(--palette-ease);
-}
-.palette-swatch:hover::before,
-.palette-swatch:focus-visible::before {
-  opacity: 0.55;
-}
-/* Colour name, from palettes-data.json's names[] (positional against
-   colors[]). Set sideways because a strip is only ~53px wide at desktop
-   — horizontal text would truncate on every card. Always rendered, not
-   hover-only, so it is readable on touch where there is no hover; hover
-   and keyboard focus just raise it to full strength. Takes its colour
-   from the same --sw-label value palettes.js already computes per
-   swatch, so it stays legible on a near-white and a near-black alike.
-   pointer-events:none keeps the click landing on the button. */
-.palette-swatch__name {
-  position: absolute;
-  top: 12px;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: var(--sans);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.045em;
-  color: var(--sw-label);
-  opacity: 0.62;
-  pointer-events: none;
-  transition: opacity 0.16s var(--palette-ease);
-}
-.palette-swatch:hover .palette-swatch__name,
-.palette-swatch:focus-visible .palette-swatch__name {
-  opacity: 1;
-}
-@media (max-width: 719px) {
-  /* Plate drops to 132px here, so give the longest names more room. */
-  .palette-swatch__name {
-    top: 10px;
-    bottom: 26px;
-    font-size: 10px;
-    letter-spacing: 0.03em;
-  }
-}
-
 .palette-swatch__hex {
   position: absolute;
   left: 0;
@@ -484,6 +400,24 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* This palette's 4 color names (palettes-data.json's names[], joined
+   with " · "), moved here from the swatches as plain, non-interactive
+   text. Shrinks below its own content width (min-width:0) and clips
+   with an ellipsis rather than wrapping, so a long name list can never
+   grow the card's height or push the like button out of place. */
+.palette-card__names {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: right;
+  padding-left: 10px;
+}
+
 .palette-card__note {
   font-size: 11px;
   color: var(--text-muted);
@@ -515,7 +449,7 @@
   /* Zeroing the duration is not enough here: the strip would still snap
      from 53px to 82px, which is a bigger jolt than the animation it
      replaced. The expansion is switched off outright instead — the HEX
-     reveal and the colour name still respond, they just don't resize. */
+     reveal still responds, it just doesn't resize. */
   .palette-swatch:hover,
   .palette-swatch:focus-visible {
     flex-grow: 1;
