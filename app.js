@@ -137,7 +137,7 @@
   };
 
   // Each guide's `thumbnail` points to a local image file (any web
-  // image format) that sits in a "thumbnail_image" folder next to
+  // image format) that sits in a "thumbnail_image_webp" folder next to
   // index.html. It's used for the card thumbnail on the guide list
   // below. If the file at that path doesn't exist yet, the card
   // automatically falls back to this category's blueprint-style SVG
@@ -421,6 +421,29 @@
   function thumbHtml(g) {
     return '<div class="card-thumb">' + thumbMediaHtml(g) + "</div>";
   }
+
+  // --- Shared card-thumbnail renderer export ---------------------------
+  // search.html renders Guide result cards client-side and needs the very
+  // same category thumbnail THIS file already builds (THUMBS +
+  // THUMB_DIM_LABEL + thumbMediaHtml above). Rather than copy that SVG map
+  // into a second place — it already exists in build-home.js and
+  // build-categories.js for the build-time grids — the existing functions
+  // are published here, unchanged, so every surface draws a Guide
+  // thumbnail from one implementation.
+  //
+  // Same export pattern as tokens-shared.js's window.BpozzTokens. This
+  // assignment runs while the IIFE body executes, which is before init()
+  // at the bottom of this file, so the global is in place regardless of
+  // what init() finds (or doesn't find) on the page.
+  //
+  // Callers pass a guides.json-shaped object: { category, title,
+  // thumbnail? }. With no `thumbnail` the renderer returns the category
+  // SVG on its own, which is exactly the base layer it already draws
+  // under guide images elsewhere.
+  window.BpozzCards = {
+    thumbMediaHtml: thumbMediaHtml,
+    thumbHtml: thumbHtml,
+  };
 
   // Minimal, resourceboy.com-style card: plain thumbnail, a title, and
   // one small muted meta line ("category · level · read time") — no

@@ -76,90 +76,135 @@
          alongside the other card rules if you'd rather keep every style
          in one file. -->
     <style>
-      mark {
+      /* ---------- Plan 1: Search results UI ----------
+         Search results now render through the site's existing resource
+         card system — .grid / .content-card / .card-thumb / .card-body /
+         .card-title / .card-link / .card-meta / .badge — exactly as the
+         homepage, /guides, /tokens, /palettes and the /category/ pages
+         already do, so a result looks identical to the same resource
+         found anywhere else on the site.
+
+         Those classes are REUSED, never redefined: none of them is
+         restyled here or in styles.css. Everything below is either
+         search-only markup (the filter chips) or a scoped tweak, and
+         every selector is namespaced under .search-page (on <body>)
+         so nothing here can reach another page.
+
+         The old flat result-row presentation (.search-result-list /
+         -row / -link / -title / -meta / -desc) is gone — the grid
+         replaces it. ---------- */
+
+      .search-page mark {
         background: rgba(37, 99, 235, 0.16);
         color: inherit;
         border-radius: 2px;
         padding: 0 1px;
       }
 
-      /* ---------- Phase 3: type/category filters + multi-type result
-         list. Scoped to this page only, same as `mark` above — reuses
-         site-wide tokens (--action/--text-muted/--grid-line/--sans)
-         and existing global classes (.field/.select-field, .badge,
-         .card-meta) rather than duplicating their rules. ---------- */
-      .search-type-tabs {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-      .search-type-tab {
-        appearance: none;
-        background: none;
-        border: 0;
-        border-bottom: 2px solid transparent;
-        font-family: var(--sans);
-        color: var(--text-muted);
-        font-size: 13.5px;
-        font-weight: 600;
-        padding: 4px 8px 6px;
-        cursor: pointer;
-        transition:
-          color 0.15s ease,
-          border-color 0.15s ease;
-      }
-      .search-type-tab:hover {
-        color: var(--ink);
-      }
-      .search-type-tab[aria-pressed="true"] {
-        color: var(--action);
-        border-bottom-color: var(--action);
-      }
+      /* ---------- type filter chips ----------
+         Same visual language as the mood chips on /tokens
+         (.token-mood-chip in tokens.css): small 600-weight label, hairline
+         border, 2px radius, --action for the pressed state. Rewritten here
+         rather than shared because tokens.css is not linked on this page
+         and must not be modified for this work.
 
-      .search-result-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-      }
-      .search-result-row {
-        border-bottom: 1px solid var(--grid-line);
-        animation: cardIn 0.28s ease both;
-      }
-      .search-result-row:first-child {
-        border-top: 1px solid var(--grid-line);
-      }
-      .search-result-link {
-        display: block;
-        padding: 18px 2px;
-        color: inherit;
-        text-decoration: none;
-      }
-      .search-result-link:hover .search-result-title {
-        color: var(--action);
-      }
-      .search-result-title {
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 1.35;
-        letter-spacing: -0.005em;
-      }
-      .search-result-meta {
+         The class names (.search-type-tabs/.search-type-tab) are kept
+         exactly as they were so the filter JavaScript below is untouched
+         — only their appearance changes. Sizing differs from the /tokens
+         chips deliberately: min-height 44px meets the touch-target
+         minimum, which those chips do not. */
+      .search-page .search-type-tabs {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 8px;
-        margin-top: 6px;
       }
-      .search-result-desc {
-        margin-top: 6px;
-        max-width: 72ch;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+      .search-page .search-type-tab {
+        appearance: none;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 14px;
+        font-family: var(--sans);
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--text-muted);
+        background: transparent;
+        border: 1px solid var(--grid-line);
+        border-radius: 2px;
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+          color 0.15s ease,
+          border-color 0.15s ease,
+          background 0.15s ease;
       }
+      .search-page .search-type-tab:hover {
+        color: var(--action);
+        border-color: var(--action);
+      }
+      .search-page .search-type-tab[aria-pressed="true"] {
+        color: var(--action);
+        background: rgba(37, 99, 235, 0.08);
+        border-color: rgba(37, 99, 235, 0.35);
+      }
+
+      /* Category select sits beside the chips — match their height so the
+         filter row reads as one control group, and give it the same 44px
+         touch target. Only the height/padding is set; the select's own
+         appearance still comes from .select-field in styles.css. */
+      .search-page .level-filter select {
+        min-height: 44px;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      /* Filter row wraps under the count on narrow screens instead of
+         squeezing the chips; .level-filter's desktop divider would sit
+         awkwardly once wrapped, so it's dropped at phone width. */
+      @media (max-width: 640px) {
+        .search-page .section-head__meta {
+          gap: 12px;
+        }
+        .search-page .level-filter {
+          flex: 1 1 100%;
+          padding-left: 0;
+          border-left: none;
+        }
+      }
+
+      /* ---------- visible keyboard focus, search page only ----------
+         styles.css sets a global :focus-visible ring (2px --action) but
+         later rules cancel it with `outline: none` on selects and on the
+         header search field. This restores a ring for the controls in
+         THIS page's results UI only. The global header search pill is
+         deliberately left alone so it behaves identically on every page. */
+      .search-page .search-type-tab:focus-visible,
+      .search-page .level-filter select:focus-visible,
+      .search-page .empty-state .btn:focus-visible {
+        outline: 2px solid var(--action);
+        outline-offset: 2px;
+      }
+      /* .card-link::after already covers the whole tile, so ring THAT
+         rather than the title text — the focus indicator then matches the
+         click target the user would actually activate. */
+      .search-page .grid .card-link:focus-visible {
+        outline: none;
+      }
+      .search-page .grid .card-link:focus-visible::after {
+        outline: 2px solid var(--action);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+
+      /* NOTE, deliberately NOT styled here: .badge sits inside .card-body,
+         which is a flex column, so it stretches to the card's full width.
+         That is exactly what the homepage's mixed-resource cards already
+         do (build-home.js puts the badge in the same place, and styles.css
+         has no .card-body .badge rule), so search matches them. Adding
+         `align-self: flex-start` here would make Search the odd one out.
+         If that full-width badge should be a hugging chip, it's a
+         site-wide decision for styles.css, not a Search-only override. */
 
       .search-empty-tips {
         text-align: left;
@@ -172,132 +217,144 @@
       }
     </style>
   </head>
-  <body>
+  <!-- .search-page namespaces every Search-only CSS rule above. Same
+       per-page body-class convention already used by index.html
+       (page-home), guides/index.html (guides-page), tokens/index.html
+       (tokens-page) and the category pages (category-page). -->
+  <body class="search-page">
     <a href="#search-content" class="skip-link">Skip to results</a>
 
-    <!--HEADER_START--><header class="site-header site-header--inner">
-  <div class="header-top">
-    <a href="index.html" class="brand" aria-label="bpozz! home">
-      <img class="brand-logo" src="/assets/bpozz-logo.svg" alt="" width="88" height="32" />
-    </a>
+    <!--HEADER_START-->
+    <header class="site-header site-header--inner">
+      <div class="header-top">
+        <a href="index.html" class="brand" aria-label="bpozz! home">
+          <img
+            class="brand-logo"
+            src="/assets/bpozz-logo.svg"
+            alt=""
+            width="88"
+            height="32"
+          />
+        </a>
 
-    <form
-      class="header-search header-search--full form"
-      role="search"
-      action="/search"
-      method="get"
-    >
-      <label for="header-search-input" class="sr-only">Search BPOZZ</label>
-      <button type="submit" aria-label="Search BPOZZ">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
+        <form
+          class="header-search header-search--full form"
+          role="search"
+          action="/search"
+          method="get"
         >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-      <input
-        type="search"
-        id="header-search-input"
-        name="s"
-        placeholder="Search guides, tokens, palettes…"
-        autocomplete="off"
-        class="input"
-      />
-      <button type="reset" class="reset" aria-label="Clear search">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
+          <label for="header-search-input" class="sr-only">Search BPOZZ</label>
+          <button type="submit" aria-label="Search BPOZZ">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+          <input
+            type="search"
+            id="header-search-input"
+            name="s"
+            placeholder="Search guides, tokens, palettes…"
+            autocomplete="off"
+            class="input"
+          />
+          <button type="reset" class="reset" aria-label="Clear search">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <line x1="5" y1="5" x2="19" y2="19" />
+              <line x1="19" y1="5" x2="5" y2="19" />
+            </svg>
+          </button>
+        </form>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
         >
-          <line x1="5" y1="5" x2="19" y2="19" />
-          <line x1="19" y1="5" x2="5" y2="19" />
-        </svg>
-      </button>
-    </form>
+          <svg
+            class="menu-toggle__icon menu-toggle__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+          <svg
+            class="menu-toggle__icon menu-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </button>
+      </div>
 
-    <button
-      type="button"
-      class="menu-toggle"
-      id="menu-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Open menu"
-    >
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--open"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="4" y1="7" x2="20" y2="7" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="17" x2="20" y2="17" />
-      </svg>
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--close"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="5" y1="5" x2="19" y2="19" />
-        <line x1="19" y1="5" x2="5" y2="19" />
-      </svg>
-    </button>
-  </div>
+      <div class="header-bottom">
+        <nav class="site-nav" aria-label="Primary">
+          <!--NAV_RESOURCES_START-->
+          <a href="/guides">Guides</a>
+          <a href="/tokens">Tokens</a>
+          <a href="/palettes">Palettes</a>
+          <!--NAV_RESOURCES_END-->
+          <a href="/search">Explore</a>
+        </nav>
+      </div>
 
-  <div class="header-bottom">
-    <nav class="site-nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/guides">Guides</a>
-      <a href="/tokens">Tokens</a>
-      <a href="/palettes">Palettes</a>
-      <!--NAV_RESOURCES_END-->
-      <a href="/search">Explore</a>
-    </nav>
-  </div>
-
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav class="mobile-menu__nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/guides">Guides</a>
-      <a href="/tokens">Tokens</a>
-      <a href="/palettes">Palettes</a>
-      <!--NAV_RESOURCES_END-->
-      <a href="/search">Explore</a>
-    </nav>
-  </div>
-</header><!--HEADER_END-->
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <!--NAV_RESOURCES_START-->
+          <a href="/guides">Guides</a>
+          <a href="/tokens">Tokens</a>
+          <a href="/palettes">Palettes</a>
+          <!--NAV_RESOURCES_END-->
+          <a href="/search">Explore</a>
+        </nav>
+      </div>
+    </header>
+    <!--HEADER_END-->
 
     <main class="wrap guides-main" id="search-content" tabindex="-1">
       <div class="category-hero">
         <p class="section-label mono">/ search</p>
         <h1 class="category-hero__title" id="search-heading">Search</h1>
         <p class="category-hero__dek" id="search-dek">
-          Use the search box above to find a guide, token, or palette by
-          title, topic, tag, or category.
+          Use the search box above to find a guide, token, or palette by title,
+          topic, tag, or category.
         </p>
       </div>
 
@@ -310,10 +367,38 @@
             role="group"
             aria-label="Filter by type"
           >
-            <button type="button" class="search-type-tab" data-type="all" aria-pressed="true">All</button>
-            <button type="button" class="search-type-tab" data-type="guide" aria-pressed="false">Guides</button>
-            <button type="button" class="search-type-tab" data-type="token" aria-pressed="false">Tokens</button>
-            <button type="button" class="search-type-tab" data-type="palette" aria-pressed="false">Palettes</button>
+            <button
+              type="button"
+              class="search-type-tab"
+              data-type="all"
+              aria-pressed="true"
+            >
+              All
+            </button>
+            <button
+              type="button"
+              class="search-type-tab"
+              data-type="guide"
+              aria-pressed="false"
+            >
+              Guides
+            </button>
+            <button
+              type="button"
+              class="search-type-tab"
+              data-type="token"
+              aria-pressed="false"
+            >
+              Tokens
+            </button>
+            <button
+              type="button"
+              class="search-type-tab"
+              data-type="palette"
+              aria-pressed="false"
+            >
+              Palettes
+            </button>
           </div>
           <div class="field select-field level-filter">
             <label for="search-category-select" class="sr-only">Category</label>
@@ -324,7 +409,12 @@
         </div>
       </div>
 
-      <ul class="search-result-list" id="search-grid-root"></ul>
+      <!-- The site-wide resource grid, same element and class the
+           homepage, /guides, /tokens and the /category/ pages use
+           (5 columns, stepping to 3 at 960px and 2 at 640px — see
+           .grid in styles.css). Cards are written into it by
+           resultCardHtml() below. -->
+      <div class="grid" id="search-grid-root"></div>
 
       <div class="empty-state" id="search-empty-state">
         <p id="search-empty-message">
@@ -335,47 +425,49 @@
           <li>Use fewer words</li>
           <li>Check the spelling</li>
         </ul>
-        <a href="/search" class="btn btn-primary">Explore all design resources</a>
+        <a href="/guides" class="btn btn-primary">Browse all guides</a>
       </div>
     </main>
 
-    <!--FOOTER_START--><footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <p class="footer-brand__name">BPOZZ</p>
-      <p class="footer-brand__tagline">Design Intelligence</p>
-    </div>
-    <nav class="footer-nav footer-nav--explore" aria-label="Explore BPOZZ">
-      <a href="/search">Explore</a>
-      <a href="/guides">Guides</a>
-      <a href="/tokens">Tokens</a>
-      <a href="/palettes/">Palettes</a>
-      <a href="/search">Search</a>
-    </nav>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-    </nav>
-    <nav class="footer-nav footer-nav--categories" aria-label="Categories">
-      <!--FOOTER_CATEGORIES_START-->
-      <a href="/category/color-theory">Color Theory</a>
-      <a href="/category/typography">Typography</a>
-      <a href="/category/spacing">Spacing &amp; Layout</a>
-      <a href="/category/figma">Figma Workflow</a>
-      <a href="/category/adobe-xd">Adobe XD Workflow</a>
-      <a href="/category/mobile">Mobile App Design</a>
-      <a href="/category/web">Web Layout</a>
-      <a href="/category/systems">Design Systems</a>
-      <a href="/category/accessibility">Accessibility</a>
-      <a href="/category/motion">Prototyping &amp; Motion</a>
-      <!--FOOTER_CATEGORIES_END-->
-    </nav>
-    <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
-  </div>
-</footer><!--FOOTER_END-->
+    <!--FOOTER_START-->
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <p class="footer-brand__name">BPOZZ</p>
+          <p class="footer-brand__tagline">Design Intelligence</p>
+        </div>
+        <nav class="footer-nav footer-nav--explore" aria-label="Explore BPOZZ">
+          <a href="/search">Explore</a>
+          <a href="/guides">Guides</a>
+          <a href="/tokens">Tokens</a>
+          <a href="/palettes/">Palettes</a>
+          <a href="/search">Search</a>
+        </nav>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="about.html">About</a>
+          <a href="roadmap.html">Roadmap</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </nav>
+        <nav class="footer-nav footer-nav--categories" aria-label="Categories">
+          <!--FOOTER_CATEGORIES_START-->
+          <a href="/category/color-theory">Color Theory</a>
+          <a href="/category/typography">Typography</a>
+          <a href="/category/spacing">Spacing &amp; Layout</a>
+          <a href="/category/figma">Figma Workflow</a>
+          <a href="/category/adobe-xd">Adobe XD Workflow</a>
+          <a href="/category/mobile">Mobile App Design</a>
+          <a href="/category/web">Web Layout</a>
+          <a href="/category/systems">Design Systems</a>
+          <a href="/category/accessibility">Accessibility</a>
+          <a href="/category/motion">Prototyping &amp; Motion</a>
+          <!--FOOTER_CATEGORIES_END-->
+        </nav>
+        <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <!--FOOTER_END-->
 
     <script src="app.js"></script>
     <script>
@@ -397,7 +489,11 @@
         // derived from the index").
         // ---------------------------------------------------------------
 
-        var TYPE_LABELS = { guide: "Guide", token: "Token", palette: "Palette" };
+        var TYPE_LABELS = {
+          guide: "Guide",
+          token: "Token",
+          palette: "Palette",
+        };
         var TYPE_VALUES = ["all", "guide", "token", "palette"];
 
         // Relevance weights — bpozz-global-search-spec-v2.md §12. Starting
@@ -421,7 +517,9 @@
         var emptyQueryEl = document.getElementById("search-empty-query");
         var filtersEl = document.getElementById("search-filters");
         var typeTabsEl = document.getElementById("search-type-tabs");
-        var categorySelectEl = document.getElementById("search-category-select");
+        var categorySelectEl = document.getElementById(
+          "search-category-select",
+        );
 
         function escapeHtml(str) {
           return String(str).replace(/[&<>"']/g, function (ch) {
@@ -486,7 +584,11 @@
         function categorySearchTextFor(record) {
           return record.categories
             .map(function (slug) {
-              return (categoryName(slug) + " " + slug.replace(/-/g, " ")).toLowerCase();
+              return (
+                categoryName(slug) +
+                " " +
+                slug.replace(/-/g, " ")
+              ).toLowerCase();
             })
             .join(" ");
         }
@@ -537,7 +639,8 @@
             )
               score += WEIGHTS.keyword;
             if (descLower.indexOf(term) !== -1) score += WEIGHTS.description;
-            if (searchTextLower.indexOf(term) !== -1) score += WEIGHTS.searchText;
+            if (searchTextLower.indexOf(term) !== -1)
+              score += WEIGHTS.searchText;
           });
 
           return score;
@@ -579,7 +682,10 @@
         function highlightTerms(text) {
           var safeText = escapeHtml(text);
           if (!terms.length) return safeText;
-          var safeTerms = terms.map(escapeHtml).map(escapeRegExp).filter(Boolean);
+          var safeTerms = terms
+            .map(escapeHtml)
+            .map(escapeRegExp)
+            .filter(Boolean);
           if (!safeTerms.length) return safeText;
           // Longest term first so a term that's a substring of another
           // doesn't shadow the longer match.
@@ -608,49 +714,146 @@
           return "";
         }
 
-        function resultRowHtml(record) {
-          var categories = categoryLabelsFor(record);
-          var snippet = snippetFor(record);
-          var metaHtml =
+        // ---------- result cards (Plan 1) ----------
+        // Results render through the site's shared resource card instead
+        // of the flat text rows this page used before. The markup below is
+        // the same .content-card / .card-thumb / .card-body / .card-title /
+        // .card-link / .card-meta / .badge structure build-home.js emits
+        // for the homepage's mixed-resource sections and
+        // build-categories.js emits for the category rails, so a result
+        // tile is indistinguishable from the same resource shown anywhere
+        // else. No shared class is redefined — this only composes them.
+        //
+        // Nothing here touches matching, scoring, filtering or URL state:
+        // runSearch() still returns exactly the same records in exactly the
+        // same order, and this only changes how each one is drawn.
+
+        // One muted line per card, picked per type — the index simply
+        // doesn't carry the same fields for all three:
+        //   Guide            its category label(s) ("Color Theory")
+        //   Token / Palette  snippetFor()'s tag summary ("Cool · Night ·
+        //                    Dark"), the same string build-categories.js's
+        //                    tagsMetaFor() and build-home.js already show
+        // No author line: BPOZZ has no author data and none is invented.
+        function cardMetaFor(record) {
+          if (record.type === "guide") {
+            return categoryLabelsFor(record).join(" · ");
+          }
+          return snippetFor(record);
+        }
+
+        // Only well-formed 6-digit hex reaches an inline style attribute.
+        // Same rule as build-home.js's HEX_RE/validatedColors(), but this
+        // runs client-side against fetched JSON, so a bad value is skipped
+        // rather than thrown on — a malformed color must never be able to
+        // break out of the style attribute.
+        var HEX_RE = /^#[0-9a-f]{6}$/i;
+        function validatedColors(record) {
+          if (!Array.isArray(record.colors)) return [];
+          return record.colors.filter(function (hex) {
+            return typeof hex === "string" && HEX_RE.test(hex);
+          });
+        }
+
+        // Token/Palette thumbnail plate: the record's own colors as a
+        // swatch row (tokens) or stacked bars (palettes). Both modifier
+        // classes already exist in styles.css and are used by the homepage
+        // resource sections — nothing new is styled for them here.
+        // aria-hidden because the colors are decoration; the title and
+        // badge carry the meaning.
+        function colorThumbHtml(record, modifier) {
+          var colors = validatedColors(record);
+          if (!colors.length) return "";
+          return (
+            '<div class="card-thumb ' +
+            modifier +
+            '" aria-hidden="true">' +
+            colors
+              .map(function (hex) {
+                return '<span style="background-color:' + hex + '"></span>';
+              })
+              .join("") +
+            "</div>"
+          );
+        }
+
+        // Guide thumbnail plate: delegated to app.js's existing renderer
+        // (window.BpozzCards — THUMBS + THUMB_DIM_LABEL + thumbMediaHtml),
+        // which is the same code that draws Guide thumbnails on the
+        // homepage and /guides. It's reused rather than reimplemented so
+        // there is exactly one category-illustration map in the codebase.
+        //
+        // `thumbnail` is the guide's real card image, carried on guide
+        // records in content-index.json. The renderer layers it over the
+        // category SVG and hides it via onerror if the file is missing, so
+        // a Guide result shows the actual image and degrades to the SVG
+        // rather than a broken-image glyph — identical behaviour to the
+        // homepage and /guides grids.
+        function guideThumbHtml(record) {
+          var cards = window.BpozzCards;
+          var category = record.categories && record.categories[0];
+          if (!cards || !category) return '<div class="card-thumb"></div>';
+          return cards.thumbHtml({
+            category: category,
+            title: record.title,
+            thumbnail: record.thumbnail,
+          });
+        }
+
+        function thumbFor(record) {
+          if (record.type === "token") {
+            return colorThumbHtml(record, "card-thumb--swatches");
+          }
+          if (record.type === "palette") {
+            return colorThumbHtml(record, "card-thumb--bars");
+          }
+          if (record.type === "guide") return guideThumbHtml(record);
+          return "";
+        }
+
+        function resultCardHtml(record) {
+          var meta = cardMetaFor(record);
+          return (
+            '<article class="content-card">' +
+            thumbFor(record) +
+            '<div class="card-body">' +
             '<span class="badge">' +
             escapeHtml(TYPE_LABELS[record.type] || record.type) +
-            "</span>";
-          if (categories.length) {
-            metaHtml +=
-              '<span class="card-meta">' + escapeHtml(categories.join(" · ")) + "</span>";
-          }
-          return (
-            '<li class="search-result-row">' +
-            '<a class="search-result-link" href="' +
+            "</span>" +
+            '<h3 class="card-title"><a class="card-link" href="' +
             escapeHtml(record.url) +
             '">' +
-            '<h3 class="search-result-title">' +
+            // Kept from the previous UI: matched terms stay wrapped in
+            // <mark> so it's still obvious why a result matched.
             highlightTerms(record.title) +
-            "</h3>" +
-            '<p class="search-result-meta">' +
-            metaHtml +
-            "</p>" +
-            (snippet
-              ? '<p class="search-result-desc card-meta">' + highlightTerms(snippet) + "</p>"
-              : "") +
-            "</a>" +
-            "</li>"
+            "</a></h3>" +
+            (meta ? '<p class="card-meta">' + escapeHtml(meta) + "</p>" : "") +
+            "</div></article>"
           );
         }
 
         function countLabel(results) {
           var n = results.length;
-          var base = n + " Result" + (n === 1 ? "" : "s") + ' for "' + query + '"';
+          var base =
+            n + " Result" + (n === 1 ? "" : "s") + ' for "' + query + '"';
           if (typeFilter !== "all") return base;
           var counts = { guide: 0, token: 0, palette: 0 };
           results.forEach(function (r) {
             if (counts[r.type] != null) counts[r.type]++;
           });
           var parts = [];
-          if (counts.guide) parts.push(counts.guide + " guide" + (counts.guide === 1 ? "" : "s"));
-          if (counts.token) parts.push(counts.token + " token" + (counts.token === 1 ? "" : "s"));
+          if (counts.guide)
+            parts.push(
+              counts.guide + " guide" + (counts.guide === 1 ? "" : "s"),
+            );
+          if (counts.token)
+            parts.push(
+              counts.token + " token" + (counts.token === 1 ? "" : "s"),
+            );
           if (counts.palette)
-            parts.push(counts.palette + " palette" + (counts.palette === 1 ? "" : "s"));
+            parts.push(
+              counts.palette + " palette" + (counts.palette === 1 ? "" : "s"),
+            );
           return parts.length ? base + " (" + parts.join(" · ") + ")" : base;
         }
 
@@ -666,7 +869,11 @@
           if (typeFilter !== "all") params.set("type", typeFilter);
           if (categoryFilter !== "all") params.set("category", categoryFilter);
           var qs = params.toString();
-          history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
+          history.replaceState(
+            null,
+            "",
+            location.pathname + (qs ? "?" + qs : ""),
+          );
         }
 
         function render() {
@@ -714,7 +921,7 @@
             emptyEl.setAttribute("data-visible", "true");
           } else {
             countEl.textContent = countLabel(results);
-            gridEl.innerHTML = results.map(resultRowHtml).join("");
+            gridEl.innerHTML = results.map(resultCardHtml).join("");
             emptyEl.removeAttribute("data-visible");
           }
         }
@@ -723,12 +930,14 @@
         function setTypeFilter(next) {
           if (TYPE_VALUES.indexOf(next) === -1 || next === typeFilter) return;
           typeFilter = next;
-          typeTabsEl.querySelectorAll(".search-type-tab").forEach(function (btn) {
-            btn.setAttribute(
-              "aria-pressed",
-              btn.getAttribute("data-type") === typeFilter ? "true" : "false",
-            );
-          });
+          typeTabsEl
+            .querySelectorAll(".search-type-tab")
+            .forEach(function (btn) {
+              btn.setAttribute(
+                "aria-pressed",
+                btn.getAttribute("data-type") === typeFilter ? "true" : "false",
+              );
+            });
           syncUrl();
           render();
         }
@@ -820,14 +1029,17 @@
 
         function loadJson(url) {
           return fetch(url).then(function (response) {
-            if (!response.ok) throw new Error("HTTP " + response.status + " for " + url);
+            if (!response.ok)
+              throw new Error("HTTP " + response.status + " for " + url);
             return response.json();
           });
         }
 
         function applyLoadedData(indexData, categoriesData) {
           INDEX_RECORDS = Array.isArray(indexData) ? indexData : SAMPLE_INDEX;
-          var categories = Array.isArray(categoriesData) ? categoriesData : SAMPLE_CATEGORIES;
+          var categories = Array.isArray(categoriesData)
+            ? categoriesData
+            : SAMPLE_CATEGORIES;
           categories
             .slice()
             .sort(function (a, b) {
@@ -842,7 +1054,10 @@
           render();
         }
 
-        Promise.all([loadJson("/content-index.json"), loadJson("/categories.json")])
+        Promise.all([
+          loadJson("/content-index.json"),
+          loadJson("/categories.json"),
+        ])
           .then(function (results) {
             applyLoadedData(results[0], results[1]);
           })

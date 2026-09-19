@@ -247,7 +247,7 @@ function buildGuideRecords(guides, categorySlugs) {
     const tags = Array.isArray(g.tags) ? g.tags : [];
     const keywords = Array.isArray(g.keywords) ? g.keywords : [];
 
-    return {
+    const record = {
       id: `guide:${g.id}`,
       type: "guide",
       title: g.title || "",
@@ -265,6 +265,17 @@ function buildGuideRecords(guides, categorySlugs) {
         keywords,
       ]),
     };
+
+    // OPTIONAL display field, same rule as the token/palette ones above:
+    // emitted only when guides.json actually carries it, never invented or
+    // defaulted. `thumbnail` is the guide's card image path, which
+    // search.html needs so a Guide result can render the real thumbnail
+    // through app.js's existing renderer instead of the category SVG
+    // placeholder on its own. Not added to searchText, so scoring and
+    // matching are untouched.
+    return addOptionalFields(record, {
+      thumbnail: nonEmptyString(g.thumbnail),
+    });
   });
 }
 
@@ -275,9 +286,11 @@ function buildGuideRecords(guides, categorySlugs) {
 function buildTokenRecords(tokens) {
   return tokens.map(function (t) {
     const roles = Array.isArray(t.colors)
-      ? t.colors.map(function (c) {
-          return c.role;
-        }).filter(Boolean)
+      ? t.colors
+          .map(function (c) {
+            return c.role;
+          })
+          .filter(Boolean)
       : [];
     const tags = Array.isArray(t.tags) ? t.tags : [];
     const moods = Array.isArray(t.moods) ? t.moods : [];
