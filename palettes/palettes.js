@@ -164,9 +164,30 @@
     return list;
   }
 
+  // Escapes the one piece of palettes-data.json that reaches the DOM as
+  // markup rather than as an attribute value. The names we ship are plain
+  // words, but this file builds HTML by concatenation, so anything from
+  // the data file gets escaped on the way in rather than trusted.
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (ch) {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[ch];
+    });
+  }
+
   function cardHtml(p) {
     var bars = p.colors
-      .map(function (hex) {
+      .map(function (hex, i) {
+        // names[] is positional against colors[] (see palettes-data.json).
+        // Falls back to an empty label if a record predates the field, so
+        // a partially-migrated data file still renders a working grid
+        // rather than printing "undefined" across every swatch.
+        var name = p.names && typeof p.names[i] === "string" ? p.names[i] : "";
         return (
           '<button type="button" class="palette-swatch" data-hex="' +
           hex +
@@ -176,7 +197,9 @@
           labelColorFor(hex) +
           '" aria-label="Copy ' +
           hex +
-          '"><span class="palette-swatch__hex">' +
+          '"><span class="palette-swatch__name">' +
+          escapeHtml(name) +
+          '</span><span class="palette-swatch__hex">' +
           hex +
           "</span></button>"
         );

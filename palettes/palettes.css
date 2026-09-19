@@ -74,11 +74,37 @@
   margin-bottom: 8px;
 }
 .palettes-hero h1 {
-  font-size: clamp(26px, 2.6vw, 34px);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
+  font-size: clamp(34px, 6.2vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
   color: var(--text);
   margin-bottom: 8px;
+}
+/* Hover gradient, no JS and no duplicated text node.
+   The gradient is always painted behind the glyphs and clipped to them;
+   an opaque -webkit-text-fill-color covers it at rest, and fading that
+   fill to transparent on hover is what reveals it. Guarded by @supports
+   because without background-clip:text the gradient would paint as a
+   solid block behind the heading instead of inside it — an engine that
+   can't do this keeps plain black text.
+   Ramp uses existing values only: --action (#2563eb), --cyan, and the
+   #e0245e already used by the like button. No new color enters here. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .palettes-hero h1 {
+    background-image: linear-gradient(
+      92deg,
+      var(--action) 0%,
+      var(--cyan) 46%,
+      #e0245e 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: currentColor;
+    transition: -webkit-text-fill-color 0.2s var(--palette-ease);
+  }
+  .palettes-hero h1:hover {
+    -webkit-text-fill-color: transparent;
+  }
 }
 .palettes-hero p {
   max-width: 56ch;
@@ -298,8 +324,24 @@
   cursor: pointer;
   background: var(--sw-hex);
   position: relative;
+  /* Expansion animates flex-grow rather than transform: the strips share
+     a fixed-width flex line, so one growing means the others shrink by
+     the same total — the plate, the card and the grid never move. A
+     transform would instead have to escape .palette-card__bars'
+     overflow:hidden, need a z-index to out-paint its siblings, and leave
+     the HEX label centred on the old 53px strip instead of the new one. */
+  transition: flex-grow 0.2s var(--palette-ease);
+}
+/* Guarded on a fine pointer: iOS Safari applies :hover on tap and leaves
+   it applied until you tap elsewhere, which would strand one strip
+   expanded. Touch keeps tap-to-copy with no stuck state. */
+@media (hover: hover) and (pointer: fine) {
+  .palette-swatch:hover {
+    flex-grow: 1.9;
+  }
 }
 .palette-swatch:focus-visible {
+  flex-grow: 1.9;
   outline-offset: -3px;
 }
 /* Hover/focus ring, keyed to the same --sw-label value palettes.js
@@ -319,6 +361,49 @@
 .palette-swatch:focus-visible::before {
   opacity: 0.55;
 }
+/* Colour name, from palettes-data.json's names[] (positional against
+   colors[]). Set sideways because a strip is only ~53px wide at desktop
+   — horizontal text would truncate on every card. Always rendered, not
+   hover-only, so it is readable on touch where there is no hover; hover
+   and keyboard focus just raise it to full strength. Takes its colour
+   from the same --sw-label value palettes.js already computes per
+   swatch, so it stays legible on a near-white and a near-black alike.
+   pointer-events:none keeps the click landing on the button. */
+.palette-swatch__name {
+  position: absolute;
+  top: 12px;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  color: var(--sw-label);
+  opacity: 0.62;
+  pointer-events: none;
+  transition: opacity 0.16s var(--palette-ease);
+}
+.palette-swatch:hover .palette-swatch__name,
+.palette-swatch:focus-visible .palette-swatch__name {
+  opacity: 1;
+}
+@media (max-width: 719px) {
+  /* Plate drops to 132px here, so give the longest names more room. */
+  .palette-swatch__name {
+    top: 10px;
+    bottom: 26px;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+  }
+}
+
 .palette-swatch__hex {
   position: absolute;
   left: 0;
@@ -426,6 +511,19 @@
   .palette-like-btn:hover svg,
   .palette-like-btn:active svg {
     transform: none;
+  }
+  /* Zeroing the duration is not enough here: the strip would still snap
+     from 53px to 82px, which is a bigger jolt than the animation it
+     replaced. The expansion is switched off outright instead — the HEX
+     reveal and the colour name still respond, they just don't resize. */
+  .palette-swatch:hover,
+  .palette-swatch:focus-visible {
+    flex-grow: 1;
+  }
+  /* The gradient reveal is a colour change, not motion, so it stays;
+     only its transition is dropped. */
+  .palettes-hero h1 {
+    transition: none;
   }
 }
 
