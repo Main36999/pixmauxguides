@@ -37,7 +37,10 @@
     <link rel="canonical" href="https://bpozz.com/palettes" />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -85,166 +88,200 @@
     <link rel="stylesheet" href="/palettes/palettes.css" />
     <script type="application/ld+json">
       {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Color Palettes",
-  "description": "Browse color palettes and copy any hex code with one click. Like your favorites, sort by new, popular, or random.",
-  "url": "https://bpozz.com/palettes",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "BPOZZ",
-    "url": "https://bpozz.com/"
-  },
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://bpozz.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Palettes",
-        "item": "https://bpozz.com/palettes"
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Color Palettes",
+        "description": "Browse color palettes and copy any hex code with one click. Like your favorites, sort by new, popular, or random.",
+        "url": "https://bpozz.com/palettes",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "BPOZZ",
+          "url": "https://bpozz.com/"
+        },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://bpozz.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Palettes",
+              "item": "https://bpozz.com/palettes"
+            }
+          ]
+        }
       }
-    ]
-  }
-}
     </script>
   </head>
   <body class="palettes-page">
     <a href="#palettes-content" class="skip-link">Skip to content</a>
 
-    <!--HEADER_START--><header class="site-header site-header--inner">
-  <div class="header-top">
-    <a href="../index.html" class="brand" aria-label="bpozz! home">
-      <img class="brand-logo" src="/assets/bpozz-logo.svg" alt="" width="88" height="32" />
-    </a>
+    <!--HEADER_START-->
+    <header class="site-header site-header--inner">
+      <div class="header-top">
+        <a href="../index.html" class="brand" aria-label="bpozz! home">
+          <img
+            class="brand-logo"
+            src="/assets/bpozz-logo.svg"
+            alt=""
+            width="88"
+            height="32"
+          />
+        </a>
 
-    <form
-      class="header-search header-search--full form"
-      role="search"
-      action="/search"
-      method="get"
-    >
-      <label for="header-search-input" class="sr-only">Search BPOZZ</label>
-      <button type="submit" aria-label="Search BPOZZ">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
+        <form
+          class="header-search header-search--full form"
+          role="search"
+          action="/search"
+          method="get"
         >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-      <input
-        type="search"
-        id="header-search-input"
-        name="s"
-        placeholder="Search guides, tokens, palettes…"
-        autocomplete="off"
-        class="input"
-      />
-      <button type="reset" class="reset" aria-label="Clear search">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
+          <label for="header-search-input" class="sr-only">Search BPOZZ</label>
+          <button type="submit" aria-label="Search BPOZZ">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.2" y2="16.2" />
+            </svg>
+          </button>
+          <input
+            type="search"
+            id="header-search-input"
+            name="s"
+            placeholder="Search guides, tokens, palettes…"
+            autocomplete="off"
+            class="input"
+          />
+          <button type="reset" class="reset" aria-label="Clear search">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <line x1="5" y1="5" x2="19" y2="19" />
+              <line x1="19" y1="5" x2="5" y2="19" />
+            </svg>
+          </button>
+        </form>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
         >
-          <line x1="5" y1="5" x2="19" y2="19" />
-          <line x1="19" y1="5" x2="5" y2="19" />
-        </svg>
-      </button>
-    </form>
-
-    <button
-      type="button"
-      class="menu-toggle"
-      id="menu-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Open menu"
-    >
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--open"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="4" y1="7" x2="20" y2="7" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="17" x2="20" y2="17" />
-      </svg>
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--close"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="5" y1="5" x2="19" y2="19" />
-        <line x1="19" y1="5" x2="5" y2="19" />
-      </svg>
-    </button>
-  </div>
-
-  <div class="header-bottom">
-    <nav class="site-nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/guides">Guides</a>
-      <a href="/tokens">Tokens</a>
-      <a href="/palettes" aria-current="page">Palettes</a>
-      <!--NAV_RESOURCES_END-->
-      <a href="/search">Explore</a>
-    </nav>
-  </div>
-
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav class="mobile-menu__nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/guides">Guides</a>
-      <a href="/tokens">Tokens</a>
-      <a href="/palettes" aria-current="page">Palettes</a>
-      <!--NAV_RESOURCES_END-->
-      <a href="/search">Explore</a>
-    </nav>
-  </div>
-</header><!--HEADER_END-->
-
-    <main class="wrap guides-main" id="palettes-content" tabindex="-1">
-      <div class="palettes-hero">
-        <span class="palettes-hero__eyebrow">/ color_palettes</span>
-        <h1>Trending color palettes</h1>
-        <p>Click any color to copy its hex code. Tap the heart to like a palette.</p>
+          <svg
+            class="menu-toggle__icon menu-toggle__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+          <svg
+            class="menu-toggle__icon menu-toggle__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </button>
       </div>
 
-      <div class="palettes-tabs" role="group" aria-label="Sort palettes">
-        <button type="button" class="palettes-tab" data-sort="new" aria-pressed="true">New</button>
-        <button type="button" class="palettes-tab" data-sort="popular" aria-pressed="false">Popular</button>
-        <button type="button" class="palettes-tab" data-sort="random" aria-pressed="false">Random</button>
+      <div class="header-bottom">
+        <nav class="site-nav" aria-label="Primary">
+          <!--NAV_RESOURCES_START-->
+          <a href="/guides">Guides</a>
+          <a href="/tokens">Tokens</a>
+          <a href="/palettes" aria-current="page">Palettes</a>
+          <!--NAV_RESOURCES_END-->
+          <a href="/search">Explore</a>
+        </nav>
+      </div>
+
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <!--NAV_RESOURCES_START-->
+          <a href="/guides">Guides</a>
+          <a href="/tokens">Tokens</a>
+          <a href="/palettes" aria-current="page">Palettes</a>
+          <!--NAV_RESOURCES_END-->
+          <a href="/search">Explore</a>
+        </nav>
+      </div>
+    </header>
+    <!--HEADER_END-->
+
+    <main class="wrap guides-main" id="palettes-content" tabindex="-1">
+      <div class="palettes-head">
+        <div class="palettes-hero">
+          <span class="palettes-hero__eyebrow">/ color_palettes</span>
+          <h1>Trending color palettes</h1>
+          <p>
+            Click any color to copy its hex code. Tap the heart to like a
+            palette.
+          </p>
+        </div>
+
+        <div class="palettes-tabs" role="group" aria-label="Sort palettes">
+          <button
+            type="button"
+            class="palettes-tab"
+            data-sort="new"
+            aria-pressed="true"
+          >
+            New
+          </button>
+          <button
+            type="button"
+            class="palettes-tab"
+            data-sort="popular"
+            aria-pressed="false"
+          >
+            Popular
+          </button>
+          <button
+            type="button"
+            class="palettes-tab"
+            data-sort="random"
+            aria-pressed="false"
+          >
+            Random
+          </button>
+        </div>
       </div>
 
       <div class="palettes-grid" id="palettes-grid-root"></div>
@@ -254,43 +291,45 @@
       </div>
     </main>
 
-    <!--FOOTER_START--><footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <p class="footer-brand__name">BPOZZ</p>
-      <p class="footer-brand__tagline">Design Intelligence</p>
-    </div>
-    <nav class="footer-nav footer-nav--explore" aria-label="Explore BPOZZ">
-      <a href="/search">Explore</a>
-      <a href="/guides">Guides</a>
-      <a href="/tokens">Tokens</a>
-      <a href="/palettes/">Palettes</a>
-      <a href="/search">Search</a>
-    </nav>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="../about.html">About</a>
-      <a href="../roadmap.html">Roadmap</a>
-      <a href="../contact.html">Contact</a>
-      <a href="../privacy.html">Privacy Policy</a>
-      <a href="../terms.html">Terms of Service</a>
-    </nav>
-    <nav class="footer-nav footer-nav--categories" aria-label="Categories">
-      <!--FOOTER_CATEGORIES_START-->
-      <a href="/category/color-theory">Color Theory</a>
-      <a href="/category/typography">Typography</a>
-      <a href="/category/spacing">Spacing &amp; Layout</a>
-      <a href="/category/figma">Figma Workflow</a>
-      <a href="/category/adobe-xd">Adobe XD Workflow</a>
-      <a href="/category/mobile">Mobile App Design</a>
-      <a href="/category/web">Web Layout</a>
-      <a href="/category/systems">Design Systems</a>
-      <a href="/category/accessibility">Accessibility</a>
-      <a href="/category/motion">Prototyping &amp; Motion</a>
-      <!--FOOTER_CATEGORIES_END-->
-    </nav>
-    <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
-  </div>
-</footer><!--FOOTER_END-->
+    <!--FOOTER_START-->
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <p class="footer-brand__name">BPOZZ</p>
+          <p class="footer-brand__tagline">Design Intelligence</p>
+        </div>
+        <nav class="footer-nav footer-nav--explore" aria-label="Explore BPOZZ">
+          <a href="/search">Explore</a>
+          <a href="/guides">Guides</a>
+          <a href="/tokens">Tokens</a>
+          <a href="/palettes/">Palettes</a>
+          <a href="/search">Search</a>
+        </nav>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="../about.html">About</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../contact.html">Contact</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../terms.html">Terms of Service</a>
+        </nav>
+        <nav class="footer-nav footer-nav--categories" aria-label="Categories">
+          <!--FOOTER_CATEGORIES_START-->
+          <a href="/category/color-theory">Color Theory</a>
+          <a href="/category/typography">Typography</a>
+          <a href="/category/spacing">Spacing &amp; Layout</a>
+          <a href="/category/figma">Figma Workflow</a>
+          <a href="/category/adobe-xd">Adobe XD Workflow</a>
+          <a href="/category/mobile">Mobile App Design</a>
+          <a href="/category/web">Web Layout</a>
+          <a href="/category/systems">Design Systems</a>
+          <a href="/category/accessibility">Accessibility</a>
+          <a href="/category/motion">Prototyping &amp; Motion</a>
+          <!--FOOTER_CATEGORIES_END-->
+        </nav>
+        <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <!--FOOTER_END-->
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
