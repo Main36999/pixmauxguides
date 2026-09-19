@@ -341,6 +341,59 @@
   transform: translateY(0);
 }
 
+/* ---------- copied state ---------- */
+/* Copy confirmation now lives inside the strip that was clicked,
+   replacing the site-wide .toast palettes.js used to fire on a
+   successful copy. The toast is still used for the failure case, where
+   there is nothing to confirm inside the swatch.
+   Everything here is opacity on an absolutely positioned overlay, so
+   the strip, the plate, the card and the grid cannot move — the
+   flex-grow expansion above stays the only thing that resizes.
+   --sw-veil is emitted inline by palettes.js alongside the --sw-label
+   it already set, from the same YIQ split, so scrim and text always
+   agree on polarity.
+   MUST stay declared after the :hover/:focus-visible reveal above —
+   equal specificity, so source order is what lets the copied state
+   hide the HEX label while the pointer is still on the strip. */
+.palette-swatch__copied {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* Stacked, not inline: a strip is ~53px wide at the 2- and 3-column
+     breakpoints, which a check icon plus "Copied" on one line would
+     overflow. */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--sw-veil, rgba(15, 42, 82, 0.34));
+  color: var(--sw-label);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--palette-ease);
+}
+.palette-swatch__copied svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  opacity: 0.85;
+}
+.palette-swatch[data-copied="true"] .palette-swatch__copied {
+  opacity: 1;
+  transition: opacity 0.12s var(--palette-ease);
+}
+/* Fade only: the label keeps whatever transform the reveal above gave
+   it, so it drops out under the scrim without sliding first. */
+.palette-swatch[data-copied="true"] .palette-swatch__hex {
+  opacity: 0;
+}
+
 /* ---------- card foot ---------- */
 /* Near-zero horizontal padding so the heart lines up with the left
    edge of the color plate — the metadata sits under the palette rather

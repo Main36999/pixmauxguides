@@ -77,6 +77,47 @@
     }
   }
 
+  // ---- shared screen-reader announcement ---------------------------------
+  // One region for the whole page, not one per swatch. The visual "Copied"
+  // overlay is aria-hidden, so this is what carries the confirmation to
+  // assistive tech now that the success toast is gone.
+  var srStatus = null;
+  var srTimer = null;
+
+  function getSrStatus() {
+    if (srStatus && srStatus.isConnected) return srStatus;
+    srStatus = document.getElementById("palettes-copy-status");
+    if (!srStatus) {
+      srStatus = document.createElement("div");
+      srStatus.id = "palettes-copy-status";
+      srStatus.setAttribute("role", "status");
+      srStatus.setAttribute("aria-live", "polite");
+      srStatus.setAttribute("aria-atomic", "true");
+      // Hidden visually, not from assistive tech. Inline rather than a CSS
+      // class so it can never flash visible if palettes.css is slow or a
+      // utility class gets renamed. Lives on body, outside the grid, so
+      // render() replacing gridRoot.innerHTML never removes it.
+      srStatus.style.cssText =
+        "position:absolute;width:1px;height:1px;margin:-1px;padding:0;" +
+        "overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);" +
+        "white-space:nowrap;border:0;";
+      document.body.appendChild(srStatus);
+    }
+    return srStatus;
+  }
+
+  function announceCopied(hex) {
+    var region = getSrStatus();
+    if (srTimer) clearTimeout(srTimer);
+    // Blank it first: copying the same swatch twice would otherwise write an
+    // identical string, which is not a text change and so announces nothing.
+    region.textContent = "";
+    srTimer = setTimeout(function () {
+      srTimer = null;
+      region.textContent = "Copied " + hex;
+    }, 60);
+  }
+
   function legacyCopy(text) {
     var ta = document.createElement("textarea");
     ta.value = text;
@@ -94,26 +135,25 @@
     return ok;
   }
 
-  function copyHex(hex) {
+  // Copy feedback lives inside the clicked swatch (see markCopied below)
+  // rather than in the shared bottom toast — the toast is still used for the
+  // failure case, where there's nothing to confirm inside the swatch.
+  function copyHex(hex, swatch) {
+    function ok() {
+      markCopied(swatch);
+      announceCopied(hex);
+    }
+    function failed() {
+      toast("Couldn't copy — select and copy manually");
+    }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(hex).then(
-        function () {
-          toast("Copied " + hex);
-        },
-        function () {
-          toast(
-            legacyCopy(hex)
-              ? "Copied " + hex
-              : "Couldn't copy — select and copy manually",
-          );
-        },
-      );
+      navigator.clipboard.writeText(hex).then(ok, function () {
+        if (legacyCopy(hex)) ok();
+        else failed();
+      });
     } else {
-      toast(
-        legacyCopy(hex)
-          ? "Copied " + hex
-          : "Couldn't copy — select and copy manually",
-      );
+      if (legacyCopy(hex)) ok();
+      else failed();
     }
   }
 
@@ -125,6 +165,48 @@
     var b = parseInt(hex.slice(5, 7), 16);
     var yiq = (r * 299 + g * 587 + b * 114) / 1000;
     return yiq >= 150 ? "rgba(0,0,0,0.62)" : "rgba(255,255,255,0.85)";
+  }
+
+  // Scrim behind the "Copied" state, using the same light/dark split as
+  // labelColorFor so the two always agree: a light swatch gets a white
+  // veil under dark text, a dark swatch a black veil under light text.
+  function veilColorFor(hex) {
+    var r = parseInt(hex.slice(1, 3), 16);
+    var g = parseInt(hex.slice(3, 5), 16);
+    var b = parseInt(hex.slice(5, 7), 16);
+    var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    return yiq >= 150 ? "rgba(255,255,255,0.58)" : "rgba(0,0,0,0.34)";
+  }
+
+  // ---- per-swatch "Copied" state ----------------------------------------
+  // Exactly one swatch can be in the copied state at a time; clicking a
+  // second swatch moves it. render() clears it because innerHTML is
+  // replaced wholesale and the held element would otherwise go stale.
+  var COPIED_MS = 1200;
+  var copiedSwatch = null;
+  var copiedTimer = null;
+
+  function clearCopiedState() {
+    if (copiedTimer) {
+      clearTimeout(copiedTimer);
+      copiedTimer = null;
+    }
+    if (copiedSwatch) {
+      copiedSwatch.removeAttribute("data-copied");
+      copiedSwatch = null;
+    }
+  }
+
+  function markCopied(swatch) {
+    if (!swatch) return;
+    clearCopiedState();
+    copiedSwatch = swatch;
+    swatch.setAttribute("data-copied", "true");
+    copiedTimer = setTimeout(function () {
+      copiedTimer = null;
+      if (copiedSwatch) copiedSwatch.removeAttribute("data-copied");
+      copiedSwatch = null;
+    }, COPIED_MS);
   }
 
   // ---- state -----------------------------------------------------------
@@ -204,11 +286,15 @@
           hex +
           ";--sw-label:" +
           labelColorFor(hex) +
+          ";--sw-veil:" +
+          veilColorFor(hex) +
           '" aria-label="Copy ' +
           hex +
           '"><span class="palette-swatch__hex">' +
           hex +
-          "</span></button>"
+          '</span><span class="palette-swatch__copied" aria-hidden="true">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>' +
+          "Copied</span></button>"
         );
       })
       .join("");
@@ -236,6 +322,8 @@
   }
 
   function render() {
+    // innerHTML is replaced below, so drop any held swatch reference first.
+    clearCopiedState();
     var list = sortedList();
     if (!list.length) {
       gridRoot.innerHTML = "";
@@ -287,7 +375,7 @@
   gridRoot.addEventListener("click", function (e) {
     var swatch = e.target.closest(".palette-swatch");
     if (swatch) {
-      copyHex(swatch.getAttribute("data-hex"));
+      copyHex(swatch.getAttribute("data-hex"), swatch);
       return;
     }
     var likeBtn = e.target.closest(".palette-like-btn");
