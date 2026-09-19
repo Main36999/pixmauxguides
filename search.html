@@ -263,13 +263,16 @@
         gap: 12px;
       }
 
-      /* Grid. Measured from the reference: cards ~312px wide with a ~20px
-         column gap, five across at ~1900px. auto-fit (not auto-fill)
-         collapses empty tracks so a sparse result set centres instead of
-         hugging the left edge. */
+      /* Grid. Explicit column counts, not auto-fit: desktop is always
+         exactly 5 across, and cards get narrower as the viewport shrinks
+         rather than the row dropping to 4. minmax(0, 1fr) (not plain 1fr)
+         stops a long unbroken title from forcing a track wider than its
+         share and pushing the row into overflow.
+
+         Reference measured 5 across with a ~20px column gap, which is what
+         the base rule reproduces at ~1900px (~331px cards). */
       .search-page .grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
-        justify-content: center;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 40px 20px;
       }
 
@@ -315,12 +318,18 @@
         padding: 48px 20px;
       }
 
-      /* Below ~700px two 280px tracks no longer fit, and auto-fit would
-         drop to a single lonely column, so phones and small tablets get an
-         explicit two-up grid. */
+      /* Tablet: 3 across. */
+      @media (max-width: 1024px) {
+        .search-page .grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      /* Mobile: 2 across, held all the way down to 320px — the existing
+         responsive design never drops search results to a single column. */
       @media (max-width: 700px) {
         .search-page .grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 28px 14px;
         }
       }
