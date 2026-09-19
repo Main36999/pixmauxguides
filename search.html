@@ -102,74 +102,79 @@
       }
 
       /* ---------- type filter chips ----------
-         Same visual language as the mood chips on /tokens
-         (.token-mood-chip in tokens.css): small 600-weight label, hairline
-         border, 2px radius, --action for the pressed state. Rewritten here
-         rather than shared because tokens.css is not linked on this page
-         and must not be modified for this work.
+         Retuned to the reference: a single rounded segmented control —
+         hairline outer capsule, pill segments inside, the active segment
+         filled solid with the brand colour and white text. (The reference
+         fills its active segment red; BPOZZ uses #2563eb.)
 
          The class names (.search-type-tabs/.search-type-tab) are kept
-         exactly as they were so the filter JavaScript below is untouched
-         — only their appearance changes. Sizing differs from the /tokens
-         chips deliberately: min-height 44px meets the touch-target
-         minimum, which those chips do not. */
+         exactly as they were so the filter JavaScript is untouched — only
+         their appearance changes. */
       .search-page .search-type-tabs {
-        display: flex;
+        display: inline-flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 8px;
+        justify-content: center;
+        gap: 2px;
+        padding: 4px;
+        background: #ffffff;
+        border: 1px solid var(--grid-line);
+        border-radius: 999px;
       }
       .search-page .search-type-tab {
         appearance: none;
         display: inline-flex;
         align-items: center;
-        min-height: 44px;
-        padding: 0 14px;
+        min-height: 38px;
+        padding: 0 18px;
         font-family: var(--sans);
-        font-size: 12.5px;
+        font-size: 13.5px;
         font-weight: 600;
         color: var(--text-muted);
         background: transparent;
-        border: 1px solid var(--grid-line);
-        border-radius: 2px;
+        border: 0;
+        border-radius: 999px;
         white-space: nowrap;
         cursor: pointer;
         transition:
           color 0.15s ease,
-          border-color 0.15s ease,
           background 0.15s ease;
       }
       .search-page .search-type-tab:hover {
-        color: var(--action);
-        border-color: var(--action);
+        color: var(--ink);
+        background: rgba(37, 99, 235, 0.06);
       }
       .search-page .search-type-tab[aria-pressed="true"] {
-        color: var(--action);
-        background: rgba(37, 99, 235, 0.08);
-        border-color: rgba(37, 99, 235, 0.35);
+        color: #ffffff;
+        background: var(--action);
+        border-color: transparent;
       }
 
-      /* Category select sits beside the chips — match their height so the
-         filter row reads as one control group, and give it the same 44px
-         touch target. Only the height/padding is set; the select's own
-         appearance still comes from .select-field in styles.css. */
+      /* The reference has no second filter; BPOZZ's category select stays,
+         restyled as a matching capsule so the two read as one control
+         group rather than a form. The arrow, font and behaviour still come
+         from .select-field in styles.css. */
+      .search-page .level-filter {
+        flex: 0 0 auto;
+        padding-left: 0;
+        border-left: none;
+      }
       .search-page .level-filter select {
-        min-height: 44px;
-        padding-top: 0;
-        padding-bottom: 0;
+        min-height: 46px;
+        padding: 0 34px 0 18px;
+        background-color: #ffffff;
+        background-position: right 16px center;
+        border: 1px solid var(--grid-line);
+        border-radius: 999px;
       }
 
-      /* Filter row wraps under the count on narrow screens instead of
-         squeezing the chips; .level-filter's desktop divider would sit
-         awkwardly once wrapped, so it's dropped at phone width. */
-      @media (max-width: 640px) {
-        .search-page .section-head__meta {
-          gap: 12px;
-        }
-        .search-page .level-filter {
-          flex: 1 1 100%;
-          padding-left: 0;
-          border-left: none;
+      /* Compact is what the reference shows, but a 38px segment is under
+         the 44px touch minimum. Pointer-less devices get the full target
+         back; mouse/trackpad keeps the reference proportions. Same
+         `hover: none` split tokens.css already uses elsewhere. */
+      @media (hover: none) {
+        .search-page .search-type-tab {
+          min-height: 44px;
         }
       }
 
@@ -194,17 +199,163 @@
       .search-page .grid .card-link:focus-visible::after {
         outline: 2px solid var(--action);
         outline-offset: 3px;
-        border-radius: 10px;
+        border-radius: 6px;
       }
 
-      /* NOTE, deliberately NOT styled here: .badge sits inside .card-body,
-         which is a flex column, so it stretches to the card's full width.
-         That is exactly what the homepage's mixed-resource cards already
-         do (build-home.js puts the badge in the same place, and styles.css
-         has no .card-body .badge rule), so search matches them. Adding
-         `align-self: flex-start` here would make Search the odd one out.
-         If that full-width badge should be a hugging chip, it's a
-         site-wide decision for styles.css, not a Search-only override. */
+      /* ===================================================================
+         SEARCH VISUAL REDESIGN — appearance only
+         ===================================================================
+         Nothing below changes what search returns, how filters behave, the
+         DOM the renderer produces, or any URL. It re-proportions the page:
+         centred results header, denser centred grid, image-first cards.
+
+         Every selector stays under .search-page, so the homepage, /guides,
+         /tokens, /palettes and the /category/ pages keep the shared
+         .grid / .content-card / .card-thumb / .badge / .section-head /
+         .category-hero definitions exactly as they are.
+         =================================================================== */
+
+      /* Page frame. Reference: ~77px from the header down to the heading,
+         generous bottom. BPOZZ's inherited .guides-main rhythm was
+         44/32/88 (article-like at the top, then too tight below the
+         header). */
+      .search-page .guides-main {
+        padding: 68px 32px 88px;
+      }
+
+      /* Centred results header. Reference heading is ~36px bold, centred,
+         and is the first element on the page. */
+      .search-page .category-hero {
+        padding: 0 0 18px;
+        text-align: center;
+      }
+      .search-page .category-hero__title {
+        font-size: clamp(24px, 2.6vw, 36px);
+        line-height: 1.2;
+        margin: 0 0 10px;
+      }
+      .search-page .category-hero__dek {
+        font-size: 13px;
+        line-height: 1.55;
+        max-width: 50ch;
+        margin: 0 auto;
+      }
+
+      /* Result header stacks and centres: count directly under the
+         heading (small, muted, secondary), then the filter capsule.
+         Reference leaves ~120px between the filter and the first row of
+         cards; BPOZZ carries an extra dek + count line above, so this
+         sits a little tighter at 88px to keep total header height close. */
+      .search-page .section-head {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-bottom: 88px;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      .search-page .results-count {
+        font-size: 12px;
+      }
+      .search-page .section-head__meta {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      /* Grid. Measured from the reference: cards ~312px wide with a ~20px
+         column gap, five across at ~1900px. auto-fit (not auto-fill)
+         collapses empty tracks so a sparse result set centres instead of
+         hugging the left edge. */
+      .search-page .grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+        justify-content: center;
+        gap: 40px 20px;
+      }
+
+      /* Card. Thumbnail RATIO IS NOT OVERRIDDEN HERE — Search inherits
+         .card-thumb's global `aspect-ratio: 4 / 3` from styles.css, the
+         same plate the homepage, /guides, /tokens, /palettes and the
+         /category/ pages use. The reference's own thumbnail is 3:2, but
+         BPOZZ's product standard is 4:3, so the reference is matched
+         through card width, spacing, typography, filters and composition
+         instead of through image-ratio parity. object-fit stays `contain`,
+         untouched.
+
+         Only the corner radius is tuned: the reference reads ~4px, not
+         the 10px .card-thumb carries elsewhere. */
+      .search-page .card-thumb {
+        border-radius: 4px;
+      }
+      /* Reference: ~15px from image to title, title ~15.5px/700, meta
+         ~12px muted ~4px below it. */
+      .search-page .card-body {
+        gap: 4px;
+        padding: 15px 1px 0;
+      }
+      /* The badge is a flex child of the column .card-body, so it would
+         stretch the full card width and compete with the image. The
+         reference card has no badge at all, so BPOZZ's stays but hugs its
+         label and sits quietly above the title. */
+      .search-page .card-body .badge {
+        align-self: flex-start;
+        font-size: 9.5px;
+        letter-spacing: 0.06em;
+        padding: 3px 6px;
+      }
+      .search-page .card-title {
+        font-size: 15.5px;
+        line-height: 1.35;
+      }
+      .search-page .card-meta {
+        font-size: 12px;
+      }
+
+      .search-page .empty-state {
+        padding: 48px 20px;
+      }
+
+      /* Below ~700px two 280px tracks no longer fit, and auto-fit would
+         drop to a single lonely column, so phones and small tablets get an
+         explicit two-up grid. */
+      @media (max-width: 700px) {
+        .search-page .grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 28px 14px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .search-page .guides-main {
+          padding: 36px 18px 56px;
+        }
+        .search-page .category-hero {
+          padding: 0 0 14px;
+        }
+        .search-page .section-head {
+          margin-bottom: 44px;
+          gap: 12px;
+        }
+        .search-page .section-head__meta {
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .search-page .grid {
+          gap: 22px 10px;
+        }
+        /* Keeps all four segments on a single row inside the capsule at
+           320px — wrapping would break the pill shape. */
+        .search-page .search-type-tab {
+          padding: 0 10px;
+          font-size: 12px;
+        }
+        .search-page .level-filter select {
+          font-size: 12.5px;
+          padding: 0 30px 0 14px;
+        }
+      }
 
       .search-empty-tips {
         text-align: left;
@@ -350,7 +501,9 @@
 
     <main class="wrap guides-main" id="search-content" tabindex="-1">
       <div class="category-hero">
-        <p class="section-label mono">/ search</p>
+        <!-- The "/ search" eyebrow was removed: it read as an article
+             breadcrumb and pushed the heading down. The <h1> is now the
+             first and dominant element in the results header. -->
         <h1 class="category-hero__title" id="search-heading">Search</h1>
         <p class="category-hero__dek" id="search-dek">
           Use the search box above to find a guide, token, or palette by title,
