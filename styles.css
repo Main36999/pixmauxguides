@@ -183,6 +183,41 @@ ul {
 .header-inner {
   gap: 32px;
 }
+/* MAIN HEADER (.site-header--home) layout: logo left, nav centred,
+   actions right. Done with the existing layout system rather than
+   absolute positioning — .header-inner swaps from flex to a three-track
+   grid (side | nav | side), so the middle track sits in the true centre
+   of the header's content box no matter how wide the wordmark or the
+   right-hand controls are. The flex rule above still supplies
+   align-items, height, padding and gap (all valid in grid), so header
+   height and edge padding are unchanged.
+   Each child is placed explicitly by grid-column rather than left to
+   auto-placement: at <=640px .site-nav is display:none, and explicit
+   placement keeps .brand in track 1 and .menu-toggle in track 3 instead
+   of the button sliding into the vacated middle track.
+   Side tracks are minmax(0, 1fr) and the nav track minmax(0, auto), so
+   in a tight viewport the nav track is capped at the space available
+   and .site-nav's own pre-existing overflow-x: auto absorbs the spill
+   instead of the row overflowing the header.
+   .header-top (the inner-page header) is deliberately untouched: it has
+   no nav to centre, and its .header-bottom row is out of scope. */
+.site-header--home .header-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto) minmax(0, 1fr);
+}
+.site-header--home .header-inner > .brand {
+  grid-column: 1;
+  justify-self: start;
+}
+.site-header--home .header-inner > .site-nav {
+  grid-column: 2;
+  justify-self: center;
+  min-width: 0;
+}
+.site-header--home .header-inner > .menu-toggle {
+  grid-column: 3;
+  justify-self: end;
+}
 .brand {
   display: flex;
   align-items: center;
@@ -240,19 +275,47 @@ ul {
 .site-nav::-webkit-scrollbar {
   display: none;
 }
+/* One step up (14px -> 15px, +7%) for the MAIN HEADER only, so the four
+   centred links read clearly without the bar feeling oversized. Same
+   family (--sans), same 600 weight, same 28px gap — only the size
+   changes. Scoped to .site-header--home so .header-bottom's nav on every
+   inner page keeps its existing 14px. */
+.site-header--home .site-nav {
+  font-size: 15px;
+}
+/* MAIN HEADER nav link colours. These base rules only ever paint the
+   home header's nav: .header-bottom overrides colour, hover colour and
+   both border-bottom-colors for the inner-page nav further down, so
+   changing the values here leaves .header-bottom rendering identically.
+   - resting link: #cdd6e8, the on-dark link colour .mobile-menu__nav
+     already uses inside this same header — an established BPOZZ colour,
+     not a new one. It replaces #9db3da, which is the FOOTER's link
+     colour that had been borrowed onto the header bar.
+   - hover/active accent: var(--action) (#2563eb, the BPOZZ primary
+     blue) replaces var(--cyan). It measures 3.68:1 against --header-bg
+     (#101010), so the 2px rule clears WCAG 1.4.11's 3:1 non-text
+     minimum, and the nav now shares the accent already used by buttons,
+     links and the focus ring instead of running a second cyan accent of
+     its own. */
 .site-nav a {
   flex: 0 0 auto;
   text-decoration: none;
-  color: #9db3da;
+  color: #cdd6e8;
   white-space: nowrap;
   padding: 4px 0;
   border-bottom: 2px solid transparent;
 }
 .site-nav a:hover {
   color: #fff;
-  border-bottom-color: var(--cyan);
+  border-bottom-color: var(--action);
 }
-.site-nav a[aria-current="page"],
+.site-nav a[aria-current="page"] {
+  color: #fff;
+  border-bottom-color: var(--action);
+}
+/* Split out of the rule above and left exactly as it was: the mobile
+   panel is shared by both header variants, so its active state stays
+   outside this main-header-only change. */
 .mobile-menu__nav a[aria-current="page"] {
   color: #fff;
   border-bottom-color: var(--cyan);
@@ -437,6 +500,21 @@ ul {
 .menu-toggle:hover {
   border-color: var(--cyan);
   color: var(--cyan);
+}
+/* Last place var(--cyan) still painted inside the MAIN HEADER: the
+   hamburger's hover state (visible at <=640px, where the button is the
+   header's only remaining control). Same substitution the nav links
+   got — var(--action) on the border, #fff on the icon — so the main
+   header hovers on one accent throughout instead of blue links and a
+   cyan button. The icon stays #fff rather than turning blue so its
+   contrast on --header-bg doesn't drop on hover, and the blue border
+   still clears WCAG 1.4.11's 3:1 non-text minimum (3.7:1).
+   Scoped to .site-header--home on purpose: the same button in the
+   inner-page header (.header-top) is out of this change's scope and
+   keeps its existing cyan hover. */
+.site-header--home .menu-toggle:hover {
+  border-color: var(--action);
+  color: #fff;
 }
 /* Two icons live in the button; only one shows at a time, keyed off the
    aria-expanded state app.js already toggles when the menu opens. */

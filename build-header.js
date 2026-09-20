@@ -81,13 +81,21 @@
  *
  * The resource-type links are generated, not hand-authored: each nav in
  * each partial has a NAV_RESOURCES_START/END marker region, and main()
- * rewrites every such region in partials/header.html and
- * partials/header-home.html from resource-types.json (entries with
- * `nav: true`, in array order) BEFORE syncing pages. Writing the result
+ * rewrites every such region BEFORE syncing pages. Writing the result
  * into the partial files themselves — rather than only into pages — keeps
  * the partials complete, valid HTML for build-categories.js and
  * build-tokens.js, which embed them verbatim. Don't hand-edit inside
- * those regions; edit resource-types.json and re-run this script.
+ * those regions; edit the source list and re-run this script.
+ *
+ * The two partials read from two different source lists:
+ *   - partials/header.html (inner pages, .header-bottom row) —
+ *     resource-types.json, entries with `nav: true`, in array order,
+ *     plus the hand-authored Explore link outside the markers.
+ *   - partials/header-home.html (MAIN HEADER, index.html only) —
+ *     MAIN_HEADER_NAV below: All · Color Palettes · Color Tokens ·
+ *     UI/UX Guides. Kept separate because resource-types.json's
+ *     `label` values are also the homepage section headings that
+ *     build-home.js renders, so they can't be renamed for the header.
  *
  * A nav entry's `landingUrl` must resolve to a real file on disk (and, if
  * it has a #fragment, to an element with that id), or this script fails.
@@ -151,6 +159,34 @@ const NAV_LINK_INDENT = "      ";
 const ROOT_LINKS = [
   { file: "index.html", partialText: "../index.html" },
   { file: "roadmap.html", partialText: "../roadmap.html" },
+];
+
+// MAIN HEADER nav (partials/header-home.html -> index.html only).
+//
+// The main header's nav is no longer the resource-type registry: it is a
+// short, browse-oriented set that opens with "All" (the home page's own
+// full listing) and names each destination the way a visitor looks for
+// it ("Color Palettes", not "Palettes"). resource-types.json still
+// drives the inner-page nav in .header-bottom, and its `label` values
+// are also the homepage's section headings (build-home.js) — so those
+// labels are deliberately NOT renamed; the main header carries its own
+// list instead.
+//
+// "Explore" (-> /search) is gone from this list on purpose: search is
+// already reachable from the inner header's own search field, so the nav
+// slot was spending a link on a destination with nothing of its own to
+// show. /search itself is untouched, as is the Explore link in
+// partials/header.html.
+//
+// Same { label, landingUrl } shape as a resource-types.json entry, so
+// navLinksHtml() and resolveLandingUrl() apply unchanged — including the
+// "the destination must already exist on disk" guard applied by
+// loadMainHeaderNav() below.
+const MAIN_HEADER_NAV = [
+  { label: "All", landingUrl: "/" },
+  { label: "Color Palettes", landingUrl: "/palettes" },
+  { label: "Color Tokens", landingUrl: "/tokens" },
+  { label: "UI/UX Guides", landingUrl: "/guides" },
 ];
 
 // Directories we never want to walk into looking for .html files.
@@ -262,6 +298,25 @@ function loadNavEntries() {
   return navEntries;
 }
 
+// Same existence guard loadNavEntries() applies to resource-types.json,
+// applied to the hand-authored MAIN_HEADER_NAV list above: a main-header
+// link may not point at a page that isn't on disk.
+function loadMainHeaderNav() {
+  MAIN_HEADER_NAV.forEach((entry, i) => {
+    const where = `MAIN_HEADER_NAV[${i}]`;
+    if (typeof entry.label !== "string" || !entry.label.trim()) {
+      throw new Error(`${where}.label must be a non-empty string`);
+    }
+    if (typeof entry.landingUrl !== "string" || !resolveLandingUrl(entry.landingUrl)) {
+      throw new Error(
+        `${where}.landingUrl ${JSON.stringify(entry.landingUrl)} does not resolve to an existing page — ` +
+          `only list a destination in the main header once it exists.`,
+      );
+    }
+  });
+  return MAIN_HEADER_NAV;
+}
+
 function navLinksHtml(navEntries) {
   return (
     navEntries
@@ -358,12 +413,19 @@ function headerFor(relPath, partial) {
 
 function main() {
   const navEntries = loadNavEntries();
-  const linksHtml = navLinksHtml(navEntries);
-  for (const partialPath of [HEADER_PARTIAL_PATH, HOME_HEADER_PARTIAL_PATH]) {
-    const result = syncNavRegions(partialPath, linksHtml);
+  // The two partials no longer share one nav list: the inner-page header
+  // (.header-bottom) still renders the resource-type registry, while the
+  // main header renders MAIN_HEADER_NAV. Both still go through the same
+  // marker-region sync, so neither partial can drift by hand.
+  const navSources = [
+    { partialPath: HEADER_PARTIAL_PATH, entries: navEntries },
+    { partialPath: HOME_HEADER_PARTIAL_PATH, entries: loadMainHeaderNav() },
+  ];
+  for (const { partialPath, entries } of navSources) {
+    const result = syncNavRegions(partialPath, navLinksHtml(entries));
     console.log(
       `✓ ${path.relative(ROOT, partialPath)} nav — ${result.regions} region${result.regions === 1 ? "" : "s"} ` +
-        `${result.changed ? "regenerated" : "already up to date"} (${navEntries.map((e) => e.label).join(" · ")}).`,
+        `${result.changed ? "regenerated" : "already up to date"} (${entries.map((e) => e.label).join(" · ")}).`,
     );
   }
 
