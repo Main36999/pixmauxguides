@@ -275,12 +275,14 @@ ul {
 .site-nav::-webkit-scrollbar {
   display: none;
 }
-/* One step up (14px -> 15px, +7%) for the MAIN HEADER only, so the four
+/* One step up (14px -> 15px, +7%) for the header nav rows, so the four
    centred links read clearly without the bar feeling oversized. Same
    family (--sans), same 600 weight, same 28px gap — only the size
-   changes. Scoped to .site-header--home so .header-bottom's nav on every
-   inner page keeps its existing 14px. */
-.site-header--home .site-nav {
+   changes. Both rows now carry the same four links, so .header-bottom
+   shares this step rather than staying a size behind at the base 14px;
+   the value is defined once here so the two rows cannot drift. */
+.site-header--home .site-nav,
+.header-bottom .site-nav {
   font-size: 15px;
 }
 /* MAIN HEADER nav link colours. These base rules only ever paint the
@@ -477,7 +479,7 @@ ul {
 }
 .header-bottom .site-nav a[aria-current="page"] {
   color: var(--ink);
-  border-bottom-color: var(--cyan);
+  border-bottom-color: var(--action);
 }
 
 /* ---------- mobile menu ---------- */
