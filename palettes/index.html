@@ -121,129 +121,122 @@
   <body class="palettes-page">
     <a href="#palettes-content" class="skip-link">Skip to content</a>
 
-    <!--HEADER_START-->
-    <header class="site-header site-header--inner">
-      <div class="header-top">
-        <a href="../index.html" class="brand" aria-label="bpozz! home">
-          <img
-            class="brand-logo"
-            src="/assets/bpozz-logo.svg"
-            alt=""
-            width="88"
-            height="32"
-          />
-        </a>
+    <!--HEADER_START--><header class="site-header site-header--inner">
+  <div class="header-top">
+    <a href="../index.html" class="brand" aria-label="bpozz! home">
+      <img class="brand-logo" src="/assets/bpozz-logo.svg" alt="" width="88" height="32" />
+    </a>
 
-        <form
-          class="header-search header-search--full form"
-          role="search"
-          action="/search"
-          method="get"
+    <form
+      class="header-search header-search--full form"
+      role="search"
+      action="/search"
+      method="get"
+    >
+      <label for="header-search-input" class="sr-only">Search BPOZZ</label>
+      <button type="submit" aria-label="Search BPOZZ">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
         >
-          <label for="header-search-input" class="sr-only">Search BPOZZ</label>
-          <button type="submit" aria-label="Search BPOZZ">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.2" y2="16.2" />
-            </svg>
-          </button>
-          <input
-            type="search"
-            id="header-search-input"
-            name="s"
-            placeholder="Search guides, tokens, palettes…"
-            autocomplete="off"
-            class="input"
-          />
-          <button type="reset" class="reset" aria-label="Clear search">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <line x1="5" y1="5" x2="19" y2="19" />
-              <line x1="19" y1="5" x2="5" y2="19" />
-            </svg>
-          </button>
-        </form>
-
-        <button
-          type="button"
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          aria-label="Open menu"
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+      <input
+        type="search"
+        id="header-search-input"
+        name="s"
+        placeholder="Search guides, tokens, palettes…"
+        autocomplete="off"
+        class="input"
+      />
+      <button type="reset" class="reset" aria-label="Clear search">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
         >
-          <svg
-            class="menu-toggle__icon menu-toggle__icon--open"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <line x1="4" y1="7" x2="20" y2="7" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="17" x2="20" y2="17" />
-          </svg>
-          <svg
-            class="menu-toggle__icon menu-toggle__icon--close"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <line x1="5" y1="5" x2="19" y2="19" />
-            <line x1="19" y1="5" x2="5" y2="19" />
-          </svg>
-        </button>
-      </div>
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+    </form>
 
-      <div class="header-bottom">
-        <nav class="site-nav" aria-label="Primary">
-          <!--NAV_RESOURCES_START-->
-          <a href="/guides">Guides</a>
-          <a href="/tokens">Tokens</a>
-          <a href="/palettes" aria-current="page">Palettes</a>
-          <!--NAV_RESOURCES_END-->
-          <a href="/search">Explore</a>
-        </nav>
-      </div>
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
 
-      <div class="mobile-menu" id="mobile-menu" hidden>
-        <nav class="mobile-menu__nav" aria-label="Primary">
-          <!--NAV_RESOURCES_START-->
-          <a href="/guides">Guides</a>
-          <a href="/tokens">Tokens</a>
-          <a href="/palettes" aria-current="page">Palettes</a>
-          <!--NAV_RESOURCES_END-->
-          <a href="/search">Explore</a>
-        </nav>
-      </div>
-    </header>
-    <!--HEADER_END-->
+  <div class="header-bottom">
+    <nav class="site-nav" aria-label="Primary">
+      <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/palettes" aria-current="page">Color Palettes</a>
+      <a href="/tokens">Color Tokens</a>
+      <a href="/guides">UI/UX Guides</a>
+      <!--NAV_RESOURCES_END-->
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/palettes" aria-current="page">Color Palettes</a>
+      <a href="/tokens">Color Tokens</a>
+      <a href="/guides">UI/UX Guides</a>
+      <!--NAV_RESOURCES_END-->
+      <a href="/search">Explore</a>
+    </nav>
+  </div>
+</header><!--HEADER_END-->
 
     <main class="wrap guides-main" id="palettes-content" tabindex="-1">
       <div class="palettes-head">
