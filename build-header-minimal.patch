@@ -1,0 +1,39 @@
+diff --git a/build-header.js b/build-header.js
+index da33898..556c666 100644
+--- a/build-header.js
++++ b/build-header.js
+@@ -87,15 +87,8 @@
+  * build-tokens.js, which embed them verbatim. Don't hand-edit inside
+  * those regions; edit the source list and re-run this script.
+  *
+- * The two partials read from two different source lists:
+- *   - partials/header.html (inner pages, .header-bottom row) —
+- *     resource-types.json, entries with `nav: true`, in array order,
+- *     plus the hand-authored Explore link outside the markers.
+- *   - partials/header-home.html (MAIN HEADER, index.html only) —
+- *     MAIN_HEADER_NAV below: All · Color Palettes · Color Tokens ·
+- *     UI/UX Guides. Kept separate because resource-types.json's
+- *     `label` values are also the homepage section headings that
+- *     build-home.js renders, so they can't be renamed for the header.
++ * Both partials read from one source list, MAIN_HEADER_NAV, so header
++ * navigation stays consistent.
+  *
+  * A nav entry's `landingUrl` must resolve to a real file on disk (and, if
+  * it has a #fragment, to an element with that id), or this script fails.
+@@ -426,12 +419,11 @@ function headerFor(relPath, partial) {
+ 
+ function main() {
+   const navEntries = loadNavEntries();
+-  // The two partials no longer share one nav list: the inner-page header
+-  // (.header-bottom) still renders the resource-type registry, while the
+-  // main header renders MAIN_HEADER_NAV. Both still go through the same
+-  // marker-region sync, so neither partial can drift by hand.
++  // Both partials read one source list, MAIN_HEADER_NAV, so header
++  // navigation stays consistent. navEntries is still used below: its
++  // `activePaths` drive the aria-current highlight.
+   const navSources = [
+-    { partialPath: HEADER_PARTIAL_PATH, entries: navEntries },
++    { partialPath: HEADER_PARTIAL_PATH, entries: loadMainHeaderNav() },
+     { partialPath: HOME_HEADER_PARTIAL_PATH, entries: loadMainHeaderNav() },
+   ];
+   for (const { partialPath, entries } of navSources) {

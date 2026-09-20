@@ -708,7 +708,9 @@
   color: var(--text-muted);
   font-size: 13.5px;
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 .token-dropzone:hover,
 .token-dropzone[data-active="true"] {

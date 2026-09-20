@@ -1,0 +1,13 @@
+diff --git a/styles.css b/styles.css
+index 814136e..4c7119d 100644
+--- a/styles.css
++++ b/styles.css
+@@ -473,7 +473,7 @@ ul {
+ }
+ .header-bottom .site-nav a:hover {
+   color: var(--ink);
+-  border-bottom-color: var(--cyan);
++  border-bottom-color: var(--action);
+ }
+ .header-bottom .site-nav a[aria-current="page"] {
+   color: var(--ink);
