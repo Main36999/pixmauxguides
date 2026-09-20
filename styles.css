@@ -475,7 +475,7 @@ ul {
 }
 .header-bottom .site-nav a:hover {
   color: var(--ink);
-  border-bottom-color: var(--cyan);
+  border-bottom-color: var(--action);
 }
 .header-bottom .site-nav a[aria-current="page"] {
   color: var(--ink);
