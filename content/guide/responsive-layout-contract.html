@@ -1,0 +1,1004 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Responsive Layout Is a Contract, Not a Breakpoint List — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/responsive-layout-contract"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/responsive-layout-contract"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Responsive Layout Is a Contract, Not a Breakpoint List"
+    />
+    <meta
+      property="og:description"
+      content="How fluid sizing, the clamp() formula, and container queries replace a fixed breakpoint list — plus the overflow traps that break layouts no device lab catches."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/thumbnail_image/responsive-layout-contract-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram of a clamp() sizing curve rising from a minimum to a maximum across viewport width."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Responsive Layout Is a Contract, Not a Breakpoint List"
+    />
+    <meta
+      name="twitter:description"
+      content="How fluid sizing, the clamp() formula, and container queries replace a fixed breakpoint list — plus the overflow traps that break layouts no device lab catches."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/thumbnail_image/responsive-layout-contract-thumbnail.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <p class="guide-hero__meta">Web Layout · Intermediate · 18 min read</p>
+          <h1 class="guide-hero__title" id="guide-heading">
+            Responsive Layout Is a Contract, Not a Breakpoint List
+          </h1>
+          <p class="guide-hero__dek">
+            Three widths in a device toolbar don't prove a layout holds at the
+            several thousand it will actually be viewed at. The difference
+            between a page that merely resizes and one that's genuinely
+            responsive lives in fluid sizing, the clamp() formula, container
+            queries, and the overflow traps that only surface outside the
+            handful of widths anyone thought to check.
+          </p>
+        </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
+          <ol>
+            <li>
+              <a href="#what-responsive-promises"
+                >What "Responsive" Actually
+                Promises</a
+              >
+            </li>
+            <li>
+              <a href="#viewport-meta"
+                >The One Meta Tag Everything Depends
+                On</a
+              >
+            </li>
+            <li>
+              <a href="#content-out"
+                >Content-Out vs. Device-Out
+                Breakpoints</a
+              >
+            </li>
+            <li>
+              <a href="#fluid-by-default"
+                >Fluid by Default, Breakpoints
+                Second</a
+              >
+            </li>
+            <li>
+              <a href="#clamp-formula"
+                >clamp() Is a Formula, Not a Guess</a
+              >
+            </li>
+            <li>
+              <a href="#container-queries"
+                >Container Queries: A Breakpoint the
+                Component Owns</a
+              >
+            </li>
+            <li>
+              <a href="#overflow-traps"
+                >The Overflow Traps</a
+              >
+            </li>
+            <li>
+              <a href="#touch-targets"
+                >Touch Targets, Safe Areas, and the
+                375px Floor</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                >Five Pitfalls That Look Like Browser
+                Bugs</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                >Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+        <article class="guide-article">
+          <h2 id="what-responsive-promises"><span class="guide-article__num mono">01</span>What "Responsive" Actually Promises</h2>
+
+          <p>
+              A breakpoint list only proves a layout works at the widths named
+              in the list. Test at 375, 768, 1024, and 1440, and you've verified
+              four points on a line — not the line itself. Everything between
+              those points, and everything past either end, is unverified until
+              someone happens to load the page there.
+            </p>
+            <p>
+              That gap used to be mostly theoretical. It isn't anymore. A
+              split-screen window on a tablet, a foldable unfolded to its odd
+              middle width, a desktop browser at 90% zoom, an in-app webview
+              with a chrome height nobody accounted for, an OS-level text-size
+              setting turned up two notches — none of these match a named
+              device, and none of them are edge cases anymore. A genuinely
+              <strong>responsive</strong> layout holds across a continuous
+              range, not just the checkpoints in it. An
+              <strong>adaptive</strong> layout — fixed designs swapped at set
+              breakpoints — is a legitimate, different strategy, but it's honest
+              only when you know you're choosing it, not when you arrive there
+              by accident because nobody tested the in-between widths.
+            </p>
+            <p>
+              The contract framing matters because it changes what "done" means.
+              "Looks right at the sizes I checked" is not the same claim as
+              "holds at every size in the supported range," and the rest of this
+              guide is about closing that gap — building fluid first, adding
+              breakpoints only where content genuinely demands one, and knowing
+              the specific handful of CSS defaults that quietly break the
+              contract even in an otherwise well-built layout.
+            </p>
+
+          <h2 id="viewport-meta"><span class="guide-article__num mono">02</span>The One Meta Tag Everything Depends On</h2>
+
+          <p>
+              Before any breakpoint or fluid unit does anything, one line in
+              <code>&lt;head&gt;</code> has to be correct:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">&lt;meta name="viewport" content="width=device-width,
+              initial-scale=1" /&gt;</p>
+            </div>
+            <p>
+              Without it, mobile browsers fall back to a legacy "layout
+              viewport" — historically around 980px — and then zoom the whole
+              page out to fit the screen, which is why an unstyled page on a
+              phone renders as a tiny, fully zoomed-out desktop layout instead
+              of a narrow one. <code>width=device-width</code> tells the browser
+              the layout viewport should match the device's own width in CSS
+              pixels; <code>initial-scale=1</code>
+              sets the starting zoom so 1 CSS pixel actually renders as 1 CSS
+              pixel. Every media query and every fluid unit in this guide is
+              measured against that layout viewport, so getting this line wrong
+              quietly invalidates all of it.
+            </p>
+            <p>
+              One addition worth knowing and one to avoid.
+              <code>viewport-fit=cover</code> lets the page extend under a
+              device's notch or rounded corners so you can position content
+              relative to the safe area — covered in section eight. And never
+              add <code>user-scalable=no</code> or <code>maximum-scale=1</code>:
+              disabling pinch-zoom fails WCAG 1.4.4 (Resize Text) outright,
+              breaks the primary accessibility tool low-vision users rely on,
+              and buys you nothing a correct fluid layout doesn't already
+              handle.
+            </p>
+
+          <h2 id="content-out"><span class="guide-article__num mono">03</span>Content-Out vs. Device-Out Breakpoints</h2>
+
+          <p>
+              There are two ways to decide where a breakpoint goes.
+              <strong>Device-out</strong> starts from a list of popular screen
+              widths — 375, 768, 1024, 1440 — and forces the layout to change at
+              those exact numbers. <strong>Content-out</strong>
+              starts from the content itself: drag the browser narrower until
+              something breaks — a line of text gets uncomfortably long, two
+              columns collide, a card's internals crowd each other — and place
+              the breakpoint at that exact width, whatever odd number it turns
+              out to be.
+            </p>
+            <p>
+              Content-out breakpoints are usually ugly numbers like 612px or
+              897px, and that's the point: they're driven by where your specific
+              content actually fails, not by a device list that grows every year
+              and was never yours to begin with. A two-column layout with a wide
+              sidebar might need to collapse to one column at 850px; the
+              identical grid with a narrower sidebar might hold fine down to
+              620px. A shared device-out number can't know that — it's the same
+              guess applied to every layout regardless of what's actually inside
+              it.
+            </p>
+            <p>
+              None of this means device widths are useless — they're an
+              excellent <em>smoke-test list</em> to check after the content-out
+              breakpoints are set, and a shared scale like Tailwind's
+              <code>sm</code>/<code>md</code>/<code>lg</code>/
+              <code>xl</code> is a fine default vocabulary for a team to share.
+              The failure mode is treating that shared scale as the source of
+              truth instead of a convenience layered on top of breakpoints the
+              content itself demanded.
+            </p>
+
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
+              <svg
+                viewBox="0 0 720 240"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">
+                  Content-out breakpoints don't land on device-out numbers
+                </title>
+                <desc id="fig1-desc">
+                  A viewport-width number line from 320 to 1440 pixels, showing
+                  four device-out breakpoints as evenly labeled ticks, and a
+                  single content-out breakpoint at 612 pixels — where a
+                  two-column layout actually collides — landing between two of
+                  the device ticks rather than on either of them.
+                </desc>
+                <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                  <text
+                    x="60"
+                    y="28"
+                    fill="#7fb3e0"
+                    font-size="11"
+                    letter-spacing="1"
+                  >
+                    VIEWPORT WIDTH →
+                  </text>
+
+                  <!-- content zones -->
+                  <rect
+                    x="60"
+                    y="52"
+                    width="156.4"
+                    height="26"
+                    fill="#33507a"
+                    opacity="0.55"
+                  />
+                  <text
+                    x="138"
+                    y="69"
+                    fill="#e8edf4"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    1-COLUMN
+                  </text>
+                  <rect
+                    x="216.4"
+                    y="52"
+                    width="443.6"
+                    height="26"
+                    fill="#2a4468"
+                    opacity="0.4"
+                  />
+                  <text
+                    x="438"
+                    y="69"
+                    fill="#e8edf4"
+                    font-size="9.5"
+                    text-anchor="middle"
+                  >
+                    2-COLUMN
+                  </text>
+
+                  <!-- axis -->
+                  <line
+                    x1="60"
+                    y1="140"
+                    x2="660"
+                    y2="140"
+                    stroke="#5b789f"
+                    stroke-width="1.2"
+                  />
+
+                  <!-- device-out ticks -->
+                  <line
+                    x1="89.5"
+                    y1="134"
+                    x2="89.5"
+                    y2="146"
+                    stroke="#9fb2cc"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="89.5"
+                    y="164"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    375
+                  </text>
+                  <line
+                    x1="300"
+                    y1="134"
+                    x2="300"
+                    y2="146"
+                    stroke="#9fb2cc"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="300"
+                    y="164"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    768
+                  </text>
+                  <line
+                    x1="437"
+                    y1="134"
+                    x2="437"
+                    y2="146"
+                    stroke="#9fb2cc"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="437"
+                    y="164"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    1024
+                  </text>
+                  <line
+                    x1="660"
+                    y1="134"
+                    x2="660"
+                    y2="146"
+                    stroke="#9fb2cc"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="660"
+                    y="164"
+                    fill="#9fb2cc"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    1440
+                  </text>
+                  <text
+                    x="89.5"
+                    y="178"
+                    fill="#5b789f"
+                    font-size="8"
+                    text-anchor="middle"
+                  >
+                    DEVICE-OUT
+                  </text>
+                  <text
+                    x="300"
+                    y="178"
+                    fill="#5b789f"
+                    font-size="8"
+                    text-anchor="middle"
+                  >
+                    DEVICE-OUT
+                  </text>
+
+                  <!-- content-out breakpoint -->
+                  <line
+                    x1="216.4"
+                    y1="46"
+                    x2="216.4"
+                    y2="152"
+                    stroke="#e8a33d"
+                    stroke-width="1.6"
+                    stroke-dasharray="3 3"
+                  />
+                  <circle cx="216.4" cy="140" r="4" fill="#e8a33d" />
+                  <text
+                    x="216.4"
+                    y="196"
+                    fill="#e8a33d"
+                    font-size="10"
+                    text-anchor="middle"
+                    font-weight="600"
+                  >
+                    612
+                  </text>
+                  <text
+                    x="216.4"
+                    y="210"
+                    fill="#e8a33d"
+                    font-size="8"
+                    text-anchor="middle"
+                  >
+                    CONTENT-OUT
+                  </text>
+                  <text
+                    x="216.4"
+                    y="222"
+                    fill="#9fb2cc"
+                    font-size="8"
+                    text-anchor="middle"
+                  >
+                    columns collide here
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — The device-out ticks (375/768/1024/1440) don't know
+              where this particular layout actually breaks. The content-out
+              breakpoint at 612px does, because it was found by watching the
+              content, not by consulting a device list.
+            </figcaption>
+          </figure>
+
+          <h2 id="fluid-by-default"><span class="guide-article__num mono">04</span>Fluid by Default, Breakpoints Second</h2>
+
+          <p>
+              The layouts that need the fewest breakpoints are the ones built
+              fluid from the start, so a breakpoint only has to handle a genuine
+              structural change — like going from one column to two — instead of
+              doing the job relative units could have done on their own.
+            </p>
+            <p>
+              CSS Grid's <code>auto-fill</code>/<code>auto-fit</code> combined
+              with <code>minmax()</code> is the clearest example. A card grid
+              written as:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));</p>
+            </div>
+            <p>
+              renegotiates its own column count continuously as the container
+              resizes — as many 240px-minimum columns as fit, each stretching to
+              fill any remaining space — with zero
+              <code>@media</code> rules. The grid isn't jumping between fixed
+              states at set widths; it's recalculating at every width, which is
+              the fluid ideal the rest of this guide is building toward. The
+              same instinct applies below the grid level: prefer
+              <code>%</code> and <code>fr</code> over fixed pixel widths, and
+              reach for intrinsic sizing keywords — <code>min-content</code>,
+              <code>max-content</code>, <code>fit-content()</code> — when an
+              element's size should be driven by what's inside it rather than a
+              number you picked.
+            </p>
+            <p>
+              This doesn't eliminate breakpoints — a two-column article layout
+              still needs to become one column at some width, and no amount of
+              <code>fr</code> units changes that structural fact. It shrinks the
+              list to the breakpoints that are actually structural, and lets
+              everything else — spacing, column counts in a grid, sizing —
+              handle itself continuously.
+            </p>
+
+          <h2 id="clamp-formula"><span class="guide-article__num mono">05</span>clamp() Is a Formula, Not a Guess</h2>
+
+          <p>
+              <code>clamp(MIN, PREFERRED, MAX)</code> returns MIN below a
+              certain viewport width, MAX above another, and a value that scales
+              linearly with viewport width in between — one line replacing what
+              used to take three or four <code>@media</code> breakpoints just to
+              fake the same gradual change. The part teams usually get wrong is
+              the PREFERRED value: picking a <code>vw</code> number by eye until
+              it "looks about right" instead of computing it, which is exactly
+              the kind of guess a token or type-scale system exists to remove.
+            </p>
+            <p>
+              The PREFERRED value is a linear interpolation between two points —
+              a minimum size at a minimum viewport width, and a maximum size at
+              a maximum viewport width — and it has an exact formula:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">slope = (maxSize − minSize) / (maxWidth − minWidth)<br />
+              preferred = (minSize − slope × minWidth) + (slope × 100)vw</p>
+            </div>
+            <p>
+              Worked example: a heading that should be 16px at a 400px viewport
+              and 32px at a 1600px viewport.
+            </p>
+            <p>
+              slope = (32 − 16) / (1600 − 400) = 16 / 1200 ≈ 0.0133<br />
+              vw coefficient = 0.0133 × 100 ≈ 1.333vw<br />
+              intercept = 16 − (0.0133 × 400) ≈ 16 − 5.33 = 10.67px ≈ 0.667rem
+            </p>
+            <p>Which gives:</p>
+            <div class="guide-callout">
+              <p class="mono">font-size: clamp(1rem, 0.667rem + 1.333vw, 2rem);</p>
+            </div>
+            <p>
+              Below 400px the size holds flat at the MIN, 16px. Above 1600px it
+              holds flat at the MAX, 32px. Between them, it scales exactly along
+              the line those two points define — no jump, no breakpoint, no
+              guessing. The same formula works for spacing, radii, or anything
+              else that should scale smoothly between a floor and a ceiling
+              instead of stepping between fixed values.
+            </p>
+
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
+              <svg
+                viewBox="0 0 720 260"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig2-title fig2-desc"
+              >
+                <title id="fig2-title">The clamp() curve</title>
+                <desc id="fig2-desc">
+                  A line chart with viewport width on the horizontal axis and
+                  size on the vertical axis, showing a flat minimum segment
+                  below 400 pixels, a straight linear ramp between 400 and 1600
+                  pixels, and a flat maximum segment above 1600 pixels.
+                </desc>
+                <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                  <!-- axes -->
+                  <line
+                    x1="60"
+                    y1="40"
+                    x2="60"
+                    y2="220"
+                    stroke="#5b789f"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="60"
+                    y1="220"
+                    x2="660"
+                    y2="220"
+                    stroke="#5b789f"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="360"
+                    y="248"
+                    fill="#7fb3e0"
+                    font-size="10"
+                    text-anchor="middle"
+                    letter-spacing="1"
+                  >
+                    VIEWPORT WIDTH →
+                  </text>
+                  <text
+                    x="34"
+                    y="130"
+                    fill="#7fb3e0"
+                    font-size="10"
+                    text-anchor="middle"
+                    letter-spacing="1"
+                    transform="rotate(-90 34 130)"
+                  >
+                    SIZE →
+                  </text>
+
+                  <!-- guide lines -->
+                  <line
+                    x1="60"
+                    y1="180"
+                    x2="660"
+                    y2="180"
+                    stroke="#33507a"
+                    stroke-width="1"
+                    stroke-dasharray="2 3"
+                  />
+                  <text
+                    x="660"
+                    y="176"
+                    fill="#9fb2cc"
+                    font-size="8.5"
+                    text-anchor="end"
+                  >
+                    16px (min)
+                  </text>
+                  <line
+                    x1="60"
+                    y1="80"
+                    x2="660"
+                    y2="80"
+                    stroke="#33507a"
+                    stroke-width="1"
+                    stroke-dasharray="2 3"
+                  />
+                  <text
+                    x="660"
+                    y="76"
+                    fill="#9fb2cc"
+                    font-size="8.5"
+                    text-anchor="end"
+                  >
+                    32px (max)
+                  </text>
+
+                  <!-- the clamp curve: flat / ramp / flat -->
+                  <path
+                    d="M60,180 L94.8,180 L616.5,80 L660,80"
+                    fill="none"
+                    stroke="#e8a33d"
+                    stroke-width="2.2"
+                  />
+
+                  <circle cx="94.8" cy="180" r="4" fill="#e8a33d" />
+                  <text
+                    x="94.8"
+                    y="204"
+                    fill="#e8a33d"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    400px
+                  </text>
+                  <text x="94.8" y="216" fill="#9fb2cc" font-size="8">
+                    min bound
+                  </text>
+
+                  <circle cx="616.5" cy="80" r="4" fill="#e8a33d" />
+                  <text
+                    x="616.5"
+                    y="64"
+                    fill="#e8a33d"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    1600px
+                  </text>
+                  <text x="616.5" y="52" fill="#9fb2cc" font-size="8">
+                    max bound
+                  </text>
+
+                  <text
+                    x="355"
+                    y="118"
+                    fill="#e8edf4"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    0.667rem + 1.333vw
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 02 — clamp(1rem, 0.667rem + 1.333vw, 2rem): flat at the floor
+              below 400px, a straight linear ramp between the two bounds, flat
+              at the ceiling above 1600px.
+            </figcaption>
+          </figure>
+
+          <h2 id="container-queries"><span class="guide-article__num mono">06</span>Container Queries: A Breakpoint the Component Owns</h2>
+
+          <p>
+              A media query only ever knows one number: the viewport's width.
+              That's a structural limit, not a missing feature — because a
+              reusable card component doesn't have one width. The same card
+              might sit in a wide main column and a narrow sidebar on the same
+              page at the same viewport size, and it needs different internal
+              layouts in each spot. A media query can't express that; it only
+              sees the whole page.
+            </p>
+            <p>
+              A container query can, because it queries the size of the
+              component's own containing element instead of the viewport:
+            </p>
+            <pre><code>.card {
+  container-type: inline-size;
+  container-name: card;
+}
+
+@container card (min-width: 320px) {
+  .card__body {
+    grid-template-columns: 96px 1fr;
+  }
+}</code></pre>
+            <p>
+              <code>container-type: inline-size</code> tells the browser to
+              track this element's own inline (usually horizontal) size and make
+              it queryable; the <code>@container</code> rule then applies its
+              styles whenever <em>that element</em> — not the viewport — crosses
+              320px. Drop the same card into a 260px sidebar and a 900px main
+              column on the same page, and each instance responds to the space
+              it actually has. Container query length units — <code>cqw</code>,
+              <code>cqh</code>, <code>cqi</code>, <code>cqb</code> — extend the
+              same idea to fluid sizing: a value in <code>cqi</code> scales with
+              the container's own inline size the way a <code>vw</code> value
+              scales with the viewport.
+            </p>
+            <p>
+              Support has been solid across every major evergreen browser for a
+              couple of years now, so this is safe to reach for by default in
+              new component work rather than treated as an experimental feature.
+              It doesn't replace media queries — page-level structural changes
+              (a sidebar appearing or disappearing, a nav collapsing) still
+              belong to the viewport — but for anything meant to be dropped into
+              more than one layout context, a container query is very often the
+              more honest tool.
+            </p>
+
+          <h2 id="overflow-traps"><span class="guide-article__num mono">07</span>The Overflow Traps</h2>
+
+          <p>
+              Most "it's not responsive" bugs aren't missing breakpoints —
+              they're one of a handful of CSS defaults that quietly refuse to
+              shrink. These are worth checking by name, because they pass every
+              desktop review and only show up once someone opens the page on an
+              actual narrow screen.
+            </p>
+            <p>
+              <strong
+                >Flex and grid items default to
+                <code>min-width: auto</code></strong
+              >, which means a flex or grid child will never shrink smaller than
+              its own content's natural size — no matter how narrow its
+              container gets — and the overflow spills past the container edge
+              instead of wrapping. This is the single most common cause of a
+              layout that's fine on desktop and runs off the edge of the screen
+              on mobile. The fix is one line on the child:
+              <code>min-width: 0;</code> (or <code>min-inline-size: 0;</code>) —
+              it opts the item back into shrinking, and it's safe to add
+              defensively to any flex or grid child that holds text or an image.
+            </p>
+            <p>
+              <strong>Images without an explicit max-width</strong> render at
+              their natural pixel dimensions and burst straight through a
+              narrower container. The standard reset —
+              <code>img { max-width: 100%; height: auto; }</code> — should be
+              treated as a baseline default for the whole site, not something
+              added image-by-image after the fact.
+            </p>
+            <p>
+              <strong>Long unbroken strings</strong> — URLs, emails, a
+              user-submitted string with no spaces — don't have a natural wrap
+              point, so the browser lets them overflow rather than break
+              mid-word by default. <code>overflow-wrap: anywhere;</code> (or the
+              narrower <code>word-break: break-word;</code> for specific cases)
+              gives the browser permission to break inside the word only when
+              nothing else will keep it inside its box.
+            </p>
+            <p>
+              <strong
+                ><code>100vw</code> is not always the same as
+                <code>100%</code>.</strong
+              >
+              On a page with a vertical scrollbar, <code>100vw</code> includes
+              the scrollbar's width, which the parent element's
+              <code>100%</code> does not — so a full-bleed element sized with
+              <code>100vw</code> can end up a few pixels wider than the page
+              itself, producing a thin horizontal scrollbar of its own. Inside a
+              normal document flow, <code>width: 100%</code> is almost always
+              the safer choice; reach for <code>100vw</code> only when an
+              element genuinely needs to break out of a constrained parent to
+              reach the true edge of the viewport.
+            </p>
+
+          <h2 id="touch-targets"><span class="guide-article__num mono">08</span>Touch Targets, Safe Areas, and the 375px Floor</h2>
+
+          <p>
+              Responsive isn't only about what fits — it's also about what can
+              be reliably tapped once it does fit.
+              <strong>WCAG 2.5.8 (Target Size, Minimum)</strong> sets a 24×24
+              CSS-pixel floor for interactive targets at AA, with a short list
+              of exceptions (inline text links, targets with adequate spacing to
+              neighbors, and a few others). Platform guidelines run more
+              generous — Apple's Human Interface Guidelines recommend 44×44pt,
+              Material Design 48×48dp — and in practice, treating roughly 44px
+              as the working minimum for primary actions satisfies both the
+              accessibility floor and the platform conventions people already
+              have muscle memory for.
+            </p>
+            <p>
+              On devices with a notch, camera cutout, or rounded corners,
+              content laid out edge-to-edge (via
+              <code>viewport-fit=cover</code> from section two) needs to respect
+              the hardware's own safe area rather than tucking controls behind
+              it. The <code>env(safe-area-inset-top)</code>,
+              <code>-right</code>, <code>-bottom</code>, and
+              <code>-left</code> values expose exactly that inset, most often
+              applied as padding on a fixed header or footer:
+              <code>padding-bottom: env(safe-area-inset-bottom);</code>
+            </p>
+            <p>
+              And there's a practical floor worth designing to explicitly:
+              <strong>375px</strong>, the width of the smallest phones still in
+              common circulation. Below that, most sites simply rely on the
+              browser's own horizontal scroll as a fallback rather than an
+              intentional design decision — which is fine as a safety net, but
+              shouldn't be the plan. The check worth running by hand at that
+              width: every action available in the desktop navigation needs a
+              reachable equivalent once it's collapsed into a mobile menu. It's
+              a common and easy gap — an item ships in the visible desktop nav
+              but never gets added to the mobile menu's markup, so it simply
+              disappears below the breakpoint instead of relocating into the
+              hamburger menu the way every other nav item did.
+            </p>
+
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Five Pitfalls That Look Like Browser Bugs</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
+                <p>
+                  <strong
+                    >Fixing overflow on the parent instead of the child.</strong
+                  >
+                  Adding <code>overflow: hidden</code> or a scroll container
+                  around a flex row hides the symptom but leaves the actual
+                  cause — a child stuck at its content's
+                  <code>min-width: auto</code> — untouched. Set
+                  <code>min-width: 0</code> on the child that's refusing to
+                  shrink; that's almost always where the real fix belongs.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">02</span>
+                <p>
+                  <strong>Sizing a full-bleed element with 100vw.</strong>
+                  As covered in section seven, this counts the scrollbar as part
+                  of the viewport width on many desktop browsers, producing a
+                  stray few pixels of horizontal scroll that only shows up on
+                  wide screens with a visible scrollbar — which is exactly the
+                  environment most likely to get skipped in mobile-first
+                  testing.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">03</span>
+                <p>
+                  <strong
+                    >Third-party embeds that don't know about your fluid
+                    grid.</strong
+                  >
+                  Maps, ads, and video embeds are frequently shipped with a
+                  fixed pixel width baked into their own markup. Wrapping the
+                  embed in a container with <code>max-width: 100%</code>
+                  and, for iframes specifically, an
+                  <code>aspect-ratio</code>-based wrapper, keeps a third-party
+                  widget from being the one element on the page that ignores
+                  everything else you built.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">04</span>
+                <p>
+                  <strong
+                    >Breakpoints copied from a framework's docs instead of found
+                    in your own content.</strong
+                  >
+                  A shared scale is a fine shared vocabulary — section three
+                  covers that — but a number copied wholesale from someone
+                  else's documentation was tuned for their content, not yours.
+                  Treat it as a starting guess to verify against your own
+                  layout, not a value you're done checking once it's in the
+                  stylesheet.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">05</span>
+                <p>
+                  <strong
+                    >Testing only by resizing a desktop browser window.</strong
+                  >
+                  A resized window is a reasonable first pass, but it doesn't
+                  reproduce mobile Safari's dynamic toolbar height changing the
+                  visible viewport as the page scrolls, OS-level text-size
+                  scaling multiplying every <code>rem</code> on the page, or how
+                  a real touch target actually feels under a thumb rather than a
+                  mouse cursor. A resized window and a real device catch
+                  different bugs — the contract in section one isn't verified
+                  until both have been checked.
+                </p>
+              </li>
+            </ul>
+
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
+                <caption>
+                  / responsive_layout_reference
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Snippet / value</th>
+                    <th scope="col">Where it matters</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Viewport meta</td>
+                    <td><code>width=device-width, initial-scale=1</code></td>
+                    <td>Everything else depends on this being present</td>
+                  </tr>
+                  <tr>
+                    <td>Breakpoint source</td>
+                    <td>Content-out, checked against device widths</td>
+                    <td>Never derive breakpoints from a device list alone</td>
+                  </tr>
+                  <tr>
+                    <td>Fluid grid</td>
+                    <td>
+                      <code>repeat(auto-fill, minmax(240px, 1fr))</code>
+                    </td>
+                    <td>Zero-breakpoint reflow for card/tile grids</td>
+                  </tr>
+                  <tr>
+                    <td>clamp() formula</td>
+                    <td>
+                      <code>slope = (maxSize−minSize)/(maxWidth−minWidth)</code>
+                    </td>
+                    <td>Computed fluid sizing, not eyeballed vw values</td>
+                  </tr>
+                  <tr>
+                    <td>Container query</td>
+                    <td><code>container-type: inline-size;</code></td>
+                    <td>
+                      A component adapting to its own container, not the page
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Flex/grid shrink fix</td>
+                    <td><code>min-width: 0;</code> on the child</td>
+                    <td>
+                      The single most common cause of edge-to-edge overflow
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Touch target floor</td>
+                    <td>24×24px (WCAG AA) · ~44px in practice</td>
+                    <td>Primary tappable actions on any screen size</td>
+                  </tr>
+                  <tr>
+                    <td>Testing floor</td>
+                    <td>375px, real device + resized window</td>
+                    <td>
+                      Smallest common phone width; both test methods catch
+                      different bugs
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          <p>
+              None of this is about accumulating more breakpoints — a layout
+              with forty finely-tuned <code>@media</code> rules can still fail
+              the contract if the underlying sizing isn't fluid to begin with.
+              Build fluid by default, let <code>clamp()</code> replace the
+              breakpoints that were only ever faking a gradual change, give
+              components that get reused in different contexts a container query
+              instead of a viewport-wide guess, and treat the handful of
+              overflow defaults in section seven as a standing checklist rather
+              than a one-time fix. A breakpoint list proves a layout works at
+              the widths on the list. A contract holds everywhere else too.
+            </p>
+        </article>
+<!--ARTICLE_END-->

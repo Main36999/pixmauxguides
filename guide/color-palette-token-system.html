@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Color Theory",
+            "item": "https://bpozz.com/category/color-theory"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "A Color Palette Is a Token System, Not a Row of Swatches",
+            "item": "https://bpozz.com/guide/color-palette-token-system"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "A Color Palette Is a Token System, Not a Row of Swatches",
         "description": "A spec-level guide to color palettes as token systems: why HSL's lightness value is perceptually inconsistent across hues, how to build an OKLCH tonal ramp, the primitive/semantic/component tiers, and why light and dark themes should remap aliases instead of duplicating the ramp.",
-        "mainEntityOfPage": "https://bpozz.com/guide/color-palette-token-system",
-        "image": "https://bpozz.com/thumbnail_image/color-palette-token-system-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/A%20Color%20Palette%20Is%20a%20Token%20System,%20Not%20a%20Row%20of%20Swatches.webp",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,12 +167,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/color-palette-token-system"
+        },
         "datePublished": "2026-08-07",
         "dateModified": "2026-08-07",
+        "articleSection": "Color Theory",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT14M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="color-palette-token-system">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -178,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -244,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -255,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>
@@ -1180,13 +1215,6 @@
               top of it keeps working without anyone having to go find and
               update it by hand.
             </p>
-            <div class="guide-cta">
-              <div class="guide-cta__text">
-                <strong>Build a token set, not a swatch row</strong>
-                <span>Assign semantic roles to your own colors in the palette builder, with a live WCAG checker and exports to CSS, Tailwind, Figma Variables, and more.</span>
-              </div>
-              <a href="/tokens/create" class="btn btn-primary">Open the palette builder</a>
-            </div>
         </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>

@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Web Layout",
+            "item": "https://bpozz.com/category/web"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Responsive Layout Is a Contract, Not a Breakpoint List",
+            "item": "https://bpozz.com/guide/responsive-layout-contract"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Responsive Layout Is a Contract, Not a Breakpoint List",
         "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.",
-        "mainEntityOfPage": "https://bpozz.com/guide/responsive-layout-contract",
-        "image": "https://bpozz.com/thumbnail_image/responsive-layout-contract-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Responsive%20Layout%20Is%20a%20Contract,%20Not%20a%20Breakpoint%20List.png",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,12 +167,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/responsive-layout-contract"
+        },
         "datePublished": "2026-08-07",
         "dateModified": "2026-08-07",
+        "articleSection": "Web Layout",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT18M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="responsive-layout-contract">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -178,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -244,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -255,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>

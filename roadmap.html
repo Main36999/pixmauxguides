@@ -157,7 +157,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -223,7 +223,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -234,7 +233,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>
@@ -242,9 +240,19 @@
   </div>
 </header><!--HEADER_END-->
 
+    <!-- Phase 4 Step 9 (accessibility): this section IS the page's main
+         content, but it was the only one of the 41 pages exposing no main
+         landmark, and the skip link above pointed at a non-focusable
+         element — so "Skip to roadmap" moved nothing for a keyboard or
+         screen-reader user. role="main" + tabindex="-1" gives it the same
+         contract every other page's <main id=... tabindex="-1"> already
+         had. The element, its classes and its markup are unchanged, so
+         nothing in the layout or the CSS cascade moves. -->
     <section
       class="roadmap-section roadmap-section--page"
       id="roadmap"
+      role="main"
+      tabindex="-1"
       aria-labelledby="roadmap-heading"
     >
       <div class="wrap">

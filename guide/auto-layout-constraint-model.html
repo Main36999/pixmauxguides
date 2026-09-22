@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Figma Workflow",
+            "item": "https://bpozz.com/category/figma"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
+            "item": "https://bpozz.com/guide/auto-layout-constraint-model"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
         "description": "A spec-level read of Figma's Auto Layout: how Fixed, Hug, and Fill actually resolve against each other, why nested frames behave the way they do, and the exact property mapping for CSS Flexbox handoff.",
-        "mainEntityOfPage": "https://bpozz.com/guide/auto-layout-constraint-model",
-        "image": "https://bpozz.com/thumbnail_image/auto-layout-constraint-model-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Auto%20Layout%20Is%20a%20Constraint%20System,%20Not%20a%20Convenience%20Toggle.webp",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,12 +167,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/auto-layout-constraint-model"
+        },
         "datePublished": "2026-08-06",
         "dateModified": "2026-08-06",
+        "articleSection": "Figma Workflow",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT15M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="auto-layout-constraint-model">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -178,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -244,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -255,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>

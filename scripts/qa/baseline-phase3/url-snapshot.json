@@ -1,0 +1,500 @@
+{
+  "generatedBy": "tools/snapshot.js",
+  "phase": "1",
+  "counts": {
+    "pages": 84,
+    "dataEndpoints": 5,
+    "siteFiles": 4,
+    "assets": 35,
+    "code": 14,
+    "total": 142
+  },
+  "pages": [
+    {
+      "file": "index.html",
+      "url": "/",
+      "canonical": "https://bpozz.com/"
+    },
+    {
+      "file": "about.html",
+      "url": "/about.html",
+      "canonical": "https://bpozz.com/about.html"
+    },
+    {
+      "file": "category/accessibility.html",
+      "url": "/category/accessibility",
+      "canonical": "https://bpozz.com/category/accessibility"
+    },
+    {
+      "file": "category/adobe-xd.html",
+      "url": "/category/adobe-xd",
+      "canonical": "https://bpozz.com/category/adobe-xd"
+    },
+    {
+      "file": "category/color-theory.html",
+      "url": "/category/color-theory",
+      "canonical": "https://bpozz.com/category/color-theory"
+    },
+    {
+      "file": "category/figma.html",
+      "url": "/category/figma",
+      "canonical": "https://bpozz.com/category/figma"
+    },
+    {
+      "file": "category/mobile.html",
+      "url": "/category/mobile",
+      "canonical": "https://bpozz.com/category/mobile"
+    },
+    {
+      "file": "category/motion.html",
+      "url": "/category/motion",
+      "canonical": "https://bpozz.com/category/motion"
+    },
+    {
+      "file": "category/spacing.html",
+      "url": "/category/spacing",
+      "canonical": "https://bpozz.com/category/spacing"
+    },
+    {
+      "file": "category/systems.html",
+      "url": "/category/systems",
+      "canonical": "https://bpozz.com/category/systems"
+    },
+    {
+      "file": "category/typography.html",
+      "url": "/category/typography",
+      "canonical": "https://bpozz.com/category/typography"
+    },
+    {
+      "file": "category/web.html",
+      "url": "/category/web",
+      "canonical": "https://bpozz.com/category/web"
+    },
+    {
+      "file": "contact.html",
+      "url": "/contact.html",
+      "canonical": "https://bpozz.com/contact.html"
+    },
+    {
+      "file": "guide/accessibility-structural-model.html",
+      "url": "/guide/accessibility-structural-model",
+      "canonical": "https://bpozz.com/guide/accessibility-structural-model"
+    },
+    {
+      "file": "guide/auto-layout-constraint-model.html",
+      "url": "/guide/auto-layout-constraint-model",
+      "canonical": "https://bpozz.com/guide/auto-layout-constraint-model"
+    },
+    {
+      "file": "guide/color-contrast-systems.html",
+      "url": "/guide/color-contrast-systems",
+      "canonical": "https://bpozz.com/guide/color-contrast-systems"
+    },
+    {
+      "file": "guide/color-palette-token-system.html",
+      "url": "/guide/color-palette-token-system",
+      "canonical": "https://bpozz.com/guide/color-palette-token-system"
+    },
+    {
+      "file": "guide/components-variants-contract.html",
+      "url": "/guide/components-variants-contract",
+      "canonical": "https://bpozz.com/guide/components-variants-contract"
+    },
+    {
+      "file": "guide/css-grid-two-dimensional-system.html",
+      "url": "/guide/css-grid-two-dimensional-system",
+      "canonical": "https://bpozz.com/guide/css-grid-two-dimensional-system"
+    },
+    {
+      "file": "guide/dark-mode-second-palette.html",
+      "url": "/guide/dark-mode-second-palette",
+      "canonical": "https://bpozz.com/guide/dark-mode-second-palette"
+    },
+    {
+      "file": "guide/design-tokens-naming-system.html",
+      "url": "/guide/design-tokens-naming-system",
+      "canonical": "https://bpozz.com/guide/design-tokens-naming-system"
+    },
+    {
+      "file": "guide/figma-to-code-handoff.html",
+      "url": "/guide/figma-to-code-handoff",
+      "canonical": "https://bpozz.com/guide/figma-to-code-handoff"
+    },
+    {
+      "file": "guide/figma-variables-data-layer.html",
+      "url": "/guide/figma-variables-data-layer",
+      "canonical": "https://bpozz.com/guide/figma-variables-data-layer"
+    },
+    {
+      "file": "guide/font-pairing-hierarchy-decision.html",
+      "url": "/guide/font-pairing-hierarchy-decision",
+      "canonical": "https://bpozz.com/guide/font-pairing-hierarchy-decision"
+    },
+    {
+      "file": "guide/grid-systems-rhythm.html",
+      "url": "/guide/grid-systems-rhythm",
+      "canonical": "https://bpozz.com/guide/grid-systems-rhythm"
+    },
+    {
+      "file": "guide/ios-android-different-systems.html",
+      "url": "/guide/ios-android-different-systems",
+      "canonical": "https://bpozz.com/guide/ios-android-different-systems"
+    },
+    {
+      "file": "guide/line-length-reading-constraint.html",
+      "url": "/guide/line-length-reading-constraint",
+      "canonical": "https://bpozz.com/guide/line-length-reading-constraint"
+    },
+    {
+      "file": "guide/migrating-from-xd-rebuild.html",
+      "url": "/guide/migrating-from-xd-rebuild",
+      "canonical": "https://bpozz.com/guide/migrating-from-xd-rebuild"
+    },
+    {
+      "file": "guide/mobile-breakpoints-device-categories.html",
+      "url": "/guide/mobile-breakpoints-device-categories",
+      "canonical": "https://bpozz.com/guide/mobile-breakpoints-device-categories"
+    },
+    {
+      "file": "guide/motion-timing-model.html",
+      "url": "/guide/motion-timing-model",
+      "canonical": "https://bpozz.com/guide/motion-timing-model"
+    },
+    {
+      "file": "guide/padding-margin-different-jobs.html",
+      "url": "/guide/padding-margin-different-jobs",
+      "canonical": "https://bpozz.com/guide/padding-margin-different-jobs"
+    },
+    {
+      "file": "guide/responsive-layout-contract.html",
+      "url": "/guide/responsive-layout-contract",
+      "canonical": "https://bpozz.com/guide/responsive-layout-contract"
+    },
+    {
+      "file": "guide/thumb-zones-layout-constraint.html",
+      "url": "/guide/thumb-zones-layout-constraint",
+      "canonical": "https://bpozz.com/guide/thumb-zones-layout-constraint"
+    },
+    {
+      "file": "guide/type-scale-systems.html",
+      "url": "/guide/type-scale-systems",
+      "canonical": "https://bpozz.com/guide/type-scale-systems"
+    },
+    {
+      "file": "guide/whitespace-as-ui-component.html",
+      "url": "/guide/whitespace-as-ui-component",
+      "canonical": "https://bpozz.com/guide/whitespace-as-ui-component"
+    },
+    {
+      "file": "guides/index.html",
+      "url": "/guides",
+      "canonical": "https://bpozz.com/guides"
+    },
+    {
+      "file": "palettes/index.html",
+      "url": "/palettes",
+      "canonical": "https://bpozz.com/palettes"
+    },
+    {
+      "file": "privacy.html",
+      "url": "/privacy.html",
+      "canonical": "https://bpozz.com/privacy.html"
+    },
+    {
+      "file": "roadmap.html",
+      "url": "/roadmap.html",
+      "canonical": "https://bpozz.com/roadmap.html"
+    },
+    {
+      "file": "search.html",
+      "url": "/search.html",
+      "canonical": "https://bpozz.com/search"
+    },
+    {
+      "file": "terms.html",
+      "url": "/terms.html",
+      "canonical": "https://bpozz.com/terms.html"
+    },
+    {
+      "file": "tokens/index.html",
+      "url": "/tokens",
+      "canonical": "https://bpozz.com/tokens"
+    },
+    {
+      "file": "tokens/amber-arcade.html",
+      "url": "/tokens/amber-arcade",
+      "canonical": "https://bpozz.com/tokens/amber-arcade"
+    },
+    {
+      "file": "tokens/analog-lounge.html",
+      "url": "/tokens/analog-lounge",
+      "canonical": "https://bpozz.com/tokens/analog-lounge"
+    },
+    {
+      "file": "tokens/bare-ledger.html",
+      "url": "/tokens/bare-ledger",
+      "canonical": "https://bpozz.com/tokens/bare-ledger"
+    },
+    {
+      "file": "tokens/bare-ledger-dark.html",
+      "url": "/tokens/bare-ledger-dark",
+      "canonical": "https://bpozz.com/tokens/bare-ledger-dark"
+    },
+    {
+      "file": "tokens/blank-concrete.html",
+      "url": "/tokens/blank-concrete",
+      "canonical": "https://bpozz.com/tokens/blank-concrete"
+    },
+    {
+      "file": "tokens/blank-concrete-dark.html",
+      "url": "/tokens/blank-concrete-dark",
+      "canonical": "https://bpozz.com/tokens/blank-concrete-dark"
+    },
+    {
+      "file": "tokens/blush-feather.html",
+      "url": "/tokens/blush-feather",
+      "canonical": "https://bpozz.com/tokens/blush-feather"
+    },
+    {
+      "file": "tokens/blush-feather-dark.html",
+      "url": "/tokens/blush-feather-dark",
+      "canonical": "https://bpozz.com/tokens/blush-feather-dark"
+    },
+    {
+      "file": "tokens/chalk-petal.html",
+      "url": "/tokens/chalk-petal",
+      "canonical": "https://bpozz.com/tokens/chalk-petal"
+    },
+    {
+      "file": "tokens/chalk-petal-dark.html",
+      "url": "/tokens/chalk-petal-dark",
+      "canonical": "https://bpozz.com/tokens/chalk-petal-dark"
+    },
+    {
+      "file": "tokens/collection.html",
+      "url": "/tokens/collection",
+      "canonical": "https://bpozz.com/tokens/collection"
+    },
+    {
+      "file": "tokens/create.html",
+      "url": "/tokens/create",
+      "canonical": "https://bpozz.com/tokens/create"
+    },
+    {
+      "file": "tokens/dusty-darkroom.html",
+      "url": "/tokens/dusty-darkroom",
+      "canonical": "https://bpozz.com/tokens/dusty-darkroom"
+    },
+    {
+      "file": "tokens/electric-broadcast.html",
+      "url": "/tokens/electric-broadcast",
+      "canonical": "https://bpozz.com/tokens/electric-broadcast"
+    },
+    {
+      "file": "tokens/even-concrete.html",
+      "url": "/tokens/even-concrete",
+      "canonical": "https://bpozz.com/tokens/even-concrete"
+    },
+    {
+      "file": "tokens/even-concrete-dark.html",
+      "url": "/tokens/even-concrete-dark",
+      "canonical": "https://bpozz.com/tokens/even-concrete-dark"
+    },
+    {
+      "file": "tokens/faceted-jade.html",
+      "url": "/tokens/faceted-jade",
+      "canonical": "https://bpozz.com/tokens/faceted-jade"
+    },
+    {
+      "file": "tokens/faceted-onyx.html",
+      "url": "/tokens/faceted-onyx",
+      "canonical": "https://bpozz.com/tokens/faceted-onyx"
+    },
+    {
+      "file": "tokens/laser-static.html",
+      "url": "/tokens/laser-static",
+      "canonical": "https://bpozz.com/tokens/laser-static"
+    },
+    {
+      "file": "tokens/lunar-harbor.html",
+      "url": "/tokens/lunar-harbor",
+      "canonical": "https://bpozz.com/tokens/lunar-harbor"
+    },
+    {
+      "file": "tokens/milky-sorbet.html",
+      "url": "/tokens/milky-sorbet",
+      "canonical": "https://bpozz.com/tokens/milky-sorbet"
+    },
+    {
+      "file": "tokens/milky-sorbet-dark.html",
+      "url": "/tokens/milky-sorbet-dark",
+      "canonical": "https://bpozz.com/tokens/milky-sorbet-dark"
+    },
+    {
+      "file": "tokens/neon-pulse.html",
+      "url": "/tokens/neon-pulse",
+      "canonical": "https://bpozz.com/tokens/neon-pulse"
+    },
+    {
+      "file": "tokens/old-world-darkroom.html",
+      "url": "/tokens/old-world-darkroom",
+      "canonical": "https://bpozz.com/tokens/old-world-darkroom"
+    },
+    {
+      "file": "tokens/powder-sorbet.html",
+      "url": "/tokens/powder-sorbet",
+      "canonical": "https://bpozz.com/tokens/powder-sorbet"
+    },
+    {
+      "file": "tokens/powder-sorbet-dark.html",
+      "url": "/tokens/powder-sorbet-dark",
+      "canonical": "https://bpozz.com/tokens/powder-sorbet-dark"
+    },
+    {
+      "file": "tokens/radioactive-broadcast.html",
+      "url": "/tokens/radioactive-broadcast",
+      "canonical": "https://bpozz.com/tokens/radioactive-broadcast"
+    },
+    {
+      "file": "tokens/retro-lounge.html",
+      "url": "/tokens/retro-lounge",
+      "canonical": "https://bpozz.com/tokens/retro-lounge"
+    },
+    {
+      "file": "tokens/rewind-motel.html",
+      "url": "/tokens/rewind-motel",
+      "canonical": "https://bpozz.com/tokens/rewind-motel"
+    },
+    {
+      "file": "tokens/rich-sapphire.html",
+      "url": "/tokens/rich-sapphire",
+      "canonical": "https://bpozz.com/tokens/rich-sapphire"
+    },
+    {
+      "file": "tokens/royal-ruby.html",
+      "url": "/tokens/royal-ruby",
+      "canonical": "https://bpozz.com/tokens/royal-ruby"
+    },
+    {
+      "file": "tokens/starless-frost.html",
+      "url": "/tokens/starless-frost",
+      "canonical": "https://bpozz.com/tokens/starless-frost"
+    },
+    {
+      "file": "tokens/starless-observatory.html",
+      "url": "/tokens/starless-observatory",
+      "canonical": "https://bpozz.com/tokens/starless-observatory"
+    },
+    {
+      "file": "tokens/starless-tide.html",
+      "url": "/tokens/starless-tide",
+      "canonical": "https://bpozz.com/tokens/starless-tide"
+    },
+    {
+      "file": "tokens/studio-ledger.html",
+      "url": "/tokens/studio-ledger",
+      "canonical": "https://bpozz.com/tokens/studio-ledger"
+    },
+    {
+      "file": "tokens/studio-ledger-dark.html",
+      "url": "/tokens/studio-ledger-dark",
+      "canonical": "https://bpozz.com/tokens/studio-ledger-dark"
+    },
+    {
+      "file": "tokens/sun-baked-canyon.html",
+      "url": "/tokens/sun-baked-canyon",
+      "canonical": "https://bpozz.com/tokens/sun-baked-canyon"
+    },
+    {
+      "file": "tokens/terracotta-grove.html",
+      "url": "/tokens/terracotta-grove",
+      "canonical": "https://bpozz.com/tokens/terracotta-grove"
+    },
+    {
+      "file": "tokens/terracotta-riverbank.html",
+      "url": "/tokens/terracotta-riverbank",
+      "canonical": "https://bpozz.com/tokens/terracotta-riverbank"
+    },
+    {
+      "file": "tokens/weathered-darkroom.html",
+      "url": "/tokens/weathered-darkroom",
+      "canonical": "https://bpozz.com/tokens/weathered-darkroom"
+    },
+    {
+      "file": "tokens/weathered-meadow.html",
+      "url": "/tokens/weathered-meadow",
+      "canonical": "https://bpozz.com/tokens/weathered-meadow"
+    },
+    {
+      "file": "tokens/worn-darkroom.html",
+      "url": "/tokens/worn-darkroom",
+      "canonical": "https://bpozz.com/tokens/worn-darkroom"
+    }
+  ],
+  "dataEndpoints": [
+    "/categories.json",
+    "/content-index.json",
+    "/guides.json",
+    "/palettes/palettes-data.json",
+    "/tokens.json"
+  ],
+  "siteFiles": [
+    "/ads.txt",
+    "/og-image.png",
+    "/robots.txt",
+    "/sitemap.xml"
+  ],
+  "assets": [
+    "/assets/Accessibility.png",
+    "/assets/Color Theory.png",
+    "/assets/Figma Workflow.png",
+    "/assets/Spacing & Layout.png",
+    "/assets/Typography.png",
+    "/assets/apple-touch-icon.png",
+    "/assets/bpozz logo tab-01.png",
+    "/assets/bpozz logo-01.png",
+    "/assets/bpozz logo.png",
+    "/assets/bpozz-logo.svg",
+    "/assets/favicon.png",
+    "/assets/founder-somrach-hoy.jpg",
+    "/assets/logo.png",
+    "/thumbnail_image_webp/A Color Palette Is a Token System, Not a Row of Swatches.webp",
+    "/thumbnail_image_webp/Accessibility Is a Structural Decision, Not a Final Pass.webp",
+    "/thumbnail_image_webp/Auto Layout Is a Constraint System, Not a Convenience Toggle.webp",
+    "/thumbnail_image_webp/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps.webp",
+    "/thumbnail_image_webp/Color Contrast Is Math, Not Taste.webp",
+    "/thumbnail_image_webp/Components and Variants Are a Contract, Not a Copy-Paste Shortcut.webp",
+    "/thumbnail_image_webp/Dark Mode Is a Second Palette, Not an Inverted Filter.webp",
+    "/thumbnail_image_webp/Design Tokens Are a Naming System, Not a Style Guide.webp",
+    "/thumbnail_image_webp/Figma Variables Are a Data Layer, Not Just Color Styles.webp",
+    "/thumbnail_image_webp/Figma-to-Code Handoff Is a Translation, Not a Screenshot.webp",
+    "/thumbnail_image_webp/Font Pairing Is a Hierarchy Decision, Not a Personality Match.webp",
+    "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.png",
+    "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.png",
+    "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.png",
+    "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.png",
+    "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.png",
+    "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.png",
+    "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.png",
+    "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.png",
+    "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.png",
+    "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.png",
+    "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.png"
+  ],
+  "code": [
+    "/app.js",
+    "/guide-article.css",
+    "/palettes/palettes.css",
+    "/palettes/palettes.js",
+    "/styles.css",
+    "/tokens-a11y.js",
+    "/tokens-collection.js",
+    "/tokens-color.js",
+    "/tokens-create.js",
+    "/tokens-detail.js",
+    "/tokens-export.js",
+    "/tokens-gallery.js",
+    "/tokens-shared.js",
+    "/tokens.css"
+  ]
+}

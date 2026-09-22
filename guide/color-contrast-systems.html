@@ -111,11 +111,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Color Theory",
+            "item": "https://bpozz.com/category/color-theory"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Color Contrast Is Math, Not Taste",
+            "item": "https://bpozz.com/guide/color-contrast-systems"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Color Contrast Is Math, Not Taste",
         "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
-        "mainEntityOfPage": "https://bpozz.com/guide/color-contrast-systems",
-        "image": "https://bpozz.com/thumbnail_image/color-contrast-systems-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Color%20Contrast%20Is%20Math,%20Not%20Taste.webp",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -128,12 +159,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/color-contrast-systems"
+        },
         "datePublished": "2026-08-06",
         "dateModified": "2026-08-06",
+        "articleSection": "Color Theory",
+        "proficiencyLevel": "Beginner",
+        "timeRequired": "PT10M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="color-contrast-systems">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -170,7 +207,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -236,7 +273,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -247,7 +283,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>
@@ -612,13 +647,6 @@
               for checking at all. The wheel is still worth learning. It's just
               not where the guarantees come from.
             </p>
-            <div class="guide-cta">
-              <div class="guide-cta__text">
-                <strong>See this math running live</strong>
-                <span>The Color Palette Library computes these exact ratios — and the AA/AAA badge — for every role pairing, automatically.</span>
-              </div>
-              <a href="/tokens" class="btn btn-primary">Browse the palette library</a>
-            </div>
         </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>

@@ -1,0 +1,917 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent's rhythm."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/css-grid-two-dimensional-system"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/css-grid-two-dimensional-system"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps"
+    />
+    <meta
+      property="og:description"
+      content="How the fr unit, minmax(), and implicit tracks actually work, why grid-template-areas reads like a floor plan, and what subgrid solves that nested grids can't."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/thumbnail_image/css-grid-two-dimensional-system-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Diagram contrasting a flexbox row's single axis with a CSS grid's two aligned axes of rows and columns."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps"
+    />
+    <meta
+      name="twitter:description"
+      content="How the fr unit, minmax(), and implicit tracks actually work, why grid-template-areas reads like a floor plan, and what subgrid solves that nested grids can't."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/thumbnail_image/css-grid-two-dimensional-system-thumbnail.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <p class="guide-hero__meta">Web Layout · Intermediate · 15 min read</p>
+          <h1 class="guide-hero__title" id="guide-heading">
+            CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps
+          </h1>
+          <p class="guide-hero__dek">
+            Flexbox distributes space along one axis and calls it done; Grid
+            controls rows and columns at the same time, which is a different
+            class of problem, not a bigger version of the same one. This
+            guide covers the track model that makes that possible — explicit
+            vs. implicit tracks, the fr unit, named grid-template-areas, and
+            the subgrid behavior that lets a nested layout inherit its
+            parent's rhythm instead of rebuilding it from scratch.
+          </p>
+        </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
+          <ol>
+            <li>
+              <a href="#two-axes"
+                >Two Axes, One Layout</a
+              >
+            </li>
+            <li>
+              <a href="#explicit-tracks"
+                >Explicit Tracks: The Grid You
+                Declare</a
+              >
+            </li>
+            <li>
+              <a href="#fr-minmax"
+                >The fr Unit and minmax()</a
+              >
+            </li>
+            <li>
+              <a href="#implicit-tracks"
+                >Implicit Tracks: What the Browser
+                Adds for You</a
+              >
+            </li>
+            <li>
+              <a href="#placement"
+                >Placement: Lines, Spans, and
+                Auto-Flow</a
+              >
+            </li>
+            <li>
+              <a href="#template-areas"
+                >grid-template-areas: A Layout You
+                Can Read</a
+              >
+            </li>
+            <li>
+              <a href="#alignment"
+                >Alignment on Two Axes</a
+              >
+            </li>
+            <li>
+              <a href="#subgrid"
+                >Subgrid: Inheriting a Parent's
+                Rhythm</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                >Five Pitfalls That Look Like Grid
+                Bugs</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                >Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+        <article class="guide-article">
+          <h2 id="two-axes"><span class="guide-article__num mono">01</span>Two Axes, One Layout</h2>
+
+          <p>
+              Flexbox is fundamentally one-dimensional. <code>flex-direction</code>
+              picks a single main axis, every item is laid out one after
+              another along it, and the cross axis only gets alignment —
+              <code>align-items</code> can nudge items up, down, or center
+              within a line, but it never sizes or positions a second
+              independent axis. Wrap a flex row onto multiple lines and each
+              line is still solved as its own one-axis problem; nothing
+              connects the column edges between line one and line two, because
+              flexbox never modeled a shared column in the first place.
+            </p>
+            <p>
+              Grid removes that limit by defining the whole layout as a single
+              matrix up front. <code>grid-template-columns</code> and
+              <code>grid-template-rows</code> exist at the same time, on the
+              same element, and every item's position is a coordinate in that
+              shared 2D structure — not a point along one line. An item can
+              span three columns and two rows in a single placement, something
+              flexbox has no vocabulary for without extra wrapper elements
+              faking what Grid does natively.
+            </p>
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 700 330"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig1-title fig1-desc"
+                >
+                  <title id="fig1-title">
+                    Flexbox's single axis versus Grid's two axes
+                  </title>
+                  <desc id="fig1-desc">
+                    Top: a flex row of differently sized items wrapping onto a
+                    second line whose item edges don't line up with the first
+                    line's edges, since flexbox only ever reasons about one
+                    axis at a time. Bottom: a CSS grid with four numbered
+                    column lines and three numbered row lines, where every
+                    cell's edges align exactly across both rows and columns,
+                    and one item spans from column line 1 to column line 3.
+                  </desc>
+                  <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                    <text
+                      x="60"
+                      y="28"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="1"
+                    >
+                      FLEXBOX — ONE AXIS (ROW), WRAPPED
+                    </text>
+                    <line
+                      x1="60"
+                      y1="44"
+                      x2="600"
+                      y2="44"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                    />
+                    <path d="M596,40 L604,44 L596,48 Z" fill="#5b789f" />
+                    <text x="608" y="48" fill="#5b789f" font-size="9">
+                      main axis
+                    </text>
+
+                    <rect
+                      x="60"
+                      y="58"
+                      width="80"
+                      height="34"
+                      fill="#33507a"
+                      opacity="0.6"
+                    />
+                    <rect
+                      x="148"
+                      y="58"
+                      width="130"
+                      height="34"
+                      fill="#2a4468"
+                      opacity="0.5"
+                    />
+                    <rect
+                      x="286"
+                      y="58"
+                      width="60"
+                      height="34"
+                      fill="#33507a"
+                      opacity="0.6"
+                    />
+                    <rect
+                      x="354"
+                      y="58"
+                      width="150"
+                      height="34"
+                      fill="#2a4468"
+                      opacity="0.5"
+                    />
+
+                    <rect
+                      x="60"
+                      y="100"
+                      width="170"
+                      height="34"
+                      fill="#33507a"
+                      opacity="0.6"
+                    />
+                    <rect
+                      x="238"
+                      y="100"
+                      width="95"
+                      height="34"
+                      fill="#2a4468"
+                      opacity="0.5"
+                    />
+
+                    <line
+                      x1="238"
+                      y1="58"
+                      x2="238"
+                      y2="134"
+                      stroke="#e8a33d"
+                      stroke-width="1"
+                      stroke-dasharray="2 2"
+                    />
+                    <line
+                      x1="286"
+                      y1="58"
+                      x2="286"
+                      y2="134"
+                      stroke="#e8a33d"
+                      stroke-width="1"
+                      stroke-dasharray="2 2"
+                    />
+                    <text x="60" y="150" fill="#9fb2cc" font-size="9.5">
+                      Row edges don't line up — the cross axis only aligns
+                      items, it never defines a track.
+                    </text>
+
+                    <text
+                      x="60"
+                      y="192"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="1"
+                    >
+                      CSS GRID — TWO AXES (ROWS × COLUMNS)
+                    </text>
+
+                    <line x1="60" y1="210" x2="60" y2="300" stroke="#5b789f" stroke-width="1"/>
+                    <line x1="240" y1="210" x2="240" y2="300" stroke="#5b789f" stroke-width="1"/>
+                    <line x1="420" y1="210" x2="420" y2="300" stroke="#5b789f" stroke-width="1"/>
+                    <line x1="600" y1="210" x2="600" y2="300" stroke="#5b789f" stroke-width="1"/>
+                    <line x1="60" y1="210" x2="600" y2="210" stroke="#5b789f" stroke-width="1"/>
+                    <line x1="60" y1="255" x2="600" y2="255" stroke="#5b789f" stroke-width="1"/>
+                    <line x1="60" y1="300" x2="600" y2="300" stroke="#5b789f" stroke-width="1"/>
+
+                    <rect x="60" y="210" width="180" height="45" fill="#33507a" opacity="0.35"/>
+                    <rect x="240" y="210" width="180" height="45" fill="#2a4468" opacity="0.3"/>
+                    <rect x="420" y="210" width="180" height="45" fill="#33507a" opacity="0.35"/>
+                    <rect x="60" y="255" width="180" height="45" fill="#2a4468" opacity="0.3"/>
+                    <rect x="240" y="255" width="180" height="45" fill="#33507a" opacity="0.35"/>
+                    <rect x="420" y="255" width="180" height="45" fill="#2a4468" opacity="0.3"/>
+
+                    <rect x="60" y="210" width="360" height="45" fill="none" stroke="#e8a33d" stroke-width="2"/>
+                    <text x="240" y="236" fill="#e8a33d" font-size="9.5" text-anchor="middle" font-weight="600">
+                      grid-column: 1 / 3
+                    </text>
+
+                    <text x="60" y="202" fill="#9fb2cc" font-size="9" text-anchor="middle">1</text>
+                    <text x="240" y="202" fill="#9fb2cc" font-size="9" text-anchor="middle">2</text>
+                    <text x="420" y="202" fill="#9fb2cc" font-size="9" text-anchor="middle">3</text>
+                    <text x="600" y="202" fill="#9fb2cc" font-size="9" text-anchor="middle">4</text>
+                    <text x="48" y="213" fill="#9fb2cc" font-size="9" text-anchor="end">1</text>
+                    <text x="48" y="258" fill="#9fb2cc" font-size="9" text-anchor="end">2</text>
+                    <text x="48" y="303" fill="#9fb2cc" font-size="9" text-anchor="end">3</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 01 — A flex row's wrapped second line shares no column
+                edges with the first. A grid's rows and columns are one shared
+                matrix, numbered from its lines, so every cell aligns by
+                definition and an item can span more than one of either.
+              </figcaption>
+            </figure>
+            <p>
+              None of this makes Flexbox obsolete — it's still the more direct
+              tool for a genuinely one-axis problem like a toolbar or a tag
+              list. The point is that Grid isn't Flexbox with a couple of
+              extra properties bolted on; it's solving for two axes at once,
+              and the rest of this guide is about the vocabulary that model
+              needs — tracks, lines, areas, and how a nested grid can share
+              its parent's rather than invent its own.
+            </p>
+
+          <h2 id="explicit-tracks"><span class="guide-article__num mono">02</span>Explicit Tracks: The Grid You Declare</h2>
+
+          <p>
+              An <strong>explicit track</strong> is one you named yourself,
+              with <code>grid-template-columns</code> or
+              <code>grid-template-rows</code>:
+            </p>
+            <pre><code>.layout {
+  display: grid;
+  grid-template-columns: 220px repeat(3, 1fr);
+  grid-template-rows: auto 1fr auto;
+  gap: 24px;
+}</code></pre>
+            <p>
+              That declares a fixed 220px column followed by three equal
+              flexible columns, and three rows sized to content, remaining
+              space, and content again. <code>repeat(3, 1fr)</code> is just
+              shorthand for writing <code>1fr 1fr 1fr</code> — it doesn't
+              change what's produced, only how it's written.
+            </p>
+            <p>
+              Every set of N tracks creates N + 1 <strong>grid lines</strong>
+              — the boundaries between and around the tracks, numbered from 1
+              at the start edge (or -1 from the end, counting backward). A
+              four-column grid has five column lines; placement properties in
+              section five reference those line numbers directly, which is
+              why it's worth thinking of a grid as a set of numbered lines
+              first and tracks second. Lines can be named too, so placement
+              reads by intent instead of by counting:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">grid-template-columns: [sidebar-start] 220px [sidebar-end
+              main-start] 1fr [main-end];</p>
+            </div>
+            <p>
+              An item can then be placed with
+              <code>grid-column: sidebar-start / sidebar-end;</code> instead
+              of <code>grid-column: 1 / 2;</code> — functionally identical,
+              but the named version survives a reviewer skimming the CSS
+              without mentally counting lines, and survives you adding a
+              column later without renumbering every placement that referenced
+              a line by position.
+            </p>
+
+          <h2 id="fr-minmax"><span class="guide-article__num mono">03</span>The fr Unit and minmax()</h2>
+
+          <p>
+              <code>fr</code> stands for a <strong>fraction of the leftover
+              space</strong> — space still unclaimed after every fixed-size
+              and content-sized track in the same axis has already been
+              resolved. <code>grid-template-columns: 220px 1fr 2fr;</code>
+              gives the first column exactly 220px, then splits whatever
+              width remains into three parts, handing one part to the second
+              column and two parts to the third. It's the same distribution
+              idea as <code>flex-grow</code>, just applied across a full track
+              list on either axis instead of one flex line.
+            </p>
+            <p>
+              <code>minmax(min, max)</code> gives a single track a floor and
+              a ceiling instead of one fixed number, and combined with
+              <code>repeat()</code> and an auto-repeat keyword, it produces a
+              genuinely fluid grid with zero media queries:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));</p>
+            </div>
+            <p>
+              That reads as: fit as many 240px-minimum columns as the
+              container allows, and let them stretch evenly to fill whatever
+              space is left. The column count recalculates continuously as
+              the container resizes — it isn't jumping between fixed states
+              at set breakpoints.
+            </p>
+            <p>
+              <code>auto-fit</code> and <code>auto-fill</code> differ in one
+              specific, commonly-confused way: both compute the same maximum
+              number of tracks that could fit at the minimum size, but
+              <code>auto-fill</code> keeps every one of those tracks in the
+              grid — even the ones with no items in them, which sit there as
+              empty columns — while <code>auto-fit</code> collapses any empty
+              tracks to zero width and lets the tracks that do have content
+              stretch into the freed-up space. Five items in an
+              <code>auto-fill</code> grid with room for eight columns leaves
+              three visibly empty columns; the identical grid with
+              <code>auto-fit</code> instead stretches those five items wider
+              to fill the row. Neither is "correct" — a filmstrip that should
+              keep a consistent column width even when under-populated wants
+              <code>auto-fill</code>; a card grid that should always look full
+              wants <code>auto-fit</code>.
+            </p>
+
+          <h2 id="implicit-tracks"><span class="guide-article__num mono">04</span>Implicit Tracks: What the Browser Adds for You</h2>
+
+          <p>
+              An <strong>implicit track</strong> is one you never declared —
+              the browser adds it automatically when content needs a row or
+              column the explicit grid doesn't have. This happens two ways:
+              placing an item on a line number beyond the explicit grid's
+              range, or simply running out of explicit cells during
+              auto-placement, which is the far more common case in practice.
+            </p>
+            <pre><code>.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(140px, auto);
+}</code></pre>
+            <p>
+              <code>.gallery</code> only declares columns. Drop ten images
+              into it and the browser fills three per row, then keeps adding
+              rows — implicit ones — for as many images as there are, without
+              needing a row count decided in advance. <code>grid-auto-rows</code>
+              is what sizes those implicit rows; leave it unset and it
+              defaults to <code>auto</code>, meaning each implicit row is
+              sized purely by its own content, with no guaranteed relationship
+              to any other row's height.
+            </p>
+            <p>
+              <code>grid-auto-columns</code> is the column-axis equivalent,
+              used when <code>grid-auto-flow: column</code> makes the grid
+              grow sideways instead of downward. Whichever axis your explicit
+              template doesn't cover is the axis <code>grid-auto-*</code> is
+              responsible for — it's easy to set the explicit dimension
+              carefully and forget the implicit one entirely, which is exactly
+              the gap pitfall five returns to.
+            </p>
+
+          <h2 id="placement"><span class="guide-article__num mono">05</span>Placement: Lines, Spans, and Auto-Flow</h2>
+
+          <p>
+              An item can be placed explicitly by line number, by name, or by
+              a span count relative to wherever it starts:
+            </p>
+            <pre><code>.hero {
+  grid-column: 2 / 4;      /* from line 2 to line 4 */
+  grid-row: 1 / span 2;    /* start at line 1, cover 2 tracks */
+}</code></pre>
+            <p>
+              Anything not explicitly placed falls to
+              <strong>auto-placement</strong>: the browser walks the grid in
+              the order set by <code>grid-auto-flow</code> —
+              <code>row</code> by default, filling left-to-right then dropping
+              to the next row, or <code>column</code> to fill top-to-bottom
+              then move to the next column — and drops each item into the
+              first open cell it finds, skipping any cell an explicitly
+              placed item already occupies.
+            </p>
+            <p>
+              Adding the <code>dense</code> keyword —
+              <code>grid-auto-flow: row dense;</code> — changes that search
+              from "first open cell after wherever we last placed something"
+              to "first open cell anywhere, including ones skipped earlier,"
+              which backfills gaps left by irregularly sized items instead of
+              leaving holes. It's a purely visual reordering: items can render
+              out of their source order, while focus order, screen-reader
+              order, and the DOM itself are untouched — a mismatch worth
+              designing around deliberately rather than discovering by
+              accident, covered again in pitfall four.
+            </p>
+
+          <h2 id="template-areas"><span class="guide-article__num mono">06</span>grid-template-areas: A Layout You Can Read</h2>
+
+          <p>
+              Line-based placement is precise, but it doesn't read like a
+              layout — it reads like coordinates. <code>grid-template-areas</code>
+              trades that precision for legibility: name each region, arrange
+              the names into rows of ASCII art that mirror the actual page,
+              and let each item claim its named area instead of a line range.
+            </p>
+            <pre><code>.page {
+  display: grid;
+  grid-template-columns: 200px 1fr 160px;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    "sidebar main   aside"
+    "footer footer footer";
+  gap: 20px;
+}
+
+.site-header { grid-area: header; }
+.sidebar     { grid-area: sidebar; }
+.main        { grid-area: main; }
+.aside       { grid-area: aside; }
+.site-footer { grid-area: footer; }</code></pre>
+            <p>
+              Each quoted string is one row; each word in it is one column's
+              area for that row. Repeating a name across adjacent cells — in
+              either direction — spans that area across all of them, which is
+              how <code>header</code> claims the full three-column width in
+              row one without a single <code>span</code> keyword anywhere.
+              The shape has to stay rectangular: every row needs the same
+              number of cells, and a name can only repeat in a contiguous
+              block, not scattered around the grid — section nine covers what
+              happens when that rule gets broken.
+            </p>
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 700 270"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig2-title fig2-desc"
+                >
+                  <title id="fig2-title">
+                    grid-template-areas rendered as a floor plan
+                  </title>
+                  <desc id="fig2-desc">
+                    A header bar spanning the full width, a sidebar/main/aside
+                    row of three columns beneath it, and a footer bar again
+                    spanning the full width, with dashed vertical lines
+                    showing the underlying column tracks running continuously
+                    through the header and footer even where those areas span
+                    across them.
+                  </desc>
+                  <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                    <line x1="210" y1="30" x2="210" y2="260" stroke="#5b789f" stroke-width="1" stroke-dasharray="3 3"/>
+                    <line x1="490" y1="30" x2="490" y2="260" stroke="#5b789f" stroke-width="1" stroke-dasharray="3 3"/>
+
+                    <rect x="60" y="30" width="560" height="50" fill="#33507a" opacity="0.55"/>
+                    <text x="340" y="59" fill="#e8edf4" font-size="11" text-anchor="middle">header</text>
+
+                    <rect x="60" y="90" width="140" height="120" fill="#2a4468" opacity="0.45"/>
+                    <text x="130" y="153" fill="#e8edf4" font-size="10.5" text-anchor="middle">sidebar</text>
+
+                    <rect x="220" y="90" width="260" height="120" fill="#33507a" opacity="0.55"/>
+                    <text x="350" y="153" fill="#e8edf4" font-size="10.5" text-anchor="middle">main</text>
+
+                    <rect x="500" y="90" width="120" height="120" fill="#2a4468" opacity="0.45"/>
+                    <text x="560" y="153" fill="#e8edf4" font-size="10.5" text-anchor="middle">aside</text>
+
+                    <rect x="60" y="220" width="560" height="40" fill="#33507a" opacity="0.55"/>
+                    <text x="340" y="244" fill="#e8edf4" font-size="11" text-anchor="middle">footer</text>
+
+                    <text x="60" y="20" fill="#9fb2cc" font-size="8.5">col 1</text>
+                    <text x="220" y="20" fill="#9fb2cc" font-size="8.5">col 2</text>
+                    <text x="500" y="20" fill="#9fb2cc" font-size="8.5">col 3</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 02 — Three quoted strings become three rows; repeating a
+                name across columns spans that area across them. The column
+                tracks (dashed) run underneath the whole grid, even through
+                the header and footer areas that span across every one of
+                them.
+              </figcaption>
+            </figure>
+            <p>
+              The other advantage shows up at a breakpoint: reflowing the
+              entire page is one property, not a rewrite of every item's
+              placement.
+            </p>
+            <pre><code>@media (max-width: 640px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main"
+      "sidebar"
+      "aside"
+      "footer";
+  }
+}</code></pre>
+            <p>
+              Every element keeps the same <code>grid-area</code> declaration
+              it always had — only the map they're placed against changes,
+              including the reading order, since sidebar now falls after main
+              instead of before it.
+            </p>
+
+          <h2 id="alignment"><span class="guide-article__num mono">07</span>Alignment on Two Axes</h2>
+
+          <p>
+              Grid uses the CSS Box Alignment properties on both of its axes,
+              which is where the <code>justify-*</code> /
+              <code>align-*</code> split actually earns its keep:
+              <code>justify-*</code> always addresses the inline axis (columns,
+              in a horizontal writing mode), <code>align-*</code> always
+              addresses the block axis (rows). The same four-word pattern
+              repeats at three different scopes:
+            </p>
+            <div class="guide-table-wrap">
+              <table>
+                <caption>/ grid_alignment_scopes</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Property</th>
+                    <th scope="col">Scope</th>
+                    <th scope="col">Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>justify-items / align-items</td>
+                    <td>Every item, inside its own cell</td>
+                    <td>stretch</td>
+                  </tr>
+                  <tr>
+                    <td>justify-self / align-self</td>
+                    <td>One item, overriding *-items</td>
+                    <td>auto (inherits *-items)</td>
+                  </tr>
+                  <tr>
+                    <td>justify-content / align-content</td>
+                    <td>The whole track set, inside the container</td>
+                    <td>start</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              The distinction that trips people up is <em>items</em> versus
+              <em>content</em>. <code>*-items</code> and <code>*-self</code>
+              position something inside a cell that's already the right size
+              — center a short label inside a taller row, for instance.
+              <code>*-content</code> only does anything when the tracks
+              themselves don't consume the full container — fixed-size
+              tracks inside a wider grid, for example — and it distributes
+              that leftover space between, around, or outside the tracks,
+              the same way <code>justify-content</code> already does on a
+              single flex line, just now available on the row axis too.
+            </p>
+            <p>
+              <code>place-items</code>, <code>place-content</code>, and
+              <code>place-self</code> are shorthands for the align/justify
+              pair — <code>align</code> value first, <code>justify</code>
+              second:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">place-items: center;</p>
+            </div>
+            <p>
+              And <code>gap</code> (plus <code>row-gap</code> /
+              <code>column-gap</code> individually) puts space between
+              tracks directly, without the negative-margin-on-the-container
+              trick that used to be the only way to space grid cells evenly.
+              It only affects space between tracks, never the outer edge —
+              padding on the grid container still handles that.
+            </p>
+
+          <h2 id="subgrid"><span class="guide-article__num mono">08</span>Subgrid: Inheriting a Parent's Rhythm</h2>
+
+          <p>
+              Nest a grid inside a grid item by default, and the nested grid
+              computes its own tracks from scratch, sized to its own content
+              — entirely independent of the parent's tracks, even when the
+              numbers happen to coincide. A row of card components laid out
+              this way, each internally a small grid for image / title / body
+              / footer, will never have its rows line up across cards: card
+              A's two-line title pushes its body down; card B's one-line
+              title doesn't; nothing connects the two, because each card's
+              grid never knew the other cards existed.
+            </p>
+            <p>
+              <code>subgrid</code> is the fix, and it's a specific,
+              narrow behavior: instead of computing new tracks, a subgridded
+              axis reuses the exact track sizes its parent already
+              established for the lines it spans.
+            </p>
+            <pre><code>.card-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  grid-row: span 4;             /* image, title, body, footer */
+  display: grid;
+  grid-template-rows: subgrid;
+}</code></pre>
+            <p>
+              <code>.card-row</code> is an ordinary three-column parent grid.
+              Each <code>.card</code> spans four of the parent's row lines and
+              declares <code>grid-template-rows: subgrid</code> instead of
+              sizing its own four rows — so those four rows literally
+              <em>are</em> the parent's shared row tracks, not a lookalike
+              copy of them. That matters beyond visual alignment: because
+              the rows are shared, the track-sizing algorithm considers every
+              subgridded card's content when it sizes each row, so the
+              tallest title across all three cards sets that row's height for
+              every card — with no JS measuring pass and no fixed heights
+              guessed in advance.
+            </p>
+            <p>
+              Rows and columns subgrid independently — a component can
+              inherit the parent's column tracks while still sizing its own
+              rows normally, whichever axis actually needs to share the
+              parent's rhythm. Support is solid across every current major
+              evergreen browser, so it's safe to reach for by default rather
+              than treated as an edge-case feature; the main judgment call is
+              recognizing when a nested grid actually needs its parent's
+              tracks versus when an independent nested grid was the right
+              call all along — a one-off component with no siblings to align
+              against rarely benefits from it.
+            </p>
+
+          <h2 id="pitfalls"><span class="guide-article__num mono">09</span>Five Pitfalls That Look Like Grid Bugs</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
+                <p>
+                  <strong
+                    >A track sized 1fr can still overflow its
+                    container.</strong
+                  >
+                  Grid items default to <code>min-width: auto</code> /
+                  <code>min-height: auto</code>, which resolves to the
+                  content's own minimum size — an unbreakable word, a
+                  wide image — and that minimum wins over <code>1fr</code>
+                  whenever the two disagree, pushing the track wider than
+                  intended and overflowing the grid. Use
+                  <code>minmax(0, 1fr)</code> instead of a bare
+                  <code>1fr</code> wherever a track holds text or media, the
+                  same fix in spirit as setting <code>min-width: 0</code> on
+                  an unyielding flex child.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">02</span>
+                <p>
+                  <strong
+                    >A malformed grid-template-areas fails
+                    silently.</strong
+                  >
+                  Rows with different cell counts, or a name that repeats in
+                  a non-rectangular shape, make the whole property invalid —
+                  and an invalid declaration is simply dropped, with no
+                  console warning to point at the mistake. If a named layout
+                  isn't rendering at all, check that every quoted row has the
+                  same number of words before looking anywhere else.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">03</span>
+                <p>
+                  <strong
+                    >Negative line numbers only count the explicit
+                    grid.</strong
+                  >
+                  <code>grid-column: 1 / -1;</code> is a common shorthand for
+                  "span the full width," and it works — until auto-placed
+                  content adds implicit columns beyond the explicit template.
+                  <code>-1</code> still refers to the last line of the
+                  <em>explicit</em> grid, not whatever the grid has grown to,
+                  so a full-width item stops being full-width the moment an
+                  implicit track appears past it.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">04</span>
+                <p>
+                  <strong
+                    >grid-auto-flow: dense reorders visually, not in the
+                    DOM.</strong
+                  >
+                  It's a legitimate way to backfill gaps left by irregular
+                  item sizes, but it only ever changes paint order — tab
+                  order and screen-reader order still follow the source. Used
+                  without checking that gap, a sighted mouse user and a
+                  keyboard user can end up experiencing two different
+                  orderings of the same page.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">05</span>
+                <p>
+                  <strong
+                    >An unset grid-auto-rows leaves implicit rows sized
+                    by content alone.</strong
+                  >
+                  It's easy to carefully tune the explicit rows and forget
+                  the axis <code>grid-auto-rows</code> covers entirely,
+                  especially in a grid whose item count isn't known ahead of
+                  time. The result is implicit rows with no consistent height
+                  relationship to the explicit ones or to each other. Setting
+                  <code>grid-auto-rows: minmax(120px, auto);</code>
+                  explicitly — even just as a floor — is worth doing any time
+                  a grid's row count isn't fully known upfront.
+                </p>
+              </li>
+            </ul>
+
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">10</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
+                <caption>
+                  / css_grid_reference
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Snippet / value</th>
+                    <th scope="col">Where it matters</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Turn it on</td>
+                    <td><code>display: grid;</code></td>
+                    <td>Everything else in this table depends on it</td>
+                  </tr>
+                  <tr>
+                    <td>Explicit tracks</td>
+                    <td><code>grid-template-columns: repeat(3, 1fr);</code></td>
+                    <td>The tracks you control directly</td>
+                  </tr>
+                  <tr>
+                    <td>Fluid tracks</td>
+                    <td>
+                      <code>repeat(auto-fit, minmax(240px, 1fr))</code>
+                    </td>
+                    <td>Zero-breakpoint column count</td>
+                  </tr>
+                  <tr>
+                    <td>Implicit track size</td>
+                    <td><code>grid-auto-rows: minmax(120px, auto);</code></td>
+                    <td>Sizes rows the browser adds for you</td>
+                  </tr>
+                  <tr>
+                    <td>Line-based placement</td>
+                    <td><code>grid-column: 2 / span 3;</code></td>
+                    <td>Precise, coordinate-style positioning</td>
+                  </tr>
+                  <tr>
+                    <td>Named placement</td>
+                    <td><code>grid-template-areas: "a a" "b c";</code></td>
+                    <td>A layout that reads like a floor plan</td>
+                  </tr>
+                  <tr>
+                    <td>Overflow guard</td>
+                    <td><code>minmax(0, 1fr)</code> instead of <code>1fr</code></td>
+                    <td>Stops content forcing a track wider than intended</td>
+                  </tr>
+                  <tr>
+                    <td>Nested alignment</td>
+                    <td><code>grid-template-rows: subgrid;</code></td>
+                    <td>Child inherits the parent's own row tracks</td>
+                  </tr>
+                  <tr>
+                    <td>Per-axis alignment</td>
+                    <td><code>justify-items</code> · <code>align-items</code></td>
+                    <td>Inline axis vs. block axis, inside each cell</td>
+                  </tr>
+                  <tr>
+                    <td>Track spacing</td>
+                    <td><code>gap: 24px;</code></td>
+                    <td>Space between tracks, no negative-margin hacks</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          <p>
+              None of this is about memorizing every Grid property at once —
+              it's about knowing which two or three actually apply to the
+              layout in front of you. Declare the explicit tracks you want,
+              let <code>fr</code> and <code>minmax()</code> handle sizing
+              fluidly instead of guessing pixel widths, name the shape with
+              <code>grid-template-areas</code> once it's complex enough that
+              coordinates stop being legible, and reach for
+              <code>subgrid</code> the moment nested content needs to share a
+              parent's rhythm rather than reinvent it. Two-dimensional control
+              is a genuinely different tool than a one-axis flex line — not a
+              fancier version of it — and most of what looks like a Grid bug
+              is really one of the handful of defaults in section nine, not a
+              gap in the model itself.
+            </p>
+        </article>
+<!--ARTICLE_END-->

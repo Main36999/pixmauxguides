@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Typography",
+            "item": "https://bpozz.com/category/typography"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
+            "item": "https://bpozz.com/guide/line-length-reading-constraint"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
         "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
-        "mainEntityOfPage": "https://bpozz.com/guide/line-length-reading-constraint",
-        "image": "https://bpozz.com/thumbnail_image/line-length-reading-constraint-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Line%20Length%20Is%20a%20Reading%20Constraint,%20Not%20a%20Layout%20Afterthought.png",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,12 +167,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/line-length-reading-constraint"
+        },
         "datePublished": "2026-08-08",
         "dateModified": "2026-08-08",
+        "articleSection": "Typography",
+        "proficiencyLevel": "Beginner",
+        "timeRequired": "PT9M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="line-length-reading-constraint">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -178,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -244,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -255,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>

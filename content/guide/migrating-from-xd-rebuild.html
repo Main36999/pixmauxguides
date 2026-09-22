@@ -1,0 +1,919 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Migrating From XD Is a Rebuild, Not a File Import — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) — a practical checklist."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/migrating-from-xd-rebuild"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/migrating-from-xd-rebuild"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Migrating From XD Is a Rebuild, Not a File Import"
+    />
+    <meta
+      property="og:description"
+      content="Adobe XD has no built-in export path into Figma. What that means in practice: which parts of a file survive a conversion route intact, which parts — prototyping logic, master components, the assets panel — have no equivalent to import, and the order to rebuild them in so nothing gets missed."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="BPOZZ — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Migrating From XD Is a Rebuild, Not a File Import"
+    />
+    <meta
+      name="twitter:description"
+      content="Adobe XD has no built-in export path into Figma. What that means in practice: which parts of a file survive a conversion route intact, which parts — prototyping logic, master components, the assets panel — have no equivalent to import, and the order to rebuild them in so nothing gets missed."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/og-image.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+            <p class="guide-hero__meta">Adobe XD Workflow · Intermediate · 12 min read</p>
+            <h1 class="guide-hero__title" id="guide-heading">
+              Migrating From XD Is a Rebuild, Not a File Import
+            </h1>
+            <p class="guide-hero__dek">
+              There is no "Open in Figma" for an XD file. Adobe stopped selling
+              XD as a standalone app in mid-2023 and moved it into maintenance
+              mode the following year — bug and security fixes only, no new
+              features, no announced end-of-life date — and Figma has never
+              shipped a native XD importer to meet it. Every route into Figma
+              goes through a third-party plugin, a paid conversion service, or a
+              manual SVG export, and all three agree on the same boundary: the
+              static geometry of a file survives the trip. The behavior doesn't.
+              Prototyping logic, master-component states, and the assets panel
+              have no equivalent to import — they have to be rebuilt, by hand,
+              from an inventory of what the old file actually did.
+            </p>
+          </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+          <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+            <span class="section-label mono guide-toc__label" id="guide-toc-heading"
+              >/ on_this_page</span
+            >
+            <ol>
+              <li>
+                <a href="#not-an-import">Not an import — an inventory</a>
+              </li>
+              <li>
+                <a href="#conversion-routes">Picking a conversion route</a>
+              </li>
+              <li>
+                <a href="#repeat-grid-to-auto-layout"
+                  >Repeat Grid becomes Auto Layout, not a checkbox</a
+                >
+              </li>
+              <li>
+                <a href="#master-components-to-variants"
+                  >Master components and states become main components and
+                  variants</a
+                >
+              </li>
+              <li>
+                <a href="#prototyping-wires"
+                  >Prototyping wires do not transfer</a
+                >
+              </li>
+              <li>
+                <a href="#assets-panel-to-styles"
+                  >The Assets panel becomes styles and variables</a
+                >
+              </li>
+              <li>
+                <a href="#plugins-and-dev-specs"
+                  >Plugins and dev specs need Figma-native replacements</a
+                >
+              </li>
+              <li>
+                <a href="#worked-example"
+                  >A worked example: one card component, start to finish</a
+                >
+              </li>
+              <li><a href="#cheat-sheet">Cheat sheet</a></li>
+            </ol>
+          </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+          <article class="guide-article">
+            <h2 id="not-an-import">
+              <span class="guide-article__num mono">01</span>Not an import — an
+              inventory
+            </h2>
+            <p>
+              "Migrate the file" implies a button that doesn't exist. Figma has
+              never shipped a native Adobe XD importer, and Adobe never opened
+              the XD document format for one — so every path from an
+              <code>.xd</code> file into Figma runs through a third party's
+              best-effort reconstruction of a format neither company documents
+              publicly. That's a different kind of operation than an import. An
+              import is lossless by definition. A reconstruction is lossy by
+              construction, and the loss isn't random: it falls almost entirely
+              on the layers of a file that never had geometry to begin with —
+              what happens when you tap this, which state this component is
+              currently in, what this color is actually called.
+            </p>
+            <p>
+              That predictability is the useful part. Once you know which
+              category of information a conversion route can carry — shapes,
+              position, fills — and which category it structurally cannot —
+              logic, state, intent — migrating a file stops being a hope that
+              the tool "got it right" and becomes a checklist: verify what
+              should have survived, then rebuild what never could have. This
+              guide works that checklist in the order it actually needs doing,
+              starting with the one step every route below depends on and none
+              of them will do for you.
+            </p>
+
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 240 120"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig1-title fig1-desc"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <title id="fig1-title">An XD file rebuilt in Figma</title>
+                  <desc id="fig1-desc">
+                    An XD file with a component, prototype wire, and states
+                    on the left, connected by an arrow to a rebuilt Figma
+                    version on the right.
+                  </desc>
+                  <rect x="16" y="24" width="72" height="72" rx="5" />
+                  <rect
+                    class="thumb-fill"
+                    x="28"
+                    y="36"
+                    width="18"
+                    height="18"
+                    rx="2"
+                  />
+                  <rect
+                    class="thumb-fill"
+                    x="52"
+                    y="36"
+                    width="18"
+                    height="18"
+                    rx="2"
+                  />
+                  <rect
+                    class="thumb-fill"
+                    x="28"
+                    y="60"
+                    width="18"
+                    height="18"
+                    rx="2"
+                  />
+                  <rect
+                    class="thumb-fill"
+                    x="52"
+                    y="60"
+                    width="18"
+                    height="18"
+                    rx="2"
+                  />
+                  <path
+                    d="M96,50 Q116,50 116,34"
+                    stroke-width="1.3"
+                    stroke-dasharray="3 3"
+                  />
+                  <circle class="thumb-handle-dot" cx="116" cy="34" r="2.6" />
+                  <text x="120" y="30" class="thumb-dim-label" font-size="6.5">
+                    prototype wire
+                  </text>
+                  <path
+                    d="M100,74 L100,86 L60,86"
+                    stroke-width="1.2"
+                    stroke-dasharray="2 3"
+                  />
+                  <line x1="94" y1="80" x2="106" y2="92" stroke-width="1.4" />
+                  <line x1="106" y1="80" x2="94" y2="92" stroke-width="1.4" />
+                  <path
+                    d="M96,60 L140,60"
+                    stroke-width="1.6"
+                    marker-end="url(#arrow)"
+                  />
+                  <defs>
+                    <marker
+                      id="arrow"
+                      markerWidth="8"
+                      markerHeight="8"
+                      refX="6"
+                      refY="4"
+                      orient="auto"
+                    >
+                      <path
+                        d="M0,0 L8,4 L0,8 Z"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                    </marker>
+                  </defs>
+                  <rect
+                    x="150"
+                    y="24"
+                    width="74"
+                    height="72"
+                    rx="5"
+                    class="thumb-handle"
+                  />
+                  <rect
+                    x="162"
+                    y="36"
+                    width="50"
+                    height="20"
+                    rx="3"
+                    stroke-width="1.2"
+                  />
+                  <rect
+                    x="162"
+                    y="62"
+                    width="50"
+                    height="20"
+                    rx="3"
+                    stroke-width="1.2"
+                  />
+                  <rect class="thumb-fill" x="157" y="41" width="5" height="5" />
+                  <rect class="thumb-fill" x="157" y="67" width="5" height="5" />
+                  <text
+                    x="52"
+                    y="112"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="7"
+                  >
+                    XD FILE
+                  </text>
+                  <text
+                    x="187"
+                    y="112"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="7"
+                  >
+                    REBUILT IN FIGMA
+                  </text>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 01 — Geometry crosses over through a conversion route;
+                prototype wires, baked states, and named styles don't — they
+                have to be rebuilt by hand on the Figma side.
+              </figcaption>
+            </figure>
+
+            <p>
+              Adobe stopped selling XD as a standalone application to new
+              customers in mid-2023 and moved it into maintenance mode the
+              following year: security and bug fixes only, no new feature
+              development, and as of this writing no announced end-of-life date.
+              Figma's own Help Center documents no procedure for opening an
+              <code>.xd</code> file directly, and Figma's official forum answers
+              the question the same way every time it comes up — there's no
+              built-in feature, you need a third-party tool. Adobe has never
+              published a converter of its own either. Neither company treats
+              this as their problem to solve, which means it's yours.
+            </p>
+            <p>
+              Before opening any conversion tool, inventory the source file the
+              way you'd document a system you're about to deprecate — because
+              functionally, that's what's happening to it. For every component
+              that has a States panel, screenshot each named state. For every
+              screen with prototype wires, list the trigger type (tap, drag,
+              time, voice, keyboard) and what it connects to. Export or
+              photograph the Assets panel's color list and character styles.
+              None of this is recoverable from a converted file after the fact —
+              the conversion routes below don't preserve it, they simply don't
+              carry it in the first place, and once the XD file itself is
+              archived or the team's Creative Cloud seats lapse, your notes are
+              the only remaining record that any of it ever existed.
+            </p>
+            <div class="guide-callout">
+              <p>
+                <strong>The tell that a migration skipped this step:</strong>
+                a rebuilt Figma file whose prototype connections don't match
+                what shipped in production, because nobody had a canonical list
+                of the original triggers to check the rebuild against — only a
+                general memory of "it did something when you tapped it."
+              </p>
+            </div>
+
+            <h2 id="conversion-routes">
+              <span class="guide-article__num mono">02</span>Picking a
+              conversion route
+            </h2>
+            <p>
+              Three practical routes exist, and they trade fidelity against cost
+              in a fairly predictable way. None of them is complete, and testing
+              a sample file before committing an entire library to one is always
+              worth the hour it costs.
+            </p>
+            <div class="guide-table-wrap">
+              <table>
+                <caption class="sr-only">
+                  Adobe XD to Figma conversion routes compared by cost and what
+                  survives
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Route</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Reliably carries over</th>
+                    <th scope="col">Verify by hand</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Export as SVG, drag into Figma</td>
+                    <td>Free</td>
+                    <td>Vector geometry and basic fills, position-accurate</td>
+                    <td>
+                      Text becomes outlined paths (no longer editable type),
+                      effects and blend modes drop, layer masks can distort
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Figma community plugin (converter)</td>
+                    <td>
+                      Usually free up to a small file cap, paid tiers for bulk
+                    </td>
+                    <td>
+                      Editable text more often than raw SVG export, basic layer
+                      and group structure
+                    </td>
+                    <td>
+                      Fidelity varies by plugin; text box sizing and layer masks
+                      are common failure points; component and prototype
+                      structure is not reliably preserved
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Paid conversion service</td>
+                    <td>
+                      Per-file pricing, commonly in the tens of dollars per file
+                    </td>
+                    <td>
+                      Higher claimed fidelity for components and, on some
+                      services, basic prototype hotspots
+                    </td>
+                    <td>
+                      Still not guaranteed 1:1 — spot-check one representative
+                      file's components and interactions before paying to
+                      convert an entire library
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              The practical rule of thumb: for a handful of files, manually
+              exporting as SVG and rebuilding by hand is often faster than
+              debugging what a converter got subtly wrong. For a genuinely large
+              library, a plugin or paid first pass is worth it specifically to
+              save the redrawing labor — but budget real time for the rebuild
+              work in every section below regardless of which route gets the
+              shapes across. No route changes what happens after the shapes
+              land.
+            </p>
+
+            <h2 id="repeat-grid-to-auto-layout">
+              <span class="guide-article__num mono">03</span>Repeat Grid becomes
+              Auto Layout, not a checkbox
+            </h2>
+            <p>
+              XD's Repeat Grid takes a selected group and tiles duplicate copies
+              at a fixed padding. It's a duplication tool, not a layout
+              algorithm — it has no concept of Hug, Fill, or Fixed resizing, no
+              gap that resolves dynamically against a sibling's content, and no
+              wrapping behavior beyond whatever was true at the moment the grid
+              was created. It stores a snapshot of a tiled arrangement, not the
+              rules that produced it.
+            </p>
+            <p>
+              No conversion route reconstructs Auto Layout properties from a
+              Repeat Grid, because a Repeat Grid never stored the intent data
+              Auto Layout needs — direction, per-axis resizing, gap as a
+              relationship rather than a measured distance. Every route delivers
+              the tiled instances as individually positioned, static copies.
+              Rebuilding means starting over with the container, not adjusting
+              what came through:
+            </p>
+            <ul>
+              <li>
+                Identify the direction the repeat actually represents — a row of
+                cards, a column of list items — and recreate the container as a
+                Figma frame with Auto Layout set to that direction.
+              </li>
+              <li>
+                Set gap to match the visual spacing in the original tiling,
+                measured from the converted (static) copies before you delete
+                them.
+              </li>
+              <li>
+                Decide Hug versus Fill per axis based on what the content should
+                do against real data, not against however many tiles the
+                designer happened to have when the grid was built.
+              </li>
+              <li>
+                If the repeated item itself has internally stacked content — an
+                icon over a label over a description — nest a second Auto Layout
+                frame inside each instance rather than flattening everything
+                into one container's properties.
+              </li>
+            </ul>
+
+            <h2 id="master-components-to-variants">
+              <span class="guide-article__num mono">04</span>Master components
+              and states become main components and variants
+            </h2>
+            <p>
+              XD's Components panel gives you a master component with downstream
+              instances, and a States feature attached directly to that same
+              component — named states like Default, Hover, or Toggled that get
+              switched via an interaction, without ever being exposed as
+              separate, independently referenceable pieces. Figma's model is
+              structurally different: a main component plus a set of variants,
+              where each named property combination is technically a sibling
+              component grouped into a set, and properties can be typed as
+              boolean, variant, or instance-swap.
+            </p>
+            <p>
+              Nothing maps this automatically, because XD's states were never
+              declared as typed properties in the first place — they're baked
+              switches on one component, not a property system a converter could
+              read and translate. Rebuilding means working from the state
+              inventory you took in the first section: recreate each state as an
+              explicit Figma variant property (<code
+                >state: default / hover / focus</code
+              >), not as a set of visually similar but separately named frames
+              that happen to look right. A duplicate frame that isn't wired as a
+              variant can't be referenced by instance-swap logic, won't show up
+              correctly in Dev Mode, and won't respond to interactive prototype
+              state changes the way a real variant does.
+            </p>
+            <p>
+              Per-instance overrides need the same manual attention. If
+              instances of the original XD component had individually swapped
+              text or color, none of the conversion routes reconstruct that
+              override relationship — they treat every visual copy as an
+              independent, flattened layer group with no memory of which master
+              it came from. Once the base component is rebuilt in Figma, each
+              instance's overrides have to be reapplied by hand, checked against
+              the original file or your inventory screenshots.
+            </p>
+            <div class="guide-callout">
+              <p>
+                <strong>The common mistake here:</strong> recreating "hover" as
+                a second, detached frame that looks correct sitting next to the
+                default state, but was never built as a Figma variant. It passes
+                a visual review and fails the moment anyone tries to reference
+                it from Dev Mode or wire it into a prototype interaction.
+              </p>
+            </div>
+
+            <h2 id="prototyping-wires">
+              <span class="guide-article__num mono">05</span>Prototyping wires
+              do not transfer
+            </h2>
+            <p>
+              XD's prototype triggers — Tap, Drag, Time, Voice, Keyboard and
+              Gamepad, plus Auto-Animate for smooth cross-artboard transitions —
+              carry zero data through any conversion route. SVG has no concept
+              of interactivity beyond a hyperlink, so a manual export drops
+              wiring entirely. Plugins and paid services that advertise
+              "prototype preservation" typically mean they preserve
+              frame-to-frame hotspot regions at best — not trigger type, not
+              easing, and not Auto-Animate's matched-layer interpolation.
+              Confirm this by actually clicking through the converted file's
+              prototype, not by trusting a feature list.
+            </p>
+            <p>
+              Figma's closest conceptual analogue to Auto-Animate is Smart
+              Animate, but Smart Animate has a requirement Auto-Animate never
+              enforced: it interpolates properties between two frames by
+              matching layer names, so any layer that should visually transform
+              between states needs an identical name on both sides. Naming
+              discipline that was optional in XD becomes mandatory in Figma, and
+              it needs to be planned before wiring a single transition, not
+              discovered mid-rebuild when a transition simply refuses to
+              animate.
+            </p>
+            <p>
+              Treat the interaction map as its own spec document, written from
+              the original file's actual flow — screen, trigger, action — before
+              opening Figma's prototype tab at all. Nothing about the converted
+              file will hint that a wire used to exist there; the only reliable
+              source is the inventory taken while the original file was still
+              readable.
+            </p>
+
+            <h2 id="assets-panel-to-styles">
+              <span class="guide-article__num mono">06</span>The Assets panel
+              becomes styles and variables
+            </h2>
+            <p>
+              XD's Assets panel holds three flat lists — Colors, Character
+              Styles, Components — each named but untiered. None of the
+              conversion routes recreate Figma Styles or Variables from these
+              lists. Colors typically arrive as raw fill values baked directly
+              onto each shape, with the original name gone entirely. Character
+              styles rarely survive as reusable text styles either; each text
+              layer just keeps its literal font, size, and line-height as a
+              local override with nothing tying it back to a shared definition.
+            </p>
+            <p>
+              This is unavoidably a rebuild, which is also what makes it worth
+              doing properly rather than reproducing the flat structure exactly
+              as it was. A flat XD color list already carried the ambiguity a
+              name like "Primary Blue" implies — it tells you what the color
+              looks like, not where it's allowed to be used. Since every
+              converted layer needs to be manually reassigned to something
+              anyway, it costs little extra to build a primitive tier (a
+              Variable holding the raw value) with a semantic tier aliased on
+              top of it, rather than paying to redo that restructuring a second
+              time later.
+            </p>
+            <p>
+              In practice: export or photograph the Assets panel before
+              conversion, the same inventory principle as the first section.
+              Recreate each named color as a Variable and each character style
+              as a Figma text style. Then go through every converted layer and
+              manually reassign it — the converted layers will be sitting on raw
+              local values with no link to anything until that pass is done.
+            </p>
+
+            <h2 id="plugins-and-dev-specs">
+              <span class="guide-article__num mono">07</span>Plugins and dev
+              specs need Figma-native replacements
+            </h2>
+            <p>
+              XD's plugin API and Figma's plugin API are separate runtimes with
+              separate manifest formats — no XD plugin runs unmodified inside
+              Figma. If a workflow depended on a specific XD plugin for content
+              generation, spec export, or batch renaming, the replacement has to
+              be found or built fresh in Figma's plugin directory. A similarly
+              named plugin on the other platform is not a safe assumption of
+              identical behavior; check what it actually does before relying on
+              it for production work.
+            </p>
+            <p>
+              XD's Design Specs view — the redlines and measurements panel built
+              for handing work to developers — maps conceptually to Figma's Dev
+              Mode, but Dev Mode is a genuinely different surface: its own
+              inspector, its own code-snippet export, its own annotation tools,
+              entered through a mode toggle rather than a panel that was always
+              sitting open. A developer who worked from XD's spec view for years
+              needs a short, deliberate walkthrough of Dev Mode specifically —
+              "it's the same thing in a new place" undersells how differently
+              the two are structured to use.
+            </p>
+
+            <h2 id="worked-example">
+              <span class="guide-article__num mono">08</span>A worked example:
+              one card component, start to finish
+            </h2>
+            <p>
+              A product card component in XD: two named states in its States
+              panel — Default, and Hover, which swaps in a drop shadow and a
+              background tint — with three instances placed on a screen via
+              Repeat Grid, one of which has its title text individually
+              overridden.
+            </p>
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 220 140"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig2-title fig2-desc"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                >
+                  <title id="fig2-title">The card component as built in XD</title>
+                  <desc id="fig2-desc">
+                    A default and a baked hover state side by side, plus
+                    three Repeat Grid instances with one title overridden.
+                  </desc>
+                  <rect
+                    x="14"
+                    y="18"
+                    width="66"
+                    height="50"
+                    rx="5"
+                    stroke-width="1.2"
+                  />
+                  <rect x="20" y="26" width="54" height="20" rx="3" />
+                  <line x1="20" y1="52" x2="60" y2="52" stroke-width="1.1" />
+                  <text
+                    x="47"
+                    y="14"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="6.5"
+                  >
+                    default
+                  </text>
+                  <rect
+                    x="88"
+                    y="18"
+                    width="66"
+                    height="50"
+                    rx="5"
+                    stroke-width="1.2"
+                    class="thumb-handle"
+                  />
+                  <rect x="94" y="26" width="54" height="20" rx="3" />
+                  <line x1="94" y1="52" x2="134" y2="52" stroke-width="1.1" />
+                  <rect
+                    class="thumb-fill"
+                    x="90"
+                    y="64"
+                    width="62"
+                    height="4"
+                    rx="2"
+                    style="opacity: 0.4"
+                  />
+                  <text
+                    x="121"
+                    y="14"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="6.5"
+                  >
+                    hover (baked)
+                  </text>
+                  <rect
+                    x="14"
+                    y="88"
+                    width="30"
+                    height="42"
+                    rx="4"
+                    stroke-width="1.1"
+                  />
+                  <rect
+                    x="48"
+                    y="88"
+                    width="30"
+                    height="42"
+                    rx="4"
+                    stroke-width="1.1"
+                  />
+                  <rect
+                    x="82"
+                    y="88"
+                    width="30"
+                    height="42"
+                    rx="4"
+                    stroke-width="1.1"
+                  />
+                  <circle class="thumb-fill" cx="97" cy="96" r="2.6" />
+                  <text
+                    x="63"
+                    y="138"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="6.5"
+                  >
+                    repeat grid, 1 override
+                  </text>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 02 — In XD: one component with two baked states, three
+                Repeat Grid instances at fixed spacing, one title text
+                overridden.
+              </figcaption>
+            </figure>
+
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 220 140"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig3-title fig3-desc"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                >
+                  <title id="fig3-title">The same card rebuilt in Figma</title>
+                  <desc id="fig3-desc">
+                    A state variant property replacing the baked states, and
+                    an Auto Layout row replacing the Repeat Grid.
+                  </desc>
+                  <rect
+                    x="14"
+                    y="18"
+                    width="60"
+                    height="46"
+                    rx="5"
+                    stroke-width="1.2"
+                  />
+                  <rect x="19" y="25" width="50" height="18" rx="3" />
+                  <line x1="19" y1="48" x2="55" y2="48" stroke-width="1.1" />
+                  <text
+                    x="44"
+                    y="14"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="6.5"
+                  >
+                    state=default
+                  </text>
+                  <rect
+                    x="84"
+                    y="18"
+                    width="60"
+                    height="46"
+                    rx="5"
+                    stroke-width="1.2"
+                    class="thumb-handle"
+                  />
+                  <rect x="89" y="25" width="50" height="18" rx="3" />
+                  <line x1="89" y1="48" x2="125" y2="48" stroke-width="1.1" />
+                  <rect
+                    class="thumb-fill"
+                    x="85"
+                    y="60"
+                    width="58"
+                    height="3.5"
+                    rx="1.7"
+                    style="opacity: 0.4"
+                  />
+                  <text
+                    x="114"
+                    y="14"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="6.5"
+                  >
+                    state=hover
+                  </text>
+                  <path
+                    d="M76,41 L82,41"
+                    stroke-width="1.2"
+                    stroke-dasharray="2 2"
+                  />
+                  <rect
+                    x="14"
+                    y="82"
+                    width="192"
+                    height="46"
+                    rx="5"
+                    stroke-width="1.2"
+                  />
+                  <rect
+                    x="22"
+                    y="90"
+                    width="52"
+                    height="30"
+                    rx="4"
+                    stroke-width="1.1"
+                  />
+                  <rect
+                    x="84"
+                    y="90"
+                    width="52"
+                    height="30"
+                    rx="4"
+                    stroke-width="1.1"
+                  />
+                  <rect
+                    x="146"
+                    y="90"
+                    width="52"
+                    height="30"
+                    rx="4"
+                    stroke-width="1.1"
+                  />
+                  <circle class="thumb-handle-dot" cx="172" cy="96" r="2.6" />
+                  <text
+                    x="110"
+                    y="136"
+                    text-anchor="middle"
+                    class="thumb-dim-label"
+                    font-size="6.5"
+                  >
+                    auto layout, gap set, 1 override
+                  </text>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 03 — In Figma: an explicit <code>state</code> variant
+                property replaces the baked states, and a real Auto Layout
+                frame replaces the Repeat Grid — the override is reapplied to
+                one instance by hand.
+              </figcaption>
+            </figure>
+            <p>
+              The rebuild order follows the sections above in miniature:
+              inventory the two state names and the one override before
+              converting anything; bring the geometry across through whichever
+              route fits the file volume; rebuild the component with
+              <code>state</code> as a real variant property instead of a second
+              detached frame; replace the Repeat Grid with an Auto Layout frame
+              sized to the actual gap; and reapply the single text override by
+              hand, since no route reconstructs which instance it belonged to.
+            </p>
+
+            <h2 id="cheat-sheet">
+              <span class="guide-article__num mono">09</span>Cheat sheet
+            </h2>
+            <ul>
+              <li>
+                No conversion route imports behavior — only geometry has a
+                realistic chance of surviving intact. Plan every migration as a
+                rebuild from day one, not a file open that might need minor
+                touch-ups.
+              </li>
+              <li>
+                Inventory before converting anything: screenshot every
+                component's states, list every prototype trigger and its target,
+                export the Assets panel. This information disappears the moment
+                the source file is archived — it isn't recoverable from the
+                output of any converter.
+              </li>
+              <li>
+                Pick a conversion route by file volume, not by feature claims. A
+                handful of files is often faster to rebuild from a manual SVG
+                export than to debug a plugin's edge cases; a large library
+                justifies paying for a first pass specifically to save redrawing
+                time.
+              </li>
+              <li>
+                A Repeat Grid is a duplication tool, not Auto Layout. Recreate
+                direction, gap, and per-axis resizing intent by hand rather than
+                trusting a converted tile grid to behave like a real container.
+              </li>
+              <li>
+                States baked into an XD component need to become explicit, named
+                Figma variant properties — a visually similar duplicate frame
+                that isn't wired as a variant won't work with instance-swap
+                logic, Dev Mode, or prototype state changes.
+              </li>
+              <li>
+                Prototyping wires carry zero data through any route. Rebuild the
+                interaction map as a spec document first, and expect Smart
+                Animate to require matching layer names that Auto-Animate never
+                enforced.
+              </li>
+              <li>
+                Recreate the Assets panel as Figma Styles and Variables, not as
+                raw local values baked onto each shape — and add a semantic tier
+                while the restructuring is already happening anyway.
+              </li>
+              <li>
+                Plugins and Adobe's Design Specs view both need Figma-native
+                replacements. Don't assume a similarly named tool on the other
+                platform behaves the same way just because it solves a similar
+                problem.
+              </li>
+            </ul>
+          </article>
+<!--ARTICLE_END-->

@@ -1,0 +1,666 @@
+<!--HEAD_META_START-->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>
+      Thumb Zones Are a Layout Constraint, Not a Nice-to-Have — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="Reachability math for phones today: the thumb-zone model, Fitts's Law, and the exact 44–48px touch-target sizes that turn 'feels right' into a testable layout constraint."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/thumb-zones-layout-constraint"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/thumb-zones-layout-constraint"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Thumb Zones Are a Layout Constraint, Not a Nice-to-Have"
+    />
+    <meta
+      property="og:description"
+      content="Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="BPOZZ — UI/UX design guides documented like engineering blueprints."
+    />
+    <meta property="article:published_time" content="2026-08-15" />
+    <meta property="article:section" content="Mobile App Design" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Thumb Zones Are a Layout Constraint, Not a Nice-to-Have"
+    />
+    <meta
+      name="twitter:description"
+      content="Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/og-image.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+    <!--
+      Scoped, self-contained styles for the .guide-article shell below.
+      Namespaced under .guide-article so nothing here can collide with
+      site-wide rules in styles.css (which this page also loads above) —
+      if/when styles.css grows real .guide-* rules of its own, those can
+      simply replace this block wholesale.
+    -->
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <p class="guide-hero__meta">Mobile App Design · Beginner · 10 min read</p>
+          <h1 class="guide-hero__title" id="guide-heading">
+            Thumb Zones Are a Layout Constraint, Not a Nice-to-Have
+          </h1>
+          <p class="guide-hero__dek">
+            Reachability math for today's screen sizes, why primary actions
+                sit low and destructive ones sit far, before color even enters
+                the decision.
+          </p>
+        </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+            <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
+          <ol>
+                <li>
+                  <a href="#the-habit-to-break">The habit worth breaking</a>
+                </li>
+                <li>
+                  <a href="#what-the-hand-does">What the hand actually does</a>
+                </li>
+                <li><a href="#mapping-the-zone">Mapping the zone</a></li>
+                <li>
+                  <a href="#the-layout-math"
+                    >Turning the map into layout math</a
+                  >
+                </li>
+                <li>
+                  <a href="#why-destructive-actions-sit-far"
+                    >Why destructive actions sit far — before color</a
+                  >
+                </li>
+                <li>
+                  <a href="#sizing-the-target">Sizing the target itself</a>
+                </li>
+                <li>
+                  <a href="#reach-is-not-constant">Reach is not a constant</a>
+                </li>
+                <li>
+                  <a href="#the-accessibility-caveat"
+                    >The accessibility caveat</a
+                  >
+                </li>
+                <li>
+                  <a href="#implementation-patterns">Implementation patterns</a>
+                </li>
+                <li><a href="#common-mistakes">Common mistakes</a></li>
+                <li><a href="#the-spec">The spec</a></li>
+              </ol>
+        </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+            <article class="guide-article">
+              <h2 id="the-habit-to-break">
+                  <span class="guide-article__num mono">01</span>The habit worth breaking
+                </h2>
+
+          <p>
+                  Open a mobile mockup that's gone through a few rounds of
+                  review and you can usually reconstruct the process that built
+                  it: hierarchy first, color second, spacing third, and
+                  reachability — if it's considered at all — bolted on afterward
+                  as a final QA pass. That ordering makes sense on a desktop,
+                  where the input device is a mouse that can reach every pixel
+                  of a 1440px canvas with equal ease. It stops making sense the
+                  moment the canvas becomes a phone held in one hand, because
+                  now the input device is a thumb attached to that same hand,
+                  and it cannot reach every pixel with equal ease — not even
+                  close.
+                </p>
+                <p>
+                  Reachability isn't a polish pass. It's a layout constraint
+                  with the same authority as a grid column or a breakpoint: it
+                  tells you, before a single color has been picked, roughly
+                  where a frequently-used control is allowed to live and roughly
+                  where it isn't. Treat it that way and a number of decisions
+                  that look like personality — why the tab bar sits at the
+                  bottom instead of the top, why the delete button is small and
+                  far away — stop being style choices and start being math.
+                </p>
+
+              <h2 id="what-the-hand-does">
+                  <span class="guide-article__num mono">02</span>What the hand actually
+                  does
+                </h2>
+
+          <p>
+                  The evidence for this isn't a hunch. In 2013, UX researcher
+                  Steven Hoober and a small team observed 1,333 people using
+                  phones in the wild — on the street, on trains, at bus stops —
+                  and recorded exactly how each person held their device while
+                  tapping, typing, or scrolling. Three grips accounted for
+                  nearly everyone: 49% held the phone in one hand and typed with
+                  the thumb of that same hand; 36% cradled the phone in one hand
+                  and tapped with a finger of the other; and the remaining 15%
+                  held it in both hands and typed with both thumbs. Add the pure
+                  one-handed group to the cradled group's thumb use, and thumbs
+                  were doing the work in roughly three out of every four
+                  interactions observed.
+                </p>
+                <p>
+                  Hoober's numbers are now more than a decade old, and Hoober
+                  himself has warned against quoting them as if they were carved
+                  in stone — screens have grown and grips have shifted since,
+                  and he's published newer work updating the picture. What
+                  hasn't changed is the underlying physical fact the study put
+                  numbers to: a thumb rooted to a hand that's also holding the
+                  phone cannot sweep the whole screen with equal comfort, no
+                  matter how the exact percentages move around. If anything the
+                  constraint has tightened rather than loosened — mainstream
+                  phones now run roughly 6.1 to 6.9 inches corner to corner, up
+                  from an average of around 6.0 inches just five years ago, so
+                  the same thumb is covering proportionally less of a bigger
+                  sheet of glass.
+                </p>
+
+              <h2 id="mapping-the-zone"><span class="guide-article__num mono">03</span>Mapping the zone</h2>
+
+          <p>
+                  Designer Josh Clark gave this constraint a name and a shape in
+                  his book <em>Designing for Touch</em>: the thumb zone, usually
+                  drawn as three overlapping bands radiating out from wherever
+                  the thumb is anchored.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Natural</strong> — the arc the thumb sweeps with no
+                    repositioning at all: relaxed, accurate, no stretch
+                    involved.
+                  </li>
+                  <li>
+                    <strong>Stretch</strong> — reachable, but only by extending
+                    or flexing the thumb further than is comfortable; still
+                    usable, noticeably less accurate.
+                  </li>
+                  <li>
+                    <strong>Reposition</strong> — reachable only by shifting the
+                    grip, bringing in the other hand, or giving up and using
+                    both.
+                  </li>
+                </ul>
+                <p>
+                  The natural zone is smaller than most people expect. On a
+                  typical one-handed grip, only around a third of the screen is
+                  genuinely effortless territory — low on the screen, toward the
+                  side opposite the hand doing the holding. The shape mirrors
+                  for handedness, and it isn't fixed to portrait orientation
+                  either: rotate the phone and the zone rotates with it, usually
+                  flattening and shrinking further because the thumb now has to
+                  cover a wider span.
+                </p>
+
+                <figure class="guide-diagram guide-diagram--light">
+                  <div class="guide-diagram__frame">
+                    <svg
+                      viewBox="0 0 320 460"
+                      xmlns="http://www.w3.org/2000/svg"
+                      role="img"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <defs>
+                        <clipPath id="phoneClip">
+                          <rect
+                            x="33"
+                            y="23"
+                            width="254"
+                            height="414"
+                            rx="31"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g clip-path="url(#phoneClip)">
+                        <circle
+                          cx="255"
+                          cy="405"
+                          r="430"
+                          fill="#c0392b"
+                          fill-opacity="0.16"
+                        />
+                        <circle
+                          cx="255"
+                          cy="405"
+                          r="270"
+                          fill="#b5790f"
+                          fill-opacity="0.22"
+                        />
+                        <circle
+                          cx="255"
+                          cy="405"
+                          r="140"
+                          fill="#1f9d55"
+                          fill-opacity="0.32"
+                        />
+                      </g>
+                      <rect
+                        x="33"
+                        y="23"
+                        width="254"
+                        height="414"
+                        rx="31"
+                        fill="none"
+                        stroke="#0f2a52"
+                        stroke-width="3"
+                      />
+                      <circle
+                        cx="160"
+                        cy="34"
+                        r="3"
+                        fill="#0f2a52"
+                        opacity="0.4"
+                      />
+                      <rect
+                        x="140"
+                        y="410"
+                        width="40"
+                        height="5"
+                        rx="2.5"
+                        fill="#0f2a52"
+                        opacity="0.5"
+                      />
+                      <path
+                        d="M255,405 Q120,300 78,118"
+                        stroke="#0f2a52"
+                        stroke-width="1.5"
+                        stroke-dasharray="4 6"
+                        fill="none"
+                        opacity="0.55"
+                      />
+                      <circle cx="255" cy="405" r="6" fill="#0f2a52" />
+                      <circle
+                        cx="78"
+                        cy="118"
+                        r="4"
+                        fill="#0f2a52"
+                        opacity="0.55"
+                      />
+                    </svg>
+                  </div>
+                  <div class="guide-diagram__legend">
+                    <span class="guide-diagram__chip guide-diagram__chip--success"
+                      >GREEN · NATURAL</span
+                    >
+                    <span class="guide-diagram__chip guide-diagram__chip--warning"
+                      >AMBER · STRETCH</span
+                    >
+                    <span class="guide-diagram__chip guide-diagram__chip--danger"
+                      >RED · REPOSITION</span
+                    >
+                  </div>
+                  <figcaption>
+                    Distance bands from where the thumb is anchored on a
+                    one-handed, right-hand grip — mirror horizontally for a
+                    left-handed grip. The real contour softens toward the bottom
+                    as the thumb curls; distance from the grip corner is the
+                    dominant factor either way.
+                  </figcaption>
+                </figure>
+
+              <h2 id="the-layout-math">
+                  <span class="guide-article__num mono">04</span>Turning the map into
+                  layout math
+                </h2>
+
+          <p>
+                  A heuristic is only useful once it becomes a rule applied at a
+                  specific breakpoint, so translate the zone map into concrete
+                  constraints:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Primary, frequently-used actions</strong> — the ones
+                    tapped dozens of times per session, like a tab bar, a send
+                    button, or "add to cart" — belong low. Treat roughly the
+                    bottom quarter to bottom third of the viewport height as the
+                    working definition of the natural zone, then confirm it on
+                    the actual device sizes real traffic is coming from — a
+                    design-tool frame at 100% zoom on a laptop trackpad is not a
+                    hand.
+                  </li>
+                  <li>
+                    <strong>Infrequent or global actions</strong> — settings,
+                    filters, a "more" overflow menu — can live higher up. The
+                    occasional cost of a full-hand reposition is easily worth
+                    paying once every few sessions; it isn't worth paying on
+                    every single tap.
+                  </li>
+                  <li>
+                    <strong>Back navigation</strong> is the classic exception
+                    that proves the rule: it's conventionally top-left, deep in
+                    reposition territory, and that's fine, because every major
+                    platform pairs it with an edge-swipe gesture that never
+                    requires touching that literal pixel at all. The visible
+                    back button is a fallback for people who don't know the
+                    gesture, not the primary path.
+                  </li>
+                </ul>
+
+              <h2 id="why-destructive-actions-sit-far">
+                  <span class="guide-article__num mono">05</span>Why destructive actions
+                  sit far — before color
+                </h2>
+
+          <p>
+                  This is also where the thumb zone earns the second half of
+                  this guide's title. Placing "Delete Account" or "Remove
+                  Payment Method" in the top corner, slightly undersized, isn't
+                  an oversight — done deliberately, it's a second, physical line
+                  of defense against an accidental tap, and it works
+                  independently of color.
+                </p>
+                <p>
+                  The reasoning traces back to Fitts's Law, one of the oldest
+                  quantitative models in human-computer interaction: the time it
+                  takes to accurately hit a target grows with the distance to
+                  that target and shrinks with the target's size. Written out,
+                  movement time is proportional to
+                  <code>a + b · log2(D/W + 1)</code>, where <code>D</code> is
+                  the distance to travel and <code>W</code> is the width of the
+                  target. The formula matters less than what it implies for a
+                  designer: distance and size are two separate, independently
+                  tunable levers, not one. A mistake can be made harder by
+                  moving a control farther from where the thumb naturally rests,
+                  by making it smaller, or both — and doing either is a
+                  stronger, more physical signal than color alone, since it
+                  costs the same deliberate effort whether or not someone is
+                  colorblind, is checking their phone in bright sunlight, or is
+                  moving fast enough to never register a red tint in the first
+                  place.
+                </p>
+                <p>
+                  None of this replaces a confirmation step for anything
+                  genuinely destructive — position and size raise the cost of an
+                  accidental tap, they don't eliminate it. The two work
+                  together: put the dangerous option somewhere a wandering thumb
+                  won't casually land, size it modestly, and still ask "are you
+                  sure?" before it executes.
+                </p>
+
+              <h2 id="sizing-the-target">
+                  <span class="guide-article__num mono">06</span>Sizing the target itself
+                </h2>
+
+          <p>
+                  Position says where a target sits relative to the thumb; size
+                  says how forgiving it is once the thumb gets there. Every
+                  major platform and accessibility standard has converged on a
+                  comparable floor:
+                </p>
+                <div class="guide-table-wrap">
+                  <table>
+                    <caption>
+                      Minimum touch-target sizes by standard
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Standard</th>
+                        <th scope="col">Minimum size</th>
+                        <th scope="col">Applies to</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Apple HIG</th>
+                        <td>44 × 44 pt</td>
+                        <td>iOS / iPadOS controls</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Material Design</th>
+                        <td>48 × 48 dp</td>
+                        <td>Android controls</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">WCAG 2.5.8 (AA)</th>
+                        <td>24 × 24 CSS px, or equivalent spacing</td>
+                        <td>Web content, WCAG 2.2</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">WCAG 2.5.5 (AAA)</th>
+                        <td>44 × 44 CSS px</td>
+                        <td>Web content, WCAG 2.1</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>
+                  Treat roughly 44–48px as the effective floor across platforms
+                  rather than chasing the lowest number that technically passes,
+                  and leave at least 8px of clear space between adjacent targets
+                  — that gutter is what turns a near-miss into a correct tap
+                  instead of the wrong neighbor.
+                </p>
+
+              <h2 id="reach-is-not-constant">
+                  <span class="guide-article__num mono">07</span>Reach is not a constant
+                </h2>
+
+          <p>
+                  The zone map is a default, not a boundary measured to the
+                  pixel, because the hand behind it keeps changing:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Handedness</strong> — mirror the whole model for a
+                    left-handed grip; a right-handed default applied universally
+                    quietly under-serves a large share of any audience.
+                  </li>
+                  <li>
+                    <strong>Screen size</strong> — the natural zone shrinks as a
+                    share of the screen as the phone grows; a layout tuned on a
+                    compact device can quietly fail on a 6.8-inch one.
+                  </li>
+                  <li>
+                    <strong>Grip and context</strong> — someone walking,
+                    standing on a train, or holding a coffee, a handrail, or a
+                    child in the other hand will grip differently than someone
+                    sitting still with both hands free, often switching grips
+                    more than once in a single session.
+                  </li>
+                </ul>
+                <p>
+                  Design to the natural zone as the baseline for the controls
+                  people touch most, then validate on real devices in more than
+                  one grip, rather than treating any single diagram — including
+                  the one above — as gospel.
+                </p>
+
+              <h2 id="the-accessibility-caveat">
+                  <span class="guide-article__num mono">08</span>The accessibility caveat
+                </h2>
+
+          <div class="guide-callout">
+                  <p class="guide-callout__label">Read this one twice</p>
+                  <p>
+                    The thumb zone is a convenience model for where an average
+                    one-handed grip happens to land — it is not a substitute for
+                    the target-size and spacing minimums in the table above, and
+                    it is never a license to shrink a control just because it
+                    sits outside the "convenient" area.
+                  </p>
+                  <p>
+                    Someone navigating with a switch, with voice control, or
+                    with a screen reader isn't reaching for a spot on the glass
+                    at all — they're moving through a focus order, and what
+                    matters to them is the size and clarity of whatever target
+                    that order lands on, not its coordinates. Someone with a
+                    tremor, limited hand mobility, or a stylus benefits from a
+                    generous, well-spaced target no matter where it sits on the
+                    screen. So the minimums from the sizing section apply
+                    everywhere in the layout, not only outside the green zone —
+                    the thumb zone says where to put the controls used most
+                    often; it never says it's safe to shrink the ones used
+                    least. For the rest of that picture — focus order,
+                    accessible names, the accessibility tree underneath all of
+                    this — see
+                    <a href="accessibility-structural-model"
+                      >Accessibility Is a Structural Decision, Not a Final
+                      Pass</a
+                    >.
+                  </p>
+                </div>
+
+              <h2 id="implementation-patterns">
+                  <span class="guide-article__num mono">09</span>Implementation patterns
+                </h2>
+
+          <p>
+                  A few patterns turn the constraints above into something
+                  shippable:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Bottom tab bars and sticky footer CTAs</strong> put
+                    the highest-frequency actions in the natural zone by
+                    construction, instead of relying on anyone to scroll a
+                    floating button into reach.
+                  </li>
+                  <li>
+                    <strong>Safe-area insets</strong> keep a bottom-pinned bar
+                    clear of the home indicator and rounded corners on notched
+                    devices. Opt in with <code>viewport-fit=cover</code>, then
+                    pad with the environment variable:
+                  </li>
+                </ul>
+                <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;</code></pre>
+                <pre><code>.bottom-bar {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}</code></pre>
+                <ul>
+                  <li>
+                    <strong>Built-in one-handed features</strong> — iOS's
+                    Reachability (a light swipe down the home indicator slides
+                    on-screen content toward the thumb) and Android's one-handed
+                    mode — are a legitimate fallback, but they're opt-in and
+                    easy to have never turned on. Design as if the person using
+                    the app has never enabled them, and treat them as a bonus,
+                    not a substitute for a layout that already works.
+                  </li>
+                  <li>
+                    <strong>Orientation matters.</strong> Landscape flattens and
+                    widens the natural zone and commonly shifts the grip to two
+                    hands; re-check primary actions in both orientations rather
+                    than assuming portrait is the only layout that ships.
+                  </li>
+                </ul>
+
+              <h2 id="common-mistakes"><span class="guide-article__num mono">10</span>Common mistakes</h2>
+
+          <ul>
+                  <li>
+                    A hamburger or overflow menu stuck in a top corner on a
+                    6.7-inch phone, forcing a full regrip for a control opened
+                    on nearly every screen.
+                  </li>
+                  <li>
+                    A bottom sheet whose confirm button ends up pushed
+                    off-screen — or hidden under the keyboard — the moment a
+                    text field is focused, because it was only ever tested with
+                    the keyboard closed.
+                  </li>
+                  <li>
+                    Designing and reviewing exclusively in a fixed-width frame
+                    at 100% zoom on a laptop trackpad, and never once picking up
+                    an actual phone with an actual thumb.
+                  </li>
+                  <li>
+                    Porting a desktop nav pattern straight down — everything
+                    crammed into a top bar — without moving anything tapped
+                    often toward the bottom third.
+                  </li>
+                </ul>
+
+              <h2 id="the-spec"><span class="guide-article__num mono">11</span>The spec</h2>
+
+          <div class="guide-table-wrap">
+              <table>
+                <caption>/ thumb_zone_spec</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Property</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Primary actions</td>
+                    <td>Bottom 25–33% of viewport height</td>
+                  </tr>
+                  <tr>
+                    <td>Minimum target</td>
+                    <td>44–48px per side, on every platform</td>
+                  </tr>
+                  <tr>
+                    <td>Minimum gutter</td>
+                    <td>8px clear space between adjacent targets</td>
+                  </tr>
+                  <tr>
+                    <td>Destructive actions</td>
+                    <td>
+                      Outside the natural zone, plus a confirmation step —
+                      never color alone
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Bottom bars</td>
+                    <td>Padded with <code>env(safe-area-inset-bottom)</code></td>
+                  </tr>
+                  <tr>
+                    <td>Validate on</td>
+                    <td>A real device, both orientations, more than one grip</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+                <p>
+                  None of this replaces testing with a real phone in a real hand
+                  — the zone map is a starting constraint, not a finished
+                  layout. Applied before color, before type, before a single
+                  pixel of visual polish, it's the difference between an
+                  interface that merely looks right in a static frame and one
+                  that actually works in the one place it will always be used:
+                  someone's hand.
+                </p>
+            </article>
+<!--ARTICLE_END-->

@@ -1,0 +1,13 @@
+# Generated website. Never hand-edited, never committed.
+dist/
+
+# Private build staging. Disposable.
+.build/
+
+# QA output — the current snapshot the gate diffs against the frozen
+# Phase 1 baseline in src/tools/baseline/.
+.qa/
+
+node_modules/
+npm-debug.log*
+.DS_Store

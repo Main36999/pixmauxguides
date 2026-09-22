@@ -1,0 +1,1050 @@
+[
+  {
+    "id": "palette:p001",
+    "type": "palette",
+    "title": "Starless Frost",
+    "slug": "p001",
+    "url": "/palettes#p001",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless frost p001 cool night dark",
+    "colors": [
+      "#1E193B",
+      "#322A57",
+      "#5438E6",
+      "#3876C8"
+    ],
+    "date": "2026-09-05"
+  },
+  {
+    "id": "palette:p002",
+    "type": "palette",
+    "title": "Terracotta Grove",
+    "slug": "p002",
+    "url": "/palettes#p002",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "terracotta grove p002 warm earth light",
+    "colors": [
+      "#EDEEE5",
+      "#D9DCC6",
+      "#7B8539",
+      "#4D9140"
+    ],
+    "date": "2026-09-03"
+  },
+  {
+    "id": "palette:p003",
+    "type": "palette",
+    "title": "Faceted Onyx",
+    "slug": "p003",
+    "url": "/palettes#p003",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "faceted onyx p003 warm jewel dark",
+    "colors": [
+      "#272312",
+      "#3E391A",
+      "#BAA225",
+      "#30AA6B"
+    ],
+    "date": "2026-08-14"
+  },
+  {
+    "id": "palette:p004",
+    "type": "palette",
+    "title": "Neon Pulse",
+    "slug": "p004",
+    "url": "/palettes#p004",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "neon pulse p004 cool dark",
+    "colors": [
+      "#120B16",
+      "#2A1D32",
+      "#AB2BEE",
+      "#FCF12A"
+    ],
+    "date": "2026-08-14"
+  },
+  {
+    "id": "palette:p005",
+    "type": "palette",
+    "title": "Bare Ledger (Dark)",
+    "slug": "p005",
+    "url": "/palettes#p005",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "bare ledger (dark) p005 neutral monochrome night dark",
+    "colors": [
+      "#1A1717",
+      "#2E2929",
+      "#9C6D6B",
+      "#B99896"
+    ],
+    "date": "2026-08-08"
+  },
+  {
+    "id": "palette:p006",
+    "type": "palette",
+    "title": "Bare Ledger",
+    "slug": "p006",
+    "url": "/palettes#p006",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "bare ledger p006 neutral monochrome light",
+    "colors": [
+      "#F7F5F5",
+      "#ECE8E8",
+      "#6C5554",
+      "#A69695"
+    ],
+    "date": "2026-08-08"
+  },
+  {
+    "id": "palette:p007",
+    "type": "palette",
+    "title": "Powder Sorbet (Dark)",
+    "slug": "p007",
+    "url": "/palettes#p007",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "powder sorbet (dark) p007 cool pastel night dark",
+    "colors": [
+      "#1C141D",
+      "#312433",
+      "#CA82D0",
+      "#D7AECC"
+    ],
+    "date": "2026-08-07"
+  },
+  {
+    "id": "palette:p008",
+    "type": "palette",
+    "title": "Powder Sorbet",
+    "slug": "p008",
+    "url": "/palettes#p008",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "powder sorbet p008 cool pastel light",
+    "colors": [
+      "#F5ECF6",
+      "#EDDFEE",
+      "#CB6AD4",
+      "#D69BC6"
+    ],
+    "date": "2026-08-07"
+  },
+  {
+    "id": "palette:p009",
+    "type": "palette",
+    "title": "Milky Sorbet (Dark)",
+    "slug": "p009",
+    "url": "/palettes#p009",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "milky sorbet (dark) p009 cool pastel night dark",
+    "colors": [
+      "#17141D",
+      "#292433",
+      "#A691D0",
+      "#D2A7D2"
+    ],
+    "date": "2026-08-04"
+  },
+  {
+    "id": "palette:p010",
+    "type": "palette",
+    "title": "Milky Sorbet",
+    "slug": "p010",
+    "url": "/palettes#p010",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "milky sorbet p010 cool pastel light",
+    "colors": [
+      "#EBE7F4",
+      "#E4E0EC",
+      "#987BD1",
+      "#D194D1"
+    ],
+    "date": "2026-08-04"
+  },
+  {
+    "id": "palette:p011",
+    "type": "palette",
+    "title": "Worn Darkroom",
+    "slug": "p011",
+    "url": "/palettes#p011",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "worn darkroom p011 warm vintage light",
+    "colors": [
+      "#EEE9E0",
+      "#E5DCCB",
+      "#AD833B",
+      "#499F49"
+    ],
+    "date": "2026-07-27"
+  },
+  {
+    "id": "palette:p012",
+    "type": "palette",
+    "title": "Studio Ledger (Dark)",
+    "slug": "p012",
+    "url": "/palettes#p012",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "studio ledger (dark) p012 neutral monochrome night dark",
+    "colors": [
+      "#17181A",
+      "#292B2E",
+      "#667B99",
+      "#8798AF"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "id": "palette:p013",
+    "type": "palette",
+    "title": "Analog Lounge",
+    "slug": "p013",
+    "url": "/palettes#p013",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "analog lounge p013 warm retro light",
+    "colors": [
+      "#EDE4DC",
+      "#BCCFD7",
+      "#D9853A",
+      "#2D84AC"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "id": "palette:p014",
+    "type": "palette",
+    "title": "Studio Ledger",
+    "slug": "p014",
+    "url": "/palettes#p014",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "studio ledger p014 neutral monochrome light",
+    "colors": [
+      "#F4F5F6",
+      "#E4E6E9",
+      "#4F5A68",
+      "#878F9C"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "id": "palette:p015",
+    "type": "palette",
+    "title": "Radioactive Broadcast",
+    "slug": "p015",
+    "url": "/palettes#p015",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "radioactive broadcast p015 cool neon dark",
+    "colors": [
+      "#0C1C14",
+      "#1D3228",
+      "#30F695",
+      "#BC38EB"
+    ],
+    "date": "2026-06-17"
+  },
+  {
+    "id": "palette:p016",
+    "type": "palette",
+    "title": "Dusty Darkroom",
+    "slug": "p016",
+    "url": "/palettes#p016",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "dusty darkroom p016 warm vintage light",
+    "colors": [
+      "#EBE3D9",
+      "#DFD1BF",
+      "#A3773D",
+      "#639C50"
+    ],
+    "date": "2026-06-13"
+  },
+  {
+    "id": "palette:p017",
+    "type": "palette",
+    "title": "Weathered Meadow",
+    "slug": "p017",
+    "url": "/palettes#p017",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "weathered meadow p017 warm earth light",
+    "colors": [
+      "#EAE1DB",
+      "#DCCBBF",
+      "#7F5132",
+      "#869F3E"
+    ],
+    "date": "2026-06-10"
+  },
+  {
+    "id": "palette:p018",
+    "type": "palette",
+    "title": "Retro Lounge",
+    "slug": "p018",
+    "url": "/palettes#p018",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "retro lounge p018 warm light",
+    "colors": [
+      "#EBDED0",
+      "#BFD4D8",
+      "#CF7B28",
+      "#2F828F"
+    ],
+    "date": "2026-06-07"
+  },
+  {
+    "id": "palette:p019",
+    "type": "palette",
+    "title": "Starless Tide",
+    "slug": "p019",
+    "url": "/palettes#p019",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless tide p019 cool night dark",
+    "colors": [
+      "#1A2741",
+      "#2B3957",
+      "#507EDB",
+      "#368DB9"
+    ],
+    "date": "2026-05-21"
+  },
+  {
+    "id": "palette:p020",
+    "type": "palette",
+    "title": "Blush Feather (Dark)",
+    "slug": "p020",
+    "url": "/palettes#p020",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "blush feather (dark) p020 cool pastel night dark",
+    "colors": [
+      "#141C1D",
+      "#243133",
+      "#8ECBD5",
+      "#9CBAD8"
+    ],
+    "date": "2026-05-20"
+  },
+  {
+    "id": "palette:p021",
+    "type": "palette",
+    "title": "Blush Feather",
+    "slug": "p021",
+    "url": "/palettes#p021",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "blush feather p021 cool pastel light",
+    "colors": [
+      "#EDF5F6",
+      "#DAE8EA",
+      "#76CAD8",
+      "#86B0D9"
+    ],
+    "date": "2026-05-20"
+  },
+  {
+    "id": "palette:p022",
+    "type": "palette",
+    "title": "Starless Observatory",
+    "slug": "p022",
+    "url": "/palettes#p022",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "starless observatory p022 cool night dark",
+    "colors": [
+      "#1D2F41",
+      "#27435E",
+      "#3A8EE1",
+      "#427CB8"
+    ],
+    "date": "2026-05-12"
+  },
+  {
+    "id": "palette:p023",
+    "type": "palette",
+    "title": "Weathered Darkroom",
+    "slug": "p023",
+    "url": "/palettes#p023",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "weathered darkroom p023 warm vintage light",
+    "colors": [
+      "#E9E1D9",
+      "#DBCDBF",
+      "#9D6F44",
+      "#749C4B"
+    ],
+    "date": "2026-05-08"
+  },
+  {
+    "id": "palette:p024",
+    "type": "palette",
+    "title": "Chalk Petal (Dark)",
+    "slug": "p024",
+    "url": "/palettes#p024",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "chalk petal (dark) p024 cool pastel night dark",
+    "colors": [
+      "#16131E",
+      "#282334",
+      "#A896D3",
+      "#D4B1DB"
+    ],
+    "date": "2026-04-13"
+  },
+  {
+    "id": "palette:p025",
+    "type": "palette",
+    "title": "Chalk Petal",
+    "slug": "p025",
+    "url": "/palettes#p025",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "pastel",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "chalk petal p025 cool pastel light",
+    "colors": [
+      "#EFECF7",
+      "#E3DEEF",
+      "#9981D4",
+      "#D09DDA"
+    ],
+    "date": "2026-04-13"
+  },
+  {
+    "id": "palette:p026",
+    "type": "palette",
+    "title": "Rewind Motel",
+    "slug": "p026",
+    "url": "/palettes#p026",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "rewind motel p026 warm retro light",
+    "colors": [
+      "#EADDD4",
+      "#C1D0D6",
+      "#D27531",
+      "#3A84A3"
+    ],
+    "date": "2026-04-09"
+  },
+  {
+    "id": "palette:p027",
+    "type": "palette",
+    "title": "Even Concrete (Dark)",
+    "slug": "p027",
+    "url": "/palettes#p027",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "even concrete (dark) p027 neutral monochrome night dark",
+    "colors": [
+      "#171A17",
+      "#292E29",
+      "#719C6B",
+      "#9CBA98"
+    ],
+    "date": "2026-04-05"
+  },
+  {
+    "id": "palette:p028",
+    "type": "palette",
+    "title": "Even Concrete",
+    "slug": "p028",
+    "url": "/palettes#p028",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "even concrete p028 neutral monochrome light",
+    "colors": [
+      "#F4F5F4",
+      "#E2E6E1",
+      "#576C53",
+      "#98A796"
+    ],
+    "date": "2026-04-05"
+  },
+  {
+    "id": "palette:p029",
+    "type": "palette",
+    "title": "Terracotta Riverbank",
+    "slug": "p029",
+    "url": "/palettes#p029",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "terracotta riverbank p029 warm earth light",
+    "colors": [
+      "#F0EEE5",
+      "#E3DEC9",
+      "#9C8933",
+      "#5F8B48"
+    ],
+    "date": "2026-03-27"
+  },
+  {
+    "id": "palette:p030",
+    "type": "palette",
+    "title": "Electric Broadcast",
+    "slug": "p030",
+    "url": "/palettes#p030",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "electric broadcast p030 warm neon dark",
+    "colors": [
+      "#200E12",
+      "#30191F",
+      "#F8426B",
+      "#6CEA38"
+    ],
+    "date": "2026-03-26"
+  },
+  {
+    "id": "palette:p031",
+    "type": "palette",
+    "title": "Sun-Baked Canyon",
+    "slug": "p031",
+    "url": "/palettes#p031",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "earth",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "sun-baked canyon p031 warm earth light",
+    "colors": [
+      "#E7EAD9",
+      "#DCE0C9",
+      "#6F7D2C",
+      "#428247"
+    ],
+    "date": "2026-03-07"
+  },
+  {
+    "id": "palette:p032",
+    "type": "palette",
+    "title": "Lunar Harbor",
+    "slug": "p032",
+    "url": "/palettes#p032",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "lunar harbor p032 cool night dark",
+    "colors": [
+      "#213844",
+      "#274C60",
+      "#47AAE1",
+      "#31B8A9"
+    ],
+    "date": "2026-03-04"
+  },
+  {
+    "id": "palette:p033",
+    "type": "palette",
+    "title": "Amber Arcade",
+    "slug": "p033",
+    "url": "/palettes#p033",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "retro",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "amber arcade p033 warm retro light",
+    "colors": [
+      "#EBDBD3",
+      "#C4DADB",
+      "#DE601D",
+      "#2DA2A8"
+    ],
+    "date": "2026-02-20"
+  },
+  {
+    "id": "palette:p034",
+    "type": "palette",
+    "title": "Laser Static",
+    "slug": "p034",
+    "url": "/palettes#p034",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "neon",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "laser static p034 warm neon dark",
+    "colors": [
+      "#19170D",
+      "#2A2614",
+      "#F7DA37",
+      "#2FF9DE"
+    ],
+    "date": "2026-02-13"
+  },
+  {
+    "id": "palette:p035",
+    "type": "palette",
+    "title": "Blank Concrete (Dark)",
+    "slug": "p035",
+    "url": "/palettes#p035",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "night",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "blank concrete (dark) p035 neutral monochrome night dark",
+    "colors": [
+      "#171A19",
+      "#292E2C",
+      "#6B9D8C",
+      "#87AFA2"
+    ],
+    "date": "2026-02-11"
+  },
+  {
+    "id": "palette:p036",
+    "type": "palette",
+    "title": "Blank Concrete",
+    "slug": "p036",
+    "url": "/palettes#p036",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "neutral",
+      "monochrome",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "blank concrete p036 neutral monochrome light",
+    "colors": [
+      "#F2F4F4",
+      "#E3E8E6",
+      "#546C64",
+      "#879A94"
+    ],
+    "date": "2026-02-11"
+  },
+  {
+    "id": "palette:p037",
+    "type": "palette",
+    "title": "Royal Ruby",
+    "slug": "p037",
+    "url": "/palettes#p037",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "royal ruby p037 warm jewel dark",
+    "colors": [
+      "#1C0E13",
+      "#3C1B26",
+      "#A82E56",
+      "#68A233"
+    ],
+    "date": "2026-02-03"
+  },
+  {
+    "id": "palette:p038",
+    "type": "palette",
+    "title": "Rich Sapphire",
+    "slug": "p038",
+    "url": "/palettes#p038",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "rich sapphire p038 cool jewel dark",
+    "colors": [
+      "#122A2B",
+      "#193637",
+      "#25A1A5",
+      "#79329D"
+    ],
+    "date": "2026-02-01"
+  },
+  {
+    "id": "palette:p039",
+    "type": "palette",
+    "title": "Faceted Jade",
+    "slug": "p039",
+    "url": "/palettes#p039",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "cool",
+      "jewel",
+      "dark"
+    ],
+    "keywords": [],
+    "searchText": "faceted jade p039 cool jewel dark",
+    "colors": [
+      "#182212",
+      "#273D19",
+      "#5BA42E",
+      "#3794B5"
+    ],
+    "date": "2026-01-30"
+  },
+  {
+    "id": "palette:p040",
+    "type": "palette",
+    "title": "Old-World Darkroom",
+    "slug": "p040",
+    "url": "/palettes#p040",
+    "description": "",
+    "categories": [
+      "color-theory",
+      "systems"
+    ],
+    "tags": [
+      "warm",
+      "vintage",
+      "light"
+    ],
+    "keywords": [],
+    "searchText": "old-world darkroom p040 warm vintage light",
+    "colors": [
+      "#E7E3D8",
+      "#DED8C3",
+      "#B39847",
+      "#57A556"
+    ],
+    "date": "2026-01-18"
+  }
+]

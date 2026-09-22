@@ -1,0 +1,318 @@
+/**
+ * colors.css
+ * -----------------------------------------------------------------------
+ * Styles for /colors only — the Color Library. Loaded by that one page and
+ * by nothing else, the same arrangement palettes.css has.
+ *
+ * Reuses only the site-wide primitives from styles.css (--ink / --action /
+ * --paper / --card / --sans / --grid-line / --text / --text-muted, .wrap,
+ * .sr-only, .empty-state, .toast). It defines no new site-level token and
+ * overrides nothing in :root, so loading it cannot change any other page.
+ *
+ * RELATIONSHIP TO palettes.css
+ *
+ * Related, not shared. The two pages are siblings and are meant to look it,
+ * so the radius, the easing curve and the grid breakpoints are the same
+ * values — but they are declared here rather than imported, because a
+ * palette card and a colour card are different components and coupling their
+ * stylesheets would mean every future change to one had to be checked
+ * against the other. The duplication is four values; the coupling would be
+ * permanent.
+ *
+ * Local decisions worth knowing before editing:
+ *   - --color-radius is scoped to this page, exactly as --palette-radius is
+ *     scoped to /palettes. The global --radius (3px) is untouched.
+ *   - The HEX label's colour, the copied-state veil and the containment ring
+ *     are all inline custom properties emitted per card by
+ *     src/client/colors.js from a WCAG contrast calculation. Nothing in this
+ *     file assigns a colour per swatch, and nothing should: 300 hand-written
+ *     rules is the failure mode this replaces.
+ *   - The plate is a fixed ASPECT RATIO, not a fixed height, so the colour
+ *     block keeps its proportion at every column count instead of going
+ *     letterbox on mobile.
+ * -----------------------------------------------------------------------
+ */
+
+.colors-page {
+  --color-radius: 10px;
+  --color-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+/* .guides-main ships 44px of padding-top for the guide grid, which stacks
+   with this page's own hero padding. Same 28px trim /palettes makes. */
+.colors-page .guides-main {
+  padding-top: 28px;
+}
+
+/* ---------- header band (hero + filters) ---------- */
+/* One grouped band closed by a single hairline, so title, description and
+   controls read as one unit attached to the grid below — the same shape
+   .palettes-head gives /palettes. */
+.colors-head {
+  border-bottom: 1px solid var(--grid-line);
+  margin-bottom: 26px;
+}
+
+.colors-hero {
+  padding: 0 0 20px;
+}
+.colors-hero__eyebrow {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--action);
+  margin-bottom: 8px;
+}
+.colors-hero h1 {
+  font-size: clamp(34px, 6.2vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.colors-hero p {
+  max-width: 56ch;
+  color: var(--text-muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+/* ---------- category filters ---------- */
+/* Wraps rather than scrolls: at 4 chips per row on a phone the whole
+   vocabulary stays visible, which a horizontal scroller hides. */
+.colors-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 20px;
+}
+
+.colors-filter {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  /* Held at 600 in every state on purpose: bumping the weight on the active
+     chip would change its width and reflow the row on each switch. */
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition:
+    color 0.16s var(--color-ease),
+    background-color 0.16s var(--color-ease),
+    border-color 0.16s var(--color-ease);
+}
+.colors-filter:hover {
+  color: var(--ink);
+  border-color: var(--grid-line);
+}
+
+/* The selected chip is marked by FILL and TEXT WEIGHT CONTRAST, not by hue:
+   dark ink background, white label. A viewer who cannot distinguish the
+   chip colours still sees which one is inverted — and aria-pressed carries
+   the same fact to assistive tech, so the state is never colour-only.
+   Declared after :hover so an active chip stays inverted while hovered. */
+.colors-filter[aria-pressed="true"],
+.colors-filter[aria-pressed="true"]:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* A sample of the category, emitted inline by src/client/colors.js from the
+   data itself. Decorative and aria-hidden — the chip's text is its name. */
+.colors-filter__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--dot, #ccc);
+  box-shadow: inset 0 0 0 1px rgba(15, 42, 82, 0.12);
+}
+
+/* ---------- the count line ---------- */
+.colors-count {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text-muted);
+  padding-bottom: 18px;
+}
+
+/* ---------- grid ---------- */
+/* minmax(0, 1fr) rather than 1fr so a column can never be widened past its
+   share by its own content — that is what guarantees no horizontal overflow
+   at any width, and it is why a long colour name shortens the name instead
+   of stretching the grid.
+   The breakpoints are /palettes' own (959px, 459px) rather than new numbers;
+   only the column counts differ, because one wide colour block needs fewer
+   columns than a four-strip palette plate does. */
+.colors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 22px;
+  padding-bottom: 32px;
+}
+
+@media (max-width: 959px) {
+  .colors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 18px;
+  }
+}
+
+@media (max-width: 459px) {
+  .colors-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+}
+
+/* ---------- card ---------- */
+.color-card {
+  min-width: 0;
+}
+/* [hidden] is how the filter hides a card. Grid items ignore the UA's
+   `display:none` for [hidden] in no browser — but stating it here means the
+   rule survives any future `display` set on .color-card. */
+.color-card[hidden] {
+  display: none;
+}
+
+/* ---------- colour plate ---------- */
+/* The whole plate is the copy target. A fixed aspect ratio rather than a
+   fixed height, so the block keeps its proportions from a 1-column phone to
+   a 4-column desktop. */
+.color-card__plate {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 2;
+  min-height: 120px;
+  border: 0;
+  padding: 0;
+  border-radius: var(--color-radius, 10px);
+  background: var(--color-hex);
+  cursor: pointer;
+  /* Containment ring, emitted per card: a hairline for most colours and a
+     stronger one for near-whites, which would otherwise have no visible edge
+     against the page. Always painted, so the two cases have identical
+     geometry. */
+  box-shadow: inset 0 0 0 1px var(--color-ring, rgba(15, 42, 82, 0.06));
+  transition: transform 0.18s var(--color-ease);
+}
+
+/* Guarded on a fine pointer: iOS Safari applies :hover on tap and leaves it
+   applied until you tap elsewhere, which would strand one card lifted. */
+@media (hover: hover) and (pointer: fine) {
+  .color-card__plate:hover {
+    transform: translateY(-2px);
+  }
+}
+.color-card__plate:focus-visible {
+  /* Inset, so the ring is drawn on the colour rather than in the grid gap
+     where an adjacent card would clip it. */
+  outline-offset: -4px;
+}
+
+/* The HEX, centred on the colour. Always visible, not hover-revealed: this
+   is a reference library, and the value is the thing a visitor came to read.
+   --color-label is computed per card from a WCAG contrast ratio, so it is
+   near-black on a light swatch and near-white on a dark one.
+   NOT a monospace face — the site has one family, var(--sans), and
+   .mono in styles.css resolves to it too. Tabular figures give the alignment
+   a monospace face would have been used for. */
+.color-card__hex {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-label);
+  transition: opacity 0.16s var(--color-ease);
+}
+
+/* ---------- copied state ---------- */
+/* The confirmation lives inside the plate that was clicked, not in the
+   site-wide toast — the toast is reserved for the failure case, where there
+   is nothing to confirm inside the card. Everything here is opacity on an
+   absolutely positioned overlay, so nothing in the grid can move.
+   MUST stay declared after .color-card__hex — equal specificity, so source
+   order is what lets the copied state hide the HEX underneath it. */
+.color-card__copied {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: inherit;
+  background: var(--color-veil, rgba(15, 42, 82, 0.45));
+  color: var(--color-label);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--color-ease);
+}
+.color-card__copied svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  opacity: 0.9;
+}
+.color-card__plate[data-copied="true"] .color-card__copied {
+  opacity: 1;
+  transition: opacity 0.12s var(--color-ease);
+}
+.color-card__plate[data-copied="true"] .color-card__hex {
+  opacity: 0;
+}
+
+/* ---------- name ---------- */
+/* Shrinks below its own content width (min-width:0 on the card) and clips
+   with an ellipsis rather than wrapping, so a long colour name can never
+   grow one card taller than its row. */
+.color-card__name {
+  margin-top: 10px;
+  padding: 0 2px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ---------- reduced motion ---------- */
+/* styles.css already forces every transition-duration to 0.001ms site-wide.
+   The lift is switched off outright rather than sped up: a 2px jump is a
+   bigger jolt than the movement it replaces. The copy feedback is pure
+   opacity and stays — it never moved anything. */
+@media (prefers-reduced-motion: reduce) {
+  .color-card__plate:hover {
+    transform: none;
+  }
+}
+
+/* Empty/error state reuses the site-wide .empty-state component from
+   styles.css (display:none by default, [data-visible="true"] shows it) —
+   nothing to add here. */

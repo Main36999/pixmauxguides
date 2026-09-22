@@ -1,0 +1,512 @@
+/**
+ * palettes.css
+ * -----------------------------------------------------------------------
+ * Styles for /palettes only. A fast, Color Hunt-style grid with nothing
+ * to configure, so it gets its own small stylesheet rather than carrying
+ * the visual weight of a configurable system (score badges, role labels,
+ * filter chips). Reuses only the site-wide primitives from styles.css
+ * (--ink/--action/--paper/--card/--radius/--sans/--grid-line/--text/
+ * --text-muted, .wrap, .btn, .toast) — no legacy .badge anywhere here.
+ *
+ * Visual pass (palette browsing upgrade): the color plate is now the
+ * dominant element on every card, the grid is denser above 1160px, and
+ * the page header + sort tabs are grouped into one band so the eye
+ * runs title -> description -> controls -> grid without a gap. Purely
+ * visual — palettes.js, the DOM it renders, and every interaction it
+ * wires up are untouched. Selectors, data attributes and the inline
+ * --sw-hex/--sw-label custom properties are exactly the ones that file
+ * already produces.
+ *
+ * Local design decisions worth knowing before editing:
+ *   - --palette-radius is scoped to this page rather than changing the
+ *     global --radius (3px) in styles.css, which every other page uses.
+ *   - .palette-card's own `box-shadow` property is RESERVED for
+ *     .palette-card--highlight (the deep-link ring) and keeps its
+ *     original 600ms fade. The hover shadow therefore lives on a
+ *     ::after overlay with its own 180ms opacity transition, so the two
+ *     never have to share a duration. .palette-card--highlight is
+ *     declared after the hover rules on purpose — equal specificity, so
+ *     source order is what keeps the deep-link ring winning.
+ *   - .palette-card no longer sets overflow:hidden; the clipping moved
+ *     to .palette-card__bars (the only thing that needs it), which is
+ *     what lets the hover shadow render outside the card box.
+ * -----------------------------------------------------------------------
+ */
+
+.palettes-page {
+  /* Softer corner than the global 3px --radius, scoped to this page so
+     the color plates read as tactile swatches rather than table cells.
+     styles.css's :root is not touched. */
+  --palette-radius: 10px;
+  --palette-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+/* Tighten the top of the page: .guides-main ships 44px of padding-top
+   for the guide grid, which left ~84px of air above this h1 once
+   .palettes-hero's own padding stacked on top of it. */
+.palettes-page .guides-main {
+  padding-top: 28px;
+}
+
+/* ---------- header band (hero + sort tabs) ---------- */
+/* One grouped band, closed by a single hairline that the active tab's
+   underline sits on top of — so title, description and controls read
+   as one unit attached to the grid below. */
+.palettes-head {
+  border-bottom: 1px solid var(--grid-line);
+  margin-bottom: 26px;
+}
+
+.palettes-hero {
+  padding: 0 0 18px;
+}
+.palettes-hero__eyebrow {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--action);
+  margin-bottom: 8px;
+}
+.palettes-hero h1 {
+  font-size: clamp(34px, 6.2vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+/* Hover gradient, no JS and no duplicated text node.
+   The gradient is always painted behind the glyphs and clipped to them;
+   an opaque -webkit-text-fill-color covers it at rest, and fading that
+   fill to transparent on hover is what reveals it. Guarded by @supports
+   because without background-clip:text the gradient would paint as a
+   solid block behind the heading instead of inside it — an engine that
+   can't do this keeps plain black text.
+   Ramp uses existing values only: --action (#2563eb), --cyan, and the
+   #e0245e already used by the like button. No new color enters here. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .palettes-hero h1 {
+    background-image: linear-gradient(
+      92deg,
+      var(--action) 0%,
+      var(--cyan) 46%,
+      #e0245e 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: currentColor;
+    transition: -webkit-text-fill-color 0.2s var(--palette-ease);
+  }
+  .palettes-hero h1:hover {
+    -webkit-text-fill-color: transparent;
+  }
+}
+.palettes-hero p {
+  max-width: 56ch;
+  color: var(--text-muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+/* ---------- sort tabs ---------- */
+/* The hairline these sit on belongs to .palettes-head now, not to the
+   tab row — the -1px pulls the row down so the active 2px underline
+   overlaps it instead of doubling up against it. */
+.palettes-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: -1px;
+}
+.palettes-tab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 6px 6px 0 0;
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: 14px;
+  /* Held at 600 in every state on purpose: bumping the weight on the
+     active tab would change its width and shove the other two sideways
+     on each switch. */
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 9px 12px 11px;
+  cursor: pointer;
+  transition:
+    color 0.18s var(--palette-ease),
+    background-color 0.18s var(--palette-ease),
+    border-color 0.18s var(--palette-ease);
+}
+.palettes-tab:hover {
+  color: var(--ink);
+  background-color: var(--paper);
+}
+.palettes-tab[aria-pressed="true"] {
+  color: var(--action);
+  background-color: transparent;
+  border-bottom-color: var(--action);
+}
+
+/* ---------- grid ---------- */
+/* minmax(0, 1fr) rather than 1fr so a column can never be widened past
+   its share by its own content — that is what guarantees no horizontal
+   overflow at any width. */
+.palettes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px 20px;
+  padding-bottom: 24px;
+}
+
+@media (max-width: 1159px) {
+  .palettes-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 20px;
+  }
+}
+
+@media (max-width: 959px) {
+  .palettes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 18px;
+  }
+}
+
+@media (max-width: 459px) {
+  .palettes-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
+/* ---------- card ---------- */
+.palette-card {
+  position: relative;
+  border-radius: var(--palette-radius, 10px);
+  background: var(--card);
+  /* Subtle shadow, present at rest and unaffected by hover — the card
+     itself no longer moves or gains any shadow on hover. Only
+     .palette-card--highlight (the deep-link ring) below overrides this
+     box-shadow, at equal specificity via source order; the 600ms
+     transition is for that ring fading in and back out. */
+  transition: box-shadow 0.6s ease;
+  animation: palette-card-in 0.2s var(--palette-ease) backwards;
+}
+/* `backwards`, not `both`: a forwards fill would keep the keyframe's
+   transform applied after the animation ends and silently cancel the
+   hover lift. */
+@keyframes palette-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Restrained stagger: 12ms steps across the first twelve cards, then a
+   flat 132ms for the rest, so the grid settles in well under a quarter
+   second no matter how many palettes are in the data. */
+.palette-card:nth-child(2) {
+  animation-delay: 12ms;
+}
+.palette-card:nth-child(3) {
+  animation-delay: 24ms;
+}
+.palette-card:nth-child(4) {
+  animation-delay: 36ms;
+}
+.palette-card:nth-child(5) {
+  animation-delay: 48ms;
+}
+.palette-card:nth-child(6) {
+  animation-delay: 60ms;
+}
+.palette-card:nth-child(7) {
+  animation-delay: 72ms;
+}
+.palette-card:nth-child(8) {
+  animation-delay: 84ms;
+}
+.palette-card:nth-child(9) {
+  animation-delay: 96ms;
+}
+.palette-card:nth-child(10) {
+  animation-delay: 108ms;
+}
+.palette-card:nth-child(11) {
+  animation-delay: 120ms;
+}
+.palette-card:nth-child(n + 12) {
+  animation-delay: 132ms;
+}
+
+/* Applied briefly by palettes.js when the page loads at /palettes#<id>
+   (e.g. from a Search result) so the linked-to card is findable, not
+   just present somewhere in the grid. Removed automatically after a
+   couple of seconds; the 0.6s box-shadow transition above fades it out.
+   MUST stay declared after .palette-card — same specificity, so
+   source order is what keeps the deep-link ring winning over the
+   resting shadow. */
+.palette-card--highlight {
+  box-shadow:
+    0 0 0 3px var(--action),
+    0 0 24px 2px rgba(37, 99, 235, 0.35);
+}
+
+/* ---------- color plate ---------- */
+.palette-card__bars {
+  position: relative;
+  display: flex;
+  height: 150px;
+  border-radius: var(--palette-radius, 10px);
+  overflow: hidden;
+}
+/* Hairline containment ring. It lives on a positioned ::after rather
+   than as an inset shadow on .palette-card__bars itself because the
+   swatch buttons are positioned children and would paint straight over
+   the parent's inset shadow. Keeps pale palettes from bleeding into
+   the white sheet without drawing a box around the card. */
+.palette-card__bars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(15, 42, 82, 0.06);
+}
+@media (max-width: 719px) {
+  .palette-card__bars {
+    height: 132px;
+  }
+}
+
+.palette-swatch {
+  flex: 1 1 0;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: var(--sw-hex);
+  position: relative;
+  /* Expansion animates flex-grow rather than transform: the strips share
+     a fixed-width flex line, so one growing means the others shrink by
+     the same total — the plate, the card and the grid never move. A
+     transform would instead have to escape .palette-card__bars'
+     overflow:hidden, need a z-index to out-paint its siblings, and leave
+     the HEX label centred on the old 53px strip instead of the new one. */
+  transition: flex-grow 0.2s var(--palette-ease);
+}
+/* Guarded on a fine pointer: iOS Safari applies :hover on tap and leaves
+   it applied until you tap elsewhere, which would strand one strip
+   expanded. Touch keeps tap-to-copy with no stuck state. */
+@media (hover: hover) and (pointer: fine) {
+  .palette-swatch:hover {
+    flex-grow: 1.9;
+  }
+}
+.palette-swatch:focus-visible {
+  flex-grow: 1.9;
+  outline-offset: -3px;
+}
+.palette-swatch__hex {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 2px;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: var(--sw-label);
+  opacity: 0;
+  transform: translateY(3px);
+  transition:
+    opacity 0.16s var(--palette-ease),
+    transform 0.16s var(--palette-ease);
+}
+.palette-swatch:hover .palette-swatch__hex,
+.palette-swatch:focus-visible .palette-swatch__hex {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- copied state ---------- */
+/* Copy confirmation now lives inside the strip that was clicked,
+   replacing the site-wide .toast palettes.js used to fire on a
+   successful copy. The toast is still used for the failure case, where
+   there is nothing to confirm inside the swatch.
+   Everything here is opacity on an absolutely positioned overlay, so
+   the strip, the plate, the card and the grid cannot move — the
+   flex-grow expansion above stays the only thing that resizes.
+   --sw-veil is emitted inline by palettes.js alongside the --sw-label
+   it already set, from the same YIQ split, so scrim and text always
+   agree on polarity.
+   MUST stay declared after the :hover/:focus-visible reveal above —
+   equal specificity, so source order is what lets the copied state
+   hide the HEX label while the pointer is still on the strip. */
+.palette-swatch__copied {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* Stacked, not inline: a strip is ~53px wide at the 2- and 3-column
+     breakpoints, which a check icon plus "Copied" on one line would
+     overflow. */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--sw-veil, rgba(15, 42, 82, 0.34));
+  color: var(--sw-label);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--palette-ease);
+}
+.palette-swatch__copied svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  opacity: 0.85;
+}
+.palette-swatch[data-copied="true"] .palette-swatch__copied {
+  opacity: 1;
+  transition: opacity 0.12s var(--palette-ease);
+}
+/* Fade only: the label keeps whatever transform the reveal above gave
+   it, so it drops out under the scrim without sliding first. */
+.palette-swatch[data-copied="true"] .palette-swatch__hex {
+  opacity: 0;
+}
+
+/* ---------- card foot ---------- */
+/* Near-zero horizontal padding so the heart lines up with the left
+   edge of the color plate — the metadata sits under the palette rather
+   than inside a box with it. */
+.palette-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 2px 0;
+}
+.palette-like-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px 2px 0;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--sans);
+  transition: color 0.16s var(--palette-ease);
+}
+.palette-like-btn svg {
+  width: 18px;
+  height: 18px;
+  transition:
+    transform 0.16s var(--palette-ease),
+    fill 0.16s var(--palette-ease),
+    stroke 0.16s var(--palette-ease);
+}
+.palette-like-btn:hover {
+  color: var(--ink);
+}
+.palette-like-btn:hover svg {
+  transform: scale(1.08);
+}
+.palette-like-btn:active svg {
+  transform: scale(0.9);
+}
+/* Declared after :hover so a liked palette stays pink while hovered. */
+.palette-like-btn[aria-pressed="true"],
+.palette-like-btn[aria-pressed="true"]:hover {
+  color: #e0245e;
+}
+.palette-like-btn[aria-pressed="true"] svg {
+  fill: #e0245e;
+  stroke: #e0245e;
+}
+/* Tabular figures so a count ticking 9 -> 10 doesn't reflow the row. */
+.palette-like-count {
+  font-variant-numeric: tabular-nums;
+}
+
+/* This palette's 4 color names (palettes-data.json's names[], joined
+   with " · "), moved here from the swatches as plain, non-interactive
+   text. Shrinks below its own content width (min-width:0) and clips
+   with an ellipsis rather than wrapping, so a long name list can never
+   grow the card's height or push the like button out of place. */
+.palette-card__names {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: right;
+  padding-left: 10px;
+}
+
+.palette-card__note {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--sans);
+}
+
+/* ---------- reduced motion ---------- */
+/* styles.css already forces every animation-duration and
+   transition-duration to 0.001ms site-wide, but it does not clear
+   animation-delay — which would leave staggered cards invisible for up
+   to 132ms before snapping in. Cancelling the entrance outright, and
+   the transform-based feedback with it, is the honest reading of the
+   preference: the hover shadow and the hex reveal still fire, they just
+   don't move anything. */
+@media (prefers-reduced-motion: reduce) {
+  .palette-card {
+    animation: none !important;
+  }
+  .palette-card:hover {
+    transform: none;
+  }
+  .palette-swatch__hex {
+    transform: none;
+  }
+  .palette-like-btn:hover svg,
+  .palette-like-btn:active svg {
+    transform: none;
+  }
+  /* Zeroing the duration is not enough here: the strip would still snap
+     from 53px to 82px, which is a bigger jolt than the animation it
+     replaced. The expansion is switched off outright instead — the HEX
+     reveal still responds, it just doesn't resize. */
+  .palette-swatch:hover,
+  .palette-swatch:focus-visible {
+    flex-grow: 1;
+  }
+  /* The gradient reveal is a colour change, not motion, so it stays;
+     only its transition is dropped. */
+  .palettes-hero h1 {
+    transition: none;
+  }
+}
+
+/* Empty/error state reuses the site-wide .empty-state component from
+   styles.css (display:none by default, [data-visible="true"] shows
+   it) — nothing to add here. */

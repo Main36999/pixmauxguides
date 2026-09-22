@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Accessibility",
+            "item": "https://bpozz.com/category/accessibility"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Accessibility Is a Structural Decision, Not a Final Pass",
+            "item": "https://bpozz.com/guide/accessibility-structural-model"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Accessibility Is a Structural Decision, Not a Final Pass",
         "description": "A structural read of web accessibility: how the accessibility tree is built, how a control's accessible name actually gets computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing quietly misses.",
-        "mainEntityOfPage": "https://bpozz.com/guide/accessibility-structural-model",
-        "image": "https://bpozz.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Accessibility%20Is%20a%20Structural%20Decision,%20Not%20a%20Final%20Pass.webp",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,8 +167,15 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/accessibility-structural-model"
+        },
         "datePublished": "2026-08-07",
         "dateModified": "2026-08-07",
+        "articleSection": "Accessibility",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT16M",
         "inLanguage": "en"
       }
     </script>
@@ -177,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -243,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -254,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>

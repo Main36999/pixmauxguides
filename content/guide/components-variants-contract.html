@@ -1,0 +1,679 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Components and Variants Are a Contract, Not a Copy-Paste Shortcut — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/components-variants-contract"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/components-variants-contract"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Components and Variants Are a Contract, Not a Copy-Paste Shortcut"
+    />
+    <meta
+      property="og:description"
+      content="What a component's property panel actually promises, why variants require structural parity to keep overrides alive, and the exact rule Figma uses to decide whether a change survives a swap."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="BPOZZ — UI/UX design guides documented like engineering blueprints."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Components and Variants Are a Contract, Not a Copy-Paste Shortcut"
+    />
+    <meta
+      name="twitter:description"
+      content="What a component's property panel actually promises, why variants require structural parity to keep overrides alive, and the exact rule Figma uses to decide whether a change survives a swap."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/og-image.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+        <p class="guide-hero__meta">Figma Workflow · Intermediate · 16 min read</p>
+        <h1 class="guide-hero__title" id="guide-heading">
+          Components and Variants Are a Contract, Not a Copy-Paste Shortcut
+        </h1>
+        <p class="guide-hero__dek">
+          A component set's real product isn't its visual polish — it's the
+          property panel: the fixed set of Boolean, instance-swap, text, and
+          variant controls it exposes to whoever drops it on a frame. Skip
+          designing that contract on purpose, and "reusable" is just a label
+          pasted onto components that happen to share one visual origin
+          story, with overrides drifting, variants losing structure, and
+          every rebrand starting from zero.
+        </p>
+      </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+      <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+        <span class="section-label mono guide-toc__label" id="guide-toc-heading"
+          >/ on_this_page</span
+        >
+        <ol>
+          <li>
+            <a href="#what-the-contract-protects"
+              >What the contract actually protects</a
+            >
+          </li>
+          <li><a href="#the-property-types">The five property types</a></li>
+          <li>
+            <a href="#boolean-and-instance-swap"
+              >Boolean and instance-swap in practice</a
+            >
+          </li>
+          <li>
+            <a href="#variants-are-a-contract"
+              >Variants are a contract, not a dropdown</a
+            >
+          </li>
+          <li>
+            <a href="#nested-override-inheritance"
+              >Nested override inheritance</a
+            >
+          </li>
+          <li>
+            <a href="#where-it-breaks">Where variant sets break under real content</a>
+          </li>
+          <li><a href="#worked-example">A worked example</a></li>
+          <li><a href="#cheat-sheet">Cheat sheet</a></li>
+        </ol>
+      </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+      <article class="guide-article">
+        <h2 id="what-the-contract-protects">
+          <span class="guide-article__num mono">01</span>What the contract
+          actually protects
+        </h2>
+        <p>
+          Most explanations of Figma variants start with the dropdown — click
+          the diamond icon, pick a state, watch the layer swap. That's the
+          interaction, not the design decision. The decision that actually
+          matters happened earlier, when someone decided which aspects of a
+          button, a card, or a list item were allowed to change and which
+          weren't — and that decision is what everyone downstream is quietly
+          relying on: a teammate dragging an instance onto a frame, another
+          component nesting this one three levels deep, a design engineer
+          translating it into code without opening the file. Call it a
+          contract — a fixed set of promises, phrased as properties, backed
+          by a structure that has to hold still underneath them.
+        </p>
+        <p>
+          Copy-pasting a frame and renaming it "Button — Secondary" produces
+          something that looks identical to a real component from ten feet
+          away, and behaves nothing like one. An edit to the original never
+          reaches the copy. An override made on one instance has no
+          relationship to overrides made on the others. Nothing in the file
+          tells anyone what's safe to change and what will quietly break the
+          layout. That gap isn't cosmetic — it's the difference between a
+          system a team can extend for years and one that gets rebuilt from
+          scratch every time someone touches it.
+        </p>
+
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
+            <svg
+              viewBox="0 0 240 120"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig1-title fig1-desc"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <title id="fig1-title">Two overlapping component frames marked State=Hover</title>
+              <desc id="fig1-desc">
+                Two overlapping rounded rectangles with small marker squares
+                at each corner, dimensioned and labeled State equals Hover.
+              </desc>
+              <rect x="82" y="16" width="50" height="50" rx="6" />
+              <rect x="110" y="40" width="50" height="50" rx="6" />
+              <rect class="thumb-fill" x="107.5" y="37.5" width="5" height="5" />
+              <rect class="thumb-fill" x="157.5" y="37.5" width="5" height="5" />
+              <rect class="thumb-fill" x="107.5" y="87.5" width="5" height="5" />
+              <rect class="thumb-fill" x="157.5" y="87.5" width="5" height="5" />
+              <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line" />
+              <line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick" />
+              <line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick" />
+              <text x="120" y="112" text-anchor="middle" class="thumb-dim-label">
+                STATE=HOVER
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            FIG. 01 — A variant property like State swaps which frame is
+            shown while the rest of the component's structure holds still.
+          </figcaption>
+        </figure>
+        <p>
+          A main component defines two things at once: the visual structure
+          — every layer, its name, its position, its z-order — and the
+          defaults for anything that will later become a property. A
+          component set is just several main components grouped together and
+          switched between as variants. An instance is neither of those; it's
+          a reference back to one specific main component (or, inside a set,
+          one specific variant) that can vary only along the properties that
+          were deliberately exposed, plus a narrow band of instance-level
+          overrides on top.
+        </p>
+        <p>
+          That narrowness is the whole point, not a limitation to work
+          around. An instance genuinely <strong>cannot</strong> reorder its
+          own layers, change their z-index, or reposition a layer that's
+          governed by auto layout — those changes can only be made on the
+          main component itself, or by detaching the instance and giving up
+          its connection entirely. It's exactly this restriction that makes
+          the rest of the system trustworthy: because an instance can't
+          quietly restructure itself, an edit made once on the main component
+          can propagate to every instance in the file with predictable
+          results. Loosen that restriction and the propagation guarantee
+          disappears with it.
+        </p>
+        <div class="guide-callout">
+          <p>
+            <strong>The contract, restated plainly:</strong> a property panel
+            is a promise about what's allowed to differ. Everything the panel
+            doesn't expose is implicitly promised to stay the same across
+            every instance, everywhere, until someone edits the main
+            component. A component with no thoughtfully designed properties
+            hasn't avoided making that promise — it's just making an empty
+            one.
+          </p>
+        </div>
+
+        <h2 id="the-property-types">
+          <span class="guide-article__num mono">02</span>The five property
+          types
+        </h2>
+        <p>
+          Figma's component properties come in a small, fixed vocabulary.
+          Four have been stable for years; a fifth, Slot, was added more
+          recently for cases where a component needs to accept
+          free-form content rather than a fixed value. Knowing which type
+          controls which kind of change — and which type can't — heads off
+          most of the "why won't this property show up" confusion before it
+          starts.
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Figma component property types, what they expose, and what they're bound to
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Controls</th>
+                <th scope="col">Must be bound to</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Boolean</strong></td>
+                <td>Layer visibility only — nothing else</td>
+                <td>A layer (any layer, shown or hidden)</td>
+              </tr>
+              <tr>
+                <td><strong>Instance swap</strong></td>
+                <td>Which component fills a nested slot</td>
+                <td>An actual nested instance layer</td>
+              </tr>
+              <tr>
+                <td><strong>Text</strong></td>
+                <td>Editable string content</td>
+                <td>A text layer</td>
+              </tr>
+              <tr>
+                <td><strong>Variant</strong></td>
+                <td>Which whole variant is shown</td>
+                <td>The component set itself</td>
+              </tr>
+              <tr>
+                <td><strong>Slot</strong></td>
+                <td>A free area for arbitrary child content</td>
+                <td>A designated slot region</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The "must be bound to" column is where most first attempts go
+          wrong. An instance-swap property can only attach to a genuine
+          nested instance — not a group, not a plain frame that merely looks
+          like one — and a text property can only attach to a text layer that
+          isn't itself buried inside a separate nested instance. Select the
+          wrong kind of layer and Figma won't offer the property at all,
+          which reads as a bug the first few times and is actually the type
+          system doing its job.
+        </p>
+
+        <h2 id="boolean-and-instance-swap">
+          <span class="guide-article__num mono">03</span>Boolean and
+          instance-swap in practice
+        </h2>
+        <p>
+          The most common misconception about Boolean properties is that they
+          can toggle anything — swap a color, change a corner radius, resize
+          a frame. They can't. A Boolean property does exactly one thing:
+          show or hide the specific layer it's bound to. If a design calls
+          for something that reads as "toggle the emphasis color," the actual
+          mechanism is two layers with opposite fills, each bound to the same
+          Boolean and set to opposite visibility — or, more often, that it's
+          not a Boolean at all and belongs on a Variant axis instead. Reaching
+          for Boolean by default and hitting this wall is usually the signal
+          that the property being modeled isn't actually binary in the way it
+          first looked.
+        </p>
+        <p>
+          Instance-swap properties are more powerful and more dangerous in
+          the same breath. Because the property swaps an entire nested
+          instance, not just its glyph or fill, the swap carries that nested
+          component's <strong>whole footprint</strong> along with it —
+          intrinsic width, height, internal padding, everything. Swapping a
+          16px icon slot for a 48px illustration slot doesn't just change
+          what's rendered; if the parent frame is set to Hug rather than a
+          fixed size, that size change propagates straight up through the
+          auto-layout chain and can blow out spacing several levels away from
+          where the swap actually happened. <strong>Preferred values</strong>
+          exist for exactly this reason — they let the property's author
+          curate a short list of components that are known to fit, instead of
+          exposing the entire library and trusting every future consumer to
+          pick something size-compatible.
+        </p>
+        <p>
+          A related, easy-to-miss detail: instance-swap and text properties
+          both require the target layer to sit directly inside the component
+          they're defined on. A text layer nested two instances deep isn't
+          reachable from the outer component's own property panel — the
+          property has to be created on whichever main component actually
+          owns that text layer, one level in. This is precisely the seam that
+          section 05 covers in more depth, because it's also where override
+          inheritance most often breaks down.
+        </p>
+
+        <h2 id="variants-are-a-contract">
+          <span class="guide-article__num mono">04</span>Variants are a
+          contract, not a dropdown
+        </h2>
+        <p>
+          Figma will technically let a component set contain variants with
+          completely different internal layer trees — a "Hover" state built
+          from a different set of layers than "Default," named differently,
+          nested differently. Nothing stops a designer from building it that
+          way. What breaks is the exact thing variants exist to provide:
+          overrides and edits that survive a switch instead of silently
+          resetting.
+        </p>
+        <p>
+          The rule Figma actually applies is narrow and unforgiving, and it's
+          worth knowing precisely because it explains almost every "why did
+          my change disappear" moment a design-systems team runs into. When
+          an instance's variant is switched, an override survives only if
+          <strong>both</strong> of these hold: the layer name where the
+          change was made has to be identical between the old variant and the
+          new one, and the property that changed has to have started out
+          holding the <em>same value</em> on both variants before the change
+          was made. Miss either condition and the instance quietly reverts to
+          whatever the new variant defines by default — no dialog, no
+          warning, just a change that no longer appears to have happened.
+        </p>
+        <p>
+          That's also why layer order and auto-layout position sit outside
+          what any override — variant switch or otherwise — can touch at all.
+          Reordering layers or moving something that auto layout is
+          positioning requires either editing the main component directly or
+          detaching the instance and giving up the contract entirely.
+          Structural changes are reserved for the main component on purpose;
+          if instances could make them too, propagation and override
+          preservation would both become unpredictable.
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              Naming pattern for variant properties and how flat components merge into a set
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Convention</th>
+                <th scope="col">Example</th>
+                <th scope="col">Why it matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Property=Value pairs</td>
+                <td><code>Type=Primary, Size=Large</code></td>
+                <td>Each axis becomes its own dropdown in the panel</td>
+              </tr>
+              <tr>
+                <td>Forward-slash grouping</td>
+                <td><code>Button/Primary/Large</code></td>
+                <td>
+                  Flat, ungrouped components merge into these same axes when
+                  combined into a set
+                </td>
+              </tr>
+              <tr>
+                <td>Consistent layer names</td>
+                <td><code>Label</code>, <code>Icon</code> in every variant</td>
+                <td>The precondition for the override-survival rule above</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="nested-override-inheritance">
+          <span class="guide-article__num mono">05</span>Nested override
+          inheritance
+        </h2>
+        <p>
+          Every override an instance holds is tracked by its full layer
+          <strong>path</strong>, not just a layer name in isolation — "this
+          exact position, in this exact tree, inside this exact nested
+          instance." That distinction barely matters for a flat component,
+          but it's the whole story once components start nesting inside each
+          other, which is how most real design systems build compound
+          components like list items, cards, and form fields.
+        </p>
+        <p>
+          Figma supports <strong>exposing a nested instance's own
+          properties</strong> up to the parent component, so someone using
+          the outer component doesn't have to drill two levels in just to
+          swap an inner icon. It's a genuinely useful feature, and it comes
+          with a real cost: the inner component's contract effectively
+          flattens into the outer one, which means the two components' own
+          property names can collide. Two unrelated components each shipping
+          a property called simply <code>Icon</code> is fine in isolation and
+          ambiguous the moment one is nested inside the other and both get
+          exposed — the fix is a small naming discipline (prefixing nested,
+          exposed properties by their source component) rather than anything
+          Figma enforces automatically.
+        </p>
+        <p>
+          The more consequential fragility shows up with overrides made on a
+          nested instance itself — say, swapping the icon inside a button
+          that's nested inside a card. Because that override is chasing a
+          layer <em>path</em>, not just a name, anything that shifts the path
+          underneath it can strand the override even when every layer
+          involved is still correctly named. Swapping the outer component's
+          own variant, or duplicating an instance into a new context that
+          changes which nested component sits at that path, is enough to lose
+          it — a pattern experienced design-systems teams run into often
+          enough that the practical guidance has become: don't rely on a
+          doubly-nested override for anything that needs to be durable. If a
+          difference genuinely needs to survive variant switches reliably,
+          model it as a property on the main component directly rather than
+          as an override two or three instances deep.
+        </p>
+
+        <h2 id="where-it-breaks">
+          <span class="guide-article__num mono">06</span>Where variant sets
+          break under real content
+        </h2>
+        <p>
+          A variant grid built and tested against placeholder content —
+          "Button," a single short English word, a generic icon — can look
+          completely finished and still fail the moment real content, real
+          translations, or real edge cases reach it. The failures cluster
+          into a handful of repeatable patterns.
+        </p>
+        <p>
+          <strong>Combinatorial growth.</strong> Every axis added to a
+          variant set multiplies the total, not adds to it. A Button with
+          three types, three sizes, four states, and an icon toggle left
+          inside the grid produces the full cross product — and pulling just
+          that last axis out as a Boolean instead cuts the whole set in half:
+        </p>
+        <div class="guide-table-wrap">
+          <table>
+            <caption class="sr-only">
+              How variant count grows when an axis stays in the grid vs. becomes a Boolean property
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Axes in the variant grid</th>
+                <th scope="col">Values</th>
+                <th scope="col">Total variants</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Type × Size × State × Icon</td>
+                <td>3 × 3 × 4 × 2</td>
+                <td>72</td>
+              </tr>
+              <tr>
+                <td>Type × Size × State (Icon pulled out as Boolean)</td>
+                <td>3 × 3 × 4</td>
+                <td>36</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Every axis that's genuinely a yes/no toggle and doesn't change the
+          component's underlying structure is a candidate for pulling out of
+          the grid this way — the variant count only grows for axes that
+          truly need to be there.
+        </p>
+        <ul>
+          <li>
+            <strong>Text that doesn't fit the placeholder.</strong> A variant
+            sized against a five-character label wraps, truncates, or blows
+            out its container the moment it meets a translated string or a
+            real person's name twice as long. A fixed-width variant and an
+            auto-layout Hug variant of the same component can behave in
+            completely different, untested ways once that happens — if only
+            one was checked against long content, the other ships broken.
+          </li>
+          <li>
+            <strong>States that can't legally coexist.</strong> If State is a
+            single variant axis, "Disabled" and "Hover" can never both be
+            true at once, because an axis only ever holds one value. Real
+            interfaces need a disabled button to suppress hover styling
+            entirely, which usually means Disabled has to live as an
+            independent property layered on top of the State axis, not as
+            just another value inside it.
+          </li>
+          <li>
+            <strong>Directional assumptions baked into names.</strong> An
+            icon-position axis named "Icon Left" / "Icon Right" encodes an
+            LTR-only assumption and won't flip automatically for a
+            right-to-left locale. Naming the same axis "Icon Leading" /
+            "Icon Trailing" keeps the property meaningful regardless of
+            reading direction — the rename costs nothing and the alternative
+            costs a localization bug.
+          </li>
+          <li>
+            <strong>States nobody modeled at all.</strong> Default, Hover,
+            Active, and Disabled cover the states a component looks like it
+            needs in a design file. Loading, Error, and Empty are the states
+            that only show up once a real API response is slow, fails, or
+            returns nothing — and a "complete" variant set with no cell for
+            any of them isn't actually complete, it's just untested against
+            failure.
+          </li>
+        </ul>
+
+        <h2 id="worked-example">
+          <span class="guide-article__num mono">07</span>A worked example
+        </h2>
+        <p>
+          A Button component makes the property-type choices concrete. Every
+          line below reflects a deliberate call about which mechanism fits
+          which kind of change — not a default reached for out of habit:
+        </p>
+        <pre><code>Button (component set)
+├─ Variant  Type   = Primary | Secondary | Ghost
+├─ Variant  Size    = Small | Medium | Large
+├─ Variant  State    = Default | Hover | Active
+├─ Boolean  Disabled          (independent of State — suppresses Hover/Active)
+├─ Boolean  Icon              (shown/hidden, not a variant axis)
+├─ Instance-swap  Icon*       (nested slot, preferred values: 16px icon set only)
+└─ Text     Label</code></pre>
+        <p>
+          <code>Type</code>, <code>Size</code>, and <code>State</code> stay
+          on the variant grid because each one genuinely changes structure or
+          styling in ways that need their own layer treatment. <code
+            >Disabled</code
+          >
+          sits outside the grid entirely so it can be combined with any
+          state. <code>Icon</code> is a Boolean paired with an instance-swap
+          property rather than a fourth variant axis, which is what keeps the
+          total variant count at 3 × 3 × 3 = 27 instead of 54.
+        </p>
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
+            <svg
+              viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig2-title fig2-desc"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+            >
+              <title id="fig2-title">One contract, three variants</title>
+              <desc id="fig2-desc">
+                Three button rows sharing identical layer names, connected by
+                dashed lines to show they share one underlying structure.
+              </desc>
+              <rect x="14" y="18" width="70" height="30" rx="6" />
+              <rect x="14" y="58" width="70" height="30" rx="6" />
+              <rect x="14" y="98" width="70" height="30" rx="6" />
+              <circle cx="28" cy="33" r="4" />
+              <circle cx="28" cy="73" r="4" />
+              <circle cx="28" cy="113" r="4" />
+              <line x1="40" y1="33" x2="70" y2="33" />
+              <line x1="40" y1="73" x2="70" y2="73" />
+              <line x1="40" y1="113" x2="70" y2="113" />
+              <path
+                d="M130,33 L160,33 M130,73 L160,73 M130,113 L160,113"
+                opacity="0.35"
+              />
+              <text x="130" y="30" class="thumb-dim-label" font-size="8">
+                same layer names
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            FIG. 02 — One structural contract, three variants — an icon-fill
+            override made on any one survives switching between them.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-diagram">
+          <div class="guide-diagram__frame">
+            <svg
+              viewBox="0 0 220 140"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="fig3-title fig3-desc"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+            >
+              <title id="fig3-title">Same button, copy-pasted three times</title>
+              <desc id="fig3-desc">
+                Three unrelated button frames with slightly different
+                corner radii and icon sizes, unconnected to one another.
+              </desc>
+              <rect x="14" y="14" width="66" height="28" rx="5" />
+              <rect x="18" y="56" width="72" height="30" rx="8" />
+              <rect x="12" y="98" width="68" height="26" rx="3" />
+              <circle cx="27" cy="28" r="3.4" />
+              <circle cx="33" cy="71" r="4.6" />
+              <circle cx="25" cy="111" r="3" />
+              <text x="130" y="30" class="thumb-dim-label" font-size="8">
+                three unrelated frames
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            FIG. 03 — Same button, copy-pasted three times — one fix means
+            three manual edits, and the radii and icon sizes have already
+            begun to drift.
+          </figcaption>
+        </figure>
+
+        <h2 id="cheat-sheet">
+          <span class="guide-article__num mono">08</span>Cheat sheet
+        </h2>
+        <ul>
+          <li>
+            Boolean toggles layer visibility only — nothing else. If a toggle
+            needs to change a color or a size, it isn't a Boolean.
+          </li>
+          <li>
+            Instance-swap carries the swapped-in component's full footprint
+            with it; use preferred values to keep swaps size-compatible
+            inside Hug-sized parents.
+          </li>
+          <li>
+            An override survives a variant switch only if the layer name
+            matches <em>and</em> the property held the same starting value on
+            both variants — keep layer names identical across every variant
+            in a set.
+          </li>
+          <li>
+            Layer order and auto-layout position can never be overridden on
+            an instance; those changes belong on the main component.
+          </li>
+          <li>
+            Nested overrides are tracked by path, not name — treat anything
+            overridden two or three instances deep as fragile, and push
+            durable differences up into the main component instead.
+          </li>
+          <li>
+            Every variant axis multiplies the grid; pull genuinely binary
+            axes out as Boolean properties before the combinatorics get out
+            of hand.
+          </li>
+          <li>
+            Test variants against real content — long translated strings,
+            Disabled+Hover together, RTL icon direction, Loading/Error/Empty
+            — not just the placeholder text used to build them.
+          </li>
+        </ul>
+          </article>
+<!--ARTICLE_END-->

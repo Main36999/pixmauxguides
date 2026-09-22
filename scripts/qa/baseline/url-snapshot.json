@@ -1,0 +1,299 @@
+{
+  "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
+  "phase": "phase4-step10",
+  "counts": {
+    "pages": 42,
+    "dataEndpoints": 5,
+    "siteFiles": 4,
+    "assets": 46,
+    "code": 7,
+    "total": 104
+  },
+  "pages": [
+    {
+      "file": "index.html",
+      "url": "/",
+      "canonical": "https://bpozz.com/"
+    },
+    {
+      "file": "about.html",
+      "url": "/about.html",
+      "canonical": "https://bpozz.com/about.html"
+    },
+    {
+      "file": "category/accessibility.html",
+      "url": "/category/accessibility",
+      "canonical": "https://bpozz.com/category/accessibility"
+    },
+    {
+      "file": "category/adobe-xd.html",
+      "url": "/category/adobe-xd",
+      "canonical": "https://bpozz.com/category/adobe-xd"
+    },
+    {
+      "file": "category/color-theory.html",
+      "url": "/category/color-theory",
+      "canonical": "https://bpozz.com/category/color-theory"
+    },
+    {
+      "file": "category/figma.html",
+      "url": "/category/figma",
+      "canonical": "https://bpozz.com/category/figma"
+    },
+    {
+      "file": "category/mobile.html",
+      "url": "/category/mobile",
+      "canonical": "https://bpozz.com/category/mobile"
+    },
+    {
+      "file": "category/motion.html",
+      "url": "/category/motion",
+      "canonical": "https://bpozz.com/category/motion"
+    },
+    {
+      "file": "category/spacing.html",
+      "url": "/category/spacing",
+      "canonical": "https://bpozz.com/category/spacing"
+    },
+    {
+      "file": "category/systems.html",
+      "url": "/category/systems",
+      "canonical": "https://bpozz.com/category/systems"
+    },
+    {
+      "file": "category/typography.html",
+      "url": "/category/typography",
+      "canonical": "https://bpozz.com/category/typography"
+    },
+    {
+      "file": "category/web.html",
+      "url": "/category/web",
+      "canonical": "https://bpozz.com/category/web"
+    },
+    {
+      "file": "colors/index.html",
+      "url": "/colors",
+      "canonical": "https://bpozz.com/colors"
+    },
+    {
+      "file": "contact.html",
+      "url": "/contact.html",
+      "canonical": "https://bpozz.com/contact.html"
+    },
+    {
+      "file": "guide/accessibility-structural-model.html",
+      "url": "/guide/accessibility-structural-model",
+      "canonical": "https://bpozz.com/guide/accessibility-structural-model"
+    },
+    {
+      "file": "guide/auto-layout-constraint-model.html",
+      "url": "/guide/auto-layout-constraint-model",
+      "canonical": "https://bpozz.com/guide/auto-layout-constraint-model"
+    },
+    {
+      "file": "guide/color-contrast-systems.html",
+      "url": "/guide/color-contrast-systems",
+      "canonical": "https://bpozz.com/guide/color-contrast-systems"
+    },
+    {
+      "file": "guide/color-palette-token-system.html",
+      "url": "/guide/color-palette-token-system",
+      "canonical": "https://bpozz.com/guide/color-palette-token-system"
+    },
+    {
+      "file": "guide/components-variants-contract.html",
+      "url": "/guide/components-variants-contract",
+      "canonical": "https://bpozz.com/guide/components-variants-contract"
+    },
+    {
+      "file": "guide/css-grid-two-dimensional-system.html",
+      "url": "/guide/css-grid-two-dimensional-system",
+      "canonical": "https://bpozz.com/guide/css-grid-two-dimensional-system"
+    },
+    {
+      "file": "guide/dark-mode-second-palette.html",
+      "url": "/guide/dark-mode-second-palette",
+      "canonical": "https://bpozz.com/guide/dark-mode-second-palette"
+    },
+    {
+      "file": "guide/design-tokens-naming-system.html",
+      "url": "/guide/design-tokens-naming-system",
+      "canonical": "https://bpozz.com/guide/design-tokens-naming-system"
+    },
+    {
+      "file": "guide/figma-to-code-handoff.html",
+      "url": "/guide/figma-to-code-handoff",
+      "canonical": "https://bpozz.com/guide/figma-to-code-handoff"
+    },
+    {
+      "file": "guide/figma-variables-data-layer.html",
+      "url": "/guide/figma-variables-data-layer",
+      "canonical": "https://bpozz.com/guide/figma-variables-data-layer"
+    },
+    {
+      "file": "guide/font-pairing-hierarchy-decision.html",
+      "url": "/guide/font-pairing-hierarchy-decision",
+      "canonical": "https://bpozz.com/guide/font-pairing-hierarchy-decision"
+    },
+    {
+      "file": "guide/grid-systems-rhythm.html",
+      "url": "/guide/grid-systems-rhythm",
+      "canonical": "https://bpozz.com/guide/grid-systems-rhythm"
+    },
+    {
+      "file": "guide/ios-android-different-systems.html",
+      "url": "/guide/ios-android-different-systems",
+      "canonical": "https://bpozz.com/guide/ios-android-different-systems"
+    },
+    {
+      "file": "guide/line-length-reading-constraint.html",
+      "url": "/guide/line-length-reading-constraint",
+      "canonical": "https://bpozz.com/guide/line-length-reading-constraint"
+    },
+    {
+      "file": "guide/migrating-from-xd-rebuild.html",
+      "url": "/guide/migrating-from-xd-rebuild",
+      "canonical": "https://bpozz.com/guide/migrating-from-xd-rebuild"
+    },
+    {
+      "file": "guide/mobile-breakpoints-device-categories.html",
+      "url": "/guide/mobile-breakpoints-device-categories",
+      "canonical": "https://bpozz.com/guide/mobile-breakpoints-device-categories"
+    },
+    {
+      "file": "guide/motion-timing-model.html",
+      "url": "/guide/motion-timing-model",
+      "canonical": "https://bpozz.com/guide/motion-timing-model"
+    },
+    {
+      "file": "guide/padding-margin-different-jobs.html",
+      "url": "/guide/padding-margin-different-jobs",
+      "canonical": "https://bpozz.com/guide/padding-margin-different-jobs"
+    },
+    {
+      "file": "guide/responsive-layout-contract.html",
+      "url": "/guide/responsive-layout-contract",
+      "canonical": "https://bpozz.com/guide/responsive-layout-contract"
+    },
+    {
+      "file": "guide/thumb-zones-layout-constraint.html",
+      "url": "/guide/thumb-zones-layout-constraint",
+      "canonical": "https://bpozz.com/guide/thumb-zones-layout-constraint"
+    },
+    {
+      "file": "guide/type-scale-systems.html",
+      "url": "/guide/type-scale-systems",
+      "canonical": "https://bpozz.com/guide/type-scale-systems"
+    },
+    {
+      "file": "guide/whitespace-as-ui-component.html",
+      "url": "/guide/whitespace-as-ui-component",
+      "canonical": "https://bpozz.com/guide/whitespace-as-ui-component"
+    },
+    {
+      "file": "guides/index.html",
+      "url": "/guides",
+      "canonical": "https://bpozz.com/guides"
+    },
+    {
+      "file": "palettes/index.html",
+      "url": "/palettes",
+      "canonical": "https://bpozz.com/palettes"
+    },
+    {
+      "file": "privacy.html",
+      "url": "/privacy.html",
+      "canonical": "https://bpozz.com/privacy.html"
+    },
+    {
+      "file": "roadmap.html",
+      "url": "/roadmap.html",
+      "canonical": "https://bpozz.com/roadmap.html"
+    },
+    {
+      "file": "search.html",
+      "url": "/search.html",
+      "canonical": "https://bpozz.com/search"
+    },
+    {
+      "file": "terms.html",
+      "url": "/terms.html",
+      "canonical": "https://bpozz.com/terms.html"
+    }
+  ],
+  "dataEndpoints": [
+    "/categories.json",
+    "/colors/colors-data.json",
+    "/content-index.json",
+    "/guides.json",
+    "/palettes/palettes-data.json"
+  ],
+  "siteFiles": [
+    "/ads.txt",
+    "/og-image.png",
+    "/robots.txt",
+    "/sitemap.xml"
+  ],
+  "assets": [
+    "/assets/Accessibility.png",
+    "/assets/Color Theory.png",
+    "/assets/Figma Workflow.png",
+    "/assets/Spacing & Layout.png",
+    "/assets/Typography.png",
+    "/assets/apple-touch-icon.png",
+    "/assets/bpozz logo tab-01.png",
+    "/assets/bpozz logo-01.png",
+    "/assets/bpozz logo.png",
+    "/assets/bpozz-logo.svg",
+    "/assets/favicon.png",
+    "/assets/founder-somrach-hoy.jpg",
+    "/assets/logo.png",
+    "/thumbnail_image_webp/A Color Palette Is a Token System, Not a Row of Swatches.webp",
+    "/thumbnail_image_webp/Accessibility Is a Structural Decision, Not a Final Pass.webp",
+    "/thumbnail_image_webp/Auto Layout Is a Constraint System, Not a Convenience Toggle.webp",
+    "/thumbnail_image_webp/CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps.webp",
+    "/thumbnail_image_webp/Color Contrast Is Math, Not Taste.webp",
+    "/thumbnail_image_webp/Components and Variants Are a Contract, Not a Copy-Paste Shortcut.webp",
+    "/thumbnail_image_webp/Dark Mode Is a Second Palette, Not an Inverted Filter.webp",
+    "/thumbnail_image_webp/Design Tokens Are a Naming System, Not a Style Guide.webp",
+    "/thumbnail_image_webp/Figma Variables Are a Data Layer, Not Just Color Styles.webp",
+    "/thumbnail_image_webp/Figma-to-Code Handoff Is a Translation, Not a Screenshot.webp",
+    "/thumbnail_image_webp/Font Pairing Is a Hierarchy Decision, Not a Personality Match.webp",
+    "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.png",
+    "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.webp",
+    "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.png",
+    "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.webp",
+    "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.png",
+    "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.webp",
+    "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.png",
+    "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.webp",
+    "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.png",
+    "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.webp",
+    "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.png",
+    "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.webp",
+    "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.png",
+    "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.webp",
+    "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.png",
+    "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.webp",
+    "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.png",
+    "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.webp",
+    "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.png",
+    "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.webp",
+    "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.png",
+    "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.webp"
+  ],
+  "code": [
+    "/app.js",
+    "/colors/colors.css",
+    "/colors/colors.js",
+    "/guide-article.css",
+    "/palettes/palettes.css",
+    "/palettes/palettes.js",
+    "/styles.css"
+  ],
+  "platformFiles": [
+    "/_headers",
+    "/_redirects"
+  ],
+  "status": "RECORDED by an explicit BPOZZ_WRITE_BASELINE=1 run — the diff is the review, not this field"
+}

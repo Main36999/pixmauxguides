@@ -19,7 +19,7 @@
     "readTime": 8,
     "title": "Padding and Margin Are Different Jobs, Not Interchangeable Values",
     "description": "Padding as internal breathing room vs. margin as separation, and the token-naming split that keeps the two from getting swapped.",
-    "thumbnail": "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.webp",
+    "thumbnail": "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.png",
     "roadmapStage": 1,
     "roadmapStep": 1.5
   },
@@ -55,7 +55,7 @@
     "readTime": 12,
     "title": "Font Size Is a Formula, Not a Feeling",
     "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
-    "thumbnail": "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.webp",
+    "thumbnail": "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.png",
     "roadmapStage": 2,
     "roadmapStep": 4
   },
@@ -103,7 +103,7 @@
     "readTime": 18,
     "title": "Responsive Layout Is a Contract, Not a Breakpoint List",
     "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.",
-    "thumbnail": "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.webp",
+    "thumbnail": "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.png",
     "roadmapStage": 3,
     "roadmapStep": 9
   },
@@ -115,7 +115,7 @@
     "readTime": 15,
     "title": "Motion Timing Is a Physics Model, Not a Preset",
     "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
-    "thumbnail": "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.webp",
+    "thumbnail": "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.png",
     "roadmapStage": 4,
     "roadmapStep": 12
   },
@@ -151,7 +151,7 @@
     "readTime": 9,
     "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
     "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
-    "thumbnail": "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.webp",
+    "thumbnail": "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.png",
     "roadmapStage": 1,
     "roadmapStep": 2
   },
@@ -163,7 +163,7 @@
     "readTime": 14,
     "title": "Grid Systems Are a Rhythm, Not a Ruler",
     "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
-    "thumbnail": "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.webp",
+    "thumbnail": "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.png",
     "roadmapStage": 3,
     "roadmapStep": 8.5
   },
@@ -211,7 +211,7 @@
     "readTime": 10,
     "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have",
     "description": "Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.",
-    "thumbnail": "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.webp",
+    "thumbnail": "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.png",
     "roadmapStage": 3,
     "roadmapStep": 9.5
   },
@@ -223,7 +223,7 @@
     "readTime": 12,
     "title": "Migrating From XD Is a Rebuild, Not a File Import",
     "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) \u2014 a practical checklist.",
-    "thumbnail": "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.webp"
+    "thumbnail": "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.png"
   },
   {
     "id": "ios-android-different-systems",
@@ -233,7 +233,7 @@
     "readTime": 17,
     "title": "iOS and Android Are Different Systems, Not One Design Reused Twice",
     "description": "Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.",
-    "thumbnail": "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.webp",
+    "thumbnail": "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.png",
     "roadmapStage": 3,
     "roadmapStep": 9.75
   },
@@ -255,7 +255,7 @@
     "readTime": 13,
     "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
     "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
-    "thumbnail": "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.webp",
+    "thumbnail": "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.png",
     "roadmapStage": 3,
     "roadmapStep": 9.25
   }

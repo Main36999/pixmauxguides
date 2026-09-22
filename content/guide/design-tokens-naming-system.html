@@ -1,0 +1,1031 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Tokens Are a Naming System, Not a Style Guide — BPOZZ</title>
+    <meta
+      name="description"
+      content="A spec-level read of design tokens: primitive, semantic, and component tiers, the aliasing chain between them, the W3C DTCG format, and the naming rules that keep tokens from decaying into hardcoded values."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/design-tokens-naming-system"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/design-tokens-naming-system"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Design Tokens Are a Naming System, Not a Style Guide"
+    />
+    <meta
+      property="og:description"
+      content="How primitive, semantic, and component token tiers resolve against each other, the W3C DTCG format, and the naming rules that keep a token system from decaying into hardcoded values."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/thumbnail_image/design-tokens-naming-system-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram of a three-tier design token chain: primitive, semantic, and component."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Design Tokens Are a Naming System, Not a Style Guide"
+    />
+    <meta
+      name="twitter:description"
+      content="How primitive, semantic, and component token tiers resolve against each other, the W3C DTCG format, and the naming rules that keep a token system from decaying into hardcoded values."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/thumbnail_image/design-tokens-naming-system-thumbnail.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+            <p class="guide-hero__meta">
+              Design Systems · Advanced · 17 min read
+            </p>
+            <h1 class="guide-hero__title" id="guide-heading">
+              Design Tokens Are a Naming System, Not a Style Guide
+            </h1>
+            <p class="guide-hero__dek">
+              Most teams "adopt design tokens" by renaming hex codes into
+              variables and calling the job finished. The naming architecture
+              underneath — tiers, aliasing, and who's allowed to add what — is
+              the part that actually decides whether the system survives a
+              rebrand, a new platform, or three years of new hires who never
+              read the original spec.
+            </p>
+          </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+          <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+            <span
+              class="section-label mono guide-toc__label"
+              id="guide-toc-heading"
+              >/ on_this_page</span
+            >
+            <ol>
+              <li>
+                <a href="#what-is-a-token">What a Token Actually Is</a>
+              </li>
+              <li>
+                <a href="#three-tiers">Three Tiers, One Rule Each</a>
+              </li>
+              <li>
+                <a href="#aliasing-chain">The Aliasing Chain</a>
+              </li>
+              <li>
+                <a href="#naming">Naming Conventions That Survive Scale</a>
+              </li>
+              <li>
+                <a href="#dtcg">The W3C DTCG Format</a>
+              </li>
+              <li>
+                <a href="#transforms">Transforms: One Source, Many Platforms</a>
+              </li>
+              <li>
+                <a href="#theming">Theming Without Duplicating Every Token</a>
+              </li>
+              <li>
+                <a href="#governance">Governance: Who Adds a Token</a>
+              </li>
+              <li>
+                <a href="#pitfalls"
+                  >Five Pitfalls That Look Like Tooling Bugs</a
+                >
+              </li>
+              <li>
+                <a href="#cheat-sheet">Quick Reference</a>
+              </li>
+            </ol>
+          </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+          <article class="guide-article">
+            <h2 id="what-is-a-token">
+              <span class="guide-article__num mono">01</span>What a Token
+              Actually Is
+            </h2>
+
+            <p>
+              A design token is not a CSS variable with better branding. A
+              custom property, a Swift constant, and an Android XML resource are
+              three different <strong>outputs</strong> of a token — one export
+              format each. The token itself is the source data one level up:
+              something meant to survive translation into all three at once,
+              plus whatever platform gets added next year.
+            </p>
+            <p>
+              Three parts make something a token rather than just a renamed
+              constant:
+            </p>
+            <p>
+              <strong>Name</strong> — the stable identifier design and code both
+              point to, e.g. <code>color.background.action.primary</code>. This
+              is the part that's supposed to never change, even when the value
+              behind it does.
+            </p>
+            <p>
+              <strong>Value</strong> — a literal, or, past the first tier, a
+              reference to another token's name instead of a literal at all.
+              Section three covers why that distinction is the whole point.
+            </p>
+            <p>
+              <strong>Type</strong> — what kind of value this is: color,
+              dimension, duration, cubic-bezier, font family, and so on. The
+              type is what tells a build step whether <code>8</code> means 8px,
+              8 seconds, or a stroke weight, and it's the piece teams skip most
+              often because a spreadsheet of hex codes doesn't obviously need
+              one.
+            </p>
+            <p>
+              Leave the type out and the file still looks organized — it's just
+              not machine-readable in the way that matters. The moment you try
+              to auto-generate outputs for more than one platform from it,
+              everything downstream has to guess.
+            </p>
+
+            <h2 id="three-tiers">
+              <span class="guide-article__num mono">02</span>Three Tiers, One
+              Rule Each
+            </h2>
+
+            <p>
+              This is the piece most "getting started with tokens" articles
+              skip, and it's the one that determines whether the system holds
+              up. Tokens live in three tiers, each answering a different
+              question, each with exactly one job:
+            </p>
+            <p>
+              <strong>Primitive</strong> (also called "reference" or "global")
+              tokens hold raw values with no opinion about where they're used —
+              <code>blue.500: #2563eb</code>, <code>space.4: 16px</code>. A
+              primitive doesn't know it's a button color or a card gap. It's a
+              palette entry, full stop.
+            </p>
+            <p>
+              <strong>Semantic</strong> tokens hold meaning — what a value is
+              <em>for</em> — and they get there by referencing a primitive
+              rather than holding a literal of their own:
+              <code>color.action.primary: {blue.500}</code>. This is the tier a
+              rebrand actually touches: repoint the reference and every semantic
+              token's meaning stays intact while its value changes underneath
+              it.
+            </p>
+            <p>
+              <strong>Component</strong> tokens are scoped to one component and
+              reference a semantic token in turn:
+              <code>button.primary.background: {color.action.primary}</code>.
+              Not every component needs its own token — most should resolve
+              straight to a semantic value — but for the handful with genuinely
+              component-specific rules (a button's pressed-state darkening,
+              say), this tier is where that rule lives instead of leaking into
+              the semantic layer.
+            </p>
+
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 720 300"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig1-title fig1-desc"
+                >
+                  <title id="fig1-title">The three-tier token chain</title>
+                  <desc id="fig1-desc">
+                    A blueprint diagram showing a single value flowing through
+                    three tiers: a primitive color token, a semantic token that
+                    references it, and a component token that references the
+                    semantic tier in turn.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="dt-arrow"
+                      viewBox="0 0 8 8"
+                      refX="4"
+                      refY="4"
+                      markerWidth="6"
+                      markerHeight="6"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                    </marker>
+                  </defs>
+                  <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                    <!-- PRIMITIVE row -->
+                    <text
+                      x="30"
+                      y="34"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="1"
+                    >
+                      PRIMITIVE
+                    </text>
+                    <text x="30" y="50" fill="#9fb2cc" font-size="9">
+                      raw value · no meaning
+                    </text>
+                    <rect
+                      x="230"
+                      y="16"
+                      width="180"
+                      height="40"
+                      rx="3"
+                      fill="#33507a"
+                      opacity="0.6"
+                    />
+                    <text
+                      x="320"
+                      y="41"
+                      fill="#e8edf4"
+                      font-size="10.5"
+                      text-anchor="middle"
+                    >
+                      blue.500 → #2563eb
+                    </text>
+
+                    <line
+                      x1="320"
+                      y1="56"
+                      x2="320"
+                      y2="94"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      marker-end="url(#dt-arrow)"
+                    />
+
+                    <!-- SEMANTIC row -->
+                    <text
+                      x="30"
+                      y="118"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="1"
+                    >
+                      SEMANTIC
+                    </text>
+                    <text x="30" y="134" fill="#9fb2cc" font-size="9">
+                      role · aliases primitive
+                    </text>
+                    <rect
+                      x="190"
+                      y="100"
+                      width="260"
+                      height="40"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.5"
+                    />
+                    <text
+                      x="320"
+                      y="125"
+                      fill="#e8edf4"
+                      font-size="10"
+                      text-anchor="middle"
+                    >
+                      color.action.primary → {blue.500}
+                    </text>
+
+                    <line
+                      x1="320"
+                      y1="140"
+                      x2="320"
+                      y2="178"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      marker-end="url(#dt-arrow)"
+                    />
+
+                    <!-- COMPONENT row -->
+                    <text
+                      x="30"
+                      y="202"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="1"
+                    >
+                      COMPONENT
+                    </text>
+                    <text x="30" y="218" fill="#9fb2cc" font-size="9">
+                      scoped · aliases semantic
+                    </text>
+                    <rect
+                      x="150"
+                      y="184"
+                      width="340"
+                      height="40"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.5"
+                      stroke-dasharray="4 3"
+                    />
+                    <text
+                      x="320"
+                      y="209"
+                      fill="#e8edf4"
+                      font-size="10"
+                      text-anchor="middle"
+                    >
+                      button.primary.background → {color.action.primary}
+                    </text>
+
+                    <!-- rendered swatch -->
+                    <rect
+                      x="560"
+                      y="184"
+                      width="40"
+                      height="40"
+                      rx="4"
+                      fill="#2563eb"
+                    />
+                    <text
+                      x="580"
+                      y="240"
+                      fill="#9fb2cc"
+                      font-size="8.5"
+                      text-anchor="middle"
+                    >
+                      rendered
+                    </text>
+
+                    <!-- rebrand note -->
+                    <line
+                      x1="600"
+                      y1="36"
+                      x2="655"
+                      y2="36"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      stroke-dasharray="2 2"
+                    />
+                    <text
+                      x="600"
+                      y="270"
+                      fill="#9fb2cc"
+                      font-size="9"
+                      text-anchor="start"
+                    >
+                      A rebrand repoints blue.500 — every layer below
+                    </text>
+                    <text
+                      x="600"
+                      y="283"
+                      fill="#9fb2cc"
+                      font-size="9"
+                      text-anchor="start"
+                    >
+                      it updates without being touched directly.
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 01 — One value, three tiers. Each tier references exactly
+                the tier below it — never skips one, never reaches sideways.
+              </figcaption>
+            </figure>
+
+            <h2 id="aliasing-chain">
+              <span class="guide-article__num mono">03</span>The Aliasing Chain
+            </h2>
+
+            <p>
+              "Aliasing" is the mechanism that makes the three tiers actually
+              work: a token's value can be a reference to another token's name —
+              commonly written <code>{color.action.primary}</code> — instead of
+              a literal. Resolving a token means walking that chain until you
+              hit a tier with a real literal at the bottom, which is always the
+              primitive tier by construction.
+            </p>
+            <p>
+              The rule worth enforcing, even before any tooling exists to
+              enforce it:
+              <strong
+                >a token should reference exactly one tier below it, never skip
+                one, and never reach sideways.</strong
+              >
+              A component token that points straight at a primitive — skipping
+              semantic entirely — has quietly opted out of theming for itself;
+              when the brand color changes, every component that took the
+              shortcut has to be found and edited individually, which defeats
+              the reason the semantic tier exists.
+            </p>
+            <p>
+              Depth is worth watching too. A chain of one or two hops resolves
+              instantly and stays debuggable — open a component token, see what
+              it aliases, see what that aliases, done. Chains longer than that,
+              or ones that loop back on themselves, turn a five-second lookup
+              into archaeology, and most token tooling will simply refuse to
+              resolve a genuine cycle rather than guess. If a token needs a
+              third layer of indirection to express, that's usually a sign a
+              tier is missing or misused, not a sign the chain should get
+              longer.
+            </p>
+
+            <h2 id="naming">
+              <span class="guide-article__num mono">04</span>Naming Conventions
+              That Survive Scale
+            </h2>
+
+            <p>
+              A naming structure that works at 40 tokens and a naming structure
+              that works at 4,000 are different problems. The formula that
+              scales, used with minor variations across most mature token
+              systems, orders segments from broadest to most specific:
+            </p>
+            <div class="guide-callout">
+              <p class="mono">
+                category . concept . property . variant . state
+              </p>
+            </div>
+            <p>
+              For example: <code>color.background.action.primary.hover</code> —
+              category <em>color</em>, concept <em>background</em>, property
+              <em>action</em>, variant <em>primary</em>, state <em>hover</em>.
+              Broad-to-narrow ordering matters more than it looks like it
+              should, because it's what makes autocomplete and alphabetical
+              token-picker lists usable once there are hundreds of entries —
+              everything in one family sorts together instead of scattering
+              across the list by whatever word happened to come first.
+            </p>
+            <p>
+              The rule that matters most, and the one teams break first under
+              deadline pressure:
+              <strong
+                >never name a semantic or component token after its
+                value.</strong
+              >
+              <code>color.brand.red</code> is a primitive name wearing a
+              semantic token's clothes — it's fine at the primitive tier, where
+              "red" genuinely describes the value, but disastrous one tier up,
+              where it's supposed to describe a <em>role</em>. The first time
+              the brand color changes to anything that isn't red, every consumer
+              of <code>color.brand.red</code> is now displaying a token whose
+              own name is factually wrong, and nobody renames a token that's
+              referenced in four hundred places without a very good reason to.
+              Name semantic and component tokens for the job they do —
+              <code>color.action.primary</code>, not
+              <code>color.brand.red</code> — and the rebrand becomes a value
+              change instead of a search-and-replace across the whole codebase.
+            </p>
+
+            <h2 id="dtcg">
+              <span class="guide-article__num mono">05</span>The W3C DTCG Format
+            </h2>
+
+            <p>
+              For years, every token tool shipped its own JSON shape, which
+              meant moving from one to another meant rewriting the whole file.
+              The
+              <strong>Design Tokens Community Group (DTCG)</strong>, working
+              under the W3C, has been converging the industry on one shared
+              shape — it's worth being precise that this is a community group
+              draft, not a finished W3C Recommendation, but it's already the
+              format Figma Variables, Tokens Studio, and most build tooling are
+              aligning toward as a common interchange target.
+            </p>
+            <p>
+              The shape is simple: every reserved property is prefixed with
+              <code>$</code> so it can never collide with a token or group name,
+              and plain, non-<code>$</code> keys form the nesting structure
+              itself — a group is just an object, and a token inside it declares
+              <code>$value</code> and <code>$type</code>:
+            </p>
+
+            <pre><code>{
+  "color": {
+    "blue": {
+      "500": { "$value": "#2563eb", "$type": "color" }
+    }
+  },
+  "action": {
+    "primary": {
+      "$value": "{color.blue.500}",
+      "$type": "color",
+      "$description": "Default background for primary actions."
+    }
+  },
+  "button": {
+    "primary": {
+      "background": {
+        "$value": "{action.primary}",
+        "$type": "color"
+      }
+    }
+  }
+}</code></pre>
+
+            <p>
+              Three things worth noticing in that shape:
+              <code>$value</code> can be a literal (<code>"#2563eb"</code>) or
+              an alias (<code>"{color.blue.500}"</code>) — the curly-brace
+              syntax is the reference mechanism from section three, spelled out
+              as a dot path through the JSON tree exactly as nested.
+              <code>$type</code> can be set once on a group and inherited by
+              everything under it, so a whole "color" subtree doesn't need to
+              repeat <code>"$type": "color"</code> on every leaf. And composite
+              types — shadow, border, gradient, typography, cubic-bezier — hold
+              structured objects instead of a single value, so a "heading"
+              typography token can bundle font family, size, weight, and
+              line-height as one resolvable unit instead of four
+              separately-aliased tokens that have to be kept in sync by hand.
+            </p>
+
+            <h2 id="transforms">
+              <span class="guide-article__num mono">06</span>Transforms: One
+              Source, Many Platforms
+            </h2>
+
+            <p>
+              The entire point of a shared, structured source format is that it
+              can be fed through a build step once and produce every platform's
+              native format as output, instead of a human copying values into
+              four codebases by hand and hoping they stay in sync.
+            </p>
+            <p>
+              A transform tool — Style Dictionary is the tool most teams reach
+              for, though the category isn't limited to it — walks the token
+              tree, resolves every alias down to its literal, and emits one file
+              per platform in that platform's native syntax: CSS custom
+              properties for the web, a Swift or
+              <code>.xcassets</code> file for iOS, XML color and dimen resources
+              for Android, and, increasingly, a direct push into Figma's own
+              Variables via its API so the design tool and the codebase are
+              reading from the identical resolved values rather than two
+              hand-maintained copies of the same idea.
+            </p>
+            <p>
+              This is the part that makes the tier structure from section two
+              non-optional in practice, not just in theory: a transform step can
+              only regenerate every platform correctly if the source file is
+              unambiguous about what aliases what. Hardcode a value at the
+              component tier instead of aliasing it, and that value stops being
+              part of the system the transform can see — it'll render correctly
+              today and silently diverge from the token it should have
+              referenced the next time that token's value changes.
+            </p>
+
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 720 260"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig2-title fig2-desc"
+                >
+                  <title id="fig2-title">The token transform pipeline</title>
+                  <desc id="fig2-desc">
+                    A blueprint diagram showing a single DTCG-format source file
+                    passing through a transform step and fanning out into four
+                    platform-specific outputs: CSS, iOS, Android, and Figma
+                    Variables.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="dt-arrow2"
+                      viewBox="0 0 8 8"
+                      refX="4"
+                      refY="4"
+                      markerWidth="6"
+                      markerHeight="6"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                    </marker>
+                  </defs>
+                  <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                    <!-- source file -->
+                    <rect
+                      x="20"
+                      y="96"
+                      width="140"
+                      height="68"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.5"
+                    />
+                    <text
+                      x="90"
+                      y="122"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      tokens.json
+                    </text>
+                    <text
+                      x="90"
+                      y="136"
+                      fill="#9fb2cc"
+                      font-size="8"
+                      text-anchor="middle"
+                    >
+                      DTCG format
+                    </text>
+                    <text
+                      x="90"
+                      y="150"
+                      fill="#9fb2cc"
+                      font-size="8"
+                      text-anchor="middle"
+                    >
+                      single source
+                    </text>
+
+                    <line
+                      x1="160"
+                      y1="130"
+                      x2="222"
+                      y2="130"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      marker-end="url(#dt-arrow2)"
+                    />
+
+                    <!-- transform step -->
+                    <rect
+                      x="224"
+                      y="100"
+                      width="130"
+                      height="60"
+                      rx="3"
+                      fill="#33507a"
+                      opacity="0.65"
+                    />
+                    <text
+                      x="289"
+                      y="126"
+                      fill="#e8edf4"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      transform
+                    </text>
+                    <text
+                      x="289"
+                      y="140"
+                      fill="#cdd9ea"
+                      font-size="8"
+                      text-anchor="middle"
+                    >
+                      resolves aliases
+                    </text>
+
+                    <!-- fan-out lines -->
+                    <line
+                      x1="354"
+                      y1="130"
+                      x2="420"
+                      y2="40"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#dt-arrow2)"
+                    />
+                    <line
+                      x1="354"
+                      y1="130"
+                      x2="420"
+                      y2="98"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#dt-arrow2)"
+                    />
+                    <line
+                      x1="354"
+                      y1="130"
+                      x2="420"
+                      y2="162"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#dt-arrow2)"
+                    />
+                    <line
+                      x1="354"
+                      y1="130"
+                      x2="420"
+                      y2="220"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#dt-arrow2)"
+                    />
+
+                    <!-- four output boxes -->
+                    <rect
+                      x="422"
+                      y="20"
+                      width="270"
+                      height="36"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.2"
+                    />
+                    <text x="437" y="43" fill="#e8edf4" font-size="9.5">
+                      CSS custom properties
+                    </text>
+
+                    <rect
+                      x="422"
+                      y="78"
+                      width="270"
+                      height="36"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.2"
+                    />
+                    <text x="437" y="101" fill="#e8edf4" font-size="9.5">
+                      iOS — Swift / .xcassets
+                    </text>
+
+                    <rect
+                      x="422"
+                      y="142"
+                      width="270"
+                      height="36"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.2"
+                    />
+                    <text x="437" y="165" fill="#e8edf4" font-size="9.5">
+                      Android — XML resources
+                    </text>
+
+                    <rect
+                      x="422"
+                      y="202"
+                      width="270"
+                      height="36"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.2"
+                    />
+                    <text x="437" y="225" fill="#e8edf4" font-size="9.5">
+                      Figma Variables (via API)
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 02 — One resolved source, four native outputs. Nothing
+                downstream is hand-maintained, so nothing downstream can drift.
+              </figcaption>
+            </figure>
+
+            <h2 id="theming">
+              <span class="guide-article__num mono">07</span>Theming Without
+              Duplicating Every Token
+            </h2>
+
+            <p>
+              Dark mode is the case that proves whether the tier structure from
+              section two was worth the trouble. Done right, the semantic and
+              component tiers never learn that a "mode" exists at all —
+              <code>color.background.primary</code> is the same token name
+              whether the product is in light or dark mode; only which primitive
+              it resolves to changes between the two. A component built once
+              against <code>{color.background.primary}</code> renders correctly
+              in both modes automatically, because the component was never told
+              which mode it's in — it just asked for "the primary background,"
+              and the answer changed underneath it.
+            </p>
+            <p>
+              The alternative — a separate, fully duplicated token set per mode,
+              with component code branching on a theme flag to pick which set to
+              read from — is the pattern teams back into when tokens were bolted
+              onto an existing codebase after the fact rather than designed with
+              theming in mind from the start. It works, but every new token has
+              to be added twice, correctly, in sync, forever.
+            </p>
+            <p>
+              One consequence worth planning for rather than discovering later:
+              theming makes contrast checking combinatorial, not additive. A
+              brand with two modes and two color pairings doesn't have twice the
+              contrast pairs to verify — every semantic foreground/background
+              combination needs checking independently <em>per mode</em>, since
+              a pairing that clears WCAG AA in light mode can fail outright once
+              its two primitives are swapped for their dark-mode equivalents.
+              The math from
+              <a href="color-contrast-systems">color contrast systems</a>
+              still applies here — it just needs re-running for every mode a
+              token pair can resolve into, not once for the palette as a whole.
+            </p>
+
+            <h2 id="governance">
+              <span class="guide-article__num mono">08</span>Governance: Who
+              Adds a Token
+            </h2>
+
+            <p>
+              A token file with no review gate degrades the same way an
+              unmoderated shared color palette always has: someone needs a blue
+              that's <em>almost</em> the existing blue, doesn't find it in a
+              list of 40 near-identical entries, and adds
+              <code>blue.510</code> rather than asking. Multiply that by a few
+              dozen contributors over a couple of years and the primitive tier
+              stops being a curated palette and turns back into the hex-code
+              sprawl tokens were supposed to replace.
+            </p>
+            <p>
+              The gate that scales without becoming a bottleneck is tier-
+              dependent, not blanket:
+            </p>
+            <p>
+              <strong>Primitive</strong> changes or additions go through the
+              design system team specifically — this is the smallest,
+              slowest-moving tier, and it should stay that way on purpose.
+            </p>
+            <p>
+              <strong>Semantic</strong> tokens can be proposed by any team
+              building a feature, but a proposal has to resolve to an
+              <em>existing</em> primitive, and the first review question is
+              always "does an existing semantic token already cover this," not
+              "does this specific value exist yet." Most proposed new semantic
+              tokens turn out to be an existing one under a different name.
+            </p>
+            <p>
+              <strong>Component</strong> tokens should be rare enough that
+              adding one is a deliberate, justified exception — most
+              component-level needs should resolve to a semantic token directly,
+              with no component-specific token at all. If a team finds itself
+              adding component tokens routinely, that's usually a sign the
+              semantic tier is missing a role, not a sign the component tier
+              needs to grow.
+            </p>
+
+            <h2 id="pitfalls">
+              <span class="guide-article__num mono">09</span>Five Pitfalls That
+              Look Like Tooling Bugs
+            </h2>
+
+            <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
+                <p>
+                  <strong
+                    >"Fixing" dark mode by editing a component token
+                    directly.</strong
+                  >
+                  The dark-mode value looks wrong, so the quickest fix is to
+                  override the component token for that one case. It works today
+                  and quietly breaks the point of section seven — the override
+                  doesn't move when the semantic token is corrected properly,
+                  and now two places need to be fixed instead of one. Trace the
+                  value back to the semantic alias and fix it there.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">02</span>
+                <p>
+                  <strong
+                    >Reviewing color tokens carefully and everything else
+                    barely.</strong
+                  >
+                  Spacing, radius, and duration tokens get far less scrutiny
+                  than color in most teams' review process, and audits
+                  consistently find that's exactly where drift accumulates first
+                  — a dozen near-identical spacing values doing the job one
+                  token should. Apply the same primitive-tier discipline to
+                  every token type, not just the palette.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">03</span>
+                <p>
+                  <strong>Deleting a token instead of deprecating it.</strong>
+                  Removing an old token the moment its replacement ships breaks
+                  every consumer simultaneously, with no warning and no
+                  migration window. Alias the old name to the new value first,
+                  flag it deprecated, give consumers a release cycle or two to
+                  move over, and only remove it once nothing references the old
+                  name anymore.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">04</span>
+                <p>
+                  <strong
+                    >Letting the primitive tier grow without a search
+                    step.</strong
+                  >
+                  Section eight's governance gate only works if it's actually
+                  applied — the common failure mode is a primitive list nobody
+                  checks before adding to it, which is how a palette ends up
+                  with four blues that are visually indistinguishable but
+                  numerically distinct. A two-minute "does this already exist"
+                  search before a new primitive gets added prevents most of the
+                  sprawl.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">05</span>
+                <p>
+                  <strong
+                    >Assuming a matching name means a matching source.</strong
+                  >
+                  A Figma Variable called <code>action/primary</code> and a code
+                  token called <code>color.action.primary</code>
+                  <em>look</em> like the same thing, but unless both are
+                  generated from the one DTCG source file in section five,
+                  nothing guarantees they resolve to the same value — they can
+                  drift silently, and usually do, the first time one side gets
+                  updated without the other. Shared naming isn't shared truth; a
+                  shared source file is.
+                </p>
+              </li>
+            </ul>
+
+            <h2 id="cheat-sheet">
+              <span class="guide-article__num mono">10</span>Quick Reference
+            </h2>
+
+            <div class="guide-table-wrap">
+              <table>
+                <caption>
+                  / token_tier_reference
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Tier / concept</th>
+                    <th scope="col">Holds</th>
+                    <th scope="col">Who edits it</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Primitive</td>
+                    <td>Raw value, no meaning attached</td>
+                    <td>Design system team only</td>
+                  </tr>
+                  <tr>
+                    <td>Semantic</td>
+                    <td>A role, aliasing a primitive</td>
+                    <td>Any team, via reviewed proposal</td>
+                  </tr>
+                  <tr>
+                    <td>Component</td>
+                    <td>A scoped exception, aliasing a semantic token</td>
+                    <td>Rarely — most needs stop at semantic</td>
+                  </tr>
+                  <tr>
+                    <td>Alias syntax</td>
+                    <td>A reference to another token's name</td>
+                    <td><code>{group.token.name}</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>$type</code></td>
+                    <td>Declares the value kind for the transform step</td>
+                    <td>color, dimension, duration, cubicBezier…</td>
+                  </tr>
+                  <tr>
+                    <td>Retiring a token</td>
+                    <td>Alias old name to new value, deprecate, then remove</td>
+                    <td>Never delete outright</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              None of this is really about tooling. Style Dictionary, Tokens
+              Studio, and Figma Variables all change shape every year or two —
+              the naming architecture underneath is the part built to outlast
+              whichever tool happens to read it today. Get the tiers, the
+              aliasing discipline, and the governance gate right, and a token
+              system stays legible to someone who joins the team three years
+              from now with no memory of why any of it was set up this way. Skip
+              them, and "we use design tokens" just means the hardcoded values
+              moved one file over.
+            </p>
+          </article>
+<!--ARTICLE_END-->

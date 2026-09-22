@@ -1,0 +1,19 @@
+{
+  "name": "bpozz",
+  "version": "2.0.0",
+  "private": true,
+  "description": "bpozz.com — static design-systems reference site. No framework, no bundler, no CMS.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node src/build/build.js",
+    "snapshot": "node scripts/qa/snapshot.js",
+    "snapshot:baseline": "node scripts/qa/write-baseline.js",
+    "check:urls": "node scripts/qa/check-urls.js",
+    "check:baseline": "node scripts/qa/check-baseline.js",
+    "qa": "npm run build && npm run snapshot && npm run check:urls && npm run check:baseline",
+    "test": "node --test src/build/palette-meta.test.js src/build/guide-template.test.js src/build/structured-data.test.js src/build/head.test.js src/build/colors-data.test.js"
+  }
+}

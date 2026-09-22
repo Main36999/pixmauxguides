@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Prototyping & Motion",
+            "item": "https://bpozz.com/category/motion"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Motion Timing Is a Physics Model, Not a Preset",
+            "item": "https://bpozz.com/guide/motion-timing-model"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Motion Timing Is a Physics Model, Not a Preset",
         "description": "A spec-level read of motion timing: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
-        "mainEntityOfPage": "https://bpozz.com/guide/motion-timing-model",
-        "image": "https://bpozz.com/thumbnail_image/motion-timing-model-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Motion%20Timing%20Is%20a%20Physics%20Model,%20Not%20a%20Preset.png",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,12 +167,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/motion-timing-model"
+        },
         "datePublished": "2026-08-07",
         "dateModified": "2026-08-07",
+        "articleSection": "Prototyping & Motion",
+        "proficiencyLevel": "Advanced",
+        "timeRequired": "PT15M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="motion-timing-model">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -178,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -244,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -255,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>

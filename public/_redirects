@@ -1,0 +1,178 @@
+# Netlify redirects. One rule per line: from  to  status
+# https://docs.netlify.com/manage/routing/redirects/redirect-options/
+
+# g6.html -> whitespace-as-ui-component (slug renamed for SEO)
+/guide/g6.html   /guide/whitespace-as-ui-component   301
+
+# NOTE on hiding .html: the reliable way to do this on Netlify is the
+# built-in "Pretty URLs" toggle (Site settings > Build & deploy >
+# Post processing > Asset optimization), not a custom rule here.
+# Netlify's own placeholder syntax doesn't cleanly support a rule like
+# "/guide/:slug.html -> /guide/:slug" (a placeholder glued to a literal
+# suffix in the same segment isn't part of its documented pattern
+# matching), and by default Netlify won't run a rule against a URL that
+# already matches a real file on disk (the .html files) unless the rule
+# is force-flagged -- so a hand-rolled version of this is easy to get
+# subtly wrong. Pretty URLs is Netlify's own tested implementation of
+# exactly this behavior, so it doesn't have that risk.
+
+# ── Colour Tokens: removed (Phase 4) ─────────────────────────────
+# The Colour Tokens feature was deleted. Every URL it served returns
+# 410 Gone. NONE of them redirects to /palettes.
+#
+# WHY 410 AND NOT A REDIRECT
+# The content is gone, not moved. /palettes is a different resource, so
+# a 301 there would be a soft-404: search engines treat a redirect to an
+# irrelevant page as a 404 anyway, and it would strand anyone following
+# an old link on a page that does not answer their request. 410 says the
+# URL is intentionally and permanently gone, which de-indexes it faster
+# and more cleanly than a 404.
+#
+# SYNTAX: "from  to  status". Netlify requires the `to` field to be a
+# real path even for an error status, so it is "/" throughout; the status
+# column is what is served. ("404!  410" is NOT valid — the `!` force
+# suffix belongs on a status code, not on a destination.)
+#
+# Listed explicitly rather than as /tokens/* so the set of deleted URLs
+# is auditable one-for-one against the removed sitemap entries and the
+# ALLOWED_REMOVED list in scripts/qa/check-urls.js, and so a future
+# /tokens-something path cannot be swallowed by accident. Netlify's
+# parser supports no regex and no mid-path wildcards in any case.
+#
+# NOT VERIFIABLE LOCALLY: whether the edge really returns 410 can only be
+# confirmed against a deployment. Netlify has served 410 from _redirects
+# as documented, but there is at least one open report of it being
+# downgraded to 404. Re-check after deploy; if they come back 404 the
+# rules are still correct as written and the fallback is an edge
+# function. Either way they must never become a redirect to /palettes.
+
+# 1. The 43 canonical (extensionless) page URLs — the ones that were in
+#    sitemap.xml and are the canonical form of every token page.
+/tokens                            /   410
+/tokens/create                     /   410
+/tokens/collection                 /   410
+/tokens/starless-frost             /   410
+/tokens/terracotta-grove           /   410
+/tokens/faceted-onyx               /   410
+/tokens/neon-pulse                 /   410
+/tokens/bare-ledger-dark           /   410
+/tokens/bare-ledger                /   410
+/tokens/powder-sorbet-dark         /   410
+/tokens/powder-sorbet              /   410
+/tokens/milky-sorbet-dark          /   410
+/tokens/milky-sorbet               /   410
+/tokens/worn-darkroom              /   410
+/tokens/studio-ledger-dark         /   410
+/tokens/analog-lounge              /   410
+/tokens/studio-ledger              /   410
+/tokens/radioactive-broadcast      /   410
+/tokens/dusty-darkroom             /   410
+/tokens/weathered-meadow           /   410
+/tokens/retro-lounge               /   410
+/tokens/starless-tide              /   410
+/tokens/blush-feather-dark         /   410
+/tokens/blush-feather              /   410
+/tokens/starless-observatory       /   410
+/tokens/weathered-darkroom         /   410
+/tokens/chalk-petal-dark           /   410
+/tokens/chalk-petal                /   410
+/tokens/rewind-motel               /   410
+/tokens/even-concrete-dark         /   410
+/tokens/even-concrete              /   410
+/tokens/terracotta-riverbank       /   410
+/tokens/electric-broadcast         /   410
+/tokens/sun-baked-canyon           /   410
+/tokens/lunar-harbor               /   410
+/tokens/amber-arcade               /   410
+/tokens/laser-static               /   410
+/tokens/blank-concrete-dark        /   410
+/tokens/blank-concrete             /   410
+/tokens/royal-ruby                 /   410
+/tokens/rich-sapphire              /   410
+/tokens/faceted-jade               /   410
+/tokens/old-world-darkroom         /   410
+
+# 2. The same 43 pages by their .html path. These were NOT redirects to
+#    the extensionless form — there has never been such a rule in this
+#    file — so they served 200 as real files on disk, and the homepage
+#    and category rails linked them in exactly this form
+#    (href="/tokens/faceted-onyx.html"). They are therefore live indexed
+#    URLs in their own right and need their own 410.
+/tokens/index.html                 /   410
+/tokens/create.html                /   410
+/tokens/collection.html            /   410
+/tokens/starless-frost.html        /   410
+/tokens/terracotta-grove.html      /   410
+/tokens/faceted-onyx.html          /   410
+/tokens/neon-pulse.html            /   410
+/tokens/bare-ledger-dark.html      /   410
+/tokens/bare-ledger.html           /   410
+/tokens/powder-sorbet-dark.html    /   410
+/tokens/powder-sorbet.html         /   410
+/tokens/milky-sorbet-dark.html     /   410
+/tokens/milky-sorbet.html          /   410
+/tokens/worn-darkroom.html         /   410
+/tokens/studio-ledger-dark.html    /   410
+/tokens/analog-lounge.html         /   410
+/tokens/studio-ledger.html         /   410
+/tokens/radioactive-broadcast.html /   410
+/tokens/dusty-darkroom.html        /   410
+/tokens/weathered-meadow.html      /   410
+/tokens/retro-lounge.html          /   410
+/tokens/starless-tide.html         /   410
+/tokens/blush-feather-dark.html    /   410
+/tokens/blush-feather.html         /   410
+/tokens/starless-observatory.html  /   410
+/tokens/weathered-darkroom.html    /   410
+/tokens/chalk-petal-dark.html      /   410
+/tokens/chalk-petal.html           /   410
+/tokens/rewind-motel.html          /   410
+/tokens/even-concrete-dark.html    /   410
+/tokens/even-concrete.html         /   410
+/tokens/terracotta-riverbank.html  /   410
+/tokens/electric-broadcast.html    /   410
+/tokens/sun-baked-canyon.html      /   410
+/tokens/lunar-harbor.html          /   410
+/tokens/amber-arcade.html          /   410
+/tokens/laser-static.html          /   410
+/tokens/blank-concrete-dark.html   /   410
+/tokens/blank-concrete.html        /   410
+/tokens/royal-ruby.html            /   410
+/tokens/rich-sapphire.html         /   410
+/tokens/faceted-jade.html          /   410
+/tokens/old-world-darkroom.html    /   410
+
+# ── Undocumented publications withdrawn (Phase 4 Step 2C) ────────
+# Two files were published to the site root only because they were
+# already deployed when the build pipeline was formalised, and Phase 2
+# was not permitted to change deployed bytes. Neither was ever a
+# documented endpoint and neither is fetched by any page.
+#
+#   /_htaccess            F7: this site deploys to Netlify. The file was
+#                         never renamed to .htaccess and activated no
+#                         Apache behaviour, so serving it only published
+#                         this site's rewrite rules to anyone who asked.
+#   /resource-types.json  A build input read by build-header.js and
+#                         build-home.js. Verified at Step 2C: no page and
+#                         no client module fetches it.
+#
+# 410 rather than 404, for the same reason the token URLs get one: the
+# resource is intentionally gone, and 410 de-indexes it faster. Same
+# caveat as above — whether the edge really serves 410 can only be
+# confirmed against a deployment.
+/_htaccess                         /   410
+/resource-types.json               /   410
+
+# 3. The data endpoint and the token-only code/style assets. Never in
+#    the sitemap and never HTML, but they were public URLs, so they get
+#    the same treatment rather than falling through to a 404.
+/tokens.json                       /   410
+/tokens.css                        /   410
+/tokens-color.js                   /   410
+/tokens-a11y.js                    /   410
+/tokens-export.js                  /   410
+/tokens-shared.js                  /   410
+/tokens-gallery.js                 /   410
+/tokens-detail.js                  /   410
+/tokens-create.js                  /   410
+/tokens-collection.js              /   410

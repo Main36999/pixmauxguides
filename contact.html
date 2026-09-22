@@ -133,7 +133,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -199,7 +199,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -210,7 +209,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>
@@ -425,8 +423,13 @@
                 var firstName =
                   (nameEl.value || "").trim().split(" ")[0] || "there";
                 var wrap = document.getElementById("contact-form-wrap");
+                // role="status" — Phase 4 Step 9 (accessibility). Keep in
+                // sync with src/client/contact.js, which carries the same
+                // success block for the in-app (#/contact) copy of this
+                // form. Without it the form — and the button just pressed —
+                // is replaced with no announcement at all (WCAG 4.1.3).
                 wrap.innerHTML =
-                  '<div class="form-success">' +
+                  '<div class="form-success" role="status">' +
                   "<strong>Message received.</strong>" +
                   "<p>Thanks, " +
                   escapeHtml(firstName) +

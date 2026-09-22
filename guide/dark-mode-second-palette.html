@@ -119,11 +119,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bpozz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://bpozz.com/guides"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Color Theory",
+            "item": "https://bpozz.com/category/color-theory"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Dark Mode Is a Second Palette, Not an Inverted Filter",
+            "item": "https://bpozz.com/guide/dark-mode-second-palette"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Dark Mode Is a Second Palette, Not an Inverted Filter",
         "description": "Why a dark theme built by inverting the light theme always breaks: elevation communicated through lightness instead of shadow, desaturating accent hues so they stop vibrating on black, and why contrast ratios have to be re-derived per theme instead of assumed.",
-        "mainEntityOfPage": "https://bpozz.com/guide/dark-mode-second-palette",
-        "image": "https://bpozz.com/thumbnail_image/dark-mode-second-palette-thumbnail.png",
+        "image": "https://bpozz.com/thumbnail_image_webp/Dark%20Mode%20Is%20a%20Second%20Palette,%20Not%20an%20Inverted%20Filter.webp",
         "author": {
           "@type": "Organization",
           "name": "BPOZZ"
@@ -136,12 +167,18 @@
             "url": "https://bpozz.com/assets/logo.png"
           }
         },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://bpozz.com/guide/dark-mode-second-palette"
+        },
         "datePublished": "2026-08-08",
         "dateModified": "2026-08-08",
+        "articleSection": "Color Theory",
+        "proficiencyLevel": "Intermediate",
+        "timeRequired": "PT12M",
         "inLanguage": "en"
       }
     </script>
-
   </head>
   <body class="guide-page" data-guide-id="dark-mode-second-palette">
     <a href="#guide-content" class="skip-link">Skip to guide</a>
@@ -178,7 +215,7 @@
         type="search"
         id="header-search-input"
         name="s"
-        placeholder="Search guides, tokens, palettes…"
+        placeholder="Search guides, palettes…"
         autocomplete="off"
         class="input"
       />
@@ -244,7 +281,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
@@ -255,7 +291,6 @@
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
       <a href="/palettes">Color Palettes</a>
-      <a href="/tokens">Color Tokens</a>
       <a href="/guides" aria-current="page">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>
@@ -1206,13 +1241,6 @@
               without touching anything else — which is the entire point of
               keeping the three layers separate in the first place.
             </p>
-            <div class="guide-cta">
-              <div class="guide-cta__text">
-                <strong>See a computed dark variant, not an inverted one</strong>
-                <span>Several palettes in the library ship with a paired dark-mode counterpart — elevated surfaces, desaturated accents, never pure white — that you can toggle live.</span>
-              </div>
-              <a href="/tokens/chalk-petal" class="btn btn-primary">See a dark-mode pair</a>
-            </div>
         </article>
         </div>
         <aside class="guide-rail" id="guide-rail" aria-label="Related guides"></aside>

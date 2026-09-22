@@ -1,0 +1,645 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Font Pairing Is a Hierarchy Decision, Not a Personality Match — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a &quot;creative&quot; pairing."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/font-pairing-hierarchy-decision"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/font-pairing-hierarchy-decision"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Font Pairing Is a Hierarchy Decision, Not a Personality Match"
+    />
+    <meta
+      property="og:description"
+      content="How to pick a type pairing that holds up in production: matching x-height so mixed text doesn't visually stutter, giving each font exactly one job, and why a superfamily's shared metrics beat a hand-picked pairing most of the time."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/thumbnail_image/font-pairing-hierarchy-decision-thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Diagram comparing two typefaces set at the same font-size with mismatched x-heights against two superfamily siblings sharing a matched x-height."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Font Pairing Is a Hierarchy Decision, Not a Personality Match"
+    />
+    <meta
+      name="twitter:description"
+      content="How to pick a type pairing that holds up in production: matching x-height so mixed text doesn't visually stutter, giving each font exactly one job, and why a superfamily's shared metrics beat a hand-picked pairing most of the time."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/thumbnail_image/font-pairing-hierarchy-decision-thumbnail.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+          <p class="guide-hero__meta">Typography · Beginner · 11 min read</p>
+          <h1 class="guide-hero__title" id="guide-heading">
+            Font Pairing Is a Hierarchy Decision, Not a Personality Match
+          </h1>
+          <p class="guide-hero__dek">
+            Most pairing advice asks whether two typefaces "get along" — a
+            vibe check with no way to fail until the page ships and
+            something looks quietly wrong. The question that actually
+            predicts whether a pairing holds up is narrower and testable
+            before that happens: does every font in the stack have exactly
+            one job, does their x-height line up closely enough that mixed
+            text doesn't visually stutter, and is the contrast between them
+            decisive enough to read as a decision instead of an accident.
+            Answer those three and the "personality" argument mostly
+            answers itself.
+          </p>
+        </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+        <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+          <span class="section-label mono guide-toc__label" id="guide-toc-heading">/ on_this_page</span>
+          <ol>
+            <li>
+              <a href="#wrong-question"
+                >Why "Do These Fonts Get Along" Is
+                the Wrong Question</a
+              >
+            </li>
+            <li>
+              <a href="#contrast-not-similarity"
+                >Contrast Is the Job, Similarity
+                Is the Risk</a
+              >
+            </li>
+            <li>
+              <a href="#x-height"
+                >X-Height Is the Metric That
+                Actually Predicts a Mismatch</a
+              >
+            </li>
+            <li>
+              <a href="#one-job-each"
+                >Give Each Font Exactly One Job</a
+              >
+            </li>
+            <li>
+              <a href="#superfamily"
+                >Why a Superfamily Solves More
+                Problems Than a "Creative" Pairing</a
+              >
+            </li>
+            <li>
+              <a href="#pairing-test"
+                >A Practical Pairing Test Before
+                You Commit</a
+              >
+            </li>
+            <li>
+              <a href="#pitfalls"
+                >Four Pitfalls That Quietly Break
+                a Pairing</a
+              >
+            </li>
+            <li>
+              <a href="#cheat-sheet"
+                >Quick Reference</a
+              >
+            </li>
+          </ol>
+        </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+        <article class="guide-article">
+          <h2 id="wrong-question"><span class="guide-article__num mono">01</span>Why "Do These Fonts Get Along" Is the Wrong Question</h2>
+
+          <p>
+              The standard way to pick a font pairing is a specimen gallery:
+              scroll a page of two-font combinations, stop on one that
+              feels elegant-meets-modern or serious-meets-friendly, and
+              ship it. That process has a real failure mode — not that it
+              produces bad-looking pairings, but that it produces pairings
+              with no way to check whether the choice was actually correct.
+              "Personality" isn't a property of a typeface that can be
+              measured before launch; it's a description applied after the
+              fact to whatever combination happened to look fine in the
+              gallery's demo copy, at the gallery's demo size, in the
+              gallery's demo language.
+            </p>
+            <p>
+              A pairing decision made this way tends to survive exactly as
+              long as the content matches the specimen: a headline of
+              similar length, body copy in the same language the demo used,
+              a page with nothing smaller than the specimen's smallest
+              size. The moment real content arrives — a headline that wraps
+              differently, a data table, a form label, a language with
+              diacritics the demo never showed — there's no principle left
+              to fall back on, because "they get along" was never a
+              principle. It was a one-time visual impression of one
+              specific arrangement.
+            </p>
+            <p>
+              The alternative isn't a different vibe check; it's a
+              different category of question entirely. A pairing is a
+              two-part system doing a structural job — separating a page
+              into levels a reader can tell apart at a glance — and a
+              structural job has structural, checkable requirements: which
+              font is responsible for which level, whether the two faces
+              read as visually distinct enough to carry that separation,
+              and whether they behave consistently with each other at the
+              actual sizes and weights the page will use. Everything in
+              this guide follows from treating pairing as that kind of
+              decision instead of a matter of taste.
+            </p>
+
+          <h2 id="contrast-not-similarity"><span class="guide-article__num mono">02</span>Contrast Is the Job, Similarity Is the Risk</h2>
+
+          <p>
+              A pairing exists because one font on its own can't carry
+              every level of a page's hierarchy at once — a heading and a
+              paragraph need to read as different things instantly, not
+              after the reader consciously notices the size difference. The
+              job of a second typeface is to make that difference
+              unmistakable, which means the two faces need to disagree
+              along some visible axis: construction (serif against sans),
+              structure (geometric against humanist), weight, or case. Two
+              faces chosen because they "feel similar" are working against
+              the one thing pairing is supposed to accomplish.
+            </p>
+            <p>
+              This is why the riskiest pairing on a page is rarely the
+              boldest one. Two old-style serif faces with close proportions
+              — different families, similar skeletons — sitting next to
+              each other don't read as an intentional stylistic choice.
+              They read as a mistake: as if a heading font failed to load
+              and the browser silently substituted something close enough
+              that nobody noticed until a reader with a trained eye did.
+              The visual distance between the two fonts is what tells a
+              reader "this was decided," and near-identical faces have
+              almost none of that distance to work with.
+            </p>
+            <p>
+              None of this means contrast has to be extreme. A single
+              reliable axis is enough — a geometric sans heading over a
+              humanist sans body, for instance, still reads as deliberate
+              because the structural logic of the letterforms differs even
+              though both are technically "sans-serif." What breaks a
+              pairing isn't a small amount of contrast; it's contrast along
+              no axis a reader can actually perceive, which is exactly what
+              happens when two faces are chosen for matching mood instead
+              of a matching or opposing structural trait.
+            </p>
+
+          <h2 id="x-height"><span class="guide-article__num mono">03</span>X-Height Is the Metric That Actually Predicts a Mismatch</h2>
+
+          <p>
+              X-height is the height of a typeface's lowercase letters that
+              have no ascender or descender — the body of an "n," "o," or
+              "x" — measured against the cap height above it. It's a fixed
+              proportion baked into each typeface's design, and it varies
+              far more between typefaces than most people expect: two
+              fonts set at the exact same CSS <code>font-size</code> can
+              produce lowercase text that looks noticeably different in
+              scale, because the number in <code>font-size</code> caps the
+              full em box, not the part of the letter a reader's eye
+              actually spends most of its time reading.
+            </p>
+            <p>
+              This is the single most common technical reason a
+              "personality-matched" pairing looks subtly wrong in
+              production even though it looked fine in the specimen. Two
+              typefaces can share a mood, a era, even a classification, and
+              still clash the instant they appear inline together — a
+              caption in one face sitting next to body copy in the other,
+              or a UI label sitting inside a paragraph — because one
+              visually reads two or three point-sizes larger than the
+              other despite an identical <code>font-size</code> value doing
+              the sizing.
+            </p>
+            <p>
+              Checking for this doesn't require special tooling: set both
+              candidate faces in a browser at the same font-size, type the
+              same lowercase word in each, and look at where the tops of
+              the letters land relative to each other. A close match — both
+              landing within a few percent of each other — means the two
+              faces can share a line of text without one visually
+              overpowering the other. A large gap means every place the
+              two faces meet inline will need a compensating font-size
+              adjustment just to look consistent, which is exactly the kind
+              of ongoing, per-instance patchwork a good pairing is supposed
+              to make unnecessary.
+            </p>
+
+          <figure class="guide-diagram">
+            <div class="guide-diagram__frame">
+              <svg
+                viewBox="0 0 720 260"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="fig1-title fig1-desc"
+              >
+                <title id="fig1-title">
+                  Two typefaces set at the same font-size with mismatched
+                  x-heights, compared with two superfamily siblings sharing
+                  a matched x-height
+                </title>
+                <desc id="fig1-desc">
+                  Top panel: two groups of lowercase letterforms sitting on
+                  the same baseline, both reaching the same cap-height
+                  guide, but the left group's x-height line sits noticeably
+                  higher than the right group's, showing one face reading
+                  visually larger than the other at an identical font-size.
+                  Bottom panel: two groups of letterforms, one serif and
+                  one sans, both reaching exactly the same x-height guide
+                  line, showing a matched pairing from a superfamily.
+                </desc>
+                <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                  <text x="24" y="20" fill="#9fb2cc" font-size="10.5">
+                    MISMATCHED X-HEIGHT — SAME FONT-SIZE
+                  </text>
+                  <line x1="24" y1="88" x2="340" y2="88" stroke="#54627e" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="380" y1="88" x2="696" y2="88" stroke="#54627e" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="24" y1="34" x2="340" y2="34" stroke="#54627e" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="380" y1="34" x2="696" y2="34" stroke="#54627e" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="24" y1="48" x2="340" y2="48" stroke="#7fb3e0" stroke-width="1.4"/>
+                  <line x1="380" y1="66" x2="696" y2="66" stroke="#7fb3e0" stroke-width="1.4"/>
+
+                  <rect x="46" y="48" width="18" height="40" rx="3" fill="#3a4f74"/>
+                  <rect x="72" y="48" width="18" height="40" rx="3" fill="#3a4f74"/>
+                  <rect x="98" y="48" width="18" height="40" rx="3" fill="#3a4f74"/>
+                  <rect x="124" y="48" width="18" height="40" rx="3" fill="#3a4f74"/>
+                  <rect x="150" y="48" width="18" height="40" rx="3" fill="#3a4f74"/>
+                  <rect x="176" y="48" width="18" height="40" rx="3" fill="#3a4f74"/>
+
+                  <rect x="402" y="66" width="18" height="22" rx="3" fill="#3a4f74"/>
+                  <rect x="428" y="66" width="18" height="22" rx="3" fill="#3a4f74"/>
+                  <rect x="454" y="66" width="18" height="22" rx="3" fill="#3a4f74"/>
+                  <rect x="480" y="66" width="18" height="22" rx="3" fill="#3a4f74"/>
+                  <rect x="506" y="66" width="18" height="22" rx="3" fill="#3a4f74"/>
+                  <rect x="532" y="66" width="18" height="22" rx="3" fill="#3a4f74"/>
+
+                  <text x="46" y="106" fill="#7fb3e0" font-size="8.5">
+                    FONT A — LARGE X-HEIGHT
+                  </text>
+                  <text x="402" y="106" fill="#7fb3e0" font-size="8.5">
+                    FONT B — SMALL X-HEIGHT
+                  </text>
+
+                  <text x="24" y="150" fill="#9fb2cc" font-size="10.5">
+                    MATCHED X-HEIGHT — SUPERFAMILY SIBLINGS
+                  </text>
+                  <line x1="24" y1="216" x2="340" y2="216" stroke="#54627e" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="380" y1="216" x2="696" y2="216" stroke="#54627e" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="24" y1="184" x2="696" y2="184" stroke="#7fb3e0" stroke-width="1.4"/>
+
+                  <rect x="46" y="184" width="18" height="32" rx="3" fill="#3a4f74"/>
+                  <rect x="72" y="184" width="18" height="32" rx="1" fill="#3a4f74"/>
+                  <rect x="98" y="184" width="18" height="32" rx="3" fill="#3a4f74"/>
+                  <rect x="124" y="184" width="18" height="32" rx="1" fill="#3a4f74"/>
+                  <rect x="150" y="184" width="18" height="32" rx="3" fill="#3a4f74"/>
+                  <rect x="176" y="184" width="18" height="32" rx="1" fill="#3a4f74"/>
+
+                  <rect x="402" y="184" width="18" height="32" rx="9" fill="#3a4f74"/>
+                  <rect x="428" y="184" width="18" height="32" rx="9" fill="#3a4f74"/>
+                  <rect x="454" y="184" width="18" height="32" rx="9" fill="#3a4f74"/>
+                  <rect x="480" y="184" width="18" height="32" rx="9" fill="#3a4f74"/>
+                  <rect x="506" y="184" width="18" height="32" rx="9" fill="#3a4f74"/>
+                  <rect x="532" y="184" width="18" height="32" rx="9" fill="#3a4f74"/>
+
+                  <text x="46" y="234" fill="#7fb3e0" font-size="8.5">
+                    SERIF SIBLING
+                  </text>
+                  <text x="402" y="234" fill="#7fb3e0" font-size="8.5">
+                    SANS SIBLING
+                  </text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>
+              FIG. 01 — Same font-size and baseline throughout; only the
+              x-height changes. The structural point is the gap between the
+              two solid guide lines, not the exact letterforms, which will
+              vary with the actual typefaces chosen.
+            </figcaption>
+          </figure>
+
+          <h2 id="one-job-each"><span class="guide-article__num mono">04</span>Give Each Font Exactly One Job</h2>
+
+          <p>
+              Once a pairing is treated as a hierarchy decision rather than
+              a mood decision, the natural next step is to assign each
+              font a single, non-overlapping role instead of letting either
+              one drift across the page. The cleanest split is
+              <strong>display</strong> versus <strong>text</strong>: one
+              face is optimized for identity and impact at a large size for
+              a few seconds of attention — a hero headline, a section
+              title, a pull quote — and the other is optimized for
+              legibility at a small size across a long, continuous reading
+              stretch — paragraphs, captions, form fields, table cells.
+              These are different reading conditions with different
+              requirements, and a face built to excel at one is rarely the
+              right choice for the other.
+            </p>
+            <p>
+              The failure runs in both directions. A display face pushed
+              into body copy at 16px tends to have quirks — tighter
+              spacing, unusual letterform details, a lower x-height — that
+              read as character at headline size and as friction at
+              paragraph size, where a reader's eye passes over the same
+              shapes hundreds of times in a single sitting instead of once.
+              The opposite mistake wastes the opportunity in the other
+              direction: a highly neutral, optimized-for-legibility text
+              face blown up to hero-headline size looks generic precisely
+              because neutrality is what made it a good text face in the
+              first place — headlines are exactly the place a page can
+              afford to spend some personality without hurting anyone's
+              ability to read it.
+            </p>
+            <p>
+              A third font, when a page needs one, gets the same
+              discipline rather than an exemption from it. A monospaced
+              face for code blocks, tabular data, or timestamps doesn't
+              need to relate stylistically to the display or text face at
+              all — its job is unrelated to theirs — but it still needs the
+              same x-height diligence from section three wherever it
+              appears inline with either of the other two, and it should
+              stay confined to that one job rather than creeping into
+              captions or labels just because it happens to be already
+              loaded on the page.
+            </p>
+
+          <h2 id="superfamily"><span class="guide-article__num mono">05</span>Why a Superfamily Solves More Problems Than a "Creative"
+              Pairing</h2>
+
+          <p>
+              A superfamily is a set of typefaces — typically a serif and a
+              sans, sometimes joined by a slab or a mono — designed
+              together by the same team, on the same underlying skeleton
+              and metrics, and released as coordinated siblings rather than
+              independent releases that happen to be sold together.
+              Families like PT Sans / PT Serif, Source Sans / Source Serif,
+              IBM Plex Sans / Serif / Mono, Noto Sans / Noto Serif, and
+              Museo Sans / Museo Slab are built this way specifically so
+              that pairing one sibling against another isn't a gamble.
+            </p>
+            <p>
+              The reason this matters comes directly from the last two
+              sections: because siblings share the same design metrics,
+              x-height alignment — the exact problem section three
+              describes checking for by hand — is solved automatically
+              instead of tested for. Weight steps line up 1:1 across the
+              family (its Regular matches the other's Regular, its
+              Semibold matches the other's Semibold), punctuation, figure
+              styles, and language coverage stay identical between them,
+              and kerning behaves consistently wherever the two faces sit
+              next to each other. None of that is a coincidence a designer
+              got lucky with; it's the specific problem a superfamily was
+              built to remove.
+            </p>
+            <p>
+              The trade-off is real and worth naming honestly: because
+              siblings share so much underlying structure, a superfamily
+              pairing can read as safer and less distinctive than a
+              hand-picked combination from two unrelated foundries — the
+              contrast from section two is present but usually more
+              restrained. For a page where the pairing's job is primarily
+              structural — separating headline from body reliably across
+              every size, weight, and language the site actually ships —
+              that predictability is close to the entire point, and it's a
+              trade worth making before reaching for a more distinctive
+              pairing that has to earn its contrast the hard way.
+            </p>
+
+          <h2 id="pairing-test"><span class="guide-article__num mono">06</span>A Practical Pairing Test Before You Commit</h2>
+
+          <p>
+              A pairing should be evaluated in the actual conditions it
+              will ship in, not in an isolated specimen graphic. Set the
+              candidate display face at the real headline size the design
+              calls for, set the candidate text face at the real body
+              size, and place them stacked exactly as they'll appear on
+              the page — not side by side in a comparison tool, where
+              nothing forces them to interact the way they will in
+              production. Then repeat the check at the smallest size the
+              text face will actually run, such as a caption or a form
+              helper label, since a pairing that looks fine at 18px body
+              copy can still fall apart at 12px if the x-height gap from
+              section three was only barely acceptable to begin with.
+            </p>
+            <p>
+              Two checks matter beyond the visual comparison. First, weight
+              coverage: confirm the text face ships a genuine bold (not
+              only a regular weight the browser will synthetically
+              embolden for <code>&lt;strong&gt;</code> or
+              <code>&lt;b&gt;</code>, which distorts stroke width and looks
+              noticeably worse than a real bold cut) and that the display
+              face is available in the exact weight the design specifies
+              rather than the nearest one a font-loading fallback happens
+              to substitute. Second, character coverage: verify both faces
+              support every diacritic, currency symbol, and script the
+              site's actual content needs, and that their numeral
+              styles — proportional or tabular, lining or old-style — are
+              either matched or deliberately different for a reason,
+              rather than left to chance.
+            </p>
+            <p>
+              Keeping the two roles in code as clearly separated as they
+              are in the decision helps the pairing survive edits made
+              later by someone who wasn't in the room for the original
+              choice:
+            </p>
+            <pre><code>:root {
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-text: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+body, p, label, td {
+  font-family: var(--font-text);
+  font-weight: 400;
+}
+
+code, pre, .tabular {
+  font-family: var(--font-mono);
+}
+
+/* Variable-range woff2 covers Regular through Bold in one file,
+   so &lt;strong&gt; never falls back to a synthetic, faux-bold weight. */
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/fonts/source-sans-3-variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}</code></pre>
+            <p>
+              Naming the custom properties by role — <code>--font-display</code>
+              and <code>--font-text</code>, not <code>--font-primary</code>
+              and <code>--font-secondary</code> — keeps the hierarchy
+              decision visible in the code itself, so swapping either
+              typeface later means updating one variable instead of
+              hunting down every selector that happened to reference a
+              specific font name.
+            </p>
+
+          <h2 id="pitfalls"><span class="guide-article__num mono">07</span>Four Pitfalls That Quietly Break a Pairing</h2>
+
+          <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
+                <p>
+                  <strong>Two same-classification faces mistaken for
+                    contrast.</strong>
+                  Choosing two different serif fonts, or two different
+                  geometric sans fonts, technically satisfies "use two
+                  fonts" while skipping the actual requirement from section
+                  two: a visible structural axis a reader can register at a
+                  glance. Without that axis, the pairing reads as an
+                  inconsistency rather than a decision.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">02</span>
+                <p>
+                  <strong>Judging a pairing from an isolated specimen.</strong>
+                  A combination that looks resolved in a large demo
+                  headline with generous spacing can behave completely
+                  differently once it's placed in the site's real layout,
+                  at the real sizes, next to real content with real line
+                  lengths — which is exactly why section six's test happens
+                  in context, not in a gallery.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">03</span>
+                <p>
+                  <strong>No real bold in the text face.</strong>
+                  When a text face is only licensed or loaded in Regular,
+                  every <code>&lt;strong&gt;</code> and
+                  <code>&lt;b&gt;</code> on the page triggers the browser's
+                  synthetic bold — a mechanically thickened stroke rather
+                  than a typeface-designed one — which looks noticeably
+                  worse than a genuine bold cut and undermines emphasis
+                  exactly where a reader is meant to notice it most.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">04</span>
+                <p>
+                  <strong>Skipping the x-height check because the mockup
+                    "looked fine."</strong>
+                  A mismatch of a few percent is easy to miss in a large
+                  headline comparison and much harder to miss once the same
+                  two faces meet inline in a caption, a badge, or a form
+                  label at 12–13px — exactly the sizes section three
+                  identifies as where an unmatched x-height stops being
+                  subtle and starts being visible on every page that uses
+                  it.
+                </p>
+              </li>
+            </ul>
+
+          <h2 id="cheat-sheet"><span class="guide-article__num mono">08</span>Quick Reference</h2>
+
+          <div class="guide-table-wrap">
+              <table>
+                <caption>/ font_pairing_reference</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">Guideline</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Contrast axis</td>
+                    <td>Pick one clear axis</td>
+                    <td>Serif/sans, geometric/humanist, weight, or case</td>
+                  </tr>
+                  <tr>
+                    <td>X-height tolerance</td>
+                    <td>Within a few % at matched font-size</td>
+                    <td>Check with lowercase text, not just capitals</td>
+                  </tr>
+                  <tr>
+                    <td>Font roles</td>
+                    <td>Display: one face · Text: one face</td>
+                    <td>Mono is a third, independent role if needed</td>
+                  </tr>
+                  <tr>
+                    <td>Weight coverage</td>
+                    <td>Text face needs Regular + real Bold</td>
+                    <td>Avoids browser-synthesized faux-bold</td>
+                  </tr>
+                  <tr>
+                    <td>Superfamily shortcut</td>
+                    <td>Shared metrics across siblings</td>
+                    <td>Solves x-height and weight-step matching by default</td>
+                  </tr>
+                  <tr>
+                    <td>Fonts per page</td>
+                    <td>2 core faces + 1 optional mono</td>
+                    <td>More than that dilutes the hierarchy it's meant to serve</td>
+                  </tr>
+                  <tr>
+                    <td>Where to test</td>
+                    <td>Real layout, real sizes, smallest first</td>
+                    <td>Not an isolated specimen graphic</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          <p>
+              None of this requires ruling out contrast, distinctiveness,
+              or a pairing with real character — those are still worth
+              having once the structural checks are satisfied. What
+              changes is the order of operations: decide which font owns
+              which job, confirm the contrast between them registers on an
+              axis a reader can actually see, and check the x-height at the
+              real sizes the page will use before judging anything on
+              vibe. A superfamily gets most of that settled by default; a
+              hand-picked pairing can get there too, it just has to earn
+              each of those checks explicitly instead of borrowing them for
+              free. Either way, "do these fonts get along" stops being the
+              question, because by the time the checks pass, the pairing
+              already works — whether or not it happens to feel like a
+              personality match.
+            </p>
+        </article>
+<!--ARTICLE_END-->

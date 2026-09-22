@@ -1,0 +1,1203 @@
+<!--HEAD_META_START-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Accessibility Is a Structural Decision, Not a Final Pass — BPOZZ
+    </title>
+    <meta
+      name="description"
+      content="A structural read of web accessibility: how the accessibility tree is built, how a control's accessible name actually gets computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing quietly misses."
+    />
+    <link
+      rel="canonical"
+      href="https://bpozz.com/guide/accessibility-structural-model"
+    />
+
+
+<!--HEAD_META_END-->
+<!--HEAD_SOCIAL_START-->
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://bpozz.com/guide/accessibility-structural-model"
+    />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Accessibility Is a Structural Decision, Not a Final Pass"
+    />
+    <meta
+      property="og:description"
+      content="How the accessibility tree gets built, how a control's accessible name is actually computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing misses."
+    />
+    <meta
+      property="og:image"
+      content="https://bpozz.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Blueprint-style diagram of accessible name computation order and a modal dialog's focus trap."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Accessibility Is a Structural Decision, Not a Final Pass"
+    />
+    <meta
+      name="twitter:description"
+      content="How the accessibility tree gets built, how a control's accessible name is actually computed, ARIA's real rules, focus management, keyboard patterns, and what automated testing misses."
+    />
+    <meta
+      name="twitter:image"
+      content="https://bpozz.com/thumbnail_image/Accessibility Is a Structural Decision, Not a Final Pass_thumbnail.png"
+    />
+
+
+<!--HEAD_SOCIAL_END-->
+<!--HEAD_STRUCTURED_DATA_START-->
+
+<!--HEAD_STRUCTURED_DATA_END-->
+<!--HERO_START-->
+          <section class="guide-hero" aria-labelledby="guide-heading">
+            <p class="guide-hero__meta">
+              Accessibility · Intermediate · 16 min read
+            </p>
+            <h1 class="guide-hero__title" id="guide-heading">
+              Accessibility Is a Structural Decision, Not a Final Pass
+            </h1>
+            <p class="guide-hero__dek">
+              Most teams learn accessibility as a checklist run at the end of a
+              sprint — alt text, a contrast pass, an <code>aria-label</code>
+              sprinkled onto anything that complains in an audit. This is a
+              structural read of what that checklist is actually testing
+              underneath: how markup produces an accessibility tree, how a
+              control's name gets computed, and why almost none of it can be
+              patched on after the fact.
+            </p>
+          </section>
+
+
+<!--HERO_END-->
+<!--TOC_START-->
+          <nav class="guide-toc" aria-labelledby="guide-toc-heading">
+            <span
+              class="section-label mono guide-toc__label"
+              id="guide-toc-heading"
+              >/ on_this_page</span
+            >
+            <ol>
+              <li>
+                <a href="#structural-model">The Structural Model</a>
+              </li>
+              <li>
+                <a href="#semantic-html">Semantic HTML Is Free Accessibility</a>
+              </li>
+              <li>
+                <a href="#accessible-name">The Accessible Name</a>
+              </li>
+              <li>
+                <a href="#aria-roles-states">ARIA: Roles, States, Properties</a>
+              </li>
+              <li>
+                <a href="#focus-order-traps">Focus: Order, Visibility, Traps</a>
+              </li>
+              <li>
+                <a href="#keyboard-patterns"
+                  >Keyboard Patterns for Custom Widgets</a
+                >
+              </li>
+              <li>
+                <a href="#forms-labels-errors"
+                  >Forms: Labels, Errors, Announcements</a
+                >
+              </li>
+              <li>
+                <a href="#testing-coverage"
+                  >Testing: Coverage vs. What It Misses</a
+                >
+              </li>
+              <li>
+                <a href="#pitfalls">Six Pitfalls That Look Like Edge Cases</a>
+              </li>
+              <li>
+                <a href="#cheat-sheet">Quick Reference</a>
+              </li>
+            </ol>
+          </nav>
+
+
+<!--TOC_END-->
+<!--ARTICLE_START-->
+          <article class="guide-article">
+            <h2 id="structural-model">
+              <span class="guide-article__num mono">01</span>The Structural
+              Model
+            </h2>
+
+            <p>
+              A screen reader doesn't read your page. It reads a second,
+              parallel data structure the browser builds from your markup called
+              the <strong>accessibility tree</strong> — a filtered,
+              semantic-only view of the DOM where purely visual containers like
+              generic <code>div</code>s and <code>span</code>s are mostly
+              flattened away, and elements with actual meaning survive as a node
+              with three things attached: a <strong>role</strong> (what kind of
+              thing this is), a <strong>name</strong> (what to call it out
+              loud), and a set of <strong>states</strong> (its current condition
+              — expanded, checked, disabled, current). Every other assistive
+              technology — switch access, voice control, braille displays —
+              reads from that same tree, not from pixels.
+            </p>
+            <p>
+              This is the fact that reframes everything else in this guide: ARIA
+              attributes can only edit labels and metadata on a tree whose
+              <em>structure</em> was already decided by your HTML. They cannot
+              invent a heading that isn't there, cannot turn a flat sequence of
+              clickable <code>div</code>s into a real list, and cannot
+              retroactively give a page landmarks it never had. Structure comes
+              from markup, written once, at authoring time. Everything ARIA can
+              do is layered on top of whatever structure already exists — which
+              is exactly why "run an audit, then patch the failures with ARIA"
+              produces pages that pass automated scans while still being
+              confusing or unusable with a screen reader.
+            </p>
+            <p>
+              Treat every interactive piece of UI as three decisions made in
+              this order, the same way a load-bearing wall gets decided before
+              paint color: what role does this already have, or need declared;
+              what name will assistive tech attach to it; and what states will
+              need to update as the user interacts with it. Get those three
+              right at the markup layer and most of what's normally called
+              "accessibility work" turns out to already be done.
+            </p>
+
+            <h2 id="semantic-html">
+              <span class="guide-article__num mono">02</span>Semantic HTML Is
+              Free Accessibility You're Not Using
+            </h2>
+
+            <p>
+              Native HTML elements ship with role, keyboard behavior, and often
+              state handling built in, at no cost. A
+              <code>&lt;button&gt;</code> is focusable, already has
+              <code>role="button"</code>, and already responds to both Enter and
+              Space without a line of JavaScript. Rebuild that same button out
+              of a <code>&lt;div onclick&gt;</code> instead, and you now owe the
+              platform every piece of that for free: a
+              <code>tabindex="0"</code> so it's reachable, an explicit
+              <code>role="button"</code>, and a keydown handler for
+              <em>two different keys</em>, because browsers don't auto-activate
+              a plain div on Enter or Space the way they do a real button. It's
+              not that this debt can't be repaid — it's that it's easy to
+              under-repay, and nothing visually signals that you have.
+            </p>
+            <p>
+              Landmark elements — <code>&lt;header&gt;</code>,
+              <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
+              <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code> — give
+              screen reader users a jump list roughly equivalent to what sighted
+              users get from peripheral vision scanning a page layout: "skip to
+              the nav," "skip to main," without reading everything in between.
+              It's one of the most common navigation methods screen reader users
+              rely on, and it's unavailable on a page built entirely from
+              generic containers.
+            </p>
+            <p>
+              Heading levels are a second jump list. Many screen reader users
+              routinely skim a page by pulling up its heading outline —
+              <code>h1</code> through <code>h6</code> — the same way a sighted
+              user's eye jumps between bold headlines on a page before deciding
+              what to actually read. Choosing a heading tag for its default font
+              size instead of its place in the outline, or skipping from an
+              <code>h2</code> straight to an <code>h4</code> because it "looked
+              right," breaks that outline for the people relying on it — even
+              though nothing about it looks wrong.
+            </p>
+
+            <h2 id="accessible-name">
+              <span class="guide-article__num mono">03</span>The Accessible Name
+            </h2>
+
+            <p>
+              Every node in the accessibility tree carries an
+              <strong>accessible name</strong> — the string a screen reader
+              actually announces for it — and that string is not always the text
+              you can see. It's the output of a small, ordered computation, and
+              the first source present wins outright, even overriding sources
+              further down the list.
+            </p>
+            <p>
+              <code>aria-labelledby</code> is checked first: if it's present, it
+              wins completely, pulling its text from wherever it points — even
+              if that's nowhere near the control visually, and even if the
+              control also has visible text of its own that gets ignored. Next
+              comes <code>aria-label</code>, a literal string set directly on
+              the element. After that comes native labelling — a
+              <code>&lt;label for&gt;</code> association, an
+              <code>alt</code> attribute on an image, or the element's own
+              visible text content. Last, and unreliable enough to treat as a
+              fallback rather than a strategy, is the <code>title</code>
+              attribute — inconsistently announced across screen readers and
+              often invisible until a mouse hover that keyboard and touch users
+              never trigger.
+            </p>
+
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 720 260"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig1-title fig1-desc"
+                >
+                  <title id="fig1-title">
+                    Accessible name computation order
+                  </title>
+                  <desc id="fig1-desc">
+                    Four priority tiers for how a control's accessible name is
+                    computed — aria-labelledby, then aria-label, then native
+                    labelling, then the title attribute as a last resort — next
+                    to a before-and-after example of the same icon button with
+                    and without a name.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="a11y-arrow"
+                      viewBox="0 0 8 8"
+                      refX="4"
+                      refY="4"
+                      markerWidth="6"
+                      markerHeight="6"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                    </marker>
+                  </defs>
+                  <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                    <text
+                      x="20"
+                      y="20"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      FIRST MATCH WINS ↓
+                    </text>
+
+                    <rect
+                      x="20"
+                      y="34"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.5"
+                    />
+                    <text x="34" y="52" fill="#e8edf4" font-size="12">
+                      1 · aria-labelledby
+                    </text>
+                    <text x="34" y="68" fill="#9fb2cc" font-size="9.5">
+                      points to text elsewhere on the page
+                    </text>
+
+                    <line
+                      x1="185"
+                      y1="76"
+                      x2="185"
+                      y2="90"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#a11y-arrow)"
+                    />
+
+                    <rect
+                      x="20"
+                      y="92"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      opacity="0.85"
+                    />
+                    <text x="34" y="110" fill="#e8edf4" font-size="12">
+                      2 · aria-label
+                    </text>
+                    <text x="34" y="126" fill="#9fb2cc" font-size="9.5">
+                      a literal string set on the element itself
+                    </text>
+
+                    <line
+                      x1="185"
+                      y1="134"
+                      x2="185"
+                      y2="148"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      marker-end="url(#a11y-arrow)"
+                    />
+
+                    <rect
+                      x="20"
+                      y="150"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1"
+                      opacity="0.7"
+                    />
+                    <text x="34" y="168" fill="#e8edf4" font-size="12">
+                      3 · native labelling
+                    </text>
+                    <text x="34" y="184" fill="#9fb2cc" font-size="9.5">
+                      label-for, alt text, visible text content
+                    </text>
+
+                    <line
+                      x1="185"
+                      y1="192"
+                      x2="185"
+                      y2="206"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      marker-end="url(#a11y-arrow)"
+                    />
+
+                    <rect
+                      x="20"
+                      y="208"
+                      width="330"
+                      height="42"
+                      rx="2"
+                      fill="none"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      stroke-dasharray="3 3"
+                      opacity="0.6"
+                    />
+                    <text x="34" y="226" fill="#9fb2cc" font-size="12">
+                      4 · title attribute
+                    </text>
+                    <text x="34" y="242" fill="#5b789f" font-size="9.5">
+                      last resort — inconsistent, easy to miss
+                    </text>
+
+                    <line
+                      x1="392"
+                      y1="18"
+                      x2="392"
+                      y2="252"
+                      stroke="#12335f"
+                      stroke-width="1"
+                    />
+
+                    <text
+                      x="412"
+                      y="20"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      SAME ICON, TWO NAMES
+                    </text>
+
+                    <rect
+                      x="412"
+                      y="40"
+                      width="130"
+                      height="36"
+                      rx="4"
+                      fill="none"
+                      stroke="#c9788a"
+                      stroke-width="1.2"
+                    />
+                    <circle
+                      cx="432"
+                      cy="58"
+                      r="7"
+                      fill="none"
+                      stroke="#c9788a"
+                      stroke-width="1.4"
+                    />
+                    <line
+                      x1="437"
+                      y1="63"
+                      x2="443"
+                      y2="69"
+                      stroke="#c9788a"
+                      stroke-width="1.4"
+                    />
+                    <text x="454" y="62" fill="#c9788a" font-size="9">
+                      icon button
+                    </text>
+                    <text x="412" y="90" fill="#c9788a" font-size="9.5">
+                      name: "" — announced only "button"
+                    </text>
+
+                    <rect
+                      x="412"
+                      y="112"
+                      width="130"
+                      height="36"
+                      rx="4"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <circle
+                      cx="432"
+                      cy="130"
+                      r="7"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <line
+                      x1="437"
+                      y1="135"
+                      x2="443"
+                      y2="141"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <text x="454" y="134" fill="#7fb3e0" font-size="9">
+                      icon button
+                    </text>
+                    <text x="412" y="162" fill="#7fb3e0" font-size="9.5">
+                      aria-label="Search"
+                    </text>
+                    <text x="412" y="176" fill="#9fb2cc" font-size="9.5">
+                      name: "Search" — announced correctly
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 01 — Accessible name computation order: the first source
+                present wins, and an icon with no label announces nothing at
+                all.
+              </figcaption>
+            </figure>
+
+            <p>
+              Two failures come directly out of this order. The common one is an
+              icon-only button — a magnifying glass, a hamburger, a trash-can —
+              with no visible text and no <code>aria-label</code>, so its
+              computed name is an empty string. A screen reader announces it as
+              simply "button," giving no indication of what it does. The subtler
+              one is a mismatch between the visible label and the accessible
+              name: setting an <code>aria-label</code> that reads differently
+              from the text a sighted user sees breaks voice-control users, who
+              typically activate a control by speaking its
+              <em>visible</em> label — this exact mismatch has its own WCAG
+              success criterion (2.5.3, Label in Name) because it's common
+              enough to name directly.
+            </p>
+
+            <h2 id="aria-roles-states">
+              <span class="guide-article__num mono">04</span>ARIA: Roles,
+              States, and Properties
+            </h2>
+
+            <p>
+              ARIA is a vocabulary of attributes that describe roles, states,
+              and properties to the accessibility tree — nothing more. It
+              changes no styling, adds no keyboard behavior, and triggers no
+              JavaScript on its own; it is purely a labeling layer sitting on
+              top of whatever the DOM and your event handlers already do. That
+              single fact resolves most confusion about when to reach for it.
+            </p>
+            <p>
+              Three practical rules cover the majority of real cases. First, if
+              a native element already does the job, use it — recreating a
+              button out of a <code>div</code> plus
+              <code>role="button"</code> only rebuilds, by hand and imperfectly,
+              what <code>&lt;button&gt;</code> already gives for free. Second,
+              avoid overriding an element's built-in semantics unless there's
+              genuinely no other option — putting
+              <code>role="presentation"</code> on a data table strips its
+              structure from assistive tech entirely. Third, and most often
+              skipped: every interactive role needs both a real accessible name
+              and full keyboard operability. A role with no name is frequently
+              worse than no role at all, because it tells assistive technology
+              "this matters, pay attention," and then has nothing to say when it
+              does.
+            </p>
+            <p>
+              It helps to separate three things ARIA attributes describe.
+              <strong>Roles</strong> declare what an element fundamentally is —
+              <code>role="dialog"</code>, <code>role="tab"</code>,
+              <code>role="alert"</code> — and are generally set once and left
+              alone. <strong>States</strong> describe a condition that changes
+              as the user interacts — <code>aria-expanded</code>,
+              <code>aria-checked</code>, <code>aria-selected</code>,
+              <code>aria-current</code> — and must be kept in sync with the
+              actual UI on every change, not set once at load.
+              <strong>Properties</strong> describe more stable relationships
+              between elements — <code>aria-describedby</code>,
+              <code>aria-controls</code>, <code>aria-labelledby</code> — wiring
+              one element to another that the visual layout alone doesn't make
+              explicit.
+            </p>
+            <p>
+              <code>aria-live</code> regions announce content that changes
+              without a page reload — a save confirmation, a cart total, an
+              inline validation message. <code>polite</code> waits for the
+              screen reader to finish whatever it's currently saying before
+              announcing the update; <code>assertive</code> interrupts
+              immediately and should be reserved for things that genuinely can't
+              wait, like a failed submission. The common mistake runs in both
+              directions: marking too much of a page as live and drowning users
+              in announcements for routine UI churn, or never marking anything
+              live and leaving async updates — a cart count ticking up, a
+              spinner resolving — completely silent to anyone not looking
+              directly at that pixel.
+            </p>
+
+            <h2 id="focus-order-traps">
+              <span class="guide-article__num mono">05</span>Focus: Order,
+              Visibility, and Traps
+            </h2>
+
+            <p>
+              Tab order follows <strong>DOM order</strong>, full stop — not the
+              order things appear on screen. Reorder elements visually with CSS
+              <code>order</code>, grid placement, or absolute positioning
+              without moving them in the underlying markup, and the Tab key
+              still walks the original DOM sequence, jumping across the screen
+              in a pattern that has nothing to do with what a sighted user just
+              read left to right. Nobody notices this in a mouse-only
+              walkthrough, because a mouse never has to follow Tab order — it's
+              exclusively a keyboard and screen-reader problem, which is exactly
+              why it survives so many rounds of visual QA untouched.
+            </p>
+            <p>
+              A second, related failure is removing the default focus outline —
+              <code>outline: none</code> — without shipping a replacement. That
+              outline is the only signal a keyboard user gets for where they
+              currently are on the page; strip it and every keyboard interaction
+              becomes a guessing game. The
+              <code>:focus-visible</code> pseudo-class exists precisely for
+              this: it lets you style focus differently for keyboard navigation
+              than for a mouse click, so the outline that looks unnecessary on a
+              clicked button still appears for the person who tabbed to it.
+            </p>
+            <p>
+              Skip links — a hidden "Skip to main content" link that becomes
+              visible on focus — let keyboard and screen reader users bypass
+              repeated navigation instead of tabbing through the same header on
+              every single page. The common failure isn't a missing skip link;
+              it's a skip link that's present but not actually the first
+              focusable element, or that fails to move focus to the destination
+              it points to.
+            </p>
+
+            <figure class="guide-diagram">
+              <div class="guide-diagram__frame">
+                <svg
+                  viewBox="0 0 720 300"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-labelledby="fig2-title fig2-desc"
+                >
+                  <title id="fig2-title">
+                    DOM order versus a modal's focus trap
+                  </title>
+                  <desc id="fig2-desc">
+                    Left: three boxes displayed in one visual order while their
+                    underlying DOM and Tab order stay fixed, producing a
+                    mismatch. Right: a modal dialog that traps Tab focus among
+                    its own three controls and returns focus to the trigger
+                    button once it closes.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="a11y-arrow2"
+                      viewBox="0 0 8 8"
+                      refX="4"
+                      refY="4"
+                      markerWidth="6"
+                      markerHeight="6"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#7fb3e0" />
+                    </marker>
+                  </defs>
+                  <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                    <line
+                      x1="358"
+                      y1="14"
+                      x2="358"
+                      y2="286"
+                      stroke="#12335f"
+                      stroke-width="1"
+                    />
+
+                    <text
+                      x="20"
+                      y="24"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      VISUAL ORDER ≠ DOM ORDER
+                    </text>
+                    <text x="20" y="94" fill="#9fb2cc" font-size="9">
+                      displayed left → right, via CSS order
+                    </text>
+
+                    <rect
+                      x="20"
+                      y="100"
+                      width="80"
+                      height="60"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.4"
+                    />
+                    <text
+                      x="60"
+                      y="135"
+                      fill="#e8edf4"
+                      font-size="16"
+                      text-anchor="middle"
+                    >
+                      B
+                    </text>
+                    <rect
+                      x="130"
+                      y="100"
+                      width="80"
+                      height="60"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.4"
+                    />
+                    <text
+                      x="170"
+                      y="135"
+                      fill="#e8edf4"
+                      font-size="16"
+                      text-anchor="middle"
+                    >
+                      C
+                    </text>
+                    <rect
+                      x="240"
+                      y="100"
+                      width="80"
+                      height="60"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.4"
+                    />
+                    <text
+                      x="280"
+                      y="135"
+                      fill="#e8edf4"
+                      font-size="16"
+                      text-anchor="middle"
+                    >
+                      A
+                    </text>
+
+                    <polyline
+                      points="280,182 60,182 170,182"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                      stroke-dasharray="3 3"
+                      marker-end="url(#a11y-arrow2)"
+                    />
+                    <circle
+                      cx="280"
+                      cy="182"
+                      r="9"
+                      fill="#081b38"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                    />
+                    <text
+                      x="280"
+                      y="186"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      1
+                    </text>
+                    <circle
+                      cx="60"
+                      cy="182"
+                      r="9"
+                      fill="#081b38"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                    />
+                    <text
+                      x="60"
+                      y="186"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      2
+                    </text>
+                    <circle
+                      cx="170"
+                      cy="182"
+                      r="9"
+                      fill="#081b38"
+                      stroke="#7fb3e0"
+                      stroke-width="1.2"
+                    />
+                    <text
+                      x="170"
+                      y="186"
+                      fill="#7fb3e0"
+                      font-size="9.5"
+                      text-anchor="middle"
+                    >
+                      3
+                    </text>
+
+                    <text
+                      x="170"
+                      y="226"
+                      fill="#7fb3e0"
+                      font-size="9"
+                      text-anchor="middle"
+                    >
+                      Tab still visits A → B → C, the DOM order
+                    </text>
+                    <text
+                      x="170"
+                      y="240"
+                      fill="#9fb2cc"
+                      font-size="9"
+                      text-anchor="middle"
+                    >
+                      — crossing back over what's on screen
+                    </text>
+
+                    <text
+                      x="378"
+                      y="24"
+                      fill="#7fb3e0"
+                      font-size="11"
+                      letter-spacing="0.5"
+                    >
+                      FOCUS TRAP INSIDE A DIALOG
+                    </text>
+
+                    <rect
+                      x="398"
+                      y="44"
+                      width="282"
+                      height="150"
+                      rx="4"
+                      fill="none"
+                      stroke="#7fb3e0"
+                      stroke-width="1.4"
+                    />
+                    <text x="412" y="62" fill="#7fb3e0" font-size="9.5">
+                      role="dialog" aria-modal="true"
+                    </text>
+
+                    <rect
+                      x="412"
+                      y="76"
+                      width="150"
+                      height="24"
+                      rx="2"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.1"
+                    />
+                    <text x="420" y="92" fill="#e8edf4" font-size="9">
+                      Field
+                    </text>
+
+                    <rect
+                      x="412"
+                      y="148"
+                      width="70"
+                      height="26"
+                      rx="2"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.1"
+                    />
+                    <text x="424" y="165" fill="#e8edf4" font-size="9">
+                      Cancel
+                    </text>
+
+                    <rect
+                      x="498"
+                      y="148"
+                      width="70"
+                      height="26"
+                      rx="2"
+                      fill="#7fb3e0"
+                      opacity="0.85"
+                    />
+                    <text x="516" y="165" fill="#081b38" font-size="9">
+                      Save
+                    </text>
+
+                    <polyline
+                      points="487,88 568,88 568,161 482,161 412,161 412,88"
+                      fill="none"
+                      stroke="#5b789f"
+                      stroke-width="1"
+                      stroke-dasharray="2 2"
+                      marker-end="url(#a11y-arrow2)"
+                    />
+                    <text
+                      x="540"
+                      y="210"
+                      fill="#9fb2cc"
+                      font-size="8.5"
+                      text-anchor="middle"
+                    >
+                      Tab wraps: Field → Save → Cancel → Field
+                    </text>
+
+                    <rect
+                      x="470"
+                      y="240"
+                      width="140"
+                      height="30"
+                      rx="3"
+                      fill="none"
+                      stroke="#e8edf4"
+                      stroke-width="1.2"
+                      stroke-dasharray="2 2"
+                    />
+                    <text
+                      x="540"
+                      y="259"
+                      fill="#e8edf4"
+                      font-size="9"
+                      text-anchor="middle"
+                    >
+                      trigger button
+                    </text>
+                    <line
+                      x1="470"
+                      y1="238"
+                      x2="440"
+                      y2="196"
+                      stroke="#7fb3e0"
+                      stroke-width="1.1"
+                      marker-end="url(#a11y-arrow2)"
+                    />
+                    <text x="398" y="222" fill="#7fb3e0" font-size="8.5">
+                      Esc / close →
+                    </text>
+                    <text x="398" y="234" fill="#7fb3e0" font-size="8.5">
+                      focus returns here
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                FIG. 02 — Left: CSS reordered three boxes visually while their
+                DOM order stayed fixed, so Tab crosses back over the layout.
+                Right: a well-behaved dialog traps Tab among its own controls
+                and hands focus back to the button that opened it.
+              </figcaption>
+            </figure>
+
+            <p>
+              That right-hand pattern is worth stating as a checklist on its
+              own, because a modal is one of the highest-stakes focus
+              interactions on most sites: on open, focus should move into the
+              dialog, typically to its first focusable control or the dialog
+              itself; while it's open, Tab and Shift+Tab should cycle only among
+              the dialog's own controls, never leaking back to the page
+              underneath; and on close — whether by Escape, a Cancel button, or
+              a successful submit — focus should return to the exact element
+              that opened it. That last step is the one most commonly skipped,
+              and skipping it means a keyboard user closes a dialog and has no
+              idea where they've landed on the page.
+            </p>
+            <p>
+              One more focus case that's easy to miss: single-page apps that
+              swap content without a full page load give a screen reader no
+              automatic signal that navigation happened, because there was no
+              new page load to announce. Moving focus to the new view's heading
+              — or firing a dedicated live-region announcement — on every route
+              change is what replaces that missing signal; without it, a screen
+              reader user can trigger a navigation and simply never learn that
+              anything changed.
+            </p>
+
+            <h2 id="keyboard-patterns">
+              <span class="guide-article__num mono">06</span>Keyboard Patterns
+              for Custom Widgets
+            </h2>
+
+            <p>
+              For genuinely custom widgets — tabs, menus, comboboxes, sliders,
+              listboxes — there's an established set of keyboard conventions
+              (the WAI-ARIA Authoring Practices patterns) that exist so a tab
+              list behaves the same way on your site as it does everywhere else
+              a keyboard or screen reader user has already learned it. The
+              baseline expectations are consistent across widgets: Enter or
+              Space activates, Escape closes or cancels, arrow keys move between
+              items inside a composite control, and Home/End jump to the first
+              or last item.
+            </p>
+            <p>
+              A pattern called <strong>roving tabindex</strong> underlies most
+              composite widgets: only one item inside the group is ever a Tab
+              stop at a time, and arrow keys move that single stop between
+              siblings, updating each item's <code>tabindex</code> as focus
+              moves. That keeps the Tab key reserved for entering and leaving
+              the whole widget as one unit — a tab list with eight tabs should
+              cost the rest of the page exactly one Tab stop, not eight.
+            </p>
+            <p>
+              The failure worth calling out explicitly here connects straight
+              back to section four: a custom dropdown can carry every "correct"
+              ARIA role — <code>combobox</code>, <code>listbox</code>,
+              <code>option</code> — and still be completely inoperable by
+              keyboard, if the only code wired up is a mouse
+              <code>onclick</code> handler. It will look right in a visual
+              review and often pass an automated scan that only checks whether
+              the attributes are present, while being unusable for anyone who
+              can't click. ARIA describes intent; your event handlers are what
+              actually deliver it.
+            </p>
+
+            <h2 id="forms-labels-errors">
+              <span class="guide-article__num mono">07</span>Forms: Labels,
+              Errors, and Announcements
+            </h2>
+
+            <p>
+              Every input needs a programmatically associated label — a real
+              <code>&lt;label for="id"&gt;</code>, or the input wrapped inside
+              one — not placeholder text standing in for it. Placeholder text
+              disappears the moment someone starts typing, isn't reliably
+              treated as a persistent label by every screen reader, and
+              typically ships with contrast too low to read comfortably by
+              default.
+            </p>
+            <p>
+              Related inputs need a group label, not just individual ones — wrap
+              a set of radio buttons, or the several fields of an address, in
+              <code>&lt;fieldset&gt;</code> with a
+              <code>&lt;legend&gt;</code> so assistive tech announces what the
+              group as a whole represents, rather than presenting four unrelated
+              fields with no shared context.
+            </p>
+            <p>
+              For validation errors, connect the error text to its field with
+              <code>aria-describedby</code> pointing at the error message's
+              <code>id</code>, and set <code>aria-invalid="true"</code> on the
+              input while the problem stands — that combination means a screen
+              reader announces both the field's name and its specific error the
+              moment it receives focus, instead of relying on red text a sighted
+              user has to spot visually. When errors surface asynchronously —
+              after a failed submit, or live as someone types — wrap the summary
+              or message in <code>aria-live="polite"</code>, or
+              <code>role="alert"</code> for something urgent enough to
+              interrupt, so the update gets announced without the user having to
+              re-scan the whole form to discover it. The balance to hold is not
+              over-announcing: a live region that fires on every keystroke turns
+              a helpful signal into constant noise.
+            </p>
+
+            <h2 id="testing-coverage">
+              <span class="guide-article__num mono">08</span>Testing: Coverage
+              vs. What It Misses
+            </h2>
+
+            <p>
+              Automated scanners — axe, Lighthouse, WAVE — are genuinely good at
+              what they check: missing alt text, insufficient color contrast,
+              unlabeled form fields, invalid ARIA attribute values, duplicate
+              IDs. Commonly cited industry estimates put automated coverage at
+              roughly a third to half of WCAG's success criteria — a real floor
+              worth having in CI, not a ceiling worth trusting on its own.
+            </p>
+            <p>
+              What a scanner structurally cannot judge: whether alt text is
+              actually descriptive rather than a filename, whether reading order
+              makes sense as a sequence rather than merely existing, whether a
+              custom widget from section six is truly operable by keyboard
+              rather than just correctly labeled, whether a live region
+              announces at a sane frequency, or whether focus really returns to
+              the right place once a dialog closes. All five of those require a
+              human running through the interface, not a rule checking an
+              attribute's presence.
+            </p>
+            <p>
+              A minimum manual pass covers most of that gap cheaply: unplug the
+              mouse and complete your core flow using only Tab, Shift+Tab,
+              Enter, Space, arrow keys, and Escape; spend five minutes on that
+              same flow with a screen reader running — VoiceOver ships free on
+              macOS, NVDA is free on Windows — rather than only skimming the
+              homepage; and zoom the browser to 200% to confirm content reflows
+              into a single column instead of clipping or forcing horizontal
+              scroll. None of that replaces automated tooling — it catches the
+              roughly half of real issues automated tooling was never built to
+              see.
+            </p>
+
+            <h2 id="pitfalls">
+              <span class="guide-article__num mono">09</span>Six Pitfalls That
+              Look Like Edge Cases
+            </h2>
+
+            <ul class="guide-recap guide-recap--warning">
+              <li>
+                <span class="guide-recap__n">01</span>
+                <p>
+                  <strong>Icon-only buttons with no accessible name.</strong>
+                  The single most common failure from section three — a search
+                  or close icon that's a real, focusable control announced as
+                  nothing but "button." Add
+                  <code>aria-label</code> or visually-hidden text the moment an
+                  icon stands in for a word.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">02</span>
+                <p>
+                  <strong
+                    ><code>outline: none</code> with no
+                    <code>:focus-visible</code> replacement.</strong
+                  >
+                  Removes the only signal a keyboard user has for their current
+                  position on the page. Replace it, never just delete it.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">03</span>
+                <p>
+                  <strong
+                    >Reordering visually with CSS without reordering the
+                    DOM.</strong
+                  >
+                  Creates the exact mismatch shown in figure two — the fix is
+                  moving the markup, not adding an ARIA attribute on top of it.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">04</span>
+                <p>
+                  <strong>Correct roles, no behavior.</strong>
+                  A custom widget with every appropriate ARIA role wired up, and
+                  only a mouse click handler underneath it — inoperable by
+                  keyboard, invisible to an audit that only checks for attribute
+                  presence.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">05</span>
+                <p>
+                  <strong>Modals that don't return focus on close.</strong>
+                  A keyboard user who opened a dialog loses their place in the
+                  page entirely once it closes without sending focus back to the
+                  trigger.
+                </p>
+              </li>
+              <li>
+                <span class="guide-recap__n">06</span>
+                <p>
+                  <strong>Ignoring <code>prefers-reduced-motion</code>.</strong>
+                  Parallax, autoplaying carousels, and large animated
+                  transitions can cause real physical symptoms for people with
+                  vestibular disorders, not just mild annoyance. Wrap
+                  non-essential motion behind the media query and provide a
+                  still, static equivalent when it's set.
+                </p>
+              </li>
+            </ul>
+
+            <h2 id="cheat-sheet">
+              <span class="guide-article__num mono">10</span>Quick Reference
+            </h2>
+
+            <div class="guide-table-wrap">
+              <table>
+                <caption>
+                  / rules_of_thumb
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Concept</th>
+                    <th scope="col">What it controls</th>
+                    <th scope="col">Rule of thumb</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Accessible name</td>
+                    <td>What's announced for a control</td>
+                    <td>labelledby beats label beats native content</td>
+                  </tr>
+                  <tr>
+                    <td>Role</td>
+                    <td>What kind of control this is</td>
+                    <td>Prefer the native element over role on a div</td>
+                  </tr>
+                  <tr>
+                    <td>ARIA state</td>
+                    <td>Current condition of a control</td>
+                    <td>Update on every change, not just once at load</td>
+                  </tr>
+                  <tr>
+                    <td>Focus order</td>
+                    <td>Tab key sequence</td>
+                    <td>Follows DOM order, never CSS visual order</td>
+                  </tr>
+                  <tr>
+                    <td>:focus-visible</td>
+                    <td>Visible focus indicator</td>
+                    <td>Restyle it — never remove it outright</td>
+                  </tr>
+                  <tr>
+                    <td>aria-live</td>
+                    <td>Announces content that changes without reload</td>
+                    <td>polite for routine updates, alert for urgent ones</td>
+                  </tr>
+                  <tr>
+                    <td>Roving tabindex</td>
+                    <td>Which item in a composite is Tab-reachable</td>
+                    <td>One tab stop per widget; arrows move within it</td>
+                  </tr>
+                  <tr>
+                    <td>aria-describedby</td>
+                    <td>Extra description read after the name</td>
+                    <td>Point it at error text tied to that exact field</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Almost everything in this guide is cheaper the earlier it's
+              decided. A heading level, a native <code>&lt;button&gt;</code>, a
+              label wired to its input — each one costs nothing extra when it's
+              the first draft of the markup, and costs a rebuild when it's
+              retrofitted after launch. Accessibility rewards being treated as a
+              structural decision made once, not a final pass run at the end.
+            </p>
+          </article>
+<!--ARTICLE_END-->

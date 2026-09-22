@@ -8,19 +8,19 @@
     "home": { "order": 0, "limit": 10, "sort": "roadmap" }
   },
   {
-    "type": "token",
-    "label": "Tokens",
-    "landingUrl": "/tokens",
-    "nav": true,
-    "activePaths": ["tokens/"],
-    "home": { "order": 1, "limit": 10, "sort": "popular" }
-  },
-  {
     "type": "palette",
     "label": "Palettes",
     "landingUrl": "/palettes",
     "nav": true,
     "activePaths": ["palettes/"],
-    "home": { "order": 2, "limit": 10, "sort": "latest" }
+    "home": { "order": 1, "limit": 10, "sort": "latest" }
+  },
+  {
+    "type": "color",
+    "label": "Colors",
+    "landingUrl": "/colors",
+    "nav": true,
+    "activePaths": ["colors/"],
+    "home": null
   }
 ]
