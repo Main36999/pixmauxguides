@@ -61,11 +61,21 @@ const STATIC_ROOT_PAGES = [
  *
  * Adding a row here is what takes the table from 41 pages to 42, which
  * site.config.js's expected.htmlPages states and the `load` stage asserts.
+ *
+ * IMAGE PICKER — "image-picker/index.html" is the fourth entry, added the
+ * same way /colors was: one committed page, hand-authored, header/footer
+ * patched in place by the existing markers, no new route shape and no
+ * backing data file (its palette is produced client-side from whatever
+ * image the visitor picks, not fetched). Takes the table from 42 pages to
+ * 43 — see site.config.js's expected.htmlPages. Deliberately NOT added to
+ * MAIN_HEADER_NAV in src/build/header.js, so this addition touches no
+ * other page's output.
  */
 const SECTION_INDEX_PAGES = [
   "guides/index.html",
   "palettes/index.html",
   "colors/index.html",
+  "image-picker/index.html",
 ];
 
 /**

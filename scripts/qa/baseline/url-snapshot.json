@@ -2,12 +2,12 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 42,
+    "pages": 43,
     "dataEndpoints": 5,
     "siteFiles": 4,
-    "assets": 46,
-    "code": 7,
-    "total": 104
+    "assets": 47,
+    "code": 9,
+    "total": 108
   },
   "pages": [
     {
@@ -196,6 +196,11 @@
       "canonical": "https://bpozz.com/guides"
     },
     {
+      "file": "image-picker/index.html",
+      "url": "/image-picker",
+      "canonical": "https://bpozz.com/image-picker"
+    },
+    {
       "file": "palettes/index.html",
       "url": "/palettes",
       "canonical": "https://bpozz.com/palettes"
@@ -248,6 +253,7 @@
     "/assets/favicon.png",
     "/assets/founder-somrach-hoy.jpg",
     "/assets/logo.png",
+    "/image-picker/assets/standby.jpg",
     "/thumbnail_image_webp/A Color Palette Is a Token System, Not a Row of Swatches.webp",
     "/thumbnail_image_webp/Accessibility Is a Structural Decision, Not a Final Pass.webp",
     "/thumbnail_image_webp/Auto Layout Is a Constraint System, Not a Convenience Toggle.webp",
@@ -287,6 +293,8 @@
     "/colors/colors.css",
     "/colors/colors.js",
     "/guide-article.css",
+    "/image-picker/image-picker.css",
+    "/image-picker/image-picker.js",
     "/palettes/palettes.css",
     "/palettes/palettes.js",
     "/styles.css"

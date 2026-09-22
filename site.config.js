@@ -233,18 +233,23 @@ module.exports = {
    *   htmlPages    41 → 42  (+1: colors/index.html)
    *   sitemapUrls  40 → 41  (+1: https://bpozz.com/colors)
    *
+   * IMAGE PICKER — the second change that ADDS, same shape as Step 10's.
+   *   htmlPages    42 → 43  (+1: image-picker/index.html)
+   *   sitemapUrls  41 → 42  (+1: https://bpozz.com/image-picker)
+   *
    * snapshotUrls is NOT bumped here and is deliberately left at its Phase 4
    * value, because nothing reads it: it records what the token-removal
    * surface measured and the live number is asserted by
    * scripts/qa/check-urls.js against the recorded baseline, which is a
-   * stronger check than a literal in this file. The Step 10 additions to
-   * that surface are enumerated one-by-one in check-urls.js's ALLOWED_ADDED
-   * before the baseline is re-recorded — see that file.
+   * stronger check than a literal in this file. The Step 10 and Image
+   * Picker additions to that surface are enumerated one-by-one in
+   * check-urls.js's ALLOWED_ADDED before the baseline is re-recorded — see
+   * that file.
    */
   expected: {
-    htmlPages: 42,
+    htmlPages: 43,
     snapshotUrls: 89,
-    sitemapUrls: 41,
+    sitemapUrls: 42,
   },
 
   /**

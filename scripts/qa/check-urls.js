@@ -92,6 +92,24 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * STEP 10 ALSO FIXED THIS LIST'S ARITHMETIC. Populating it used to fail the
  * counts check below no matter what, because that check reconciled approved
  * removals and not approved additions. See `addedByKey` in main().
+ *
+ * IMAGE PICKER held three entries here while its URL change was under
+ * review — the page itself (/image-picker) and its two page-specific
+ * assets (/image-picker/image-picker.js, /image-picker/image-picker.css),
+ * the same shape as the Color Library's colors.js/colors.css pair, with no
+ * data endpoint because this page's palette comes from whatever image the
+ * visitor picks, extracted client-side, not from a fetched JSON file. The
+ * baseline was re-recorded at 107 URLs / 43 pages, so those three are not
+ * "additions to excuse" any more, and the list empties, exactly as Step 10
+ * left it.
+ *
+ * IMAGE PICKER — STANDBY PHOTO held one entry here while under review:
+ * /image-picker/assets/standby.jpg, the local photograph the page loads
+ * and extracts its initial palette from before any upload. Classified by
+ * snapshot.js's existing `assets` bucket (its extension filter already
+ * covers .jpg — no bucket change needed). The gate confirmed it was the
+ * only addition — 108 URLs, 1 approved addition, nothing else moved — so
+ * the baseline was re-recorded and the list empties again.
  */
 const ALLOWED_ADDED = [];
 

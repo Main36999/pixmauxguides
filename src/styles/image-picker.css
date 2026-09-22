@@ -1,0 +1,548 @@
+/**
+ * image-picker.css
+ * -----------------------------------------------------------------------
+ * Styles for /image-picker only. Loaded by that one page and by nothing
+ * else, the same arrangement colors.css and palettes.css use.
+ *
+ * VISUAL REDESIGN PASS: this page is meant to read as a dedicated tool
+ * (Coolors' Image Picker is the interaction reference — layout and feel
+ * only, no copied styles/assets/branding), not as another BPOZZ content
+ * page. Concretely: no eyebrow/breadcrumb, a slim heading instead of the
+ * site's big editorial hero, a compact control rail, and a large image
+ * workspace with a designed standby state instead of a bare "no image"
+ * rectangle.
+ *
+ * Reuses only the site-wide primitives from styles.css (--action /
+ * --action-hover / --paper / --card / --radius / --sans / --grid-line /
+ * --text / --text-muted, .wrap, .sr-only, .toast). It defines no new
+ * site-level token and overrides nothing in :root.
+ *
+ * TWO RULES THIS FILE IS HELD TO, BEYOND THE USUAL SCOPING ONE:
+ *
+ *   1. NO MONOSPACE ANYWHERE. Every font-family in this file is
+ *      var(--sans) or inherited from it — including the HEX values, which
+ *      get tabular-nums for alignment instead of a mono face switch.
+ *   2. NO --ink AND NO HARDCODED EQUIVALENT OF #0F2A52. Every accent here
+ *      is var(--action) / var(--action-hover); every shadow/scrim is a
+ *      neutral rgba(0,0,0,…) or rgba(255,255,255,…), never
+ *      rgba(15,42,82,…) — that triplet is #0F2A52 decomposed to RGB, which
+ *      is exactly the "hardcoded equivalent" this page may not use. (See
+ *      src/client/image-picker.js's ringColorFor() for the matching note.)
+ *
+ * The swatch plate's inline custom properties (--ip-hex / --ip-label /
+ * --ip-veil / --ip-ring) are emitted per swatch by src/client/image-picker.js
+ * from a WCAG contrast calculation, the same arrangement colors.css
+ * documents for --color-hex etc. Nothing in this file assigns a color per
+ * swatch.
+ * -----------------------------------------------------------------------
+ */
+
+.image-picker-page {
+  --ip-radius: 10px;
+  --ip-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+/* .guides-main ships 44px of padding-top for the site's editorial hero,
+   which is close enough to what this page's own large hero wants that no
+   override is needed on top; a little extra breathing room below it
+   before the workspace starts. */
+.image-picker-page .guides-main.ip-main {
+  padding-top: 36px;
+  padding-bottom: 40px;
+}
+
+/* ---------- hero header ---------- */
+/* No eyebrow, no breadcrumb: the heading and subtitle ARE the header. Sized
+   as a real display hero (clamp targets ~48px mobile / ~64px tablet /
+   ~80px desktop) rather than a slim documentation-page title bar, so the
+   page reads as a dedicated tool up front rather than another content
+   page with a big control panel bolted on. */
+.ip-head {
+  margin-bottom: 28px;
+}
+.ip-head h1 {
+  margin: 0;
+  font-size: clamp(48px, 4vw + 32px, 80px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  font-family: var(--sans);
+}
+.ip-head__subtitle {
+  margin: 10px 0 0;
+  max-width: 46ch;
+  font-family: var(--sans);
+  font-size: clamp(22px, 2vw + 16px, 30px);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-muted);
+}
+
+/* ---------- layout: compact rail left, workspace right ---------- */
+.image-picker {
+  display: grid;
+  grid-template-columns: minmax(230px, 260px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .image-picker {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- control rail ---------- */
+.ip-panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+  border-radius: var(--ip-radius);
+  padding: 16px;
+}
+
+@media (min-width: 861px) {
+  .ip-panel {
+    position: sticky;
+    top: 92px;
+  }
+}
+
+.ip-panel__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.ip-panel__section + .ip-panel__section {
+  padding-top: 14px;
+  border-top: 1px solid var(--grid-line);
+}
+
+.ip-panel__label {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ---------- variation slider ---------- */
+.ip-variation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ip-variation__label {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+.ip-variation__slider {
+  width: 100%;
+  height: 4px;
+  margin: 4px 0 0;
+  accent-color: var(--action);
+  cursor: pointer;
+}
+.ip-variation__slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- palette size controls ---------- */
+.ip-palette-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ip-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ip-count__btn {
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--grid-line);
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 0.15s var(--ip-ease),
+    color 0.15s var(--ip-ease);
+}
+.ip-count__btn:hover:not(:disabled) {
+  border-color: var(--action);
+  color: var(--action);
+}
+.ip-count__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ip-count__value {
+  min-width: 1.5ch;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- palette swatch list ---------- */
+.ip-swatches {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ip-swatch {
+  min-width: 0;
+}
+
+.ip-swatch__plate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--ip-hex);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--ip-ring, rgba(0, 0, 0, 0.06));
+  transition: transform 0.15s var(--ip-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ip-swatch__plate:hover {
+    transform: translateY(-1px);
+  }
+}
+.ip-swatch__plate:focus-visible {
+  outline-offset: -3px;
+}
+
+.ip-swatch__hex {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ip-label);
+}
+
+.ip-swatch__copied {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: inherit;
+  background: var(--ip-veil, rgba(0, 0, 0, 0.45));
+  color: var(--ip-label);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s var(--ip-ease);
+}
+.ip-swatch__copied svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  opacity: 0.9;
+}
+.ip-swatch__plate[data-copied="true"] .ip-swatch__copied {
+  opacity: 1;
+}
+.ip-swatch__plate[data-copied="true"] .ip-swatch__hex {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ip-swatch__plate:hover {
+    transform: none;
+  }
+}
+
+/* ---------- panel actions: browse + export ---------- */
+.ip-panel__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--grid-line);
+}
+
+.ip-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition:
+    background 0.15s var(--ip-ease),
+    color 0.15s var(--ip-ease),
+    border-color 0.15s var(--ip-ease);
+}
+.ip-btn--primary {
+  background: var(--action);
+  color: #fff;
+}
+.ip-btn--primary:hover {
+  background: var(--action-hover);
+}
+.ip-btn--ghost {
+  background: var(--paper);
+  color: var(--text);
+  border-color: var(--grid-line);
+}
+.ip-btn--ghost:hover:not(:disabled) {
+  border-color: var(--action);
+  color: var(--action);
+}
+.ip-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- image workspace ---------- */
+.ip-canvas-wrap {
+  min-width: 0;
+}
+
+.ip-canvas-frame {
+  position: relative;
+  width: 100%;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ip-radius);
+  border: 1px solid var(--grid-line);
+  background: var(--paper);
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .ip-canvas-frame {
+    min-height: 380px;
+  }
+}
+
+.ip-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  cursor: crosshair;
+}
+.ip-canvas[hidden] {
+  display: none;
+}
+
+/* Small overlay pill, not a paragraph above the workspace — the sampling
+   hint costs no extra vertical layout space this way, only shown once an
+   image is loaded (before that, "click to sample" has nothing to act on). */
+.ip-canvas-tip {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.ip-canvas-tip[hidden] {
+  display: none;
+}
+
+/* No empty-state rules: a local standby photo loads automatically on init
+   (see image-picker/index.html and src/client/image-picker.js), so the
+   workspace never has an unfilled state to style. */
+
+/* ---------- sampling points ---------- */
+/* Decorative and non-interactive (aria-hidden on the container in the
+   markup): the accessible interface to the palette is the swatch list,
+   which is fully keyboard-operable. Manual re-sampling is a pointer/touch
+   affordance layered on top, the same way it is in the reference
+   interaction this feature takes its concept from. */
+.ip-points {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.ip-point {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--ip-point-hex);
+  box-shadow:
+    0 0 0 3px #fff,
+    0 0 0 4px rgba(0, 0, 0, 0.22),
+    0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================================
+   EXPORT PALETTE — modal dialog (replaces the earlier dropdown menu)
+   ========================================================================= */
+
+.ip-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.ip-modal-backdrop[hidden] {
+  display: none;
+}
+
+.ip-modal {
+  width: 100%;
+  max-width: 420px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  padding: 18px;
+}
+
+.ip-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.ip-modal__title {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+.ip-modal__close {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border: 1px solid var(--grid-line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    border-color 0.15s var(--ip-ease),
+    color 0.15s var(--ip-ease);
+}
+.ip-modal__close:hover {
+  border-color: var(--action);
+  color: var(--action);
+}
+.ip-modal__close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ip-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+@media (max-width: 420px) {
+  .ip-modal__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ip-modal__item {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 72px;
+  padding: 10px 4px;
+  border: 1px solid var(--grid-line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.15s var(--ip-ease),
+    background 0.15s var(--ip-ease),
+    color 0.15s var(--ip-ease);
+}
+.ip-modal__item:hover {
+  border-color: var(--action);
+  background: var(--card);
+  color: var(--action);
+}
+.ip-modal__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Placeholder tiles (URL, PDF, ASE, Embed — see image-picker.js): visually
+   present, honestly marked as not-yet-available rather than silently doing
+   nothing or faking an export. Dimmed, not hidden — hiding a grid item
+   would misrepresent the 4x3 layout as having fewer options. */
+.ip-modal__item[data-coming-soon="true"] {
+  opacity: 0.55;
+}
