@@ -223,8 +223,9 @@
   outline-offset: -4px;
 }
 
-/* The HEX, centred on the colour. Always visible, not hover-revealed: this
-   is a reference library, and the value is the thing a visitor came to read.
+/* The HEX, centred on the colour. Hover-revealed (and focus-revealed for
+   keyboard users), hidden the rest of the time — the card stays exactly as
+   still as before; opacity is the only thing changing.
    --color-label is computed per card from a WCAG contrast ratio, so it is
    near-black on a light swatch and near-white on a dark one.
    NOT a monospace face — the site has one family, var(--sans), and
@@ -242,7 +243,13 @@
   letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
   color: var(--color-label);
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.16s var(--color-ease);
+}
+.color-card:hover .color-card__hex,
+.color-card:focus-within .color-card__hex {
+  opacity: 1;
 }
 
 /* ---------- copied state ---------- */
