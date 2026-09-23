@@ -5,9 +5,9 @@
     "pages": 43,
     "dataEndpoints": 5,
     "siteFiles": 4,
-    "assets": 52,
+    "assets": 41,
     "code": 9,
-    "total": 113
+    "total": 102
   },
   "pages": [
     {
@@ -270,27 +270,16 @@
     "/thumbnail_image_webp/Figma Variables Are a Data Layer, Not Just Color Styles.webp",
     "/thumbnail_image_webp/Figma-to-Code Handoff Is a Translation, Not a Screenshot.webp",
     "/thumbnail_image_webp/Font Pairing Is a Hierarchy Decision, Not a Personality Match.webp",
-    "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.png",
     "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.webp",
-    "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.png",
     "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.webp",
-    "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.png",
     "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.webp",
-    "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.png",
     "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.webp",
-    "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.png",
     "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.webp",
-    "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.png",
     "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.webp",
-    "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.png",
     "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.webp",
-    "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.png",
     "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.webp",
-    "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.png",
     "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.webp",
-    "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.png",
     "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.webp",
-    "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.png",
     "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.webp"
   ],
   "code": [
