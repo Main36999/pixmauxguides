@@ -356,6 +356,7 @@ function fontJsonLd(input) {
       isAccessibleForFree: true,
       isBasedOn: font.sourceUrl,
       inLanguage: IN_LANGUAGE,
+      ...(font.version ? { version: font.version } : {}),
     }),
     topLevel(
       breadcrumbList(origin, [

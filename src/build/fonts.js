@@ -107,6 +107,24 @@ const GENERIC_FAMILY = {
 const FORMAT = { woff2: "woff2", ttf: "truetype", otf: "opentype" };
 const FORMAT_LABEL = { woff2: "WOFF2", ttf: "TTF", otf: "OTF" };
 
+/** Google Fonts subset slugs (METADATA.pb), as readable character-set names. */
+const SUBSET_LABELS = {
+  latin: "Latin",
+  "latin-ext": "Latin Extended",
+  cyrillic: "Cyrillic",
+  "cyrillic-ext": "Cyrillic Extended",
+  greek: "Greek",
+  "greek-ext": "Greek Extended",
+  vietnamese: "Vietnamese",
+  hebrew: "Hebrew",
+  armenian: "Armenian",
+  braille: "Braille",
+  math: "Math",
+  symbols: "Symbols",
+  symbols2: "Symbols 2",
+  runic: "Runic",
+};
+
 // ---------------------------------------------------------------------
 // small helpers
 // ---------------------------------------------------------------------
@@ -582,10 +600,8 @@ function detailHtml(font, fonts, pkg, ctx, partials) {
   const name = escapeHtml(font.name);
 
   const title = `${font.name} Font — Free Download | BPOZZ`;
-  const description =
-    `${font.name} is a free ${categoryLabel.toLowerCase()} font by ${font.designer}, ` +
-    `licensed under the ${font.license}. Preview its ${styleCount} and ` +
-    `download the font files.`;
+  // The family's own description, so no two detail pages share one.
+  const description = font.description;
   const canonical = origin + pageUrl(font);
 
   const bands = metaBands({
@@ -640,6 +656,26 @@ function detailHtml(font, fonts, pkg, ctx, partials) {
   const licenseUrl = fileUrl(font, font.licenseFile);
   const rfnNote = font.reservedFontName
     ? `<p class="font-info__note">This family declares a Reserved Font Name: if you modify the font, the modified version must use a different name.</p>`
+    : "";
+
+  // Optional rows: shown only when the import could read the value.
+  const versionRow = font.version
+    ? `\n            <div><dt>Version</dt><dd>${escapeHtml(font.version)}</dd></div>`
+    : "";
+  const subsetsRow =
+    font.subsets && font.subsets.length
+      ? `\n            <div><dt>Character sets</dt><dd>${font.subsets
+          .map((s) => escapeHtml(SUBSET_LABELS[s] || s))
+          .join(", ")}</dd></div>`
+      : "";
+  const webNote = variants.some((v) => v.web !== v.file)
+    ? "; the WOFF2 files used for the previews on this page are compressed from them"
+    : "";
+  const upstreamLabel = font.upstreamUrl
+    ? font.upstreamUrl.replace(/^https?:\/\/(www\.)?/, "")
+    : "";
+  const upstreamNote = font.upstreamUrl
+    ? `\n              <p class="font-info__note">Upstream project: <a href="${escapeHtml(font.upstreamUrl)}">${escapeHtml(upstreamLabel)}</a>.</p>`
     : "";
 
   const relatedHtml = related.length
@@ -715,7 +751,7 @@ ${head.skipLinkHtml("font-content", "Skip to content")}
           <h2 class="sr-only">About ${name}</h2>
           <dl class="font-info__list">
             <div><dt>About</dt><dd>${escapeHtml(font.description)}</dd></div>
-            <div><dt>Designer</dt><dd>${escapeHtml(font.designer)}</dd></div>
+            <div><dt>Designer</dt><dd>${escapeHtml(font.designer)}</dd></div>${versionRow}
             <div><dt>Category</dt><dd><a href="/${FONTS_DIR}/?category=${font.category}">${escapeHtml(categoryLabel)}</a></dd></div>
             <div><dt>License</dt><dd>
               <a href="${escapeHtml(font.licenseUrl)}" rel="license">${escapeHtml(font.license)}</a>
@@ -725,10 +761,10 @@ ${head.skipLinkHtml("font-content", "Skip to content")}
             </dd></div>
             <div><dt>Source</dt><dd>
               <a href="${escapeHtml(font.sourceUrl)}">${escapeHtml(font.source)}</a>
-              <p class="font-info__note">Files taken unmodified from the <a href="${escapeHtml(font.repositoryUrl)}">google/fonts repository</a>. Added to Google Fonts ${formatDate(font.dateAdded)}.</p>
+              <p class="font-info__note">Download files taken unmodified from the <a href="${escapeHtml(font.repositoryUrl)}">google/fonts repository</a>${webNote}. Added to Google Fonts ${formatDate(font.dateAdded)}.</p>${upstreamNote}
             </dd></div>
             <div><dt>Available styles</dt><dd><ul class="font-info__styles">${styles}</ul></dd></div>
-            <div><dt>Available formats</dt><dd><ul class="font-info__styles">${formats}</ul></dd></div>
+            <div><dt>Available formats</dt><dd><ul class="font-info__styles">${formats}</ul></dd></div>${subsetsRow}
           </dl>
         </div>
       </div>

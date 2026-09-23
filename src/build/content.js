@@ -404,6 +404,21 @@ function validateFonts(fonts, label, config) {
     ["licenseUrl", "sourceUrl", "repositoryUrl"].forEach(function (key) {
       if (!isUrl(font[key])) throw new Error(`${at}.${key} must be an https URL`);
     });
+    // Optional, read from the font files and METADATA.pb by
+    // scripts/fonts/import-google-fonts.js; shown on the detail page.
+    if (font.version !== undefined && !/^\d+\.\d+$/.test(font.version)) {
+      throw new Error(`${at}.version must look like "1.003"`);
+    }
+    if (
+      font.subsets !== undefined &&
+      (!Array.isArray(font.subsets) ||
+        font.subsets.some((t) => typeof t !== "string" || !SLUG_RE.test(t)))
+    ) {
+      throw new Error(`${at}.subsets must be an array of lowercase slugs`);
+    }
+    if (font.upstreamUrl !== undefined && !isUrl(font.upstreamUrl)) {
+      throw new Error(`${at}.upstreamUrl must be an https URL`);
+    }
 
     // ---- license, verified against the shipped file ----
     if (!licenses.has(font.license)) {

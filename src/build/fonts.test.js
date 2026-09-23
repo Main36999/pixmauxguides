@@ -16,7 +16,10 @@
  *     files plus its license file, and is byte-identical across two builds;
  *   - a detail page renders exactly the variants the data lists, no more;
  *   - every page carries its title, description, canonical, Open Graph and
- *     parseable JSON-LD.
+ *     parseable JSON-LD;
+ *   - every family has a verified license audit record, the offline license
+ *     and integrity gate (scripts/fonts/check-fonts.js) passes, and the font
+ *     reader it relies on refuses broken files.
  */
 
 "use strict";
@@ -393,4 +396,87 @@ test("the client script parses and matches the page's element ids", () => {
   ["font-custom-text", "font-size", "font-size-value", "fonts-status"].forEach((id) =>
     assert.ok(detail.includes(`id="${id}"`), id),
   );
+});
+
+// ---------------------------------------------------------------------
+// license audit and font integrity (scripts/fonts/)
+// ---------------------------------------------------------------------
+
+const sfnt = require("../../scripts/fonts/sfnt.js");
+
+test("the license and integrity gate passes (scripts/fonts/check-fonts.js)", () => {
+  const { spawnSync } = require("child_process");
+  const run = spawnSync(process.execPath, [path.join(config.paths.root, "scripts", "fonts", "check-fonts.js")], {
+    encoding: "utf8",
+  });
+  assert.strictEqual(run.status, 0, run.stderr || run.stdout);
+});
+
+test("every family has exactly one verified audit record, and rejected candidates carry reasons", () => {
+  const audit = JSON.parse(
+    fs.readFileSync(path.join(path.dirname(config.paths.content.fonts), "font-license-audit.json"), "utf8"),
+  );
+  assert.deepStrictEqual(
+    audit.families.map((r) => r.id).sort(),
+    model.fonts.map((f) => f.id).sort(),
+  );
+  audit.families.forEach((r) => {
+    assert.strictEqual(r.verificationStatus, "verified", r.id);
+    assert.strictEqual(r.licenseId, "OFL-1.1", r.id);
+    // The evidence basis is explicit, and "upstream verified" is only ever
+    // claimed with a verified upstream OFL 1.1 file on record.
+    assert.ok(
+      ["upstream_license_file_verified", "google_fonts_evidence_only"].includes(r.licenseEvidence),
+      r.id,
+    );
+    assert.strictEqual(
+      r.licenseEvidence === "upstream_license_file_verified",
+      r.upstream.status === "ofl-1.1" && Boolean(r.upstream.licenseFileUrl),
+      r.id,
+    );
+  });
+  audit.rejected.forEach((r) => assert.ok(r.reasons.length, r.name));
+  const names = new Set(model.fonts.map((f) => f.name));
+  audit.rejected.forEach((r) => assert.ok(!names.has(r.name), `${r.name} is rejected but listed`));
+});
+
+test("sfnt reads a real font and refuses broken ones", () => {
+  const f = model.fonts.find((x) => x.variants.some((v) => v.web.endsWith(".woff2")));
+  const v = f.variants.find((x) => x.web.endsWith(".woff2"));
+  const ttf = fs.readFileSync(path.join(FONT_DIR, f.id, v.file));
+  const info = sfnt.readSfnt(ttf);
+  assert.ok(info.codepoints.has(0x41) && info.numGlyphs > 0);
+  assert.throws(() => sfnt.readSfnt(Buffer.from("not a font at all, just text")), /sfnt/);
+
+  const woff = fs.readFileSync(path.join(FONT_DIR, f.id, v.web));
+  assert.doesNotThrow(() => sfnt.checkWoff2(woff));
+  assert.throws(() => sfnt.checkWoff2(woff.subarray(0, woff.length - 10)), /length/);
+  const corrupt = Buffer.from(woff);
+  corrupt.fill(0xff, 200, 400); // inside the Brotli stream
+  assert.throws(() => sfnt.checkWoff2(corrupt));
+  assert.strictEqual(sfnt.embedding(0x0002), "restricted");
+  assert.strictEqual(sfnt.embedding(0), "installable");
+});
+
+test("each detail page's meta description is the family's own, and no two pages share one", () => {
+  const seen = new Set();
+  model.fonts.forEach((f) => {
+    const html = pageByFile.get(`fonts/${f.id}.html`);
+    const m = html.match(/<meta name="description" content="([^"]*)"/);
+    assert.ok(m, f.id);
+    assert.ok(!seen.has(m[1]), `${f.id} repeats a description`);
+    seen.add(m[1]);
+  });
+});
+
+test("a detail page shows version, character sets and upstream project only when the data has them", () => {
+  const withAll = model.fonts.find((f) => f.version && f.subsets && f.upstreamUrl);
+  const html = pageByFile.get(`fonts/${withAll.id}.html`);
+  assert.ok(html.includes(`<dt>Version</dt><dd>${withAll.version}</dd>`));
+  assert.ok(html.includes("<dt>Character sets</dt>"));
+  assert.ok(html.includes(`href="${withAll.upstreamUrl}"`));
+
+  const noVersion = model.fonts.find((f) => !f.version);
+  assert.ok(noVersion, "fixture: a family without a readable version");
+  assert.ok(!pageByFile.get(`fonts/${noVersion.id}.html`).includes("<dt>Version</dt>"));
 });
