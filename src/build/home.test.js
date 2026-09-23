@@ -67,9 +67,15 @@ test("resource cards skip the topics the hero already links", () => {
   );
 
   const { html, count } = home.resourceCardsHtml(topics, knownUrls);
-  assert.strictEqual(count, topics.length + 1, "topics plus About");
+  assert.strictEqual(count, topics.length + 2, "topics plus Free Fonts plus About");
   const hrefs = [...html.matchAll(/<a class="resource-card__link" href="([^"]+)"/g)].map((m) => m[1]);
   assert.strictEqual(hrefs[hrefs.length - 1], home.HOME_ABOUT.url);
+  assert.strictEqual(hrefs[0], "/fonts/", "Free Fonts opens the section");
+  assert.deepStrictEqual(
+    hrefs,
+    ["/fonts/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about.html"],
+  );
+  assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Free Fonts</a></h3>'));
   hrefs.forEach((href) => assert.ok(knownUrls.has(href), href));
 });
 

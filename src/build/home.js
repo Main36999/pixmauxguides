@@ -376,6 +376,16 @@ const HOME_TOOLS = [
   },
 ];
 
+/**
+ * The font library, as a resource card. It opens the section, ahead of the
+ * guide topics; About stays the closing card.
+ */
+const HOME_FONTS = {
+  title: "Free Fonts",
+  url: "/fonts/",
+  desc: "Browse free fonts for personal and commercial design projects, with original font files and license information.",
+};
+
 /** The one resource card that is not a guide topic. */
 const HOME_ABOUT = {
   title: "About BPOZZ",
@@ -474,14 +484,16 @@ function resourceCardHtml(card) {
 }
 
 function resourceCardsHtml(topics, knownUrls) {
-  const cards = topics
-    .map(function (t) {
-      return {
-        title: t.category.name,
-        url: `/category/${t.category.slug}`,
-        desc: t.category.description,
-      };
-    })
+  const cards = [HOME_FONTS]
+    .concat(
+      topics.map(function (t) {
+        return {
+          title: t.category.name,
+          url: `/category/${t.category.slug}`,
+          desc: t.category.description,
+        };
+      }),
+    )
     .concat(HOME_ABOUT);
   cards.forEach(function (card) {
     assertRoute(knownUrls, card.url, `resource card "${card.title}"`);
@@ -781,6 +793,7 @@ module.exports = {
   buildRoadmap,
   groupRoadmap,
   HOME_TOOLS,
+  HOME_FONTS,
   HOME_ABOUT,
   toolCardsHtml,
   linkedCategorySlugs,
