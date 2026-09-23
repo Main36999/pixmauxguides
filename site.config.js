@@ -231,11 +231,11 @@ module.exports = {
    *
    * PHASE 4 STEP 10 — COLOR LIBRARY. The first change to this table that ADDS.
    *   htmlPages    41 → 42  (+1: colors/index.html)
-   *   sitemapUrls  40 → 41  (+1: https://bpozz.com/colors)
+   *   sitemapUrls  40 → 41  (+1: https://bpozz.com/colors/)
    *
    * IMAGE PICKER — the second change that ADDS, same shape as Step 10's.
    *   htmlPages    42 → 43  (+1: image-picker/index.html)
-   *   sitemapUrls  41 → 42  (+1: https://bpozz.com/image-picker)
+   *   sitemapUrls  41 → 42  (+1: https://bpozz.com/image-picker/)
    *
    * snapshotUrls is NOT bumped here and is deliberately left at its Phase 4
    * value, because nothing reads it: it records what the token-removal

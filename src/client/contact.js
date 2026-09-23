@@ -12,7 +12,8 @@
  */
 
   // Same endpoint used by the standalone contact.html page — keep both
-  // in sync if you change it. Sign up free at https://formspree.io,
+  // in sync if you change it, along with the action attribute on both
+  // forms (the no-JS fallback). Sign up free at https://formspree.io,
   // create a form, and paste your own endpoint below.
   var CONTACT_FORM_ENDPOINT = "https://formspree.io/f/xljrealj";
 
@@ -67,7 +68,12 @@
               "</div>";
             return;
           }
-          return response.json().then(function (data) {
+          return response
+            .json()
+            .catch(function () {
+              return null;
+            })
+            .then(function (data) {
             var message =
               data && data.errors && data.errors.length
                 ? data.errors
@@ -80,8 +86,10 @@
           });
         })
         .catch(function (err) {
+          // A TypeError is fetch() itself failing (offline, blocked) — its
+          // message ("Failed to fetch") means nothing to a visitor.
           errorEl.textContent =
-            (err && err.message) ||
+            (err && !(err instanceof TypeError) && err.message) ||
             "Something went wrong while sending your message. Please try again or email us directly.";
           submitBtn.disabled = false;
           submitBtn.textContent = originalBtnText;

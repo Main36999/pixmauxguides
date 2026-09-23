@@ -813,15 +813,33 @@
       announce("Image loaded. Generated a " + currentCount + "-color palette.");
     }
 
+    // Every load takes a ticket; only the newest ticket may paint. Without
+    // it, whichever decode finished LAST won — so a slow standby photo could
+    // land on top of the file the person had just browsed, and two quick
+    // picks could show the first one. Bumped before each load starts.
+    var loadTicket = 0;
+
+    // A decode that "succeeds" with no pixels is a broken file, not an image.
+    function isDecoded(img) {
+      return img.naturalWidth > 0 && img.naturalHeight > 0;
+    }
+
     function loadImageFile(file) {
+      var ticket = ++loadTicket;
       var url = URL.createObjectURL(file);
       var img = new Image();
       img.onload = function () {
         URL.revokeObjectURL(url);
+        if (ticket !== loadTicket) return;
+        if (!isDecoded(img)) {
+          toast("Couldn't load that image — try a different file.");
+          return;
+        }
         onImageReady(img);
       };
       img.onerror = function () {
         URL.revokeObjectURL(url);
+        if (ticket !== loadTicket) return;
         toast("Couldn't load that image — try a different file.");
       };
       img.src = url;
@@ -838,11 +856,14 @@
     var STANDBY_IMAGE_SRC = "/image-picker/assets/standby.jpg";
 
     function loadStandbyImage() {
+      var ticket = ++loadTicket;
       var img = new Image();
       img.onload = function () {
+        if (ticket !== loadTicket || !isDecoded(img)) return;
         onImageReady(img);
       };
       img.onerror = function () {
+        if (ticket !== loadTicket) return;
         // Rare (a bad deploy, a blocked request) — the workspace simply
         // stays on its initial hidden-canvas state; Browse image still
         // works normally from here.
@@ -1027,7 +1048,7 @@
             "https://www.pinterest.com/pin/create/button/?description=" +
               encodeURIComponent(shareText(hexes)) +
               "&url=" +
-              encodeURIComponent("https://bpozz.com/image-picker"),
+              encodeURIComponent("https://bpozz.com/image-picker/"),
             "_blank",
             "noopener,noreferrer",
           );

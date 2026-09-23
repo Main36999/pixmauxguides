@@ -34,7 +34,7 @@
       name="description"
       content="Upload an image and extract a color palette from it, right in your browser. No uploads, no accounts — everything runs on your device."
     />
-    <link rel="canonical" href="https://bpozz.com/image-picker" />
+    <link rel="canonical" href="https://bpozz.com/image-picker/" />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -53,7 +53,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bpozz.com/image-picker" />
+    <meta property="og:url" content="https://bpozz.com/image-picker/" />
     <meta property="og:site_name" content="BPOZZ" />
     <meta property="og:title" content="Image Picker — BPOZZ" />
     <meta
@@ -92,7 +92,7 @@
         "@type": "WebPage",
         "name": "Image Picker",
         "description": "Upload an image and extract a color palette from it, right in your browser. No uploads, no accounts — everything runs on your device.",
-        "url": "https://bpozz.com/image-picker",
+        "url": "https://bpozz.com/image-picker/",
         "isPartOf": {
           "@type": "WebSite",
           "name": "BPOZZ",
@@ -111,7 +111,7 @@
               "@type": "ListItem",
               "position": 2,
               "name": "Image Picker",
-              "item": "https://bpozz.com/image-picker"
+              "item": "https://bpozz.com/image-picker/"
             }
           ]
         }
@@ -218,8 +218,8 @@
     <nav class="site-nav" aria-label="Primary">
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
-      <a href="/palettes" aria-current="page">Color Palettes</a>
-      <a href="/guides">UI/UX Guides</a>
+      <a href="/palettes/" aria-current="page">Color Palettes</a>
+      <a href="/guides/">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
     </nav>
   </div>
@@ -228,8 +228,8 @@
     <nav class="mobile-menu__nav" aria-label="Primary">
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
-      <a href="/palettes" aria-current="page">Color Palettes</a>
-      <a href="/guides">UI/UX Guides</a>
+      <a href="/palettes/" aria-current="page">Color Palettes</a>
+      <a href="/guides/">UI/UX Guides</a>
       <!--NAV_RESOURCES_END-->
       <a href="/search">Explore</a>
     </nav>
@@ -338,7 +338,7 @@
             image to decode; there is no "no image selected" state to show.
           -->
           <div class="ip-canvas-frame" id="ip-canvas-frame">
-            <canvas id="ip-canvas" class="ip-canvas" hidden></canvas>
+            <canvas id="ip-canvas" class="ip-canvas" role="img" aria-label="Your image. Click a spot to sample its color into the nearest swatch." hidden></canvas>
             <div class="ip-points" id="ip-points" aria-hidden="true"></div>
 
             <span class="ip-canvas-tip" id="ip-canvas-tip" hidden>

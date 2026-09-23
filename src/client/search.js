@@ -273,21 +273,28 @@
     }
 
     // ---------- rendering ----------
-    // Wraps every matched query term in <mark>, operating on the
-    // already-HTML-escaped text so nothing user-supplied ever lands in
-    // innerHTML unescaped (spec §10, rule 6).
+    // Wraps every matched query term in <mark>. Nothing user-supplied
+    // ever lands in innerHTML unescaped (spec §10, rule 6): matching runs
+    // on the RAW text and each piece is escaped on its own. Matching the
+    // already-escaped text instead let a term like "amp" or "quot" land
+    // inside an entity ("&<mark>amp</mark>;").
     function highlightTerms(text) {
-      var safeText = escapeHtml(text);
-      if (!terms.length) return safeText;
-      var safeTerms = terms.map(escapeHtml).map(escapeRegExp).filter(Boolean);
-      if (!safeTerms.length) return safeText;
+      var raw = String(text == null ? "" : text);
+      var rawTerms = terms.map(escapeRegExp).filter(Boolean);
+      if (!rawTerms.length) return escapeHtml(raw);
       // Longest term first so a term that's a substring of another
       // doesn't shadow the longer match.
-      safeTerms.sort(function (a, b) {
+      rawTerms.sort(function (a, b) {
         return b.length - a.length;
       });
-      var re = new RegExp("(" + safeTerms.join("|") + ")", "gi");
-      return safeText.replace(re, "<mark>$1</mark>");
+      var re = new RegExp("(" + rawTerms.join("|") + ")", "gi");
+      // split() with a capture group puts the matches at odd indexes.
+      return raw
+        .split(re)
+        .map(function (part, i) {
+          return i % 2 ? "<mark>" + escapeHtml(part) + "</mark>" : escapeHtml(part);
+        })
+        .join("");
     }
 
     // Palettes have no description in the index (palettes-meta.json
@@ -404,6 +411,9 @@
       return "";
     }
 
+    // The title is an h2: this grid hangs straight off the page h1 with no
+    // section heading between them, so an h3 skipped a level (WCAG 1.3.1) —
+    // the same reasoning src/shared/card.js gives for category pages.
     function resultCardHtml(record) {
       var meta = cardMetaFor(record);
       return (
@@ -413,13 +423,13 @@
         '<span class="badge">' +
         escapeHtml(TYPE_LABELS[record.type] || record.type) +
         "</span>" +
-        '<h3 class="card-title"><a class="card-link" href="' +
+        '<h2 class="card-title"><a class="card-link" href="' +
         escapeHtml(record.url) +
         '">' +
         // Kept from the previous UI: matched terms stay wrapped in
         // <mark> so it's still obvious why a result matched.
         highlightTerms(record.title) +
-        "</a></h3>" +
+        "</a></h2>" +
         (meta ? '<p class="card-meta">' + escapeHtml(meta) + "</p>" : "") +
         "</div></article>"
       );
@@ -626,11 +636,24 @@
         applyLoadedData(results[0], results[1]);
       })
       .catch(function (err) {
-        console.error(
-          "Couldn't load content-index.json / categories.json, using sample data:",
-          err,
-        );
-        applyLoadedData(SAMPLE_INDEX, SAMPLE_CATEGORIES);
+        // The sample set is for file:// previews only. On the live site a
+        // failed fetch used to fall back to it too, silently presenting two
+        // hard-coded records as the real results for any query.
+        if (location.protocol === "file:") {
+          console.error(
+            "Couldn't load content-index.json / categories.json, using sample data:",
+            err,
+          );
+          applyLoadedData(SAMPLE_INDEX, SAMPLE_CATEGORIES);
+          return;
+        }
+        console.error("Couldn't load content-index.json / categories.json:", err);
+        filtersEl.hidden = true;
+        gridEl.innerHTML = "";
+        emptyEl.removeAttribute("data-visible");
+        countEl.textContent = query
+          ? "Search is unavailable right now — please refresh and try again."
+          : "";
       });
 
     render(); // initial paint (loading/empty state) before data resolves

@@ -92,8 +92,12 @@ const EXTENSIONLESS_DIRS = new Set(["guide", "category"]);
 /** file path (repo-relative, posix) -> public URL */
 function urlFor(file) {
   if (file === "index.html") return "/";
+  // Section pages keep the trailing slash. They are directories on the host,
+  // and Netlify answers the slashless form (/guides) with a 301 to /guides/ —
+  // measured against production, 2026-09-23. A canonical, sitemap entry or
+  // link without the slash therefore pointed at a redirect.
   if (file.endsWith("/index.html")) {
-    return "/" + file.slice(0, -"/index.html".length);
+    return "/" + file.slice(0, -"index.html".length);
   }
   const dir = file.split("/")[0];
   if (EXTENSIONLESS_DIRS.has(dir) && file.endsWith(".html")) {

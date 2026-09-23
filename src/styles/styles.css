@@ -905,6 +905,13 @@ body:has(#mobile-menu:not([hidden])) {
   color: var(--action);
   outline: none;
 }
+/* The colour shift above is the only focus cue otherwise, and a text-colour
+   change alone is not a visible focus indicator (WCAG 2.4.7). Keyboard
+   focus gets the site's standard ring back; a mouse click still doesn't. */
+.select-field select:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+}
 .select-field select option:disabled {
   color: var(--text-muted);
   font-style: italic;
@@ -1134,6 +1141,20 @@ body:has(#mobile-menu:not([hidden])) {
 }
 .card-link:hover {
   color: var(--action);
+}
+/* Keyboard focus. The global :focus-visible outline lands on the link
+   itself, which sits inside .card-title — and .card-title's overflow:hidden
+   (the two-line clamp) clips it away completely, so tabbing through any
+   card grid showed no focus at all (WCAG 2.4.7). The ::after overlay is
+   positioned against .content-card, outside that clip, and already spans
+   the whole tile, so the ring goes there. */
+.card-link:focus-visible {
+  outline: none;
+  color: var(--action);
+}
+.card-link:focus-visible::after {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
 }
 .card-meta {
   font-size: 12.5px;
@@ -1938,6 +1959,13 @@ body:has(#mobile-menu:not([hidden])) {
 .form-row textarea:focus {
   border-color: var(--action);
   outline: none;
+}
+/* A 1px underline changing colour is a faint focus cue on its own; keyboard
+   focus doubles it to 2px without shifting layout. */
+.form-row input:focus-visible,
+.form-row select:focus-visible,
+.form-row textarea:focus-visible {
+  box-shadow: 0 1px 0 0 var(--action);
 }
 .form-row textarea {
   resize: vertical;

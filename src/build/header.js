@@ -209,10 +209,10 @@ const ROOT_LINKS = [
  */
 const MAIN_HEADER_NAV = [
   { label: "All", landingUrl: "/" },
-  { label: "Colors", landingUrl: "/colors" },
-  { label: "Color Palettes", landingUrl: "/palettes" },
-  { label: "UI/UX Guides", landingUrl: "/guides" },
-  { label: "Image Picker", landingUrl: "/image-picker" },
+  { label: "Colors", landingUrl: "/colors/" },
+  { label: "Color Palettes", landingUrl: "/palettes/" },
+  { label: "UI/UX Guides", landingUrl: "/guides/" },
+  { label: "Image Picker", landingUrl: "/image-picker/" },
 ];
 
 /**

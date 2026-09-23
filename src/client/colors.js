@@ -521,11 +521,8 @@
   // /colors/colors.css and /colors/colors.js are all site-root, for the
   // reason src/build/head.js states about the stylesheets.
   //
-  // KNOWN, NOT FIXED HERE: src/client/palettes.js fetches
-  // "./palettes-data.json" and has the same exposure. It is only safe today
-  // because the host redirects, and it is left alone deliberately — that
-  // file is under a byte-identity gate and changing it is not this feature's
-  // to do. Recorded as D2 in the Step 10 handoff.
+  // src/client/palettes.js had the same exposure (D2 in the Step 10
+  // handoff) and now fetches site-root too.
   fetch("/colors/colors-data.json")
     .then(function (r) {
       return r.json();

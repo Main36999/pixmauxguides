@@ -12,7 +12,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "whitespace as a ui component, not leftover the foundational ui/ux principle every other design decision builds on: treat space deliberate, systematic tool for grouping, hierarchy, and meaning — whatever's left over after everything else is placed. spacing",
-    "thumbnail": "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.png"
+    "thumbnail": "/thumbnail_image_webp/Whitespace as a UI Component, Not a Leftover.webp"
   },
   {
     "id": "guide:padding-margin-different-jobs",
@@ -27,7 +27,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "padding and margin are different jobs, not interchangeable values as internal breathing room vs. separation, the token-naming split that keeps two from getting swapped. spacing",
-    "thumbnail": "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.png"
+    "thumbnail": "/thumbnail_image_webp/Padding and Margin Are Different Jobs, Not Interchangeable Values.webp"
   },
   {
     "id": "guide:color-contrast-systems",
@@ -72,7 +72,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "font size is a formula, not feeling the math that replaces font-size guesswork: modular scale ratios, line-height and measure numbers actually govern readability, exact clamp() formula for type resizes itself without breakpoints. typography",
-    "thumbnail": "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.png"
+    "thumbnail": "/thumbnail_image_webp/Font Size Is a Formula, Not a Feeling.webp"
   },
   {
     "id": "guide:auto-layout-constraint-model",
@@ -132,7 +132,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "responsive layout is a contract, not breakpoint list spec-level guide to layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and overflow traps that break real devices no toolbar preview catches. web",
-    "thumbnail": "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.png"
+    "thumbnail": "/thumbnail_image_webp/Responsive Layout Is a Contract, Not a Breakpoint List.webp"
   },
   {
     "id": "guide:motion-timing-model",
@@ -147,7 +147,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "motion timing is a physics model, not preset the math and that actually govern believable motion: distance-based duration bands, how to read cubic-bezier curve's control points, spring as an alternative fixed-duration easing, why reduced isn't same no motion.",
-    "thumbnail": "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.png"
+    "thumbnail": "/thumbnail_image_webp/Motion Timing Is a Physics Model, Not a Preset.webp"
   },
   {
     "id": "guide:dark-mode-second-palette",
@@ -192,7 +192,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "line length is a reading constraint, not layout afterthought the 45-75 character measure, how line-height must scale with length, and css that keeps both in sync at any viewport. typography",
-    "thumbnail": "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.png"
+    "thumbnail": "/thumbnail_image_webp/Line Length Is a Reading Constraint, Not a Layout Afterthought.webp"
   },
   {
     "id": "guide:grid-systems-rhythm",
@@ -207,7 +207,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "grid systems are a rhythm, not ruler 8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
-    "thumbnail": "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.png"
+    "thumbnail": "/thumbnail_image_webp/Grid Systems Are a Rhythm, Not a Ruler.webp"
   },
   {
     "id": "guide:components-variants-contract",
@@ -267,7 +267,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "thumb zones are a layout constraint, not nice-to-have reachability math for today's screen sizes, why primary actions sit low and destructive ones far, before color even enters the decision. mobile",
-    "thumbnail": "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.png"
+    "thumbnail": "/thumbnail_image_webp/Thumb Zones Are a Layout Constraint, Not a Nice-to-Have.webp"
   },
   {
     "id": "guide:migrating-from-xd-rebuild",
@@ -282,7 +282,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "migrating from xd is a rebuild, not file import what survives an xd-to-figma migration (artboards, assets) vs. must be rebuilt (prototyping logic, master components) — practical checklist. adobe-xd",
-    "thumbnail": "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.png"
+    "thumbnail": "/thumbnail_image_webp/Migrating From XD Is a Rebuild, Not a File Import.webp"
   },
   {
     "id": "guide:ios-android-different-systems",
@@ -297,7 +297,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "ios and android are different systems, not one design reused twice where hig material genuinely diverge: navigation, back behavior, type defaults, which components need two designs, resized. mobile",
-    "thumbnail": "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.png"
+    "thumbnail": "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.webp"
   },
   {
     "id": "guide:css-grid-two-dimensional-system",
@@ -327,7 +327,7 @@
     "tags": [],
     "keywords": [],
     "searchText": "mobile breakpoints are device categories, not arbitrary pixels safe-area insets for notches, fluid vs. fixed layout, and why guessing pixel widths breaks on half the phones market.",
-    "thumbnail": "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.png"
+    "thumbnail": "/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.webp"
   },
   {
     "id": "palette:p001",

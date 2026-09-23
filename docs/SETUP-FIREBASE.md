@@ -44,10 +44,63 @@ visitor.
 ```
 
 This is intentionally open-write, matching Color Hunt's own no-account
-likes — anyone can increment/decrement a count, nothing else in the
-database is exposed. `palettes.js` only ever sends atomic
-increment/decrement transactions (never an arbitrary overwrite), so the
-worst a bad actor can do is push a count up or down, not corrupt data.
+likes — nothing else in the database is exposed.
+
+**Be aware what that rule allows.** `palettes.js` only sends ±1
+transactions, but the rules are what the database enforces, not the
+client: anyone with the (public) config can write *any* non-negative
+number to any `likes/<id>` in one request — e.g. set a palette to
+9,999,999 — or create arbitrary new ids under `likes`. To cap each write
+at ±1 and restrict ids to the real `p001`–`p300` shape, use this instead:
+
+```json
+{
+  "rules": {
+    "likes": {
+      "$paletteId": {
+        ".read": true,
+        ".write": "$paletteId.matches(/^p[0-9]{3}$/) && newData.exists()",
+        ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() % 1 === 0 && (!data.exists() || (newData.val() - data.val() <= 1 && data.val() - newData.val() <= 1))"
+      }
+    }
+  }
+}
+```
+
+`newData.exists()` is in `.write`, not `.validate`, on purpose: Realtime
+Database skips `.validate` for deletes, so without it anyone could delete
+a counter (it would then reseed from the JSON on the next visit).
+
+The first write to a missing node (the one-time seed from
+`palettes-data.json`) is still unrestricted, and repeated ±1 writes are
+still possible — only a server-side function can rate-limit.
+
+**Test before publishing.** Paste the rule into the editor but do not
+publish yet. Look up the live value of `likes/p001` in the Data tab — call
+it N (e.g. 27483). Open **Rules Playground**, leave *Authenticated* off,
+and run each row (Playground simulates against live data and writes
+nothing):
+
+| Type | Location | Data | Expected |
+| --- | --- | --- | --- |
+| get | `/likes/p001` | — | Allowed |
+| get | `/likes` | — | Denied |
+| set | `/likes/p001` | N + 1 | Allowed (a like) |
+| set | `/likes/p001` | N − 1 | Allowed (an unlike) |
+| set | `/likes/p001` | N + 2 | Denied |
+| set | `/likes/p001` | 9999999 | Denied |
+| set | `/likes/p001` | 0 | Denied (unless N ≤ 1) |
+| set | `/likes/p001` | `"text"` | Denied |
+| set | `/likes/p001` | N + 0.5 | Denied |
+| remove | `/likes/p001` | — | Denied |
+| set | `/likes/evil` | 1 | Denied |
+| set | `/likes/p001/x` | 1 | Denied |
+| set | `/other` | 1 | Denied |
+
+Only when every row matches, **Publish**. Then open `/palettes` in two
+browsers, like and unlike a palette in one, and confirm the count changes
+in both.
+
 If that trade-off doesn't sit right at your traffic level, the usual
 next step is a Cloud Function that owns the writes and rate-limits by
 IP — outside the scope of this simple clone, but flagging it in case

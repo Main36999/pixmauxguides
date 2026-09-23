@@ -2,7 +2,7 @@
   {
     "type": "guide",
     "label": "Guides",
-    "landingUrl": "/guides",
+    "landingUrl": "/guides/",
     "nav": true,
     "activePaths": ["guide/", "guides/", "category/"],
     "home": { "order": 0, "limit": 10, "sort": "roadmap" }
@@ -10,7 +10,7 @@
   {
     "type": "palette",
     "label": "Palettes",
-    "landingUrl": "/palettes",
+    "landingUrl": "/palettes/",
     "nav": true,
     "activePaths": ["palettes/"],
     "home": { "order": 1, "limit": 10, "sort": "latest" }
@@ -18,7 +18,7 @@
   {
     "type": "color",
     "label": "Colors",
-    "landingUrl": "/colors",
+    "landingUrl": "/colors/",
     "nav": true,
     "activePaths": ["colors/"],
     "home": null
@@ -26,7 +26,7 @@
   {
     "type": "image-picker",
     "label": "Image Picker",
-    "landingUrl": "/image-picker",
+    "landingUrl": "/image-picker/",
     "nav": true,
     "activePaths": ["image-picker/"],
     "home": null

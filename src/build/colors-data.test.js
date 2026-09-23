@@ -291,14 +291,14 @@ test("the model carries the colours and the page is a route", () => {
   assert.strictEqual(model.colors.length, config.colors.count);
 
   const table = require("./routes.js").build(model);
-  const colorsRoute = table.find((r) => r.url === "/colors");
-  assert.ok(colorsRoute, "/colors is not in the route table");
+  const colorsRoute = table.find((r) => r.url === "/colors/");
+  assert.ok(colorsRoute, "/colors/ is not in the route table");
   assert.strictEqual(colorsRoute.file, "colors/index.html");
   assert.strictEqual(colorsRoute.type, "section");
 
   // The existing section pages must still be there. This is the whole point
   // of the feature being additive.
-  ["/palettes", "/guides", "/search.html", "/"].forEach((url) => {
+  ["/palettes/", "/guides/", "/search.html", "/"].forEach((url) => {
     assert.ok(
       table.some((r) => r.url === url),
       `${url} is no longer in the route table`,

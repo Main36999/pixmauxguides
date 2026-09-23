@@ -5,9 +5,9 @@
     "pages": 43,
     "dataEndpoints": 5,
     "siteFiles": 4,
-    "assets": 47,
+    "assets": 52,
     "code": 9,
-    "total": 108
+    "total": 113
   },
   "pages": [
     {
@@ -73,7 +73,7 @@
     {
       "file": "colors/index.html",
       "url": "/colors",
-      "canonical": "https://bpozz.com/colors"
+      "canonical": "https://bpozz.com/colors/"
     },
     {
       "file": "contact.html",
@@ -193,17 +193,17 @@
     {
       "file": "guides/index.html",
       "url": "/guides",
-      "canonical": "https://bpozz.com/guides"
+      "canonical": "https://bpozz.com/guides/"
     },
     {
       "file": "image-picker/index.html",
       "url": "/image-picker",
-      "canonical": "https://bpozz.com/image-picker"
+      "canonical": "https://bpozz.com/image-picker/"
     },
     {
       "file": "palettes/index.html",
       "url": "/palettes",
-      "canonical": "https://bpozz.com/palettes"
+      "canonical": "https://bpozz.com/palettes/"
     },
     {
       "file": "privacy.html",
@@ -241,10 +241,15 @@
   ],
   "assets": [
     "/assets/Accessibility.png",
+    "/assets/Accessibility.webp",
     "/assets/Color Theory.png",
+    "/assets/Color Theory.webp",
     "/assets/Figma Workflow.png",
+    "/assets/Figma Workflow.webp",
     "/assets/Spacing & Layout.png",
+    "/assets/Spacing & Layout.webp",
     "/assets/Typography.png",
+    "/assets/Typography.webp",
     "/assets/apple-touch-icon.png",
     "/assets/bpozz logo tab-01.png",
     "/assets/bpozz logo-01.png",

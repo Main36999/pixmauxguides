@@ -148,7 +148,7 @@
           <h3>Content ownership</h3>
           <p>All original guide text, structure, and illustrations on this site are the property of BPOZZ unless otherwise noted. References to third-party tools, such as Figma or Adobe XD, are used descriptively and belong to their respective owners; BPOZZ is not affiliated with or endorsed by those companies.</p>
           <h3>Advertising and third-party content</h3>
-          <p>This site displays advertising, including ads served through Google AdSense. Ads are clearly labeled as advertising and are not editorial content. We do not control, and are not responsible for, the content of third-party advertisements, or the products and services they promote.</p>
+          <p>This site may display advertising, including ads served through Google AdSense. Where it does, ads are clearly labeled as advertising and are not editorial content. We do not control, and are not responsible for, the content of third-party advertisements, or the products and services they promote.</p>
           <h3>No professional advice</h3>
           <p>Guides are educational in nature and reflect general practices at the time of writing. They are not a substitute for professional judgment on any specific project, and we make no guarantee that following a guide will produce a particular result.</p>
           <h3>Disclaimer of warranties</h3>
@@ -169,7 +169,7 @@
         return `
           <p>Have a question about a guide, spotted an error, or want to suggest a topic? Send us a message and we'll get back to you.</p>
           <div id="contact-form-wrap">
-            <form id="contact-form" class="contact-form" novalidate>
+            <form id="contact-form" class="contact-form" action="https://formspree.io/f/xljrealj" method="POST" novalidate>
               <div class="form-row">
                 <label for="contact-name" class="sr-only">Name</label>
                 <input type="text" id="contact-name" name="name" autocomplete="name" placeholder="Your name" required />
@@ -367,7 +367,7 @@
       var exists = GUIDES.some(function (g) {
         return g.id === id;
       });
-      location.replace(exists ? "/guide/" + id : "/guides");
+      location.replace(exists ? "/guide/" + id : "/guides/");
       return;
     }
     var pageMatch = hash.match(/^#\/(about|contact|privacy|terms)$/);

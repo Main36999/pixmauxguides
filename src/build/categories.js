@@ -391,6 +391,31 @@ function monoLabel(code) {
 }
 
 /**
+ * The real pixel size of a site-root PNG, read from its IHDR chunk, or null
+ * when the image is not a local PNG. The og:image:width/height pair used to
+ * be a hard-coded 1200x630 on every category page, but the five category
+ * illustrations are 1254x1254 — declared dimensions that disagree with the
+ * file make crawlers crop or reject the card.
+ */
+const REPO_ROOT = path.join(__dirname, "..", "..");
+function ogImageSize(urlPath) {
+  if (!urlPath.startsWith("/") || !urlPath.endsWith(".png")) return null;
+  const file = [REPO_ROOT, path.join(REPO_ROOT, "public")]
+    .map((dir) => path.join(dir, urlPath))
+    .find((candidate) => fs.existsSync(candidate));
+  if (!file) return null;
+  const header = Buffer.alloc(24);
+  const fd = fs.openSync(file, "r");
+  try {
+    fs.readSync(fd, header, 0, 24, 0);
+  } finally {
+    fs.closeSync(fd);
+  }
+  if (header.toString("ascii", 12, 16) !== "IHDR") return null;
+  return { width: header.readUInt32BE(16), height: header.readUInt32BE(20) };
+}
+
+/**
  * The full HTML of one category page.
  *
  * `cat`, `meta` and `cardHtml` used to be module-level bindings, closed over
@@ -420,9 +445,13 @@ function pageHtml(
   // documented as the one place it lives; this template was quietly the
   // fourth, fifth, sixth and seventh.
   const canonical = `${origin}/category/${slug}`;
-  const ogImage = meta.ogImage.startsWith("/")
-    ? origin + meta.ogImage
-    : meta.ogImage;
+  // encodeURI: four of the category images have spaces (and one an "&") in
+  // their file names, which went out raw — "https://bpozz.com/assets/Color
+  // Theory.png" is not a valid URL and social crawlers can drop it.
+  const ogImage = encodeURI(
+    meta.ogImage.startsWith("/") ? origin + meta.ogImage : meta.ogImage,
+  );
+  const ogSize = ogImageSize(meta.ogImage);
   const cardsHtml = guides.map((g) => cardHtml(g, GUIDE_BADGE)).join("");
   const count = guides.length;
   // PHASE 4 TOKEN REMOVAL: the related_tokens rail is gone. The
@@ -481,9 +510,13 @@ function pageHtml(
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:image" content="${escapeHtml(ogImage)}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
+${
+  ogSize
+    ? `    <meta property="og:image:width" content="${ogSize.width}" />
+    <meta property="og:image:height" content="${ogSize.height}" />
+`
+    : ""
+}
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bpozz" />

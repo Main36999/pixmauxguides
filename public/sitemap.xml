@@ -40,7 +40,7 @@
 
   <!-- Guides Collection -->
   <url>
-    <loc>https://bpozz.com/guides</loc>
+    <loc>https://bpozz.com/guides/</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -243,21 +243,21 @@
   </url>
   <!-- Color Palette Library -->
   <url>
-    <loc>https://bpozz.com/palettes</loc>
+    <loc>https://bpozz.com/palettes/</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- Color Library -->
   <url>
-    <loc>https://bpozz.com/colors</loc>
+    <loc>https://bpozz.com/colors/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- Image Picker -->
   <url>
-    <loc>https://bpozz.com/image-picker</loc>
+    <loc>https://bpozz.com/image-picker/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

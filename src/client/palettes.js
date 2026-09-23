@@ -409,7 +409,15 @@
   // right card instead of just opening the gallery at the top. Runs once,
   // right after the first render, not on every re-sort.
   function focusPaletteFromHash() {
-    var id = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+    // A malformed escape (e.g. /palettes#%E0) makes decodeURIComponent
+    // throw. Uncaught, that rejected the load promise AFTER render() had
+    // drawn the grid, and its .catch then showed the empty state on top.
+    var id;
+    try {
+      id = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+    } catch (e) {
+      return;
+    }
     if (!id) return;
     var known = palettes.some(function (p) {
       return p.id === id;
@@ -425,11 +433,17 @@
   }
 
   // ---- load seed data, then render ---------------------------------------
-  fetch("./palettes-data.json")
+  // Site-root, not "./palettes-data.json": served at /palettes (no trailing
+  // slash) the relative form resolves to /palettes-data.json and 404s. It
+  // only worked while the host redirected /palettes to /palettes/ — the
+  // same trap src/client/colors.js documents (D2 in the Step 10 handoff).
+  fetch("/palettes/palettes-data.json")
     .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
     })
     .then(function (data) {
+      if (!Array.isArray(data)) throw new Error("not an array");
       palettes = data;
       data.forEach(function (p) {
         liveLikes[p.id] = p.likes;
@@ -460,15 +474,24 @@
 
         data.forEach(function (p) {
           var ref = dbMod.ref(db, "likes/" + p.id);
-          // Seed the node from the JSON the first time it's ever read
-          // (current === null means it doesn't exist yet); leaves it
-          // untouched on every subsequent load.
-          dbMod.runTransaction(ref, function (current) {
-            return current === null ? p.likes : current;
-          });
+          var seeded = false;
           dbMod.onValue(ref, function (snap) {
             var val = snap.val();
-            if (typeof val === "number") updateCount(p.id, val);
+            if (typeof val === "number") {
+              updateCount(p.id, val);
+              return;
+            }
+            // Seed the node from the JSON only when it doesn't exist yet.
+            // This used to run a transaction for all 300 palettes on every
+            // page load — 300 read-then-write round trips per visitor, even
+            // though every node already existed. The transaction still
+            // guards against two visitors seeding the same node at once.
+            if (val === null && !seeded) {
+              seeded = true;
+              dbMod.runTransaction(ref, function (current) {
+                return current === null ? p.likes : current;
+              });
+            }
           });
         });
 
@@ -476,7 +499,13 @@
           dbMod.runTransaction(
             dbMod.ref(db, "likes/" + id),
             function (current) {
-              return (typeof current === "number" ? current : 0) + delta;
+              // Never below zero: the database rule rejects negatives, and a
+              // rejected write would leave this visitor's liked state out of
+              // step with the count.
+              return Math.max(
+                0,
+                (typeof current === "number" ? current : 0) + delta,
+              );
             },
           );
         };
