@@ -171,9 +171,13 @@
   gap: 8px;
 }
 .ip-count__btn {
+  /* 32px: the smallest icon-button size used elsewhere on the site
+     (.header-search__submit's compact variant, src/styles/styles.css) —
+     26px sat below every existing precedent (30-44px). Glyph/font-size
+     below is unchanged; only the hit area grows. */
   appearance: none;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   flex: none;
   display: inline-flex;
   align-items: center;
