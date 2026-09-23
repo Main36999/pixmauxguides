@@ -1590,63 +1590,112 @@ body:has(#mobile-menu:not([hidden])) {
   }
 }
 
-/* ---------- footer ---------- */
 /* ---------- footer ----------
-   resourceboy.com-style footer: one centered row of flat links plus a
-   single copyright line underneath — no columns, no social list, no
-   JS-filled category list. Now shares the header's exact dark treatment
-   (--header-bg + the same light-blue-gray link color / white hover) so
-   the page is bookended by matching dark bars, light content between. */
+   Light editorial footer: four evenly distributed link columns (Tools /
+   Discover / Guides / Company), each headed by a small muted uppercase label
+   on the .section-label scale, then a quiet bottom row carrying the BPOZZ
+   "B" mark, the copyright and the tagline. Structure comes from whitespace
+   alone — no dividers, boxes or backgrounds — inside the standard 1160px
+   .wrap. Colors are the existing tokens (--paper, --text, --text-muted)
+   with --action as the hover accent. The white wordmark has no dark
+   variant, so the brand sits in the bottom row as the existing blue app
+   mark instead.
+   4 columns >= 900px · 2 × 2 at 641–899px · stacked <= 640px */
 .site-footer {
-  background: var(--header-bg);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 36px 0;
+  background: var(--paper);
+  padding-top: 56px;
 }
-.footer-inner {
+.footer-main {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 48px;
+  padding-bottom: 72px;
+}
+.footer-col__title {
+  margin-bottom: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.footer-col__list {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
-  text-align: center;
 }
-.footer-nav {
+.footer-col__list a {
+  color: var(--text);
+  font-size: 16px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 5px;
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
+}
+.footer-col__list a:hover {
+  color: var(--action);
+  text-decoration-color: currentColor;
+}
+.footer-bottom {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 28px;
-  font-size: 14px;
+  align-items: center;
+  gap: 8px 12px;
+  padding-bottom: 40px;
 }
-.footer-nav a {
-  color: #cdd6e8;
-  text-decoration: none;
-  font-weight: 500;
+.footer-mark {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 5px;
 }
-.footer-nav a:hover {
-  color: #fff;
+.footer-mark img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
 }
-/* Footer brand block — "BPOZZ / Design Intelligence" (positioning
-   migration Phase 2). Reuses the footer's existing type sizes and
-   the same #9db3da the footer nav links already use; no new colors. */
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.footer-brand__name {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #fff;
-}
-.footer-brand__tagline {
-  margin: 0;
+.footer-copyright,
+.footer-tagline {
   font-size: 13px;
-  color: #9db3da;
+  color: var(--text-muted);
 }
-.footer-copyright {
-  font-size: 13px;
-  color: #8a93a6;
+.footer-tagline {
+  margin-left: auto;
+}
+@media (max-width: 899px) {
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .site-footer {
+    padding-top: 40px;
+  }
+  .footer-main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-bottom: 48px;
+  }
+  .footer-col__title {
+    margin-bottom: 8px;
+  }
+  /* Taller hit areas in place of the list gap: ~42px per link row. */
+  .footer-col__list {
+    gap: 0;
+  }
+  .footer-col__list a {
+    display: inline-block;
+    padding: 9px 0;
+  }
+  .footer-bottom {
+    padding-bottom: 32px;
+  }
+  .footer-tagline {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
 }
 
 /* ---------- toast ---------- */
@@ -2122,14 +2171,6 @@ body:has(#mobile-menu:not([hidden])) {
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
-}
-
-/* ---------- Phase 5: footer guide-category row ----------
-   Second .footer-nav (build-footer.js, from categories.json) that keeps
-   every /category/ page internally linked now that the header nav is
-   type-first. Same link styling as the existing footer row. */
-.footer-nav--categories {
-  font-size: 13px;
 }
 
 /* ---------- Phase 6: /guides collection ----------
