@@ -630,8 +630,8 @@ function tagsMetaFor(record) {
  *
  * The F9 filter is written as `palettes.filter(p => p.meta)`. Taken
  * literally against the file on disk it selects nothing: palettes-data.json
- * carries no `meta` field on any of its 300 records. Writing the field into
- * that file would satisfy the expression but would edit p001–p300, which
+ * carries no `meta` field on any of its records. Writing the field into
+ * that file would satisfy the expression but would edit p001–p040, which
  * the gate requires to come through unchanged.
  *
  * So the entry is attached at load time instead. The filter expression is
@@ -990,9 +990,9 @@ function buildPaletteRecords(indexedPalettes) {
           "",
           "      indexedPalettes: (palettes) => palettes.filter((p) => p.meta)",
           "",
-          "  Widening it to all 300 palettes yields 322 records, and",
-          "  build-home.js then renders the homepage palette section from 300",
-          "  palettes instead of 40. That is the pre-existing bug in the legacy",
+          "  Widening it to every palette in palettes-data.json indexes all of them, and",
+          "  build-home.js then renders the homepage palette section from every",
+          "  palette instead of 40. That is the pre-existing bug in the legacy",
           "  build-content-index.js, the legacy script this pipeline superseded.",
           "",
           "  meta is attached at load time from palettes-meta.json and is never",

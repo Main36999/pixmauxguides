@@ -11,10 +11,11 @@
  *              summarised away.
  *   2. INDEX — is content-index.json 62 records (22 guides / 40 palettes),
  *              and is it byte-identical to the committed file? Explicitly
- *              asserts the count is not 322, the number the pipeline
+ *              asserts the count is not guides + palettes.count, what the pipeline
  *              produces if the F9 palette filter is ever dropped.
- *   3. PALETTES — are all 300 palettes still present, p001..p300, with the
- *              source data byte-identical to what shipped before?
+ *   3. PALETTES — are all palettes still present, p001..p{count} per
+ *              site.config.js, with the published data byte-identical to
+ *              source?
  *   4. GUIDES — 22 guides, and every one of them has a page in dist/.
  *   5. ARCHIVED — is the Phase 3 evidence still exactly as recorded? A
  *              promotion renames it; nothing may edit or delete it.
@@ -153,9 +154,10 @@ function checkContentIndex() {
   }
 
   // The specific regression this gate names: dropping the F9 filter indexes
-  // all 300 palettes and yields 22 + 300.
-  if (records.length === 322) {
-    fail("content-index has 322 records — the F9 palette filter is not applied");
+  // every palette and yields guides + palettes.count.
+  const unfiltered = want.guides + config.palettes.count;
+  if (records.length === unfiltered) {
+    fail(`content-index has ${unfiltered} records — the F9 palette filter is not applied`);
   }
 
   if (records.length !== want.total) {
@@ -183,7 +185,7 @@ function checkContentIndex() {
   if (outOfRange.length) {
     fail(`indexed palettes outside p001–p040: ${outOfRange.join(", ")}`);
   } else {
-    ok("indexed palettes are p001–p040; p041–p300 correctly excluded");
+    ok(`indexed palettes are p001–p040; p041–${config.palettes.lastId} correctly excluded`);
   }
 
   // Byte-identity against the committed copy at the repo root. The repo's

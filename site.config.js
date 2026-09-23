@@ -172,7 +172,7 @@ module.exports = {
    * 62 records: 22 guides + 40 indexed palettes. The 40 token records are
    * gone with the feature.
    *
-   * All 300 palettes stay available through palettes-data.json; only the
+   * All 600 palettes stay available through palettes-data.json; only the
    * 40 that carry a palettes-meta.json entry participate in
    * content-index.json. That is the same 40 — p001–p040 — that the twin
    * match selected before; the selection is now stated in data instead of
@@ -194,7 +194,7 @@ module.exports = {
   },
 
   /** Every palette id that must survive the migration untouched. CONTRACT */
-  palettes: { count: 300, firstId: "p001", lastId: "p300" },
+  palettes: { count: 600, firstId: "p001", lastId: "p600" },
 
   /**
    * PHASE 4 STEP 10 — the Color Library contract. CONTRACT
