@@ -252,7 +252,7 @@
           <div class="ip-panel__section">
             <h2 class="ip-panel__label" id="ip-picked-label">Picked palettes</h2>
             <div class="ip-variation">
-              <label class="ip-variation__label" for="ip-variation-slider"
+              <label class="ip-variation__label sr-only" for="ip-variation-slider"
                 >Palette variation</label
               >
               <input
@@ -269,28 +269,21 @@
           </div>
 
           <div class="ip-panel__section">
-            <div class="ip-palette-head">
-              <h2 class="ip-panel__label" id="ip-palette-label">Palette</h2>
+            <h2 class="ip-panel__label" id="ip-palette-label">Palette</h2>
+            <!-- One continuous strip of equal segments, with + stacked over
+                 − beside it. DOM order (plus, value, minus) matches the
+                 visual top-to-bottom order so Tab follows what you see. -->
+            <div class="ip-palette-row">
+              <ul
+                class="ip-swatches"
+                id="ip-swatches"
+                aria-labelledby="ip-palette-label"
+              ></ul>
               <div
                 class="ip-count"
                 role="group"
                 aria-label="Number of palette colors"
               >
-                <button
-                  type="button"
-                  class="ip-count__btn"
-                  id="ip-count-minus"
-                  aria-label="Remove a color from the palette"
-                  disabled
-                >
-                  &minus;
-                </button>
-                <span
-                  class="ip-count__value"
-                  id="ip-count-value"
-                  aria-live="polite"
-                  >5</span
-                >
                 <button
                   type="button"
                   class="ip-count__btn"
@@ -300,18 +293,29 @@
                 >
                   +
                 </button>
+                <span
+                  class="ip-count__value sr-only"
+                  id="ip-count-value"
+                  aria-live="polite"
+                  >5</span
+                >
+                <button
+                  type="button"
+                  class="ip-count__btn"
+                  id="ip-count-minus"
+                  aria-label="Remove a color from the palette"
+                  disabled
+                >
+                  &minus;
+                </button>
               </div>
             </div>
-            <ul
-              class="ip-swatches"
-              id="ip-swatches"
-              aria-labelledby="ip-palette-label"
-            ></ul>
           </div>
 
           <div class="ip-panel__actions">
-            <button type="button" class="ip-btn ip-btn--primary" id="ip-browse-btn">
-              Browse image
+            <button type="button" class="ip-btn ip-btn--secondary" id="ip-browse-btn">
+              <span>Browse image</span>
+              <svg class="ip-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>
             </button>
             <input
               type="file"
@@ -323,13 +327,16 @@
 
             <button
               type="button"
-              class="ip-btn ip-btn--ghost"
+              class="ip-btn ip-btn--primary"
               id="ip-export-toggle"
               aria-haspopup="dialog"
               aria-controls="ip-export-modal"
               disabled
             >
-              Export palette
+              <span>Export palette</span>
+              <span class="ip-btn__chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
             </button>
           </div>
         </aside>
@@ -343,12 +350,17 @@
             image to decode; there is no "no image selected" state to show.
           -->
           <div class="ip-canvas-frame" id="ip-canvas-frame">
-            <canvas id="ip-canvas" class="ip-canvas" role="img" aria-label="Your image. Click a spot to sample its color into the nearest swatch." hidden></canvas>
-            <div class="ip-points" id="ip-points" aria-hidden="true"></div>
+            <!-- The stage shrink-wraps the canvas, so the sampling points
+                 (positioned in % of the stage) land on the image itself,
+                 not on the card's padding around it. -->
+            <div class="ip-canvas-stage">
+              <canvas id="ip-canvas" class="ip-canvas" role="img" aria-label="Your image. Click a spot to sample its color into the nearest swatch." hidden></canvas>
+              <div class="ip-points" id="ip-points" aria-hidden="true"></div>
 
-            <span class="ip-canvas-tip" id="ip-canvas-tip" hidden>
-              Click or tap the image to sample a color
-            </span>
+              <span class="ip-canvas-tip" id="ip-canvas-tip" hidden>
+                Click or tap the image to sample a color
+              </span>
+            </div>
           </div>
         </div>
       </div>

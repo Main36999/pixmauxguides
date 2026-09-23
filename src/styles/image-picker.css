@@ -37,8 +37,15 @@
  * -----------------------------------------------------------------------
  */
 
+/* Page-scoped, not site tokens: the soft-gray card surface, the slightly
+   darker gray for controls sitting on it (slider track, +/−, Browse), and
+   the two corner radii (cards 16px, controls/strip 12px). */
 .image-picker-page {
-  --ip-radius: 10px;
+  --ip-radius: 12px;
+  --ip-radius-lg: 16px;
+  --ip-surface: #f5f5f5;
+  --ip-control: #e7e7e7;
+  --ip-control-hover: #dcdcdc;
   --ip-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
 }
 
@@ -81,208 +88,269 @@
   color: var(--text-muted);
 }
 
-/* ---------- layout: compact rail left, workspace right ---------- */
-.image-picker {
-  display: grid;
-  grid-template-columns: minmax(230px, 260px) minmax(0, 1fr);
-  gap: 20px;
-  align-items: start;
+/* ---------- layout: control card left, large image card right ---------- */
+/* 450px controls + 34px gap + 844px image = 1328px of content, which is
+   wider than the site-wide .wrap (1160px). Widened on this page only; the
+   extra 64px is .guides-main's own 32px side padding on each side. The
+   image card is 844px = 800px of image + 22px padding each side, so the
+   3:2 standby photo lands at 800 x 533.
+
+   The columns are 450fr / 844fr rather than a fixed 450px, so below full
+   width both cards shrink in that same ratio (the controls never go under
+   300px) instead of the image card absorbing all of it. */
+.image-picker-page .guides-main.ip-main {
+  max-width: 1392px;
 }
 
-@media (max-width: 860px) {
+.image-picker {
+  display: grid;
+  grid-template-columns: minmax(300px, 450fr) minmax(0, 844fr);
+  gap: clamp(20px, 2.6vw, 34px);
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
   .image-picker {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-/* ---------- control rail ---------- */
+/* ---------- control card ---------- */
 .ip-panel {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  background: var(--card);
-  border: 1px solid var(--grid-line);
-  border-radius: var(--ip-radius);
-  padding: 16px;
+  gap: 32px;
+  background: var(--ip-surface);
+  border-radius: var(--ip-radius-lg);
+  padding: 34px;
 }
 
-@media (min-width: 861px) {
+@media (max-width: 640px) {
   .ip-panel {
-    position: sticky;
-    top: 92px;
+    padding: 24px 20px;
+    gap: 28px;
   }
 }
 
 .ip-panel__section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 18px;
   min-width: 0;
-}
-.ip-panel__section + .ip-panel__section {
-  padding-top: 14px;
-  border-top: 1px solid var(--grid-line);
 }
 
 .ip-panel__label {
   margin: 0;
   font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text);
 }
 
 /* ---------- variation slider ---------- */
+/* Its <label> is visually hidden (.sr-only in the markup): the design shows
+   only the "Picked palettes" heading, and the label still names the slider
+   for assistive tech. */
 .ip-variation {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-}
-.ip-variation__label {
-  font-family: var(--sans);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--text);
 }
 .ip-variation__slider {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
-  height: 4px;
-  margin: 4px 0 0;
-  accent-color: var(--action);
+  height: 22px;
+  margin: 0;
+  background: transparent;
   cursor: pointer;
+}
+.ip-variation__slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ip-control);
+}
+.ip-variation__slider::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ip-control);
+}
+.ip-variation__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.18);
+}
+.ip-variation__slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.18);
+}
+.ip-variation__slider:focus-visible {
+  outline-offset: 4px;
+  border-radius: 999px;
 }
 .ip-variation__slider:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* ---------- palette size controls ---------- */
-.ip-palette-head {
+/* ---------- palette strip + size controls ---------- */
+.ip-palette-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* + stacked over −, together exactly the strip's 52px (2 x 24px + 4px
+   gap). 24px is the WCAG 2.2 minimum target size. */
 .ip-count {
+  flex: none;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
 }
 .ip-count__btn {
-  /* 32px: the smallest icon-button size used elsewhere on the site
-     (.header-search__submit's compact variant, src/styles/styles.css) —
-     26px sat below every existing precedent (30-44px). Glyph/font-size
-     below is unchanged; only the hit area grows. */
   appearance: none;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  border: 1px solid var(--grid-line);
-  background: var(--paper);
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: var(--ip-control);
   color: var(--text);
   font-family: var(--sans);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1;
   cursor: pointer;
-  transition:
-    border-color 0.15s var(--ip-ease),
-    color 0.15s var(--ip-ease);
+  transition: background 0.15s var(--ip-ease);
 }
 .ip-count__btn:hover:not(:disabled) {
-  border-color: var(--action);
-  color: var(--action);
+  background: var(--ip-control-hover);
 }
 .ip-count__btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
-.ip-count__value {
-  min-width: 1.5ch;
-  text-align: center;
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-}
 
-/* ---------- palette swatch list ---------- */
+/* One continuous rounded strip of equal-width segments. The corners are
+   rounded on the end segments rather than with overflow: hidden on the
+   list, so a segment's HEX tooltip can still render above the strip. */
 .ip-swatches {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  height: 52px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .ip-swatch {
+  flex: 1 1 0;
   min-width: 0;
+}
+.ip-swatch:first-child .ip-swatch__plate {
+  border-radius: var(--ip-radius) 0 0 var(--ip-radius);
+}
+.ip-swatch:last-child .ip-swatch__plate {
+  border-radius: 0 var(--ip-radius) var(--ip-radius) 0;
+}
+.ip-swatch:only-child .ip-swatch__plate {
+  border-radius: var(--ip-radius);
 }
 
 .ip-swatch__plate {
   position: relative;
-  display: flex;
-  align-items: center;
+  display: block;
   width: 100%;
-  height: 42px;
-  padding: 0 14px;
+  height: 100%;
+  padding: 0;
   border: 0;
-  border-radius: 7px;
+  border-radius: 0;
   background: var(--ip-hex);
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px var(--ip-ring, rgba(0, 0, 0, 0.06));
-  transition: transform 0.15s var(--ip-ease);
-}
-@media (hover: hover) and (pointer: fine) {
-  .ip-swatch__plate:hover {
-    transform: translateY(-1px);
-  }
 }
 .ip-swatch__plate:focus-visible {
+  z-index: 1;
   outline-offset: -3px;
 }
 
+/* HEX value: a small tooltip above the segment on hover / keyboard focus
+   (at 8 colors a segment is too narrow to hold the label inline). The
+   accessible name — "Copy #XXXXXX, color N" — is on the button itself. */
 .ip-swatch__hex {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  z-index: 2;
+  transform: translate(-50%, 4px);
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
   font-family: var(--sans);
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
-  color: var(--ip-label);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.15s var(--ip-ease),
+    transform 0.15s var(--ip-ease);
+}
+.ip-swatch__plate:focus-visible .ip-swatch__hex {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ip-swatch__plate:hover .ip-swatch__hex {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
+/* "Copied" state: a check mark over the segment. The word itself is
+   dropped visually (font-size: 0) since a segment can be ~35px wide; the
+   copy is still announced through #ip-status. */
 .ip-swatch__copied {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   border-radius: inherit;
   background: var(--ip-veil, rgba(0, 0, 0, 0.45));
   color: var(--ip-label);
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-size: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.16s var(--ip-ease);
 }
 .ip-swatch__copied svg {
-  width: 13px;
-  height: 13px;
+  width: 18px;
+  height: 18px;
   flex: none;
-  opacity: 0.9;
 }
 .ip-swatch__plate[data-copied="true"] .ip-swatch__copied {
   opacity: 1;
@@ -291,62 +359,75 @@
   opacity: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ip-swatch__plate:hover {
-    transform: none;
-  }
-}
-
 /* ---------- panel actions: browse + export ---------- */
+/* margin-top: auto pins the two buttons to the bottom of the card when it
+   stretches to the image card's height. */
 .ip-panel__actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-top: 14px;
-  border-top: 1px solid var(--grid-line);
+  gap: 12px;
+  margin-top: auto;
 }
 
 .ip-btn {
   appearance: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 12px;
   width: 100%;
-  border: 1px solid transparent;
-  border-radius: var(--radius);
+  height: 52px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--ip-radius);
   font-family: var(--sans);
-  font-size: 13.5px;
-  font-weight: 700;
-  padding: 10px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: left;
   cursor: pointer;
-  transition:
-    background 0.15s var(--ip-ease),
-    color 0.15s var(--ip-ease),
-    border-color 0.15s var(--ip-ease);
+  transition: background 0.15s var(--ip-ease);
+}
+.ip-btn__icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.ip-btn--secondary {
+  background: var(--ip-control);
+  color: var(--text);
+}
+.ip-btn--secondary:hover:not(:disabled) {
+  background: var(--ip-control-hover);
 }
 .ip-btn--primary {
+  padding-right: 0;
   background: var(--action);
   color: #fff;
 }
-.ip-btn--primary:hover {
+.ip-btn--primary:hover:not(:disabled) {
   background: var(--action-hover);
 }
-.ip-btn--ghost {
-  background: var(--paper);
-  color: var(--text);
-  border-color: var(--grid-line);
+/* The chevron sits in its own divided area at the button's right end. */
+.ip-btn__chevron {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  flex: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
 }
-.ip-btn--ghost:hover:not(:disabled) {
-  border-color: var(--action);
-  color: var(--action);
+.ip-btn__chevron svg {
+  width: 20px;
+  height: 20px;
 }
 .ip-btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
 
-/* ---------- image workspace ---------- */
+/* ---------- image card ---------- */
 .ip-canvas-wrap {
   min-width: 0;
 }
@@ -354,28 +435,45 @@
 .ip-canvas-frame {
   position: relative;
   width: 100%;
-  min-height: 540px;
+  height: 100%;
+  min-height: 560px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--ip-radius);
-  border: 1px solid var(--grid-line);
-  background: var(--paper);
+  padding: 22px;
+  border-radius: var(--ip-radius-lg);
+  background: var(--ip-surface);
   overflow: hidden;
 }
 
+@media (max-width: 900px) {
+  .ip-canvas-frame {
+    min-height: 0;
+  }
+}
 @media (max-width: 640px) {
   .ip-canvas-frame {
-    min-height: 380px;
+    padding: 14px;
   }
+}
+
+/* Shrink-wraps the canvas so .ip-points (inset: 0) covers exactly the
+   image. The canvas keeps its own aspect ratio rather than object-fit:
+   cover — the click handler maps the canvas's box straight onto its
+   pixels, so cropping would sample (and mark) the wrong spot. */
+.ip-canvas-stage {
+  position: relative;
+  max-width: 100%;
+  line-height: 0;
 }
 
 .ip-canvas {
   display: block;
   max-width: 100%;
-  max-height: 78vh;
+  max-height: min(78vh, 760px);
   width: auto;
   height: auto;
+  border-radius: var(--ip-radius);
   cursor: crosshair;
 }
 .ip-canvas[hidden] {
@@ -389,6 +487,7 @@
   position: absolute;
   left: 50%;
   bottom: 14px;
+  line-height: 1.2;
   transform: translateX(-50%);
   padding: 6px 12px;
   border-radius: 999px;
@@ -419,18 +518,22 @@
   inset: 0;
   pointer-events: none;
 }
+/* White ring drawn as a border (inside the 24px box) so the marker stays
+   centred on its point; the hairline + soft shadow keep it legible on
+   light areas of the photo without looking heavy. */
 .ip-point {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  margin-left: -10px;
-  margin-top: -10px;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  border: 3px solid #fff;
   border-radius: 50%;
   background: var(--ip-point-hex);
   box-shadow:
-    0 0 0 3px #fff,
-    0 0 0 4px rgba(0, 0, 0, 0.22),
-    0 3px 8px rgba(0, 0, 0, 0.25);
+    0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.22);
 }
 
 /* =========================================================================
