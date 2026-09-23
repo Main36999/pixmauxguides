@@ -175,8 +175,8 @@ const ROOT_LINKS = [
  * why they are not renamed to match this list.
  *
  * "Explore" (-> /search) is deliberately absent: search is already reachable
- * from the inner header's own search field. /search itself is untouched, as
- * is the Explore link in partials/header.html.
+ * from the inner header's own search field. /search itself is untouched; the
+ * mobile menu no longer carries a separate Explore link either.
  *
  * Same { label, landingUrl } shape as a resource-types.json entry, so
  * navLinksHtml() and resolveLandingUrl() apply unchanged — including the
