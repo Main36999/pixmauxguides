@@ -213,12 +213,22 @@ const ROOT_LINKS = [
  * homepage is now a palette workspace plus an index of these same four
  * destinations, so "All" no longer described anything; the logo still links
  * home. Same 43-page blast radius as the two additions above.
+ *
+ * "All" AND "Learning Roadmap" RESTORED
+ *
+ * The nav now reads All · Colors · Color Palettes · Image Picker · UI/UX
+ * Guides · Learning Roadmap, in both rows and the mobile panel. "All" links
+ * home and "Learning Roadmap" links /roadmap; neither is a resource type, so
+ * their "you are here" state comes from markNavCurrent() in render(), not
+ * from resource-types.json's activePaths.
  */
 const MAIN_HEADER_NAV = [
+  { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors/" },
   { label: "Color Palettes", landingUrl: "/palettes/" },
-  { label: "UI/UX Guides", landingUrl: "/guides/" },
   { label: "Image Picker", landingUrl: "/image-picker/" },
+  { label: "UI/UX Guides", landingUrl: "/guides/" },
+  { label: "Learning Roadmap", landingUrl: "/roadmap" },
 ];
 
 /**
@@ -384,6 +394,21 @@ function markCurrent(html, file) {
 }
 
 /**
+ * Marks a MAIN_HEADER_NAV link as current by its exact nav markup, so a link
+ * sharing its href elsewhere in the header (the brand link's "/" on the home
+ * page) is left alone. A link already marked no longer matches, so this never
+ * double-marks.
+ */
+function markNavCurrent(html, entry) {
+  const link = `<a href="${escapeHtml(entry.landingUrl)}">${escapeHtml(entry.label)}</a>`;
+  return html
+    .split(link)
+    .join(
+      `<a href="${escapeHtml(entry.landingUrl)}" aria-current="page">${escapeHtml(entry.label)}</a>`,
+    );
+}
+
+/**
  * Rewrites the canonical (one-level-deep) partial for a page at `file`
  * (repo-relative, POSIX-style, e.g. "about.html" or "guide/foo.html").
  */
@@ -491,6 +516,13 @@ function render(ctx) {
     for (const entry of navEntries) {
       if (entry.activePaths.some((prefix) => r.file.startsWith(prefix))) {
         headerHtml = markCurrent(headerHtml, escapeHtml(entry.landingUrl));
+      }
+    }
+    // Nav entries that are not resource types ("All", "Learning Roadmap")
+    // are current when their landing URL resolves to this very page.
+    for (const entry of MAIN_HEADER_NAV) {
+      if (resolveLandingUrl(stage, entry.landingUrl) === file) {
+        headerHtml = markNavCurrent(headerHtml, entry);
       }
     }
 
