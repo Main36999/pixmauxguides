@@ -352,11 +352,16 @@ const tagsMetaFor = content.tagsMetaFor;
 function indexRecordCardHtml(record) {
   const badge = TYPE_BADGE_LABEL[record.type] || record.type;
   const meta = tagsMetaFor(record);
+  // Palette records keep "/palettes#<id>" in content-index.json (frozen by
+  // scripts/qa/fixtures/phase3-palette-records.json), but the host answers
+  // /palettes with a 301 to /palettes/ — so the static link points straight
+  // at the final URL, fragment preserved.
+  const href = record.url.replace(/^\/palettes#/, "/palettes/#");
   return (
     `<article class="content-card">` +
     `<span class="badge">${escapeHtml(badge)}</span>` +
     `<div class="card-body">` +
-    `<h3 class="card-title"><a class="card-link" href="${escapeHtml(record.url)}">${escapeHtml(record.title)}</a></h3>` +
+    `<h3 class="card-title"><a class="card-link" href="${escapeHtml(href)}">${escapeHtml(record.title)}</a></h3>` +
     (meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : "") +
     `</div></article>`
   );

@@ -218,7 +218,7 @@ const ROOT_LINKS = [
  *
  * The nav now reads All · Colors · Color Palettes · Image Picker · UI/UX
  * Guides · Learning Roadmap, in both rows and the mobile panel. "All" links
- * home and "Learning Roadmap" links /roadmap; neither is a resource type, so
+ * home and "Learning Roadmap" links /roadmap.html; neither is a resource type, so
  * their "you are here" state comes from markNavCurrent() in render(), not
  * from resource-types.json's activePaths.
  */
@@ -228,7 +228,7 @@ const MAIN_HEADER_NAV = [
   { label: "Color Palettes", landingUrl: "/palettes/" },
   { label: "Image Picker", landingUrl: "/image-picker/" },
   { label: "UI/UX Guides", landingUrl: "/guides/" },
-  { label: "Learning Roadmap", landingUrl: "/roadmap" },
+  { label: "Learning Roadmap", landingUrl: "/roadmap.html" },
 ];
 
 /**
