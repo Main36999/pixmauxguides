@@ -179,7 +179,7 @@
 .resource-card {
   min-height: 150px;
   padding: 22px 24px 20px;
-  background-color: var(--paper);
+  background-color: #f5f5f5;
 }
 .resource-card:hover {
   background-color: #ebf1f9;
