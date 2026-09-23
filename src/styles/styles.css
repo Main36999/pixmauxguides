@@ -1,6 +1,4 @@
 :root {
-  --ink: #0f2a52;
-  --ink-2: #132f5c;
   --action: #2563eb;
   --action-hover: #1d4ed8;
   --cyan: #22a6c4;
@@ -93,7 +91,7 @@ ul {
   top: -48px;
   left: 8px;
   z-index: 100;
-  background: var(--ink);
+  background: var(--header-bg);
   color: #fff;
   padding: 10px 16px;
   border-radius: 0 0 var(--radius) var(--radius);
@@ -228,7 +226,7 @@ ul {
   width: 48px;
   height: 48px;
   border-radius: 6px 6px 0 0;
-  background: var(--ink);
+  background: var(--header-bg);
   flex-shrink: 0;
   display: block;
   object-fit: cover;
@@ -510,11 +508,11 @@ ul {
   color: var(--text-muted);
 }
 .header-bottom .site-nav a:hover {
-  color: var(--ink);
+  color: var(--action);
   border-bottom-color: var(--action);
 }
 .header-bottom .site-nav a[aria-current="page"] {
-  color: var(--ink);
+  color: var(--action);
   border-bottom-color: var(--action);
 }
 
@@ -1563,7 +1561,7 @@ body:has(#mobile-menu:not([hidden])) {
   left: 50%;
   bottom: 24px;
   transform: translate(-50%, 16px);
-  background: var(--ink);
+  background: var(--header-bg);
   color: #fff;
   font-size: 13.5px;
   padding: 12px 18px;
@@ -1870,7 +1868,7 @@ body:has(#mobile-menu:not([hidden])) {
 .about-founder__name {
   font-size: 15px;
   font-weight: 800;
-  color: var(--ink);
+  color: var(--text);
   letter-spacing: -0.01em;
   margin-bottom: 3px;
 }

@@ -5,7 +5,7 @@
  * to configure, so it gets its own small stylesheet rather than carrying
  * the visual weight of a configurable system (score badges, role labels,
  * filter chips). Reuses only the site-wide primitives from styles.css
- * (--ink/--action/--paper/--card/--radius/--sans/--grid-line/--text/
+ * (--action/--paper/--card/--radius/--sans/--grid-line/--text/
  * --text-muted, .wrap, .btn, .toast) — no legacy .badge anywhere here.
  *
  * Visual pass (palette browsing upgrade): the color plate is now the
@@ -141,7 +141,7 @@
     border-color 0.18s var(--palette-ease);
 }
 .palettes-tab:hover {
-  color: var(--ink);
+  color: var(--action);
   background-color: var(--paper);
 }
 .palettes-tab[aria-pressed="true"] {
@@ -424,7 +424,7 @@
     stroke 0.16s var(--palette-ease);
 }
 .palette-like-btn:hover {
-  color: var(--ink);
+  color: var(--action);
 }
 .palette-like-btn:hover svg {
   transform: scale(1.08);

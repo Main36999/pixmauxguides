@@ -241,9 +241,9 @@
   margin-top: 24px;
   padding: 18px 20px;
   overflow-x: auto;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--header-bg);
   border-radius: var(--radius);
-  background: var(--ink);
+  background: var(--header-bg);
 }
 .guide-article pre code {
   background: none;
@@ -252,6 +252,7 @@
   font-size: 0.85em;
   line-height: 1.6;
   color: #e8edf4;
+  font-family: var(--sans);
 }
 
 .guide-table-wrap {
@@ -284,7 +285,7 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--text);
 }
 .guide-article tbody tr:last-child td {
   border-bottom: none;
@@ -384,7 +385,7 @@
   gap: 14px;
   padding: 14px 18px;
   background: var(--paper);
-  border-left: 3px solid var(--ink);
+  border-left: 3px solid var(--text);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 .guide-recap li .guide-recap__n {
@@ -454,8 +455,8 @@
   margin: 32px 0;
 }
 .guide-diagram__frame {
-  background: var(--ink);
-  border: 1px solid var(--ink);
+  background: var(--header-bg);
+  border: 1px solid var(--header-bg);
   border-radius: var(--radius);
   padding: 18px 18px 14px;
 }

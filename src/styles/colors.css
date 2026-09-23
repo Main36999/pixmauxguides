@@ -4,8 +4,8 @@
  * Styles for /colors only — the Color Library. Loaded by that one page and
  * by nothing else, the same arrangement palettes.css has.
  *
- * Reuses only the site-wide primitives from styles.css (--ink / --action /
- * --paper / --card / --sans / --grid-line / --text / --text-muted, .wrap,
+ * Reuses only the site-wide primitives from styles.css (--action / --paper /
+ * --card / --sans / --grid-line / --text / --text-muted, .wrap,
  * .sr-only, .empty-state, .toast). It defines no new site-level token and
  * overrides nothing in :root, so loading it cannot change any other page.
  *
@@ -112,19 +112,20 @@
     border-color 0.16s var(--color-ease);
 }
 .colors-filter:hover {
-  color: var(--ink);
+  color: var(--action);
   border-color: var(--grid-line);
 }
 
 /* The selected chip is marked by FILL and TEXT WEIGHT CONTRAST, not by hue:
-   dark ink background, white label. A viewer who cannot distinguish the
-   chip colours still sees which one is inverted — and aria-pressed carries
-   the same fact to assistive tech, so the state is never colour-only.
-   Declared after :hover so an active chip stays inverted while hovered. */
+   solid --action background, white label. A viewer who cannot distinguish
+   the chip colours still sees which one is inverted — and aria-pressed
+   carries the same fact to assistive tech, so the state is never
+   colour-only. Declared after :hover so an active chip stays inverted
+   while hovered. */
 .colors-filter[aria-pressed="true"],
 .colors-filter[aria-pressed="true"]:hover {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--action);
+  border-color: var(--action);
   color: #fff;
 }
 
