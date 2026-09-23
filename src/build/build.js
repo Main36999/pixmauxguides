@@ -188,6 +188,16 @@ const PUBLISH_FILES = [
   { from: "src/styles/styles.css", to: "styles.css" },
   { from: "src/styles/guide-article.css", to: "guide-article.css" },
 
+  /**
+   * HOMEPAGE — the palette workspace's script and the homepage stylesheet,
+   * published beside index.html at the root. Same shape as colors.js and
+   * image-picker.js: code only one page runs, so it is not added to
+   * APP_BUNDLE. src/build/home.js also requires home.js at build time for
+   * its pure color math (see that file's header).
+   */
+  { from: "src/client/home.js", to: "home.js" },
+  { from: "src/styles/home.css", to: "home.css" },
+
   // palettes feature
   { from: "src/client/palettes.js", to: "palettes/palettes.js" },
   { from: "src/styles/palettes.css", to: "palettes/palettes.css" },

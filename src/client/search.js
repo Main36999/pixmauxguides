@@ -5,7 +5,7 @@
  *
  * TWO CONCERNS, BOTH SEARCH
  *
- *   headerSearchForms   the handle on the header/hero search forms that
+ *   headerSearchForms   the handle on the header search forms that
  *                       resetFilters() in guides.js uses to blank a stale
  *                       query. There is no submit handler and there never
  *                       was one — the forms are plain HTML GETs
@@ -68,9 +68,9 @@
  */
 
   // --- Header quick search ---
-  // Both the desktop header form and the homepage's hero search form
-  // share the ".header-search" class, so this covers either without
-  // duplicating logic. Each one is plain HTML (action="/search",
+  // The inner-page header form carries the ".header-search" class. (The
+  // homepage's own search form, .home-search__form, does not: it lives on
+  // a page with no guide filters to reset.) Each one is plain HTML (action="/search",
   // method="get", input name="s") and needs no JS to work: submitting it
   // (Enter or the button) is a normal browser GET to /search?s=... from
   // any page, including that one — initSearchPage() below reads the query

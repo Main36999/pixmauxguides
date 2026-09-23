@@ -82,8 +82,9 @@
  *     arithmetic;
  *   - the depth rewrite replaces EVERY occurrence of each "../<file>"
  *     literal, via split/join, not just the first;
- *   - index.html stays special-cased: the brand link and the "All" nav link
- *     become "/" (a clean root URL, not a bare "#"), while the search form's
+ *   - index.html stays special-cased: the brand link (and, before the homepage
+ *     redesign, the "All" nav link)
+ *     becomes "/" (a clean root URL, not a bare "#"), while the search form's
  *     action becomes "index.html" — a real GET target for no-JS submits;
  *   - aria-current="page" is applied by the same two rules: a page that IS a
  *     ROOT_LINKS destination marks its own link, and a page whose route file
@@ -167,8 +168,7 @@ const ROOT_LINKS = [
  * MAIN HEADER nav — the list both partials' NAV_RESOURCES regions render.
  *
  * It is deliberately NOT the resource-type registry: it is a short,
- * browse-oriented set that opens with "All" (the home page's own full
- * listing) and names each destination the way a visitor looks for it
+ * browse-oriented set that names each destination the way a visitor looks for it
  * ("Color Palettes", not "Palettes"). resource-types.json still supplies the
  * `activePaths` that drive the aria-current highlight, and its `label`
  * values are also the homepage's section headings (build-home.js) — which is
@@ -206,9 +206,15 @@ const ROOT_LINKS = [
  * 43-page blast radius as Step 10's Colors addition and for the same
  * reason: every page carries both nav regions, so the HTML baseline needs
  * re-recording alongside this change.
+ *
+ * HOMEPAGE REDESIGN — "All" REMOVED
+ *
+ * "All" named the old homepage, which was an all-types card listing. The
+ * homepage is now a palette workspace plus an index of these same four
+ * destinations, so "All" no longer described anything; the logo still links
+ * home. Same 43-page blast radius as the two additions above.
  */
 const MAIN_HEADER_NAV = [
-  { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors/" },
   { label: "Color Palettes", landingUrl: "/palettes/" },
   { label: "UI/UX Guides", landingUrl: "/guides/" },
@@ -385,7 +391,7 @@ function headerFor(file, partial) {
   const [homeLinkDef, ...otherLinks] = ROOT_LINKS;
 
   if (file === "index.html") {
-    // Home page: brand + "All" both become the clean root URL ("/"), not a
+    // Home page: the brand link becomes the clean root URL ("/"), not a
     // bare "#", so the address bar doesn't pick up a stray hash. The search
     // form's action keeps pointing at a real file (index.html) since it
     // needs a real GET target for no-JS submits.
