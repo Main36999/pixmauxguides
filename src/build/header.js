@@ -221,11 +221,21 @@ const ROOT_LINKS = [
  * home and "Learning Roadmap" links /roadmap.html; neither is a resource type, so
  * their "you are here" state comes from markNavCurrent() in render(), not
  * from resource-types.json's activePaths.
+ *
+ * FONTS — ADDED
+ *
+ * The font library is a content browse destination like Colors and Color
+ * Palettes, so it sits with them, after the two colour entries and before the
+ * Image Picker tool. Its "you are here" state comes from resource-types.json's
+ * `font` entry (activePaths ["fonts/"]), which also marks it on every
+ * /fonts/<id>.html detail page. Same every-page blast radius as the entries
+ * above: one added <a> per nav region.
  */
 const MAIN_HEADER_NAV = [
   { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors/" },
   { label: "Color Palettes", landingUrl: "/palettes/" },
+  { label: "Fonts", landingUrl: "/fonts/" },
   { label: "Image Picker", landingUrl: "/image-picker/" },
   { label: "UI/UX Guides", landingUrl: "/guides/" },
   { label: "Learning Roadmap", landingUrl: "/roadmap.html" },

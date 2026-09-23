@@ -311,6 +311,183 @@ function validateColors(colors, label, config) {
 }
 
 /**
+ * src/data/fonts.json — the font library, checked against site.config.js's
+ * `fonts` contract AND against the files on disk under paths.content.fontFiles.
+ *
+ * The file checks are the point. Every page, card and download is generated
+ * from this data, so a record that names a file which is not there would ship
+ * a broken preview or a 404 download. Checking here fails the build instead.
+ *
+ * The license checks encode the sourcing rules rather than trusting the data:
+ *
+ *   - `license` must be on site.config.js's verified allow-list;
+ *   - the family's shipped license file must exist and actually be the text
+ *     of that license (for the OFL: "SIL OPEN FONT LICENSE Version 1.1");
+ *   - `reservedFontName` must agree with the license file itself — whether
+ *     its copyright header declares a Reserved Font Name;
+ *   - a family WITH a Reserved Font Name must be served from its original,
+ *     unmodified files (`web` === `file`). Converting it to another format
+ *     would be a modification whose status under the RFN clause is unclear,
+ *     so the build refuses it rather than guessing.
+ */
+const FONT_WEIGHTS = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+const FONT_STYLES = ["normal", "italic"];
+const LICENSE_TEXT = {
+  "SIL Open Font License 1.1": /SIL OPEN FONT LICENSE\s+Version 1\.1/i,
+};
+
+function validateFonts(fonts, label, config) {
+  if (!Array.isArray(fonts)) {
+    throw new Error(`${label} did not contain an array`);
+  }
+  const fontDir = config.paths.content.fontFiles;
+  const categories = new Set(config.fonts.categories.map((c) => c.slug));
+  const licenses = new Set(config.fonts.licenses);
+  const seenId = new Set();
+  const seenName = new Set();
+  const seenFeatured = new Set();
+  const isUrl = (v) => typeof v === "string" && /^https:\/\/\S+$/.test(v);
+
+  fonts.forEach(function (font, i) {
+    const where = `${label}[${i}]`;
+    if (!font || typeof font !== "object") {
+      throw new Error(`${where} is not an object`);
+    }
+    if (typeof font.id !== "string" || !SLUG_RE.test(font.id)) {
+      throw new Error(`${where}.id must be a lowercase slug`);
+    }
+    if (seenId.has(font.id)) {
+      throw new Error(`${where}: duplicate font id "${font.id}"`);
+    }
+    seenId.add(font.id);
+    const at = `${where} ("${font.id}")`;
+
+    ["name", "family", "designer", "description", "copyright", "source"].forEach(
+      function (key) {
+        if (typeof font[key] !== "string" || !font[key].trim()) {
+          throw new Error(`${at}.${key} must be a non-empty string`);
+        }
+      },
+    );
+    if (seenName.has(font.name)) {
+      throw new Error(`${at}: duplicate font name "${font.name}"`);
+    }
+    seenName.add(font.name);
+    if (/["\\<>;{}]/.test(font.family)) {
+      throw new Error(`${at}.family contains a character unsafe in CSS`);
+    }
+    if (!categories.has(font.category)) {
+      throw new Error(
+        `${at} has category ${JSON.stringify(font.category)}, which ` +
+          `site.config.js's fonts.categories does not list`,
+      );
+    }
+    if (
+      !Array.isArray(font.tags) ||
+      font.tags.some((t) => typeof t !== "string" || !SLUG_RE.test(t))
+    ) {
+      throw new Error(`${at}.tags must be an array of lowercase slugs`);
+    }
+    if (typeof font.background !== "string" || !/^#[0-9A-F]{6}$/.test(font.background)) {
+      throw new Error(`${at}.background must be an uppercase six-digit hex`);
+    }
+    if (!Number.isInteger(font.featured) || font.featured < 1) {
+      throw new Error(`${at}.featured must be a positive integer`);
+    }
+    if (seenFeatured.has(font.featured)) {
+      throw new Error(`${at}: featured position ${font.featured} is used twice`);
+    }
+    seenFeatured.add(font.featured);
+    if (typeof font.dateAdded !== "string" || !ISO_DATE_RE.test(font.dateAdded)) {
+      throw new Error(`${at}.dateAdded must be an ISO date (YYYY-MM-DD)`);
+    }
+    ["licenseUrl", "sourceUrl", "repositoryUrl"].forEach(function (key) {
+      if (!isUrl(font[key])) throw new Error(`${at}.${key} must be an https URL`);
+    });
+
+    // ---- license, verified against the shipped file ----
+    if (!licenses.has(font.license)) {
+      throw new Error(
+        `${at} has license ${JSON.stringify(font.license)}, which is not on ` +
+          `site.config.js's verified fonts.licenses list — a font whose ` +
+          `redistribution terms were not verified must not ship`,
+      );
+    }
+    if (typeof font.licenseFile !== "string" || !/^[\w.-]+$/.test(font.licenseFile)) {
+      throw new Error(`${at}.licenseFile must be a plain file name`);
+    }
+    const licensePath = path.join(fontDir, font.id, font.licenseFile);
+    if (!fs.existsSync(licensePath)) {
+      throw new Error(`${at}: license file missing at ${licensePath}`);
+    }
+    const licenseText = fs.readFileSync(licensePath, "utf8");
+    if (!LICENSE_TEXT[font.license].test(licenseText)) {
+      throw new Error(
+        `${at}: ${font.licenseFile} is not the text of ${font.license}`,
+      );
+    }
+    const header = licenseText.split(/PREAMBLE/)[0];
+    const declaresRfn = /Reserved\s+Font\s+Names?/i.test(header);
+    if (font.reservedFontName !== declaresRfn) {
+      throw new Error(
+        `${at}.reservedFontName is ${font.reservedFontName}, but ` +
+          `${font.licenseFile} ${declaresRfn ? "declares" : "does not declare"} ` +
+          `a Reserved Font Name`,
+      );
+    }
+
+    // ---- variants, verified against the shipped files ----
+    if (!Array.isArray(font.variants) || !font.variants.length) {
+      throw new Error(`${at}.variants must be a non-empty array`);
+    }
+    const seenVariant = new Set();
+    font.variants.forEach(function (v, j) {
+      const vat = `${at}.variants[${j}]`;
+      if (!FONT_WEIGHTS.includes(v.weight)) {
+        throw new Error(`${vat}.weight must be one of ${FONT_WEIGHTS.join(", ")}`);
+      }
+      if (!FONT_STYLES.includes(v.style)) {
+        throw new Error(`${vat}.style must be "normal" or "italic"`);
+      }
+      const key = `${v.weight}/${v.style}`;
+      if (seenVariant.has(key)) {
+        throw new Error(`${vat}: ${key} is listed twice`);
+      }
+      seenVariant.add(key);
+      if (typeof v.file !== "string" || !/^[\w-]+\.(ttf|otf)$/.test(v.file)) {
+        throw new Error(`${vat}.file must be a .ttf or .otf file name`);
+      }
+      if (typeof v.web !== "string" || !/^[\w-]+\.(woff2|ttf|otf)$/.test(v.web)) {
+        throw new Error(`${vat}.web must be a .woff2, .ttf or .otf file name`);
+      }
+      if (font.reservedFontName && v.web !== v.file) {
+        throw new Error(
+          `${vat}: this family declares a Reserved Font Name, so it must be ` +
+            `previewed from its original file (web === file), not a converted one`,
+        );
+      }
+      [v.file, v.web].forEach(function (name) {
+        if (!fs.existsSync(path.join(fontDir, font.id, name))) {
+          throw new Error(`${vat}: ${font.id}/${name} does not exist`);
+        }
+      });
+    });
+  });
+
+  const used = new Set(fonts.map((f) => f.category));
+  config.fonts.categories.forEach(function (c) {
+    if (!used.has(c.slug)) {
+      throw new Error(
+        `site.config.js lists font category "${c.slug}" but ${label} has no ` +
+          `font in it — the filter would be a fake category`,
+      );
+    }
+  });
+
+  return fonts;
+}
+
+/**
  * resource-types.json — the union of what src/build/home.js and
  * src/build/header.js each used to check, minus the two rules neither file
  * can answer from the registry alone:
@@ -874,6 +1051,11 @@ function load(config) {
     "colors-data.json",
     config,
   );
+  const fonts = validateFonts(
+    readJsonArray(src.fonts, "fonts.json"),
+    "fonts.json",
+    config,
+  );
   const categories = validateCategories(
     readJsonArray(src.categories, "categories.json"),
     "categories.json",
@@ -910,6 +1092,14 @@ function load(config) {
      * 300 colours are deliberately NOT in content-index.json.
      */
     colors,
+    /**
+     * FONTS: validated against the contract and the files on disk. Feeds
+     * src/build/fonts.js, which writes /fonts/ and every /fonts/<id>.html,
+     * and src/build/routes.js, which derives those routes from it. Not part
+     * of content-index.json — the F9 contract fixes that index at guides and
+     * palettes.
+     */
+    fonts,
     categories,
     resourceTypes,
     warnings: annotated.warnings.slice(),
@@ -954,6 +1144,7 @@ module.exports = {
   validateCategories,
   validateResourceTypes,
   validateColors,
+  validateFonts,
 
   // content-index record vocabulary, re-exported by the render modules that
   // used to declare their own copies

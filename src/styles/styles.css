@@ -297,6 +297,16 @@ ul {
 .header-bottom .site-nav {
   font-size: 15px;
 }
+/* Seven links since Fonts joined the nav: at tablet widths the inner-page
+   row ran ~6px wider than the viewport at 768px and clipped the last link.
+   A tighter gap in just this band keeps the row whole at 768 and above;
+   below ~720 it still scrolls, as it already did with six links. Desktop
+   (900px+) keeps the 28px gap unchanged. */
+@media (min-width: 641px) and (max-width: 899px) {
+  .header-bottom .site-nav {
+    gap: 20px;
+  }
+}
 /* MAIN HEADER nav link colours. These base rules only ever paint the
    home header's nav: .header-bottom overrides colour, hover colour and
    both border-bottom-colors for the inner-page nav further down, so

@@ -261,8 +261,16 @@ function main() {
   pages.sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0));
 
   const siteFileSet = new Set(SITE_FILES);
+  // FONTS: the font library's binaries, download packages and per-family
+  // license files are static assets too. The .txt rule is scoped to
+  // fonts/<id>/ so a stray text file anywhere else still fails as unclassified
+  // instead of being swept in here.
   const assets = files
-    .filter((f) => /\.(png|jpe?g|webp|svg|ico)$/i.test(f))
+    .filter(
+      (f) =>
+        /\.(png|jpe?g|webp|svg|ico)$/i.test(f) ||
+        /^fonts\/[a-z0-9-]+\/[^/]+\.(woff2|ttf|otf|zip|txt)$/.test(f),
+    )
     .map((f) => "/" + f)
     .filter((u) => !siteFileSet.has(u)) // og-image.png is listed under siteFiles
     .sort();

@@ -1,1 +1,6 @@
 * text=auto eol=lf
+
+# Vendored font files (TTF/WOFF2 and each family's upstream OFL.txt) are
+# stored byte-for-byte: several license files use CRLF upstream, and the
+# build publishes them and packs them into ZIPs whose hashes are approved.
+public/fonts/** -text

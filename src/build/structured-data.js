@@ -291,6 +291,83 @@ function categoryJsonLd(input) {
 }
 
 // ---------------------------------------------------------------------
+// font pages
+// ---------------------------------------------------------------------
+
+const FONTS_CRUMB = { name: "Fonts", path: "/fonts/" };
+
+/**
+ * /fonts/ — a CollectionPage whose mainEntity lists every detail page, in the
+ * order the grid renders them. Same isPartOf/breadcrumb shape as the category
+ * pages' CollectionPage.
+ */
+function fontsCollectionJsonLd(input) {
+  const { name, description, fonts, origin } = input;
+  return topLevel({
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: absolute(origin, FONTS_CRUMB.path),
+    isPartOf: {
+      "@type": "WebSite",
+      name: ORGANIZATION_NAME,
+      url: absolute(origin, "/"),
+    },
+    breadcrumb: breadcrumbList(origin, [HOME_CRUMB, FONTS_CRUMB]),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: fonts.length,
+      itemListElement: fonts.map(function (font, i) {
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          name: font.name,
+          url: absolute(origin, `/fonts/${font.id}.html`),
+        };
+      }),
+    },
+  });
+}
+
+/**
+ * /fonts/<id>.html — the family as a CreativeWork, plus its breadcrumb trail.
+ *
+ * schema.org has no Font type, so this states only what the data can back:
+ * the license URL, the copyright notice verbatim from the family's license
+ * file, the designer as credit text (the data does not say whether a designer
+ * is a person or a foundry, so no Person/Organization is claimed), and the
+ * source it is based on. Nothing here asserts a price, a rating or a usage
+ * right beyond the license itself.
+ */
+function fontJsonLd(input) {
+  const { font, description, origin } = input;
+  const url = absolute(origin, `/fonts/${font.id}.html`);
+  return [
+    topLevel({
+      "@type": "CreativeWork",
+      name: `${font.name} font`,
+      description,
+      url,
+      genre: font.categoryLabel,
+      keywords: font.tags.join(", "),
+      creditText: `Designed by ${font.designer}`,
+      copyrightNotice: font.copyright,
+      license: font.licenseUrl,
+      isAccessibleForFree: true,
+      isBasedOn: font.sourceUrl,
+      inLanguage: IN_LANGUAGE,
+    }),
+    topLevel(
+      breadcrumbList(origin, [
+        HOME_CRUMB,
+        FONTS_CRUMB,
+        { name: font.name, path: `/fonts/${font.id}.html` },
+      ]),
+    ),
+  ];
+}
+
+// ---------------------------------------------------------------------
 // rendering
 // ---------------------------------------------------------------------
 
@@ -322,6 +399,8 @@ function scriptsHtml(objects, indent) {
 module.exports = {
   guideJsonLd,
   categoryJsonLd,
+  fontsCollectionJsonLd,
+  fontJsonLd,
   scriptsHtml,
   absolute,
   breadcrumbList,

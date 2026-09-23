@@ -30,5 +30,13 @@
     "nav": true,
     "activePaths": ["image-picker/"],
     "home": null
+  },
+  {
+    "type": "font",
+    "label": "Fonts",
+    "landingUrl": "/fonts/",
+    "nav": true,
+    "activePaths": ["fonts/"],
+    "home": null
   }
 ]

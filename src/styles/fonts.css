@@ -1,0 +1,747 @@
+/* /fonts/fonts.css — the font library: /fonts/ and every /fonts/<id>.html.
+   Loaded after /styles.css on the font pages only; nothing here reaches any
+   other page. Colours, the type family and the intro scale come from the
+   site tokens in styles.css (:root), so the pages sit in the same system as
+   /colors and /palettes. */
+
+.fonts-page {
+  --font-radius: 8px;
+  --font-line: #e7e9ee;
+  --font-line-strong: #cfd4dd;
+  --font-ink: #000;
+  --font-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.fonts-main {
+  padding-top: 28px;
+  padding-bottom: 72px;
+}
+
+/* ---------- listing hero ---------- */
+
+.fonts-hero {
+  padding: var(--intro-space-top) 0 clamp(28px, 2.4vw + 12px, 48px);
+}
+.fonts-hero h1 {
+  font-size: var(--intro-title-hero);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--font-ink);
+}
+.fonts-hero p {
+  max-width: 760px;
+  margin-top: var(--intro-title-gap);
+  color: var(--text-muted);
+  font-size: var(--intro-dek);
+  line-height: 1.45;
+}
+
+/* ---------- toolbar: filters, search, preview text, sort ---------- */
+
+.fonts-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--font-line);
+  margin-bottom: 20px;
+}
+
+.fonts-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fonts-filter {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 7px 14px;
+  border: 1px solid var(--font-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--font-ink);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 0.15s var(--font-ease),
+    background-color 0.15s var(--font-ease),
+    color 0.15s var(--font-ease);
+}
+.fonts-filter:hover {
+  border-color: var(--font-line-strong);
+}
+/* Selected = inverted. aria-pressed carries the same state to assistive
+   tech, so it is never communicated by colour alone. */
+.fonts-filter[aria-pressed="true"],
+.fonts-filter[aria-pressed="true"]:hover {
+  background: var(--font-ink);
+  border-color: var(--font-ink);
+  color: #fff;
+}
+.fonts-filter .font-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.fonts-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.fonts-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.fonts-field input,
+.fonts-field select {
+  height: 40px;
+  border: 1px solid var(--font-line);
+  border-radius: var(--font-radius);
+  background: #fff;
+  color: var(--font-ink);
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 0 12px;
+  min-width: 0;
+}
+.fonts-field input::placeholder {
+  color: #6b7485;
+}
+.fonts-field input:hover,
+.fonts-field select:hover {
+  border-color: var(--font-line-strong);
+}
+.fonts-field--search .font-icon {
+  position: absolute;
+  left: 11px;
+  width: 17px;
+  height: 17px;
+  color: #6b7485;
+  pointer-events: none;
+}
+.fonts-field--search input {
+  width: 220px;
+  padding-left: 34px;
+}
+.fonts-field--preview input {
+  width: 200px;
+}
+.fonts-field--sort {
+  gap: 8px;
+}
+.fonts-field--sort label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.fonts-field--sort select {
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.fonts-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* ---------- the grid ---------- */
+
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+
+@media (max-width: 1023px) {
+  .font-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .font-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 14px;
+  }
+}
+@media (max-width: 479px) {
+  .font-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+}
+
+.font-card {
+  position: relative;
+  min-width: 0;
+}
+.font-card[hidden] {
+  display: none;
+}
+
+.font-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--font-radius);
+  background: var(--font-bg, #f3f4f6);
+  color: var(--font-ink);
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.16s var(--font-ease);
+}
+.font-card:hover .font-card__preview {
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+.font-card__sample {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 100%;
+  font-size: clamp(26px, 1.4vw + 14px, 36px);
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+/* The family is applied only once the card is near the viewport (see
+   src/client/fonts.js), which is what keeps the listing from downloading
+   every font on load. Declaring @font-face alone fetches nothing. */
+.font-card.is-visible .font-card__sample {
+  font-family: var(--ff);
+  font-weight: var(--fw);
+  font-style: var(--fst);
+}
+.font-card__sample[data-custom] {
+  font-size: clamp(20px, 1vw + 13px, 26px);
+}
+
+@media (max-width: 479px) {
+  .font-card__preview {
+    aspect-ratio: 16 / 9;
+  }
+  .font-card__sample {
+    font-size: 34px;
+  }
+}
+
+.font-card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+.font-card__name {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--font-ink);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.font-card__name a {
+  text-decoration: none;
+}
+.font-card__name a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.font-card__actions {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 2px;
+}
+
+/* ---------- icon buttons, heart, menu ---------- */
+
+.font-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.font-icon--dots circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.font-icon-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #3d4556;
+  cursor: pointer;
+  transition:
+    background-color 0.15s var(--font-ease),
+    color 0.15s var(--font-ease);
+}
+.font-icon-btn:hover,
+.font-icon-btn[aria-expanded="true"] {
+  background: #f1f2f5;
+  color: var(--font-ink);
+}
+
+/* Saved: a filled heart. aria-pressed is the state; the fill mirrors it. */
+[data-font-fav][aria-pressed="true"] {
+  color: #c8103e;
+}
+[data-font-fav][aria-pressed="true"] .font-icon--heart {
+  fill: currentColor;
+}
+.fonts-filter[aria-pressed="true"] .font-icon--heart {
+  fill: currentColor;
+}
+
+.font-menu {
+  position: relative;
+}
+.font-menu__list {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  min-width: 180px;
+  padding: 6px;
+  border: 1px solid var(--font-line);
+  border-radius: var(--font-radius);
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+}
+.font-menu__list[hidden] {
+  display: none;
+}
+.font-menu__item {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--font-ink);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.font-menu__item:hover,
+.font-menu__item:focus-visible {
+  background: #f1f2f5;
+}
+.font-menu__item:focus-visible {
+  outline-offset: -2px;
+}
+
+/* ---------- empty state and note ---------- */
+
+.fonts-empty {
+  padding: 56px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+.fonts-empty[hidden] {
+  display: none;
+}
+.fonts-empty p + p {
+  margin-top: 6px;
+}
+.fonts-empty strong {
+  color: var(--font-ink);
+}
+
+.fonts-note {
+  max-width: 760px;
+  margin-top: 48px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.fonts-note a {
+  color: var(--font-ink);
+}
+
+/* ---------- detail page ---------- */
+
+.font-breadcrumb ol {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.font-breadcrumb li + li::before {
+  content: "/";
+  margin-right: 6px;
+  color: #9aa2b1;
+}
+.font-breadcrumb a {
+  text-decoration: none;
+}
+.font-breadcrumb a:hover {
+  color: var(--font-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The markup is in reading order — title, Save/Download, specimens, then the
+   About/License/Source list — so on narrow screens the font itself is never
+   pushed below a long block of metadata, and keyboard focus follows the
+   visual order at every width. From 1024px the grid moves both panels into
+   a right-hand column: the actions beside the title, the info list directly
+   under them, running down beside the specimens. */
+.font-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "head"
+    "actions"
+    "specimens"
+    "info";
+  gap: 32px;
+  margin-top: 24px;
+}
+.font-panel {
+  padding: 20px;
+  border: 1px solid var(--font-line);
+  border-radius: 10px;
+  background: #fff;
+}
+.font-panel--actions {
+  grid-area: actions;
+}
+.font-panel--info {
+  grid-area: info;
+}
+.font-panel--info .font-info__list > div:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+@media (min-width: 1024px) {
+  .font-detail {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-areas:
+      "head actions"
+      "head info"
+      "specimens info";
+    grid-template-rows: auto auto 1fr;
+    column-gap: 56px;
+    row-gap: 0;
+  }
+  .font-detail__head {
+    padding-bottom: 36px;
+  }
+  .font-panel {
+    align-self: start;
+  }
+  .font-panel--actions {
+    margin-bottom: 12px;
+  }
+}
+
+.font-detail__head {
+  grid-area: head;
+}
+.font-detail__title {
+  font-size: clamp(52px, 6vw + 16px, 112px);
+  line-height: 1.05;
+  color: var(--font-ink);
+  overflow-wrap: anywhere;
+}
+.font-detail__meta {
+  margin-top: 16px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.font-actions {
+  display: flex;
+  gap: 8px;
+}
+.font-action {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--font-line-strong);
+  border-radius: var(--font-radius);
+  background: #fff;
+  color: var(--font-ink);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s var(--font-ease),
+    border-color 0.15s var(--font-ease);
+}
+.font-action:hover {
+  border-color: var(--font-ink);
+}
+.font-action--primary {
+  flex: 1;
+  background: var(--font-ink);
+  border-color: var(--font-ink);
+  color: #fff;
+}
+.font-action--primary:hover {
+  background: #262626;
+}
+.font-action--icon {
+  width: 44px;
+  padding: 0;
+}
+.font-action .font-icon {
+  width: 18px;
+  height: 18px;
+}
+.font-menu__list--end {
+  right: 0;
+}
+
+.font-info__size {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.font-info__list {
+  margin: 0;
+}
+.font-info__list > div {
+  padding: 14px 0;
+  border-top: 1px solid var(--font-line);
+}
+.font-info__list dt {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--font-ink);
+  margin-bottom: 6px;
+}
+.font-info__list dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #3d4556;
+}
+.font-info__list dd a {
+  color: var(--font-ink);
+}
+.font-info__note {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.font-info__copyright {
+  overflow-wrap: anywhere;
+}
+.font-info__styles li + li {
+  margin-top: 2px;
+}
+.font-info__muted {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.font-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--font-ink);
+}
+
+.font-specimens {
+  grid-area: specimens;
+  min-width: 0;
+}
+
+.font-tester {
+  margin: 16px 0 8px;
+}
+.font-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.font-preset {
+  appearance: none;
+  min-height: 34px;
+  padding: 6px 13px;
+  border: 1px solid var(--font-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--font-ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.font-preset:hover {
+  border-color: var(--font-line-strong);
+}
+.font-preset[aria-pressed="true"] {
+  background: var(--font-ink);
+  border-color: var(--font-ink);
+  color: #fff;
+}
+
+.font-tester__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 12px;
+}
+.font-tester__row .fonts-field--preview {
+  flex: 1 1 260px;
+}
+.font-tester__row .fonts-field--preview input {
+  width: 100%;
+}
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.font-size-control input[type="range"] {
+  width: 160px;
+  accent-color: var(--font-ink);
+}
+.font-size-control output {
+  min-width: 48px;
+  color: var(--font-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.font-specimen-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.font-specimen {
+  padding: 18px 0 20px;
+  border-top: 1px solid var(--font-line);
+}
+.font-specimen__label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.font-specimen__text {
+  color: var(--font-ink);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.font-related {
+  margin-top: 72px;
+}
+.font-related .font-section-title {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  /* nowrap: in a wrapping column flexbox each line is as wide as its widest
+     item, so the single-row filter scroller below would widen the page. */
+  .fonts-toolbar {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  .fonts-toolbar > * {
+    min-width: 0;
+  }
+  .fonts-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0 -24px;
+    padding: 2px 24px;
+    scrollbar-width: none;
+  }
+  .fonts-filters::-webkit-scrollbar {
+    display: none;
+  }
+  .fonts-filter {
+    flex: none;
+  }
+  .fonts-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  .fonts-field--search {
+    grid-column: 1 / -1;
+  }
+  .fonts-field--search input,
+  .fonts-field--preview input {
+    width: 100%;
+  }
+  .fonts-field--preview {
+    min-width: 0;
+  }
+  .font-size-control {
+    width: 100%;
+  }
+  .font-size-control input[type="range"] {
+    flex: 1;
+    width: auto;
+  }
+  .font-related {
+    margin-top: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .font-card__preview,
+  .fonts-filter,
+  .font-icon-btn,
+  .font-action {
+    transition: none;
+  }
+}

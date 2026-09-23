@@ -65,6 +65,24 @@ module.exports = {
        */
       colors: path.join(ROOT, "colors", "colors-data.json"),
 
+      /**
+       * FONTS — the single source of truth for /fonts/ and every
+       * /fonts/<id>.html detail page. One record per family: its metadata,
+       * its license and provenance, and the variant files it ships.
+       *
+       * Unlike colors-data.json this is a BUILD INPUT, not an endpoint: the
+       * listing grid is rendered into the page at build time (so it is
+       * crawlable and works without JS), and the browser filters the
+       * rendered cards rather than fetching a data file.
+       *
+       * The font binaries and each family's OFL.txt live beside it under
+       * `fontFiles` and are published verbatim; the download ZIPs are
+       * generated from those files by src/build/fonts.js at build time, so
+       * no font file is stored twice.
+       */
+      fonts: path.join(ROOT, "src", "data", "fonts.json"),
+      fontFiles: path.join(ROOT, "public", "fonts"),
+
       categories: path.join(ROOT, "categories.json"),
       resourceTypes: path.join(ROOT, "resource-types.json"),
       /**
@@ -221,6 +239,33 @@ module.exports = {
   },
 
   /**
+   * FONTS — the font library contract. CONTRACT
+   *
+   * `count` is asserted by the `load` stage exactly the way the colour count
+   * is, so a truncated or duplicated fonts.json fails the build.
+   *
+   * `categories` is the vocabulary AND the filter-row order: each record's
+   * `category` must be one of these slugs, and every slug must have at least
+   * one font (a filter chip with nothing behind it is a fake category).
+   *
+   * `licenses` is the allow-list of licenses a font may ship under. Only
+   * licenses whose redistribution terms were verified belong here; a record
+   * naming anything else fails the build. src/build/content.js additionally
+   * checks every family's shipped OFL.txt against it.
+   */
+  fonts: {
+    count: 50,
+    categories: [
+      { slug: "serif", label: "Serif" },
+      { slug: "sans-serif", label: "Sans Serif" },
+      { slug: "display", label: "Display" },
+      { slug: "handwriting", label: "Handwriting" },
+      { slug: "monospace", label: "Monospace" },
+    ],
+    licenses: ["SIL Open Font License 1.1"],
+  },
+
+  /**
    * CONTRACT — the Phase 4 candidate surface, after token removal.
    *
    * Was 84 / 142 / 82 before removal. The deltas are entirely token:
@@ -245,11 +290,17 @@ module.exports = {
    * Picker additions to that surface are enumerated one-by-one in
    * check-urls.js's ALLOWED_ADDED before the baseline is re-recorded — see
    * that file.
+   *
+   * FONTS — the third change that ADDS, and the first to add generated pages
+   * in bulk:
+   *   htmlPages    43 → 94  (+51: fonts/index.html and one
+   *                          fonts/<id>.html per record in fonts.json)
+   *   sitemapUrls  42 → 93  (+51: the same 51 URLs)
    */
   expected: {
-    htmlPages: 43,
+    htmlPages: 94,
     snapshotUrls: 89,
-    sitemapUrls: 42,
+    sitemapUrls: 93,
   },
 
   /**

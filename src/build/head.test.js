@@ -53,15 +53,26 @@ const head = require("./head.js");
 const template = require("./guide-template.js");
 const categories = require("./categories.js");
 
+const fonts = require("./fonts.js");
+
 const model = content.load(config);
 const routeTable = routes.build(model);
 
-/** Every published page, read from the repo root, keyed by its route file. */
+/**
+ * Every published page, keyed by its route file. Committed pages are read
+ * from the repo root; routes marked `generated` have no committed file (see
+ * src/build/routes.js), so their builder renders them in memory instead.
+ */
 function committedPages() {
+  const generated = new Map(
+    fonts.build({ config, model }).pages.map((p) => [p.file, p.html]),
+  );
   return routeTable.map((r) => ({
     file: r.file.split(path.sep).join("/"),
     url: r.url,
-    text: fs.readFileSync(path.join(config.paths.root, r.file), "utf8"),
+    text: r.generated
+      ? generated.get(r.file)
+      : fs.readFileSync(path.join(config.paths.root, r.file), "utf8"),
   }));
 }
 

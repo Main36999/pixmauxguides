@@ -111,6 +111,29 @@ function route(file, type) {
 }
 
 /**
+ * FONTS — the first route group whose pages have NO committed source file.
+ *
+ * Every other route is a page on disk at the repo root that `copy` stages
+ * and a builder then patches or overwrites. The font pages are written from
+ * src/data/fonts.json by src/build/fonts.js and nothing else, so committing
+ * 51 stub files only for `copy` to stage them would be 51 files that exist to
+ * be overwritten. `generated: true` tells `copy` not to stage them; the
+ * builder writes them into the staging root before the header and footer run,
+ * and `render` publishes them like any other route.
+ *
+ * URL shape: /fonts/ for the listing and /fonts/<id>.html for each family.
+ * `fonts` is deliberately NOT in EXTENSIONLESS_DIRS, so urlFor() keeps the
+ * .html the way root pages (about.html, roadmap.html) keep theirs.
+ */
+const FONTS_DIR = "fonts";
+
+function fontRoutes(fonts) {
+  return [route(`${FONTS_DIR}/index.html`, "section")]
+    .concat(fonts.map((f) => route(`${FONTS_DIR}/${f.id}.html`, "font")))
+    .map((r) => Object.assign(r, { generated: true }));
+}
+
+/**
  * Builds the full route table from a loaded content model.
  * Deterministic: generated routes follow their source array's order, and
  * the table as a whole is sorted by URL before it is returned.
@@ -122,7 +145,8 @@ function build(model) {
     .concat(model.guides.map((g) => route(`guide/${g.id}.html`, "guide")))
     .concat(
       model.categories.map((c) => route(`category/${c.slug}.html`, "category")),
-    );
+    )
+    .concat(fontRoutes(model.fonts));
 
   routes.sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0));
 
@@ -140,4 +164,10 @@ function canonicalFor(config, url) {
   return config.origin + url;
 }
 
-module.exports = { build, urlFor, canonicalFor, EXTENSIONLESS_DIRS };
+module.exports = {
+  build,
+  urlFor,
+  canonicalFor,
+  EXTENSIONLESS_DIRS,
+  FONTS_DIR,
+};
