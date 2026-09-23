@@ -310,7 +310,7 @@ function buildRoadmap(guides) {
 //
 //   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
 //                             real, top-level destination
-//   HOME_RESOURCES_START/END  more useful resources — smaller neutral cards:
+//   HOME_RESOURCES_START/END  more useful resources — neutral title-and-text cards:
 //                             the guide topics the hero's trending row does
 //                             not already show, plus About
 //
@@ -380,9 +380,7 @@ const HOME_TOOLS = [
 const HOME_ABOUT = {
   title: "About BPOZZ",
   url: "/about.html",
-  cta: "Read more",
   desc: "Why BPOZZ exists, and what documenting design like a blueprint actually means.",
-  meta: "No sponsored content",
 };
 
 const CATEGORY_HREF_RE = /href="\/category\/([a-z0-9-]+)"/g;
@@ -403,10 +401,10 @@ function assertRoute(knownUrls, url, what) {
   }
 }
 
-function cardCtaHtml(block, cta) {
+function toolCtaHtml(cta) {
   return (
-    `<p class="${block}__cta" aria-hidden="true">` +
-    `<span>${escapeHtml(cta)}</span><span class="${block}__arrow">→</span>` +
+    `<p class="tool-card__cta" aria-hidden="true">` +
+    `<span>${escapeHtml(cta)}</span><span class="tool-card__arrow">→</span>` +
     `</p>`
   );
 }
@@ -418,7 +416,7 @@ function toolCardsHtml(model, knownUrls) {
       `<li class="tool-card tool-card--${tool.tone}">` +
       `<h3 class="tool-card__title"><a class="tool-card__link" href="${escapeHtml(tool.url)}">${escapeHtml(tool.title)}</a></h3>` +
       `<p class="tool-card__desc">${escapeHtml(tool.desc(model))}</p>` +
-      cardCtaHtml("tool-card", tool.cta) +
+      toolCtaHtml(tool.cta) +
       `</li>`
     );
   }).join("");
@@ -471,8 +469,6 @@ function resourceCardHtml(card) {
     `<li class="resource-card">` +
     `<h3 class="resource-card__title"><a class="resource-card__link" href="${escapeHtml(card.url)}">${escapeHtml(card.title)}</a></h3>` +
     `<p class="resource-card__desc">${escapeHtml(card.desc)}</p>` +
-    `<p class="resource-card__meta">${escapeHtml(card.meta)}</p>` +
-    cardCtaHtml("resource-card", card.cta) +
     `</li>`
   );
 }
@@ -483,9 +479,7 @@ function resourceCardsHtml(topics, knownUrls) {
       return {
         title: t.category.name,
         url: `/category/${t.category.slug}`,
-        cta: "Read the guides",
         desc: t.category.description,
-        meta: `${t.guides} guide${t.guides === 1 ? "" : "s"}`,
       };
     })
     .concat(HOME_ABOUT);
