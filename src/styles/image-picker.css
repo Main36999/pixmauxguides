@@ -52,30 +52,32 @@
 }
 
 /* ---------- hero header ---------- */
-/* No eyebrow, no breadcrumb: the heading and subtitle ARE the header. Sized
-   as a real display hero (clamp targets ~48px mobile / ~64px tablet /
-   ~80px desktop) rather than a slim documentation-page title bar, so the
-   page reads as a dedicated tool up front rather than another content
-   page with a big control panel bolted on. */
+/* No eyebrow, no breadcrumb: the heading and subtitle ARE the header.
+   Sized on the site-wide page-intro scale (--intro-* in styles.css) so
+   this tool opens with the same title / description / whitespace rhythm
+   as /palettes, /colors and the category pages. */
 .ip-head {
-  margin-bottom: 28px;
+  padding-top: var(--intro-space-top);
+  margin-bottom: clamp(36px, 4vw + 12px, 72px);
 }
 .ip-head h1 {
   margin: 0;
-  font-size: clamp(48px, 4vw + 32px, 80px);
+  font-size: var(--intro-title-hero);
   font-weight: 800;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: var(--text);
   font-family: var(--sans);
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 .ip-head__subtitle {
-  margin: 10px 0 0;
-  max-width: 46ch;
+  margin: var(--intro-title-gap) 0 0;
+  max-width: 800px;
   font-family: var(--sans);
-  font-size: clamp(22px, 2vw + 16px, 30px);
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: var(--intro-dek);
+  font-weight: 400;
+  line-height: 1.45;
   color: var(--text-muted);
 }
 

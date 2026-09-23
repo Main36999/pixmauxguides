@@ -57,24 +57,20 @@
   margin-bottom: 26px;
 }
 
+/* Page-intro scale from styles.css (--intro-*): the title is the first
+   thing on the page, then a clear gap, then the description, then room
+   before the sort tabs. */
 .palettes-hero {
-  padding: 0 0 18px;
-}
-.palettes-hero__eyebrow {
-  display: block;
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--action);
-  margin-bottom: 8px;
+  padding: var(--intro-space-top) 0 clamp(32px, 3vw + 16px, 64px);
 }
 .palettes-hero h1 {
-  font-size: clamp(34px, 6.2vw, 72px);
-  line-height: 1.02;
-  letter-spacing: -0.028em;
+  font-size: var(--intro-title-hero);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: var(--text);
-  margin-bottom: 8px;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 /* Hover gradient, no JS and no duplicated text node.
    The gradient is always painted behind the glyphs and clipped to them;
@@ -103,10 +99,11 @@
   }
 }
 .palettes-hero p {
-  max-width: 56ch;
+  max-width: 800px;
+  margin-top: var(--intro-title-gap);
   color: var(--text-muted);
-  font-size: 15.5px;
-  line-height: 1.55;
+  font-size: var(--intro-dek);
+  line-height: 1.45;
 }
 
 /* ---------- sort tabs ---------- */
