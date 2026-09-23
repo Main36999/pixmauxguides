@@ -441,11 +441,6 @@
   fill: #e0245e;
   stroke: #e0245e;
 }
-/* Tabular figures so a count ticking 9 -> 10 doesn't reflow the row. */
-.palette-like-count {
-  font-variant-numeric: tabular-nums;
-}
-
 /* This palette's 4 color names (palettes-data.json's names[], joined
    with " · "), moved here from the swatches as plain, non-interactive
    text. Shrinks below its own content width (min-width:0) and clips

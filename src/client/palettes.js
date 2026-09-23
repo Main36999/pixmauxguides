@@ -6,21 +6,29 @@
  * formats and a11y scoring.
  *
  * Data flow:
- *   1. Fetch ./palettes-data.json (id, 4 hex colors, a seed "likes"
- *      count, createdAt) and render the grid immediately from that —
- *      the page works with zero backend, showing the seed counts.
+ *   1. Fetch ./palettes-data.json (id, 4 hex colors, names, createdAt)
+ *      and render the grid immediately from that — the page works with
+ *      zero backend.
  *   2. If firebaseConfig below has been filled in with a real project,
- *      wireFirebase() loads the Firebase SDK from a CDN, seeds
- *      Realtime Database's /likes/<id> node from the JSON the first
- *      time it's ever read (so counts start where the JSON says, not
- *      at 0), then keeps every card's count live via onValue — every
- *      visitor sees the same number update in real time, and likes
- *      persist across reloads and browsers.
- *   3. Until firebaseConfig is filled in, the heart button still works
- *      (increments/decrements a number held only in this page's memory
- *      + localStorage for "did I like this" state) so the page is
- *      fully demoable before any backend setup — see the "preview"
- *      tag rendered on each card's like button in that mode.
+ *      wireFirebase() loads the Firebase SDK from a CDN and every like /
+ *      unlike is recorded as an atomic ±1 transaction on Realtime
+ *      Database's /likes/<id> node. A node that does not exist yet starts
+ *      at 0: nothing is written until a visitor actually likes a palette.
+ *   3. The heart button toggles this browser's "I liked this" state
+ *      (localStorage) in every mode; until firebaseConfig is filled in,
+ *      nothing is recorded remotely — see the "preview" tag rendered on
+ *      each card's like button in that mode.
+ *
+ * WHY NO COUNTS AND NO "POPULAR" SORT
+ *
+ * palettes-data.json used to carry a generated "likes" number per palette,
+ * and the page seeded each /likes/<id> node from it the first time the node
+ * was read, then displayed and ranked by the stored value. Those numbers
+ * were invented, not collected, and the seed values changed several times
+ * after the database went live — so a stored count is some unknown seed
+ * plus whatever real likes followed, and the two cannot be separated from
+ * here. Until the stored counts are known to be genuine, the page neither
+ * shows a count nor ranks palettes by one. Likes are still recorded.
  *
  * See SETUP-FIREBASE.md in this folder for exactly what to paste below
  * and the Realtime Database security rules this page needs.
@@ -210,20 +218,14 @@
 
   // ---- state -----------------------------------------------------------
   var palettes = []; // as loaded from palettes-data.json
-  var liveLikes = {}; // id -> current like count
   var currentSort = "new";
   var randomOrder = null; // stable until re-shuffled
-  var resortPending = false;
 
   function sortedList() {
     var list = palettes.slice();
     if (currentSort === "new") {
       list.sort(function (a, b) {
         return (b.createdAt || "").localeCompare(a.createdAt || "");
-      });
-    } else if (currentSort === "popular") {
-      list.sort(function (a, b) {
-        return (liveLikes[b.id] || 0) - (liveLikes[a.id] || 0);
       });
     } else if (currentSort === "random") {
       if (!randomOrder) {
@@ -307,9 +309,7 @@
       p.id +
       '" aria-pressed="' +
       (liked ? "true" : "false") +
-      '" aria-label="Like this palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg><span class="palette-like-count">' +
-      (liveLikes[p.id] != null ? liveLikes[p.id] : p.likes) +
-      "</span></button>" +
+      '" aria-label="Like this palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>' +
       '<span class="palette-card__names">' +
       namesHtml(p) +
       "</span>" +
@@ -331,24 +331,6 @@
     }
     if (emptyState) emptyState.removeAttribute("data-visible");
     gridRoot.innerHTML = list.map(cardHtml).join("");
-  }
-
-  function scheduleResort() {
-    if (resortPending) return;
-    resortPending = true;
-    requestAnimationFrame(function () {
-      resortPending = false;
-      if (currentSort === "popular") render();
-    });
-  }
-
-  function updateCount(id, count) {
-    liveLikes[id] = count;
-    var btn = gridRoot.querySelector(
-      '.palette-like-btn[data-id="' + id + '"] .palette-like-count',
-    );
-    if (btn) btn.textContent = count;
-    if (currentSort === "popular") scheduleResort();
   }
 
   // ---- sort tabs ---------------------------------------------------------
@@ -391,14 +373,12 @@
   });
 
   function applyLikeDelta(id, delta) {
+    // Recorded remotely only when Firebase is configured and loaded; the
+    // transaction is atomic server-side, so several tabs/visitors liking
+    // at once stay correct. In preview mode the liked state above is all
+    // there is.
     if (FIREBASE_CONFIGURED && window.__bpozzLikeDelta) {
-      // The onValue listener wired up in wireFirebase() will push the
-      // committed count back into updateCount() — no local mutation
-      // needed, and this stays correct even with several tabs/visitors
-      // liking at once since the transaction is atomic server-side.
       window.__bpozzLikeDelta(id, delta);
-    } else {
-      updateCount(id, Math.max(0, (liveLikes[id] || 0) + delta));
     }
   }
 
@@ -432,7 +412,7 @@
     }, 2400);
   }
 
-  // ---- load seed data, then render ---------------------------------------
+  // ---- load palette data, then render -------------------------------------
   // Site-root, not "./palettes-data.json": served at /palettes (no trailing
   // slash) the relative form resolves to /palettes-data.json and 404s. It
   // only worked while the host redirected /palettes to /palettes/ — the
@@ -445,23 +425,24 @@
     .then(function (data) {
       if (!Array.isArray(data)) throw new Error("not an array");
       palettes = data;
-      data.forEach(function (p) {
-        liveLikes[p.id] = p.likes;
-      });
       render();
       focusPaletteFromHash();
-      if (FIREBASE_CONFIGURED) wireFirebase(data);
+      if (FIREBASE_CONFIGURED) wireFirebase();
     })
     .catch(function (err) {
       console.error("Couldn't load palettes-data.json", err);
       if (emptyState) emptyState.setAttribute("data-visible", "true");
     });
 
-  // ---- Firebase real-time likes -------------------------------------------
+  // ---- Firebase likes -------------------------------------------------------
   // Only runs once firebaseConfig above has real values. Dynamic import()
   // works fine in a plain (non-module) script, so this file doesn't need
   // type="module" on its <script> tag.
-  function wireFirebase(data) {
+  //
+  // Write-only: the page no longer reads, seeds or displays /likes/<id>
+  // (see "WHY NO COUNTS" at the top of this file). A node that does not
+  // exist yet is created by the first real like, starting from 0.
+  function wireFirebase() {
     Promise.all([
       import("https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js"),
       import("https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js"),
@@ -472,36 +453,13 @@
         var app = appMod.initializeApp(firebaseConfig);
         var db = dbMod.getDatabase(app);
 
-        data.forEach(function (p) {
-          var ref = dbMod.ref(db, "likes/" + p.id);
-          var seeded = false;
-          dbMod.onValue(ref, function (snap) {
-            var val = snap.val();
-            if (typeof val === "number") {
-              updateCount(p.id, val);
-              return;
-            }
-            // Seed the node from the JSON only when it doesn't exist yet.
-            // This used to run a transaction for all 300 palettes on every
-            // page load — 300 read-then-write round trips per visitor, even
-            // though every node already existed. The transaction still
-            // guards against two visitors seeding the same node at once.
-            if (val === null && !seeded) {
-              seeded = true;
-              dbMod.runTransaction(ref, function (current) {
-                return current === null ? p.likes : current;
-              });
-            }
-          });
-        });
-
         window.__bpozzLikeDelta = function (id, delta) {
           dbMod.runTransaction(
             dbMod.ref(db, "likes/" + id),
             function (current) {
-              // Never below zero: the database rule rejects negatives, and a
-              // rejected write would leave this visitor's liked state out of
-              // step with the count.
+              // A missing node counts from 0. Never below zero: the database
+              // rule rejects negatives, and a rejected write would leave this
+              // visitor's liked state out of step with the count.
               return Math.max(
                 0,
                 (typeof current === "number" ? current : 0) + delta,
