@@ -12,15 +12,15 @@
  *
  * WHAT IT RENDERS
  *
- *   index.html          the homepage (tool-first redesign): the palette
- *                       workspace's five color columns (HOME_PALETTE_START/
- *                       END + HOME_PALETTE_MODE), the numbered toolkit index
- *                       (HOME_TOOLKIT_START/END, counts from the model), and
- *                       the resource sections between RESOURCE_SECTIONS_START/
- *                       END, from resource-types.json + content-index.json
- *                       (+ guides.json for guide rows and roadmap ordering).
- *                       The sections are editorial numbered lists, not card
- *                       grids; the homepage renders no .content-card at all.
+ *   index.html          the homepage below its static hero: the tool cards
+ *                       (HOME_TOOLS_START/END) and the resource cards
+ *                       (HOME_RESOURCES_START/END), from the content model —
+ *                       colors, palettes, guides, categories — and the route
+ *                       table. The hero (headline, search, trending
+ *                       categories) is hand-authored and not touched here.
+ *                       The old generated resource sections, driven by
+ *                       resource-types.json's `home` blocks + the content
+ *                       index, are gone; see assertNoHomeBlocks().
  *   guides/index.html   the Guides collection (Phase 6): the full guide grid
  *                       (#grid-root, between GUIDES_GRID_START/END), its
  *                       results count (RESULTS_COUNT) and the
@@ -155,28 +155,6 @@ const path = require("path");
 const { escapeHtml } = require("../shared/html.js");
 const BpozzCard = require("../shared/card.js");
 const content = require("./content.js");
-// The homepage workspace's pure color math (describe(): HEX/RGB/HSL/contrast).
-// The browser runs the same file as /home.js, so the first render and every
-// client-side re-render share one implementation.
-const HomeWorkspace = require("../client/home.js");
-
-/**
- * PHASE 4 STEP 6 — content-index vocabulary, from its one home.
- *
- * Both of these were declared here AND in src/build/categories.js, each copy
- * commented as matching the other. They read a content-index record and are
- * keyed off fields src/build/content.js writes onto it, so that is where they
- * live now. Re-exported below so this module's API is unchanged:
- *
- *   TYPE_BADGE_LABEL  the .badge wording for a record's `type`. No longer
- *                     rendered here — homepage rows sit under a per-type
- *                     section heading — but still re-exported unchanged.
- *   tagsMetaFor       the Title Cased tag summary used as the meta line of
- *                     genericRowHtml(), for a resource type with no bespoke
- *                     homepage row.
- */
-const TYPE_BADGE_LABEL = content.TYPE_BADGE_LABEL;
-const tagsMetaFor = content.tagsMetaFor;
 
 /** The three pages this module patches, relative to the staging root. */
 const INDEX_PAGE = "index.html";
@@ -279,7 +257,7 @@ function formatRoadmapTime(totalMinutes) {
 
 /**
  * The roadmap's grouping/ordering, shared by buildRoadmap() (roadmap.html)
- * and roadmapOrder() (the homepage's Featured Guides section, Phase 6), so
+ * and the homepage's Learning Roadmap card (its guide and stage counts), so
  * both read guides in exactly one order. Guides with a numeric `roadmapStage`
  * are sorted by `roadmapStep`, grouped by stage, and the stages are kept in
  * ROADMAP_STAGES order.
@@ -298,18 +276,6 @@ function groupRoadmap(guides) {
 
   const stagesUsed = ROADMAP_STAGES.filter((s) => byStage.has(s.id));
   return { roadmapGuides, byStage, stagesUsed };
-}
-
-/**
- * The guides in the order roadmap.html displays them: stage by stage, step by
- * step. Guides not on the roadmap are not included.
- */
-function roadmapOrder(guides) {
-  const { byStage, stagesUsed } = groupRoadmap(guides);
-  return stagesUsed.reduce(
-    (ordered, s) => ordered.concat(byStage.get(s.id)),
-    [],
-  );
 }
 
 /**
@@ -337,506 +303,214 @@ function buildRoadmap(guides) {
 }
 
 // ---------------------------------------------------------------------
-// homepage: palette workspace (index.html #palette-stage)
+// homepage: tool and resource cards (index.html, below the hero)
 // ---------------------------------------------------------------------
-// The first viewport of the homepage is a working palette, not a banner. The
-// build writes five complete color columns — name, HEX, RGB, HSL and the
-// better-reading text color with its WCAG ratio — so the palette is real,
-// readable content with JavaScript off. /home.js (src/client/home.js) then
-// un-hides the [data-enhanced] controls and takes over: Generate, lock,
-// vary, copy. It only ever rewrites the [data-field] text inside the columns
-// this module writes; it never builds column markup of its own.
+// The hero (headline, search, trending categories) is static markup in
+// index.html. Everything below it is two card sections written here:
 //
-// Every derived string comes from src/client/home.js's pure describe(), so
-// the first render and every client re-render are guaranteed to agree.
+//   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
+//                             real, top-level destination
+//   HOME_RESOURCES_START/END  more useful resources — smaller neutral cards:
+//                             the guide topics the hero's trending row does
+//                             not already show, plus About
 //
-// The opening palette is BPOZZ's own system — the five tokens every page on
-// the site is drawn with — so the homepage opens on a palette that is
-// actually in use, and says so: each column carries its CSS custom property
-// name beside its number. home.js clears that token label as soon as a
-// column holds anything other than its seed color.
+// Every card is a real <a> (the title link, stretched over the card), every
+// URL is checked against the route table so a card can never point at a
+// page the build did not produce, and every count comes from the content
+// model rather than from copy that could go stale.
 
-const WORKSPACE_SEED = {
-  mode: "BPOZZ system tokens",
-  colors: [
-    { hex: "#101010", name: "Header ink", token: "--header-bg" },
-    { hex: "#2563EB", name: "Action blue", token: "--action" },
-    { hex: "#22A6C4", name: "Signal cyan", token: "--cyan" },
-    { hex: "#DBE6F7", name: "Grid line", token: "--grid-line" },
-    { hex: "#F5F8FC", name: "Paper", token: "--paper" },
-  ],
+/**
+ * The tool cards, in display order. `tone` picks the card's pastel
+ * background and heading color in home.css (.tool-card--<tone>); `desc`
+ * is a function of the content model so its counts are always live.
+ */
+const HOME_TOOLS = [
+  {
+    title: "Colors",
+    url: "/colors/",
+    tone: "cyan",
+    cta: "Explore colors",
+    desc: (m) =>
+      `${m.colors.length} named colors across ${new Set(m.colors.map((c) => c.category)).size} families, each with its HEX and RGB values.`,
+  },
+  {
+    title: "Color Palettes",
+    url: "/palettes/",
+    tone: "blue",
+    cta: "Browse palettes",
+    desc: (m) =>
+      `${m.palettes.length} palettes, each a surface, a deep tone and two accents. Like, sort and copy any value.`,
+  },
+  {
+    title: "Image Picker",
+    url: "/image-picker/",
+    tone: "lavender",
+    cta: "Open the picker",
+    desc: () =>
+      "Pull a usable palette out of any photo. It runs in your browser; your image is never uploaded.",
+  },
+  {
+    title: "UI/UX Guides",
+    url: "/guides/",
+    tone: "pink",
+    cta: "Read the guides",
+    desc: (m) =>
+      `${m.guides.length} practical guides on spacing, type, color and systems, written like engineering specs.`,
+  },
+  {
+    title: "Learning Roadmap",
+    url: "/roadmap.html",
+    tone: "orange",
+    cta: "Start the roadmap",
+    desc: (m) => {
+      const { roadmapGuides, stagesUsed } = groupRoadmap(m.guides);
+      return `A reading order through ${roadmapGuides.length} guides in ${stagesUsed.length} stages. Mark each one read as you go.`;
+    },
+  },
+  {
+    title: "Search",
+    url: "/search.html",
+    tone: "green",
+    cta: "Search BPOZZ",
+    desc: () => "Find any guide or color palette on the site by name or topic.",
+  },
+];
+
+/** The one resource card that is not a guide topic. */
+const HOME_ABOUT = {
+  title: "About BPOZZ",
+  url: "/about.html",
+  cta: "Read more",
+  desc: "Why BPOZZ exists, and what documenting design like a blueprint actually means.",
+  meta: "No sponsored content",
 };
 
-const ICON_LOCK =
-  `<svg class="palette-tool__icon palette-tool__icon--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/></svg>` +
-  `<svg class="palette-tool__icon palette-tool__icon--closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`;
-const ICON_VARY = `<svg class="palette-tool__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 0 1-13.7 5.6"/><path d="M4 12a8 8 0 0 1 13.7-5.6"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg>`;
-
-function paletteColorHtml(color, i) {
-  const d = HomeWorkspace.describe(color.hex, color.name);
-  const n = i + 1;
-  return (
-    `<li class="palette-color" data-hex="${d.hex}" data-name="${escapeHtml(d.name)}"` +
-    (color.token ? ` data-token="${escapeHtml(color.token)}"` : "") +
-    ` style="--swatch:${d.hex};--ink:${d.ink}">` +
-    `<button type="button" class="palette-color__copy" data-action="copy" data-enhanced hidden aria-label="Copy ${d.hex}, ${escapeHtml(d.name)}"></button>` +
-    `<p class="palette-color__index" aria-hidden="true">` +
-    `<span>${String(n).padStart(2, "0")}</span>` +
-    `<span class="palette-color__token" data-field="token">${escapeHtml(color.token || "")}</span>` +
-    `</p>` +
-    `<div class="palette-color__tools" data-enhanced hidden>` +
-    `<button type="button" class="palette-tool" data-action="lock" aria-pressed="false" aria-label="Lock color ${n}, ${d.hex}" title="Lock">${ICON_LOCK}</button>` +
-    `<button type="button" class="palette-tool" data-action="vary" aria-label="Vary color ${n}, ${d.hex}" title="Vary">${ICON_VARY}</button>` +
-    `</div>` +
-    `<div class="palette-color__body">` +
-    `<p class="palette-color__name" data-field="name">${escapeHtml(d.name)}</p>` +
-    `<p class="palette-color__hex" data-field="hex">${d.hex}</p>` +
-    `<dl class="palette-color__values">` +
-    `<div><dt>RGB</dt><dd data-field="rgb">${d.rgb}</dd></div>` +
-    `<div><dt>HSL</dt><dd data-field="hsl">${d.hsl}</dd></div>` +
-    `<div><dt>Text</dt><dd data-field="contrast">${d.contrast}</dd></div>` +
-    `</dl>` +
-    `</div>` +
-    `</li>`
-  );
-}
-
-function buildWorkspace(seed) {
-  return {
-    mode: escapeHtml(seed.mode),
-    columns: seed.colors.map(paletteColorHtml).join(""),
-    count: seed.colors.length,
-  };
-}
-
-// ---------------------------------------------------------------------
-// homepage: toolkit index (index.html, between HOME_TOOLKIT_START/END)
-// ---------------------------------------------------------------------
-// What BPOZZ contains, as four numbered editorial rows rather than four
-// boxes. Counts come from the loaded model, so they can never go stale, and
-// every URL is checked against the route table so a row can never point at
-// a page the build did not produce.
-
-function toolkitEntries(model) {
-  const colorFamilies = new Set(model.colors.map((c) => c.category)).size;
-  const guideTopics = new Set(model.guides.map((g) => g.category)).size;
-  return [
-    {
-      title: "Colors",
-      url: "/colors/",
-      desc: "Every color named, valued and grouped by family.",
-      meta: `${model.colors.length} colors · ${colorFamilies} families`,
-      action: "Explore colors",
-    },
-    {
-      title: "Palettes",
-      url: "/palettes/",
-      desc: "Finished color systems, surfaces and accents worked out.",
-      meta: `${model.palettes.length} palettes`,
-      action: "Explore palettes",
-    },
-    {
-      title: "Image Picker",
-      url: "/image-picker/",
-      desc: "Pull a usable palette from a photo. Nothing is uploaded.",
-      meta: "Runs in your browser",
-      action: "Open the picker",
-    },
-    {
-      title: "Guides",
-      url: "/guides/",
-      desc: "Spacing, type, color and systems, written like specs.",
-      meta: `${model.guides.length} guides · ${guideTopics} topics`,
-      action: "Read the guides",
-    },
-  ];
-}
+const CATEGORY_HREF_RE = /href="\/category\/([a-z0-9-]+)"/g;
 
 /**
- * One row per entry: a large index number, the name (the row's one link,
- * stretched over the whole row) with a one-line description, the live count,
- * and a visual "action →" cue. The cue is aria-hidden — the link already
- * names the destination, so a screen reader hears it once.
+ * Guide topics that always sort to the end of the resource cards, whatever
+ * their guide count: still real, still linked, just not what a visitor
+ * should meet first. Adobe XD is a discontinued product, so its workflow
+ * topic goes last.
  */
-function toolkitHtml(entries, knownUrls) {
-  return entries
-    .map(function (entry, i) {
-      if (!knownUrls.has(entry.url)) {
-        throw new Error(
-          `homepage toolkit row "${entry.title}" links to ${entry.url}, which is not in the route table`,
-        );
-      }
-      const num = String(i + 1).padStart(2, "0");
-      return (
-        `<li class="home-index__row">` +
-        `<span class="home-index__num" aria-hidden="true">${num}</span>` +
-        `<div class="home-index__main">` +
-        `<h3 class="home-index__title"><a class="home-index__link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>` +
-        `<p class="home-index__desc">${escapeHtml(entry.desc)}</p>` +
-        `</div>` +
-        `<p class="home-index__meta">${escapeHtml(entry.meta)}</p>` +
-        `<span class="home-index__action" aria-hidden="true">${escapeHtml(entry.action)}<span class="home-arrow">→</span></span>` +
-        `</li>`
-      );
-    })
-    .join("");
-}
+const RESOURCE_TOPICS_LAST = new Set(["adobe-xd"]);
 
-// ---------------------------------------------------------------------
-// homepage resource sections (Phase 5; Guides added in Phase 6)
-// ---------------------------------------------------------------------
-// Every shipped resource type with a `home` object in resource-types.json
-// gets one generated section (`home: null` opts a type out). The selection
-// rules — order, limit, sort, duplicate-colour exclusion — are unchanged
-// from the card-grid homepage; only the presentation is. Each section is an
-// editorial index: a sticky heading column and a numbered list of rows,
-// never a grid of cards.
-//
-// These sections are written between RESOURCE_SECTIONS_START/END inside the
-// homepage's <main>. The homepage has no #grid-root; never put these sections
-// inside one — app.js replaces #grid-root's innerHTML on load.
-//
-// Adding a future resource type to the homepage = its records in
-// content-index.json + one resource-types.json entry. A type with no bespoke
-// row renderer below falls back to genericRowHtml() and genericCopy(). A type
-// with zero records renders nothing (no empty/placeholder section).
-//
-// SORTS mirror each collection's own existing ordering exactly, so a section
-// shows the same leading items that collection shows:
-//   latest  — palettes/palettes.js sortedList() "new"
-//   roadmap — roadmap.html's reading order (groupRoadmap() above); Guides
-//             only. guides.json has no date or popularity, so Guides are never
-//             given a popular/latest sort. Guides that aren't on the roadmap
-//             sort after every roadmap guide, in guides.json order.
-// Each entry is a factory returning the comparator, given the build context
-// (only `roadmap` uses it). Array.prototype.sort is stable, so ties keep
-// content-index.json order.
-//
-// DUPLICATE-COLOUR EXCLUSION
-// Sections are filled in `home.order`; a record is skipped when the first four
-// of its `colors` (lowercased) match a record already shown in an earlier
-// section, so the same colours are never shown twice on the page. The skip
-// happens BEFORE the limit is applied, so a section still fills up to `limit`
-// whenever enough distinct records exist. Records without `colors` are never
-// affected. Nothing triggers it against the current data; it is kept because
-// it is generic and guards any future pair of sections that could collide.
-
-const HOME_SORTS = {
-  popular: function () {
-    return function (a, b) {
-      return (b.popularity || 0) - (a.popularity || 0);
-    };
-  },
-  latest: function () {
-    return function (a, b) {
-      return (b.date || "").localeCompare(a.date || "");
-    };
-  },
-  roadmap: function (context) {
-    const rank = context.roadmapRank;
-    const rankOf = function (record) {
-      return rank.has(record.slug) ? rank.get(record.slug) : rank.size;
-    };
-    return function (a, b) {
-      return rankOf(a) - rankOf(b);
-    };
-  },
-};
-
-/** Sorts that only make sense for one resource type. */
-const SORT_TYPE_ONLY = { roadmap: "guide" };
-
-/**
- * Section label prefix per sort, in the site's "/ snake_case" label style —
- * e.g. "/ latest_palettes", "/ featured_guides".
- */
-const SORT_LABEL = {
-  popular: "popular",
-  latest: "latest",
-  roadmap: "featured",
-};
-
-const HEX_RE = /^#[0-9a-f]{6}$/i;
-
-/**
- * Checks the registry against what THIS module can render.
- *
- * The resource-types.json shape is checked once, in src/build/content.js,
- * before `render` calls this. What stays here is the rule only this module
- * can answer: `home.sort` has to name a comparator in HOME_SORTS, and a sort
- * listed in SORT_TYPE_ONLY may only be asked for by the one type it makes
- * sense for.
- */
-function loadResourceTypes(registry) {
-  registry.forEach(function (entry, i) {
-    if (entry.home === null) return;
-    const where = `resource-types.json[${i}]`;
-    const home = entry.home;
-    if (!Object.prototype.hasOwnProperty.call(HOME_SORTS, home.sort)) {
-      throw new Error(
-        `${where}.home.sort must be one of: ${Object.keys(HOME_SORTS).join(", ")}`,
-      );
-    }
-    if (
-      Object.prototype.hasOwnProperty.call(SORT_TYPE_ONLY, home.sort) &&
-      SORT_TYPE_ONLY[home.sort] !== entry.type
-    ) {
-      throw new Error(
-        `${where}.home.sort "${home.sort}" is only valid for type "${SORT_TYPE_ONLY[home.sort]}"`,
-      );
-    }
-  });
-  return registry;
-}
-
-function colorKey(record) {
-  if (!Array.isArray(record.colors) || record.colors.length < 4) return null;
-  return record.colors
-    .slice(0, 4)
-    .map(function (hex) {
-      return String(hex).trim().toLowerCase();
-    })
-    .join("|");
-}
-
-/**
- * Colors are written into inline style attributes, so each one is validated as
- * a plain #rrggbb value first — a malformed value fails the build instead of
- * reaching the page.
- */
-function validatedColors(record) {
-  const colors = Array.isArray(record.colors) ? record.colors : [];
-  colors.forEach(function (hex) {
-    if (typeof hex !== "string" || !HEX_RE.test(hex)) {
-      throw new Error(
-        `content-index record "${record.id}" has an invalid color value: ${JSON.stringify(hex)}`,
-      );
-    }
-  });
-  return colors;
-}
-
-/** A thin row of color bars; decorative — the hex values are written out as text beside it. */
-function colorStripHtml(colors) {
-  if (!colors.length) return "";
-  return (
-    `<span class="home-strip" aria-hidden="true">` +
-    colors
-      .map(function (hex) {
-        return `<span style="background-color:${hex}"></span>`;
-      })
-      .join("") +
-    `</span>`
-  );
-}
-
-function rowNumber(i) {
-  return `<span class="home-row__num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>`;
-}
-
-/**
- * Guide row: number, title, topic, reading time — drawn from the guides.json
- * entry matching the content-index record, the same source the /guides grid
- * renders from, so the two can never disagree. Links to /guide/<id>.
- */
-function guideRowHtml(record, i, context) {
-  const guide = context.guidesById.get(record.slug);
-  if (!guide) {
+function assertRoute(knownUrls, url, what) {
+  if (!knownUrls.has(url)) {
     throw new Error(
-      `content-index record "${record.id}" has no matching guides.json entry.\n` +
-        `  The index and guides.json disagree, which means this build is reading a\n` +
-        `  stale content-index.json. The pipeline's \`data\` stage regenerates the\n` +
-        `  index from guides.json immediately before \`render\` calls this module.`,
+      `homepage ${what} links to ${url}, which is not in the route table`,
     );
   }
-  const topic = context.categoryLabels[guide.category];
-  const meta = (topic ? [topic.label] : []).concat(`${guide.readTime} min read`);
+}
+
+function cardCtaHtml(block, cta) {
   return (
-    `<li class="home-row home-guide">` +
-    `<a class="home-row__link" href="/guide/${escapeHtml(guide.id)}">` +
-    rowNumber(i) +
-    `<span class="home-row__text">` +
-    `<span class="home-row__title">${escapeHtml(guide.title)}</span>` +
-    `<span class="home-row__meta">${meta.map(escapeHtml).join(" · ")}</span>` +
-    `</span>` +
-    `</a>` +
-    `</li>`
+    `<p class="${block}__cta" aria-hidden="true">` +
+    `<span>${escapeHtml(cta)}</span><span class="${block}__arrow">→</span>` +
+    `</p>`
   );
 }
 
-/** Palette row: a strip of its four colors, its name and the hex values. Links to /palettes#<id>. */
-function paletteRowHtml(record, i) {
-  const colors = validatedColors(record);
-  return (
-    `<li class="home-row home-palette">` +
-    `<a class="home-row__link" href="${escapeHtml(record.url)}">` +
-    colorStripHtml(colors) +
-    `<span class="home-row__text">` +
-    `<span class="home-row__title">${escapeHtml(record.title)}</span>` +
-    `<span class="home-row__meta">${colors.map(escapeHtml).join(" · ")}</span>` +
-    `</span>` +
-    `</a>` +
-    `</li>`
-  );
+function toolCardsHtml(model, knownUrls) {
+  return HOME_TOOLS.map(function (tool) {
+    assertRoute(knownUrls, tool.url, `tool card "${tool.title}"`);
+    return (
+      `<li class="tool-card tool-card--${tool.tone}">` +
+      `<h3 class="tool-card__title"><a class="tool-card__link" href="${escapeHtml(tool.url)}">${escapeHtml(tool.title)}</a></h3>` +
+      `<p class="tool-card__desc">${escapeHtml(tool.desc(model))}</p>` +
+      cardCtaHtml("tool-card", tool.cta) +
+      `</li>`
+    );
+  }).join("");
 }
-
-/** Fallback for a resource type with no bespoke row yet: number, title, tag summary. */
-function genericRowHtml(record, i) {
-  const meta = tagsMetaFor(record);
-  return (
-    `<li class="home-row">` +
-    `<a class="home-row__link" href="${escapeHtml(record.url)}">` +
-    rowNumber(i) +
-    `<span class="home-row__text">` +
-    `<span class="home-row__title">${escapeHtml(record.title)}</span>` +
-    (meta ? `<span class="home-row__meta">${escapeHtml(meta)}</span>` : "") +
-    `</span>` +
-    `</a>` +
-    `</li>`
-  );
-}
-
-/** Renderers receive (record, index, context). */
-const ROW_RENDERERS = {
-  guide: guideRowHtml,
-  palette: paletteRowHtml,
-};
 
 /**
- * Per-type section copy. `label` overrides the "/ <sort>_<type>" micro-label;
- * `aside` renders anything extra under the heading column (the guide
- * topics); `listClass` picks the list's layout.
+ * The /category/<slug> pages the page already links to outside the
+ * generated regions — in practice, the hero's trending row. Read from the
+ * page itself so the resource cards can never repeat a hero link, and never
+ * drift when the trending row is edited.
  */
-const SECTION_COPY = {
-  guide: {
-    label: "/ design_notes",
-    title: "Guides written like specifications.",
-    dek: "Short reads on the decisions behind an interface, in roadmap order.",
-    allLabel: (total) => `All ${total} guides`,
-    extraLinks: [{ href: "/roadmap.html", label: "Follow the roadmap" }],
-    listClass: "home-list home-list--guides",
-    aside: (context) =>
-      context.guideTopics.length
-        ? `<div class="home-topics">` +
-          `<h3 class="home-topics__label">Browse by topic</h3>` +
-          `<ul class="home-topics__list">${guideCategoriesHtml(context.guideTopics)}</ul>` +
-          `</div>`
-        : "",
-  },
-  palette: {
-    label: "/ color_systems",
-    title: "Palettes, ready to become tokens.",
-    dek: "A surface, a deep tone and two accents. Open one to copy its values.",
-    allLabel: () => "Explore all palettes",
-    extraLinks: [],
-    listClass: "home-list home-list--palettes",
-    aside: () => "",
-  },
-};
-
-function genericCopy(entry) {
-  return {
-    label: null,
-    title: entry.label,
-    dek: "",
-    allLabel: () => `View all ${entry.label}`,
-    extraLinks: [],
-    listClass: "home-list",
-    aside: () => "",
-  };
+function linkedCategorySlugs(html) {
+  const slugs = new Set();
+  for (const m of html.matchAll(CATEGORY_HREF_RE)) slugs.add(m[1]);
+  return slugs;
 }
 
-function sectionLabelSlug(entry) {
-  const words = entry.label
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "_")
-    .replace(/^_+|_+$/g, "");
-  return `${SORT_LABEL[entry.home.sort]}_${words}`;
+/**
+ * Guide topics for the resource cards: every category that has guides (the
+ * same rule src/build/categories.js uses to build /category/<slug>) and is
+ * not already linked from the hero, most guides first, then in
+ * categories.json order — except RESOURCE_TOPICS_LAST, which always go last.
+ */
+function resourceTopics(categories, guides, excludeSlugs) {
+  const counts = new Map();
+  guides.forEach(function (g) {
+    counts.set(g.category, (counts.get(g.category) || 0) + 1);
+  });
+  return categories
+    .filter(function (c) {
+      return counts.has(c.slug) && !excludeSlugs.has(c.slug);
+    })
+    .map(function (c) {
+      return { category: c, guides: counts.get(c.slug) };
+    })
+    .sort(function (a, b) {
+      const last =
+        Number(RESOURCE_TOPICS_LAST.has(a.category.slug)) -
+        Number(RESOURCE_TOPICS_LAST.has(b.category.slug));
+      return (
+        last ||
+        b.guides - a.guides ||
+        (a.category.order || 0) - (b.category.order || 0)
+      );
+    });
 }
 
-function homeLinkHtml(href, label) {
-  return `<a class="home-link" href="${escapeHtml(href)}">${escapeHtml(label)}<span class="home-arrow" aria-hidden="true">→</span></a>`;
-}
-
-function resourceSectionHtml(entry, records, total, context) {
-  const headingId = `home-section-${entry.type}`;
-  const render = ROW_RENDERERS[entry.type] || genericRowHtml;
-  const copy = SECTION_COPY[entry.type] || genericCopy(entry);
-  const links = [homeLinkHtml(entry.landingUrl, copy.allLabel(total))]
-    .concat(
-      copy.extraLinks.map(function (l) {
-        return homeLinkHtml(l.href, l.label);
-      }),
-    )
-    .join("");
+function resourceCardHtml(card) {
   return (
-    `<section class="home-section home-section--${escapeHtml(entry.type)}" aria-labelledby="${headingId}">` +
-    `<div class="home-section__aside">` +
-    `<p class="home-label">${escapeHtml(copy.label || `/ ${sectionLabelSlug(entry)}`)}</p>` +
-    `<h2 class="home-section__title" id="${headingId}">${escapeHtml(copy.title)}</h2>` +
-    (copy.dek ? `<p class="home-section__dek">${escapeHtml(copy.dek)}</p>` : "") +
-    `<p class="home-section__links">${links}</p>` +
-    copy.aside(context) +
-    `</div>` +
-    `<ol class="${copy.listClass}">${records
-      .map(function (record, i) {
-        return render(record, i, context);
-      })
-      .join("")}</ol>` +
-    `</section>`
+    `<li class="resource-card">` +
+    `<h3 class="resource-card__title"><a class="resource-card__link" href="${escapeHtml(card.url)}">${escapeHtml(card.title)}</a></h3>` +
+    `<p class="resource-card__desc">${escapeHtml(card.desc)}</p>` +
+    `<p class="resource-card__meta">${escapeHtml(card.meta)}</p>` +
+    cardCtaHtml("resource-card", card.cta) +
+    `</li>`
   );
 }
 
-function buildResourceSections(registry, contentIndex, context) {
-  const entries = registry
-    .filter(function (entry) {
-      return entry.home;
+function resourceCardsHtml(topics, knownUrls) {
+  const cards = topics
+    .map(function (t) {
+      return {
+        title: t.category.name,
+        url: `/category/${t.category.slug}`,
+        cta: "Read the guides",
+        desc: t.category.description,
+        meta: `${t.guides} guide${t.guides === 1 ? "" : "s"}`,
+      };
     })
-    .slice()
-    .sort(function (a, b) {
-      return a.home.order - b.home.order;
-    });
-
-  const shownColorKeys = new Set();
-  const sectionsHtml = [];
-  const summary = [];
-
-  entries.forEach(function (entry) {
-    const all = contentIndex.filter(function (record) {
-      return record.type === entry.type;
-    });
-    const sorted = all.slice().sort(HOME_SORTS[entry.home.sort](context));
-    const picked = [];
-    let twinsSkipped = 0;
-    for (const record of sorted) {
-      if (picked.length >= entry.home.limit) break;
-      const key = colorKey(record);
-      if (key && shownColorKeys.has(key)) {
-        twinsSkipped++;
-        continue;
-      }
-      if (typeof record.url !== "string" || !record.url) {
-        throw new Error(`content-index record "${record.id}" has no url`);
-      }
-      picked.push(record);
-      if (key) shownColorKeys.add(key);
-    }
-
-    if (!picked.length) {
-      summary.push(`${entry.type}: 0 records — section omitted`);
-      return;
-    }
-    sectionsHtml.push(resourceSectionHtml(entry, picked, all.length, context));
-    summary.push(
-      `${entry.type}: ${picked.length} of ${all.length} (${entry.home.sort}` +
-        (twinsSkipped
-          ? `, ${twinsSkipped} twin${twinsSkipped === 1 ? "" : "s"} skipped`
-          : "") +
-        `)`,
-    );
+    .concat(HOME_ABOUT);
+  cards.forEach(function (card) {
+    assertRoute(knownUrls, card.url, `resource card "${card.title}"`);
   });
+  return { html: cards.map(resourceCardHtml).join(""), count: cards.length };
+}
 
-  return { html: sectionsHtml.join(""), count: sectionsHtml.length, summary };
+/**
+ * resource-types.json's `home` blocks drove the homepage's old generated
+ * resource sections. The page no longer has those sections, so a `home`
+ * block would be silently ignored — refuse it instead, so nobody configures
+ * a section and wonders why it never appears. (The block's SHAPE is still
+ * validated in src/build/content.js; this is the consumer's half.)
+ */
+function assertNoHomeBlocks(registry) {
+  registry.forEach(function (entry, i) {
+    if (entry.home !== null) {
+      throw new Error(
+        `resource-types.json[${i}] ("${entry.type}") has a home block, but the ` +
+          `homepage no longer renders resource-type sections — set "home": null`,
+      );
+    }
+  });
 }
 
 // ---------------------------------------------------------------------
@@ -940,50 +614,38 @@ function replaceBetween(html, startMarker, endMarker, replacement, fileLabel) {
 }
 
 /**
- * Homepage: the palette workspace's five columns and mode label, the toolkit
- * index, and the generated resource sections. The full guide grid, its
- * results count and the Level filter live on guides/index.html.
+ * Homepage: the tool cards and the resource cards below the static hero.
+ * The resource cards skip any guide topic the page already links to (the
+ * hero's trending row), read from the page before anything is spliced in.
  */
-function buildIndexHtml(file, workspace, toolkit, resourceSections) {
+function buildIndexHtml(file, model, knownUrls) {
   const label = "index.html";
   let html = fs.readFileSync(file, "utf8");
 
+  const topics = resourceTopics(
+    model.categories,
+    model.guides,
+    linkedCategorySlugs(html),
+  );
+  const resources = resourceCardsHtml(topics, knownUrls);
+
   html = replaceBetween(
     html,
-    "<!--HOME_PALETTE_MODE-->",
-    "<!--/HOME_PALETTE_MODE-->",
-    workspace.mode,
+    "<!--HOME_TOOLS_START-->",
+    "<!--HOME_TOOLS_END-->",
+    toolCardsHtml(model, knownUrls),
     label,
   );
   html = replaceBetween(
     html,
-    "<!--HOME_PALETTE_START-->",
-    "<!--HOME_PALETTE_END-->",
-    workspace.columns,
-    label,
-  );
-  html = replaceBetween(
-    html,
-    "<!--HOME_TOOLKIT_START-->",
-    "<!--HOME_TOOLKIT_END-->",
-    toolkit.html,
-    label,
-  );
-  html = replaceBetween(
-    html,
-    "<!--RESOURCE_SECTIONS_START-->",
-    "<!--RESOURCE_SECTIONS_END-->",
-    resourceSections.html,
+    "<!--HOME_RESOURCES_START-->",
+    "<!--HOME_RESOURCES_END-->",
+    resources.html,
     label,
   );
 
   fs.writeFileSync(file, html);
-  return {
-    colors: workspace.count,
-    toolkitRows: toolkit.count,
-    sections: resourceSections.count,
-    summary: resourceSections.summary,
-  };
+  return { tools: HOME_TOOLS.length, resources: resources.count };
 }
 
 /**
@@ -1095,49 +757,21 @@ function render(ctx) {
   // validates guides.json once, for every builder, before dist/ exists.
   const guides = ctx.model.guides;
 
-  const registry = loadResourceTypes(ctx.model.resourceTypes);
+  assertNoHomeBlocks(ctx.model.resourceTypes);
 
-  // The index the `data` stage just generated — not the committed copy at the
-  // repo root. Read-only here; this module never writes it.
-  const contentIndex = ctx.contentIndex;
-  if (!Array.isArray(contentIndex)) {
-    throw new Error(
-      "content-index.json did not contain an array — the home builder runs " +
-        "after the `data` stage and expects ctx.contentIndex to be set.",
-    );
-  }
+  const { cardHtml } = BpozzCard.createRenderer({
+    categories: loadCategoryLabels(ctx.model.categories),
+  });
 
-  const categoryLabels = loadCategoryLabels(ctx.model.categories);
-  const { cardHtml } = BpozzCard.createRenderer({ categories: categoryLabels });
-  const guideCategories = loadGuideCategories(ctx.model.categories, guides);
-
-  const context = {
-    categoryLabels,
-    guideTopics: guideCategories.listed,
-    guidesById: new Map(
-      guides.map(function (g) {
-        return [g.id, g];
-      }),
-    ),
-    roadmapRank: new Map(
-      roadmapOrder(guides).map(function (g, i) {
-        return [g.id, i];
-      }),
-    ),
-  };
-
-  const toolkit = toolkitEntries(ctx.model);
-  const knownUrls = new Set((ctx.routes || []).map((r) => r.url));
   const index = buildIndexHtml(
     path.join(stage, INDEX_PAGE),
-    buildWorkspace(WORKSPACE_SEED),
-    { html: toolkitHtml(toolkit, knownUrls), count: toolkit.length },
-    buildResourceSections(registry, contentIndex, context),
+    ctx.model,
+    new Set((ctx.routes || []).map((r) => r.url)),
   );
   const guidesPage = buildGuidesHtml(
     path.join(stage, GUIDES_PAGE),
     guides,
-    guideCategories,
+    loadGuideCategories(ctx.model.categories, guides),
     cardHtml,
   );
   const roadmap = buildRoadmapHtml(path.join(stage, ROADMAP_PAGE), guides);
@@ -1150,15 +784,16 @@ module.exports = {
   buildIndexHtml,
   buildGuidesHtml,
   buildRoadmapHtml,
-  buildResourceSections,
-  buildWorkspace,
-  toolkitEntries,
-  toolkitHtml,
-  WORKSPACE_SEED,
   buildRoadmap,
   groupRoadmap,
-  roadmapOrder,
-  loadResourceTypes,
+  HOME_TOOLS,
+  HOME_ABOUT,
+  toolCardsHtml,
+  linkedCategorySlugs,
+  resourceTopics,
+  RESOURCE_TOPICS_LAST,
+  resourceCardsHtml,
+  assertNoHomeBlocks,
   loadCategoryLabels,
   loadGuideCategories,
   guideCategoriesHtml,
@@ -1167,8 +802,4 @@ module.exports = {
   GUIDES_PAGE,
   ROADMAP_PAGE,
   ROADMAP_STAGES,
-  HOME_SORTS,
-  SORT_TYPE_ONLY,
-  SORT_LABEL,
-  TYPE_BADGE_LABEL,
 };

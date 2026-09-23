@@ -5,9 +5,9 @@
     "pages": 43,
     "dataEndpoints": 5,
     "siteFiles": 4,
-    "assets": 36,
-    "code": 11,
-    "total": 99
+    "assets": 41,
+    "code": 10,
+    "total": 103
   },
   "pages": [
     {
@@ -241,10 +241,15 @@
   ],
   "assets": [
     "/assets/Accessibility.png",
+    "/assets/Accessibility.webp",
     "/assets/Color Theory.png",
+    "/assets/Color Theory.webp",
     "/assets/Figma Workflow.png",
+    "/assets/Figma Workflow.webp",
     "/assets/Spacing & Layout.png",
+    "/assets/Spacing & Layout.webp",
     "/assets/Typography.png",
+    "/assets/Typography.webp",
     "/assets/apple-touch-icon.png",
     "/assets/bpozz logo tab-01.png",
     "/assets/bpozz logo-01.png",
@@ -283,7 +288,6 @@
     "/colors/colors.js",
     "/guide-article.css",
     "/home.css",
-    "/home.js",
     "/image-picker/image-picker.css",
     "/image-picker/image-picker.js",
     "/palettes/palettes.css",

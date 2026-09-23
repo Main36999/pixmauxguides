@@ -189,13 +189,11 @@ const PUBLISH_FILES = [
   { from: "src/styles/guide-article.css", to: "guide-article.css" },
 
   /**
-   * HOMEPAGE — the palette workspace's script and the homepage stylesheet,
-   * published beside index.html at the root. Same shape as colors.js and
-   * image-picker.js: code only one page runs, so it is not added to
-   * APP_BUNDLE. src/build/home.js also requires home.js at build time for
-   * its pure color math (see that file's header).
+   * HOMEPAGE — the stylesheet for the tool and resource cards below the
+   * hero, published beside index.html at the root. Same shape as
+   * colors.css and image-picker.css: styles only one page uses. The hero
+   * itself is styled by styles.css, as it always was.
    */
-  { from: "src/client/home.js", to: "home.js" },
   { from: "src/styles/home.css", to: "home.css" },
 
   // palettes feature
@@ -684,7 +682,7 @@ function render(ctx) {
   // Home and categories are writers, not patchers: neither has an "already
   // current" state to report, so they count what they produced.
   const homeTally =
-    `home: ${homeResult.index.sections} sections, ` +
+    `home: ${homeResult.index.tools} tool + ${homeResult.index.resources} resource cards, ` +
     `${homeResult.guides.guides} guides, ` +
     `${homeResult.roadmap.guides} roadmap steps`;
   const categoriesTally =

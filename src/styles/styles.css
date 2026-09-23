@@ -330,7 +330,8 @@ ul {
   white-space: nowrap;
 }
 /* ---------- inner-header search + nav row ----------
-   .header-search is sized small here by default; .header-search--full is the
+   .header-search is shared with the homepage's big .hero-search (see
+   below) but sized small here by default; .header-search--full is the
    modifier that stretches it to fill .header-top's top row on every
    non-home page, matching resourceboy's inner-page search bar. No
    collapse/toggle behavior anymore — it's plain and always visible at
@@ -397,9 +398,10 @@ ul {
    Restyles #header-search-input's form (.header-search.header-search--full,
    now also carrying a "form" class) into the rounded white pill from the
    requested Uiverse component. Every selector here is scoped under
-   .site-header--inner, which only wraps the non-home header. (The homepage
-   carries its own search form, .home-search__form in home.css, which does
-   not use .header-search at all.) Specificity note: each rule
+   .site-header--inner, which only wraps the non-home header — so the
+   homepage's big hero search (.hero-search, index.html only) still shares
+   the base .header-search rules above completely untouched, even though
+   both forms carry the .header-search class. Specificity note: each rule
    here uses two classes (".site-header--inner .input" etc.), which is
    deliberately higher-specificity than the old single-class/element rules
    above (".header-search input" etc.), so this cleanly wins on the inner
@@ -630,6 +632,274 @@ body:has(#mobile-menu:not([hidden])) {
      panel happens to be open, don't let it linger under the desktop header. */
   .mobile-menu {
     display: none !important;
+  }
+}
+
+/* ---------- hero ----------
+   Flat and light, resourceboy.com-style: no dark gradient panel, no
+   graph-paper backdrop, no glow. It sits on the same plain body
+   background as the rest of the site, separated only by whitespace
+   and a hairline rule — minimalism through spacing and type, not
+   color blocking. */
+.hero {
+  padding: 88px 24px 72px;
+  text-align: center;
+  background-color: rgb(233, 240, 245);
+  border-bottom: 1px solid var(--grid-line);
+}
+.hero-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+.fade-up:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.fade-up:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.fade-up:nth-child(4) {
+  animation-delay: 0.18s;
+}
+.fade-up:nth-child(5) {
+  animation-delay: 0.24s;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--action);
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.hero-copy {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hero h1 {
+  color: var(--header-bg);
+  font-size: clamp(24px, 3.4vw, 38px);
+  margin: 0 0 34px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+}
+.hero .tagline {
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto 28px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ---------- hero search ----------
+   Same functional contract as .header-search (shares the class, so
+   app.js's existing querySelectorAll(".header-search") wiring binds
+   this form too — no JS changes needed), just restyled as the big
+   resourceboy-style pill search bar that anchors the hero. */
+.hero-search {
+  display: flex;
+  align-items: center;
+  max-width: 620px;
+  margin: 0 auto 22px;
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+  border-radius: 999px;
+  padding: 6px 6px 6px 24px;
+  transition: border-color 0.15s ease;
+}
+.hero-search:focus-within {
+  border-color: var(--action);
+}
+.hero-search input {
+  flex: 1 1 auto;
+  width: auto;
+  max-width: none;
+  border: 0;
+  background: transparent;
+  padding: 13px 8px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+}
+.hero-search input::placeholder {
+  color: var(--text-muted);
+}
+.hero-search input:focus {
+  outline: none;
+}
+.hero-search__submit {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--action);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-search__submit svg {
+  width: 18px;
+  height: 18px;
+}
+.hero-search__submit:hover {
+  background: var(--action-hover);
+}
+
+.hero-actions {
+  margin: 0 0 18px;
+}
+.hero-roadmap-link {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--grid-line);
+}
+.hero-roadmap-link:hover {
+  color: var(--action);
+}
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.hero-stats strong {
+  color: var(--text);
+}
+.hero-stats .dot {
+  color: var(--cyan);
+}
+
+/* ---------- trending categories ----------
+   Sits right under the hero search bar — same page flow as
+   resourceboy's hero -> search -> trending-categories sequence, now
+   flat on the same light page background rather than floating as a
+   shadowed plate over a dark panel. Cards reuse the data-jump-category
+   contract (see app.js's delegated [data-jump-category] click
+   handler) so clicking one filters the grid straight to that category
+   with no new JS. */
+.trending {
+  max-width: 1160px;
+  margin: 56px auto 0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.trending__label {
+  flex: 0 0 auto;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.trending__grid {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.trending__grid::-webkit-scrollbar {
+  display: none;
+}
+.trending-card {
+  flex: 0 0 168px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--grid-line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.trending-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15, 42, 82, 0.1);
+}
+.trending-card__thumb {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #eef2f8;
+}
+.trending-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.trending-card__label {
+  display: block;
+  padding: 12px 14px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+/* Narrow screens: the label stacks above the row, and the row runs
+   edge to edge (out through .hero's 24px side padding, then back in as
+   its own padding) so cards scroll off the screen edge, not an inner
+   line. Cards are sized so a whole number fit on screen, and scroll
+   snapping settles on whole cards, so none rests half cut off. The gap
+   equals the side padding, so no sliver of a neighbour shows at either
+   end of the scroll. Desktop (> 900px) is untouched. */
+@media (max-width: 900px) {
+  .trending {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .trending__grid {
+    --trending-per-view: 4;
+    width: calc(100% + 48px);
+    margin: 0 -24px;
+    padding: 0 24px 2px;
+    gap: 24px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 24px;
+  }
+  .trending-card {
+    flex-basis: calc(
+      (100% - (var(--trending-per-view) - 1) * 24px) /
+        var(--trending-per-view)
+    );
+    scroll-snap-align: start;
+  }
+}
+@media (max-width: 699px) {
+  .trending__grid {
+    --trending-per-view: 3;
+  }
+}
+@media (max-width: 459px) {
+  .trending__grid {
+    --trending-per-view: 2;
   }
 }
 
@@ -1663,7 +1933,7 @@ body:has(#mobile-menu:not([hidden])) {
    all — placeholder text carries each field, labels are kept for
    screen readers only (.sr-only) — no boxed inputs, no fill, just a
    hairline rule under each field. Same "minimalism through spacing
-   and type, not color blocking" language as the rest of the site — dialed up
+   and type, not color blocking" language as .hero — just dialed up
    here with a bigger heading and a lot more room between fields.
    Scoped to .contact-content so about/privacy/terms (which share
    .legal-content/.legal-title) keep their original, smaller scale. */
@@ -1793,8 +2063,8 @@ body:has(#mobile-menu:not([hidden])) {
    Two color-preview variants of the 4:3 .card-thumb plate: a row of
    swatches, or four stacked bars like the /palettes gallery. /search
    renders palette results with the bars variant (src/client/search.js).
-   The homepage used these until its redesign; its styles live in
-   home.css now. */
+   The homepage's generated resource sections used these too, until the
+   section below the hero became the tool/resource cards in home.css. */
 .card-thumb--swatches,
 .card-thumb--bars {
   align-items: stretch;

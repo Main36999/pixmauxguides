@@ -5,7 +5,7 @@
     "landingUrl": "/guides/",
     "nav": true,
     "activePaths": ["guide/", "guides/", "category/"],
-    "home": { "order": 0, "limit": 8, "sort": "roadmap" }
+    "home": null
   },
   {
     "type": "palette",
@@ -13,7 +13,7 @@
     "landingUrl": "/palettes/",
     "nav": true,
     "activePaths": ["palettes/"],
-    "home": { "order": 1, "limit": 4, "sort": "latest" }
+    "home": null
   },
   {
     "type": "color",

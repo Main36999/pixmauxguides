@@ -50,8 +50,8 @@
  *
  *   a rule is a SCHEMA rule if it can be answered from the content file
  *   alone. A rule that needs the built site — "does this landingUrl resolve
- *   to a page that exists?" — or a consumer's own capabilities — "is this
- *   sort one src/build/home.js implements?" — is a CONSUMER check, and stays
+ *   to a page that exists?" — or a consumer's own capabilities — "does
+ *   src/build/home.js render a `home` block at all?" — is a CONSUMER check, and stays
  *   with the consumer that can answer it.
  *
  * The same step made this module the one home for the two pieces of
@@ -156,7 +156,7 @@ function addOptionalFields(record, fields) {
 //   categories.json      src/build/categories.js  loadCategoryData()
 //                        src/build/home.js        loadCategoryLabels()
 //                        src/build/home.js        loadGuideCategories()
-//   resource-types.json  src/build/home.js        loadResourceTypes()
+//   resource-types.json  src/build/home.js        assertNoHomeBlocks()
 //                        src/build/header.js      loadNavEntries()  (+ its
 //                                                 own fs read of the file)
 //   guides.json          an Array.isArray guard in each render()
@@ -315,8 +315,8 @@ function validateColors(colors, label, config) {
  * src/build/header.js each used to check, minus the two rules neither file
  * can answer from the registry alone:
  *
- *   `home.sort` must name a comparator      -> src/build/home.js, which owns
- *                                              the comparators
+ *   the homepage must render `home` blocks  -> src/build/home.js, which
+ *                                              currently refuses them all
  *   `landingUrl` must resolve to a page     -> src/build/header.js, which
  *                                              has the staging root to look in
  *
