@@ -118,9 +118,22 @@
       category: 35,
       tag: 30,
       keyword: 25,
+      color: 25,
       description: 15,
       searchText: 5,
     };
+
+    // A query term that is a whole HEX colour ("#E2725B", "e2725b",
+    // "#abc") matches a palette carrying exactly that colour. Exact only:
+    // substring-matching hex digits would let ordinary words that happen to
+    // be hex ("bad", "cafe", "face") pull in unrelated palettes.
+    function hexTermValue(term) {
+      var m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/.exec(term);
+      if (!m) return null;
+      var h = m[1];
+      if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+      return "#" + h;
+    }
 
     var headingEl = document.getElementById("search-heading");
     var dekEl = document.getElementById("search-dek");
@@ -210,6 +223,11 @@
         return k.toLowerCase();
       });
       var searchTextLower = record.searchText || "";
+      var colorsLower = Array.isArray(record.colors)
+        ? record.colors.map(function (c) {
+            return String(c).toLowerCase();
+          })
+        : [];
 
       var score = 0;
 
@@ -238,6 +256,8 @@
           score += WEIGHTS.keyword;
         if (descLower.indexOf(term) !== -1) score += WEIGHTS.description;
         if (searchTextLower.indexOf(term) !== -1) score += WEIGHTS.searchText;
+        var hex = colorsLower.length ? hexTermValue(term) : null;
+        if (hex && colorsLower.indexOf(hex) !== -1) score += WEIGHTS.color;
       });
 
       return score;

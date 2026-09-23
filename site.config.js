@@ -169,28 +169,31 @@ module.exports = {
   /**
    * F9 — content index contract (Phase 4 token removal).
    *
-   * 62 records: 22 guides + 40 indexed palettes. The 40 token records are
+   * 622 records: 22 guides + all 600 palettes. The 40 token records are
    * gone with the feature.
    *
-   * All 600 palettes stay available through palettes-data.json; only the
-   * 40 that carry a palettes-meta.json entry participate in
-   * content-index.json. That is the same 40 — p001–p040 — that the twin
-   * match selected before; the selection is now stated in data instead of
-   * being computed from tokens.
+   * SEARCH COVERAGE: this index is what /search matches against, so every
+   * palette is in it. It used to hold only the 40 palettes with a
+   * palettes-meta.json entry (p001–p040), which left p041 onward
+   * unsearchable. Those 40 records are still built from their meta entry
+   * and are byte-identical to the approved Phase 3 records
+   * (src/build/palette-meta.test.js); every other palette gets a record
+   * built from palettes-data.json alone — see buildPaletteRecords().
    * D1 remains deferred.
    */
   contentIndex: {
     output: "content-index.json",
-    expected: { guides: 22, palettes: 40, total: 62 }, // CONTRACT
+    expected: { guides: 22, palettes: 600, total: 622 }, // CONTRACT
     /**
-     * The palette filter. Applied to LOADED palette records, which
+     * The palette selection. Applied to LOADED palette records, which
      * src/build/content.js has already annotated with their `meta` entry
-     * from palettes-meta.json.
+     * from palettes-meta.json where one exists. Every palette is indexed,
+     * in palettes-data.json's own order.
      *
      * `meta` is attached at load time and is never written into
      * palettes-data.json, which stays byte-identical to source.
      */
-    indexedPalettes: (palettes) => palettes.filter((p) => p.meta),
+    indexedPalettes: (palettes) => palettes.slice(),
   },
 
   /** Every palette id that must survive the migration untouched. CONTRACT */

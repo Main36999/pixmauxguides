@@ -7,11 +7,10 @@
  * WHAT IT ADDS TO THE RAW DATA
  *
  * `palette.meta` — the one attached field. See the note on
- * annotatePaletteMeta() below; it is what makes the F9 filter
- *
- *     palettes.filter(p => p.meta)
- *
- * evaluate to exactly 40 records without touching palettes-data.json.
+ * annotatePaletteMeta() below. It marks the 40 palettes (p001–p040) whose
+ * content-index record is built from palettes-meta.json; every other
+ * palette's record is built from palettes-data.json alone (see
+ * buildPaletteRecords()). Nothing is written into palettes-data.json.
  *
  * `model.guidePages` — the guide pages' own content, read from content/guide/
  * and parsed into src/build/guide-template.js's slots (Phase 4 Step 4). It is
@@ -628,19 +627,15 @@ function tagsMetaFor(record) {
  *
  * WHY THIS IS ATTACHED AND NOT WRITTEN
  *
- * The F9 filter is written as `palettes.filter(p => p.meta)`. Taken
- * literally against the file on disk it selects nothing: palettes-data.json
- * carries no `meta` field on any of its records. Writing the field into
- * that file would satisfy the expression but would edit p001–p040, which
- * the gate requires to come through unchanged.
+ * buildPaletteRecords() reads `p.meta` to decide how a palette's record is
+ * built. palettes-data.json carries no `meta` field on any of its records,
+ * and writing one in would edit p001–p040, which the gate requires to come
+ * through unchanged — so the entry is attached at load time instead:
+ * palettes-data.json stays byte-identical to source, and the metadata has
+ * exactly one home.
  *
- * So the entry is attached at load time instead. The filter expression is
- * honoured exactly, palettes-data.json stays byte-identical to source, and
- * the metadata has exactly one home.
- *
- * On the current data this matches p001–p040 and nothing else — the same 40
- * palettes the approved content-index.json has always contained. Before
- * token removal that selection was computed by hex twin match against
+ * On the current data this matches p001–p040 and nothing else. Before token
+ * removal that selection was computed by hex twin match against
  * tokens.json; it is now stated directly by the presence of a meta entry.
  */
 function annotatePaletteMeta(palettes, meta) {
@@ -974,32 +969,30 @@ function buildGuideRecords(guides, categorySlugs, warnings) {
   });
 }
 
+/**
+ * One content-index record per palette, in palettes-data.json's order.
+ *
+ * TWO SOURCES, ONE SHAPE
+ *
+ *   with meta     p001–p040. Title, tags and searchText come from the
+ *                 palette's palettes-meta.json entry, exactly as before —
+ *                 these records are byte-identical to the approved Phase 3
+ *                 set (src/build/palette-meta.test.js).
+ *   without meta  every other palette. There is no hand-written title or
+ *                 tag set to borrow, so the record is built from the data
+ *                 file alone: the title is the palette's colour names
+ *                 joined the way the /palettes card foot shows them
+ *                 ("Linen · Wheat · Terracotta · Cocoa"), and searchText
+ *                 carries those names and the palette id. No tags or
+ *                 description are invented.
+ *
+ * Both carry `colors`, which is what search.html matches an exact HEX query
+ * against and what the result card draws its swatches from.
+ */
 function buildPaletteRecords(indexedPalettes) {
   return indexedPalettes.map(function (p) {
     const meta = p.meta;
-    if (!meta) {
-      // Only reachable when site.config.js's indexedPalettes filter has been
-      // widened past the F9 rule. This is the guard that stops the
-      // 322-record regression, so it says so rather than just throwing.
-      throw new Error(
-        [
-          `F9 violated — palette "${p.id}" was selected for indexing but has no meta entry.`,
-          "",
-          "  Only the 40 palettes with an entry in palettes/palettes-meta.json",
-          "  may be indexed. The filter in site.config.js is:",
-          "",
-          "      indexedPalettes: (palettes) => palettes.filter((p) => p.meta)",
-          "",
-          "  Widening it to every palette in palettes-data.json indexes all of them, and",
-          "  build-home.js then renders the homepage palette section from every",
-          "  palette instead of 40. That is the pre-existing bug in the legacy",
-          "  build-content-index.js, the legacy script this pipeline superseded.",
-          "",
-          "  meta is attached at load time from palettes-meta.json and is never",
-          "  written into palettes-data.json.",
-        ].join("\n"),
-      );
-    }
+    if (!meta) return buildDataOnlyPaletteRecord(p);
 
     const title = meta.title;
     const tags = Array.isArray(meta.tags) ? meta.tags : [];
@@ -1036,6 +1029,43 @@ function buildPaletteRecords(indexedPalettes) {
       colors: colors,
       date: nonEmptyString(p.createdAt),
     });
+  });
+}
+
+/** Same field set and key order as a meta record, so the index has one shape. */
+function buildDataOnlyPaletteRecord(p) {
+  const names = Array.isArray(p.names)
+    ? p.names.filter((n) => typeof n === "string" && n.trim())
+    : [];
+  const colors =
+    Array.isArray(p.colors) &&
+    p.colors.length &&
+    p.colors.every((hex) => typeof hex === "string" && hex)
+      ? p.colors.slice()
+      : undefined;
+  if (!names.length) {
+    throw new Error(
+      `palette "${p.id}" has no colour names — a palette without a palettes-meta.json ` +
+        "entry takes its search title from names[], so it cannot be indexed without them.",
+    );
+  }
+
+  const record = {
+    id: `palette:${p.id}`,
+    type: "palette",
+    title: names.join(" · "),
+    slug: p.id,
+    url: `/palettes#${p.id}`,
+    description: "",
+    categories: PALETTE_CATEGORIES.slice(),
+    tags: [],
+    keywords: [],
+    searchText: buildSearchText([names, wordsFromSlug(p.id)]),
+  };
+
+  return addOptionalFields(record, {
+    colors: colors,
+    date: nonEmptyString(p.createdAt),
   });
 }
 

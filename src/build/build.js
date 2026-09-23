@@ -23,7 +23,7 @@
  *   load     read every content source into one normalized model
  *   copy     stage build inputs; publish static files to dist/;
  *            assemble /app.js from src/shared/ + src/client/ (Phase 3)
- *   data     generate content-index.json (62 records, F9 filter)
+ *   data     generate content-index.json (every guide and every palette)
  *   render   run the page builders in locked order, publish HTML to dist/
  *   sitemap  validate sitemap URLs against the route table, publish
  *   verify   fail on any dist/ file not matching the approved output (Phase 3)
@@ -557,24 +557,16 @@ function data(ctx) {
     ];
 
     if (counts.palettes !== want.palettes) {
-      const linked = ctx.model.palettes.filter((p) => p.meta).length;
       lines.push(
         "",
-        "  The F9 filter lives in site.config.js:",
+        "  Every palette is indexed so /search covers all of them. The",
+        "  selection lives in site.config.js:",
         "",
-        "      indexedPalettes: (palettes) => palettes.filter((p) => p.meta)",
+        "      indexedPalettes: (palettes) => palettes.slice()",
         "",
-        `  src/build/content.js attached meta to ${linked} of ${ctx.model.palettes.length} palettes`,
-        "  from palettes/palettes-meta.json. meta is attached at load time",
-        "  and is never written into palettes-data.json.",
+        `  palettes-data.json holds ${ctx.model.palettes.length} palettes; contentIndex.expected`,
+        "  must say the same number.",
       );
-      if (linked === 0) {
-        lines.push(
-          "",
-          "  0 meta entries attached — check that palettes/palettes-meta.json",
-          "  is present and still carries its 40 entries, p001–p040.",
-        );
-      }
     }
 
     throw new Error(lines.join("\n"));

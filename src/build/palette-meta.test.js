@@ -48,7 +48,11 @@ const APPROVED = JSON.parse(
 
 const model = content.load(config);
 const built = content.buildContentIndex(model, config).records;
-const builtPalettes = built.filter((r) => r.type === "palette");
+const allPalettes = built.filter((r) => r.type === "palette");
+// The migrated records are the ones with a meta entry: p001–p040, first in
+// the index. Every later palette is indexed from palettes-data.json alone
+// (search covers all of them) and is checked in palettes-data.test.js.
+const builtPalettes = allPalettes.slice(0, APPROVED.length);
 const meta = JSON.parse(
   fs.readFileSync(config.paths.content.palettesMeta, "utf8"),
 );
@@ -58,10 +62,9 @@ const meta = JSON.parse(
 // ---------------------------------------------------------------------
 
 test("every approved palette record is reproduced byte-identically", () => {
-  assert.strictEqual(
-    builtPalettes.length,
-    APPROVED.length,
-    `built ${builtPalettes.length} palette records, approved has ${APPROVED.length}`,
+  assert.ok(
+    allPalettes.length >= APPROVED.length,
+    `built ${allPalettes.length} palette records, approved has ${APPROVED.length}`,
   );
 
   APPROVED.forEach((approved, i) => {
@@ -77,7 +80,7 @@ test("every approved palette record is reproduced byte-identically", () => {
   });
 });
 
-test("the whole palette section is byte-identical, in order", () => {
+test("the migrated palette section is byte-identical, in order", () => {
   assert.strictEqual(
     JSON.stringify(builtPalettes),
     JSON.stringify(APPROVED),
@@ -101,8 +104,8 @@ test("no palette record lost its borrowed metadata", () => {
 // palettes-meta.json's own shape
 // ---------------------------------------------------------------------
 
-test("palettes-meta.json has one entry per indexed palette, p001–p040", () => {
-  assert.strictEqual(meta.length, config.contentIndex.expected.palettes);
+test("palettes-meta.json has one entry per migrated palette, p001–p040", () => {
+  assert.strictEqual(meta.length, APPROVED.length);
   const expected = Array.from({ length: meta.length }, (_, i) =>
     "p" + String(i + 1).padStart(3, "0"),
   );
@@ -127,14 +130,21 @@ test("palettes-meta.json carries no colour data", () => {
 // the F9 filter and the no-write rule
 // ---------------------------------------------------------------------
 
-test("exactly the 40 palettes with a meta entry are indexed", () => {
+test("every palette is indexed, in data order, the 40 with meta first", () => {
   const indexed = config.contentIndex.indexedPalettes(model.palettes);
-  assert.strictEqual(indexed.length, 40);
+  assert.strictEqual(model.palettes.length, config.palettes.count);
   assert.deepStrictEqual(
     indexed.map((p) => p.id),
+    model.palettes.map((p) => p.id),
+  );
+  assert.deepStrictEqual(
+    indexed.filter((p) => p.meta).map((p) => p.id),
     meta.map((m) => m.id),
   );
-  assert.strictEqual(model.palettes.length, config.palettes.count);
+  assert.deepStrictEqual(
+    allPalettes.map((r) => r.slug),
+    model.palettes.map((p) => p.id),
+  );
 });
 
 test("meta is attached at load time and never serialized into palette data", () => {
@@ -154,15 +164,21 @@ test("meta is attached at load time and never serialized into palette data", () 
   });
 });
 
-test("a palette with no meta entry is excluded, not indexed empty", () => {
-  // Widening the filter used to yield a 322-record index; the record builder
-  // must refuse rather than emit a blank record.
+test("a palette with no meta entry is indexed from its data, never empty", () => {
   const orphan = model.palettes.find((p) => !p.meta);
-  assert.ok(orphan, "expected at least one unindexed palette (p041+)");
+  assert.ok(orphan, "expected at least one palette without meta (p041+)");
+  const [record] = content._internals.buildPaletteRecords([orphan]);
+  assert.strictEqual(record.id, `palette:${orphan.id}`);
+  assert.strictEqual(record.title, orphan.names.join(" · "));
+  assert.deepStrictEqual(record.colors, orphan.colors);
+  assert.ok(record.searchText.includes(orphan.id.toLowerCase()));
+  // Same key order as a migrated record, so the index has one shape.
+  assert.deepStrictEqual(Object.keys(record), Object.keys(builtPalettes[0]));
+
+  // A palette with neither meta nor names has nothing to be found by.
   assert.throws(
-    () => content._internals.buildPaletteRecords([orphan]),
-    /F9 violated/,
-    "buildPaletteRecords should refuse a palette with no meta entry",
+    () => content._internals.buildPaletteRecords([{ ...orphan, names: [] }]),
+    /no colour names/,
   );
 });
 
@@ -170,10 +186,10 @@ test("a palette with no meta entry is excluded, not indexed empty", () => {
 // the rest of the index is unaffected
 // ---------------------------------------------------------------------
 
-test("token removal left the content-index contract at 22 guides + 40 palettes", () => {
+test("the content index holds 22 guides + every palette", () => {
   const counts = {};
   built.forEach((r) => (counts[r.type] = (counts[r.type] || 0) + 1));
-  assert.deepStrictEqual(counts, { guide: 22, palette: 40 });
+  assert.deepStrictEqual(counts, { guide: 22, palette: config.palettes.count });
   assert.strictEqual(built.length, config.contentIndex.expected.total);
   assert.strictEqual(
     built.filter((r) => String(r.id).startsWith("token:")).length,

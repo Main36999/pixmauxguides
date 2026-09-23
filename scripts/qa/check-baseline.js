@@ -9,10 +9,10 @@
  *   1. HTML  — does every page in dist/ md5 to the same value it has in the
  *              approved baseline? Any difference is listed by file; none are
  *              summarised away.
- *   2. INDEX — is content-index.json 62 records (22 guides / 40 palettes),
- *              and is it byte-identical to the committed file? Explicitly
- *              asserts the count is not guides + palettes.count, what the pipeline
- *              produces if the F9 palette filter is ever dropped.
+ *   2. INDEX — does content-index.json hold every guide and every palette
+ *              (site.config.js contentIndex.expected), with palette records
+ *              p001..p{count} in data order so search covers all of them,
+ *              and is it byte-identical to the committed file?
  *   3. PALETTES — are all palettes still present, p001..p{count} per
  *              site.config.js, with the published data byte-identical to
  *              source?
@@ -153,13 +153,6 @@ function checkContentIndex() {
     ok("no token records");
   }
 
-  // The specific regression this gate names: dropping the F9 filter indexes
-  // every palette and yields guides + palettes.count.
-  const unfiltered = want.guides + config.palettes.count;
-  if (records.length === unfiltered) {
-    fail(`content-index has ${unfiltered} records — the F9 palette filter is not applied`);
-  }
-
   if (records.length !== want.total) {
     fail(`content-index has ${records.length} records, expected ${want.total}`);
   } else {
@@ -178,14 +171,19 @@ function checkContentIndex() {
   const indexedPaletteIds = records
     .filter((r) => r.type === "palette")
     .map((r) => r.slug);
-  const outOfRange = indexedPaletteIds.filter((id) => {
-    const n = Number(id.replace(/^p/, ""));
-    return !Number.isInteger(n) || n < 1 || n > 40;
-  });
-  if (outOfRange.length) {
-    fail(`indexed palettes outside p001–p040: ${outOfRange.join(", ")}`);
+  // Search reads this index, so a palette missing from it is a palette
+  // nobody can search for. Every id, in order, no gaps.
+  const expectedPaletteIds = Array.from({ length: config.palettes.count }, (_, i) =>
+    "p" + String(i + 1).padStart(3, "0"),
+  );
+  const missing = expectedPaletteIds.filter((id, i) => indexedPaletteIds[i] !== id);
+  if (missing.length || indexedPaletteIds.length !== expectedPaletteIds.length) {
+    fail(
+      `indexed palettes are not ${config.palettes.firstId}–${config.palettes.lastId} in order` +
+        (missing.length ? ` (first gaps: ${missing.slice(0, 5).join(", ")})` : ""),
+    );
   } else {
-    ok(`indexed palettes are p001–p040; p041–${config.palettes.lastId} correctly excluded`);
+    ok(`indexed palettes are ${config.palettes.firstId}–${config.palettes.lastId}, in order — search covers every palette`);
   }
 
   // Byte-identity against the committed copy at the repo root. The repo's
@@ -252,7 +250,13 @@ function checkPalettes() {
 
   // palettes-meta.json: the migrated token-derived metadata.
   const meta = readJson(config.paths.content.palettesMeta, "palettes-meta.json");
-  const want = config.contentIndex.expected.palettes;
+  // One entry per migrated palette — the approved Phase 3 records, p001–p040.
+  // Not the index's palette count: every palette is indexed, and the ones
+  // after p040 are indexed from palettes-data.json without a meta entry.
+  const want = readJson(
+    path.join(REPO, "scripts", "qa", "fixtures", "phase3-palette-records.json"),
+    "phase3-palette-records.json",
+  ).length;
   if (meta.length !== want) {
     fail(`palettes-meta.json has ${meta.length} entries, expected ${want}`);
   } else {
