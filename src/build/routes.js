@@ -67,9 +67,11 @@ const STATIC_ROOT_PAGES = [
  * patched in place by the existing markers, no new route shape and no
  * backing data file (its palette is produced client-side from whatever
  * image the visitor picks, not fetched). Takes the table from 42 pages to
- * 43 — see site.config.js's expected.htmlPages. Deliberately NOT added to
- * MAIN_HEADER_NAV in src/build/header.js, so this addition touches no
- * other page's output.
+ * 43 — see site.config.js's expected.htmlPages. It shipped with this route
+ * deliberately absent from MAIN_HEADER_NAV in src/build/header.js so the
+ * route addition alone touched no other page's output; a follow-up change
+ * added it there once the page was live, at the cost this file's Step 10
+ * note already describes — see that module's comment above the list.
  */
 const SECTION_INDEX_PAGES = [
   "guides/index.html",

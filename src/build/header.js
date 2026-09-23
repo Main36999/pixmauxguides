@@ -195,12 +195,24 @@ const ROOT_LINKS = [
  * one added <a> per nav region, twice — but it does mean the HTML baseline
  * has to be re-recorded, which is why the Step 10 handoff shows the per-page
  * diff rather than only the count.
+ *
+ * IMAGE PICKER — ADDED
+ *
+ * routes.js originally shipped /image-picker deliberately absent from this
+ * list, to keep that addition isolated to one new page. This entry reverses
+ * that call: Image Picker is now a top-level browse/tool destination like
+ * Colors and Color Palettes, so it is listed last — after the content
+ * browse entries, since it is a tool rather than a content set. Same
+ * 43-page blast radius as Step 10's Colors addition and for the same
+ * reason: every page carries both nav regions, so the HTML baseline needs
+ * re-recording alongside this change.
  */
 const MAIN_HEADER_NAV = [
   { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors" },
   { label: "Color Palettes", landingUrl: "/palettes" },
   { label: "UI/UX Guides", landingUrl: "/guides" },
+  { label: "Image Picker", landingUrl: "/image-picker" },
 ];
 
 /**
