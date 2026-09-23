@@ -86,7 +86,7 @@ test("the record count matches the contract in site.config.js", () => {
   );
 });
 
-test("ids run c001..c300 with no gap, duplicate or reordering", () => {
+test("ids run c001..c1200 with no gap, duplicate or reordering", () => {
   const expected = Array.from(
     { length: config.colors.count },
     (_, i) => "c" + String(i + 1).padStart(3, "0"),

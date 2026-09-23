@@ -200,9 +200,9 @@ module.exports = {
    * plain data and every consumer builds its own matcher from it.
    */
   colors: {
-    count: 300,
+    count: 1200,
     firstId: "c001",
-    lastId: "c300",
+    lastId: "c1200",
     hexPattern: "^#[0-9A-F]{6}$",
     categories: [
       "Red",
