@@ -278,7 +278,7 @@ ul {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 34px;
   font-size: 14px;
   font-weight: 600;
   overflow-x: auto;
@@ -289,7 +289,7 @@ ul {
 }
 /* One step up (14px -> 15px, +7%) for the header nav rows, so the four
    centred links read clearly without the bar feeling oversized. Same
-   family (--sans), same 600 weight, same 28px gap — only the size
+   family (--sans), same 600 weight, same 34px gap — only the size
    changes. Both rows now carry the same four links, so .header-bottom
    shares this step rather than staying a size behind at the base 14px;
    the value is defined once here so the two rows cannot drift. */
@@ -301,10 +301,10 @@ ul {
    row ran ~6px wider than the viewport at 768px and clipped the last link.
    A tighter gap in just this band keeps the row whole at 768 and above;
    below ~720 it still scrolls, as it already did with six links. Desktop
-   (900px+) keeps the 28px gap unchanged. */
+   (900px+) keeps the base 34px gap. */
 @media (min-width: 641px) and (max-width: 899px) {
   .header-bottom .site-nav {
-    gap: 20px;
+    gap: 24px;
   }
 }
 /* MAIN HEADER nav link colours. These base rules only ever paint the
