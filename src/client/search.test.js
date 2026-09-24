@@ -377,7 +377,7 @@ for (const [name, curated] of [
     const holders = holdersOf(name);
     assert.ok(holders.includes(curated), `fixture assumption: ${curated} has ${name}`);
     assert.ok(
-      holders.some((id) => !RECORD.get(id).tags.length),
+      holders.some((id) => +id.slice(1) > 40),
       `fixture assumption: a p041+ palette has ${name} too`,
     );
     const { ids } = await search(name);
@@ -714,3 +714,36 @@ for (const [straight, curly] of [
     assert.strictEqual(r.heading, `Search results for "${curly}"`, "the query is shown as typed");
   });
 }
+
+// ---------------------------------------------------------------------
+// generator theme labels (p301–p600)
+// ---------------------------------------------------------------------
+
+/** Palettes whose palettes-data.json tags include `label`. */
+const carrying = (label) => PALETTES.filter((p) => (p.tags || []).includes(label)).map((p) => p.id);
+
+test("the index carries each palette's data-file tags, and nothing is added to p041–p300", () => {
+  PALETTES.forEach((p) => {
+    const n = +p.id.slice(1);
+    const tags = RECORD.get(p.id).tags;
+    if (n <= 40) return; // curated: palettes-meta.json, pinned by palette-meta.test.js
+    if (n <= 300) assert.deepStrictEqual(tags, [], `${p.id} gained tags`);
+    else {
+      assert.deepStrictEqual(tags, p.tags, p.id);
+      p.tags.forEach((t) => assert.ok(RECORD.get(p.id).searchText.split(" ").includes(t), `${p.id} searchText lacks ${t}`));
+    }
+  });
+});
+
+for (const label of ["modern", "luxury", "earthy", "minimal", "vintage", "ui-dark"]) {
+  test(`searching the generator label "${label}" returns every palette carrying it`, async () => {
+    const holders = carrying(label);
+    assert.ok(holders.length > 0, `fixture assumption: some palette is tagged ${label}`);
+    const { ids } = await search(label);
+    holders.forEach((id) => assert.ok(ids.includes(id), `"${label}" missed ${id}`));
+  });
+}
+
+test('a label no other text contains finds exactly its tagged palettes: "modern"', async () => {
+  assert.deepStrictEqual((await search("modern")).ids.slice().sort(), carrying("modern").sort());
+});

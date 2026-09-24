@@ -988,8 +988,10 @@ function buildGuideRecords(guides, categorySlugs, warnings) {
  *                 file alone: the title is the palette's colour names
  *                 joined the way the /palettes card foot shows them
  *                 ("Linen · Wheat · Terracotta · Cocoa"), and searchText
- *                 carries those names and the palette id. No tags or
- *                 description are invented.
+ *                 carries those names, the palette id and its tags. The
+ *                 tags are the data file's own — p301..p600 carry the
+ *                 theme their generator recipe used; earlier palettes have
+ *                 none. No tags or description are invented.
  *
  * Both carry `colorNames` — the palette's own colour names from
  * palettes-data.json, one field for all 600, which /search scores as a name
@@ -1048,9 +1050,21 @@ function colorNames(p) {
     : [];
 }
 
+/**
+ * A palette's own tags from palettes-data.json, blanks and repeats dropped.
+ * Only p301..p600 have any: the theme recipe scripts/palettes/expand-palettes.js
+ * generated each one from. Everything before p301 gets [] — nothing is inferred.
+ */
+function dataTags(p) {
+  return Array.isArray(p.tags)
+    ? p.tags.filter((t, i, all) => typeof t === "string" && t.trim() && all.indexOf(t) === i)
+    : [];
+}
+
 /** Same field set and key order as a meta record, so the index has one shape. */
 function buildDataOnlyPaletteRecord(p) {
   const names = colorNames(p);
+  const tags = dataTags(p);
   const colors =
     Array.isArray(p.colors) &&
     p.colors.length &&
@@ -1072,10 +1086,10 @@ function buildDataOnlyPaletteRecord(p) {
     url: `/palettes#${p.id}`,
     description: "",
     categories: PALETTE_CATEGORIES.slice(),
-    tags: [],
+    tags: tags,
     keywords: [],
     colorNames: names,
-    searchText: buildSearchText([names, wordsFromSlug(p.id)]),
+    searchText: buildSearchText([names, wordsFromSlug(p.id), tags]),
   };
 
   return addOptionalFields(record, {

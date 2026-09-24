@@ -38,6 +38,33 @@ test("the record count matches the contract in site.config.js", () => {
 });
 
 // ---------------------------------------------------------------------
+// tags: provenance
+// ---------------------------------------------------------------------
+//
+// p301–p600 carry one tag each: the theme recipe scripts/palettes/
+// expand-palettes.js generated the palette from. The generator is seeded,
+// so it is re-run here and must reproduce the file byte for byte — which
+// proves every tag is the generator's own label for that exact palette.
+
+test("every tag in the data file is the generator's own theme label", () => {
+  const { generate, serialize } = require("../../scripts/palettes/expand-palettes.js");
+  const { records, themes } = generate(palettes.slice(0, 300));
+  const raw = fs.readFileSync(config.paths.content.palettes, "utf8");
+  assert.strictEqual(serialize(palettes.slice(0, 300).concat(records)), raw);
+  records.forEach((r, i) => {
+    assert.strictEqual(r.id, palettes[300 + i].id);
+    assert.deepStrictEqual(palettes[300 + i].tags, [themes[i]], r.id);
+  });
+});
+
+test("only p301–p600 carry tags in the data file, one label each", () => {
+  palettes.forEach((p, i) => {
+    if (i < 300) assert.ok(!("tags" in p), `${p.id} has tags in palettes-data.json`);
+    else assert.ok(Array.isArray(p.tags) && p.tags.length === 1 && p.tags[0], `${p.id} tags`);
+  });
+});
+
+// ---------------------------------------------------------------------
 // the validator itself
 // ---------------------------------------------------------------------
 

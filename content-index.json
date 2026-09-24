@@ -8908,7 +8908,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -8916,7 +8918,7 @@
       "Pink Bright",
       "Cyan"
     ],
-    "searchText": "ink black mint pink bright cyan p301",
+    "searchText": "ink black mint pink bright cyan p301 neon",
     "colors": [
       "#07121C",
       "#81FFD8",
@@ -8936,7 +8938,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Clover",
@@ -8944,7 +8948,7 @@
       "Cypress",
       "Bluebell"
     ],
-    "searchText": "clover pistachio cream cypress bluebell p302",
+    "searchText": "clover pistachio cream cypress bluebell p302 branding",
     "colors": [
       "#5F8000",
       "#D6E4C1",
@@ -8964,7 +8968,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Jade Teal",
@@ -8972,7 +8978,7 @@
       "Cobalt",
       "Forest Deep"
     ],
-    "searchText": "jade teal chalk butter cobalt forest deep p303",
+    "searchText": "jade teal chalk butter cobalt forest deep p303 tropical",
     "colors": [
       "#009998",
       "#E6CD3B",
@@ -8992,7 +8998,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -9000,7 +9008,7 @@
       "Twilight",
       "Mahogany"
     ],
-    "searchText": "dune weathered leather twilight mahogany p304",
+    "searchText": "dune weathered leather twilight mahogany p304 vintage",
     "colors": [
       "#F0E8CB",
       "#AE8178",
@@ -9020,7 +9028,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice",
@@ -9028,7 +9038,7 @@
       "Marina",
       "Heather"
     ],
-    "searchText": "ice sea glass blue marina heather p305",
+    "searchText": "ice sea glass blue marina heather p305 winter",
     "colors": [
       "#EDF8FF",
       "#B0CADC",
@@ -9048,7 +9058,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Lavender Glow",
@@ -9056,7 +9068,7 @@
       "Poppy",
       "Brick Red"
     ],
-    "searchText": "lavender glow rich orchid poppy brick red p306",
+    "searchText": "lavender glow rich orchid poppy brick red p306 analogous",
     "colors": [
       "#F2D3FF",
       "#ED8BD9",
@@ -9076,7 +9088,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Burgundy",
@@ -9084,7 +9098,7 @@
       "Petrol Teal",
       "Pale Sky"
     ],
-    "searchText": "burgundy clear ruby petrol teal pale sky p307",
+    "searchText": "burgundy clear ruby petrol teal pale sky p307 duotone",
     "colors": [
       "#57141F",
       "#E5546F",
@@ -9104,7 +9118,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -9112,7 +9128,7 @@
       "Watermelon",
       "Tan Cream"
     ],
-    "searchText": "abyss anchor watermelon tan cream p308",
+    "searchText": "abyss anchor watermelon tan cream p308 tech",
     "colors": [
       "#010A15",
       "#2E3E4E",
@@ -9132,7 +9148,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Wheat Gold",
@@ -9140,7 +9158,7 @@
       "Teal",
       "Dark Chocolate"
     ],
-    "searchText": "wheat gold persimmon teal dark chocolate p309",
+    "searchText": "wheat gold persimmon teal dark chocolate p309 retro",
     "colors": [
       "#E5C158",
       "#D95F24",
@@ -9160,7 +9178,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Navy",
@@ -9168,7 +9188,7 @@
       "Radiant Sapphire",
       "Orchid Pink"
     ],
-    "searchText": "deep navy indigo slate radiant sapphire orchid pink p310",
+    "searchText": "deep navy indigo slate radiant sapphire orchid pink p310 tech",
     "colors": [
       "#0E162E",
       "#2B3150",
@@ -9188,7 +9208,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Wine Dark",
@@ -9196,7 +9218,7 @@
       "Amethyst Light",
       "Fern"
     ],
-    "searchText": "wine dark radiant petal amethyst light fern p311",
+    "searchText": "wine dark radiant petal amethyst light fern p311 berry",
     "colors": [
       "#520022",
       "#BE3990",
@@ -9216,7 +9238,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -9224,7 +9248,7 @@
       "Pale Sky Blue",
       "Doeskin"
     ],
-    "searchText": "jet brass pale sky blue doeskin p312",
+    "searchText": "jet brass pale sky blue doeskin p312 fashion",
     "colors": [
       "#050402",
       "#A07E00",
@@ -9244,7 +9268,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Ghost White",
@@ -9252,7 +9278,7 @@
       "Pitch Green",
       "Orchid"
     ],
-    "searchText": "ghost white lilac powder pitch green orchid p313",
+    "searchText": "ghost white lilac powder pitch green orchid p313 minimal",
     "colors": [
       "#FFFAFE",
       "#EBD0E7",
@@ -9272,7 +9298,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -9280,7 +9308,7 @@
       "Peacock",
       "Glass Green"
     ],
-    "searchText": "jet charcoal peacock glass green p314",
+    "searchText": "jet charcoal peacock glass green p314 ui-dark",
     "colors": [
       "#040C09",
       "#212F2A",
@@ -9300,7 +9328,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet Ink",
@@ -9308,7 +9338,7 @@
       "Chalk Basil",
       "Camel"
     ],
-    "searchText": "jet ink radiant mulberry chalk basil camel p315",
+    "searchText": "jet ink radiant mulberry chalk basil camel p315 fashion",
     "colors": [
       "#0B080C",
       "#AF4ACD",
@@ -9328,7 +9358,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Cocoa Bark",
@@ -9336,7 +9368,7 @@
       "Harvest Gold",
       "Pine Green"
     ],
-    "searchText": "cocoa bark clay red harvest gold pine green p316",
+    "searchText": "cocoa bark clay red harvest gold pine green p316 earthy",
     "colors": [
       "#371B11",
       "#BE6A2C",
@@ -9356,7 +9388,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "light"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -9364,7 +9398,7 @@
       "Aqua",
       "Marigold"
     ],
-    "searchText": "porcelain blue lilac powder aqua marigold p317",
+    "searchText": "porcelain blue lilac powder aqua marigold p317 light",
     "colors": [
       "#F5FAFF",
       "#EBD1E2",
@@ -9384,7 +9418,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Coal",
@@ -9392,7 +9428,7 @@
       "Shamrock",
       "Doeskin"
     ],
-    "searchText": "coal clear carnation shamrock doeskin p318",
+    "searchText": "coal clear carnation shamrock doeskin p318 fashion",
     "colors": [
       "#100C0E",
       "#C3139B",
@@ -9412,7 +9448,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Vivid Basil",
@@ -9420,7 +9458,7 @@
       "Jade",
       "Wine Purple"
     ],
-    "searchText": "vivid basil hibiscus jade wine purple p319",
+    "searchText": "vivid basil hibiscus jade wine purple p319 vibrant",
     "colors": [
       "#00B94C",
       "#FFA6FB",
@@ -9440,7 +9478,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Emerald",
@@ -9448,7 +9488,7 @@
       "Dandelion",
       "Basil Green"
     ],
-    "searchText": "emerald lemon zest dandelion basil green p320",
+    "searchText": "emerald lemon zest dandelion basil green p320 tropical",
     "colors": [
       "#34A374",
       "#F9D01B",
@@ -9468,7 +9508,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Cocoa Bark",
@@ -9476,7 +9518,7 @@
       "Almond Milk",
       "Delft"
     ],
-    "searchText": "cocoa bark copper brown almond milk delft p321",
+    "searchText": "cocoa bark copper brown almond milk delft p321 corporate",
     "colors": [
       "#3A2400",
       "#9E5E00",
@@ -9496,7 +9538,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "light"
+    ],
     "keywords": [],
     "colorNames": [
       "Frost Green",
@@ -9504,7 +9548,7 @@
       "Chamois",
       "Rose Clay"
     ],
-    "searchText": "frost green pale sky chamois rose clay p322",
+    "searchText": "frost green pale sky chamois rose clay p322 light",
     "colors": [
       "#EFFDFA",
       "#BDE3F3",
@@ -9524,7 +9568,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine Needle",
@@ -9532,7 +9578,7 @@
       "Rose Mist",
       "Tusk"
     ],
-    "searchText": "pine needle brick rose mist tusk p323",
+    "searchText": "pine needle brick rose mist tusk p323 nature",
     "colors": [
       "#204B29",
       "#DF5A57",
@@ -9552,7 +9598,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Dewdrop",
@@ -9560,7 +9608,7 @@
       "Fern",
       "Cypress"
     ],
-    "searchText": "dewdrop spring leaf fern cypress p324",
+    "searchText": "dewdrop spring leaf fern cypress p324 ui",
     "colors": [
       "#F4FAF0",
       "#CBE5BB",
@@ -9580,7 +9628,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -9588,7 +9638,7 @@
       "Pistachio",
       "Tusk"
     ],
-    "searchText": "pine bold juniper pistachio tusk p325",
+    "searchText": "pine bold juniper pistachio tusk p325 nature",
     "colors": [
       "#133B1F",
       "#48BD4D",
@@ -9608,7 +9658,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "autumn"
+    ],
     "keywords": [],
     "colorNames": [
       "Persimmon",
@@ -9616,7 +9668,7 @@
       "Mustard Gold",
       "Harbor"
     ],
-    "searchText": "persimmon rust brown mustard gold harbor p326",
+    "searchText": "persimmon rust brown mustard gold harbor p326 autumn",
     "colors": [
       "#F0713D",
       "#95391C",
@@ -9636,7 +9688,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Pink Sand",
@@ -9644,7 +9698,7 @@
       "Sorbet",
       "Pistachio"
     ],
-    "searchText": "pink sand aqua glow sorbet pistachio p327",
+    "searchText": "pink sand aqua glow sorbet pistachio p327 pastel",
     "colors": [
       "#FFDCD2",
       "#84F2E8",
@@ -9664,7 +9718,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Green",
@@ -9672,7 +9728,7 @@
       "Avocado",
       "Sea Glass"
     ],
-    "searchText": "pitch green bracken avocado sea glass p328",
+    "searchText": "pitch green bracken avocado sea glass p328 forest",
     "colors": [
       "#00190F",
       "#3B5226",
@@ -9692,7 +9748,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "citrus"
+    ],
     "keywords": [],
     "colorNames": [
       "Lemon",
@@ -9700,7 +9758,7 @@
       "Flame",
       "Ivy"
     ],
-    "searchText": "lemon gold yellow flame ivy p329",
+    "searchText": "lemon gold yellow flame ivy p329 citrus",
     "colors": [
       "#F2E570",
       "#E8B52B",
@@ -9720,7 +9778,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Bright Azure",
@@ -9728,7 +9788,7 @@
       "Moss Lime",
       "Lilac Mist"
     ],
-    "searchText": "bright azure carnation moss lime lilac mist p330",
+    "searchText": "bright azure carnation moss lime lilac mist p330 triadic",
     "colors": [
       "#2EA0E5",
       "#FEA4BE",
@@ -9748,7 +9808,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -9756,7 +9818,7 @@
       "Black Pine",
       "Viridian"
     ],
-    "searchText": "snow mint sage black pine viridian p331",
+    "searchText": "snow mint sage black pine viridian p331 minimal",
     "colors": [
       "#F5F9F8",
       "#B5E5DA",
@@ -9776,7 +9838,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Teal",
@@ -9784,7 +9848,7 @@
       "Seafoam Pastel",
       "Salmon Orange"
     ],
-    "searchText": "midnight teal jade seafoam pastel salmon orange p332",
+    "searchText": "midnight teal jade seafoam pastel salmon orange p332 ocean",
     "colors": [
       "#002F34",
       "#00947B",
@@ -9804,7 +9868,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Blue Violet",
@@ -9812,7 +9878,7 @@
       "Aubergine Ink",
       "Radiant Emerald"
     ],
-    "searchText": "blue violet lilac white aubergine ink radiant emerald p333",
+    "searchText": "blue violet lilac white aubergine ink radiant emerald p333 branding",
     "colors": [
       "#783BB7",
       "#EFE5FF",
@@ -9832,7 +9898,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Rich Heather",
@@ -9840,7 +9908,7 @@
       "Emerald Neon",
       "Ivory Sage"
     ],
-    "searchText": "rich heather brass olive emerald neon ivory sage p334",
+    "searchText": "rich heather brass olive emerald neon ivory sage p334 split",
     "colors": [
       "#5C1C76",
       "#BAAD2C",
@@ -9860,7 +9928,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -9868,7 +9938,7 @@
       "Periwinkle",
       "Olive Gold Soft"
     ],
-    "searchText": "void ice blue pastel periwinkle olive gold soft p335",
+    "searchText": "void ice blue pastel periwinkle olive gold soft p335 accessible-dark",
     "colors": [
       "#050810",
       "#ECF2FF",
@@ -9888,7 +9958,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -9896,7 +9968,7 @@
       "Lavender Pastel",
       "Camel"
     ],
-    "searchText": "ink black clear kiwi lavender pastel camel p336",
+    "searchText": "ink black clear kiwi lavender pastel camel p336 fashion",
     "colors": [
       "#10120F",
       "#659700",
@@ -9916,7 +9988,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -9924,7 +9998,7 @@
       "Bubblegum",
       "Chartreuse"
     ],
-    "searchText": "ink blue black thistle mist bubblegum chartreuse p337",
+    "searchText": "ink blue black thistle mist bubblegum chartreuse p337 accessible-dark",
     "colors": [
       "#100D13",
       "#EEE4F8",
@@ -9944,7 +10018,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Smoked Bluebell",
@@ -9952,7 +10028,7 @@
       "Ice Blue Pastel",
       "Old Gold"
     ],
-    "searchText": "smoked bluebell azure ice blue pastel old gold p338",
+    "searchText": "smoked bluebell azure ice blue pastel old gold p338 corporate",
     "colors": [
       "#0B2462",
       "#3678C5",
@@ -9972,7 +10048,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Lemon",
@@ -9980,7 +10058,7 @@
       "Indigo",
       "Powder Rose"
     ],
-    "searchText": "lemon viridian indigo powder rose p339",
+    "searchText": "lemon viridian indigo powder rose p339 tetradic",
     "colors": [
       "#977E00",
       "#00A79A",
@@ -10000,7 +10078,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Pear Green",
@@ -10008,7 +10088,7 @@
       "Doeskin",
       "Olive"
     ],
-    "searchText": "pear green goldenrod doeskin olive p340",
+    "searchText": "pear green goldenrod doeskin olive p340 floral",
     "colors": [
       "#CBD692",
       "#AA9400",
@@ -10028,7 +10108,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Turquoise",
@@ -10036,7 +10118,7 @@
       "Radiant Juniper",
       "Basil"
     ],
-    "searchText": "turquoise sunflower yellow radiant juniper basil p341",
+    "searchText": "turquoise sunflower yellow radiant juniper basil p341 tropical",
     "colors": [
       "#009F9B",
       "#FFD644",
@@ -10056,7 +10138,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Smoked Nightfall",
@@ -10064,7 +10148,7 @@
       "Muted Violet",
       "Orchid Bloom"
     ],
-    "searchText": "smoked nightfall deep plum muted violet orchid bloom p342",
+    "searchText": "smoked nightfall deep plum muted violet orchid bloom p342 analogous",
     "colors": [
       "#020757",
       "#393261",
@@ -10084,7 +10168,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "interior"
+    ],
     "keywords": [],
     "colorNames": [
       "Papaya Cream",
@@ -10092,7 +10178,7 @@
       "Olive Forest",
       "Charcoal Red"
     ],
-    "searchText": "papaya cream clay pink olive forest charcoal red p343",
+    "searchText": "papaya cream clay pink olive forest charcoal red p343 interior",
     "colors": [
       "#FBEEDA",
       "#BA9881",
@@ -10112,7 +10198,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -10120,7 +10208,7 @@
       "Vivid Twilight",
       "Salmon"
     ],
-    "searchText": "snow tar vivid twilight salmon p344",
+    "searchText": "snow tar vivid twilight salmon p344 modern",
     "colors": [
       "#F9F9FA",
       "#141006",
@@ -10140,7 +10228,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Glacier Blue",
@@ -10148,7 +10238,7 @@
       "Ocean Blue Mid",
       "Midnight Petrol"
     ],
-    "searchText": "glacier blue azure sky ocean mid midnight petrol p345",
+    "searchText": "glacier blue azure sky ocean mid midnight petrol p345 monochromatic",
     "colors": [
       "#D3F1FF",
       "#42B8E6",
@@ -10168,7 +10258,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Mint",
@@ -10176,7 +10268,7 @@
       "Periwinkle",
       "Petal"
     ],
-    "searchText": "mint aqua frost periwinkle petal p346",
+    "searchText": "mint aqua frost periwinkle petal p346 pastel",
     "colors": [
       "#BAF9D0",
       "#A7DAF1",
@@ -10196,7 +10288,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Navy Ink",
@@ -10204,7 +10298,7 @@
       "Aqua",
       "Dune"
     ],
-    "searchText": "navy ink cerulean blue aqua dune p347",
+    "searchText": "navy ink cerulean blue aqua dune p347 ocean",
     "colors": [
       "#0A1A3D",
       "#006F98",
@@ -10224,7 +10318,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Powder Pink",
@@ -10232,7 +10328,7 @@
       "Cobalt Ink",
       "Matcha"
     ],
-    "searchText": "powder pink deep navy cobalt ink matcha p348",
+    "searchText": "powder pink deep navy cobalt ink matcha p348 accessible",
     "colors": [
       "#FBEDF9",
       "#0E132E",
@@ -10252,7 +10348,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Matcha",
@@ -10260,7 +10358,7 @@
       "Radiant Garnet",
       "Dark Grape"
     ],
-    "searchText": "matcha cyan radiant garnet dark grape p349",
+    "searchText": "matcha cyan radiant garnet dark grape p349 vibrant",
     "colors": [
       "#8E9300",
       "#53C8FF",
@@ -10280,7 +10378,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -10288,7 +10388,7 @@
       "Onyx Shadow",
       "Radiant Lapis"
     ],
-    "searchText": "porcelain blue sea glass onyx shadow radiant lapis p350",
+    "searchText": "porcelain blue sea glass onyx shadow radiant lapis p350 minimal",
     "colors": [
       "#F5F9FD",
       "#B8CEE0",
@@ -10308,7 +10408,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Crimson Pink",
@@ -10316,7 +10418,7 @@
       "Clay Red",
       "Midnight Petrol"
     ],
-    "searchText": "crimson pink turquoise clay red midnight petrol p351",
+    "searchText": "crimson pink turquoise clay red midnight petrol p351 vibrant",
     "colors": [
       "#D72A65",
       "#00D5C8",
@@ -10336,7 +10438,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Ivy",
@@ -10344,7 +10448,7 @@
       "Orchid",
       "Lilac Powder"
     ],
-    "searchText": "ivy radiant emerald orchid lilac powder p352",
+    "searchText": "ivy radiant emerald orchid lilac powder p352 complementary",
     "colors": [
       "#1C4A00",
       "#3A9000",
@@ -10364,7 +10468,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Tar",
@@ -10392,7 +10498,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Pine",
@@ -10400,7 +10508,7 @@
       "Marine Teal",
       "Coral"
     ],
-    "searchText": "black pine kelp marine teal coral p354",
+    "searchText": "black pine kelp marine teal coral p354 dark",
     "colors": [
       "#000F0A",
       "#162C20",
@@ -10420,7 +10528,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "autumn"
+    ],
     "keywords": [],
     "colorNames": [
       "Radiant Pumpkin",
@@ -10428,7 +10538,7 @@
       "Honey Gold",
       "Navy"
     ],
-    "searchText": "radiant pumpkin chili red honey gold navy p355",
+    "searchText": "radiant pumpkin chili red honey gold navy p355 autumn",
     "colors": [
       "#C85D00",
       "#B93730",
@@ -10448,7 +10558,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Viridian",
@@ -10456,7 +10568,7 @@
       "Tomato",
       "Emerald"
     ],
-    "searchText": "viridian lemon zest tomato emerald p356",
+    "searchText": "viridian lemon zest tomato emerald p356 tropical",
     "colors": [
       "#00A393",
       "#E5D655",
@@ -10476,7 +10588,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Clay Red",
@@ -10484,7 +10598,7 @@
       "Petrol Teal",
       "Lilac Glow"
     ],
-    "searchText": "clay red kelly green petrol teal lilac glow p357",
+    "searchText": "clay red kelly green petrol teal lilac glow p357 tetradic",
     "colors": [
       "#C36734",
       "#69A650",
@@ -10504,7 +10618,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Warm Ivory",
@@ -10512,7 +10628,7 @@
       "Bold Jade",
       "Pewter Blue"
     ],
-    "searchText": "warm ivory carbon bold jade pewter blue p358",
+    "searchText": "warm ivory carbon bold jade pewter blue p358 editorial",
     "colors": [
       "#F5EFE5",
       "#181920",
@@ -10532,7 +10648,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Pale Aqua",
@@ -10540,7 +10658,7 @@
       "Peach Soft",
       "Pistachio"
     ],
-    "searchText": "pale aqua lilac glow peach soft pistachio p359",
+    "searchText": "pale aqua lilac glow peach soft pistachio p359 pastel",
     "colors": [
       "#C5F0FF",
       "#E5CAF8",
@@ -10560,7 +10678,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Olive",
@@ -10568,7 +10688,7 @@
       "Cocoa Bark",
       "Aqua"
     ],
-    "searchText": "olive apricot cream cocoa bark aqua p360",
+    "searchText": "olive apricot cream cocoa bark aqua p360 branding",
     "colors": [
       "#805500",
       "#FEE3C0",
@@ -10588,7 +10708,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Blush White",
@@ -10596,7 +10718,7 @@
       "Violet",
       "Basil Green"
     ],
-    "searchText": "blush white aubergine ink violet basil green p361",
+    "searchText": "blush white aubergine ink violet basil green p361 accessible",
     "colors": [
       "#FFF0F1",
       "#23122C",
@@ -10616,7 +10738,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Petrol Teal",
@@ -10624,7 +10748,7 @@
       "Honey Gold",
       "Peach Cream"
     ],
-    "searchText": "petrol teal bold ruby honey gold peach cream p362",
+    "searchText": "petrol teal bold ruby honey gold peach cream p362 split",
     "colors": [
       "#005A74",
       "#F06F7C",
@@ -10644,7 +10768,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Cotton",
@@ -10652,7 +10778,7 @@
       "Black Violet",
       "Violet Bright"
     ],
-    "searchText": "cotton celadon black violet bright p363",
+    "searchText": "cotton celadon black violet bright p363 minimal",
     "colors": [
       "#FCFAFF",
       "#C9D1BC",
@@ -10672,7 +10798,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -10680,7 +10808,7 @@
       "Chalk Fern",
       "Wheat"
     ],
-    "searchText": "ink blue black electric mulberry chalk fern wheat p364",
+    "searchText": "ink blue black electric mulberry chalk fern wheat p364 fashion",
     "colors": [
       "#0F0D16",
       "#9151FF",
@@ -10700,7 +10828,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -10708,7 +10838,7 @@
       "Cerise",
       "Soot"
     ],
-    "searchText": "rice paper cotton candy pink cerise soot p365",
+    "searchText": "rice paper cotton candy pink cerise soot p365 ui",
     "colors": [
       "#FCF5F6",
       "#FFCBD7",
@@ -10728,7 +10858,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "sunset"
+    ],
     "keywords": [],
     "colorNames": [
       "Carnation",
@@ -10736,7 +10868,7 @@
       "Apricot",
       "Navy"
     ],
-    "searchText": "carnation orchid apricot navy p366",
+    "searchText": "carnation orchid apricot navy p366 sunset",
     "colors": [
       "#F9A8CB",
       "#BD86CF",
@@ -10756,7 +10888,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -10764,7 +10898,7 @@
       "Chalk Azure",
       "Tawny"
     ],
-    "searchText": "jet burnt orange chalk azure tawny p367",
+    "searchText": "jet burnt orange chalk azure tawny p367 fashion",
     "colors": [
       "#0E0705",
       "#E64100",
@@ -10784,7 +10918,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Dusk Juniper",
@@ -10792,7 +10928,7 @@
       "Juniper",
       "Grass Green"
     ],
-    "searchText": "dusk juniper ivy grass green p368",
+    "searchText": "dusk juniper ivy grass green p368 monochromatic",
     "colors": [
       "#041D00",
       "#004708",
@@ -10812,7 +10948,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Ivory Rose",
@@ -10820,7 +10958,7 @@
       "Lichen",
       "Walnut Dark"
     ],
-    "searchText": "ivory rose pale iris lichen walnut dark p369",
+    "searchText": "ivory rose pale iris lichen walnut dark p369 elegant",
     "colors": [
       "#F3E9E4",
       "#A2A2D4",
@@ -10840,7 +10978,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Fuchsia Violet",
@@ -10848,7 +10988,7 @@
       "Olive Forest",
       "Sky Aqua"
     ],
-    "searchText": "fuchsia violet clay olive forest sky aqua p370",
+    "searchText": "fuchsia violet clay olive forest sky aqua p370 tetradic",
     "colors": [
       "#965BBC",
       "#D16B46",
@@ -10868,7 +11008,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Honey Pastel",
@@ -10876,7 +11018,7 @@
       "Chartreuse Moss",
       "Saddle Brown"
     ],
-    "searchText": "honey pastel wisteria blue chartreuse moss saddle brown p371",
+    "searchText": "honey pastel wisteria blue chartreuse moss saddle brown p371 vintage",
     "colors": [
       "#F7E5C2",
       "#9488B4",
@@ -10896,7 +11038,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -10904,7 +11048,7 @@
       "Storm",
       "Basil"
     ],
-    "searchText": "ice glass powder blue storm basil p372",
+    "searchText": "ice glass powder blue storm basil p372 winter",
     "colors": [
       "#F1FCFF",
       "#9CC0CB",
@@ -10924,7 +11068,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Iron Bordeaux",
@@ -10932,7 +11078,7 @@
       "Cinnamon",
       "Apricot Blush"
     ],
-    "searchText": "iron bordeaux orchid cinnamon apricot blush p373",
+    "searchText": "iron bordeaux orchid cinnamon apricot blush p373 duotone",
     "colors": [
       "#3F123B",
       "#CE78BF",
@@ -10952,7 +11098,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Cerise Pink",
@@ -10960,7 +11108,7 @@
       "Bordeaux",
       "Radiant Jade"
     ],
-    "searchText": "cerise pink baby bordeaux radiant jade p374",
+    "searchText": "cerise pink baby bordeaux radiant jade p374 branding",
     "colors": [
       "#CA3379",
       "#F9E2E9",
@@ -10980,7 +11128,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Celery Pastel",
@@ -10988,7 +11138,7 @@
       "Papaya",
       "Kelly Green"
     ],
-    "searchText": "celery pastel light blush papaya kelly green p375",
+    "searchText": "celery pastel light blush papaya kelly green p375 spring",
     "colors": [
       "#E3F3BE",
       "#FFAEDF",
@@ -11008,7 +11158,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Grape",
@@ -11016,7 +11168,7 @@
       "Neon Indigo",
       "Peach Blush"
     ],
-    "searchText": "black grape slate violet neon indigo peach blush p376",
+    "searchText": "black grape slate violet neon indigo peach blush p376 tech",
     "colors": [
       "#090B1A",
       "#333347",
@@ -11036,7 +11188,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Chalk Green",
@@ -11044,7 +11198,7 @@
       "Clear Pine",
       "Void Purple"
     ],
-    "searchText": "chalk green pistachio clear pine void purple p377",
+    "searchText": "chalk green pistachio clear pine void purple p377 ui",
     "colors": [
       "#F8FDF7",
       "#D1D39F",
@@ -11064,7 +11218,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow Grey",
@@ -11072,7 +11228,7 @@
       "Electric Wisteria",
       "Apricot"
     ],
-    "searchText": "snow grey ink olive electric wisteria apricot p378",
+    "searchText": "snow grey ink olive electric wisteria apricot p378 modern",
     "colors": [
       "#F4F2F5",
       "#1D2219",
@@ -11092,7 +11248,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Apricot Cream",
@@ -11100,7 +11258,7 @@
       "Brass Olive",
       "Sapphire"
     ],
-    "searchText": "apricot cream lagoon brass olive sapphire p379",
+    "searchText": "apricot cream lagoon brass olive sapphire p379 vintage",
     "colors": [
       "#F8E4C4",
       "#508696",
@@ -11120,7 +11278,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Raspberry",
@@ -11128,7 +11288,7 @@
       "Peacock",
       "Mint"
     ],
-    "searchText": "deep raspberry bold scarlet peacock mint p380",
+    "searchText": "deep raspberry bold scarlet peacock mint p380 complementary",
     "colors": [
       "#711E3E",
       "#D55F81",
@@ -11148,7 +11308,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Cream Gold",
@@ -11156,7 +11318,7 @@
       "Pine",
       "Byzantium"
     ],
-    "searchText": "cream gold bluestone pine byzantium p381",
+    "searchText": "cream gold bluestone pine byzantium p381 vintage",
     "colors": [
       "#ECE0C2",
       "#727394",
@@ -11176,7 +11338,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Coal",
@@ -11184,7 +11348,7 @@
       "Gold",
       "Peach Blush"
     ],
-    "searchText": "coal radiant cranberry gold peach blush p382",
+    "searchText": "coal radiant cranberry gold peach blush p382 luxury",
     "colors": [
       "#100B0E",
       "#7A005D",
@@ -11204,7 +11368,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Ink",
@@ -11212,7 +11378,7 @@
       "Amber",
       "Periwinkle"
     ],
-    "searchText": "black ink soft glacier amber periwinkle p383",
+    "searchText": "black ink soft glacier amber periwinkle p383 neon",
     "colors": [
       "#0A0916",
       "#83F1FF",
@@ -11232,7 +11398,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Turquoise",
@@ -11240,7 +11408,7 @@
       "Neon Indigo",
       "Shamrock"
     ],
-    "searchText": "turquoise powder goldenrod neon indigo shamrock p384",
+    "searchText": "turquoise powder goldenrod neon indigo shamrock p384 tropical",
     "colors": [
       "#00B4B1",
       "#DED14E",
@@ -11260,7 +11428,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -11268,7 +11438,7 @@
       "Brass",
       "Apricot Cream"
     ],
-    "searchText": "jet leaf green brass apricot cream p385",
+    "searchText": "jet leaf green brass apricot cream p385 luxury",
     "colors": [
       "#030A05",
       "#006337",
@@ -11288,7 +11458,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Bitumen",
@@ -11296,7 +11468,7 @@
       "Camel",
       "Bluebell"
     ],
-    "searchText": "bitumen cinnamon camel bluebell p386",
+    "searchText": "bitumen cinnamon camel bluebell p386 earthy",
     "colors": [
       "#2E251B",
       "#A2531F",
@@ -11316,7 +11488,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "autumn"
+    ],
     "keywords": [],
     "colorNames": [
       "Persimmon",
@@ -11324,7 +11498,7 @@
       "Mustard",
       "Peat"
     ],
-    "searchText": "persimmon rust brown mustard peat p387",
+    "searchText": "persimmon rust brown mustard peat p387 autumn",
     "colors": [
       "#D16105",
       "#992B00",
@@ -11344,7 +11518,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Clear Dragonfruit",
@@ -11352,7 +11528,7 @@
       "Butter Yellow",
       "Sapphire"
     ],
-    "searchText": "clear dragonfruit aqua glow butter yellow sapphire p388",
+    "searchText": "clear dragonfruit aqua glow butter yellow sapphire p388 candy",
     "colors": [
       "#EF95F1",
       "#85F2C4",
@@ -11372,7 +11548,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Shell",
@@ -11380,7 +11558,7 @@
       "True Cardinal",
       "Shamrock"
     ],
-    "searchText": "shell oxblood true cardinal shamrock p389",
+    "searchText": "shell oxblood true cardinal shamrock p389 accessible",
     "colors": [
       "#FCF4EF",
       "#3A1526",
@@ -11400,7 +11578,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "sunset"
+    ],
     "keywords": [],
     "colorNames": [
       "Honey Cream",
@@ -11408,7 +11588,7 @@
       "Scarlet",
       "Dark Grape"
     ],
-    "searchText": "honey cream tangerine scarlet dark grape p390",
+    "searchText": "honey cream tangerine scarlet dark grape p390 sunset",
     "colors": [
       "#FCCC89",
       "#EB8D3E",
@@ -11428,7 +11608,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Petal",
@@ -11436,7 +11618,7 @@
       "Harvest Gold",
       "Fern"
     ],
-    "searchText": "petal clear cherry harvest gold fern p391",
+    "searchText": "petal clear cherry harvest gold fern p391 floral",
     "colors": [
       "#FBBCD5",
       "#DF6471",
@@ -11456,7 +11638,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Wine Purple",
@@ -11464,7 +11648,7 @@
       "Amethyst Light",
       "Rose Quartz Pale"
     ],
-    "searchText": "wine purple true raspberry amethyst light rose quartz pale p392",
+    "searchText": "wine purple true raspberry amethyst light rose quartz pale p392 berry",
     "colors": [
       "#601944",
       "#BD3C90",
@@ -11484,7 +11668,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Kelp",
@@ -11492,7 +11678,7 @@
       "Camel",
       "Cadet Blue"
     ],
-    "searchText": "kelp ocean teal camel cadet blue p393",
+    "searchText": "kelp ocean teal camel cadet blue p393 nature",
     "colors": [
       "#0B2C21",
       "#237C8F",
@@ -11512,7 +11698,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Harbor",
@@ -11520,7 +11708,7 @@
       "Aqua Glow",
       "Sand Dollar"
     ],
-    "searchText": "midnight harbor lagoon aqua glow sand dollar p394",
+    "searchText": "midnight harbor lagoon aqua glow sand dollar p394 ocean",
     "colors": [
       "#00293F",
       "#0091A0",
@@ -11540,7 +11728,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Wisteria",
@@ -11548,7 +11738,7 @@
       "Deep Jade",
       "Blush White"
     ],
-    "searchText": "wisteria marigold deep jade blush white p395",
+    "searchText": "wisteria marigold deep jade blush white p395 triadic",
     "colors": [
       "#A26ED1",
       "#F1A859",
@@ -11568,7 +11758,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Carnation",
@@ -11576,7 +11768,7 @@
       "Vanilla Yellow",
       "Sky Neon"
     ],
-    "searchText": "carnation turquoise neon vanilla yellow sky p396",
+    "searchText": "carnation turquoise neon vanilla yellow sky p396 candy",
     "colors": [
       "#FFA5C1",
       "#4DE8DE",
@@ -11596,7 +11788,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pistachio",
@@ -11604,7 +11798,7 @@
       "Cerulean",
       "Walnut"
     ],
-    "searchText": "pistachio moss lime cerulean walnut p397",
+    "searchText": "pistachio moss lime cerulean walnut p397 nature",
     "colors": [
       "#E3E6AD",
       "#5F8A2B",
@@ -11624,7 +11818,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "light"
+    ],
     "keywords": [],
     "colorNames": [
       "Cream",
@@ -11632,7 +11828,7 @@
       "Rose Mist",
       "Heliotrope"
     ],
-    "searchText": "cream mint sage rose mist heliotrope p398",
+    "searchText": "cream mint sage rose mist heliotrope p398 light",
     "colors": [
       "#F7F8EC",
       "#BFE4E5",
@@ -11652,7 +11848,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Mahogany",
@@ -11660,7 +11858,7 @@
       "Denim",
       "Sky Cream"
     ],
-    "searchText": "mahogany turquoise sea denim sky cream p399",
+    "searchText": "mahogany turquoise sea denim sky cream p399 split",
     "colors": [
       "#5D2100",
       "#00A8A7",
@@ -11680,7 +11878,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Kelp",
@@ -11688,7 +11888,7 @@
       "Meadow",
       "Chili Red"
     ],
-    "searchText": "kelp basil green meadow chili red p400",
+    "searchText": "kelp basil green meadow chili red p400 forest",
     "colors": [
       "#13281D",
       "#2F6442",
@@ -11708,7 +11908,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Marine",
@@ -11716,7 +11918,7 @@
       "Seafoam",
       "Sand Dollar"
     ],
-    "searchText": "black marine teal seafoam sand dollar p401",
+    "searchText": "black marine teal seafoam sand dollar p401 ocean",
     "colors": [
       "#00191F",
       "#00756B",
@@ -11736,7 +11938,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "interior"
+    ],
     "keywords": [],
     "colorNames": [
       "Parchment",
@@ -11744,7 +11948,7 @@
       "Pine Needle",
       "Ebony"
     ],
-    "searchText": "parchment hazelwood pine needle ebony p402",
+    "searchText": "parchment hazelwood pine needle ebony p402 interior",
     "colors": [
       "#EFEBE1",
       "#A57E62",
@@ -11764,7 +11968,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Parchment Cream",
@@ -11772,7 +11978,7 @@
       "Cedar",
       "Sapphire"
     ],
-    "searchText": "parchment cream black cherry red cedar sapphire p403",
+    "searchText": "parchment cream black cherry red cedar sapphire p403 accessible",
     "colors": [
       "#F7F3E5",
       "#270200",
@@ -11792,7 +11998,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -11820,7 +12028,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Almond Milk",
@@ -11828,7 +12038,7 @@
       "Rosewood",
       "Aubergine"
     ],
-    "searchText": "almond milk seafoam teal rosewood aubergine p405",
+    "searchText": "almond milk seafoam teal rosewood aubergine p405 elegant",
     "colors": [
       "#FBEEE4",
       "#87CCC7",
@@ -11848,7 +12058,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Lake",
@@ -11856,7 +12068,7 @@
       "Rich Scarlet",
       "Spruce"
     ],
-    "searchText": "deep lake sunflower rich scarlet spruce p406",
+    "searchText": "deep lake sunflower rich scarlet spruce p406 tropical",
     "colors": [
       "#009A75",
       "#DBC545",
@@ -11876,7 +12088,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "sunset"
+    ],
     "keywords": [],
     "colorNames": [
       "Amber Yellow",
@@ -11884,7 +12098,7 @@
       "Cranberry",
       "Deep Navy"
     ],
-    "searchText": "amber yellow burnt orange cranberry deep navy p407",
+    "searchText": "amber yellow burnt orange cranberry deep navy p407 sunset",
     "colors": [
       "#FAC83B",
       "#E44C00",
@@ -11904,7 +12118,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Hot Pink",
@@ -11912,7 +12128,7 @@
       "Rich Mulberry",
       "Lemon"
     ],
-    "searchText": "hot pink turquoise rich mulberry lemon p408",
+    "searchText": "hot pink turquoise rich mulberry lemon p408 retro",
     "colors": [
       "#FD5598",
       "#00B6B8",
@@ -11932,7 +12148,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "citrus"
+    ],
     "keywords": [],
     "colorNames": [
       "Pale Honey",
@@ -11940,7 +12158,7 @@
       "Burnt Orange Bright",
       "Rich Clover"
     ],
-    "searchText": "pale honey gold yellow burnt orange bright rich clover p409",
+    "searchText": "pale honey gold yellow burnt orange bright rich clover p409 citrus",
     "colors": [
       "#F8F46D",
       "#E5AE18",
@@ -11960,7 +12178,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Key Lime",
@@ -11968,7 +12188,7 @@
       "Lupine",
       "Basil"
     ],
-    "searchText": "key lime carnation lupine basil p410",
+    "searchText": "key lime carnation lupine basil p410 spring",
     "colors": [
       "#F5EC9F",
       "#EF9DAD",
@@ -11988,7 +12208,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Evergreen",
@@ -11996,7 +12218,7 @@
       "Olive",
       "Basil"
     ],
-    "searchText": "evergreen leaf green olive basil p411",
+    "searchText": "evergreen leaf green olive basil p411 forest",
     "colors": [
       "#11280E",
       "#37591C",
@@ -12016,7 +12238,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Void Black",
@@ -12024,7 +12248,7 @@
       "Watermelon",
       "Turquoise Fresh"
     ],
-    "searchText": "void black rose quartz pale watermelon turquoise fresh p412",
+    "searchText": "void black rose quartz pale watermelon turquoise fresh p412 accessible-dark",
     "colors": [
       "#10070B",
       "#F3EBEE",
@@ -12044,7 +12268,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Dark Umber",
@@ -12052,7 +12278,7 @@
       "Mustard Gold",
       "Olive Leaf"
     ],
-    "searchText": "dark umber terracotta mustard gold olive leaf p413",
+    "searchText": "dark umber terracotta mustard gold olive leaf p413 earthy",
     "colors": [
       "#2B1D13",
       "#B75137",
@@ -12072,7 +12298,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -12080,7 +12308,7 @@
       "Teal Mist",
       "Cedar"
     ],
-    "searchText": "dune antique olive teal mist cedar p414",
+    "searchText": "dune antique olive teal mist cedar p414 vintage",
     "colors": [
       "#F1E7CD",
       "#8B7247",
@@ -12100,7 +12328,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "autumn"
+    ],
     "keywords": [],
     "colorNames": [
       "Burnt Orange Bright",
@@ -12108,7 +12338,7 @@
       "Honey Gold",
       "Oxblood"
     ],
-    "searchText": "burnt orange bright barn red honey gold oxblood p415",
+    "searchText": "burnt orange bright barn red honey gold oxblood p415 autumn",
     "colors": [
       "#D96800",
       "#A91B0F",
@@ -12128,7 +12358,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -12136,7 +12368,7 @@
       "Jet Ink",
       "True Poppy"
     ],
-    "searchText": "rice paper sea glass jet ink true poppy p416",
+    "searchText": "rice paper sea glass jet ink true poppy p416 minimal",
     "colors": [
       "#FDF6F8",
       "#BDD7D0",
@@ -12156,7 +12388,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Charred Oak",
@@ -12164,7 +12398,7 @@
       "Marigold Bright",
       "Periwinkle"
     ],
-    "searchText": "charred oak warm cream marigold bright periwinkle p417",
+    "searchText": "charred oak warm cream marigold bright periwinkle p417 accessible-dark",
     "colors": [
       "#1E110B",
       "#F6F5EC",
@@ -12184,7 +12418,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Forest Pine",
@@ -12192,7 +12428,7 @@
       "Lilac",
       "Orchid White"
     ],
-    "searchText": "forest pine periwinkle violet lilac orchid white p418",
+    "searchText": "forest pine periwinkle violet lilac orchid white p418 split",
     "colors": [
       "#153E00",
       "#8C7EE5",
@@ -12212,7 +12448,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Ocean Blue Mid",
@@ -12220,7 +12458,7 @@
       "Cinnamon",
       "Green Apple Soft"
     ],
-    "searchText": "ocean blue mid orchid bloom cinnamon green apple soft p419",
+    "searchText": "ocean blue mid orchid bloom cinnamon green apple soft p419 tetradic",
     "colors": [
       "#007BA4",
       "#CC8BD9",
@@ -12240,7 +12478,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Peach Soft",
@@ -12248,7 +12488,7 @@
       "Jade Green",
       "Basil"
     ],
-    "searchText": "peach soft amber jade green basil p420",
+    "searchText": "peach soft amber jade green basil p420 floral",
     "colors": [
       "#EFC29A",
       "#DF7410",
@@ -12268,7 +12508,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch",
@@ -12276,7 +12518,7 @@
       "Muted Wheat",
       "Lagoon Deep"
     ],
-    "searchText": "pitch cinnamon muted wheat lagoon deep p421",
+    "searchText": "pitch cinnamon muted wheat lagoon deep p421 earthy",
     "colors": [
       "#1F0F06",
       "#A35112",
@@ -12296,7 +12538,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "interior"
+    ],
     "keywords": [],
     "colorNames": [
       "Sand Pastel",
@@ -12304,7 +12548,7 @@
       "Denim Blue",
       "Pitch Brown"
     ],
-    "searchText": "sand pastel muted straw denim blue pitch brown p422",
+    "searchText": "sand pastel muted straw denim blue pitch brown p422 interior",
     "colors": [
       "#F9E9D8",
       "#A87F6C",
@@ -12324,7 +12568,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Royal Blue",
@@ -12332,7 +12578,7 @@
       "Mustard Gold Warm",
       "Oatmeal"
     ],
-    "searchText": "royal blue cobalt mustard gold warm oatmeal p423",
+    "searchText": "royal blue cobalt mustard gold warm oatmeal p423 complementary",
     "colors": [
       "#1A337A",
       "#4C65DB",
@@ -12352,7 +12598,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Hibiscus",
@@ -12360,7 +12608,7 @@
       "Pale Dandelion",
       "Olive Chartreuse"
     ],
-    "searchText": "hibiscus aquamarine pale dandelion olive chartreuse p424",
+    "searchText": "hibiscus aquamarine pale dandelion olive chartreuse p424 candy",
     "colors": [
       "#E49BE6",
       "#50F4DB",
@@ -12380,7 +12628,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Pine",
@@ -12388,7 +12638,7 @@
       "Cotton Candy Pink",
       "Blush Taupe"
     ],
-    "searchText": "black pine malachite cotton candy pink blush taupe p425",
+    "searchText": "black pine malachite cotton candy pink blush taupe p425 fashion",
     "colors": [
       "#07120E",
       "#008367",
@@ -12408,7 +12658,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Amethyst",
@@ -12416,7 +12668,7 @@
       "Watermelon",
       "Shell Pink"
     ],
-    "searchText": "black amethyst charcoal plum watermelon shell pink p426",
+    "searchText": "black amethyst charcoal plum watermelon shell pink p426 ui-dark",
     "colors": [
       "#12060A",
       "#34272B",
@@ -12436,7 +12688,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -12444,7 +12698,7 @@
       "Deep Jade",
       "Soft Carnation"
     ],
-    "searchText": "ice glass noir deep jade soft carnation p427",
+    "searchText": "ice glass noir deep jade soft carnation p427 modern",
     "colors": [
       "#F4FAF9",
       "#140B0C",
@@ -12464,7 +12718,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Noir Plum",
@@ -12472,7 +12728,7 @@
       "True Carnation",
       "Radiant Rose"
     ],
-    "searchText": "noir plum smoked bordeaux true carnation radiant rose p428",
+    "searchText": "noir plum smoked bordeaux true carnation radiant rose p428 monochromatic",
     "colors": [
       "#23031C",
       "#510046",
@@ -12492,7 +12748,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -12500,7 +12758,7 @@
       "Brass",
       "Salmon"
     ],
-    "searchText": "ink black charcoal navy brass salmon p429",
+    "searchText": "ink black charcoal navy brass salmon p429 tech",
     "colors": [
       "#050F23",
       "#28293D",
@@ -12520,7 +12778,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Ash",
@@ -12528,7 +12788,7 @@
       "Brick",
       "Soot"
     ],
-    "searchText": "ash stone grey brick soot p430",
+    "searchText": "ash stone grey brick soot p430 architecture",
     "colors": [
       "#C7C5BE",
       "#7C888B",
@@ -12548,7 +12808,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Vanilla",
@@ -12556,7 +12818,7 @@
       "Clay Rose Light",
       "Lagoon Deep"
     ],
-    "searchText": "vanilla juniper grey clay rose light lagoon deep p431",
+    "searchText": "vanilla juniper grey clay rose light lagoon deep p431 vintage",
     "colors": [
       "#ECDDC6",
       "#597E6D",
@@ -12576,7 +12838,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Clay",
@@ -12584,7 +12848,7 @@
       "Violet Blue",
       "Cream"
     ],
-    "searchText": "clay emerald neon violet blue cream p432",
+    "searchText": "clay emerald neon violet blue cream p432 triadic",
     "colors": [
       "#CE6C34",
       "#50D2A7",
@@ -12604,7 +12868,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -12612,7 +12878,7 @@
       "Olive Chartreuse",
       "Aqua Glow"
     ],
-    "searchText": "ink black twilight olive chartreuse aqua glow p433",
+    "searchText": "ink black twilight olive chartreuse aqua glow p433 tech",
     "colors": [
       "#061224",
       "#2F3C53",
@@ -12632,7 +12898,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Radiant Nightfall",
@@ -12640,7 +12908,7 @@
       "Matcha",
       "Cream Parchment"
     ],
-    "searchText": "radiant nightfall copper orange matcha cream parchment p434",
+    "searchText": "radiant nightfall copper orange matcha cream parchment p434 split",
     "colors": [
       "#112E93",
       "#CC7B3E",
@@ -12660,7 +12928,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Key Lime",
@@ -12668,7 +12938,7 @@
       "Lavender",
       "Fern"
     ],
-    "searchText": "key lime powder rose lavender fern p435",
+    "searchText": "key lime powder rose lavender fern p435 spring",
     "colors": [
       "#E6F3AD",
       "#F4B0C6",
@@ -12688,7 +12958,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Lavender Glow",
@@ -12696,7 +12968,7 @@
       "Bold Grape",
       "Dark Grape"
     ],
-    "searchText": "lavender glow true wisteria bold grape dark p436",
+    "searchText": "lavender glow true wisteria bold grape dark p436 monochromatic",
     "colors": [
       "#E6D7FF",
       "#C48EF7",
@@ -12716,7 +12988,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet Ink",
@@ -12724,7 +12998,7 @@
       "Harvest Gold",
       "Baby Pink"
     ],
-    "searchText": "jet ink maroon deep harvest gold baby pink p437",
+    "searchText": "jet ink maroon deep harvest gold baby pink p437 luxury",
     "colors": [
       "#090605",
       "#6C191B",
@@ -12744,7 +13018,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "coffee"
+    ],
     "keywords": [],
     "colorNames": [
       "Eggshell",
@@ -12752,7 +13028,7 @@
       "Saddle Brown",
       "Charcoal Red"
     ],
-    "searchText": "eggshell toffee saddle brown charcoal red p438",
+    "searchText": "eggshell toffee saddle brown charcoal red p438 coffee",
     "colors": [
       "#FBF0DE",
       "#B4794F",
@@ -12772,7 +13048,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Seafoam Pastel",
@@ -12780,7 +13058,7 @@
       "Cream Sorbet",
       "Ink Brown"
     ],
-    "searchText": "seafoam pastel fire red cream sorbet ink brown p439",
+    "searchText": "seafoam pastel fire red cream sorbet ink brown p439 retro",
     "colors": [
       "#9EEBCE",
       "#CD242D",
@@ -12800,7 +13078,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -12808,7 +13088,7 @@
       "Pale Sky Blue",
       "Eggshell"
     ],
-    "searchText": "pine bold bluebell pale sky blue eggshell p440",
+    "searchText": "pine bold bluebell pale sky blue eggshell p440 nature",
     "colors": [
       "#0E3A11",
       "#2B9BFF",
@@ -12828,7 +13108,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "desert"
+    ],
     "keywords": [],
     "colorNames": [
       "Fern Green",
@@ -12836,7 +13118,7 @@
       "Biscuit",
       "Saddle Brown"
     ],
-    "searchText": "fern green radiant camellia biscuit saddle brown p441",
+    "searchText": "fern green radiant camellia biscuit saddle brown p441 desert",
     "colors": [
       "#5B8663",
       "#FC80B6",
@@ -12856,7 +13138,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Blush",
@@ -12864,7 +13148,7 @@
       "Thistle",
       "Golden Sand"
     ],
-    "searchText": "blush spring leaf thistle golden sand p442",
+    "searchText": "blush spring leaf thistle golden sand p442 pastel",
     "colors": [
       "#FFE4F0",
       "#C7E6BE",
@@ -12884,7 +13168,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Key Lime",
@@ -12892,7 +13178,7 @@
       "Aqua",
       "Meadow"
     ],
-    "searchText": "key lime carnation aqua meadow p443",
+    "searchText": "key lime carnation aqua meadow p443 spring",
     "colors": [
       "#EBF5A8",
       "#EEA8C6",
@@ -12912,7 +13198,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Navy Blue",
@@ -12920,7 +13208,7 @@
       "Mist White",
       "Lilac Neon"
     ],
-    "searchText": "deep navy blue ocean mid mist white lilac neon p444",
+    "searchText": "deep navy blue ocean mid mist white lilac neon p444 corporate",
     "colors": [
       "#003454",
       "#007BA7",
@@ -12940,7 +13228,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Dusk Maroon",
@@ -12948,7 +13238,7 @@
       "Violet",
       "Apple Leaf"
     ],
-    "searchText": "dusk maroon radiant blush violet apple leaf p445",
+    "searchText": "dusk maroon radiant blush violet apple leaf p445 berry",
     "colors": [
       "#5C0F48",
       "#AF1F83",
@@ -12968,7 +13258,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Lacquer Red",
@@ -12976,7 +13268,7 @@
       "Emerald Petrol",
       "Periwinkle"
     ],
-    "searchText": "lacquer red gold emerald petrol periwinkle p446",
+    "searchText": "lacquer red gold emerald petrol periwinkle p446 tetradic",
     "colors": [
       "#C5647B",
       "#C1A624",
@@ -12996,7 +13288,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Bone",
@@ -13004,7 +13298,7 @@
       "Clear Cherry",
       "Pebble"
     ],
-    "searchText": "bone ink blue black clear cherry pebble p447",
+    "searchText": "bone ink blue black clear cherry pebble p447 editorial",
     "colors": [
       "#F1EEE8",
       "#120F18",
@@ -13024,7 +13318,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Ecru",
@@ -13032,7 +13328,7 @@
       "Cerulean",
       "Mushroom Beige"
     ],
-    "searchText": "ecru obsidian cerulean mushroom beige p448",
+    "searchText": "ecru obsidian cerulean mushroom beige p448 editorial",
     "colors": [
       "#F7F4E4",
       "#0B0D10",
@@ -13052,7 +13348,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Marina",
@@ -13060,7 +13358,7 @@
       "Ink Blue",
       "Amber Bright"
     ],
-    "searchText": "marina ice aqua ink blue amber bright p449",
+    "searchText": "marina ice aqua ink blue amber bright p449 branding",
     "colors": [
       "#00889F",
       "#CFF5FF",
@@ -13080,7 +13378,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Key Lime",
@@ -13088,7 +13388,7 @@
       "Gold Leaf",
       "Kelly Green"
     ],
-    "searchText": "key lime powder rose gold leaf kelly green p450",
+    "searchText": "key lime powder rose gold leaf kelly green p450 spring",
     "colors": [
       "#EDF0A6",
       "#FFB7C1",
@@ -13108,7 +13408,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "citrus"
+    ],
     "keywords": [],
     "colorNames": [
       "Airy Butter",
@@ -13116,7 +13418,7 @@
       "Flame Orange",
       "Cream"
     ],
-    "searchText": "airy butter gold yellow flame orange cream p451",
+    "searchText": "airy butter gold yellow flame orange cream p451 citrus",
     "colors": [
       "#EBEB79",
       "#E8AE00",
@@ -13136,7 +13438,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch",
@@ -13144,7 +13448,7 @@
       "Moss",
       "Kelly Green"
     ],
-    "searchText": "pitch peat moss kelly green p452",
+    "searchText": "pitch peat moss kelly green p452 analogous",
     "colors": [
       "#241000",
       "#423200",
@@ -13164,7 +13468,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Cypress",
@@ -13172,7 +13478,7 @@
       "Brass Olive",
       "Lilac"
     ],
-    "searchText": "cypress bracken brass olive lilac p453",
+    "searchText": "cypress bracken brass olive lilac p453 forest",
     "colors": [
       "#0D2511",
       "#374E2A",
@@ -13192,7 +13498,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Black",
@@ -13200,7 +13508,7 @@
       "Teal Neon",
       "Pale Sky"
     ],
-    "searchText": "midnight black twilight teal neon pale sky p454",
+    "searchText": "midnight black twilight teal neon pale sky p454 tech",
     "colors": [
       "#06071A",
       "#313856",
@@ -13220,7 +13528,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Spruce",
@@ -13228,7 +13538,7 @@
       "Teal",
       "Turquoise"
     ],
-    "searchText": "midnight spruce teal turquoise p455",
+    "searchText": "midnight spruce teal turquoise p455 analogous",
     "colors": [
       "#031700",
       "#00492E",
@@ -13248,7 +13558,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Silver",
@@ -13256,7 +13568,7 @@
       "Leaf Green",
       "Ink Blue"
     ],
-    "searchText": "silver stone grey leaf green ink blue p456",
+    "searchText": "silver stone grey leaf green ink blue p456 architecture",
     "colors": [
       "#BFBCBA",
       "#78868A",
@@ -13276,7 +13588,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Viridian",
@@ -13284,7 +13598,7 @@
       "Blaze Orange",
       "Malachite"
     ],
-    "searchText": "viridian gold yellow blaze orange malachite p457",
+    "searchText": "viridian gold yellow blaze orange malachite p457 tropical",
     "colors": [
       "#00A287",
       "#E2C400",
@@ -13304,7 +13618,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Pebble Beige",
@@ -13312,7 +13628,7 @@
       "Fern",
       "Navy"
     ],
-    "searchText": "pebble beige nickel fern navy p458",
+    "searchText": "pebble beige nickel fern navy p458 architecture",
     "colors": [
       "#D2CDC8",
       "#6E7B80",
@@ -13332,7 +13648,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Blackwood",
@@ -13340,7 +13658,7 @@
       "Grass",
       "Celery"
     ],
-    "searchText": "blackwood basil green grass celery p459",
+    "searchText": "blackwood basil green grass celery p459 forest",
     "colors": [
       "#0C1B0B",
       "#385B3C",
@@ -13360,7 +13678,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Smoked Oxblood",
@@ -13368,7 +13688,7 @@
       "Orchid Bloom",
       "Indigo Violet"
     ],
-    "searchText": "smoked oxblood clear raspberry orchid bloom indigo violet p460",
+    "searchText": "smoked oxblood clear raspberry orchid bloom indigo violet p460 berry",
     "colors": [
       "#68023C",
       "#B1509C",
@@ -13388,7 +13708,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -13396,7 +13718,7 @@
       "Cerulean",
       "Peach Glow"
     ],
-    "searchText": "porcelain blue soot brown cerulean peach glow p461",
+    "searchText": "porcelain blue soot brown cerulean peach glow p461 modern",
     "colors": [
       "#F7FBFD",
       "#25201E",
@@ -13416,7 +13738,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -13424,7 +13748,7 @@
       "Vivid Rose",
       "Powder Goldenrod"
     ],
-    "searchText": "rice paper abyss vivid rose powder goldenrod p462",
+    "searchText": "rice paper abyss vivid rose powder goldenrod p462 modern",
     "colors": [
       "#FBF5F8",
       "#0C1C15",
@@ -13444,7 +13768,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Powder Rose",
@@ -13452,7 +13778,7 @@
       "Buttercup",
       "Emerald"
     ],
-    "searchText": "powder rose mint buttercup emerald p463",
+    "searchText": "powder rose mint buttercup emerald p463 candy",
     "colors": [
       "#FFB0C8",
       "#94F6C0",
@@ -13472,7 +13798,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Vanilla Yellow",
@@ -13480,7 +13808,7 @@
       "Glacier",
       "Basil"
     ],
-    "searchText": "vanilla yellow powder rose glacier basil p464",
+    "searchText": "vanilla yellow powder rose glacier basil p464 spring",
     "colors": [
       "#EBEDB8",
       "#FFB6CF",
@@ -13500,7 +13828,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Raspberry",
@@ -13508,7 +13838,7 @@
       "Electric Cyan",
       "Frost Mint"
     ],
-    "searchText": "deep raspberry true ivy electric cyan frost mint p465",
+    "searchText": "deep raspberry true ivy electric cyan frost mint p465 split",
     "colors": [
       "#791441",
       "#31B25A",
@@ -13528,7 +13858,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Brown",
@@ -13536,7 +13868,7 @@
       "Harvest Gold",
       "Cream Khaki"
     ],
-    "searchText": "pitch brown burnt umber harvest gold cream khaki p466",
+    "searchText": "pitch brown burnt umber harvest gold cream khaki p466 earthy",
     "colors": [
       "#1B0F08",
       "#AC5128",
@@ -13556,7 +13888,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Port Wine",
@@ -13564,7 +13898,7 @@
       "Lupine",
       "Royal Navy"
     ],
-    "searchText": "port wine clear raspberry lupine royal navy p467",
+    "searchText": "port wine clear raspberry lupine royal navy p467 berry",
     "colors": [
       "#5C1432",
       "#A32879",
@@ -13584,7 +13918,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "desert"
+    ],
     "keywords": [],
     "colorNames": [
       "Latte",
@@ -13592,7 +13928,7 @@
       "Fuchsia",
       "Midnight Iris"
     ],
-    "searchText": "latte rose clay fuchsia midnight iris p468",
+    "searchText": "latte rose clay fuchsia midnight iris p468 desert",
     "colors": [
       "#E0C3A6",
       "#D18E8E",
@@ -13612,7 +13948,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -13620,7 +13958,7 @@
       "Sunset Orange",
       "Green Apple Soft"
     ],
-    "searchText": "ink black navy sunset orange green apple soft p469",
+    "searchText": "ink black navy sunset orange green apple soft p469 tech",
     "colors": [
       "#040C1D",
       "#203340",
@@ -13640,7 +13978,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Radiant Sprout",
@@ -13648,7 +13988,7 @@
       "Amethyst",
       "Coral Sand"
     ],
-    "searchText": "radiant sprout cerulean amethyst coral sand p470",
+    "searchText": "radiant sprout cerulean amethyst coral sand p470 tetradic",
     "colors": [
       "#4C8800",
       "#009CC3",
@@ -13668,7 +14008,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Milk White",
@@ -13676,7 +14018,7 @@
       "Pitch",
       "Golden Ochre"
     ],
-    "searchText": "milk white peach pitch golden ochre p471",
+    "searchText": "milk white peach pitch golden ochre p471 minimal",
     "colors": [
       "#FCFAF9",
       "#F0D7C0",
@@ -13696,7 +14038,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Blush",
@@ -13704,7 +14048,7 @@
       "Butter Yellow",
       "Papaya"
     ],
-    "searchText": "blush aqua glow butter yellow papaya p472",
+    "searchText": "blush aqua glow butter yellow papaya p472 candy",
     "colors": [
       "#FFADDA",
       "#84F4CC",
@@ -13724,7 +14068,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Nightfall",
@@ -13732,7 +14078,7 @@
       "Brass",
       "Watermelon"
     ],
-    "searchText": "nightfall lavender blue brass watermelon p473",
+    "searchText": "nightfall lavender blue brass watermelon p473 neon",
     "colors": [
       "#0C031C",
       "#D2D5FF",
@@ -13752,7 +14098,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Gold",
@@ -13760,7 +14108,7 @@
       "Peony",
       "Mint Sugar"
     ],
-    "searchText": "gold azure sky peony mint sugar p474",
+    "searchText": "gold azure sky peony mint sugar p474 triadic",
     "colors": [
       "#BAA337",
       "#3BB8D5",
@@ -13780,7 +14128,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Mint Sage",
@@ -13788,7 +14138,7 @@
       "Teal Mist",
       "Leaf Green"
     ],
-    "searchText": "mint sage shamrock teal mist leaf green p475",
+    "searchText": "mint sage shamrock teal mist leaf green p475 floral",
     "colors": [
       "#B7E8CC",
       "#009F62",
@@ -13808,7 +14158,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Ecru",
@@ -13816,7 +14168,7 @@
       "Cornflower Muted",
       "Fern"
     ],
-    "searchText": "ecru olive cornflower muted fern p476",
+    "searchText": "ecru olive cornflower muted fern p476 vintage",
     "colors": [
       "#F0E2CC",
       "#81936E",
@@ -13836,7 +14188,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Aqua Frost",
@@ -13844,7 +14198,7 @@
       "Lilac Haze",
       "Jade"
     ],
-    "searchText": "aqua frost turquoise lilac haze jade p477",
+    "searchText": "aqua frost turquoise lilac haze jade p477 floral",
     "colors": [
       "#97E2F2",
       "#00A5A1",
@@ -13864,7 +14218,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -13872,7 +14228,7 @@
       "Electric Bougainvillea",
       "Aqua Glow"
     ],
-    "searchText": "snow forest ink electric bougainvillea aqua glow p478",
+    "searchText": "snow forest ink electric bougainvillea aqua glow p478 modern",
     "colors": [
       "#FAF8FA",
       "#1A2519",
@@ -13892,7 +14248,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Barley Light",
@@ -13900,7 +14258,7 @@
       "Brass Olive",
       "Basil"
     ],
-    "searchText": "barley light carnation brass olive basil p479",
+    "searchText": "barley light carnation brass olive basil p479 spring",
     "colors": [
       "#EFF0BF",
       "#EEA2B8",
@@ -13920,7 +14278,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Evergreen",
@@ -13928,7 +14288,7 @@
       "Ice Mint",
       "Amethyst"
     ],
-    "searchText": "evergreen basil ice mint amethyst p480",
+    "searchText": "evergreen basil ice mint amethyst p480 corporate",
     "colors": [
       "#002C1A",
       "#00863F",
@@ -13948,7 +14308,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Cocoa Bark",
@@ -13956,7 +14318,7 @@
       "Muted Wheat",
       "Heather"
     ],
-    "searchText": "cocoa bark terracotta muted wheat heather p481",
+    "searchText": "cocoa bark terracotta muted wheat heather p481 earthy",
     "colors": [
       "#342007",
       "#BA543E",
@@ -13976,7 +14338,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Wine Dark",
@@ -13984,7 +14348,7 @@
       "Lilac Haze",
       "Bluebird"
     ],
-    "searchText": "wine dark rich magenta lilac haze bluebird p482",
+    "searchText": "wine dark rich magenta lilac haze bluebird p482 berry",
     "colors": [
       "#4C0026",
       "#AA4EB2",
@@ -14004,7 +14368,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "interior"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -14012,7 +14378,7 @@
       "Byzantium",
       "Ink Brown"
     ],
-    "searchText": "dune clay rose byzantium ink brown p483",
+    "searchText": "dune clay rose byzantium ink brown p483 interior",
     "colors": [
       "#F4E7D4",
       "#BA8C73",
@@ -14032,7 +14398,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Mist White",
@@ -14040,7 +14408,7 @@
       "Slate Blue Grey",
       "Radiant Periwinkle"
     ],
-    "searchText": "mist white fog blue slate grey radiant periwinkle p484",
+    "searchText": "mist white fog blue slate grey radiant periwinkle p484 winter",
     "colors": [
       "#E6F2F6",
       "#99B7C8",
@@ -14060,7 +14428,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "autumn"
+    ],
     "keywords": [],
     "colorNames": [
       "Flame",
@@ -14068,7 +14438,7 @@
       "Gold Leaf",
       "Pine"
     ],
-    "searchText": "flame barn red gold leaf pine p485",
+    "searchText": "flame barn red gold leaf pine p485 autumn",
     "colors": [
       "#E97900",
       "#B62632",
@@ -14088,7 +14458,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Peach Glow",
@@ -14096,7 +14468,7 @@
       "Fire Red",
       "Burgundy"
     ],
-    "searchText": "peach glow coral sand fire red burgundy p486",
+    "searchText": "peach glow coral sand fire red burgundy p486 monochromatic",
     "colors": [
       "#FFD2CE",
       "#FF948B",
@@ -14116,7 +14488,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Tar",
@@ -14124,7 +14498,7 @@
       "Emerald Neon",
       "Grape"
     ],
-    "searchText": "tar celadon white emerald neon grape p487",
+    "searchText": "tar celadon white emerald neon grape p487 accessible-dark",
     "colors": [
       "#0E150A",
       "#E9F0E6",
@@ -14144,7 +14518,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Holly Green",
@@ -14152,7 +14528,7 @@
       "Deep Spruce Teal",
       "Persimmon"
     ],
-    "searchText": "holly green pistachio mint deep spruce teal persimmon p488",
+    "searchText": "holly green pistachio mint deep spruce teal persimmon p488 branding",
     "colors": [
       "#007159",
       "#C4F4E3",
@@ -14172,7 +14548,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Obsidian",
@@ -14180,7 +14558,7 @@
       "Cocoa",
       "Malachite"
     ],
-    "searchText": "obsidian soot cocoa malachite p489",
+    "searchText": "obsidian soot cocoa malachite p489 dark",
     "colors": [
       "#130C0D",
       "#351720",
@@ -14200,7 +14578,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Indigo",
@@ -14208,7 +14588,7 @@
       "Leaf",
       "Barley Green"
     ],
-    "searchText": "indigo fuchsia violet leaf barley green p490",
+    "searchText": "indigo fuchsia violet leaf barley green p490 complementary",
     "colors": [
       "#553072",
       "#A360BC",
@@ -14228,7 +14608,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neutral"
+    ],
     "keywords": [],
     "colorNames": [
       "Parchment",
@@ -14236,7 +14618,7 @@
       "Slate Grey Blue",
       "Jet"
     ],
-    "searchText": "parchment mushroom slate grey blue jet p491",
+    "searchText": "parchment mushroom slate grey blue jet p491 neutral",
     "colors": [
       "#EFEBE1",
       "#ADA693",
@@ -14256,7 +14638,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Charcoal Red",
@@ -14264,7 +14648,7 @@
       "Honey Gold",
       "Prussian Blue"
     ],
-    "searchText": "charcoal red clay honey gold prussian blue p492",
+    "searchText": "charcoal red clay honey gold prussian blue p492 earthy",
     "colors": [
       "#220A03",
       "#C07561",
@@ -14284,7 +14668,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Malachite",
@@ -14292,7 +14678,7 @@
       "Sky",
       "Emerald"
     ],
-    "searchText": "malachite sun yellow sky emerald p493",
+    "searchText": "malachite sun yellow sky emerald p493 tropical",
     "colors": [
       "#00926E",
       "#FCD863",
@@ -14312,7 +14698,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Flamingo",
@@ -14320,7 +14708,7 @@
       "Lemon",
       "Marigold Bright"
     ],
-    "searchText": "flamingo turquoise neon lemon marigold bright p494",
+    "searchText": "flamingo turquoise neon lemon marigold bright p494 candy",
     "colors": [
       "#FD9AC9",
       "#5CECCC",
@@ -14340,7 +14728,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Electric Nightfall",
@@ -14348,7 +14738,7 @@
       "Radiant Evergreen",
       "Wine Purple"
     ],
-    "searchText": "electric nightfall butter gold radiant evergreen wine purple p495",
+    "searchText": "electric nightfall butter gold radiant evergreen wine purple p495 vibrant",
     "colors": [
       "#8C6DFD",
       "#FFBC3B",
@@ -14368,7 +14758,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Green",
@@ -14376,7 +14768,7 @@
       "Fern",
       "Imperial Purple"
     ],
-    "searchText": "pitch green pine needle fern imperial purple p496",
+    "searchText": "pitch green pine needle fern imperial purple p496 forest",
     "colors": [
       "#00190F",
       "#254D14",
@@ -14396,7 +14788,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -14404,7 +14798,7 @@
       "Harvest Gold",
       "Baby Pink"
     ],
-    "searchText": "void indigo violet harvest gold baby pink p497",
+    "searchText": "void indigo violet harvest gold baby pink p497 luxury",
     "colors": [
       "#06060D",
       "#49418E",
@@ -14424,7 +14818,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Cacao",
@@ -14432,7 +14828,7 @@
       "Petrol Teal",
       "Aqua Frost"
     ],
-    "searchText": "cacao flame petrol teal aqua frost p498",
+    "searchText": "cacao flame petrol teal aqua frost p498 duotone",
     "colors": [
       "#4C1D00",
       "#E57D39",
@@ -14452,7 +14848,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Chalk Cream",
@@ -14460,7 +14858,7 @@
       "Chili Red",
       "Powder Blue"
     ],
-    "searchText": "chalk cream black violet chili red powder blue p499",
+    "searchText": "chalk cream black violet chili red powder blue p499 editorial",
     "colors": [
       "#F6F3EC",
       "#0C0A17",
@@ -14480,7 +14878,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "coffee"
+    ],
     "keywords": [],
     "colorNames": [
       "Flax",
@@ -14488,7 +14888,7 @@
       "Cedar",
       "Rose Dust"
     ],
-    "searchText": "flax camel cedar rose dust p500",
+    "searchText": "flax camel cedar rose dust p500 coffee",
     "colors": [
       "#EDE7D9",
       "#C2905B",
@@ -14508,7 +14908,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow Grey",
@@ -14516,7 +14918,7 @@
       "Neon Pink",
       "Light Caribbean"
     ],
-    "searchText": "snow grey ink moss neon pink light caribbean p501",
+    "searchText": "snow grey ink moss neon pink light caribbean p501 modern",
     "colors": [
       "#F2F2F2",
       "#14211E",
@@ -14536,7 +14938,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Parchment Cream",
@@ -14544,7 +14948,7 @@
       "Bold Midnight",
       "Stone Taupe"
     ],
-    "searchText": "parchment cream slate indigo bold midnight stone taupe p502",
+    "searchText": "parchment cream slate indigo bold midnight stone taupe p502 editorial",
     "colors": [
       "#F8F5E6",
       "#191923",
@@ -14564,7 +14968,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Ivory",
@@ -14572,7 +14978,7 @@
       "Old Gold",
       "Aqua Light"
     ],
-    "searchText": "ivory ink violet dark old gold aqua light p503",
+    "searchText": "ivory ink violet dark old gold aqua light p503 modern",
     "colors": [
       "#F9F7F2",
       "#1B212F",
@@ -14592,7 +14998,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Spruce",
@@ -14600,7 +15008,7 @@
       "Raspberry Wine",
       "Petal"
     ],
-    "searchText": "spruce viridian raspberry wine petal p504",
+    "searchText": "spruce viridian raspberry wine petal p504 duotone",
     "colors": [
       "#00423B",
       "#00A89D",
@@ -14620,7 +15028,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Bone",
@@ -14628,7 +15038,7 @@
       "Lichen",
       "Wine Dark"
     ],
-    "searchText": "bone meadow lichen wine dark p505",
+    "searchText": "bone meadow lichen wine dark p505 elegant",
     "colors": [
       "#F2EEE9",
       "#93B689",
@@ -14648,7 +15058,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Walnut Dark",
@@ -14656,7 +15068,7 @@
       "Cobalt",
       "Periwinkle Cream"
     ],
-    "searchText": "walnut dark golden ochre cobalt periwinkle cream p506",
+    "searchText": "walnut dark golden ochre cobalt periwinkle cream p506 complementary",
     "colors": [
       "#422C00",
       "#C47D00",
@@ -14676,7 +15088,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -14684,7 +15098,7 @@
       "Radiant Shamrock",
       "Amber Bright"
     ],
-    "searchText": "ink blue black petal radiant shamrock amber bright p507",
+    "searchText": "ink blue black petal radiant shamrock amber bright p507 neon",
     "colors": [
       "#0C0F19",
       "#FFC1CB",
@@ -14704,7 +15118,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Greige Light",
@@ -14712,7 +15128,7 @@
       "Ocean Teal",
       "Deep Ocean"
     ],
-    "searchText": "greige light nickel ocean teal deep p508",
+    "searchText": "greige light nickel ocean teal deep p508 architecture",
     "colors": [
       "#D0CCC2",
       "#7A7E80",
@@ -14732,7 +15148,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Blue",
@@ -14740,7 +15158,7 @@
       "Aqua",
       "Coral"
     ],
-    "searchText": "midnight blue cerulean deep aqua coral p509",
+    "searchText": "midnight blue cerulean deep aqua coral p509 ocean",
     "colors": [
       "#072656",
       "#0088B3",
@@ -14760,7 +15178,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -14768,7 +15188,7 @@
       "Radiant Pine",
       "Indigo Violet"
     ],
-    "searchText": "ice glass pitch green radiant pine indigo violet p510",
+    "searchText": "ice glass pitch green radiant pine indigo violet p510 accessible",
     "colors": [
       "#F0FEFF",
       "#021301",
@@ -14788,7 +15208,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Ocean",
@@ -14796,7 +15218,7 @@
       "Glass Green",
       "Coral"
     ],
-    "searchText": "deep ocean jade glass green coral p511",
+    "searchText": "deep ocean jade glass green coral p511 corporate",
     "colors": [
       "#002626",
       "#008179",
@@ -14816,7 +15238,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Frost White",
@@ -14824,7 +15248,7 @@
       "Bronze",
       "Violet"
     ],
-    "searchText": "frost white pitch bronze violet p512",
+    "searchText": "frost white pitch bronze violet p512 accessible",
     "colors": [
       "#E9F7EC",
       "#191200",
@@ -14844,7 +15268,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue",
@@ -14852,7 +15278,7 @@
       "Aquamarine",
       "Guava"
     ],
-    "searchText": "ink blue lagoon aquamarine guava p513",
+    "searchText": "ink blue lagoon aquamarine guava p513 ocean",
     "colors": [
       "#001A27",
       "#007981",
@@ -14872,7 +15298,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Vanilla Yellow",
@@ -14880,7 +15308,7 @@
       "Periwinkle",
       "Lilac Glow"
     ],
-    "searchText": "vanilla yellow aqua glow periwinkle lilac p514",
+    "searchText": "vanilla yellow aqua glow periwinkle lilac p514 pastel",
     "colors": [
       "#F3F3B0",
       "#7CE5D0",
@@ -14900,7 +15328,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Ash Linen",
@@ -14908,7 +15338,7 @@
       "Olive",
       "Deep Sea Blue"
     ],
-    "searchText": "ash linen steel grey olive deep sea blue p515",
+    "searchText": "ash linen steel grey olive deep sea blue p515 architecture",
     "colors": [
       "#D1C8C0",
       "#8A9196",
@@ -14928,7 +15358,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -14936,7 +15368,7 @@
       "Lilac Bloom",
       "Petrol Green"
     ],
-    "searchText": "dune eucalyptus lilac bloom petrol green p516",
+    "searchText": "dune eucalyptus lilac bloom petrol green p516 vintage",
     "colors": [
       "#EFE8D0",
       "#5A9A84",
@@ -14956,7 +15388,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Marine",
@@ -14964,7 +15398,7 @@
       "Sky Neon",
       "Ice"
     ],
-    "searchText": "black marine ink navy sky neon ice p517",
+    "searchText": "black marine ink navy sky neon ice p517 ui-dark",
     "colors": [
       "#08151D",
       "#1D2E38",
@@ -14984,7 +15418,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine Teal",
@@ -14992,7 +15428,7 @@
       "Rose Quartz",
       "Ballet Pink Soft"
     ],
-    "searchText": "pine teal malachite rose quartz ballet pink soft p518",
+    "searchText": "pine teal malachite rose quartz ballet pink soft p518 complementary",
     "colors": [
       "#004E3D",
       "#009364",
@@ -15012,7 +15448,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Ash",
@@ -15020,7 +15458,7 @@
       "Mulberry",
       "Deep Anchor"
     ],
-    "searchText": "ash nickel mulberry deep anchor p519",
+    "searchText": "ash nickel mulberry deep anchor p519 architecture",
     "colors": [
       "#B9B8B3",
       "#6C7476",
@@ -15040,7 +15478,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Turquoise",
@@ -15048,7 +15488,7 @@
       "Rust Orange",
       "Navy"
     ],
-    "searchText": "turquoise peony rust orange navy p520",
+    "searchText": "turquoise peony rust orange navy p520 vibrant",
     "colors": [
       "#00B0B2",
       "#FF96CF",
@@ -15068,7 +15508,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Powder Matcha",
@@ -15076,7 +15518,7 @@
       "Emerald",
       "Holly Green"
     ],
-    "searchText": "powder matcha jade emerald holly green p521",
+    "searchText": "powder matcha jade emerald holly green p521 analogous",
     "colors": [
       "#DFEE70",
       "#93CF8B",
@@ -15096,7 +15538,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Neon Midnight",
@@ -15104,7 +15548,7 @@
       "Nightshade",
       "Lime Leaf"
     ],
-    "searchText": "neon midnight periwinkle cream nightshade lime leaf p522",
+    "searchText": "neon midnight periwinkle cream nightshade lime leaf p522 branding",
     "colors": [
       "#726DFF",
       "#DCE0FD",
@@ -15124,7 +15568,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Mist White",
@@ -15132,7 +15578,7 @@
       "Marine Teal",
       "Fern"
     ],
-    "searchText": "mist white harbor marine teal fern p523",
+    "searchText": "mist white harbor marine teal fern p523 winter",
     "colors": [
       "#E7F3FB",
       "#B9D2DB",
@@ -15152,7 +15598,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Oatmeal",
@@ -15160,7 +15608,7 @@
       "Adobe",
       "Brick Brown"
     ],
-    "searchText": "oatmeal lagoon adobe brick brown p524",
+    "searchText": "oatmeal lagoon adobe brick brown p524 vintage",
     "colors": [
       "#EEE4CE",
       "#4D8897",
@@ -15180,7 +15628,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Grape",
@@ -15188,7 +15638,7 @@
       "Vivid Dragonfruit",
       "Peach Soft"
     ],
-    "searchText": "black grape deep navy slate vivid dragonfruit peach soft p525",
+    "searchText": "black grape deep navy slate vivid dragonfruit peach soft p525 tech",
     "colors": [
       "#0D0C1D",
       "#1E2B49",
@@ -15208,7 +15658,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Amber",
@@ -15216,7 +15668,7 @@
       "Radiant Lilac",
       "Midnight Purple"
     ],
-    "searchText": "amber turquoise fresh radiant lilac midnight purple p526",
+    "searchText": "amber turquoise fresh radiant lilac midnight purple p526 vibrant",
     "colors": [
       "#B97500",
       "#00CFC7",
@@ -15236,7 +15688,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -15244,7 +15698,7 @@
       "Lagoon Deep",
       "Mulberry"
     ],
-    "searchText": "porcelain blue blackwood lagoon deep mulberry p527",
+    "searchText": "porcelain blue blackwood lagoon deep mulberry p527 accessible",
     "colors": [
       "#F6FAFF",
       "#0A2221",
@@ -15264,7 +15718,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Raspberry",
@@ -15272,7 +15728,7 @@
       "Azure",
       "Ivory Linen"
     ],
-    "searchText": "raspberry grass green azure ivory linen p528",
+    "searchText": "raspberry grass green azure ivory linen p528 triadic",
     "colors": [
       "#ED7D89",
       "#81B85D",
@@ -15292,7 +15748,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -15300,7 +15758,7 @@
       "True Indigo",
       "Electric Periwinkle"
     ],
-    "searchText": "ink black forest azure true indigo electric periwinkle p529",
+    "searchText": "ink black forest azure true indigo electric periwinkle p529 monochromatic",
     "colors": [
       "#030929",
       "#0E2B75",
@@ -15320,7 +15778,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Viridian",
@@ -15328,7 +15788,7 @@
       "Ochre Brown",
       "Sky Cream"
     ],
-    "searchText": "viridian periwinkle ochre brown sky cream p530",
+    "searchText": "viridian periwinkle ochre brown sky cream p530 triadic",
     "colors": [
       "#00A59C",
       "#D7AEFF",
@@ -15348,7 +15808,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -15356,7 +15818,7 @@
       "Ember",
       "Copper Brown"
     ],
-    "searchText": "jet espresso black ember copper brown p531",
+    "searchText": "jet espresso black ember copper brown p531 dark",
     "colors": [
       "#090603",
       "#2C1F0D",
@@ -15376,7 +15838,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Pine",
@@ -15384,7 +15848,7 @@
       "Mint White",
       "Sky"
     ],
-    "searchText": "deep pine kelly forest mint white sky p532",
+    "searchText": "deep pine kelly forest mint white sky p532 corporate",
     "colors": [
       "#003423",
       "#0C7742",
@@ -15404,7 +15868,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Forest Deep",
@@ -15412,7 +15878,7 @@
       "Thistle",
       "Flax"
     ],
-    "searchText": "forest deep radiant twilight thistle flax p533",
+    "searchText": "forest deep radiant twilight thistle flax p533 nature",
     "colors": [
       "#265034",
       "#8D73F4",
@@ -15432,7 +15898,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Bone Paper",
@@ -15440,7 +15908,7 @@
       "Fern Green",
       "Cypress"
     ],
-    "searchText": "bone paper lilac fern green cypress p534",
+    "searchText": "bone paper lilac fern green cypress p534 elegant",
     "colors": [
       "#F3EFE5",
       "#CD96B8",
@@ -15460,7 +15928,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -15468,7 +15938,7 @@
       "Powder Rose",
       "Cream Parchment"
     ],
-    "searchText": "pine orchid powder rose cream parchment p535",
+    "searchText": "pine orchid powder rose cream parchment p535 nature",
     "colors": [
       "#1A4116",
       "#D17BC3",
@@ -15488,7 +15958,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Black",
@@ -15496,7 +15968,7 @@
       "Indigo",
       "Avocado"
     ],
-    "searchText": "midnight black deep navy ink indigo avocado p536",
+    "searchText": "midnight black deep navy ink indigo avocado p536 dark",
     "colors": [
       "#030718",
       "#132143",
@@ -15516,7 +15988,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "coffee"
+    ],
     "keywords": [],
     "colorNames": [
       "Eggshell",
@@ -15524,7 +15998,7 @@
       "Cocoa",
       "Lapis"
     ],
-    "searchText": "eggshell copper sand cocoa lapis p537",
+    "searchText": "eggshell copper sand cocoa lapis p537 coffee",
     "colors": [
       "#F9F1DF",
       "#D6915E",
@@ -15544,7 +16018,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Celery Pastel",
@@ -15552,7 +16028,7 @@
       "Clear Basil",
       "Lime"
     ],
-    "searchText": "celery pastel pear clear basil lime p538",
+    "searchText": "celery pastel pear clear basil lime p538 monochromatic",
     "colors": [
       "#D1F4CD",
       "#8EC65F",
@@ -15572,7 +16048,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "coffee"
+    ],
     "keywords": [],
     "colorNames": [
       "Sand Pastel",
@@ -15580,7 +16058,7 @@
       "Dark Bronze",
       "Meadow"
     ],
-    "searchText": "sand pastel camel dark bronze meadow p539",
+    "searchText": "sand pastel camel dark bronze meadow p539 coffee",
     "colors": [
       "#F7E8D5",
       "#C4956B",
@@ -15600,7 +16078,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Apricot Light",
@@ -15608,7 +16088,7 @@
       "Airy Ivy",
       "Seafoam"
     ],
-    "searchText": "apricot light butter yellow airy ivy seafoam p540",
+    "searchText": "apricot light butter yellow airy ivy seafoam p540 pastel",
     "colors": [
       "#FFE8CC",
       "#D4E494",
@@ -15628,7 +16108,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "light"
+    ],
     "keywords": [],
     "colorNames": [
       "Cotton",
@@ -15636,7 +16118,7 @@
       "Lilac",
       "Teal Mist"
     ],
-    "searchText": "cotton apricot blush lilac teal mist p541",
+    "searchText": "cotton apricot blush lilac teal mist p541 light",
     "colors": [
       "#FFFAFB",
       "#F4D0B6",
@@ -15656,7 +16138,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -15664,7 +16148,7 @@
       "Cinnamon",
       "Peach Soft"
     ],
-    "searchText": "abyss capri cinnamon peach soft p542",
+    "searchText": "abyss capri cinnamon peach soft p542 duotone",
     "colors": [
       "#002735",
       "#00A7D9",
@@ -15684,7 +16168,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Emerald",
@@ -15692,7 +16178,7 @@
       "Prussian",
       "Pale Sky"
     ],
-    "searchText": "emerald ivy prussian pale sky p543",
+    "searchText": "emerald ivy prussian pale sky p543 duotone",
     "colors": [
       "#003921",
       "#22A877",
@@ -15712,7 +16198,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Warm Cream",
@@ -15720,7 +16208,7 @@
       "Ochre Brown",
       "Steel Grey"
     ],
-    "searchText": "warm cream ink black ochre brown steel grey p544",
+    "searchText": "warm cream ink black ochre brown steel grey p544 editorial",
     "colors": [
       "#F7F4ED",
       "#040E19",
@@ -15740,7 +16228,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain",
@@ -15748,7 +16238,7 @@
       "Bold Bluebird",
       "Pistachio"
     ],
-    "searchText": "porcelain dark bark bold bluebird pistachio p545",
+    "searchText": "porcelain dark bark bold bluebird pistachio p545 modern",
     "colors": [
       "#F4F4F4",
       "#201E0F",
@@ -15768,7 +16258,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Sky Pastel",
@@ -15776,7 +16268,7 @@
       "Cyan",
       "Olive Forest"
     ],
-    "searchText": "sky pastel azure cyan olive forest p546",
+    "searchText": "sky pastel azure cyan olive forest p546 floral",
     "colors": [
       "#CEE2FF",
       "#2485E1",
@@ -15796,7 +16288,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Dark Olive",
@@ -15804,7 +16298,7 @@
       "Eggshell",
       "Amethyst Light"
     ],
-    "searchText": "dark olive butter eggshell amethyst light p547",
+    "searchText": "dark olive butter eggshell amethyst light p547 corporate",
     "colors": [
       "#322E00",
       "#8C7400",
@@ -15824,7 +16318,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Rich Heather",
@@ -15832,7 +16328,7 @@
       "True Petal",
       "Emerald"
     ],
-    "searchText": "rich heather lime neon true petal emerald p548",
+    "searchText": "rich heather lime neon true petal emerald p548 vibrant",
     "colors": [
       "#AC4DD0",
       "#98EF63",
@@ -15852,7 +16348,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -15860,7 +16358,7 @@
       "Sunflower",
       "Cobalt"
     ],
-    "searchText": "jet peach cream sunflower cobalt p549",
+    "searchText": "jet peach cream sunflower cobalt p549 accessible-dark",
     "colors": [
       "#0F0502",
       "#FEE7DC",
@@ -15880,7 +16378,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Blackcurrant",
@@ -15888,7 +16388,7 @@
       "Honey",
       "Chestnut"
     ],
-    "searchText": "blackcurrant sienna honey chestnut p550",
+    "searchText": "blackcurrant sienna honey chestnut p550 earthy",
     "colors": [
       "#200D07",
       "#B5632F",
@@ -15908,7 +16408,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -15916,7 +16418,7 @@
       "Lilac Glow",
       "Tawny Rose"
     ],
-    "searchText": "jet bold spruce lilac glow tawny rose p551",
+    "searchText": "jet bold spruce lilac glow tawny rose p551 fashion",
     "colors": [
       "#030502",
       "#3A7E00",
@@ -15936,7 +16438,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine Needle",
@@ -15944,7 +16448,7 @@
       "Periwinkle",
       "Lilac White"
     ],
-    "searchText": "pine needle avocado periwinkle lilac white p552",
+    "searchText": "pine needle avocado periwinkle lilac white p552 complementary",
     "colors": [
       "#444800",
       "#7F8800",
@@ -15964,7 +16468,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Lavender Glow",
@@ -15972,7 +16478,7 @@
       "Radiant Twilight",
       "Indigo"
     ],
-    "searchText": "lavender glow iris radiant twilight indigo p553",
+    "searchText": "lavender glow iris radiant twilight indigo p553 monochromatic",
     "colors": [
       "#DDDFFF",
       "#9AA0FF",
@@ -15992,7 +16498,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Silver",
@@ -16000,7 +16508,7 @@
       "Dusty Iris",
       "Navy"
     ],
-    "searchText": "silver stone grey dusty iris navy p554",
+    "searchText": "silver stone grey dusty iris navy p554 architecture",
     "colors": [
       "#C3C0BE",
       "#7C878A",
@@ -16020,7 +16528,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -16028,7 +16538,7 @@
       "True Dragonfruit",
       "Blackwood"
     ],
-    "searchText": "rice paper thistle true dragonfruit blackwood p555",
+    "searchText": "rice paper thistle true dragonfruit blackwood p555 ui",
     "colors": [
       "#FCF7FC",
       "#D4C7F6",
@@ -16048,7 +16558,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -16056,7 +16568,7 @@
       "Golden Amber",
       "Peach Glow"
     ],
-    "searchText": "abyss cobalt golden amber peach glow p556",
+    "searchText": "abyss cobalt golden amber peach glow p556 luxury",
     "colors": [
       "#030B11",
       "#005F88",
@@ -16076,7 +16588,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Black",
@@ -16084,7 +16598,7 @@
       "Maroon",
       "Viridian"
     ],
-    "searchText": "pitch black port wine maroon viridian p557",
+    "searchText": "pitch black port wine maroon viridian p557 dark",
     "colors": [
       "#11080B",
       "#4C2027",
@@ -16104,7 +16618,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Milk Glass",
@@ -16112,7 +16628,7 @@
       "Cinnamon",
       "Ink Blue"
     ],
-    "searchText": "milk glass straw cinnamon ink blue p558",
+    "searchText": "milk glass straw cinnamon ink blue p558 ui",
     "colors": [
       "#FBF7F5",
       "#E9D69F",
@@ -16132,7 +16648,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -16140,7 +16658,7 @@
       "Viridian",
       "Lapis"
     ],
-    "searchText": "onyx soft carnation viridian lapis p559",
+    "searchText": "onyx soft carnation viridian lapis p559 neon",
     "colors": [
       "#110C1B",
       "#FFBDEB",
@@ -16160,7 +16678,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Void Black",
@@ -16168,7 +16688,7 @@
       "Mustard Gold",
       "Greige"
     ],
-    "searchText": "void black royal purple mustard gold greige p560",
+    "searchText": "void black royal purple mustard gold greige p560 luxury",
     "colors": [
       "#0A080F",
       "#442578",
@@ -16188,7 +16708,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -16196,7 +16718,7 @@
       "Mustard Gold",
       "Almond"
     ],
-    "searchText": "jet peat mustard gold almond p561",
+    "searchText": "jet peat mustard gold almond p561 luxury",
     "colors": [
       "#090908",
       "#3D3E00",
@@ -16216,7 +16738,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -16224,7 +16748,7 @@
       "Honey",
       "Cream Parchment"
     ],
-    "searchText": "pine amber orange honey cream parchment p562",
+    "searchText": "pine amber orange honey cream parchment p562 nature",
     "colors": [
       "#204522",
       "#DC9200",
@@ -16244,7 +16768,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -16252,7 +16778,7 @@
       "Radiant Twilight",
       "Salmon Pastel"
     ],
-    "searchText": "void powder goldenrod radiant twilight salmon pastel p563",
+    "searchText": "void powder goldenrod radiant twilight salmon pastel p563 neon",
     "colors": [
       "#070712",
       "#E4DD00",
@@ -16272,7 +16798,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Azure",
@@ -16280,7 +16808,7 @@
       "Rich Indigo",
       "Espresso"
     ],
-    "searchText": "azure peach orange rich indigo espresso p564",
+    "searchText": "azure peach orange rich indigo espresso p564 vibrant",
     "colors": [
       "#007FCD",
       "#FFB059",
@@ -16300,7 +16828,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "desert"
+    ],
     "keywords": [],
     "colorNames": [
       "Putty",
@@ -16308,7 +16838,7 @@
       "Sage Grey",
       "Harbor Mist"
     ],
-    "searchText": "putty clay red sage grey harbor mist p565",
+    "searchText": "putty clay red sage grey harbor mist p565 desert",
     "colors": [
       "#E0CEB9",
       "#B66B4C",
@@ -16328,7 +16858,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -16336,7 +16868,7 @@
       "Viridian",
       "Pear Green"
     ],
-    "searchText": "onyx navy ink viridian pear green p566",
+    "searchText": "onyx navy ink viridian pear green p566 tech",
     "colors": [
       "#0E1222",
       "#2D2E42",
@@ -16356,7 +16888,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Mint Glow",
@@ -16364,7 +16898,7 @@
       "Carnation",
       "Biscuit"
     ],
-    "searchText": "mint glow lavender blue carnation biscuit p567",
+    "searchText": "mint glow lavender blue carnation biscuit p567 pastel",
     "colors": [
       "#B8FFE9",
       "#B8D0FF",
@@ -16384,7 +16918,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Periwinkle",
@@ -16392,7 +16928,7 @@
       "Kelly Green",
       "Orchid White"
     ],
-    "searchText": "periwinkle rose clay kelly green orchid white p568",
+    "searchText": "periwinkle rose clay kelly green orchid white p568 triadic",
     "colors": [
       "#799BFA",
       "#E89084",
@@ -16412,7 +16948,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Ivory Sage",
@@ -16420,7 +16958,7 @@
       "Eclipse",
       "Radiant Kiwi"
     ],
-    "searchText": "ivory sage lavender pastel eclipse radiant kiwi p569",
+    "searchText": "ivory sage lavender pastel eclipse radiant kiwi p569 minimal",
     "colors": [
       "#F5F8F4",
       "#E7D0F6",
@@ -16440,7 +16978,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Flame Orange",
@@ -16448,7 +16988,7 @@
       "True Lime",
       "Midnight Blue"
     ],
-    "searchText": "flame orange radiant petal true lime midnight blue p570",
+    "searchText": "flame orange radiant petal true lime midnight blue p570 retro",
     "colors": [
       "#F77312",
       "#F57FBA",
@@ -16468,7 +17008,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Rose Quartz",
@@ -16476,7 +17018,7 @@
       "Whisper Buttercup",
       "Turquoise Fresh"
     ],
-    "searchText": "rose quartz light ivy whisper buttercup turquoise fresh p571",
+    "searchText": "rose quartz light ivy whisper buttercup turquoise fresh p571 candy",
     "colors": [
       "#F693C5",
       "#96EFBB",
@@ -16496,7 +17038,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Sea",
@@ -16504,7 +17048,7 @@
       "Mist",
       "Electric Periwinkle"
     ],
-    "searchText": "deep sea teal mist electric periwinkle p572",
+    "searchText": "deep sea teal mist electric periwinkle p572 corporate",
     "colors": [
       "#00393E",
       "#008585",
@@ -16524,7 +17068,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice",
@@ -16532,7 +17078,7 @@
       "Smoke",
       "Barn Red"
     ],
-    "searchText": "ice sky aqua smoke barn red p573",
+    "searchText": "ice sky aqua smoke barn red p573 winter",
     "colors": [
       "#ECF7FC",
       "#A9D2DB",
@@ -16552,7 +17098,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Pale Sky",
@@ -16560,7 +17108,7 @@
       "Wisteria Blue",
       "Imperial Purple"
     ],
-    "searchText": "pale sky prussian wisteria blue imperial purple p574",
+    "searchText": "pale sky prussian wisteria blue imperial purple p574 analogous",
     "colors": [
       "#AFDEFF",
       "#82B3FF",
@@ -16580,7 +17128,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Sandstone",
@@ -16588,7 +17138,7 @@
       "Copper Brown",
       "Deep Anchor"
     ],
-    "searchText": "sandstone zinc copper brown deep anchor p575",
+    "searchText": "sandstone zinc copper brown deep anchor p575 architecture",
     "colors": [
       "#C3BCB3",
       "#848D94",
@@ -16608,7 +17158,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -16616,7 +17168,7 @@
       "Butter Gold",
       "Butterscotch"
     ],
-    "searchText": "void rich bluebell butter gold butterscotch p576",
+    "searchText": "void rich bluebell butter gold butterscotch p576 fashion",
     "colors": [
       "#04080E",
       "#0077F1",
@@ -16636,7 +17188,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Cedar",
@@ -16644,7 +17198,7 @@
       "Sky Neon",
       "Sky Cream"
     ],
-    "searchText": "cedar rust orange sky neon cream p577",
+    "searchText": "cedar rust orange sky neon cream p577 complementary",
     "colors": [
       "#723000",
       "#CB5A00",
@@ -16664,7 +17218,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Meringue",
@@ -16672,7 +17228,7 @@
       "Stone Blue",
       "Coffee Black"
     ],
-    "searchText": "meringue aqua grey stone blue coffee black p578",
+    "searchText": "meringue aqua grey stone blue coffee black p578 elegant",
     "colors": [
       "#FEF2EA",
       "#8DB5B3",
@@ -16692,7 +17248,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -16700,7 +17258,7 @@
       "True Nightfall",
       "Indigo Night"
     ],
-    "searchText": "porcelain blue lavender true nightfall indigo night p579",
+    "searchText": "porcelain blue lavender true nightfall indigo night p579 ui",
     "colors": [
       "#F8F8FF",
       "#D4D4FF",
@@ -16720,7 +17278,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Marine",
@@ -16728,7 +17288,7 @@
       "Sky Aqua",
       "Lemon"
     ],
-    "searchText": "ink marine cerulean deep sky aqua lemon p580",
+    "searchText": "ink marine cerulean deep sky aqua lemon p580 ocean",
     "colors": [
       "#010F3D",
       "#0088B9",
@@ -16748,7 +17308,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Ocean",
@@ -16776,7 +17338,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Brown",
@@ -16784,7 +17348,7 @@
       "Tan Beige",
       "Storm"
     ],
-    "searchText": "ink brown clay tan beige storm p582",
+    "searchText": "ink brown clay tan beige storm p582 earthy",
     "colors": [
       "#231307",
       "#B9785B",
@@ -16804,7 +17368,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -16812,7 +17378,7 @@
       "Slate Denim",
       "Brick Brown"
     ],
-    "searchText": "ice glass powder blue slate denim brick brown p583",
+    "searchText": "ice glass powder blue slate denim brick brown p583 winter",
     "colors": [
       "#F1FBFF",
       "#A9BDD0",
@@ -16832,7 +17398,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -16840,7 +17408,7 @@
       "Byzantium",
       "Old Gold"
     ],
-    "searchText": "ink blue black navy byzantium old gold p584",
+    "searchText": "ink blue black navy byzantium old gold p584 dark",
     "colors": [
       "#090F18",
       "#27303F",
@@ -16860,7 +17428,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Carbon Blue",
@@ -16868,7 +17438,7 @@
       "Periwinkle",
       "Coral Blush"
     ],
-    "searchText": "carbon blue sky cream periwinkle coral blush p585",
+    "searchText": "carbon blue sky cream periwinkle coral blush p585 accessible-dark",
     "colors": [
       "#0E1518",
       "#DEF0F6",
@@ -16888,7 +17458,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Evergreen",
@@ -16916,7 +17488,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Ivory Linen",
@@ -16924,7 +17498,7 @@
       "Mauve Taupe",
       "Deep Pine"
     ],
-    "searchText": "ivory linen lilac bloom mauve taupe deep pine p587",
+    "searchText": "ivory linen lilac bloom mauve taupe deep pine p587 elegant",
     "colors": [
       "#F7F2E6",
       "#C6AAD5",
@@ -16944,7 +17518,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Forest Ink",
@@ -16972,7 +17548,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Glacier Ice",
@@ -16980,7 +17558,7 @@
       "Teal",
       "Black Cherry"
     ],
-    "searchText": "glacier ice spring leaf teal black cherry p589",
+    "searchText": "glacier ice spring leaf teal black cherry p589 ui",
     "colors": [
       "#F5FAF9",
       "#BAE9C5",
@@ -17000,7 +17578,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -17008,7 +17588,7 @@
       "Electric Plum",
       "Cyan"
     ],
-    "searchText": "onyx powder pine electric plum cyan p590",
+    "searchText": "onyx powder pine electric plum cyan p590 neon",
     "colors": [
       "#100D17",
       "#80FFB2",
@@ -17028,7 +17608,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Peat",
@@ -17036,7 +17618,7 @@
       "Lilac Glow",
       "Orchid White"
     ],
-    "searchText": "peat azure lilac glow orchid white p591",
+    "searchText": "peat azure lilac glow orchid white p591 split",
     "colors": [
       "#483800",
       "#139AE4",
@@ -17056,7 +17638,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Kelp",
@@ -17064,7 +17648,7 @@
       "Avocado",
       "Cerulean Blue"
     ],
-    "searchText": "kelp leaf green avocado cerulean blue p592",
+    "searchText": "kelp leaf green avocado cerulean blue p592 forest",
     "colors": [
       "#13291F",
       "#395A25",
@@ -17084,7 +17668,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Slate",
@@ -17112,7 +17698,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Oxblood",
@@ -17120,7 +17708,7 @@
       "Blush White",
       "Turquoise"
     ],
-    "searchText": "oxblood mulberry mid blush white turquoise p594",
+    "searchText": "oxblood mulberry mid blush white turquoise p594 corporate",
     "colors": [
       "#4A1B2B",
       "#96426D",
@@ -17140,7 +17728,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -17148,7 +17738,7 @@
       "Petrol Teal",
       "Toffee"
     ],
-    "searchText": "porcelain blue abyss petrol teal toffee p595",
+    "searchText": "porcelain blue abyss petrol teal toffee p595 accessible",
     "colors": [
       "#FAF9FF",
       "#102632",
@@ -17168,7 +17758,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Paper White",
@@ -17176,7 +17768,7 @@
       "Emerald",
       "Powder Rose"
     ],
-    "searchText": "paper white cocoa shadow emerald powder rose p596",
+    "searchText": "paper white cocoa shadow emerald powder rose p596 modern",
     "colors": [
       "#FAFCFB",
       "#281922",
@@ -17196,7 +17788,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Sorbet",
@@ -17204,7 +17798,7 @@
       "Butter Yellow",
       "Radiant Sorbet"
     ],
-    "searchText": "sorbet electric aqua butter yellow radiant p597",
+    "searchText": "sorbet electric aqua butter yellow radiant p597 candy",
     "colors": [
       "#FB96CD",
       "#5BFAEA",
@@ -17224,7 +17818,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "citrus"
+    ],
     "keywords": [],
     "colorNames": [
       "Washed Honey",
@@ -17232,7 +17828,7 @@
       "Tangerine Bright",
       "Moss Lime"
     ],
-    "searchText": "washed honey amber yellow tangerine bright moss lime p598",
+    "searchText": "washed honey amber yellow tangerine bright moss lime p598 citrus",
     "colors": [
       "#FFEF8B",
       "#FFC65B",
@@ -17252,7 +17848,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Periwinkle Cream",
@@ -17260,7 +17858,7 @@
       "Buttercup",
       "Electric Aqua"
     ],
-    "searchText": "periwinkle cream peach blush buttercup electric aqua p599",
+    "searchText": "periwinkle cream peach blush buttercup electric aqua p599 pastel",
     "colors": [
       "#E5E5FF",
       "#FDBFC2",
@@ -17280,7 +17878,9 @@
       "color-theory",
       "systems"
     ],
-    "tags": [],
+    "tags": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Thistle",
@@ -17288,7 +17888,7 @@
       "Rose Mauve",
       "Olive Forest"
     ],
-    "searchText": "thistle amethyst light rose mauve olive forest p600",
+    "searchText": "thistle amethyst light rose mauve olive forest p600 floral",
     "colors": [
       "#D1C8EC",
       "#A982DB",

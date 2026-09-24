@@ -32,6 +32,13 @@
  * the site's own vocabulary (the 1,200 hand-named palette colours) when
  * one is genuinely close, otherwise a descriptive name composed from the
  * colour's hue family, lightness and chroma.
+ *
+ * Each generated record also carries `tags`: the name of the theme recipe
+ * that made it ("modern", "earthy", "ui-dark", …), exactly as themes.js
+ * spells it. It is the only label the generator knows, so it is the only
+ * one written — nothing is inferred from the colours. The canonical
+ * p001..p300 carry no tags from here (p001..p040 have curated ones in
+ * palettes-meta.json).
  */
 
 "use strict";
@@ -299,6 +306,7 @@ function generate(existing) {
     id: "p" + String(existing.length + i + 1).padStart(3, "0"),
     colors: m.colors,
     names: nameColors(m.colors),
+    tags: [m.theme],
     createdAt: randomDate(),
   }));
   return { records, themes: made.map((m) => m.theme), stats };
@@ -322,6 +330,7 @@ function serialize(list) {
         `    "id": ${q(p.id)},\n` +
         arr("colors", p.colors) +
         arr("names", p.names) +
+        (Array.isArray(p.tags) ? arr("tags", p.tags) : "") +
         `    "createdAt": ${q(p.createdAt)}\n` +
         "  }",
     )

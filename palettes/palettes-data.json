@@ -1938,294 +1938,343 @@
     "id": "p301",
     "colors": ["#07121C", "#81FFD8", "#FF5EB4", "#56CBFF"],
     "names": ["Ink Black", "Mint", "Pink Bright", "Cyan"],
+    "tags": ["neon"],
     "createdAt": "2026-07-03"
   },
   {
     "id": "p302",
     "colors": ["#5F8000", "#D6E4C1", "#172402", "#5EB7FF"],
     "names": ["Clover", "Pistachio Cream", "Cypress", "Bluebell"],
+    "tags": ["branding"],
     "createdAt": "2025-06-08"
   },
   {
     "id": "p303",
     "colors": ["#009998", "#E6CD3B", "#749FFF", "#145234"],
     "names": ["Jade Teal", "Chalk Butter", "Cobalt", "Forest Deep"],
+    "tags": ["tropical"],
     "createdAt": "2026-04-30"
   },
   {
     "id": "p304",
     "colors": ["#F0E8CB", "#AE8178", "#9AB1FF", "#632D24"],
     "names": ["Dune", "Weathered Leather", "Twilight", "Mahogany"],
+    "tags": ["vintage"],
     "createdAt": "2026-02-22"
   },
   {
     "id": "p305",
     "colors": ["#EDF8FF", "#B0CADC", "#4B768F", "#653B97"],
     "names": ["Ice", "Sea Glass Blue", "Marina", "Heather"],
+    "tags": ["winter"],
     "createdAt": "2025-05-20"
   },
   {
     "id": "p306",
     "colors": ["#F2D3FF", "#ED8BD9", "#CD6A7F", "#9E3F51"],
     "names": ["Lavender Glow", "Rich Orchid", "Poppy", "Brick Red"],
+    "tags": ["analogous"],
     "createdAt": "2025-09-14"
   },
   {
     "id": "p307",
     "colors": ["#57141F", "#E5546F", "#005D77", "#ACE8FF"],
     "names": ["Burgundy", "Clear Ruby", "Petrol Teal", "Pale Sky"],
+    "tags": ["duotone"],
     "createdAt": "2026-05-26"
   },
   {
     "id": "p308",
     "colors": ["#010A15", "#2E3E4E", "#F96682", "#E2BD92"],
     "names": ["Abyss", "Anchor", "Watermelon", "Tan Cream"],
+    "tags": ["tech"],
     "createdAt": "2026-04-03"
   },
   {
     "id": "p309",
     "colors": ["#E5C158", "#D95F24", "#1A757A", "#522513"],
     "names": ["Wheat Gold", "Persimmon", "Teal", "Dark Chocolate"],
+    "tags": ["retro"],
     "createdAt": "2025-08-02"
   },
   {
     "id": "p310",
     "colors": ["#0E162E", "#2B3150", "#0088F2", "#DFBCF5"],
     "names": ["Deep Navy", "Indigo Slate", "Radiant Sapphire", "Orchid Pink"],
+    "tags": ["tech"],
     "createdAt": "2026-07-28"
   },
   {
     "id": "p311",
     "colors": ["#520022", "#BE3990", "#9992EF", "#689955"],
     "names": ["Wine Dark", "Radiant Petal", "Amethyst Light", "Fern"],
+    "tags": ["berry"],
     "createdAt": "2026-02-04"
   },
   {
     "id": "p312",
     "colors": ["#050402", "#A07E00", "#B8CAFF", "#D8A477"],
     "names": ["Jet", "Brass", "Pale Sky Blue", "Doeskin"],
+    "tags": ["fashion"],
     "createdAt": "2026-03-16"
   },
   {
     "id": "p313",
     "colors": ["#FFFAFE", "#EBD0E7", "#02150F", "#D75BCD"],
     "names": ["Ghost White", "Lilac Powder", "Pitch Green", "Orchid"],
+    "tags": ["minimal"],
     "createdAt": "2026-08-28"
   },
   {
     "id": "p314",
     "colors": ["#040C09", "#212F2A", "#00B692", "#E5F4EF"],
     "names": ["Jet", "Charcoal", "Peacock", "Glass Green"],
+    "tags": ["ui-dark"],
     "createdAt": "2026-05-19"
   },
   {
     "id": "p315",
     "colors": ["#0B080C", "#AF4ACD", "#A9F38D", "#B89675"],
     "names": ["Jet Ink", "Radiant Mulberry", "Chalk Basil", "Camel"],
+    "tags": ["fashion"],
     "createdAt": "2025-05-04"
   },
   {
     "id": "p316",
     "colors": ["#371B11", "#BE6A2C", "#BCA159", "#00583D"],
     "names": ["Cocoa Bark", "Clay Red", "Harvest Gold", "Pine Green"],
+    "tags": ["earthy"],
     "createdAt": "2026-06-29"
   },
   {
     "id": "p317",
     "colors": ["#F5FAFF", "#EBD1E2", "#7BC9D7", "#CA8C3E"],
     "names": ["Porcelain Blue", "Lilac Powder", "Aqua", "Marigold"],
+    "tags": ["light"],
     "createdAt": "2026-07-23"
   },
   {
     "id": "p318",
     "colors": ["#100C0E", "#C3139B", "#30F4A8", "#CBA97F"],
     "names": ["Coal", "Clear Carnation", "Shamrock", "Doeskin"],
+    "tags": ["fashion"],
     "createdAt": "2025-03-27"
   },
   {
     "id": "p319",
     "colors": ["#00B94C", "#FFA6FB", "#008774", "#58293A"],
     "names": ["Vivid Basil", "Hibiscus", "Jade", "Wine Purple"],
+    "tags": ["vibrant"],
     "createdAt": "2025-04-09"
   },
   {
     "id": "p320",
     "colors": ["#34A374", "#F9D01B", "#AD8E00", "#005C40"],
     "names": ["Emerald", "Lemon Zest", "Dandelion", "Basil Green"],
+    "tags": ["tropical"],
     "createdAt": "2026-04-05"
   },
   {
     "id": "p321",
     "colors": ["#3A2400", "#9E5E00", "#F7EFE4", "#66A9FF"],
     "names": ["Cocoa Bark", "Copper Brown", "Almond Milk", "Delft"],
+    "tags": ["corporate"],
     "createdAt": "2025-09-02"
   },
   {
     "id": "p322",
     "colors": ["#EFFDFA", "#BDE3F3", "#DAC88C", "#E38CA1"],
     "names": ["Frost Green", "Pale Sky", "Chamois", "Rose Clay"],
+    "tags": ["light"],
     "createdAt": "2025-01-17"
   },
   {
     "id": "p323",
     "colors": ["#204B29", "#DF5A57", "#EDADB6", "#EDE9D2"],
     "names": ["Pine Needle", "Brick Rose", "Rose Mist", "Tusk"],
+    "tags": ["nature"],
     "createdAt": "2025-07-05"
   },
   {
     "id": "p324",
     "colors": ["#F4FAF0", "#CBE5BB", "#3A6E00", "#15230C"],
     "names": ["Dewdrop", "Spring Leaf", "Fern", "Cypress"],
+    "tags": ["ui"],
     "createdAt": "2025-02-05"
   },
   {
     "id": "p325",
     "colors": ["#133B1F", "#48BD4D", "#B2D6AF", "#E8E7D4"],
     "names": ["Pine", "Bold Juniper", "Pistachio", "Tusk"],
+    "tags": ["nature"],
     "createdAt": "2026-07-30"
   },
   {
     "id": "p326",
     "colors": ["#F0713D", "#95391C", "#DCB554", "#264257"],
     "names": ["Persimmon", "Rust Brown", "Mustard Gold", "Harbor"],
+    "tags": ["autumn"],
     "createdAt": "2026-04-22"
   },
   {
     "id": "p327",
     "colors": ["#FFDCD2", "#84F2E8", "#F0ACDD", "#D3F0AE"],
     "names": ["Pink Sand", "Aqua Glow", "Sorbet", "Pistachio"],
+    "tags": ["pastel"],
     "createdAt": "2026-02-26"
   },
   {
     "id": "p328",
     "colors": ["#00190F", "#3B5226", "#7F8836", "#C6D4D3"],
     "names": ["Pitch Green", "Bracken", "Avocado", "Sea Glass"],
+    "tags": ["forest"],
     "createdAt": "2026-01-11"
   },
   {
     "id": "p329",
     "colors": ["#F2E570", "#E8B52B", "#EA7600", "#004726"],
     "names": ["Lemon", "Gold Yellow", "Flame", "Ivy"],
+    "tags": ["citrus"],
     "createdAt": "2025-11-09"
   },
   {
     "id": "p330",
     "colors": ["#2EA0E5", "#FEA4BE", "#788F2B", "#F4F0FB"],
     "names": ["Bright Azure", "Carnation", "Moss Lime", "Lilac Mist"],
+    "tags": ["triadic"],
     "createdAt": "2025-05-12"
   },
   {
     "id": "p331",
     "colors": ["#F5F9F8", "#B5E5DA", "#000F10", "#00A38E"],
     "names": ["Snow", "Mint Sage", "Black Pine", "Viridian"],
+    "tags": ["minimal"],
     "createdAt": "2026-06-05"
   },
   {
     "id": "p332",
     "colors": ["#002F34", "#00947B", "#B7DEC3", "#F0825B"],
     "names": ["Midnight Teal", "Jade", "Seafoam Pastel", "Salmon Orange"],
+    "tags": ["ocean"],
     "createdAt": "2026-03-28"
   },
   {
     "id": "p333",
     "colors": ["#783BB7", "#EFE5FF", "#24112E", "#24CA6F"],
     "names": ["Blue Violet", "Lilac White", "Aubergine Ink", "Radiant Emerald"],
+    "tags": ["branding"],
     "createdAt": "2025-05-03"
   },
   {
     "id": "p334",
     "colors": ["#5C1C76", "#BAAD2C", "#54D6A2", "#F2F7F0"],
     "names": ["Rich Heather", "Brass Olive", "Emerald Neon", "Ivory Sage"],
+    "tags": ["split"],
     "createdAt": "2025-10-03"
   },
   {
     "id": "p335",
     "colors": ["#050810", "#ECF2FF", "#BEACFF", "#C0B867"],
     "names": ["Void", "Ice Blue Pastel", "Periwinkle", "Olive Gold Soft"],
+    "tags": ["accessible-dark"],
     "createdAt": "2026-02-07"
   },
   {
     "id": "p336",
     "colors": ["#10120F", "#659700", "#E9CFFF", "#C19770"],
     "names": ["Ink Black", "Clear Kiwi", "Lavender Pastel", "Camel"],
+    "tags": ["fashion"],
     "createdAt": "2026-06-26"
   },
   {
     "id": "p337",
     "colors": ["#100D13", "#EEE4F8", "#FCA7E5", "#AFD673"],
     "names": ["Ink Blue Black", "Thistle Mist", "Bubblegum", "Chartreuse"],
+    "tags": ["accessible-dark"],
     "createdAt": "2026-01-27"
   },
   {
     "id": "p338",
     "colors": ["#0B2462", "#3678C5", "#EDF3FF", "#B48600"],
     "names": ["Smoked Bluebell", "Azure", "Ice Blue Pastel", "Old Gold"],
+    "tags": ["corporate"],
     "createdAt": "2025-11-04"
   },
   {
     "id": "p339",
     "colors": ["#977E00", "#00A79A", "#424B9F", "#FFB4C4"],
     "names": ["Lemon", "Viridian", "Indigo", "Powder Rose"],
+    "tags": ["tetradic"],
     "createdAt": "2025-01-11"
   },
   {
     "id": "p340",
     "colors": ["#CBD692", "#AA9400", "#D8A169", "#5C8037"],
     "names": ["Pear Green", "Goldenrod", "Doeskin", "Olive"],
+    "tags": ["floral"],
     "createdAt": "2025-06-19"
   },
   {
     "id": "p341",
     "colors": ["#009F9B", "#FFD644", "#2FB74C", "#00501E"],
     "names": ["Turquoise", "Sunflower Yellow", "Radiant Juniper", "Basil"],
+    "tags": ["tropical"],
     "createdAt": "2025-11-29"
   },
   {
     "id": "p342",
     "colors": ["#020757", "#393261", "#72588A", "#C48AC1"],
     "names": ["Smoked Nightfall", "Deep Plum", "Muted Violet", "Orchid Bloom"],
+    "tags": ["analogous"],
     "createdAt": "2025-05-21"
   },
   {
     "id": "p343",
     "colors": ["#FBEEDA", "#BA9881", "#596A1C", "#160A08"],
     "names": ["Papaya Cream", "Clay Pink", "Olive Forest", "Charcoal Red"],
+    "tags": ["interior"],
     "createdAt": "2026-08-06"
   },
   {
     "id": "p344",
     "colors": ["#F9F9FA", "#141006", "#536EFF", "#FDB7AA"],
     "names": ["Snow", "Tar", "Vivid Twilight", "Salmon"],
+    "tags": ["modern"],
     "createdAt": "2026-05-17"
   },
   {
     "id": "p345",
     "colors": ["#D3F1FF", "#42B8E6", "#0082AB", "#003F55"],
     "names": ["Glacier Blue", "Azure Sky", "Ocean Blue Mid", "Midnight Petrol"],
+    "tags": ["monochromatic"],
     "createdAt": "2025-08-07"
   },
   {
     "id": "p346",
     "colors": ["#BAF9D0", "#A7DAF1", "#C8B1F4", "#FFC2C8"],
     "names": ["Mint", "Aqua Frost", "Periwinkle", "Petal"],
+    "tags": ["pastel"],
     "createdAt": "2026-01-16"
   },
   {
     "id": "p347",
     "colors": ["#0A1A3D", "#006F98", "#8ACCDB", "#DAC9AA"],
     "names": ["Navy Ink", "Cerulean Blue", "Aqua", "Dune"],
+    "tags": ["ocean"],
     "createdAt": "2025-07-30"
   },
   {
     "id": "p348",
     "colors": ["#FBEDF9", "#0E132E", "#4757AD", "#4B5E00"],
     "names": ["Powder Pink", "Deep Navy", "Cobalt Ink", "Matcha"],
+    "tags": ["accessible"],
     "createdAt": "2025-08-27"
   },
   {
     "id": "p349",
     "colors": ["#8E9300", "#53C8FF", "#C81F80", "#4B265F"],
     "names": ["Matcha", "Cyan", "Radiant Garnet", "Dark Grape"],
+    "tags": ["vibrant"],
     "createdAt": "2026-08-18"
   },
   {
@@ -2237,126 +2286,147 @@
       "Onyx Shadow",
       "Radiant Lapis"
     ],
+    "tags": ["minimal"],
     "createdAt": "2025-12-02"
   },
   {
     "id": "p351",
     "colors": ["#D72A65", "#00D5C8", "#B13300", "#003F4C"],
     "names": ["Crimson Pink", "Turquoise", "Clay Red", "Midnight Petrol"],
+    "tags": ["vibrant"],
     "createdAt": "2025-05-06"
   },
   {
     "id": "p352",
     "colors": ["#1C4A00", "#3A9000", "#CC87E3", "#E8D8EE"],
     "names": ["Ivy", "Radiant Emerald", "Orchid", "Lilac Powder"],
+    "tags": ["complementary"],
     "createdAt": "2025-02-05"
   },
   {
     "id": "p353",
     "colors": ["#071204", "#273303", "#1A5A5C", "#6E65B3"],
     "names": ["Tar", "Dark Olive", "Emerald Petrol", "Twilight"],
+    "tags": ["dark"],
     "createdAt": "2025-05-15"
   },
   {
     "id": "p354",
     "colors": ["#000F0A", "#162C20", "#2C5B72", "#E26363"],
     "names": ["Black Pine", "Kelp", "Marine Teal", "Coral"],
+    "tags": ["dark"],
     "createdAt": "2025-03-28"
   },
   {
     "id": "p355",
     "colors": ["#C85D00", "#B93730", "#D4AF4F", "#163448"],
     "names": ["Radiant Pumpkin", "Chili Red", "Honey Gold", "Navy"],
+    "tags": ["autumn"],
     "createdAt": "2025-08-13"
   },
   {
     "id": "p356",
     "colors": ["#00A393", "#E5D655", "#E35752", "#003821"],
     "names": ["Viridian", "Lemon Zest", "Tomato", "Emerald"],
+    "tags": ["tropical"],
     "createdAt": "2026-02-11"
   },
   {
     "id": "p357",
     "colors": ["#C36734", "#69A650", "#005D79", "#EFC0FF"],
     "names": ["Clay Red", "Kelly Green", "Petrol Teal", "Lilac Glow"],
+    "tags": ["tetradic"],
     "createdAt": "2025-01-30"
   },
   {
     "id": "p358",
     "colors": ["#F5EFE5", "#181920", "#1F8C20", "#A5AAB1"],
     "names": ["Warm Ivory", "Carbon", "Bold Jade", "Pewter Blue"],
+    "tags": ["editorial"],
     "createdAt": "2025-12-03"
   },
   {
     "id": "p359",
     "colors": ["#C5F0FF", "#E5CAF8", "#F1B8A3", "#C9F1A8"],
     "names": ["Pale Aqua", "Lilac Glow", "Peach Soft", "Pistachio"],
+    "tags": ["pastel"],
     "createdAt": "2025-08-01"
   },
   {
     "id": "p360",
     "colors": ["#805500", "#FEE3C0", "#362405", "#00DEDE"],
     "names": ["Olive", "Apricot Cream", "Cocoa Bark", "Aqua"],
+    "tags": ["branding"],
     "createdAt": "2025-08-16"
   },
   {
     "id": "p361",
     "colors": ["#FFF0F1", "#23122C", "#7B3E9A", "#00593C"],
     "names": ["Blush White", "Aubergine Ink", "Violet", "Basil Green"],
+    "tags": ["accessible"],
     "createdAt": "2026-05-17"
   },
   {
     "id": "p362",
     "colors": ["#005A74", "#F06F7C", "#E5B061", "#FFE9DE"],
     "names": ["Petrol Teal", "Bold Ruby", "Honey Gold", "Peach Cream"],
+    "tags": ["split"],
     "createdAt": "2025-09-19"
   },
   {
     "id": "p363",
     "colors": ["#FCFAFF", "#C9D1BC", "#0F0A16", "#9752D8"],
     "names": ["Cotton", "Celadon", "Black Violet", "Violet Bright"],
+    "tags": ["minimal"],
     "createdAt": "2025-08-10"
   },
   {
     "id": "p364",
     "colors": ["#0F0D16", "#9151FF", "#D7E56F", "#DEA17E"],
     "names": ["Ink Blue Black", "Electric Mulberry", "Chalk Fern", "Wheat"],
+    "tags": ["fashion"],
     "createdAt": "2025-04-14"
   },
   {
     "id": "p365",
     "colors": ["#FCF5F6", "#FFCBD7", "#AD2058", "#2B161C"],
     "names": ["Rice Paper", "Cotton Candy Pink", "Cerise", "Soot"],
+    "tags": ["ui"],
     "createdAt": "2025-04-23"
   },
   {
     "id": "p366",
     "colors": ["#F9A8CB", "#BD86CF", "#FFA253", "#16244B"],
     "names": ["Carnation", "Orchid", "Apricot", "Navy"],
+    "tags": ["sunset"],
     "createdAt": "2026-01-10"
   },
   {
     "id": "p367",
     "colors": ["#0E0705", "#E64100", "#77E4FF", "#CD9974"],
     "names": ["Jet", "Burnt Orange", "Chalk Azure", "Tawny"],
+    "tags": ["fashion"],
     "createdAt": "2026-02-13"
   },
   {
     "id": "p368",
     "colors": ["#041D00", "#004708", "#326D00", "#70BE5D"],
     "names": ["Dusk Juniper", "Ivy", "Juniper", "Grass Green"],
+    "tags": ["monochromatic"],
     "createdAt": "2025-02-23"
   },
   {
     "id": "p369",
     "colors": ["#F3E9E4", "#A2A2D4", "#8B8A74", "#3F2700"],
     "names": ["Ivory Rose", "Pale Iris", "Lichen", "Walnut Dark"],
+    "tags": ["elegant"],
     "createdAt": "2025-10-10"
   },
   {
     "id": "p370",
     "colors": ["#965BBC", "#D16B46", "#426514", "#8AD9F2"],
     "names": ["Fuchsia Violet", "Clay", "Olive Forest", "Sky Aqua"],
+    "tags": ["tetradic"],
     "createdAt": "2026-08-02"
   },
   {
@@ -2368,126 +2438,147 @@
       "Chartreuse Moss",
       "Saddle Brown"
     ],
+    "tags": ["vintage"],
     "createdAt": "2025-07-08"
   },
   {
     "id": "p372",
     "colors": ["#F1FCFF", "#9CC0CB", "#517191", "#005720"],
     "names": ["Ice Glass", "Powder Blue", "Storm", "Basil"],
+    "tags": ["winter"],
     "createdAt": "2025-08-18"
   },
   {
     "id": "p373",
     "colors": ["#3F123B", "#CE78BF", "#935200", "#FFD4B2"],
     "names": ["Iron Bordeaux", "Orchid", "Cinnamon", "Apricot Blush"],
+    "tags": ["duotone"],
     "createdAt": "2025-01-20"
   },
   {
     "id": "p374",
     "colors": ["#CA3379", "#F9E2E9", "#29141C", "#4EC264"],
     "names": ["Cerise Pink", "Baby Pink", "Bordeaux", "Radiant Jade"],
+    "tags": ["branding"],
     "createdAt": "2025-05-31"
   },
   {
     "id": "p375",
     "colors": ["#E3F3BE", "#FFAEDF", "#EE837B", "#3A8C4A"],
     "names": ["Celery Pastel", "Light Blush", "Papaya", "Kelly Green"],
+    "tags": ["spring"],
     "createdAt": "2026-07-26"
   },
   {
     "id": "p376",
     "colors": ["#090B1A", "#333347", "#8A69FF", "#FFC1B7"],
     "names": ["Black Grape", "Slate Violet", "Neon Indigo", "Peach Blush"],
+    "tags": ["tech"],
     "createdAt": "2025-08-17"
   },
   {
     "id": "p377",
     "colors": ["#F8FDF7", "#D1D39F", "#288600", "#1C0820"],
     "names": ["Chalk Green", "Pistachio", "Clear Pine", "Void Purple"],
+    "tags": ["ui"],
     "createdAt": "2025-02-14"
   },
   {
     "id": "p378",
     "colors": ["#F4F2F5", "#1D2219", "#BA5CF9", "#F2C492"],
     "names": ["Snow Grey", "Ink Olive", "Electric Wisteria", "Apricot"],
+    "tags": ["modern"],
     "createdAt": "2026-05-29"
   },
   {
     "id": "p379",
     "colors": ["#F8E4C4", "#508696", "#B0A55E", "#205586"],
     "names": ["Apricot Cream", "Lagoon", "Brass Olive", "Sapphire"],
+    "tags": ["vintage"],
     "createdAt": "2026-02-20"
   },
   {
     "id": "p380",
     "colors": ["#711E3E", "#D55F81", "#39D7C0", "#C9F1E8"],
     "names": ["Deep Raspberry", "Bold Scarlet", "Peacock", "Mint"],
+    "tags": ["complementary"],
     "createdAt": "2025-08-01"
   },
   {
     "id": "p381",
     "colors": ["#ECE0C2", "#727394", "#54AD86", "#5A3B6A"],
     "names": ["Cream Gold", "Bluestone", "Pine", "Byzantium"],
+    "tags": ["vintage"],
     "createdAt": "2025-08-02"
   },
   {
     "id": "p382",
     "colors": ["#100B0E", "#7A005D", "#CB972A", "#F5C9B2"],
     "names": ["Coal", "Radiant Cranberry", "Gold", "Peach Blush"],
+    "tags": ["luxury"],
     "createdAt": "2025-12-30"
   },
   {
     "id": "p383",
     "colors": ["#0A0916", "#83F1FF", "#DC7400", "#C8B4FF"],
     "names": ["Black Ink", "Soft Glacier", "Amber", "Periwinkle"],
+    "tags": ["neon"],
     "createdAt": "2026-03-12"
   },
   {
     "id": "p384",
     "colors": ["#00B4B1", "#DED14E", "#8A73FF", "#004622"],
     "names": ["Turquoise", "Powder Goldenrod", "Neon Indigo", "Shamrock"],
+    "tags": ["tropical"],
     "createdAt": "2026-02-03"
   },
   {
     "id": "p385",
     "colors": ["#030A05", "#006337", "#B79436", "#F8E1C0"],
     "names": ["Jet", "Leaf Green", "Brass", "Apricot Cream"],
+    "tags": ["luxury"],
     "createdAt": "2025-03-29"
   },
   {
     "id": "p386",
     "colors": ["#2E251B", "#A2531F", "#C09A61", "#6B8AA1"],
     "names": ["Bitumen", "Cinnamon", "Camel", "Bluebell"],
+    "tags": ["earthy"],
     "createdAt": "2025-11-13"
   },
   {
     "id": "p387",
     "colors": ["#D16105", "#992B00", "#D99A1A", "#3A3D14"],
     "names": ["Persimmon", "Rust Brown", "Mustard", "Peat"],
+    "tags": ["autumn"],
     "createdAt": "2026-06-23"
   },
   {
     "id": "p388",
     "colors": ["#EF95F1", "#85F2C4", "#EAE284", "#63ACFB"],
     "names": ["Clear Dragonfruit", "Aqua Glow", "Butter Yellow", "Sapphire"],
+    "tags": ["candy"],
     "createdAt": "2025-03-28"
   },
   {
     "id": "p389",
     "colors": ["#FCF4EF", "#3A1526", "#A52769", "#01630C"],
     "names": ["Shell", "Oxblood", "True Cardinal", "Shamrock"],
+    "tags": ["accessible"],
     "createdAt": "2026-03-27"
   },
   {
     "id": "p390",
     "colors": ["#FCCC89", "#EB8D3E", "#E03953", "#551C57"],
     "names": ["Honey Cream", "Tangerine", "Scarlet", "Dark Grape"],
+    "tags": ["sunset"],
     "createdAt": "2026-05-09"
   },
   {
     "id": "p391",
     "colors": ["#FBBCD5", "#DF6471", "#C39E55", "#3B703A"],
     "names": ["Petal", "Clear Cherry", "Harvest Gold", "Fern"],
+    "tags": ["floral"],
     "createdAt": "2025-11-12"
   },
   {
@@ -2499,102 +2590,119 @@
       "Amethyst Light",
       "Rose Quartz Pale"
     ],
+    "tags": ["berry"],
     "createdAt": "2025-03-05"
   },
   {
     "id": "p393",
     "colors": ["#0B2C21", "#237C8F", "#BFB494", "#8B9AA5"],
     "names": ["Kelp", "Ocean Teal", "Camel", "Cadet Blue"],
+    "tags": ["nature"],
     "createdAt": "2025-10-26"
   },
   {
     "id": "p394",
     "colors": ["#00293F", "#0091A0", "#91ECE3", "#E7D3AB"],
     "names": ["Midnight Harbor", "Lagoon", "Aqua Glow", "Sand Dollar"],
+    "tags": ["ocean"],
     "createdAt": "2025-10-31"
   },
   {
     "id": "p395",
     "colors": ["#A26ED1", "#F1A859", "#008279", "#FCECEF"],
     "names": ["Wisteria", "Marigold", "Deep Jade", "Blush White"],
+    "tags": ["triadic"],
     "createdAt": "2026-01-09"
   },
   {
     "id": "p396",
     "colors": ["#FFA5C1", "#4DE8DE", "#FFEAA7", "#00BEE8"],
     "names": ["Carnation", "Turquoise Neon", "Vanilla Yellow", "Sky Neon"],
+    "tags": ["candy"],
     "createdAt": "2025-09-29"
   },
   {
     "id": "p397",
     "colors": ["#E3E6AD", "#5F8A2B", "#50A4C7", "#573B22"],
     "names": ["Pistachio", "Moss Lime", "Cerulean", "Walnut"],
+    "tags": ["nature"],
     "createdAt": "2025-12-24"
   },
   {
     "id": "p398",
     "colors": ["#F7F8EC", "#BFE4E5", "#E2ACAD", "#A59FE6"],
     "names": ["Cream", "Mint Sage", "Rose Mist", "Heliotrope"],
+    "tags": ["light"],
     "createdAt": "2026-02-04"
   },
   {
     "id": "p399",
     "colors": ["#5D2100", "#00A8A7", "#7BB7FF", "#DBF4FE"],
     "names": ["Mahogany", "Turquoise Sea", "Denim", "Sky Cream"],
+    "tags": ["split"],
     "createdAt": "2025-03-08"
   },
   {
     "id": "p400",
     "colors": ["#13281D", "#2F6442", "#97AF5C", "#C13F2B"],
     "names": ["Kelp", "Basil Green", "Meadow", "Chili Red"],
+    "tags": ["forest"],
     "createdAt": "2025-03-09"
   },
   {
     "id": "p401",
     "colors": ["#00191F", "#00756B", "#9BD6BB", "#E7D5B2"],
     "names": ["Black Marine", "Teal", "Seafoam", "Sand Dollar"],
+    "tags": ["ocean"],
     "createdAt": "2025-02-24"
   },
   {
     "id": "p402",
     "colors": ["#EFEBE1", "#A57E62", "#354C03", "#282117"],
     "names": ["Parchment", "Hazelwood", "Pine Needle", "Ebony"],
+    "tags": ["interior"],
     "createdAt": "2025-11-09"
   },
   {
     "id": "p403",
     "colors": ["#F7F3E5", "#270200", "#90240B", "#005586"],
     "names": ["Parchment Cream", "Black Cherry Red", "Cedar", "Sapphire"],
+    "tags": ["accessible"],
     "createdAt": "2026-01-19"
   },
   {
     "id": "p404",
     "colors": ["#0F0900", "#332A1A", "#315837", "#1986BE"],
     "names": ["Jet", "Dark Cocoa", "Basil Green", "Cerulean"],
+    "tags": ["dark"],
     "createdAt": "2025-09-13"
   },
   {
     "id": "p405",
     "colors": ["#FBEEE4", "#87CCC7", "#9C6A72", "#301829"],
     "names": ["Almond Milk", "Seafoam Teal", "Rosewood", "Aubergine"],
+    "tags": ["elegant"],
     "createdAt": "2026-07-21"
   },
   {
     "id": "p406",
     "colors": ["#009A75", "#DBC545", "#E8659F", "#004735"],
     "names": ["Deep Lake", "Sunflower", "Rich Scarlet", "Spruce"],
+    "tags": ["tropical"],
     "createdAt": "2025-03-08"
   },
   {
     "id": "p407",
     "colors": ["#FAC83B", "#E44C00", "#AF0025", "#001A31"],
     "names": ["Amber Yellow", "Burnt Orange", "Cranberry", "Deep Navy"],
+    "tags": ["sunset"],
     "createdAt": "2025-09-29"
   },
   {
     "id": "p408",
     "colors": ["#FD5598", "#00B6B8", "#6A2198", "#EDDF42"],
     "names": ["Hot Pink", "Turquoise", "Rich Mulberry", "Lemon"],
+    "tags": ["retro"],
     "createdAt": "2026-04-09"
   },
   {
@@ -2606,18 +2714,21 @@
       "Burnt Orange Bright",
       "Rich Clover"
     ],
+    "tags": ["citrus"],
     "createdAt": "2026-05-16"
   },
   {
     "id": "p410",
     "colors": ["#F5EC9F", "#EF9DAD", "#949BE8", "#4F8635"],
     "names": ["Key Lime", "Carnation", "Lupine", "Basil"],
+    "tags": ["spring"],
     "createdAt": "2025-09-14"
   },
   {
     "id": "p411",
     "colors": ["#11280E", "#37591C", "#8D8B4C", "#1E8247"],
     "names": ["Evergreen", "Leaf Green", "Olive", "Basil"],
+    "tags": ["forest"],
     "createdAt": "2026-01-17"
   },
   {
@@ -2629,132 +2740,154 @@
       "Watermelon",
       "Turquoise Fresh"
     ],
+    "tags": ["accessible-dark"],
     "createdAt": "2026-03-13"
   },
   {
     "id": "p413",
     "colors": ["#2B1D13", "#B75137", "#D5B662", "#617D58"],
     "names": ["Dark Umber", "Terracotta", "Mustard Gold", "Olive Leaf"],
+    "tags": ["earthy"],
     "createdAt": "2025-05-14"
   },
   {
     "id": "p414",
     "colors": ["#F1E7CD", "#8B7247", "#49BEC6", "#754B3E"],
     "names": ["Dune", "Antique Olive", "Teal Mist", "Cedar"],
+    "tags": ["vintage"],
     "createdAt": "2026-06-29"
   },
   {
     "id": "p415",
     "colors": ["#D96800", "#A91B0F", "#DEAD4D", "#4F111D"],
     "names": ["Burnt Orange Bright", "Barn Red", "Honey Gold", "Oxblood"],
+    "tags": ["autumn"],
     "createdAt": "2025-05-02"
   },
   {
     "id": "p416",
     "colors": ["#FDF6F8", "#BDD7D0", "#0C0507", "#DB6492"],
     "names": ["Rice Paper", "Sea Glass", "Jet Ink", "True Poppy"],
+    "tags": ["minimal"],
     "createdAt": "2025-01-27"
   },
   {
     "id": "p417",
     "colors": ["#1E110B", "#F6F5EC", "#EAA223", "#C4C2FF"],
     "names": ["Charred Oak", "Warm Cream", "Marigold Bright", "Periwinkle"],
+    "tags": ["accessible-dark"],
     "createdAt": "2026-04-17"
   },
   {
     "id": "p418",
     "colors": ["#153E00", "#8C7EE5", "#DE9ABC", "#FCF4FF"],
     "names": ["Forest Pine", "Periwinkle Violet", "Lilac", "Orchid White"],
+    "tags": ["split"],
     "createdAt": "2025-04-15"
   },
   {
     "id": "p419",
     "colors": ["#007BA4", "#CC8BD9", "#974F1F", "#B5E4AC"],
     "names": ["Ocean Blue Mid", "Orchid Bloom", "Cinnamon", "Green Apple Soft"],
+    "tags": ["tetradic"],
     "createdAt": "2025-12-11"
   },
   {
     "id": "p420",
     "colors": ["#EFC29A", "#DF7410", "#75B88B", "#5E854E"],
     "names": ["Peach Soft", "Amber", "Jade Green", "Basil"],
+    "tags": ["floral"],
     "createdAt": "2026-06-23"
   },
   {
     "id": "p421",
     "colors": ["#1F0F06", "#A35112", "#C1B682", "#196881"],
     "names": ["Pitch", "Cinnamon", "Muted Wheat", "Lagoon Deep"],
+    "tags": ["earthy"],
     "createdAt": "2025-01-22"
   },
   {
     "id": "p422",
     "colors": ["#F9E9D8", "#A87F6C", "#3F6589", "#171004"],
     "names": ["Sand Pastel", "Muted Straw", "Denim Blue", "Pitch Brown"],
+    "tags": ["interior"],
     "createdAt": "2025-07-07"
   },
   {
     "id": "p423",
     "colors": ["#1A337A", "#4C65DB", "#D1A642", "#F0E4CC"],
     "names": ["Royal Blue", "Cobalt Blue", "Mustard Gold Warm", "Oatmeal"],
+    "tags": ["complementary"],
     "createdAt": "2025-11-07"
   },
   {
     "id": "p424",
     "colors": ["#E49BE6", "#50F4DB", "#FFEA8E", "#87AB03"],
     "names": ["Hibiscus", "Aquamarine", "Pale Dandelion", "Olive Chartreuse"],
+    "tags": ["candy"],
     "createdAt": "2025-09-25"
   },
   {
     "id": "p425",
     "colors": ["#07120E", "#008367", "#FFCCE2", "#CBA791"],
     "names": ["Black Pine", "Malachite", "Cotton Candy Pink", "Blush Taupe"],
+    "tags": ["fashion"],
     "createdAt": "2026-01-03"
   },
   {
     "id": "p426",
     "colors": ["#12060A", "#34272B", "#F26B9D", "#EEE2E6"],
     "names": ["Black Amethyst", "Charcoal Plum", "Watermelon", "Shell Pink"],
+    "tags": ["ui-dark"],
     "createdAt": "2025-12-01"
   },
   {
     "id": "p427",
     "colors": ["#F4FAF9", "#140B0C", "#008682", "#FBBBE4"],
     "names": ["Ice Glass", "Noir", "Deep Jade", "Soft Carnation"],
+    "tags": ["modern"],
     "createdAt": "2025-05-24"
   },
   {
     "id": "p428",
     "colors": ["#23031C", "#510046", "#A20F74", "#D671BC"],
     "names": ["Noir Plum", "Smoked Bordeaux", "True Carnation", "Radiant Rose"],
+    "tags": ["monochromatic"],
     "createdAt": "2025-05-01"
   },
   {
     "id": "p429",
     "colors": ["#050F23", "#28293D", "#A48A00", "#FFB7A4"],
     "names": ["Ink Black", "Charcoal Navy", "Brass", "Salmon"],
+    "tags": ["tech"],
     "createdAt": "2026-01-17"
   },
   {
     "id": "p430",
     "colors": ["#C7C5BE", "#7C888B", "#914754", "#0D1E24"],
     "names": ["Ash", "Stone Grey", "Brick", "Soot"],
+    "tags": ["architecture"],
     "createdAt": "2025-10-27"
   },
   {
     "id": "p431",
     "colors": ["#ECDDC6", "#597E6D", "#E39575", "#006969"],
     "names": ["Vanilla", "Juniper Grey", "Clay Rose Light", "Lagoon Deep"],
+    "tags": ["vintage"],
     "createdAt": "2026-04-26"
   },
   {
     "id": "p432",
     "colors": ["#CE6C34", "#50D2A7", "#8175CE", "#F8F8E6"],
     "names": ["Clay", "Emerald Neon", "Violet Blue", "Cream"],
+    "tags": ["triadic"],
     "createdAt": "2025-02-13"
   },
   {
     "id": "p433",
     "colors": ["#061224", "#2F3C53", "#A2AA00", "#8FEDD2"],
     "names": ["Ink Black", "Twilight", "Olive Chartreuse", "Aqua Glow"],
+    "tags": ["tech"],
     "createdAt": "2025-11-26"
   },
   {
@@ -2766,156 +2899,182 @@
       "Matcha",
       "Cream Parchment"
     ],
+    "tags": ["split"],
     "createdAt": "2026-05-09"
   },
   {
     "id": "p435",
     "colors": ["#E6F3AD", "#F4B0C6", "#DA90CA", "#6BA04D"],
     "names": ["Key Lime", "Powder Rose", "Lavender", "Fern"],
+    "tags": ["spring"],
     "createdAt": "2025-01-11"
   },
   {
     "id": "p436",
     "colors": ["#E6D7FF", "#C48EF7", "#9147C8", "#4A1B66"],
     "names": ["Lavender Glow", "True Wisteria", "Bold Grape", "Dark Grape"],
+    "tags": ["monochromatic"],
     "createdAt": "2025-06-01"
   },
   {
     "id": "p437",
     "colors": ["#090605", "#6C191B", "#C5A453", "#FFDDD7"],
     "names": ["Jet Ink", "Maroon Deep", "Harvest Gold", "Baby Pink"],
+    "tags": ["luxury"],
     "createdAt": "2025-05-25"
   },
   {
     "id": "p438",
     "colors": ["#FBF0DE", "#B4794F", "#6E3F2E", "#150704"],
     "names": ["Eggshell", "Toffee", "Saddle Brown", "Charcoal Red"],
+    "tags": ["coffee"],
     "createdAt": "2026-05-30"
   },
   {
     "id": "p439",
     "colors": ["#9EEBCE", "#CD242D", "#FCF4DB", "#191612"],
     "names": ["Seafoam Pastel", "Fire Red", "Cream Sorbet", "Ink Brown"],
+    "tags": ["retro"],
     "createdAt": "2025-10-18"
   },
   {
     "id": "p440",
     "colors": ["#0E3A11", "#2B9BFF", "#91CCF9", "#F4F2DB"],
     "names": ["Pine", "Bold Bluebell", "Pale Sky Blue", "Eggshell"],
+    "tags": ["nature"],
     "createdAt": "2026-02-28"
   },
   {
     "id": "p441",
     "colors": ["#5B8663", "#FC80B6", "#EEDAB7", "#72452E"],
     "names": ["Fern Green", "Radiant Camellia", "Biscuit", "Saddle Brown"],
+    "tags": ["desert"],
     "createdAt": "2025-03-19"
   },
   {
     "id": "p442",
     "colors": ["#FFE4F0", "#C7E6BE", "#CBC5FF", "#FCCF85"],
     "names": ["Blush", "Spring Leaf", "Thistle", "Golden Sand"],
+    "tags": ["pastel"],
     "createdAt": "2025-06-25"
   },
   {
     "id": "p443",
     "colors": ["#EBF5A8", "#EEA8C6", "#60CAE3", "#5BA374"],
     "names": ["Key Lime", "Carnation", "Aqua", "Meadow"],
+    "tags": ["spring"],
     "createdAt": "2025-04-21"
   },
   {
     "id": "p444",
     "colors": ["#003454", "#007BA7", "#EDF2F6", "#C090FF"],
     "names": ["Deep Navy Blue", "Ocean Blue Mid", "Mist White", "Lilac Neon"],
+    "tags": ["corporate"],
     "createdAt": "2025-05-20"
   },
   {
     "id": "p445",
     "colors": ["#5C0F48", "#AF1F83", "#C79BF5", "#6CAC69"],
     "names": ["Dusk Maroon", "Radiant Blush", "Violet", "Apple Leaf"],
+    "tags": ["berry"],
     "createdAt": "2025-04-20"
   },
   {
     "id": "p446",
     "colors": ["#C5647B", "#C1A624", "#00655E", "#ADBAFF"],
     "names": ["Lacquer Red", "Gold", "Emerald Petrol", "Periwinkle"],
+    "tags": ["tetradic"],
     "createdAt": "2025-09-22"
   },
   {
     "id": "p447",
     "colors": ["#F1EEE8", "#120F18", "#C72C84", "#A69C91"],
     "names": ["Bone", "Ink Blue Black", "Clear Cherry", "Pebble"],
+    "tags": ["editorial"],
     "createdAt": "2025-11-19"
   },
   {
     "id": "p448",
     "colors": ["#F7F4E4", "#0B0D10", "#008CCD", "#B7ABA0"],
     "names": ["Ecru", "Obsidian", "Cerulean", "Mushroom Beige"],
+    "tags": ["editorial"],
     "createdAt": "2025-12-09"
   },
   {
     "id": "p449",
     "colors": ["#00889F", "#CFF5FF", "#001D29", "#FC9B18"],
     "names": ["Marina", "Ice Aqua", "Ink Blue", "Amber Bright"],
+    "tags": ["branding"],
     "createdAt": "2026-05-15"
   },
   {
     "id": "p450",
     "colors": ["#EDF0A6", "#FFB7C1", "#E5B44C", "#599037"],
     "names": ["Key Lime", "Powder Rose", "Gold Leaf", "Kelly Green"],
+    "tags": ["spring"],
     "createdAt": "2025-12-03"
   },
   {
     "id": "p451",
     "colors": ["#EBEB79", "#E8AE00", "#F38400", "#F9F8E5"],
     "names": ["Airy Butter", "Gold Yellow", "Flame Orange", "Cream"],
+    "tags": ["citrus"],
     "createdAt": "2026-07-23"
   },
   {
     "id": "p452",
     "colors": ["#241000", "#423200", "#706300", "#75A839"],
     "names": ["Pitch", "Peat", "Moss", "Kelly Green"],
+    "tags": ["analogous"],
     "createdAt": "2026-05-15"
   },
   {
     "id": "p453",
     "colors": ["#0D2511", "#374E2A", "#A2A34A", "#643E92"],
     "names": ["Cypress", "Bracken", "Brass Olive", "Lilac"],
+    "tags": ["forest"],
     "createdAt": "2026-08-06"
   },
   {
     "id": "p454",
     "colors": ["#06071A", "#313856", "#00C49A", "#9DDEFF"],
     "names": ["Midnight Black", "Twilight", "Teal Neon", "Pale Sky"],
+    "tags": ["tech"],
     "createdAt": "2026-08-03"
   },
   {
     "id": "p455",
     "colors": ["#031700", "#00492E", "#007272", "#00A4A8"],
     "names": ["Midnight Spruce", "Spruce", "Teal", "Turquoise"],
+    "tags": ["analogous"],
     "createdAt": "2025-09-10"
   },
   {
     "id": "p456",
     "colors": ["#BFBCBA", "#78868A", "#14642E", "#001D2F"],
     "names": ["Silver", "Stone Grey", "Leaf Green", "Ink Blue"],
+    "tags": ["architecture"],
     "createdAt": "2026-04-17"
   },
   {
     "id": "p457",
     "colors": ["#00A287", "#E2C400", "#FF5033", "#10591E"],
     "names": ["Viridian", "Gold Yellow", "Blaze Orange", "Malachite"],
+    "tags": ["tropical"],
     "createdAt": "2026-03-17"
   },
   {
     "id": "p458",
     "colors": ["#D2CDC8", "#6E7B80", "#436E3F", "#23354A"],
     "names": ["Pebble Beige", "Nickel", "Fern", "Navy"],
+    "tags": ["architecture"],
     "createdAt": "2025-04-10"
   },
   {
     "id": "p459",
     "colors": ["#0C1B0B", "#385B3C", "#809F55", "#916400"],
     "names": ["Blackwood", "Basil Green", "Grass", "Celery"],
+    "tags": ["forest"],
     "createdAt": "2026-01-04"
   },
   {
@@ -2927,144 +3086,168 @@
       "Orchid Bloom",
       "Indigo Violet"
     ],
+    "tags": ["berry"],
     "createdAt": "2026-01-29"
   },
   {
     "id": "p461",
     "colors": ["#F7FBFD", "#25201E", "#0090CB", "#FFCFC9"],
     "names": ["Porcelain Blue", "Soot Brown", "Cerulean", "Peach Glow"],
+    "tags": ["modern"],
     "createdAt": "2026-03-16"
   },
   {
     "id": "p462",
     "colors": ["#FBF5F8", "#0C1C15", "#DB19A3", "#D4CF8B"],
     "names": ["Rice Paper", "Abyss", "Vivid Rose", "Powder Goldenrod"],
+    "tags": ["modern"],
     "createdAt": "2026-05-04"
   },
   {
     "id": "p463",
     "colors": ["#FFB0C8", "#94F6C0", "#F7D666", "#72C670"],
     "names": ["Powder Rose", "Mint", "Buttercup", "Emerald"],
+    "tags": ["candy"],
     "createdAt": "2025-12-23"
   },
   {
     "id": "p464",
     "colors": ["#EBEDB8", "#FFB6CF", "#00B9CD", "#458751"],
     "names": ["Vanilla Yellow", "Powder Rose", "Glacier", "Basil"],
+    "tags": ["spring"],
     "createdAt": "2025-05-28"
   },
   {
     "id": "p465",
     "colors": ["#791441", "#31B25A", "#4DDAEF", "#E3F0EC"],
     "names": ["Deep Raspberry", "True Ivy", "Electric Cyan", "Frost Mint"],
+    "tags": ["split"],
     "createdAt": "2026-02-05"
   },
   {
     "id": "p466",
     "colors": ["#1B0F08", "#AC5128", "#B8A65C", "#E6E0D1"],
     "names": ["Pitch Brown", "Burnt Umber", "Harvest Gold", "Cream Khaki"],
+    "tags": ["earthy"],
     "createdAt": "2026-02-13"
   },
   {
     "id": "p467",
     "colors": ["#5C1432", "#A32879", "#9B90E1", "#323E79"],
     "names": ["Port Wine", "Clear Raspberry", "Lupine", "Royal Navy"],
+    "tags": ["berry"],
     "createdAt": "2025-01-16"
   },
   {
     "id": "p468",
     "colors": ["#E0C3A6", "#D18E8E", "#825A83", "#282245"],
     "names": ["Latte", "Rose Clay", "Fuchsia", "Midnight Iris"],
+    "tags": ["desert"],
     "createdAt": "2025-08-05"
   },
   {
     "id": "p469",
     "colors": ["#040C1D", "#203340", "#FD6E3E", "#B5EEA3"],
     "names": ["Ink Black", "Navy Ink", "Sunset Orange", "Green Apple Soft"],
+    "tags": ["tech"],
     "createdAt": "2025-12-12"
   },
   {
     "id": "p470",
     "colors": ["#4C8800", "#009CC3", "#673580", "#ECAA8F"],
     "names": ["Radiant Sprout", "Cerulean", "Amethyst", "Coral Sand"],
+    "tags": ["tetradic"],
     "createdAt": "2025-05-27"
   },
   {
     "id": "p471",
     "colors": ["#FCFAF9", "#F0D7C0", "#17130A", "#C77600"],
     "names": ["Milk White", "Peach", "Pitch", "Golden Ochre"],
+    "tags": ["minimal"],
     "createdAt": "2025-10-03"
   },
   {
     "id": "p472",
     "colors": ["#FFADDA", "#84F4CC", "#F3E68C", "#F38079"],
     "names": ["Blush", "Aqua Glow", "Butter Yellow", "Papaya"],
+    "tags": ["candy"],
     "createdAt": "2025-06-07"
   },
   {
     "id": "p473",
     "colors": ["#0C031C", "#D2D5FF", "#9C8E00", "#FF7D90"],
     "names": ["Nightfall", "Lavender Blue", "Brass", "Watermelon"],
+    "tags": ["neon"],
     "createdAt": "2026-07-06"
   },
   {
     "id": "p474",
     "colors": ["#BAA337", "#3BB8D5", "#955285", "#EBFAF0"],
     "names": ["Gold", "Azure Sky", "Peony", "Mint Sugar"],
+    "tags": ["triadic"],
     "createdAt": "2025-08-10"
   },
   {
     "id": "p475",
     "colors": ["#B7E8CC", "#009F62", "#5BBBCB", "#226333"],
     "names": ["Mint Sage", "Shamrock", "Teal Mist", "Leaf Green"],
+    "tags": ["floral"],
     "createdAt": "2025-06-18"
   },
   {
     "id": "p476",
     "colors": ["#F0E2CC", "#81936E", "#67A0D8", "#006C44"],
     "names": ["Ecru", "Olive", "Cornflower Muted", "Fern"],
+    "tags": ["vintage"],
     "createdAt": "2026-05-28"
   },
   {
     "id": "p477",
     "colors": ["#97E2F2", "#00A5A1", "#C3A0F7", "#487D4D"],
     "names": ["Aqua Frost", "Turquoise", "Lilac Haze", "Jade"],
+    "tags": ["floral"],
     "createdAt": "2026-06-16"
   },
   {
     "id": "p478",
     "colors": ["#FAF8FA", "#1A2519", "#B84EC7", "#9AF0D5"],
     "names": ["Snow", "Forest Ink", "Electric Bougainvillea", "Aqua Glow"],
+    "tags": ["modern"],
     "createdAt": "2026-08-04"
   },
   {
     "id": "p479",
     "colors": ["#EFF0BF", "#EEA2B8", "#A5A84E", "#4F9263"],
     "names": ["Barley Light", "Carnation", "Brass Olive", "Basil"],
+    "tags": ["spring"],
     "createdAt": "2026-03-23"
   },
   {
     "id": "p480",
     "colors": ["#002C1A", "#00863F", "#EEF9F3", "#AC79CE"],
     "names": ["Evergreen", "Basil", "Ice Mint", "Amethyst"],
+    "tags": ["corporate"],
     "createdAt": "2026-05-10"
   },
   {
     "id": "p481",
     "colors": ["#342007", "#BA543E", "#BDB379", "#754A72"],
     "names": ["Cocoa Bark", "Terracotta", "Muted Wheat", "Heather"],
+    "tags": ["earthy"],
     "createdAt": "2026-02-03"
   },
   {
     "id": "p482",
     "colors": ["#4C0026", "#AA4EB2", "#B2A8FC", "#354194"],
     "names": ["Wine Dark", "Rich Magenta", "Lilac Haze", "Bluebird"],
+    "tags": ["berry"],
     "createdAt": "2026-07-19"
   },
   {
     "id": "p483",
     "colors": ["#F4E7D4", "#BA8C73", "#632D65", "#1C170D"],
     "names": ["Dune", "Clay Rose", "Byzantium", "Ink Brown"],
+    "tags": ["interior"],
     "createdAt": "2025-07-27"
   },
   {
@@ -3076,66 +3259,77 @@
       "Slate Blue Grey",
       "Radiant Periwinkle"
     ],
+    "tags": ["winter"],
     "createdAt": "2025-02-05"
   },
   {
     "id": "p485",
     "colors": ["#E97900", "#B62632", "#E9B85B", "#2A3C14"],
     "names": ["Flame", "Barn Red", "Gold Leaf", "Pine"],
+    "tags": ["autumn"],
     "createdAt": "2026-01-14"
   },
   {
     "id": "p486",
     "colors": ["#FFD2CE", "#FF948B", "#D51538", "#68001A"],
     "names": ["Peach Glow", "Coral Sand", "Fire Red", "Burgundy"],
+    "tags": ["monochromatic"],
     "createdAt": "2026-07-18"
   },
   {
     "id": "p487",
     "colors": ["#0E150A", "#E9F0E6", "#23CE98", "#E3ACFC"],
     "names": ["Tar", "Celadon White", "Emerald Neon", "Grape"],
+    "tags": ["accessible-dark"],
     "createdAt": "2025-10-15"
   },
   {
     "id": "p488",
     "colors": ["#007159", "#C4F4E3", "#022D2A", "#FF8F8E"],
     "names": ["Holly Green", "Pistachio Mint", "Deep Spruce Teal", "Persimmon"],
+    "tags": ["branding"],
     "createdAt": "2025-03-12"
   },
   {
     "id": "p489",
     "colors": ["#130C0D", "#351720", "#62372B", "#3D8A5D"],
     "names": ["Obsidian", "Soot", "Cocoa", "Malachite"],
+    "tags": ["dark"],
     "createdAt": "2026-06-24"
   },
   {
     "id": "p490",
     "colors": ["#553072", "#A360BC", "#A0CD5D", "#E5F4D5"],
     "names": ["Indigo", "Fuchsia Violet", "Leaf", "Barley Green"],
+    "tags": ["complementary"],
     "createdAt": "2025-11-09"
   },
   {
     "id": "p491",
     "colors": ["#EFEBE1", "#ADA693", "#5F6C7E", "#060300"],
     "names": ["Parchment", "Mushroom", "Slate Grey Blue", "Jet"],
+    "tags": ["neutral"],
     "createdAt": "2025-10-10"
   },
   {
     "id": "p492",
     "colors": ["#220A03", "#C07561", "#D7AA56", "#324B80"],
     "names": ["Charcoal Red", "Clay", "Honey Gold", "Prussian Blue"],
+    "tags": ["earthy"],
     "createdAt": "2025-04-23"
   },
   {
     "id": "p493",
     "colors": ["#00926E", "#FCD863", "#00B2E5", "#00391F"],
     "names": ["Malachite", "Sun Yellow", "Sky", "Emerald"],
+    "tags": ["tropical"],
     "createdAt": "2025-10-20"
   },
   {
     "id": "p494",
     "colors": ["#FD9AC9", "#5CECCC", "#EDE671", "#E0A800"],
     "names": ["Flamingo", "Turquoise Neon", "Lemon", "Marigold Bright"],
+    "tags": ["candy"],
     "createdAt": "2026-03-03"
   },
   {
@@ -3147,42 +3341,49 @@
       "Radiant Evergreen",
       "Wine Purple"
     ],
+    "tags": ["vibrant"],
     "createdAt": "2025-12-02"
   },
   {
     "id": "p496",
     "colors": ["#00190F", "#254D14", "#76954B", "#8952A0"],
     "names": ["Pitch Green", "Pine Needle", "Fern", "Imperial Purple"],
+    "tags": ["forest"],
     "createdAt": "2025-10-02"
   },
   {
     "id": "p497",
     "colors": ["#06060D", "#49418E", "#C09D4B", "#FFE3DE"],
     "names": ["Void", "Indigo Violet", "Harvest Gold", "Baby Pink"],
+    "tags": ["luxury"],
     "createdAt": "2026-03-15"
   },
   {
     "id": "p498",
     "colors": ["#4C1D00", "#E57D39", "#00607E", "#8DD8F8"],
     "names": ["Cacao", "Flame", "Petrol Teal", "Aqua Frost"],
+    "tags": ["duotone"],
     "createdAt": "2026-05-22"
   },
   {
     "id": "p499",
     "colors": ["#F6F3EC", "#0C0A17", "#C22001", "#ABB7C2"],
     "names": ["Chalk Cream", "Black Violet", "Chili Red", "Powder Blue"],
+    "tags": ["editorial"],
     "createdAt": "2026-04-16"
   },
   {
     "id": "p500",
     "colors": ["#EDE7D9", "#C2905B", "#764B39", "#D2778E"],
     "names": ["Flax", "Camel", "Cedar", "Rose Dust"],
+    "tags": ["coffee"],
     "createdAt": "2025-01-23"
   },
   {
     "id": "p501",
     "colors": ["#F2F2F2", "#14211E", "#F63392", "#9CF3FF"],
     "names": ["Snow Grey", "Ink Moss", "Neon Pink", "Light Caribbean"],
+    "tags": ["modern"],
     "createdAt": "2026-07-30"
   },
   {
@@ -3194,138 +3395,161 @@
       "Bold Midnight",
       "Stone Taupe"
     ],
+    "tags": ["editorial"],
     "createdAt": "2026-06-15"
   },
   {
     "id": "p503",
     "colors": ["#F9F7F2", "#1B212F", "#B78E00", "#86DFEC"],
     "names": ["Ivory", "Ink Violet Dark", "Old Gold", "Aqua Light"],
+    "tags": ["modern"],
     "createdAt": "2025-10-08"
   },
   {
     "id": "p504",
     "colors": ["#00423B", "#00A89D", "#96284E", "#FFBDD0"],
     "names": ["Spruce", "Viridian", "Raspberry Wine", "Petal"],
+    "tags": ["duotone"],
     "createdAt": "2026-06-07"
   },
   {
     "id": "p505",
     "colors": ["#F2EEE9", "#93B689", "#738B81", "#421837"],
     "names": ["Bone", "Meadow", "Lichen", "Wine Dark"],
+    "tags": ["elegant"],
     "createdAt": "2025-12-11"
   },
   {
     "id": "p506",
     "colors": ["#422C00", "#C47D00", "#8FBAFF", "#DAE8FF"],
     "names": ["Walnut Dark", "Golden Ochre", "Cobalt", "Periwinkle Cream"],
+    "tags": ["complementary"],
     "createdAt": "2025-10-21"
   },
   {
     "id": "p507",
     "colors": ["#0C0F19", "#FFC1CB", "#00BC75", "#F79A00"],
     "names": ["Ink Blue Black", "Petal", "Radiant Shamrock", "Amber Bright"],
+    "tags": ["neon"],
     "createdAt": "2026-01-03"
   },
   {
     "id": "p508",
     "colors": ["#D0CCC2", "#7A7E80", "#007499", "#00242F"],
     "names": ["Greige Light", "Nickel", "Ocean Teal", "Deep Ocean"],
+    "tags": ["architecture"],
     "createdAt": "2025-06-29"
   },
   {
     "id": "p509",
     "colors": ["#072656", "#0088B3", "#8EC9D4", "#E0786A"],
     "names": ["Midnight Blue", "Cerulean Deep", "Aqua", "Coral"],
+    "tags": ["ocean"],
     "createdAt": "2026-03-19"
   },
   {
     "id": "p510",
     "colors": ["#F0FEFF", "#021301", "#006B00", "#4D3688"],
     "names": ["Ice Glass", "Pitch Green", "Radiant Pine", "Indigo Violet"],
+    "tags": ["accessible"],
     "createdAt": "2026-07-16"
   },
   {
     "id": "p511",
     "colors": ["#002626", "#008179", "#E3F4F4", "#DC6671"],
     "names": ["Deep Ocean", "Deep Jade", "Glass Green", "Coral"],
+    "tags": ["corporate"],
     "createdAt": "2025-06-06"
   },
   {
     "id": "p512",
     "colors": ["#E9F7EC", "#191200", "#6E5A00", "#6D3F9E"],
     "names": ["Frost White", "Pitch", "Bronze", "Violet"],
+    "tags": ["accessible"],
     "createdAt": "2025-09-02"
   },
   {
     "id": "p513",
     "colors": ["#001A27", "#007981", "#98D0C7", "#EB8173"],
     "names": ["Ink Blue", "Lagoon", "Aquamarine", "Guava"],
+    "tags": ["ocean"],
     "createdAt": "2026-02-08"
   },
   {
     "id": "p514",
     "colors": ["#F3F3B0", "#7CE5D0", "#96C8FF", "#FAC7FF"],
     "names": ["Vanilla Yellow", "Aqua Glow", "Periwinkle", "Lilac Glow"],
+    "tags": ["pastel"],
     "createdAt": "2026-01-11"
   },
   {
     "id": "p515",
     "colors": ["#D1C8C0", "#8A9196", "#7B7A00", "#111F27"],
     "names": ["Ash Linen", "Steel Grey", "Olive", "Deep Sea Blue"],
+    "tags": ["architecture"],
     "createdAt": "2026-06-14"
   },
   {
     "id": "p516",
     "colors": ["#EFE8D0", "#5A9A84", "#B5AFE7", "#095E62"],
     "names": ["Dune", "Eucalyptus", "Lilac Bloom", "Petrol Green"],
+    "tags": ["vintage"],
     "createdAt": "2026-08-09"
   },
   {
     "id": "p517",
     "colors": ["#08151D", "#1D2E38", "#32B1F5", "#EBF7FF"],
     "names": ["Black Marine", "Ink Navy", "Sky Neon", "Ice"],
+    "tags": ["ui-dark"],
     "createdAt": "2026-06-07"
   },
   {
     "id": "p518",
     "colors": ["#004E3D", "#009364", "#F287B8", "#FFDAE9"],
     "names": ["Pine Teal", "Malachite", "Rose Quartz", "Ballet Pink Soft"],
+    "tags": ["complementary"],
     "createdAt": "2025-02-13"
   },
   {
     "id": "p519",
     "colors": ["#B9B8B3", "#6C7476", "#813666", "#213541"],
     "names": ["Ash", "Nickel", "Mulberry", "Deep Anchor"],
+    "tags": ["architecture"],
     "createdAt": "2025-12-12"
   },
   {
     "id": "p520",
     "colors": ["#00B0B2", "#FF96CF", "#C75600", "#002352"],
     "names": ["Turquoise", "Peony", "Rust Orange", "Navy"],
+    "tags": ["vibrant"],
     "createdAt": "2026-07-27"
   },
   {
     "id": "p521",
     "colors": ["#DFEE70", "#93CF8B", "#00A964", "#006E61"],
     "names": ["Powder Matcha", "Jade", "Emerald", "Holly Green"],
+    "tags": ["analogous"],
     "createdAt": "2025-10-29"
   },
   {
     "id": "p522",
     "colors": ["#726DFF", "#DCE0FD", "#24173B", "#97C266"],
     "names": ["Neon Midnight", "Periwinkle Cream", "Nightshade", "Lime Leaf"],
+    "tags": ["branding"],
     "createdAt": "2026-02-19"
   },
   {
     "id": "p523",
     "colors": ["#E7F3FB", "#B9D2DB", "#2F5E73", "#00734C"],
     "names": ["Mist White", "Harbor Mist", "Marine Teal", "Fern"],
+    "tags": ["winter"],
     "createdAt": "2026-01-24"
   },
   {
     "id": "p524",
     "colors": ["#EEE4CE", "#4D8897", "#DB8268", "#72241E"],
     "names": ["Oatmeal", "Lagoon", "Adobe", "Brick Brown"],
+    "tags": ["vintage"],
     "createdAt": "2025-07-29"
   },
   {
@@ -3337,24 +3561,28 @@
       "Vivid Dragonfruit",
       "Peach Soft"
     ],
+    "tags": ["tech"],
     "createdAt": "2025-08-24"
   },
   {
     "id": "p526",
     "colors": ["#B97500", "#00CFC7", "#9149BF", "#111A5D"],
     "names": ["Amber", "Turquoise Fresh", "Radiant Lilac", "Midnight Purple"],
+    "tags": ["vibrant"],
     "createdAt": "2026-09-10"
   },
   {
     "id": "p527",
     "colors": ["#F6FAFF", "#0A2221", "#006865", "#792D61"],
     "names": ["Porcelain Blue", "Blackwood", "Lagoon Deep", "Mulberry"],
+    "tags": ["accessible"],
     "createdAt": "2025-11-22"
   },
   {
     "id": "p528",
     "colors": ["#ED7D89", "#81B85D", "#3E7DC9", "#F8F2EB"],
     "names": ["Raspberry", "Grass Green", "Azure", "Ivory Linen"],
+    "tags": ["triadic"],
     "createdAt": "2025-04-16"
   },
   {
@@ -3366,252 +3594,294 @@
       "True Indigo",
       "Electric Periwinkle"
     ],
+    "tags": ["monochromatic"],
     "createdAt": "2025-06-11"
   },
   {
     "id": "p530",
     "colors": ["#00A59C", "#D7AEFF", "#A86700", "#E2F0FE"],
     "names": ["Viridian", "Periwinkle", "Ochre Brown", "Sky Cream"],
+    "tags": ["triadic"],
     "createdAt": "2025-02-17"
   },
   {
     "id": "p531",
     "colors": ["#090603", "#2C1F0D", "#7A3328", "#A65D00"],
     "names": ["Jet", "Espresso Black", "Ember", "Copper Brown"],
+    "tags": ["dark"],
     "createdAt": "2026-01-28"
   },
   {
     "id": "p532",
     "colors": ["#003423", "#0C7742", "#ECF8F2", "#00AFDB"],
     "names": ["Deep Pine", "Kelly Forest", "Mint White", "Sky"],
+    "tags": ["corporate"],
     "createdAt": "2025-07-06"
   },
   {
     "id": "p533",
     "colors": ["#265034", "#8D73F4", "#CBC9FF", "#EEE9D8"],
     "names": ["Forest Deep", "Radiant Twilight", "Thistle", "Flax"],
+    "tags": ["nature"],
     "createdAt": "2025-05-16"
   },
   {
     "id": "p534",
     "colors": ["#F3EFE5", "#CD96B8", "#4C7F66", "#112200"],
     "names": ["Bone Paper", "Lilac", "Fern Green", "Cypress"],
+    "tags": ["elegant"],
     "createdAt": "2026-01-07"
   },
   {
     "id": "p535",
     "colors": ["#1A4116", "#D17BC3", "#FCB7D4", "#F2EDD8"],
     "names": ["Pine", "Orchid", "Powder Rose", "Cream Parchment"],
+    "tags": ["nature"],
     "createdAt": "2026-06-17"
   },
   {
     "id": "p536",
     "colors": ["#030718", "#132143", "#453270", "#99A439"],
     "names": ["Midnight Black", "Deep Navy Ink", "Indigo", "Avocado"],
+    "tags": ["dark"],
     "createdAt": "2026-07-29"
   },
   {
     "id": "p537",
     "colors": ["#F9F1DF", "#D6915E", "#673C27", "#739DE0"],
     "names": ["Eggshell", "Copper Sand", "Cocoa", "Lapis"],
+    "tags": ["coffee"],
     "createdAt": "2025-09-01"
   },
   {
     "id": "p538",
     "colors": ["#D1F4CD", "#8EC65F", "#3A9504", "#224400"],
     "names": ["Celery Pastel", "Pear", "Clear Basil", "Lime"],
+    "tags": ["monochromatic"],
     "createdAt": "2025-04-09"
   },
   {
     "id": "p539",
     "colors": ["#F7E8D5", "#C4956B", "#6A391C", "#689A5D"],
     "names": ["Sand Pastel", "Camel", "Dark Bronze", "Meadow"],
+    "tags": ["coffee"],
     "createdAt": "2025-09-07"
   },
   {
     "id": "p540",
     "colors": ["#FFE8CC", "#D4E494", "#85E3B8", "#A5EBF5"],
     "names": ["Apricot Light", "Butter Yellow", "Airy Ivy", "Seafoam"],
+    "tags": ["pastel"],
     "createdAt": "2026-01-04"
   },
   {
     "id": "p541",
     "colors": ["#FFFAFB", "#F4D0B6", "#D8B0E6", "#6BB8A7"],
     "names": ["Cotton", "Apricot Blush", "Lilac", "Teal Mist"],
+    "tags": ["light"],
     "createdAt": "2025-08-25"
   },
   {
     "id": "p542",
     "colors": ["#002735", "#00A7D9", "#994517", "#F2B9A2"],
     "names": ["Abyss", "Capri", "Cinnamon", "Peach Soft"],
+    "tags": ["duotone"],
     "createdAt": "2025-03-07"
   },
   {
     "id": "p543",
     "colors": ["#003921", "#22A877", "#0065A9", "#AEDCFF"],
     "names": ["Emerald", "Ivy", "Prussian", "Pale Sky"],
+    "tags": ["duotone"],
     "createdAt": "2025-04-01"
   },
   {
     "id": "p544",
     "colors": ["#F7F4ED", "#040E19", "#9E7200", "#91969D"],
     "names": ["Warm Cream", "Ink Black", "Ochre Brown", "Steel Grey"],
+    "tags": ["editorial"],
     "createdAt": "2026-01-20"
   },
   {
     "id": "p545",
     "colors": ["#F4F4F4", "#201E0F", "#6A5AF7", "#C7E6AE"],
     "names": ["Porcelain", "Dark Bark", "Bold Bluebird", "Pistachio"],
+    "tags": ["modern"],
     "createdAt": "2026-07-27"
   },
   {
     "id": "p546",
     "colors": ["#CEE2FF", "#2485E1", "#31CBE0", "#406A24"],
     "names": ["Sky Pastel", "Azure", "Cyan", "Olive Forest"],
+    "tags": ["floral"],
     "createdAt": "2026-04-17"
   },
   {
     "id": "p547",
     "colors": ["#322E00", "#8C7400", "#EDEDE7", "#AB7FDE"],
     "names": ["Dark Olive", "Butter", "Eggshell", "Amethyst Light"],
+    "tags": ["corporate"],
     "createdAt": "2026-01-22"
   },
   {
     "id": "p548",
     "colors": ["#AC4DD0", "#98EF63", "#A9027A", "#003F2B"],
     "names": ["Rich Heather", "Lime Neon", "True Petal", "Emerald"],
+    "tags": ["vibrant"],
     "createdAt": "2025-03-06"
   },
   {
     "id": "p549",
     "colors": ["#0F0502", "#FEE7DC", "#F5B343", "#72BDFF"],
     "names": ["Jet", "Peach Cream", "Sunflower", "Cobalt"],
+    "tags": ["accessible-dark"],
     "createdAt": "2026-06-09"
   },
   {
     "id": "p550",
     "colors": ["#200D07", "#B5632F", "#D9B682", "#835136"],
     "names": ["Blackcurrant", "Sienna", "Honey", "Chestnut"],
+    "tags": ["earthy"],
     "createdAt": "2026-04-02"
   },
   {
     "id": "p551",
     "colors": ["#030502", "#3A7E00", "#ECB9FF", "#D1A084"],
     "names": ["Jet", "Bold Spruce", "Lilac Glow", "Tawny Rose"],
+    "tags": ["fashion"],
     "createdAt": "2025-08-17"
   },
   {
     "id": "p552",
     "colors": ["#444800", "#7F8800", "#BDAAFF", "#EBE6FF"],
     "names": ["Pine Needle", "Avocado", "Periwinkle", "Lilac White"],
+    "tags": ["complementary"],
     "createdAt": "2025-05-23"
   },
   {
     "id": "p553",
     "colors": ["#DDDFFF", "#9AA0FF", "#6054EA", "#2F287F"],
     "names": ["Lavender Glow", "Iris", "Radiant Twilight", "Indigo"],
+    "tags": ["monochromatic"],
     "createdAt": "2026-02-08"
   },
   {
     "id": "p554",
     "colors": ["#C3C0BE", "#7C878A", "#6D74B1", "#24344B"],
     "names": ["Silver", "Stone Grey", "Dusty Iris", "Navy"],
+    "tags": ["architecture"],
     "createdAt": "2025-03-16"
   },
   {
     "id": "p555",
     "colors": ["#FCF7FC", "#D4C7F6", "#9E2A9F", "#081A0B"],
     "names": ["Rice Paper", "Thistle", "True Dragonfruit", "Blackwood"],
+    "tags": ["ui"],
     "createdAt": "2025-11-09"
   },
   {
     "id": "p556",
     "colors": ["#030B11", "#005F88", "#E8AA48", "#F7D1C5"],
     "names": ["Abyss", "Cobalt", "Golden Amber", "Peach Glow"],
+    "tags": ["luxury"],
     "createdAt": "2025-11-27"
   },
   {
     "id": "p557",
     "colors": ["#11080B", "#4C2027", "#5B245B", "#009983"],
     "names": ["Pitch Black", "Port Wine", "Maroon", "Viridian"],
+    "tags": ["dark"],
     "createdAt": "2026-04-30"
   },
   {
     "id": "p558",
     "colors": ["#FBF7F5", "#E9D69F", "#8F4F00", "#071A27"],
     "names": ["Milk Glass", "Straw", "Cinnamon", "Ink Blue"],
+    "tags": ["ui"],
     "createdAt": "2025-04-26"
   },
   {
     "id": "p559",
     "colors": ["#110C1B", "#FFBDEB", "#00A39A", "#79BFFF"],
     "names": ["Onyx", "Soft Carnation", "Viridian", "Lapis"],
+    "tags": ["neon"],
     "createdAt": "2026-06-02"
   },
   {
     "id": "p560",
     "colors": ["#0A080F", "#442578", "#D9B33E", "#DFCDC6"],
     "names": ["Void Black", "Royal Purple", "Mustard Gold", "Greige"],
+    "tags": ["luxury"],
     "createdAt": "2025-11-01"
   },
   {
     "id": "p561",
     "colors": ["#090908", "#3D3E00", "#D0B564", "#E4D3CB"],
     "names": ["Jet", "Peat", "Mustard Gold", "Almond"],
+    "tags": ["luxury"],
     "createdAt": "2025-06-20"
   },
   {
     "id": "p562",
     "colors": ["#204522", "#DC9200", "#DABC81", "#F0EFD8"],
     "names": ["Pine", "Amber Orange", "Honey", "Cream Parchment"],
+    "tags": ["nature"],
     "createdAt": "2026-02-16"
   },
   {
     "id": "p563",
     "colors": ["#070712", "#E4DD00", "#9584FF", "#FFA2A6"],
     "names": ["Void", "Powder Goldenrod", "Radiant Twilight", "Salmon Pastel"],
+    "tags": ["neon"],
     "createdAt": "2026-05-21"
   },
   {
     "id": "p564",
     "colors": ["#007FCD", "#FFB059", "#5B5EEF", "#2C2300"],
     "names": ["Azure", "Peach Orange", "Rich Indigo", "Espresso"],
+    "tags": ["vibrant"],
     "createdAt": "2025-12-02"
   },
   {
     "id": "p565",
     "colors": ["#E0CEB9", "#B66B4C", "#919F89", "#98B9CB"],
     "names": ["Putty", "Clay Red", "Sage Grey", "Harbor Mist"],
+    "tags": ["desert"],
     "createdAt": "2025-10-31"
   },
   {
     "id": "p566",
     "colors": ["#0E1222", "#2D2E42", "#00A07A", "#D9D985"],
     "names": ["Onyx", "Navy Ink", "Viridian", "Pear Green"],
+    "tags": ["tech"],
     "createdAt": "2025-05-14"
   },
   {
     "id": "p567",
     "colors": ["#B8FFE9", "#B8D0FF", "#FCA7CA", "#F2DBAE"],
     "names": ["Mint Glow", "Lavender Blue", "Carnation", "Biscuit"],
+    "tags": ["pastel"],
     "createdAt": "2026-08-29"
   },
   {
     "id": "p568",
     "colors": ["#799BFA", "#E89084", "#409652", "#FFF4FE"],
     "names": ["Periwinkle", "Rose Clay", "Kelly Green", "Orchid White"],
+    "tags": ["triadic"],
     "createdAt": "2025-03-05"
   },
   {
     "id": "p569",
     "colors": ["#F5F8F4", "#E7D0F6", "#151916", "#5B9600"],
     "names": ["Ivory Sage", "Lavender Pastel", "Eclipse", "Radiant Kiwi"],
+    "tags": ["minimal"],
     "createdAt": "2026-07-15"
   },
   {
     "id": "p570",
     "colors": ["#F77312", "#F57FBA", "#B7D72E", "#142B58"],
     "names": ["Flame Orange", "Radiant Petal", "True Lime", "Midnight Blue"],
+    "tags": ["retro"],
     "createdAt": "2025-08-21"
   },
   {
@@ -3623,48 +3893,56 @@
       "Whisper Buttercup",
       "Turquoise Fresh"
     ],
+    "tags": ["candy"],
     "createdAt": "2026-04-17"
   },
   {
     "id": "p572",
     "colors": ["#00393E", "#008585", "#E7EEEF", "#6991ED"],
     "names": ["Deep Sea", "Teal", "Mist", "Electric Periwinkle"],
+    "tags": ["corporate"],
     "createdAt": "2025-10-26"
   },
   {
     "id": "p573",
     "colors": ["#ECF7FC", "#A9D2DB", "#656D80", "#A63037"],
     "names": ["Ice", "Sky Aqua", "Smoke", "Barn Red"],
+    "tags": ["winter"],
     "createdAt": "2025-07-28"
   },
   {
     "id": "p574",
     "colors": ["#AFDEFF", "#82B3FF", "#8A87C1", "#6D51A2"],
     "names": ["Pale Sky", "Prussian", "Wisteria Blue", "Imperial Purple"],
+    "tags": ["analogous"],
     "createdAt": "2026-09-14"
   },
   {
     "id": "p575",
     "colors": ["#C3BCB3", "#848D94", "#A85F00", "#223641"],
     "names": ["Sandstone", "Zinc", "Copper Brown", "Deep Anchor"],
+    "tags": ["architecture"],
     "createdAt": "2025-04-25"
   },
   {
     "id": "p576",
     "colors": ["#04080E", "#0077F1", "#FFC263", "#C79366"],
     "names": ["Void", "Rich Bluebell", "Butter Gold", "Butterscotch"],
+    "tags": ["fashion"],
     "createdAt": "2025-02-18"
   },
   {
     "id": "p577",
     "colors": ["#723000", "#CB5A00", "#37C0F3", "#D9F3FF"],
     "names": ["Cedar", "Rust Orange", "Sky Neon", "Sky Cream"],
+    "tags": ["complementary"],
     "createdAt": "2025-04-13"
   },
   {
     "id": "p578",
     "colors": ["#FEF2EA", "#8DB5B3", "#568394", "#291800"],
     "names": ["Meringue", "Aqua Grey", "Stone Blue", "Coffee Black"],
+    "tags": ["elegant"],
     "createdAt": "2025-02-16"
   },
   {
@@ -3676,132 +3954,154 @@
       "True Nightfall",
       "Indigo Night"
     ],
+    "tags": ["ui"],
     "createdAt": "2026-08-22"
   },
   {
     "id": "p580",
     "colors": ["#010F3D", "#0088B9", "#A7D6E0", "#F1E76F"],
     "names": ["Ink Marine", "Cerulean Deep", "Sky Aqua", "Lemon"],
+    "tags": ["ocean"],
     "createdAt": "2026-08-20"
   },
   {
     "id": "p581",
     "colors": ["#002629", "#00846A", "#B5ECC3", "#F3DB61"],
     "names": ["Deep Ocean", "Malachite", "Airy Spearmint", "Lemon Zest"],
+    "tags": ["ocean"],
     "createdAt": "2025-09-20"
   },
   {
     "id": "p582",
     "colors": ["#231307", "#B9785B", "#C59E67", "#587577"],
     "names": ["Ink Brown", "Clay", "Tan Beige", "Storm"],
+    "tags": ["earthy"],
     "createdAt": "2025-12-18"
   },
   {
     "id": "p583",
     "colors": ["#F1FBFF", "#A9BDD0", "#3C5775", "#811B1F"],
     "names": ["Ice Glass", "Powder Blue", "Slate Denim", "Brick Brown"],
+    "tags": ["winter"],
     "createdAt": "2025-04-23"
   },
   {
     "id": "p584",
     "colors": ["#090F18", "#27303F", "#593E5E", "#BD8800"],
     "names": ["Ink Blue Black", "Navy Ink", "Byzantium", "Old Gold"],
+    "tags": ["dark"],
     "createdAt": "2026-09-06"
   },
   {
     "id": "p585",
     "colors": ["#0E1518", "#DEF0F6", "#93C6FF", "#FFB294"],
     "names": ["Carbon Blue", "Sky Cream", "Periwinkle", "Coral Blush"],
+    "tags": ["accessible-dark"],
     "createdAt": "2025-06-01"
   },
   {
     "id": "p586",
     "colors": ["#032A1B", "#164929", "#859049", "#AE2F36"],
     "names": ["Evergreen", "Forest Deep", "Olive", "Barn Red"],
+    "tags": ["forest"],
     "createdAt": "2026-04-16"
   },
   {
     "id": "p587",
     "colors": ["#F7F2E6", "#C6AAD5", "#A0768E", "#003217"],
     "names": ["Ivory Linen", "Lilac Bloom", "Mauve Taupe", "Deep Pine"],
+    "tags": ["elegant"],
     "createdAt": "2025-01-19"
   },
   {
     "id": "p588",
     "colors": ["#00241B", "#344419", "#708C56", "#005A91"],
     "names": ["Forest Ink", "Pine Needle", "Basil", "Cobalt"],
+    "tags": ["forest"],
     "createdAt": "2025-12-17"
   },
   {
     "id": "p589",
     "colors": ["#F5FAF9", "#BAE9C5", "#007366", "#280713"],
     "names": ["Glacier Ice", "Spring Leaf", "Teal", "Black Cherry"],
+    "tags": ["ui"],
     "createdAt": "2026-04-08"
   },
   {
     "id": "p590",
     "colors": ["#100D17", "#80FFB2", "#E100C7", "#00CBEC"],
     "names": ["Onyx", "Powder Pine", "Electric Plum", "Cyan"],
+    "tags": ["neon"],
     "createdAt": "2025-09-16"
   },
   {
     "id": "p591",
     "colors": ["#483800", "#139AE4", "#D7BFFF", "#F5F7FF"],
     "names": ["Peat", "Azure", "Lilac Glow", "Orchid White"],
+    "tags": ["split"],
     "createdAt": "2025-08-11"
   },
   {
     "id": "p592",
     "colors": ["#13291F", "#395A25", "#869A44", "#0076B3"],
     "names": ["Kelp", "Leaf Green", "Avocado", "Cerulean Blue"],
+    "tags": ["forest"],
     "createdAt": "2025-06-29"
   },
   {
     "id": "p593",
     "colors": ["#151325", "#FFCE93", "#00B1D9", "#00D08E"],
     "names": ["Midnight Slate", "Honey Cream", "Sky", "Emerald Neon"],
+    "tags": ["neon"],
     "createdAt": "2025-09-27"
   },
   {
     "id": "p594",
     "colors": ["#4A1B2B", "#96426D", "#F9F0F2", "#00A0A8"],
     "names": ["Oxblood", "Mulberry Mid", "Blush White", "Turquoise"],
+    "tags": ["corporate"],
     "createdAt": "2026-03-15"
   },
   {
     "id": "p595",
     "colors": ["#FAF9FF", "#102632", "#005C7E", "#684A00"],
     "names": ["Porcelain Blue", "Abyss", "Petrol Teal", "Toffee"],
+    "tags": ["accessible"],
     "createdAt": "2025-02-15"
   },
   {
     "id": "p596",
     "colors": ["#FAFCFB", "#281922", "#00AD76", "#F6B8BE"],
     "names": ["Paper White", "Cocoa Shadow", "Emerald", "Powder Rose"],
+    "tags": ["modern"],
     "createdAt": "2025-07-28"
   },
   {
     "id": "p597",
     "colors": ["#FB96CD", "#5BFAEA", "#E8E380", "#DC70BE"],
     "names": ["Sorbet", "Electric Aqua", "Butter Yellow", "Radiant Sorbet"],
+    "tags": ["candy"],
     "createdAt": "2026-02-04"
   },
   {
     "id": "p598",
     "colors": ["#FFEF8B", "#FFC65B", "#FE8825", "#708800"],
     "names": ["Washed Honey", "Amber Yellow", "Tangerine Bright", "Moss Lime"],
+    "tags": ["citrus"],
     "createdAt": "2025-06-06"
   },
   {
     "id": "p599",
     "colors": ["#E5E5FF", "#FDBFC2", "#CFCA73", "#82F3F3"],
     "names": ["Periwinkle Cream", "Peach Blush", "Buttercup", "Electric Aqua"],
+    "tags": ["pastel"],
     "createdAt": "2025-05-27"
   },
   {
     "id": "p600",
     "colors": ["#D1C8EC", "#A982DB", "#D788B2", "#4C6E25"],
     "names": ["Thistle", "Amethyst Light", "Rose Mauve", "Olive Forest"],
+    "tags": ["floral"],
     "createdAt": "2026-04-19"
   }
 ]
