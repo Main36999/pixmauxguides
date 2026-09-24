@@ -150,8 +150,45 @@ for (const id of ["p100", "p200", "p300", "p301", "p400", "p450", "p500", "p600"
   });
 }
 
+// ---------------------------------------------------------------------
+// colour names reach the original, hand-titled palettes too
+// ---------------------------------------------------------------------
+
+test('"Ultraviolet" (a colour in p001) finds p001', async () => {
+  assert.ok(byId("p001").names.includes("Ultraviolet"), "fixture assumption: p001 has Ultraviolet");
+  const { ids } = await search("Ultraviolet");
+  assert.ok(ids.includes("p001"), `got ${ids.slice(0, 10)}`);
+});
+
+for (const id of ["p017", "p040"]) {
+  test(`an original palette, ${id}, is found by one of its colour names`, async () => {
+    const name = distinctiveName(id);
+    const { ids } = await search(name);
+    assert.ok(ids.includes(id), `searching "${name}" did not return ${id} (got ${ids.slice(0, 10)})`);
+  });
+}
+
+test("every one of the 600 index records carries all of its palette's colour-name words", () => {
+  const records = new Map(INDEX.filter((r) => r.type === "palette").map((r) => [r.slug, r]));
+  PALETTES.forEach((p) => {
+    const words = new Set(records.get(p.id).searchText.split(" "));
+    p.names.forEach((name) =>
+      name
+        .toLowerCase()
+        .split(/\s+/)
+        .forEach((w) => assert.ok(words.has(w), `${p.id} searchText is missing "${w}" (${name})`)),
+    );
+  });
+});
+
+test("the original palettes are still found by their title", async () => {
+  const p = model.palettes[16]; // p017
+  const { ids } = await search(p.meta.title);
+  assert.strictEqual(ids[0], p.id);
+});
+
 test("a palette is found by its id", async () => {
-  for (const id of ["p041", "p450", config.palettes.lastId]) {
+  for (const id of ["p001", "p040", "p041", "p450", config.palettes.lastId]) {
     const { ids } = await search(id);
     assert.ok(ids.includes(id), `searching "${id}" did not return it`);
   }

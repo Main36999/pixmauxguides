@@ -974,10 +974,15 @@ function buildGuideRecords(guides, categorySlugs, warnings) {
  *
  * TWO SOURCES, ONE SHAPE
  *
- *   with meta     p001–p040. Title, tags and searchText come from the
- *                 palette's palettes-meta.json entry, exactly as before —
- *                 these records are byte-identical to the approved Phase 3
- *                 set (src/build/palette-meta.test.js).
+ *   with meta     p001–p040. Title, tags, description and searchText come
+ *                 from the palette's palettes-meta.json entry, exactly as
+ *                 in the approved Phase 3 set — with one addition: the
+ *                 palette's own colour names from palettes-data.json are
+ *                 appended to the END of searchText, so a colour-name query
+ *                 finds these palettes like every other. Appended, not
+ *                 merged: the approved searchText is still an exact prefix
+ *                 and every other field is byte-identical
+ *                 (src/build/palette-meta.test.js).
  *   without meta  every other palette. There is no hand-written title or
  *                 tag set to borrow, so the record is built from the data
  *                 file alone: the title is the palette's colour names
@@ -1015,6 +1020,7 @@ function buildPaletteRecords(indexedPalettes) {
         meta.family,
         moods,
         meta.lightness,
+        colorNames(p),
       ]),
     };
 
@@ -1032,11 +1038,16 @@ function buildPaletteRecords(indexedPalettes) {
   });
 }
 
-/** Same field set and key order as a meta record, so the index has one shape. */
-function buildDataOnlyPaletteRecord(p) {
-  const names = Array.isArray(p.names)
+/** A palette's own colour names from palettes-data.json, blanks dropped. */
+function colorNames(p) {
+  return Array.isArray(p.names)
     ? p.names.filter((n) => typeof n === "string" && n.trim())
     : [];
+}
+
+/** Same field set and key order as a meta record, so the index has one shape. */
+function buildDataOnlyPaletteRecord(p) {
+  const names = colorNames(p);
   const colors =
     Array.isArray(p.colors) &&
     p.colors.length &&

@@ -61,7 +61,32 @@ const meta = JSON.parse(
 // the migration itself
 // ---------------------------------------------------------------------
 
-test("every approved palette record is reproduced byte-identically", () => {
+// Colour-name search: each migrated record's searchText has the palette's
+// own colour names (from palettes-data.json) appended after the approved
+// text, so "Ultraviolet" finds p001 like any other palette's colour name.
+// Everything else — every other field, and key order — is still exactly the
+// approved Phase 3 record. The fixture itself is not edited.
+const dataById = new Map(model.palettes.map((p) => [p.id, p]));
+
+/** The approved searchText plus the colour-name words it did not already hold. */
+function expectedSearchText(approved) {
+  const words = approved.searchText.split(" ");
+  const seen = new Set(words);
+  dataById
+    .get(approved.slug)
+    .names.join(" ")
+    .toLowerCase()
+    .split(/\s+/)
+    .forEach((w) => {
+      if (w && !seen.has(w)) {
+        seen.add(w);
+        words.push(w);
+      }
+    });
+  return words.join(" ");
+}
+
+test("every approved palette record is reproduced, colour names appended to searchText", () => {
   assert.ok(
     allPalettes.length >= APPROVED.length,
     `built ${allPalettes.length} palette records, approved has ${APPROVED.length}`,
@@ -71,21 +96,47 @@ test("every approved palette record is reproduced byte-identically", () => {
     const actual = builtPalettes[i];
     // JSON.stringify compares key ORDER as well as values: a record with the
     // right fields in the wrong order would change content-index.json's bytes
-    // and break the build's own output gate.
+    // and break the build's own output gate. searchText is swapped for the
+    // approved value so this compares every OTHER field exactly.
     assert.strictEqual(
-      JSON.stringify(actual),
+      JSON.stringify({ ...actual, searchText: approved.searchText }),
       JSON.stringify(approved),
-      `palette record ${approved.id} differs from the approved Phase 3 record`,
+      `palette record ${approved.id} differs from the approved Phase 3 record outside searchText`,
+    );
+    assert.ok(
+      actual.searchText === approved.searchText ||
+        actual.searchText.startsWith(approved.searchText + " "),
+      `${approved.id}: the approved searchText is no longer an exact prefix`,
+    );
+    assert.strictEqual(
+      actual.searchText,
+      expectedSearchText(approved),
+      `${approved.id}: searchText gained something other than its own colour names`,
     );
   });
 });
 
-test("the migrated palette section is byte-identical, in order", () => {
+test("the migrated palette section is otherwise byte-identical, in order", () => {
+  const withApprovedText = builtPalettes.map((r, i) => ({
+    ...r,
+    searchText: APPROVED[i] && APPROVED[i].searchText,
+  }));
   assert.strictEqual(
-    JSON.stringify(builtPalettes),
+    JSON.stringify(withApprovedText),
     JSON.stringify(APPROVED),
     "the 40 palette records differ from the approved set as a whole",
   );
+});
+
+test("every migrated palette is findable by each of its colour names", () => {
+  builtPalettes.forEach((r) => {
+    dataById.get(r.slug).names.forEach((name) => {
+      name
+        .toLowerCase()
+        .split(/\s+/)
+        .forEach((w) => assert.ok(r.searchText.split(" ").includes(w), `${r.slug} is missing "${w}"`));
+    });
+  });
 });
 
 test("no palette record lost its borrowed metadata", () => {
