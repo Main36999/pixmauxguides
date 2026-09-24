@@ -48,7 +48,13 @@ const INIT_SEARCH_PAGE = SOURCE.slice(START, END);
 
 function element(created) {
   const attrs = {};
+  const classes = new Set();
   const el = {
+    classList: {
+      add: (c) => classes.add(c),
+      remove: (c) => classes.delete(c),
+      contains: (c) => classes.has(c),
+    },
     textContent: "",
     innerHTML: "",
     hidden: false,
@@ -92,6 +98,12 @@ async function search(query, { extra = "", rawSearch } = {}) {
     "search-type-tabs",
     "search-category-select",
   ].forEach((id) => (els[id] = element()));
+  // The "All" type tab, so a test can see where Clear filters puts focus.
+  let focused = null;
+  const allTab = element();
+  allTab.focus = () => (focused = "all");
+  els["search-type-tabs"].querySelector = (selector) =>
+    selector === '.search-type-tab[data-type="all"]' ? allTab : null;
 
   const context = {
     URLSearchParams,
@@ -136,12 +148,16 @@ async function search(query, { extra = "", rawSearch } = {}) {
       grid,
       heading: els["search-heading"].textContent,
       count: els["search-results-count"].textContent,
+      // The role=status line is always in the accessibility tree; sr-only
+      // only takes it off the screen.
+      countVisuallyHidden: els["search-results-count"].classList.contains("sr-only"),
       empty: els["search-empty-state"].getAttribute("data-visible") === "true",
       emptyQuery: els["search-empty-query"].textContent,
       noResultsMessageShown: shown(els["search-empty-message"]),
       filteredMessage: shown(filteredMessageEl) ? filteredMessageEl.textContent : null,
       clearButtonShown: shown(clearButton),
       url: lastUrl,
+      focused,
       /** Clicks the empty state's "Clear filters" button; returns the new state. */
       clearFilters() {
         assert.strictEqual(clearButton.textContent, "Clear filters");
@@ -573,6 +589,8 @@ test("no results anywhere: the no-results message, tips and no clear button", as
   assert.ok(s.noResultsMessageShown);
   assert.strictEqual(s.filteredMessage, null);
   assert.ok(!s.clearButtonShown);
+  // Its count line says something the panel does not, so it stays on screen.
+  assert.ok(!s.countVisuallyHidden);
 });
 
 test("results exist but not under the type filter: says so, and offers to clear it", async () => {
@@ -585,14 +603,21 @@ test("results exist but not under the type filter: says so, and offers to clear 
   assert.strictEqual(s.filteredMessage, message);
   assert.ok(!s.noResultsMessageShown, "the no-results message would be untrue here");
   assert.ok(s.clearButtonShown);
+  // Shown once: in the panel. The status line still carries it for screen
+  // readers but is visually hidden, so it is not a second visible copy.
+  assert.ok(s.countVisuallyHidden, "the status line duplicates the panel on screen");
 });
 
 test("results exist but not in the category: names the category and what does match", async () => {
   const palettes = (await search("blue")).ids.length;
   const s = await search("blue", { extra: "&category=typography" });
   assert.strictEqual(s.count, `No results in Typography match "blue" — ${palettes} palettes do.`);
+  assert.strictEqual(s.filteredMessage, s.count);
+  assert.ok(s.countVisuallyHidden);
   const both = await search("blue", { extra: "&type=guide&category=typography" });
   assert.strictEqual(both.count, `No guides in Typography match "blue" — ${palettes} palettes do.`);
+  assert.strictEqual(both.filteredMessage, both.count);
+  assert.ok(both.countVisuallyHidden);
 });
 
 test("Clear filters restores the unfiltered results and URL", async () => {
@@ -603,6 +628,8 @@ test("Clear filters restores the unfiltered results and URL", async () => {
   assert.deepStrictEqual(cleared.hrefs, unfiltered.hrefs);
   assert.strictEqual(cleared.count, unfiltered.count);
   assert.strictEqual(cleared.url, "/search?s=blue");
+  assert.strictEqual(cleared.focused, "all", "focus goes to the All tab");
+  assert.ok(!cleared.countVisuallyHidden, "the result count is back on screen");
 });
 
 test("the filtered empty state comes back identically from the URL alone (refresh)", async () => {

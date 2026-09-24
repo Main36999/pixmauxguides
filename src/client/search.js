@@ -654,6 +654,9 @@
           input.value = query;
         });
 
+      // Only the filtered empty state hides the count line (see below).
+      countEl.classList.remove("sr-only");
+
       if (!query) {
         headingEl.textContent = "Search";
         dekEl.textContent =
@@ -694,6 +697,10 @@
         if (unfiltered.length) {
           countEl.textContent = filteredEmptyLabel(unfiltered);
           filteredMessageEl.textContent = countEl.textContent;
+          // The panel shows this sentence; the count line keeps announcing
+          // it but, visually hidden (the site's .sr-only), is not a second
+          // visible copy of it.
+          countEl.classList.add("sr-only");
         } else {
           countEl.textContent = countLabel(results);
           emptyQueryEl.textContent = '"' + query + '"';
