@@ -638,3 +638,79 @@ test("the filtered empty state comes back identically from the URL alone (refres
   assert.strictEqual(reloaded.count, first.count);
   assert.strictEqual(reloaded.filteredMessage, first.filteredMessage);
 });
+
+// ---------------------------------------------------------------------
+// query normalization: hyphens, punctuation, apostrophes
+// ---------------------------------------------------------------------
+
+/** `a` and `b` return the same results in the same order. */
+async function assertSameResults(a, b) {
+  const ra = await search(a);
+  const rb = await search(b);
+  assert.ok(rb.hrefs.length > 0, `fixture assumption: "${b}" has results`);
+  assert.deepStrictEqual(ra.hrefs, rb.hrefs, `"${a}" and "${b}" differ`);
+  return ra;
+}
+
+for (const [hyphenated, spaced] of [
+  ["color-palette", "color palette"],
+  ["design-system", "design system"],
+  ["dark-blue", "dark blue"],
+]) {
+  test(`a hyphen separates words: "${hyphenated}" ranks exactly like "${spaced}"`, async () => {
+    const r = await assertSameResults(hyphenated, spaced);
+    // Shown as typed; only the matching is normalized.
+    assert.strictEqual(r.heading, `Search results for "${hyphenated}"`);
+  });
+}
+
+test("a hyphenated slug still matches its record exactly", async () => {
+  const guide = INDEX.find((r) => r.slug === "color-contrast-systems");
+  assert.strictEqual((await search("color-contrast-systems")).hrefs[0], guide.url);
+  // …and a hyphenated palette title still wins on its exact title.
+  assert.ok(RECORD.get("p040").title.includes("-"), "fixture assumption: p040's title is hyphenated");
+  assert.strictEqual((await search(RECORD.get("p040").title)).ids[0], "p040");
+});
+
+for (const q of [".", ",", "·", "(", ")", "&"]) {
+  test(`punctuation on its own is not a word: "${q}" matches nothing`, async () => {
+    const s = await search(q);
+    assert.deepStrictEqual(s.hrefs, []);
+    assert.ok(s.empty);
+    assert.strictEqual(s.count, `0 Results for "${q}"`);
+  });
+}
+
+for (const q of ["color · palette", "Color · Palette", "color, palette", "(color palette)"]) {
+  test(`punctuation around words is ignored: "${q}" ranks exactly like "color palette"`, async () => {
+    await assertSameResults(q, "color palette");
+  });
+}
+
+test('a punctuation word no longer counts as a matched word: "Dark / Light" ranks both-word palettes first', async () => {
+  // The "/" used to match inside a guide description and, counted as one of
+  // three words matched, put that guide above every palette matching both
+  // "dark" and "light".
+  const { hrefs, ids } = await search("Dark / Light");
+  assert.ok(hrefs[0].startsWith("/palettes#"), `#1 is ${hrefs[0]}`);
+  assert.deepStrictEqual(hrefs, (await search("dark light")).hrefs);
+  assert.ok(ids.length > 0);
+});
+
+test('an exact title containing punctuation still ranks first: "Bare Ledger (Dark)"', async () => {
+  assert.strictEqual((await search("Bare Ledger (Dark)")).ids[0], "p005");
+});
+
+test('a leading "#" is kept: "#333" is still only the HEX colour, not the id p333', async () => {
+  assert.deepStrictEqual((await search("#333")).ids, ["p082"]);
+});
+
+for (const [straight, curly] of [
+  ["figma's", "figma’s"],
+  ["don't", "don’t"],
+]) {
+  test(`a curly apostrophe matches like a straight one: "${curly}"`, async () => {
+    const r = await assertSameResults(curly, straight);
+    assert.strictEqual(r.heading, `Search results for "${curly}"`, "the query is shown as typed");
+  });
+}

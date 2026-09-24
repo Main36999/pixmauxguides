@@ -231,20 +231,56 @@
         .trim();
     }
 
+    // The words of a query, for matching only — `query` itself is what the
+    // page displays, exactly as typed:
+    //   - a hyphen separates words: "color-palette" is "color palette"
+    //   - brackets, quotes, sentence punctuation and the "·" separator are
+    //     trimmed from either end of a word: "(color" is "color",
+    //     "palette," is "palette". Only these — "#333" keeps its "#" (a
+    //     HEX colour), and a symbol such as "%" or "$" is left alone
+    //     rather than trimmed down to a stray letter that matches
+    //     everything.
+    //   - a word with no letter or digit at all is dropped: "·", ".", "(",
+    //     "&" are not words, so they neither match nor count as a word
+    //     the query asked for
+    // Apostrophes inside a word stay ("figma's"); the caller has already
+    // made curly ones straight.
+    var EDGE_PUNCTUATION = /^[.,;:!?()[\]{}"'“”«»·•…]+|[.,;:!?()[\]{}"'“”«»·•…]+$/g;
+
+    function queryWords(lower) {
+      return lower
+        .replace(/-/g, " ")
+        .split(" ")
+        .map(function (word) {
+          return word.replace(EDGE_PUNCTUATION, "");
+        })
+        .filter(function (word) {
+          for (var i = 0; i < word.length; i++) if (isWordChar(word.charAt(i))) return true;
+          return false;
+        });
+    }
+
     var initialParams = new URLSearchParams(location.search);
     var query = normalizeQuery(initialParams.get("s") || "");
-    var queryLower = query.toLowerCase();
+    // Curly apostrophes (’ ‘, and the modifier letter ʼ) become the straight
+    // one the content uses, so "don’t" typed on a phone finds "don't".
+    var queryLower = query.toLowerCase().replace(/[‘’ʼ]/g, "'");
+    var words = queryWords(queryLower);
     // Each DISTINCT word once, in the order first typed: "gold gold leaf"
     // scores as "gold leaf", so repeating a word adds nothing.
-    var terms = (queryLower ? queryLower.split(" ") : []).filter(function (term, i, all) {
-      return term && all.indexOf(term) === i;
+    var terms = words.filter(function (term, i, all) {
+      return all.indexOf(term) === i;
     });
-    // The query as a whole, for the exact and phrase bonuses: as typed, and
-    // with repeats dropped. Both are tried, so "gold gold leaf" still finds
-    // the colour "Gold Leaf" and a guide title that repeats a word itself
-    // ("A Color Palette Is a Token System…") still matches when typed in full.
-    var wholeQueries = [queryLower];
-    if (terms.join(" ") !== queryLower) wholeQueries.push(terms.join(" "));
+    // The query as a whole, for the exact and phrase bonuses: as typed (so a
+    // hyphenated slug such as "color-contrast-systems" or a title such as
+    // "Bare Ledger (Dark)" still matches exactly), as its words, and with
+    // repeats dropped. All are tried, so "gold gold leaf" still finds the
+    // colour "Gold Leaf", "color-palette" gets the phrase bonus "color
+    // palette" does, and a guide title that repeats a word itself ("A Color
+    // Palette Is a Token System…") still matches when typed in full.
+    var wholeQueries = [queryLower, words.join(" "), terms.join(" ")].filter(function (whole, i, all) {
+      return whole && all.indexOf(whole) === i;
+    });
 
     var typeFilter = initialParams.get("type") || "all";
     if (TYPE_VALUES.indexOf(typeFilter) === -1) typeFilter = "all";
