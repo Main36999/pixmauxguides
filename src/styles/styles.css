@@ -849,115 +849,203 @@ body:has(#mobile-menu:not([hidden])) {
   color: var(--cyan);
 }
 
-/* ---------- trending categories ----------
-   Sits right under the hero search bar — same page flow as
-   resourceboy's hero -> search -> trending-categories sequence, now
-   flat on the same light page background rather than floating as a
-   shadowed plate over a dark panel. Cards reuse the data-jump-category
-   contract (see app.js's delegated [data-jump-category] click
-   handler) so clicking one filters the grid straight to that category
-   with no new JS. */
-.trending {
+/* ---------- explore strip ----------
+   Sits right under the hero search: two rows of compact links that
+   drift in opposite directions (tools right-to-left, guide topics
+   left-to-right), so the hero shows the whole platform at a glance
+   instead of one guide category grid. The motion is pure CSS.
+
+   The loop: each row holds its list three times (see index.html). Every
+   copy animates by exactly its own width (-100%), and its right padding
+   equals the gap between items, so copy 2 lands where copy 1 started
+   and the restart is invisible. Three copies keep the row filled while
+   one copy is narrower than the strip.
+
+   Pausing: hover pauses a row. Keyboard focus stops it and snaps the
+   real list back to its start, so a focused link is never parked
+   off-screen to the left, where an overflow-hidden row cannot scroll;
+   core.js then scrolls the row to keep each focused link in view. */
+.explore {
+  --explore-gap: 10px;
+  --explore-fade: 56px;
   max-width: 1160px;
-  margin: 56px auto 0;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 26px;
+  margin: 48px auto 0;
 }
-.trending__label {
-  flex: 0 0 auto;
+.explore__label {
+  margin-bottom: 14px;
   font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--text);
   text-transform: uppercase;
-  white-space: nowrap;
 }
-.trending__grid {
-  flex: 1 1 auto;
-  min-width: 0;
+.explore__rows {
+  display: grid;
+  gap: 8px;
+}
+.explore__row {
   display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding-bottom: 2px;
+  overflow: hidden;
+  /* room for the 2px focus ring + 2px offset, which overflow would clip */
+  padding: 4px 0;
+  /* a link scrolled into view by keyboard focus stops clear of the fade */
+  scroll-padding-inline: var(--explore-fade);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--explore-fade),
+    #000 calc(100% - var(--explore-fade)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--explore-fade),
+    #000 calc(100% - var(--explore-fade)),
+    transparent
+  );
 }
-.trending__grid::-webkit-scrollbar {
-  display: none;
+.explore__list {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--explore-gap);
+  padding-right: var(--explore-gap);
+  animation: explore-left 44s linear infinite;
 }
-.trending-card {
-  flex: 0 0 168px;
-  text-decoration: none;
-  color: var(--text);
-  background: var(--card);
+.explore__row--topics .explore__list {
+  animation-name: explore-right;
+  animation-duration: 52s;
+}
+.explore__row:hover .explore__list {
+  animation-play-state: paused;
+}
+.explore__row:has(:focus-visible) .explore__list {
+  animation: none;
+}
+@keyframes explore-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes explore-right {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.explore-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
   border: 1px solid var(--grid-line);
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
   transition:
-    transform 0.16s ease,
-    box-shadow 0.16s ease;
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
-.trending-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(15, 42, 82, 0.1);
+.explore-item:hover {
+  color: var(--action);
+  border-color: var(--action);
 }
-.trending-card__thumb {
-  display: block;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  background-color: #eef2f8;
+.explore-item__icon {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: var(--action);
 }
-.trending-card__thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
+/* Guide topics: lighter than the tools — no fill, a slash for a mark,
+   echoing the section label. */
+.explore__row--topics .explore-item {
+  background: transparent;
+  font-weight: 500;
 }
-.trending-card__label {
-  display: block;
-  padding: 12px 14px 14px;
-  font-size: 12.5px;
-  font-weight: 700;
+.explore-item__mark {
+  color: var(--text-muted);
+  font-weight: 400;
 }
-/* Narrow screens: the label stacks above the row, and the row runs
-   edge to edge (out through .hero's 24px side padding, then back in as
-   its own padding) so cards scroll off the screen edge, not an inner
-   line. Cards are sized so a whole number fit on screen, and scroll
-   snapping settles on whole cards, so none rests half cut off. The gap
-   equals the side padding, so no sliver of a neighbour shows at either
-   end of the scroll. Desktop (> 900px) is untouched. */
+.explore-item:hover .explore-item__mark {
+  color: inherit;
+}
+/* Narrow screens: smaller items, and the rows run edge to edge (out
+   through .hero's 24px side padding) so links drift off the screen
+   edge, not an inner line. */
 @media (max-width: 900px) {
-  .trending {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+  .explore {
+    --explore-fade: 24px;
+    margin-top: 36px;
   }
-  .trending__grid {
-    --trending-per-view: 4;
-    width: calc(100% + 48px);
+  .explore__rows {
     margin: 0 -24px;
-    padding: 0 24px 2px;
-    gap: 24px;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 24px;
-  }
-  .trending-card {
-    flex-basis: calc(
-      (100% - (var(--trending-per-view) - 1) * 24px) /
-        var(--trending-per-view)
-    );
-    scroll-snap-align: start;
   }
 }
-@media (max-width: 699px) {
-  .trending__grid {
-    --trending-per-view: 3;
+@media (max-width: 640px) {
+  .explore {
+    --explore-gap: 8px;
+    margin-top: 28px;
+  }
+  .explore__label {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+  .explore__rows {
+    gap: 4px;
+  }
+  .explore-item {
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  .explore-item__icon {
+    width: 14px;
+    height: 14px;
   }
 }
-@media (max-width: 459px) {
-  .trending__grid {
-    --trending-per-view: 2;
+/* Reduced motion: no drift. The copies go, and each row stays one
+   still line — centered when it fits, otherwise scrollable by swipe,
+   trackpad or keyboard focus (never wrapped, so the strip keeps its two
+   rows). On desktop the edge fade stays as the "more this way" cue, with
+   padding so the row's first item rests clear of it. (animation: none,
+   not the global near-zero duration, which would spin an infinite loop.) */
+@media (prefers-reduced-motion: reduce) {
+  /* two classes, to outrank .explore__row--topics .explore__list */
+  .explore__row .explore__list {
+    animation: none;
+    padding-right: 0;
+  }
+  .explore__list[aria-hidden="true"] {
+    display: none;
+  }
+  .explore__row {
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-inline: var(--explore-fade);
+  }
+  .explore__row::-webkit-scrollbar {
+    display: none;
+  }
+  /* auto margins center a list that fits and drop to 0 when it
+     overflows, so no item is pushed out of scroll reach */
+  .explore__list:first-child {
+    margin-inline: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 900px) {
+  .explore__row {
+    padding-inline: 24px;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 

@@ -16,8 +16,8 @@
  *                       (HOME_TOOLS_START/END) and the resource cards
  *                       (HOME_RESOURCES_START/END), from the content model —
  *                       colors, palettes, guides, categories — and the route
- *                       table. The hero (headline, search, trending
- *                       categories) is hand-authored and not touched here.
+ *                       table. The hero (headline, search, explore
+ *                       strip) is hand-authored and not touched here.
  *                       The old generated resource sections, driven by
  *                       resource-types.json's `home` blocks + the content
  *                       index, are gone; see assertNoHomeBlocks().
@@ -305,14 +305,14 @@ function buildRoadmap(guides) {
 // ---------------------------------------------------------------------
 // homepage: tool and resource cards (index.html, below the hero)
 // ---------------------------------------------------------------------
-// The hero (headline, search, trending categories) is static markup in
+// The hero (headline, search, explore strip) is static markup in
 // index.html. Everything below it is two card sections written here:
 //
 //   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
 //                             real, top-level destination
 //   HOME_RESOURCES_START/END  more useful resources — neutral title-and-text cards:
-//                             the guide topics the hero's trending row does
-//                             not already show, plus About
+//                             Free Fonts, the guide topics not in
+//                             RESOURCE_TOPICS_SKIPPED, plus About
 //
 // Every card is a real <a> (the title link, stretched over the card), every
 // URL is checked against the route table so a card can never point at a
@@ -393,7 +393,20 @@ const HOME_ABOUT = {
   desc: "Why BPOZZ exists, and what documenting design like a blueprint actually means.",
 };
 
-const CATEGORY_HREF_RE = /href="\/category\/([a-z0-9-]+)"/g;
+/**
+ * Guide topics the resource cards leave out. They used to be read from the
+ * hero's trending row, so the cards never repeated a hero link. The hero's
+ * explore strip now links nearly every topic, and deriving the list from the
+ * page would empty this section, so it is pinned to the five topics the old
+ * row showed: the resource cards stay exactly as they were.
+ */
+const RESOURCE_TOPICS_SKIPPED = new Set([
+  "color-theory",
+  "typography",
+  "spacing",
+  "figma",
+  "accessibility",
+]);
 
 /**
  * Guide topics that always sort to the end of the resource cards, whatever
@@ -433,21 +446,9 @@ function toolCardsHtml(model, knownUrls) {
 }
 
 /**
- * The /category/<slug> pages the page already links to outside the
- * generated regions — in practice, the hero's trending row. Read from the
- * page itself so the resource cards can never repeat a hero link, and never
- * drift when the trending row is edited.
- */
-function linkedCategorySlugs(html) {
-  const slugs = new Set();
-  for (const m of html.matchAll(CATEGORY_HREF_RE)) slugs.add(m[1]);
-  return slugs;
-}
-
-/**
  * Guide topics for the resource cards: every category that has guides (the
  * same rule src/build/categories.js uses to build /category/<slug>) and is
- * not already linked from the hero, most guides first, then in
+ * not in excludeSlugs, most guides first, then in
  * categories.json order — except RESOURCE_TOPICS_LAST, which always go last.
  */
 function resourceTopics(categories, guides, excludeSlugs) {
@@ -621,8 +622,7 @@ function replaceBetween(html, startMarker, endMarker, replacement, fileLabel) {
 
 /**
  * Homepage: the tool cards and the resource cards below the static hero.
- * The resource cards skip any guide topic the page already links to (the
- * hero's trending row), read from the page before anything is spliced in.
+ * The resource cards skip RESOURCE_TOPICS_SKIPPED.
  */
 function buildIndexHtml(file, model, knownUrls) {
   const label = "index.html";
@@ -631,7 +631,7 @@ function buildIndexHtml(file, model, knownUrls) {
   const topics = resourceTopics(
     model.categories,
     model.guides,
-    linkedCategorySlugs(html),
+    RESOURCE_TOPICS_SKIPPED,
   );
   const resources = resourceCardsHtml(topics, knownUrls);
 
@@ -796,7 +796,7 @@ module.exports = {
   HOME_FONTS,
   HOME_ABOUT,
   toolCardsHtml,
-  linkedCategorySlugs,
+  RESOURCE_TOPICS_SKIPPED,
   resourceTopics,
   RESOURCE_TOPICS_LAST,
   resourceCardsHtml,

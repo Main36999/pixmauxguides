@@ -431,6 +431,25 @@
     });
   }
 
+  // ---------- homepage explore strip ----------
+  // Its rows are overflow-hidden marquees; keyboard focus stops a row
+  // (styles.css). A browser only scrolls a focused link into view when it
+  // is wholly hidden, so one straddling the row's edge would stay half
+  // clipped: scroll it in here. When focus leaves a row, its scroll resets
+  // so the restarted loop lines up again. Mouse focus is left alone.
+  var exploreStrip = document.querySelector(".explore");
+  if (exploreStrip) {
+    exploreStrip.addEventListener("focusin", function (e) {
+      if (e.target.matches(":focus-visible")) {
+        e.target.scrollIntoView({ block: "nearest", inline: "nearest" });
+      }
+    });
+    exploreStrip.addEventListener("focusout", function (e) {
+      var row = e.target.closest(".explore__row");
+      if (row && !row.contains(e.relatedTarget)) row.scrollLeft = 0;
+    });
+  }
+
   // ---------- data loading ----------
   // Guide data lives in guides.json, fetched here with async/await
   // instead of being hardcoded in this file. Everything that depends

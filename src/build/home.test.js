@@ -5,7 +5,8 @@
  *
  * Pins what the homepage below the hero promises, against the real content
  * model: every card is a real link to a built route, the counts come from
- * the data, the resource cards never repeat a topic the hero already links,
+ * the data, the resource cards skip the pinned topics, the hero explore
+ * strip links only built routes without duplicate tab stops,
  * and each tool card's heading color is readable on its pastel ground.
  */
 
@@ -44,13 +45,12 @@ test("a tool card pointing at an unbuilt route fails the build", () => {
   assert.throws(() => home.toolCardsHtml(model, new Set()), /not in the route table/);
 });
 
-test("resource cards skip the topics the hero already links", () => {
-  const heroSlugs = home.linkedCategorySlugs(indexSource);
-  assert.ok(heroSlugs.size > 0, "the hero's trending row links category pages");
-  const topics = home.resourceTopics(model.categories, model.guides, heroSlugs);
+test("resource cards skip the pinned topics", () => {
+  const skipped = home.RESOURCE_TOPICS_SKIPPED;
+  const topics = home.resourceTopics(model.categories, model.guides, skipped);
   assert.ok(topics.length > 0);
   topics.forEach((t) => {
-    assert.ok(!heroSlugs.has(t.category.slug), `${t.category.slug} repeats a hero link`);
+    assert.ok(!skipped.has(t.category.slug), `${t.category.slug} should be skipped`);
     assert.ok(t.guides > 0, `${t.category.slug} has no guides, so no page`);
   });
   // Most guides first, except the deprioritized topics, which close the list.
@@ -77,6 +77,38 @@ test("resource cards skip the topics the hero already links", () => {
   );
   assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Free Fonts</a></h3>'));
   hrefs.forEach((href) => assert.ok(knownUrls.has(href), href));
+});
+
+// ---- hero explore strip: static markup in index.html ----
+
+test("explore strip: real routes, one focusable list per row, identical loop copies", () => {
+  const nav = /<nav class="explore[^"]*"[^>]*>([\s\S]*?)<\/nav>/.exec(indexSource);
+  assert.ok(nav, "index.html has the explore strip");
+  assert.match(nav[0], /aria-label="Explore BPOZZ"/);
+  const rows = [...nav[1].matchAll(/<div class="explore__row [^"]*">([\s\S]*?)<\/div>/g)].map((m) => m[1]);
+  assert.strictEqual(rows.length, 2);
+  const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);
+  const expected = [
+    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/guides/", "/roadmap.html", "/search.html"],
+    ["/category/typography", "/category/color-theory", "/category/web", "/category/mobile",
+      "/category/systems", "/category/accessibility", "/category/motion", "/category/figma"],
+  ];
+  rows.forEach((row, i) => {
+    const lists = [...row.matchAll(/<ul ([^>]*)>([\s\S]*?)<\/ul>/g)];
+    assert.strictEqual(lists.length, 3, "a real list plus two loop copies");
+    const [real, ...copies] = lists;
+    assert.match(real[1], /aria-label="[^"]+"/);
+    assert.doesNotMatch(real[2], /tabindex/);
+    assert.deepStrictEqual(hrefsOf(real[2]), expected[i]);
+    hrefsOf(real[2]).forEach((href) => assert.ok(knownUrls.has(href), `${href} is not a built route`));
+    copies.forEach((copy) => {
+      assert.match(copy[1], /aria-hidden="true"/);
+      assert.match(copy[1], /\binert\b/);
+      // Same markup as the real list, apart from each link leaving the tab order.
+      assert.strictEqual(copy[2].replace(/ tabindex="-1"/g, ""), real[2]);
+      assert.strictEqual((copy[2].match(/ tabindex="-1"/g) || []).length, expected[i].length);
+    });
+  });
 });
 
 test("a resource-types.json home block is refused, not silently ignored", () => {

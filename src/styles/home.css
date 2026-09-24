@@ -1,7 +1,7 @@
 /* home.css — the homepage below its hero, published beside index.html.
    ------------------------------------------------------------------------
    Loaded after styles.css, and only by the homepage. The hero (headline,
-   search, trending categories) keeps its original styles in styles.css;
+   search, explore strip) keeps its styles in styles.css;
    this file styles only what src/build/home.js writes below it:
 
      .home            the white content area under the hero

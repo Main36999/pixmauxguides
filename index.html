@@ -248,44 +248,79 @@
             </form>
           </div>
 
-          <div class="trending fade-up">
-            <p class="trending__label">/ trending_categories</p>
-            <div class="trending__grid">
-              <a class="trending-card" href="/category/color-theory">
-                <span class="trending-card__thumb"
-                  ><img src="/assets/Color Theory.webp" alt="" loading="lazy"
-                /></span>
-                <span class="trending-card__label">Color Theory</span>
-              </a>
-              <a class="trending-card" href="/category/typography">
-                <span class="trending-card__thumb"
-                  ><img src="/assets/Typography.webp" alt="" loading="lazy"
-                /></span>
-                <span class="trending-card__label">Typography</span>
-              </a>
-              <a class="trending-card" href="/category/spacing">
-                <span class="trending-card__thumb"
-                  ><img
-                    src="/assets/Spacing & Layout.webp"
-                    alt=""
-                    loading="lazy"
-                /></span>
-                <span class="trending-card__label">Spacing &amp; Layout</span>
-              </a>
-              <a class="trending-card" href="/category/figma">
-                <span class="trending-card__thumb"
-                  ><img src="/assets/Figma Workflow.webp" alt="" loading="lazy"
-                /></span>
-                <span class="trending-card__label">Figma Workflow</span>
-              </a>
-              <a class="trending-card" href="/category/accessibility">
-                <span class="trending-card__thumb"
-                  ><img src="/assets/Accessibility.webp" alt="" loading="lazy"
-                /></span>
-                <span class="trending-card__label">Accessibility</span>
-              </a>
+          <!--
+            Explore strip: two marquee rows. Each row holds its list three
+            times — the first is the real one; the two copies only fill the
+            loop, so they are inert and aria-hidden (one set of tab stops, one
+            list per row for screen readers). Keep all three copies identical;
+            home.test.js checks they are and that every link is a real route.
+          -->
+          <nav class="explore fade-up" aria-label="Explore BPOZZ">
+            <p class="explore__label" aria-hidden="true">/ explore_bpozz</p>
+            <div class="explore__rows">
+              <div class="explore__row explore__row--tools">
+                <ul class="explore__list" aria-label="BPOZZ tools">
+                  <li><a class="explore-item" href="/colors/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5c3 3.6 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.5-6.4 5.5-10z" /></svg>Colors</a></li>
+                  <li><a class="explore-item" href="/palettes/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>Color Palettes</a></li>
+                  <li><a class="explore-item" href="/image-picker/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.8" /><path d="M21 16l-5-5-9 9" /></svg>Image Picker</a></li>
+                  <li><a class="explore-item" href="/fonts/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20 9 4l6 16M5.3 14h7.4M18 8v12M16 11h4" /></svg>Free Fonts</a></li>
+                  <li><a class="explore-item" href="/guides/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6.5v13" /></svg>UI/UX Guides</a></li>
+                  <li><a class="explore-item" href="/roadmap.html"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg>Learning Roadmap</a></li>
+                  <li><a class="explore-item" href="/search.html"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.8-4.8" /></svg>Search</a></li>
+                </ul>
+                <ul class="explore__list" aria-hidden="true" inert>
+                  <li><a class="explore-item" href="/colors/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5c3 3.6 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.5-6.4 5.5-10z" /></svg>Colors</a></li>
+                  <li><a class="explore-item" href="/palettes/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>Color Palettes</a></li>
+                  <li><a class="explore-item" href="/image-picker/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.8" /><path d="M21 16l-5-5-9 9" /></svg>Image Picker</a></li>
+                  <li><a class="explore-item" href="/fonts/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20 9 4l6 16M5.3 14h7.4M18 8v12M16 11h4" /></svg>Free Fonts</a></li>
+                  <li><a class="explore-item" href="/guides/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6.5v13" /></svg>UI/UX Guides</a></li>
+                  <li><a class="explore-item" href="/roadmap.html" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg>Learning Roadmap</a></li>
+                  <li><a class="explore-item" href="/search.html" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.8-4.8" /></svg>Search</a></li>
+                </ul>
+                <ul class="explore__list" aria-hidden="true" inert>
+                  <li><a class="explore-item" href="/colors/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5c3 3.6 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.5-6.4 5.5-10z" /></svg>Colors</a></li>
+                  <li><a class="explore-item" href="/palettes/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>Color Palettes</a></li>
+                  <li><a class="explore-item" href="/image-picker/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.8" /><path d="M21 16l-5-5-9 9" /></svg>Image Picker</a></li>
+                  <li><a class="explore-item" href="/fonts/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20 9 4l6 16M5.3 14h7.4M18 8v12M16 11h4" /></svg>Free Fonts</a></li>
+                  <li><a class="explore-item" href="/guides/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6.5v13" /></svg>UI/UX Guides</a></li>
+                  <li><a class="explore-item" href="/roadmap.html" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg>Learning Roadmap</a></li>
+                  <li><a class="explore-item" href="/search.html" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.8-4.8" /></svg>Search</a></li>
+                </ul>
+              </div>
+              <div class="explore__row explore__row--topics">
+                <ul class="explore__list" aria-label="Design topics">
+                  <li><a class="explore-item" href="/category/typography"><span class="explore-item__mark" aria-hidden="true">/</span>Typography</a></li>
+                  <li><a class="explore-item" href="/category/color-theory"><span class="explore-item__mark" aria-hidden="true">/</span>Color Theory</a></li>
+                  <li><a class="explore-item" href="/category/web"><span class="explore-item__mark" aria-hidden="true">/</span>Web Layout</a></li>
+                  <li><a class="explore-item" href="/category/mobile"><span class="explore-item__mark" aria-hidden="true">/</span>Mobile App Design</a></li>
+                  <li><a class="explore-item" href="/category/systems"><span class="explore-item__mark" aria-hidden="true">/</span>Design Systems</a></li>
+                  <li><a class="explore-item" href="/category/accessibility"><span class="explore-item__mark" aria-hidden="true">/</span>Accessibility</a></li>
+                  <li><a class="explore-item" href="/category/motion"><span class="explore-item__mark" aria-hidden="true">/</span>Prototyping &amp; Motion</a></li>
+                  <li><a class="explore-item" href="/category/figma"><span class="explore-item__mark" aria-hidden="true">/</span>Figma</a></li>
+                </ul>
+                <ul class="explore__list" aria-hidden="true" inert>
+                  <li><a class="explore-item" href="/category/typography" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Typography</a></li>
+                  <li><a class="explore-item" href="/category/color-theory" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Color Theory</a></li>
+                  <li><a class="explore-item" href="/category/web" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Web Layout</a></li>
+                  <li><a class="explore-item" href="/category/mobile" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Mobile App Design</a></li>
+                  <li><a class="explore-item" href="/category/systems" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Design Systems</a></li>
+                  <li><a class="explore-item" href="/category/accessibility" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Accessibility</a></li>
+                  <li><a class="explore-item" href="/category/motion" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Prototyping &amp; Motion</a></li>
+                  <li><a class="explore-item" href="/category/figma" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Figma</a></li>
+                </ul>
+                <ul class="explore__list" aria-hidden="true" inert>
+                  <li><a class="explore-item" href="/category/typography" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Typography</a></li>
+                  <li><a class="explore-item" href="/category/color-theory" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Color Theory</a></li>
+                  <li><a class="explore-item" href="/category/web" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Web Layout</a></li>
+                  <li><a class="explore-item" href="/category/mobile" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Mobile App Design</a></li>
+                  <li><a class="explore-item" href="/category/systems" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Design Systems</a></li>
+                  <li><a class="explore-item" href="/category/accessibility" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Accessibility</a></li>
+                  <li><a class="explore-item" href="/category/motion" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Prototyping &amp; Motion</a></li>
+                  <li><a class="explore-item" href="/category/figma" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Figma</a></li>
+                </ul>
+              </div>
             </div>
-          </div>
+          </nav>
         </div>
       </section>
 
