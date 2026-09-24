@@ -145,6 +145,20 @@ async function search(query, { extra = "", rawSearch } = {}) {
     return {
       ids: [...grid.matchAll(/href="\/palettes#(p\d+)"/g)].map((m) => m[1]),
       hrefs: [...grid.matchAll(/class="card-link" href="([^"]*)"/g)].map((m) => m[1]),
+      // href → the card's match explanation as text ("Matched in title"),
+      // or null for a card without one.
+      matches: Object.fromEntries(
+        grid
+          .split("<article")
+          .slice(1)
+          .map((card) => {
+            const line = /<p class="card-match">(.*?)<\/p>/.exec(card);
+            return [
+              /class="card-link" href="([^"]*)"/.exec(card)[1],
+              line ? line[1].replace(/<[^>]+>/g, "") : null,
+            ];
+          }),
+      ),
       grid,
       heading: els["search-heading"].textContent,
       count: els["search-results-count"].textContent,
@@ -747,3 +761,71 @@ for (const label of ["modern", "luxury", "earthy", "minimal", "vintage", "ui-dar
 test('a label no other text contains finds exactly its tagged palettes: "modern"', async () => {
   assert.deepStrictEqual((await search("modern")).ids.slice().sort(), carrying("modern").sort());
 });
+
+// ---------------------------------------------------------------------
+// match explanation
+// ---------------------------------------------------------------------
+// Each card says why it matched, from the fields scoreRecord() scored it
+// on. The ranking and scoring above are pinned by their own tests; these
+// pin only the explanation.
+
+test('a colour name the title does not show is named: "Azure" on p001 (Starless Frost)', async () => {
+  assert.ok(RECORD.get("p001").colorNames.includes("Azure"), "fixture assumption");
+  const { matches } = await search("Azure");
+  assert.strictEqual(matches["/palettes#p001"], "Matched in color name: Azure");
+});
+
+test('a title match says so: "Starless" on p001', async () => {
+  const { matches } = await search("Starless");
+  assert.strictEqual(matches["/palettes#p001"], "Matched in title");
+});
+
+test('a generator theme label is named as a theme: "modern"', async () => {
+  const { matches, hrefs } = await search("modern");
+  assert.ok(hrefs.length > 0);
+  hrefs.forEach((href) => assert.strictEqual(matches[href], "Matched in theme: Modern", href));
+});
+
+test('several fields read as one concise line: "night" on p001', async () => {
+  const { matches } = await search("night");
+  assert.strictEqual(matches["/palettes#p001"], "Matched in color name: Nightshade · theme: Night");
+});
+
+test("a colour name only matched inside a word is not claimed over a whole-word one", async () => {
+  // p003 carries "Gold"; "gold" must name it, not a "Marigold"-style partial.
+  const { matches } = await search("gold");
+  assert.strictEqual(matches["/palettes#p003"], "Matched in color name: Gold");
+});
+
+test("an exact HEX says which colour matched, in every spelling", async () => {
+  for (const q of ["#E5B44C", "e5b44c", "#e5b44c"]) {
+    const { matches, hrefs } = await search(q);
+    assert.deepStrictEqual(hrefs, ["/palettes#p450"], q);
+    assert.strictEqual(matches["/palettes#p450"], "Matched in HEX: #E5B44C", q);
+  }
+  assert.strictEqual((await search("#333")).matches["/palettes#p082"], "Matched in HEX: #333333");
+});
+
+test("an exact or partial palette id says it matched the palette ID", async () => {
+  assert.strictEqual((await search("p450")).matches["/palettes#p450"], "Matched in palette ID: p450");
+  const partial = await search("p45");
+  assert.strictEqual(partial.matches["/palettes#p451"], "Matched in palette ID: p451");
+});
+
+test("a guide names the guide fields it matched", async () => {
+  const { matches } = await search("contrast");
+  assert.strictEqual(matches["/guide/color-contrast-systems.html"], "Matched in title · description");
+});
+
+test("the matched part of a quoted value is highlighted like the title", async () => {
+  const { grid } = await search("Azure");
+  assert.ok(grid.includes('color name: <mark>Azure</mark>'));
+});
+
+for (const q of ["Azure", "Kelly Green", "Gold", "modern", "earthy", "night", "dark blue", "#333", "design-system", "color-palette"]) {
+  test(`every "${q}" result carries a match explanation`, async () => {
+    const { matches, hrefs } = await search(q);
+    assert.ok(hrefs.length > 0);
+    hrefs.forEach((href) => assert.match(matches[href] || "", /^Matched in \S/, `${href} has no explanation`));
+  });
+}

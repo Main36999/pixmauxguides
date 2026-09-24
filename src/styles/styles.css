@@ -1230,6 +1230,25 @@ body:has(#mobile-menu:not([hidden])) {
   line-height: 1.4;
   color: var(--text-muted);
 }
+/* /search only: the result card's match explanation ("Matched in color
+   name: Azure"), written by src/client/search.js. The search page's own
+   .card-meta size and muted colour, so it reads as card metadata rather
+   than a new block; a long colour name or HEX wraps instead of widening a
+   2-up mobile card. */
+.search-page .card-match {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+.search-page .card-match__label {
+  font-weight: 600;
+}
+/* The muted colour on the search page's <mark> tint is 4.3:1, under AA
+   for 12px text; the matched part takes the full text colour instead. */
+.search-page .card-match mark {
+  color: var(--text);
+}
 
 /* ---------- category pages (/category/<slug>.html) ----------
    Minimal per-category archive page, resourceboy.com-style: a short

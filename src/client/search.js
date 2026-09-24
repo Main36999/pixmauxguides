@@ -389,21 +389,55 @@
     // in a title, a tag and searchText (85) outranked a record matching
     // both words of "dark blue" (82.5). An exact whole-query match counts
     // as matching every term.
+    //
+    // It also returns `why`, the match explanation the result card shows
+    // (see matchReasons()): for each field, whether — and on which of its
+    // values — a weight above was actually earned. It is written down at
+    // the same line that adds that weight, so it can only ever name a field
+    // the score came from, and it never feeds back into the score.
     function scoreRecord(p) {
-      var result = { score: 0, matched: 0 };
+      var result = { score: 0, matched: 0, why: newWhy() };
       if (!terms.length) return result;
+      var why = result.why;
 
       terms.forEach(function (term) {
         var before = result.score;
-        result.score +=
-          WEIGHTS.name * Math.max(matchLevel(p.title, term), bestLevel(p.colorNames, term));
-        result.score += WEIGHTS.category * matchLevel(p.category, term);
-        result.score += WEIGHTS.tag * bestLevel(p.tags, term);
-        result.score += WEIGHTS.keyword * bestLevel(p.keywords, term);
-        result.score += WEIGHTS.description * matchLevel(p.description, term);
+        var titleLevel = matchLevel(p.title, term);
+        var colorNameLevel = bestLevel(p.colorNames, term);
+        result.score += WEIGHTS.name * Math.max(titleLevel, colorNameLevel);
+        // The name weight is earned from whichever of the two matches best —
+        // both on a tie, so a colour name is still named when the card's
+        // two-line title clamp hides where it sits in a long title.
+        if (titleLevel && titleLevel >= colorNameLevel) why.title = true;
+        if (colorNameLevel && colorNameLevel >= titleLevel)
+          noteBest(why.colorNames, p.record.colorNames, p.colorNames, term, colorNameLevel);
+        var categoryLevel = matchLevel(p.category, term);
+        result.score += WEIGHTS.category * categoryLevel;
+        if (categoryLevel) why.category = true;
+        var tagLevel = bestLevel(p.tags, term);
+        result.score += WEIGHTS.tag * tagLevel;
+        if (tagLevel) noteBest(why.tags, p.record.tags, p.tags, term, tagLevel);
+        var keywordLevel = bestLevel(p.keywords, term);
+        result.score += WEIGHTS.keyword * keywordLevel;
+        if (keywordLevel) noteBest(why.keywords, p.record.keywords, p.keywords, term, keywordLevel);
+        var descriptionLevel = matchLevel(p.description, term);
+        result.score += WEIGHTS.description * descriptionLevel;
+        if (descriptionLevel) why.description = true;
+        var beforeSearchText = result.score;
         result.score += WEIGHTS.searchText * matchLevel(p.searchText, term);
         var hex = p.colors.length ? hexTermValue(term) : null;
-        if (hex && p.colors.indexOf(hex) !== -1) result.score += WEIGHTS.color;
+        var hexAt = hex ? p.colors.indexOf(hex) : -1;
+        if (hexAt !== -1) {
+          result.score += WEIGHTS.color;
+          addOnce(why.hex, p.record.colors[hexAt]);
+        }
+        // searchText is every other field run together, so it is only the
+        // reason when it is the one thing this term matched — for a palette,
+        // that is part of its id ("p45" in "p450").
+        if (result.score > beforeSearchText && beforeSearchText === before && hexAt === -1) {
+          if (matchLevel(p.slug, term)) why.slug = true;
+          else why.text = true;
+        }
         if (result.score > before) result.matched++;
       });
 
@@ -413,6 +447,12 @@
       if (exact) {
         result.score += WEIGHTS.exact;
         result.matched = terms.length;
+        wholeQueries.forEach(function (whole) {
+          if (whole === p.title) why.title = true;
+          if (whole === p.slug) why.slug = true;
+          var at = p.colorNames.indexOf(whole);
+          if (at !== -1) addOnce(why.colorNames, p.record.colorNames[at]);
+        });
       }
 
       if (
@@ -426,9 +466,81 @@
         })
       ) {
         result.score += WEIGHTS.phrase;
+        wholeQueries.forEach(function (whole) {
+          if (matchLevel(p.title, whole) === MATCH.word) why.title = true;
+          p.colorNames.forEach(function (name, i) {
+            if (matchLevel(name, whole) === MATCH.word) addOnce(why.colorNames, p.record.colorNames[i]);
+          });
+          if (matchLevel(p.description, whole) === MATCH.word) why.description = true;
+        });
       }
 
       return result;
+    }
+
+    // ---------- match explanation ----------
+    // What scoreRecord() found, per field. The value lists hold the
+    // record's own spelling ("Kelly Green", "#E5B44C"), in first-matched
+    // order, each once.
+    function newWhy() {
+      return {
+        title: false,
+        colorNames: [],
+        tags: [],
+        hex: [],
+        slug: false,
+        category: false,
+        keywords: [],
+        description: false,
+        text: false,
+      };
+    }
+
+    function addOnce(list, value) {
+      if (list.indexOf(value) === -1) list.push(value);
+    }
+
+    // Records the values of one list field (`lowered` is `original`,
+    // lowercased) that `term` matches at `level` — the best level, the one
+    // that earned the weight — so "gold" names the colour "Gold", not also
+    // the "Marigold" it only matched inside of.
+    function noteBest(list, original, lowered, term, level) {
+      lowered.forEach(function (text, i) {
+        if (matchLevel(text, term) === level) addOnce(list, String(original[i]));
+      });
+    }
+
+    // The card's explanation line: [{ field, values }] in a fixed order,
+    // most visible first. `field` is the wording the card shows. A field
+    // listed without values is one the card already shows (the title, a
+    // guide's category line) or one too long to quote (a description).
+    function matchReasons(record, why) {
+      var reasons = [];
+      function add(field, values) {
+        reasons.push({ field: field, values: values || [] });
+      }
+      if (why.title) add("title");
+      if (why.colorNames.length) add("color name", why.colorNames);
+      if (why.tags.length)
+        add(
+          "theme",
+          why.tags.map(function (t) {
+            return t.charAt(0).toUpperCase() + t.slice(1);
+          }),
+        );
+      if (why.hex.length)
+        add(
+          "HEX",
+          why.hex.map(function (h) {
+            return h.toUpperCase();
+          }),
+        );
+      if (why.slug) add(record.type === "palette" ? "palette ID" : "URL", [record.slug]);
+      if (why.category) add("category");
+      if (why.keywords.length) add("keyword", why.keywords);
+      if (why.description) add("description");
+      if (why.text) add("text");
+      return reasons;
     }
 
     function passesFilters(record) {
@@ -443,6 +555,8 @@
 
     // `ignoreFilters` is for the empty state only: it asks whether the
     // query matches anything at all once the type/category filters are off.
+    // Each result is { record, why }: `why` only explains a result, and the
+    // order is settled without it.
     function runSearch(ignoreFilters) {
       if (!terms.length) return [];
       var scored = [];
@@ -450,7 +564,7 @@
         if (!ignoreFilters && !passesFilters(p.record)) return;
         var result = scoreRecord(p);
         if (result.score > 0) {
-          scored.push({ record: p.record, score: result.score, matched: result.matched });
+          scored.push({ record: p.record, score: result.score, matched: result.matched, why: result.why });
         }
       });
       // More of the query's distinct terms matched first, then the higher
@@ -462,7 +576,7 @@
         return a.record.title.localeCompare(b.record.title);
       });
       return scored.map(function (s) {
-        return s.record;
+        return { record: s.record, why: s.why };
       });
     }
 
@@ -608,7 +722,30 @@
     // The title is an h2: this grid hangs straight off the page h1 with no
     // section heading between them, so an h3 skipped a level (WCAG 1.3.1) —
     // the same reasoning src/shared/card.js gives for category pages.
-    function resultCardHtml(record) {
+    // "Matched in color name: Azure · theme: Night" — why this result is
+    // here, from the evidence scoreRecord() scored it on. Plain text in the
+    // card, after the title (no live region: the count line already
+    // announces the search), with each quoted value's matched part in the
+    // same <mark> the title uses. Every value is escaped by highlightTerms().
+    function matchLineHtml(record, why) {
+      var reasons = matchReasons(record, why);
+      if (!reasons.length) return "";
+      return (
+        '<p class="card-match"><span class="card-match__label">Matched in</span> ' +
+        reasons
+          .map(function (reason) {
+            return (
+              escapeHtml(reason.field) +
+              (reason.values.length ? ": " + reason.values.map(highlightTerms).join(", ") : "")
+            );
+          })
+          .join(" · ") +
+        "</p>"
+      );
+    }
+
+    function resultCardHtml(result) {
+      var record = result.record;
       var meta = cardMetaFor(record);
       return (
         '<article class="content-card">' +
@@ -624,6 +761,7 @@
         // <mark> so it's still obvious why a result matched.
         highlightTerms(record.title) +
         "</a></h2>" +
+        matchLineHtml(record, result.why) +
         (meta ? '<p class="card-meta">' + escapeHtml(meta) + "</p>" : "") +
         "</div></article>"
       );
@@ -635,7 +773,7 @@
       if (typeFilter !== "all") return base;
       var counts = { guide: 0, palette: 0 };
       results.forEach(function (r) {
-        if (counts[r.type] != null) counts[r.type]++;
+        if (counts[r.record.type] != null) counts[r.record.type]++;
       });
       var parts = [];
       if (counts.guide)
@@ -654,7 +792,7 @@
       var where = categoryFilter === "all" ? "" : " in " + categoryName(categoryFilter);
       var counts = { guide: 0, palette: 0 };
       unfiltered.forEach(function (r) {
-        if (counts[r.type] != null) counts[r.type]++;
+        if (counts[r.record.type] != null) counts[r.record.type]++;
       });
       var parts = [];
       if (counts.guide) parts.push(counts.guide + " guide" + (counts.guide === 1 ? "" : "s"));
