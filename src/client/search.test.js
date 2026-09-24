@@ -46,20 +46,28 @@ const END = SOURCE.lastIndexOf("})();") + "})();".length;
 assert.ok(START !== -1 && END > START, "could not find initSearchPage() in search.js");
 const INIT_SEARCH_PAGE = SOURCE.slice(START, END);
 
-function element() {
+function element(created) {
   const attrs = {};
-  return {
+  const el = {
     textContent: "",
     innerHTML: "",
     hidden: false,
     value: "all",
+    style: {},
+    listeners: {},
+    nextSibling: null,
     setAttribute: (k, v) => (attrs[k] = String(v)),
     removeAttribute: (k) => delete attrs[k],
     getAttribute: (k) => (k in attrs ? attrs[k] : null),
-    addEventListener: () => {},
+    addEventListener: (type, fn) => (el.listeners[type] = fn),
     appendChild: () => {},
+    insertBefore: () => {},
+    querySelector: () => null,
     querySelectorAll: () => [],
+    focus: () => {},
   };
+  if (created) created.push(el);
+  return el;
 }
 
 /**
@@ -70,6 +78,8 @@ function element() {
  */
 async function search(query, { extra = "", rawSearch } = {}) {
   const els = {};
+  const created = []; // elements the page builds itself, in creation order
+  let lastUrl = null; // the last history.replaceState() URL
   [
     "search-grid-root",
     "search-heading",
@@ -77,6 +87,7 @@ async function search(query, { extra = "", rawSearch } = {}) {
     "search-results-count",
     "search-empty-state",
     "search-empty-query",
+    "search-empty-message",
     "search-filters",
     "search-type-tabs",
     "search-category-select",
@@ -93,12 +104,12 @@ async function search(query, { extra = "", rawSearch } = {}) {
       pathname: "/search",
       protocol: "http:",
     },
-    history: { replaceState: () => {} },
+    history: { replaceState: (_state, _title, url) => (lastUrl = url) },
     document: {
       title: "",
       getElementById: (id) => els[id] || null,
       querySelectorAll: () => [],
-      createElement: () => element(),
+      createElement: () => element(created),
     },
     fetch: (url) =>
       Promise.resolve({
@@ -113,17 +124,33 @@ async function search(query, { extra = "", rawSearch } = {}) {
   vm.runInNewContext(INIT_SEARCH_PAGE, context);
   await new Promise((resolve) => setImmediate(resolve)); // let the fetches settle
 
-  const grid = els["search-grid-root"].innerHTML;
-  const ids = [...grid.matchAll(/href="\/palettes#(p\d+)"/g)].map((m) => m[1]);
-  const hrefs = [...grid.matchAll(/class="card-link" href="([^"]*)"/g)].map((m) => m[1]);
-  return {
-    ids,
-    hrefs,
-    grid,
-    heading: els["search-heading"].textContent,
-    count: els["search-results-count"].textContent,
-    empty: els["search-empty-state"].getAttribute("data-visible") === "true",
-  };
+  // The empty state builds two elements of its own: the filtered message
+  // (created first) and the "Clear filters" button.
+  const [filteredMessageEl, clearButton] = created;
+  const shown = (el) => !!el && el.style.display !== "none";
+  function state() {
+    const grid = els["search-grid-root"].innerHTML;
+    return {
+      ids: [...grid.matchAll(/href="\/palettes#(p\d+)"/g)].map((m) => m[1]),
+      hrefs: [...grid.matchAll(/class="card-link" href="([^"]*)"/g)].map((m) => m[1]),
+      grid,
+      heading: els["search-heading"].textContent,
+      count: els["search-results-count"].textContent,
+      empty: els["search-empty-state"].getAttribute("data-visible") === "true",
+      emptyQuery: els["search-empty-query"].textContent,
+      noResultsMessageShown: shown(els["search-empty-message"]),
+      filteredMessage: shown(filteredMessageEl) ? filteredMessageEl.textContent : null,
+      clearButtonShown: shown(clearButton),
+      url: lastUrl,
+      /** Clicks the empty state's "Clear filters" button; returns the new state. */
+      clearFilters() {
+        assert.strictEqual(clearButton.textContent, "Clear filters");
+        clearButton.listeners.click();
+        return state();
+      },
+    };
+  }
+  return state();
 }
 
 const byId = (id) => PALETTES.find((p) => p.id === id);
@@ -454,4 +481,133 @@ test("hostile input renders as text, never markup, and never throws", async () =
   const bad = await search("", { rawSearch: "?s=%E0%A4%A" });
   assert.ok(bad.empty);
   assert.match(bad.count, /^0 Results for "/);
+});
+
+// ---------------------------------------------------------------------
+// multi-word coverage and repeated words
+// ---------------------------------------------------------------------
+
+/** How many of `terms` occur anywhere in this palette's own text. */
+function termsMatched(id, terms) {
+  const r = RECORD.get(id);
+  const own = lower([r.title, r.description, r.searchText, ...r.colorNames, ...r.tags].join(" "));
+  return terms.filter((t) => own.includes(t)).length;
+}
+
+/** Ranks never go up as the number of distinct terms matched goes down. */
+function assertCoverageOrder(ids, terms, label) {
+  ids.forEach((id, i) => {
+    if (i === 0) return;
+    const prev = termsMatched(ids[i - 1], terms);
+    const here = termsMatched(id, terms);
+    assert.ok(here <= prev, `${label}: ${id} matches ${here} terms but ranks below ${ids[i - 1]} (${prev})`);
+  });
+}
+
+test('"dark blue": every palette matching both words outranks every palette matching one', async () => {
+  // p005 "Bare Ledger (Dark)" matches only "dark", but in its title, a tag
+  // and searchText (85). p482 matches both words (82.5). It used to lose.
+  const { ids } = await search("dark blue");
+  assert.strictEqual(termsMatched("p005", ["dark", "blue"]), 1);
+  assert.strictEqual(termsMatched("p482", ["dark", "blue"]), 2);
+  assert.ok(ids.indexOf("p482") < ids.indexOf("p005"), `p482 #${ids.indexOf("p482") + 1}, p005 #${ids.indexOf("p005") + 1}`);
+  assertCoverageOrder(ids, ["dark", "blue"], "dark blue");
+});
+
+test('"deep sea blue": three words matched beat two, two beat one', async () => {
+  const { ids } = await search("deep sea blue");
+  assert.strictEqual(termsMatched(ids[0], ["deep", "sea", "blue"]), 3);
+  assertCoverageOrder(ids, ["deep", "sea", "blue"], "deep sea blue");
+});
+
+test("a repeated word adds nothing: gold gold ranks exactly like gold", async () => {
+  const once = await search("gold");
+  const twice = await search("gold gold");
+  assert.deepStrictEqual(twice.hrefs, once.hrefs);
+  assert.deepStrictEqual(twice.hrefs.slice(0, holdersOf("Gold").length).map((h) => h.split("#")[1]).sort(), holdersOf("Gold").sort());
+});
+
+test("blue blue gold ranks exactly like blue gold, both words first", async () => {
+  const plain = await search("blue gold");
+  const repeated = await search("blue blue gold");
+  assert.deepStrictEqual(repeated.hrefs, plain.hrefs);
+  // p576 (Rich Bluebell + Butter Gold) matches both words; it used to fall
+  // to #92 behind palettes matching "blue" alone.
+  assert.ok(repeated.ids.indexOf("p576") < repeated.ids.findIndex((id) => termsMatched(id, ["blue", "gold"]) === 1));
+  assertCoverageOrder(repeated.ids, ["blue", "gold"], "blue blue gold");
+});
+
+test('"gold gold leaf" keeps the "Gold Leaf" phrase: it ranks exactly like "gold leaf"', async () => {
+  const plain = await search("gold leaf");
+  const repeated = await search("gold gold leaf");
+  assert.deepStrictEqual(repeated.hrefs, plain.hrefs);
+  const holders = holdersOf("Gold Leaf");
+  assert.deepStrictEqual(repeated.ids.slice(0, holders.length).sort(), holders.slice().sort());
+});
+
+test('"Leaf Gold" keeps the typed-order rule: no phrase bonus, so the holders only tie', async () => {
+  // Both words match p413 (Mustard Gold, Olive Leaf) and the three "Gold
+  // Leaf" palettes equally; with no bonus for the reversed phrase they tie,
+  // and the title tie-break puts p413 ("Dark Umber …") first.
+  const { ids } = await search("Leaf Gold");
+  assert.deepStrictEqual(ids.slice(0, 4).sort(), ["p140", "p413", "p450", "p485"]);
+  assert.strictEqual(ids[0], "p413");
+});
+
+test("a guide title that repeats a word itself still matches exactly when typed in full", async () => {
+  const guide = INDEX.find((r) => r.slug === "color-palette-token-system");
+  assert.match(guide.title, /\ba\b.*\ba\b/i, "fixture assumption: the title repeats 'a'");
+  const { hrefs } = await search(guide.title);
+  assert.strictEqual(hrefs[0], guide.url);
+});
+
+// ---------------------------------------------------------------------
+// the empty state: nothing at all vs. nothing under the filter
+// ---------------------------------------------------------------------
+
+test("no results anywhere: the no-results message, tips and no clear button", async () => {
+  const s = await search("zzqxnomatchzz", { extra: "&type=palette" });
+  assert.ok(s.empty);
+  assert.strictEqual(s.count, '0 Results for "zzqxnomatchzz"');
+  assert.strictEqual(s.emptyQuery, '"zzqxnomatchzz"');
+  assert.ok(s.noResultsMessageShown);
+  assert.strictEqual(s.filteredMessage, null);
+  assert.ok(!s.clearButtonShown);
+});
+
+test("results exist but not under the type filter: says so, and offers to clear it", async () => {
+  const guides = (await search("color")).hrefs.filter((h) => h.startsWith("/guide/")).length;
+  assert.ok(guides > 0);
+  const s = await search("color", { extra: "&type=palette" });
+  const message = `No palettes match "color" — ${guides} guides do.`;
+  assert.ok(s.empty);
+  assert.strictEqual(s.count, message, "the role=status line announces it");
+  assert.strictEqual(s.filteredMessage, message);
+  assert.ok(!s.noResultsMessageShown, "the no-results message would be untrue here");
+  assert.ok(s.clearButtonShown);
+});
+
+test("results exist but not in the category: names the category and what does match", async () => {
+  const palettes = (await search("blue")).ids.length;
+  const s = await search("blue", { extra: "&category=typography" });
+  assert.strictEqual(s.count, `No results in Typography match "blue" — ${palettes} palettes do.`);
+  const both = await search("blue", { extra: "&type=guide&category=typography" });
+  assert.strictEqual(both.count, `No guides in Typography match "blue" — ${palettes} palettes do.`);
+});
+
+test("Clear filters restores the unfiltered results and URL", async () => {
+  const unfiltered = await search("blue");
+  const s = await search("blue", { extra: "&type=guide&category=typography" });
+  const cleared = s.clearFilters();
+  assert.ok(!cleared.empty);
+  assert.deepStrictEqual(cleared.hrefs, unfiltered.hrefs);
+  assert.strictEqual(cleared.count, unfiltered.count);
+  assert.strictEqual(cleared.url, "/search?s=blue");
+});
+
+test("the filtered empty state comes back identically from the URL alone (refresh)", async () => {
+  const first = await search("color", { extra: "&type=palette" });
+  const reloaded = await search("", { rawSearch: "?s=color&type=palette" });
+  assert.strictEqual(reloaded.count, first.count);
+  assert.strictEqual(reloaded.filteredMessage, first.filteredMessage);
 });

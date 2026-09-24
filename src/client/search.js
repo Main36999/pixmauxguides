@@ -183,6 +183,34 @@
     var countEl = document.getElementById("search-results-count");
     var emptyEl = document.getElementById("search-empty-state");
     var emptyQueryEl = document.getElementById("search-empty-query");
+    var emptyMessageEl = document.getElementById("search-empty-message");
+    var emptyTipsEl = emptyEl.querySelector(".search-empty-tips");
+    var emptyBrowseEl = emptyEl.querySelector("a.btn");
+
+    // The empty state's second form: the query DOES match something, just
+    // nothing the active type/category filter lets through. Its own message
+    // and a button that clears the filters take the place of the
+    // no-results message, the spelling tips and "Browse all guides" — all
+    // three would be wrong there. Built here rather than in search.html so
+    // the page markup is unchanged; the classes are the empty state's own.
+    var filteredMessageEl = document.createElement("p");
+    emptyEl.insertBefore(filteredMessageEl, emptyMessageEl.nextSibling);
+    var clearFiltersEl = document.createElement("button");
+    clearFiltersEl.type = "button";
+    clearFiltersEl.className = "btn btn-primary";
+    clearFiltersEl.textContent = "Clear filters";
+    emptyEl.appendChild(clearFiltersEl);
+
+    // style.display rather than the hidden attribute: .btn sets its own
+    // display, which would override [hidden].
+    function showEmptyStateFor(filtered) {
+      filteredMessageEl.style.display = filtered ? "" : "none";
+      clearFiltersEl.style.display = filtered ? "" : "none";
+      [emptyMessageEl, emptyTipsEl, emptyBrowseEl].forEach(function (el) {
+        if (el) el.style.display = filtered ? "none" : "";
+      });
+    }
+    showEmptyStateFor(false);
     var filtersEl = document.getElementById("search-filters");
     var typeTabsEl = document.getElementById("search-type-tabs");
     var categorySelectEl = document.getElementById("search-category-select");
@@ -206,7 +234,17 @@
     var initialParams = new URLSearchParams(location.search);
     var query = normalizeQuery(initialParams.get("s") || "");
     var queryLower = query.toLowerCase();
-    var terms = queryLower ? queryLower.split(" ").filter(Boolean) : [];
+    // Each DISTINCT word once, in the order first typed: "gold gold leaf"
+    // scores as "gold leaf", so repeating a word adds nothing.
+    var terms = (queryLower ? queryLower.split(" ") : []).filter(function (term, i, all) {
+      return term && all.indexOf(term) === i;
+    });
+    // The query as a whole, for the exact and phrase bonuses: as typed, and
+    // with repeats dropped. Both are tried, so "gold gold leaf" still finds
+    // the colour "Gold Leaf" and a guide title that repeats a word itself
+    // ("A Color Palette Is a Token System…") still matches when typed in full.
+    var wholeQueries = [queryLower];
+    if (terms.join(" ") !== queryLower) wholeQueries.push(terms.join(" "));
 
     var typeFilter = initialParams.get("type") || "all";
     if (TYPE_VALUES.indexOf(typeFilter) === -1) typeFilter = "all";
@@ -308,41 +346,53 @@
     // without ever requiring the literal multi-word phrase to appear.
     // Any one term matching is enough to be a result (OR); the exact
     // and phrase bonuses then lift records matching the query as a whole.
+    //
+    // Returns the score and `matched`, how many of the distinct terms the
+    // record matched at all. runSearch() ranks on `matched` first: the
+    // score adds up every field a term hits, so without it one word found
+    // in a title, a tag and searchText (85) outranked a record matching
+    // both words of "dark blue" (82.5). An exact whole-query match counts
+    // as matching every term.
     function scoreRecord(p) {
-      if (!terms.length) return 0;
-
-      var score = 0;
+      var result = { score: 0, matched: 0 };
+      if (!terms.length) return result;
 
       terms.forEach(function (term) {
-        score +=
+        var before = result.score;
+        result.score +=
           WEIGHTS.name * Math.max(matchLevel(p.title, term), bestLevel(p.colorNames, term));
-        score += WEIGHTS.category * matchLevel(p.category, term);
-        score += WEIGHTS.tag * bestLevel(p.tags, term);
-        score += WEIGHTS.keyword * bestLevel(p.keywords, term);
-        score += WEIGHTS.description * matchLevel(p.description, term);
-        score += WEIGHTS.searchText * matchLevel(p.searchText, term);
+        result.score += WEIGHTS.category * matchLevel(p.category, term);
+        result.score += WEIGHTS.tag * bestLevel(p.tags, term);
+        result.score += WEIGHTS.keyword * bestLevel(p.keywords, term);
+        result.score += WEIGHTS.description * matchLevel(p.description, term);
+        result.score += WEIGHTS.searchText * matchLevel(p.searchText, term);
         var hex = p.colors.length ? hexTermValue(term) : null;
-        if (hex && p.colors.indexOf(hex) !== -1) score += WEIGHTS.color;
+        if (hex && p.colors.indexOf(hex) !== -1) result.score += WEIGHTS.color;
+        if (result.score > before) result.matched++;
       });
 
-      if (
-        queryLower === p.title ||
-        queryLower === p.slug ||
-        p.colorNames.indexOf(queryLower) !== -1
-      ) {
-        score += WEIGHTS.exact;
+      var exact = wholeQueries.some(function (whole) {
+        return whole === p.title || whole === p.slug || p.colorNames.indexOf(whole) !== -1;
+      });
+      if (exact) {
+        result.score += WEIGHTS.exact;
+        result.matched = terms.length;
       }
 
       if (
         terms.length > 1 &&
-        (matchLevel(p.title, queryLower) === MATCH.word ||
-          bestLevel(p.colorNames, queryLower) === MATCH.word ||
-          matchLevel(p.description, queryLower) === MATCH.word)
+        wholeQueries.some(function (whole) {
+          return (
+            matchLevel(p.title, whole) === MATCH.word ||
+            bestLevel(p.colorNames, whole) === MATCH.word ||
+            matchLevel(p.description, whole) === MATCH.word
+          );
+        })
       ) {
-        score += WEIGHTS.phrase;
+        result.score += WEIGHTS.phrase;
       }
 
-      return score;
+      return result;
     }
 
     function passesFilters(record) {
@@ -355,17 +405,23 @@
       return true;
     }
 
-    function runSearch() {
+    // `ignoreFilters` is for the empty state only: it asks whether the
+    // query matches anything at all once the type/category filters are off.
+    function runSearch(ignoreFilters) {
       if (!terms.length) return [];
       var scored = [];
       PREPARED.forEach(function (p) {
-        if (!passesFilters(p.record)) return;
-        var score = scoreRecord(p);
-        if (score > 0) scored.push({ record: p.record, score: score });
+        if (!ignoreFilters && !passesFilters(p.record)) return;
+        var result = scoreRecord(p);
+        if (result.score > 0) {
+          scored.push({ record: p.record, score: result.score, matched: result.matched });
+        }
       });
-      // Higher combined score first (spec §12); ties broken by title
-      // so the same search renders in a stable order every time.
+      // More of the query's distinct terms matched first, then the higher
+      // combined score (spec §12); ties broken by title so the same search
+      // renders in a stable order every time.
       scored.sort(function (a, b) {
+        if (b.matched !== a.matched) return b.matched - a.matched;
         if (b.score !== a.score) return b.score - a.score;
         return a.record.title.localeCompare(b.record.title);
       });
@@ -555,6 +611,25 @@
       return parts.length ? base + " (" + parts.join(" · ") + ")" : base;
     }
 
+    // 'No palettes match "color" — 5 guides do.' for a query the filters
+    // emptied: says what the filter excluded and what the query does match.
+    function filteredEmptyLabel(unfiltered) {
+      var noun = typeFilter === "all" ? "results" : TYPE_LABELS[typeFilter].toLowerCase() + "s";
+      var where = categoryFilter === "all" ? "" : " in " + categoryName(categoryFilter);
+      var counts = { guide: 0, palette: 0 };
+      unfiltered.forEach(function (r) {
+        if (counts[r.type] != null) counts[r.type]++;
+      });
+      var parts = [];
+      if (counts.guide) parts.push(counts.guide + " guide" + (counts.guide === 1 ? "" : "s"));
+      if (counts.palette)
+        parts.push(counts.palette + " palette" + (counts.palette === 1 ? "" : "s"));
+      return (
+        "No " + noun + where + ' match "' + query + '" — ' +
+        parts.join(" and ") + (unfiltered.length === 1 ? " does." : " do.")
+      );
+    }
+
     // ---------- URL sync ----------
     // Keeps /search.html?s=...&type=...&category=... shareable and
     // reload-safe (spec §18) without a full navigation when a filter
@@ -611,10 +686,19 @@
       if (results.length === 0) {
         // The count line is the page's role="status" region, so "0 Results
         // for …" is what tells a screen reader the search came back empty —
-        // the empty-state panel below is not announced.
-        countEl.textContent = countLabel(results);
+        // the empty-state panel below is not announced. When a filter is
+        // what emptied it, both say so instead.
+        var filtered = typeFilter !== "all" || categoryFilter !== "all";
+        var unfiltered = filtered ? runSearch(true) : [];
         gridEl.innerHTML = "";
-        emptyQueryEl.textContent = '"' + query + '"';
+        if (unfiltered.length) {
+          countEl.textContent = filteredEmptyLabel(unfiltered);
+          filteredMessageEl.textContent = countEl.textContent;
+        } else {
+          countEl.textContent = countLabel(results);
+          emptyQueryEl.textContent = '"' + query + '"';
+        }
+        showEmptyStateFor(unfiltered.length > 0);
         emptyEl.setAttribute("data-visible", "true");
       } else {
         countEl.textContent = countLabel(results);
@@ -624,27 +708,41 @@
     }
 
     // ---------- type + category filter controls (spec §16) ----------
-    function setTypeFilter(next) {
-      if (TYPE_VALUES.indexOf(next) === -1 || next === typeFilter) return;
-      typeFilter = next;
+    function syncTypeTabs() {
       typeTabsEl.querySelectorAll(".search-type-tab").forEach(function (btn) {
         btn.setAttribute(
           "aria-pressed",
           btn.getAttribute("data-type") === typeFilter ? "true" : "false",
         );
       });
+    }
+
+    function setTypeFilter(next) {
+      if (TYPE_VALUES.indexOf(next) === -1 || next === typeFilter) return;
+      typeFilter = next;
+      syncTypeTabs();
       syncUrl();
       render();
     }
 
+    syncTypeTabs();
     typeTabsEl.querySelectorAll(".search-type-tab").forEach(function (btn) {
-      btn.setAttribute(
-        "aria-pressed",
-        btn.getAttribute("data-type") === typeFilter ? "true" : "false",
-      );
       btn.addEventListener("click", function () {
         setTypeFilter(btn.getAttribute("data-type"));
       });
+    });
+
+    // The filtered empty state's button. Focus goes to the "All" tab it just
+    // re-selected, since the button itself disappears with the empty state.
+    clearFiltersEl.addEventListener("click", function () {
+      typeFilter = "all";
+      categoryFilter = "all";
+      categorySelectEl.value = "all";
+      syncTypeTabs();
+      syncUrl();
+      render();
+      var allTab = typeTabsEl.querySelector('.search-type-tab[data-type="all"]');
+      if (allTab) allTab.focus();
     });
 
     categorySelectEl.addEventListener("change", function () {
