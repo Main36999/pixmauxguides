@@ -981,8 +981,8 @@ function buildGuideRecords(guides, categorySlugs, warnings) {
  *                 appended to the END of searchText, so a colour-name query
  *                 finds these palettes like every other. Appended, not
  *                 merged: the approved searchText is still an exact prefix
- *                 and every other field is byte-identical
- *                 (src/build/palette-meta.test.js).
+ *                 and every other field but colorNames (below) is
+ *                 byte-identical (src/build/palette-meta.test.js).
  *   without meta  every other palette. There is no hand-written title or
  *                 tag set to borrow, so the record is built from the data
  *                 file alone: the title is the palette's colour names
@@ -991,8 +991,10 @@ function buildGuideRecords(guides, categorySlugs, warnings) {
  *                 carries those names and the palette id. No tags or
  *                 description are invented.
  *
- * Both carry `colors`, which is what search.html matches an exact HEX query
- * against and what the result card draws its swatches from.
+ * Both carry `colorNames` — the palette's own colour names from
+ * palettes-data.json, one field for all 600, which /search scores as a name
+ * of the palette — and `colors`, which is what search.html matches an exact
+ * HEX query against and what the result card draws its swatches from.
  */
 function buildPaletteRecords(indexedPalettes) {
   return indexedPalettes.map(function (p) {
@@ -1013,6 +1015,7 @@ function buildPaletteRecords(indexedPalettes) {
       categories: PALETTE_CATEGORIES.slice(),
       tags: tags,
       keywords: [],
+      colorNames: colorNames(p),
       searchText: buildSearchText([
         title,
         wordsFromSlug(p.id),
@@ -1071,6 +1074,7 @@ function buildDataOnlyPaletteRecord(p) {
     categories: PALETTE_CATEGORIES.slice(),
     tags: [],
     keywords: [],
+    colorNames: names,
     searchText: buildSearchText([names, wordsFromSlug(p.id)]),
   };
 

@@ -109,12 +109,21 @@
     };
     var TYPE_VALUES = ["all", "guide", "palette"];
 
-    // Relevance weights — bpozz-global-search-spec-v2.md §12. Starting
-    // values from the spec, used as given ("not immutable
-    // requirements", but nothing here needed adjusting).
+    // Relevance weights — bpozz-global-search-spec-v2.md §12. Each is what
+    // one query term earns for a WHOLE-WORD hit in that field (see MATCH for
+    // partial hits), except the two once-per-record bonuses:
+    //   exact    the whole query IS the title, one of the colour names, or
+    //            the slug (a palette id such as "p450").
+    //   phrase   a multi-word query appears word-for-word in the title, a
+    //            colour name or the description.
+    // `name` is the title's weight, and a palette's colour names share it: a
+    // palette with no hand-written title (p041 on) is titled BY its colour
+    // names, so a colour-name hit has to be worth the same on every palette.
+    // A term earns it once, from whichever of the two it matches best.
     var WEIGHTS = {
-      exactTitle: 100,
-      titleWord: 50,
+      exact: 100,
+      phrase: 50,
+      name: 50,
       category: 35,
       tag: 30,
       keyword: 25,
@@ -122,6 +131,40 @@
       description: 15,
       searchText: 5,
     };
+
+    // The share of a field's weight a term earns, by where it occurs: as a
+    // whole word ("gold" in "Gold Leaf"), at the start of one ("star" in
+    // "Starless" — partial search still works), or only inside one ("gold"
+    // in "Marigold", "ink" in "Pink").
+    var MATCH = { word: 1, prefix: 0.5, infix: 0.25 };
+
+    function isWordChar(ch) {
+      return (
+        ch !== "" && (ch.toLowerCase() !== ch.toUpperCase() || (ch >= "0" && ch <= "9"))
+      );
+    }
+
+    // Best MATCH level of `term` anywhere in `text` (both lowercase), or 0.
+    function matchLevel(text, term) {
+      var best = 0;
+      var at = text.indexOf(term);
+      while (at !== -1 && best !== MATCH.word) {
+        var startsWord = !isWordChar(text.charAt(at - 1));
+        var endsWord = !isWordChar(text.charAt(at + term.length));
+        var level = startsWord ? (endsWord ? MATCH.word : MATCH.prefix) : MATCH.infix;
+        if (level > best) best = level;
+        at = text.indexOf(term, at + 1);
+      }
+      return best;
+    }
+
+    function bestLevel(texts, term) {
+      var best = 0;
+      texts.forEach(function (text) {
+        best = Math.max(best, matchLevel(text, term));
+      });
+      return best;
+    }
 
     // A query term that is a whole HEX colour ("#E2725B", "e2725b",
     // "#abc") matches a palette carrying exactly that colour. Exact only:
@@ -170,6 +213,7 @@
     var categoryFilter = initialParams.get("category") || "all";
 
     var INDEX_RECORDS = [];
+    var PREPARED = []; // one prepareRecord() per INDEX_RECORDS entry, same order
     var CATEGORY_NAME_BY_SLUG = {};
     var CATEGORY_LIST = []; // [{slug, name}], in categories.json's own order
     var dataLoaded = false;
@@ -192,8 +236,17 @@
     // Matches a query term against both a category's display name
     // ("Color Theory") and its slug's own words ("color theory"), so
     // searching either the label or the raw slug finds it.
-    function categorySearchTextFor(record) {
+    //
+    // Only categories that tell records of a type apart are scored. One that
+    // EVERY record of the type carries — every palette is filed under
+    // color-theory and systems — describes none of them, and scoring it made
+    // "color", "design" or "the" match all 600 palettes. Those categories
+    // stay on the record for the category filter; they only earn nothing.
+    function categorySearchTextFor(record, sharedByType) {
       return record.categories
+        .filter(function (slug) {
+          return !sharedByType[record.type + " " + slug];
+        })
         .map(function (slug) {
           return (
             categoryName(slug) +
@@ -204,61 +257,90 @@
         .join(" ");
     }
 
+    // {"<type> <slug>": true} for each category carried by every record of
+    // its type. A type with a single record is left alone: there is nothing
+    // to tell it apart from.
+    function categoriesSharedByType(records) {
+      var perType = {};
+      records.forEach(function (r) {
+        var t = perType[r.type] || (perType[r.type] = { count: 0, slugs: {} });
+        t.count++;
+        r.categories.forEach(function (slug) {
+          t.slugs[slug] = (t.slugs[slug] || 0) + 1;
+        });
+      });
+      var shared = {};
+      Object.keys(perType).forEach(function (type) {
+        var t = perType[type];
+        if (t.count < 2) return;
+        Object.keys(t.slugs).forEach(function (slug) {
+          if (t.slugs[slug] === t.count) shared[type + " " + slug] = true;
+        });
+      });
+      return shared;
+    }
+
+    // Each record's searchable fields, lowercased once when the index loads
+    // rather than on every search.
+    function prepareRecord(record, sharedByType) {
+      function lower(value) {
+        return String(value == null ? "" : value).toLowerCase();
+      }
+      return {
+        record: record,
+        title: lower(record.title),
+        colorNames: (Array.isArray(record.colorNames) ? record.colorNames : []).map(lower),
+        slug: lower(record.slug),
+        description: lower(record.description),
+        category: categorySearchTextFor(record, sharedByType),
+        tags: record.tags.map(lower),
+        keywords: record.keywords.map(lower),
+        searchText: lower(record.searchText),
+        colors: Array.isArray(record.colors) ? record.colors.map(lower) : [],
+      };
+    }
+
     // ---------- relevance scoring (spec §12–13) ----------
     // Every query term is checked independently against every
     // weighted field and matches are summed, so a record matching
     // more of the query's terms accumulates a higher score than one
     // matching only one term (§13's multi-term requirement) —
     // without ever requiring the literal multi-word phrase to appear.
-    function scoreRecord(record) {
+    // Any one term matching is enough to be a result (OR); the exact
+    // and phrase bonuses then lift records matching the query as a whole.
+    function scoreRecord(p) {
       if (!terms.length) return 0;
-
-      var titleLower = record.title.toLowerCase();
-      var descLower = (record.description || "").toLowerCase();
-      var categoryText = categorySearchTextFor(record);
-      var tagsLower = record.tags.map(function (t) {
-        return t.toLowerCase();
-      });
-      var keywordsLower = record.keywords.map(function (k) {
-        return k.toLowerCase();
-      });
-      var searchTextLower = record.searchText || "";
-      var colorsLower = Array.isArray(record.colors)
-        ? record.colors.map(function (c) {
-            return String(c).toLowerCase();
-          })
-        : [];
 
       var score = 0;
 
-      // Exact title match: the whole normalized query equals the
-      // whole title (e.g. "starless frost" against the Palette titled
-      // "Starless Frost") — on top of, not instead of, the per-term
-      // title-word matches below.
-      if (queryLower && titleLower === queryLower) {
-        score += WEIGHTS.exactTitle;
+      terms.forEach(function (term) {
+        score +=
+          WEIGHTS.name * Math.max(matchLevel(p.title, term), bestLevel(p.colorNames, term));
+        score += WEIGHTS.category * matchLevel(p.category, term);
+        score += WEIGHTS.tag * bestLevel(p.tags, term);
+        score += WEIGHTS.keyword * bestLevel(p.keywords, term);
+        score += WEIGHTS.description * matchLevel(p.description, term);
+        score += WEIGHTS.searchText * matchLevel(p.searchText, term);
+        var hex = p.colors.length ? hexTermValue(term) : null;
+        if (hex && p.colors.indexOf(hex) !== -1) score += WEIGHTS.color;
+      });
+
+      if (
+        queryLower === p.title ||
+        queryLower === p.slug ||
+        p.colorNames.indexOf(queryLower) !== -1
+      ) {
+        score += WEIGHTS.exact;
       }
 
-      terms.forEach(function (term) {
-        if (titleLower.indexOf(term) !== -1) score += WEIGHTS.titleWord;
-        if (categoryText.indexOf(term) !== -1) score += WEIGHTS.category;
-        if (
-          tagsLower.some(function (t) {
-            return t.indexOf(term) !== -1;
-          })
-        )
-          score += WEIGHTS.tag;
-        if (
-          keywordsLower.some(function (k) {
-            return k.indexOf(term) !== -1;
-          })
-        )
-          score += WEIGHTS.keyword;
-        if (descLower.indexOf(term) !== -1) score += WEIGHTS.description;
-        if (searchTextLower.indexOf(term) !== -1) score += WEIGHTS.searchText;
-        var hex = colorsLower.length ? hexTermValue(term) : null;
-        if (hex && colorsLower.indexOf(hex) !== -1) score += WEIGHTS.color;
-      });
+      if (
+        terms.length > 1 &&
+        (matchLevel(p.title, queryLower) === MATCH.word ||
+          bestLevel(p.colorNames, queryLower) === MATCH.word ||
+          matchLevel(p.description, queryLower) === MATCH.word)
+      ) {
+        score += WEIGHTS.phrase;
+      }
 
       return score;
     }
@@ -276,10 +358,10 @@
     function runSearch() {
       if (!terms.length) return [];
       var scored = [];
-      INDEX_RECORDS.forEach(function (record) {
-        if (!passesFilters(record)) return;
-        var score = scoreRecord(record);
-        if (score > 0) scored.push({ record: record, score: score });
+      PREPARED.forEach(function (p) {
+        if (!passesFilters(p.record)) return;
+        var score = scoreRecord(p);
+        if (score > 0) scored.push({ record: p.record, score: score });
       });
       // Higher combined score first (spec §12); ties broken by title
       // so the same search renders in a stable order every time.
@@ -527,7 +609,10 @@
       var results = runSearch();
 
       if (results.length === 0) {
-        countEl.textContent = "";
+        // The count line is the page's role="status" region, so "0 Results
+        // for …" is what tells a screen reader the search came back empty —
+        // the empty-state panel below is not announced.
+        countEl.textContent = countLabel(results);
         gridEl.innerHTML = "";
         emptyQueryEl.textContent = '"' + query + '"';
         emptyEl.setAttribute("data-visible", "true");
@@ -616,6 +701,7 @@
         categories: ["color-theory", "systems"],
         tags: ["cool", "night", "dark"],
         keywords: [],
+        colorNames: ["Nightshade", "Twilight", "Ultraviolet", "Azure"],
         searchText: "starless frost p001 cool night dark",
       },
     ];
@@ -646,6 +732,10 @@
           CATEGORY_NAME_BY_SLUG[c.slug] = c.name;
           CATEGORY_LIST.push({ slug: c.slug, name: c.name });
         });
+      var sharedByType = categoriesSharedByType(INDEX_RECORDS);
+      PREPARED = INDEX_RECORDS.map(function (record) {
+        return prepareRecord(record, sharedByType);
+      });
       populateCategorySelect();
       dataLoaded = true;
       render();

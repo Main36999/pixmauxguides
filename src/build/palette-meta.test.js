@@ -63,9 +63,11 @@ const meta = JSON.parse(
 
 // Colour-name search: each migrated record's searchText has the palette's
 // own colour names (from palettes-data.json) appended after the approved
-// text, so "Ultraviolet" finds p001 like any other palette's colour name.
-// Everything else — every other field, and key order — is still exactly the
-// approved Phase 3 record. The fixture itself is not edited.
+// text, and the record carries the same names in `colorNames`, the field
+// every palette has. Everything else — every other field, and key order — is
+// still exactly the approved Phase 3 record. The fixture itself is not
+// edited. (colorNames: undefined keeps every other key in place and
+// JSON.stringify drops it, so key ORDER is still compared exactly.)
 const dataById = new Map(model.palettes.map((p) => [p.id, p]));
 
 /** The approved searchText plus the colour-name words it did not already hold. */
@@ -86,7 +88,7 @@ function expectedSearchText(approved) {
   return words.join(" ");
 }
 
-test("every approved palette record is reproduced, colour names appended to searchText", () => {
+test("every approved palette record is reproduced, plus its colour names", () => {
   assert.ok(
     allPalettes.length >= APPROVED.length,
     `built ${allPalettes.length} palette records, approved has ${APPROVED.length}`,
@@ -99,9 +101,14 @@ test("every approved palette record is reproduced, colour names appended to sear
     // and break the build's own output gate. searchText is swapped for the
     // approved value so this compares every OTHER field exactly.
     assert.strictEqual(
-      JSON.stringify({ ...actual, searchText: approved.searchText }),
+      JSON.stringify({ ...actual, searchText: approved.searchText, colorNames: undefined }),
       JSON.stringify(approved),
-      `palette record ${approved.id} differs from the approved Phase 3 record outside searchText`,
+      `palette record ${approved.id} differs from the approved Phase 3 record outside searchText and colorNames`,
+    );
+    assert.deepStrictEqual(
+      actual.colorNames,
+      dataById.get(approved.slug).names,
+      `${approved.id}: colorNames is not the palette's own colour names`,
     );
     assert.ok(
       actual.searchText === approved.searchText ||
@@ -120,6 +127,7 @@ test("the migrated palette section is otherwise byte-identical, in order", () =>
   const withApprovedText = builtPalettes.map((r, i) => ({
     ...r,
     searchText: APPROVED[i] && APPROVED[i].searchText,
+    colorNames: undefined,
   }));
   assert.strictEqual(
     JSON.stringify(withApprovedText),
@@ -221,6 +229,7 @@ test("a palette with no meta entry is indexed from its data, never empty", () =>
   const [record] = content._internals.buildPaletteRecords([orphan]);
   assert.strictEqual(record.id, `palette:${orphan.id}`);
   assert.strictEqual(record.title, orphan.names.join(" · "));
+  assert.deepStrictEqual(record.colorNames, orphan.names);
   assert.deepStrictEqual(record.colors, orphan.colors);
   assert.ok(record.searchText.includes(orphan.id.toLowerCase()));
   // Same key order as a migrated record, so the index has one shape.

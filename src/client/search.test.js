@@ -62,8 +62,13 @@ function element() {
   };
 }
 
-/** Runs a search for `query` and resolves with the rendered page state. */
-async function search(query) {
+/**
+ * Runs a search for `query` and resolves with the rendered page state.
+ * `extra` is appended to the query string as-is ("&type=palette"); a
+ * `rawSearch` replaces the whole query string, for input a browser could
+ * hand the page but encodeURIComponent never produces.
+ */
+async function search(query, { extra = "", rawSearch } = {}) {
   const els = {};
   [
     "search-grid-root",
@@ -83,7 +88,11 @@ async function search(query) {
     Promise,
     escapeHtml: BpozzHtml.escapeHtml,
     thumbHtml: () => '<div class="card-thumb"></div>',
-    location: { search: "?s=" + encodeURIComponent(query), pathname: "/search", protocol: "http:" },
+    location: {
+      search: rawSearch != null ? rawSearch : "?s=" + encodeURIComponent(query) + extra,
+      pathname: "/search",
+      protocol: "http:",
+    },
     history: { replaceState: () => {} },
     document: {
       title: "",
@@ -106,8 +115,12 @@ async function search(query) {
 
   const grid = els["search-grid-root"].innerHTML;
   const ids = [...grid.matchAll(/href="\/palettes#(p\d+)"/g)].map((m) => m[1]);
+  const hrefs = [...grid.matchAll(/class="card-link" href="([^"]*)"/g)].map((m) => m[1]);
   return {
     ids,
+    hrefs,
+    grid,
+    heading: els["search-heading"].textContent,
     count: els["search-results-count"].textContent,
     empty: els["search-empty-state"].getAttribute("data-visible") === "true",
   };
@@ -229,14 +242,216 @@ test("HEX matching is exact: a partial hex or a hex-like word adds nothing", asy
 // ---------------------------------------------------------------------
 
 test("a query that matches nothing shows the empty state", async () => {
-  const { ids, count, empty } = await search("zzqxnomatchzz");
+  const { ids, empty } = await search("zzqxnomatchzz");
   assert.deepStrictEqual(ids, []);
-  assert.strictEqual(count, "");
   assert.ok(empty);
+});
+
+test("zero results are announced through the role=status count line", async () => {
+  // The empty-state panel is not a live region; the count line is. It used to
+  // be blanked on zero results, so a screen reader heard nothing at all.
+  const { count } = await search("zzqxnomatchzz");
+  assert.strictEqual(count, '0 Results for "zzqxnomatchzz"');
+  const html = fs.readFileSync(path.join(config.paths.root, "search.html"), "utf8");
+  assert.match(html, /<p[^>]*id="search-results-count"[^>]*role="status"[^>]*aria-live="polite"/);
+  assert.match(html, /<form[^>]*role="search"/);
+  assert.match(html, /<label for="header-search-input"[^>]*>Search BPOZZ<\/label>/);
+  assert.match(html, /role="group"\s+aria-label="Filter by type"/);
+  assert.match(html, /<label for="search-category-select"/);
 });
 
 test("an empty query renders no results and no count", async () => {
   const { ids, count } = await search("");
   assert.deepStrictEqual(ids, []);
   assert.strictEqual(count, "");
+});
+
+// ---------------------------------------------------------------------
+// relevance: blanket categories, colour names, whole words, ids
+// ---------------------------------------------------------------------
+
+const RECORD = new Map(INDEX.map((r) => [r.slug, r]));
+const lower = (s) => String(s).toLowerCase();
+
+/** The palettes carrying a colour named exactly `name`, in data order. */
+const holdersOf = (name) =>
+  PALETTES.filter((p) => p.names.some((n) => lower(n) === lower(name))).map((p) => p.id);
+
+/** Does `term` occur as a whole word in this palette's title, colour names or tags? */
+function wholeWordIn(id, term) {
+  const r = RECORD.get(id);
+  const re = new RegExp(`(^|[^\\p{L}\\p{N}])${term}($|[^\\p{L}\\p{N}])`, "iu");
+  return [r.title, ...r.colorNames, ...r.tags].some((text) => re.test(text));
+}
+
+/** Every id satisfying `pred` comes before every id that does not. */
+function assertGroupedFirst(ids, pred, label) {
+  const firstMiss = ids.findIndex((id) => !pred(id));
+  if (firstMiss === -1) return;
+  const lateHit = ids.slice(firstMiss).find(pred);
+  assert.ok(!lateHit, `${label}: ${lateHit} ranks below ${ids[firstMiss]} (order ${ids.slice(0, 12)})`);
+}
+
+test("every palette record carries its colour names as a field of its own", () => {
+  PALETTES.forEach((p) => assert.deepStrictEqual(RECORD.get(p.id).colorNames, p.names, p.id));
+});
+
+for (const q of ["color", "theory", "systems", "design"]) {
+  test(`"${q}" no longer matches palettes through their blanket categories`, async () => {
+    // Every palette is filed under color-theory and systems. Those words
+    // used to score on all 600 of them; now a palette is returned only when
+    // the term is in its own text.
+    const { ids, hrefs } = await search(q);
+    ids.forEach((id) => {
+      const r = RECORD.get(id);
+      const own = lower([r.title, r.description, r.searchText, ...r.colorNames, ...r.tags].join(" "));
+      assert.ok(own.includes(q), `"${q}" returned ${id}, which does not contain it`);
+    });
+    assert.ok(ids.length < 50, `"${q}" still returns ${ids.length} palettes`);
+    assert.ok(hrefs.some((h) => h.startsWith("/guide/")), `"${q}" lost its guide results`);
+  });
+}
+
+test("guide category search still works", async () => {
+  const guides = INDEX.filter((r) => r.type === "guide" && r.categories.includes("typography"));
+  assert.ok(guides.length, "fixture assumption: a typography guide exists");
+  const { hrefs } = await search("typography");
+  guides.forEach((g) => assert.ok(hrefs.includes(g.url), `"typography" missed ${g.url}`));
+});
+
+test("the category filter still includes every palette", async () => {
+  const all = await search("blue", { extra: "&type=palette" });
+  const filtered = await search("blue", { extra: "&category=systems" });
+  assert.ok(all.ids.length > 0);
+  assert.deepStrictEqual(filtered.ids, all.ids);
+});
+
+for (const [name, curated] of [
+  ["Azure", "p001"],
+  ["Kelly Green", "p040"],
+]) {
+  test(`"${name}": every palette with that exact colour ranks first, curated or not`, async () => {
+    const holders = holdersOf(name);
+    assert.ok(holders.includes(curated), `fixture assumption: ${curated} has ${name}`);
+    assert.ok(
+      holders.some((id) => !RECORD.get(id).tags.length),
+      `fixture assumption: a p041+ palette has ${name} too`,
+    );
+    const { ids } = await search(name);
+    assert.deepStrictEqual(ids.slice(0, holders.length).sort(), holders.slice().sort());
+  });
+}
+
+test('"night": whole-word matches rank above "Midnight"-style partials, p001 first', async () => {
+  assert.ok(RECORD.get("p001").tags.includes("night"), "fixture assumption: p001 is tagged night");
+  const { ids } = await search("night");
+  assert.strictEqual(ids[0], "p001");
+  assertGroupedFirst(ids, (id) => wholeWordIn(id, "night"), "night");
+});
+
+test('"Gold Leaf": the palettes with that exact colour lead, ahead of Golden Sand + Spring Leaf', async () => {
+  const holders = holdersOf("Gold Leaf");
+  assert.ok(holders.includes("p450"));
+  const { ids } = await search("Gold Leaf");
+  assert.deepStrictEqual(ids.slice(0, holders.length).sort(), holders.slice().sort());
+  assert.ok(ids.indexOf("p442") > holders.length, `p442 ranks at ${ids.indexOf("p442")}`);
+});
+
+test('"gold": a Gold colour ranks before Goldenrod or Marigold', async () => {
+  const holders = holdersOf("Gold");
+  const { ids } = await search("gold");
+  assert.deepStrictEqual(ids.slice(0, holders.length).sort(), holders.slice().sort());
+  assertGroupedFirst(ids, (id) => wholeWordIn(id, "gold"), "gold");
+  assert.ok(
+    ids.some((id) => !wholeWordIn(id, "gold")),
+    "partial matches (Goldenrod, Marigold) should still be found, just lower",
+  );
+});
+
+test('"ink": Ink ranks before Pink and Periwinkle', async () => {
+  const { ids } = await search("ink");
+  assertGroupedFirst(ids, (id) => wholeWordIn(id, "ink"), "ink");
+});
+
+test('partial search still works: "star" finds Starless before a mid-word "star"', async () => {
+  const { ids } = await search("star");
+  ["p001", "p019", "p022"].forEach((id) => assert.ok(ids.includes(id), `"star" missed ${id}`));
+  const startsWord = (id) =>
+    [RECORD.get(id).title, ...RECORD.get(id).colorNames].some((t) => /(^|[^a-z])star/i.test(t));
+  assertGroupedFirst(ids, startsWord, "star");
+});
+
+test("an exact palette id ranks first; a partial id still finds its range", async () => {
+  for (const id of ["p001", "p450", "p600"]) {
+    assert.strictEqual((await search(id)).ids[0], id);
+  }
+  const { ids } = await search("p45");
+  assert.deepStrictEqual(ids.slice().sort(), [
+    "p450", "p451", "p452", "p453", "p454", "p455", "p456", "p457", "p458", "p459",
+  ]);
+});
+
+test("a 3-digit HEX means the doubled 6-digit colour", async () => {
+  const isShort = (c) => /^#(.)\1(.)\2(.)\3$/.test(c);
+  const p = PALETTES.find((x) => x.colors.some(isShort));
+  const hex = p.colors.find(isShort);
+  const short = "#" + hex[1] + hex[3] + hex[5];
+  const { ids } = await search(short.toLowerCase());
+  assert.ok(ids.includes(p.id), `${short} did not return ${p.id}`);
+  ids.forEach((id) => assert.ok(byId(id).colors.includes(hex), `${short} returned ${id}`));
+  // "#abc" is well-formed but no palette carries #AABBCC.
+  assert.ok(!PALETTES.some((x) => x.colors.includes("#AABBCC")));
+  assert.deepStrictEqual((await search("#abc")).ids, []);
+});
+
+test("#E5B44C in every spelling still returns p450 alone; invalid HEX returns nothing", async () => {
+  for (const q of ["#E5B44C", "e5b44c", "#e5b44c", "E5B44C"]) {
+    assert.deepStrictEqual((await search(q)).ids, ["p450"], q);
+  }
+  for (const q of ["#e5b44", "#e5b44c1", "#gggggg", "#12345"]) {
+    assert.deepStrictEqual((await search(q)).ids, [], q);
+  }
+});
+
+test("multi-word queries stay OR, with the whole-query match on top", async () => {
+  const both = await search("Starless Frost");
+  const starless = await search("Starless");
+  const frost = await search("Frost");
+  assert.strictEqual(both.ids[0], "p001");
+  assert.deepStrictEqual(both.ids.slice().sort(), [...new Set([...starless.ids, ...frost.ids])].sort());
+  assert.strictEqual((await search("Frost Starless")).ids[0], "p001");
+});
+
+test("results are deterministic and never duplicated", async () => {
+  const a = await search("blue");
+  const b = await search("blue");
+  assert.deepStrictEqual(a.hrefs, b.hrefs);
+  const broad = await search("e");
+  assert.strictEqual(new Set(broad.hrefs).size, broad.hrefs.length);
+});
+
+test("hostile input renders as text, never markup, and never throws", async () => {
+  for (const q of [
+    "<img src=x onerror=alert(1)>",
+    '"><script>alert(1)</script>',
+    "(a+)+$",
+    ".*",
+    "[",
+    "\\",
+    "$&",
+    "a".repeat(2000),
+    "·",
+    "ui/ux",
+    "🎨",
+  ]) {
+    const { grid, heading } = await search(q);
+    assert.ok(!/<img|<script/i.test(grid), `${q} put markup in the grid`);
+    assert.strictEqual(heading, `Search results for "${q}"`);
+  }
+  // Highlighting wraps matches in <mark> and escapes everything else.
+  assert.match((await search("gold")).grid, /<mark>Gold<\/mark>/);
+  // A malformed escape in the URL decodes to text; the page still renders.
+  const bad = await search("", { rawSearch: "?s=%E0%A4%A" });
+  assert.ok(bad.empty);
+  assert.match(bad.count, /^0 Results for "/);
 });

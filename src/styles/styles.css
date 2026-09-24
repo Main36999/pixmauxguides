@@ -631,6 +631,20 @@ body:has(#mobile-menu:not([hidden])) {
   .header-top {
     padding: 0 20px;
   }
+  /* The inner header's search pill shares this row with the logo and the
+     menu button. At the desktop gap and padding its text field was left
+     about 46px wide at a 375px viewport — two characters of a query.
+     Tightening the row's spacing (not its contents) roughly doubles that. */
+  .header-top {
+    gap: 12px;
+  }
+  .site-header--inner .form {
+    gap: 4px;
+    padding-inline: 0.5em;
+  }
+  .site-header--inner .input {
+    padding-inline: 0.25em;
+  }
   .site-nav {
     display: none;
   }
