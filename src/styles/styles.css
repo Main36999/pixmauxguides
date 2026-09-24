@@ -49,6 +49,19 @@ body {
   background-color: var(--paper);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  /* Page shell: header, content, footer stacked in a column that is at
+     least one viewport tall, so a short page (an empty search, a filtered
+     grid, a tall screen) pushes the footer to the bottom edge instead of
+     leaving it floating mid-screen. Long pages are unaffected — the footer
+     stays in flow after the content (see body > .site-footer). */
+  display: flex;
+  flex-direction: column;
+}
+/* Flex items with `margin: 0 auto` shrink to their content instead of
+   stretching, so the full-width .wrap containers that sit directly on
+   <body> are given back the width they had as blocks. */
+body > .wrap {
+  width: 100%;
 }
 a {
   color: inherit;
@@ -442,8 +455,7 @@ ul {
    header. It was the only control on the whole site with no focus
    indication at all — the hero search's ring, the contact fields'
    underline and the level filter's colour change each move real pixels —
-   and that is a WCAG 2.4.7 failure. :focus-visible below restores the
-   site-wide ring.
+   and that is a WCAG 2.4.7 failure, so the focused pill must change.
 
    WHAT THIS COSTS, STATED PLAINLY: the ring shows on click too, so "looks
    identical clicked or not" no longer holds while the pill is FOCUSED.
@@ -461,10 +473,16 @@ ul {
    the level filter already restyles them today, unchanged by this step.
    This brings the last control into line with the other five.
 
-   It has to be restated here rather than left to the global :focus-visible
-   rule at the top of this file, because ".site-header--inner .input:focus"
-   outranks a bare ":focus-visible" — equal specificity to the rule below,
-   which therefore must stay AFTER it to win. */
+   The ring now belongs to the PILL, not the input. The global ring drawn
+   on the bare <input> was a square-cornered blue rectangle floating inside
+   the rounded white pill — the browser-default look this header does not
+   want. Instead the input's own outline is cancelled on every focus, and
+   the form draws a soft light halo that follows the pill's radius while
+   the field is focused (:focus-within). Same rule for click and keyboard,
+   because a text field matches :focus-visible on click anyway (above); the
+   halo is ~3.8:1 against the dark header bar, so keyboard focus stays
+   plainly visible. The transparent outline is for forced-colors mode,
+   which drops box-shadow but paints outlines in the system colour. */
 .site-header--inner .form {
   --width-of-input: 200px;
   --height-of-input: 40px;
@@ -495,12 +513,13 @@ ul {
 .site-header--inner .input::placeholder {
   color: #8b8ba7;
 }
-.site-header--inner .input:focus {
+.site-header--inner .input:focus,
+.site-header--inner .input:focus-visible {
   outline: none;
 }
-.site-header--inner .input:focus-visible {
-  outline: 2px solid var(--action);
-  outline-offset: 2px;
+.site-header--inner .form:focus-within {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+  outline: 2px solid transparent;
 }
 .site-header--inner .reset {
   opacity: 0;
@@ -1139,6 +1158,20 @@ body:has(#mobile-menu:not([hidden])) {
   object-fit: contain;
   display: block;
 }
+/* A plate carrying artwork is a single surface. The grey plate and its
+   blueprint motif are the fallback for a guide with no image (see
+   thumbMediaHtml in src/shared/card.js); left visible under a lazy image,
+   they showed as a second, different card until the artwork finished
+   painting over them. While an image is present the plate takes the
+   artwork's own pale edge tone and the motif stays hidden. An image that
+   fails is hidden by its onerror handler (style="display: none"), which
+   drops this rule and restores the full fallback. */
+.card-thumb:has(> img:not([style*="none"])) {
+  background-color: #f2f7fd;
+}
+.card-thumb:has(> img:not([style*="none"])) > svg {
+  visibility: hidden;
+}
 .thumb-guide {
   stroke: currentColor;
   stroke-width: 1;
@@ -1637,6 +1670,12 @@ body:has(#mobile-menu:not([hidden])) {
 .site-footer {
   background: var(--paper);
   padding-top: 56px;
+}
+/* Takes up any height left over in body's page-shell column, so the footer
+   rests on the bottom edge of a short page; on a long page there is none
+   left over and it simply follows the content. */
+body > .site-footer {
+  margin-top: auto;
 }
 .footer-main {
   display: grid;
