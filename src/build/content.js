@@ -1016,6 +1016,7 @@ function buildPaletteRecords(indexedPalettes) {
       description: meta.description || "",
       categories: PALETTE_CATEGORIES.slice(),
       tags: tags,
+      styles: LEGACY_DARK_VARIANT.test(title) ? [] : styleLabels(moods),
       keywords: [],
       colorNames: colorNames(p),
       searchText: buildSearchText([
@@ -1047,6 +1048,47 @@ function buildPaletteRecords(indexedPalettes) {
 function colorNames(p) {
   return Array.isArray(p.names)
     ? p.names.filter((n) => typeof n === "string" && n.trim())
+    : [];
+}
+
+/**
+ * STYLES: WHAT A STYLE LABEL MEANS (the authoritative contract)
+ *
+ * A palette's `styles` are its recipe/style provenance labels: the name of
+ * the generator recipe that made it. "pastel" means "made by a bpozz Pastel
+ * recipe". It is NOT a claim about how the palette looks — nothing here, or
+ * anywhere in the build, decides a style from colour values, and no palette
+ * is given a style it was not generated with.
+ *
+ *   p001–p040   the palettes-meta.json `moods`: the legacy generator's recipe
+ *               name. Its other tags are not styles — `family` (cool, warm,
+ *               neutral) and `lightness` (light, dark) were computed from the
+ *               background colour. The legacy and current Pastel recipes are
+ *               one user-facing Pastel style, made by different recipe
+ *               versions.
+ *   p041–p300   none. They have no documented recipe, so no style — which is
+ *               "unlabelled", not "not pastel".
+ *   p301–p600   the palettes-data.json tag: the theme recipe
+ *               scripts/palettes/expand-palettes.js made the palette with.
+ *
+ * Dark variants are not a recipe's output. The legacy generator derived a
+ * dark-mode copy of its eight lightest palettes, titled "<source> (Dark)"
+ * (docs/archive/generate-palettes.js), and the copy inherited the source's
+ * mood. So no dark variant has a style. The Pastel ones (p007, p009, p020,
+ * p024) also had "pastel" removed from their palettes-meta.json tags and
+ * moods; the other four keep their tags unchanged.
+ *
+ * /search names a match on a style label as a style. For the query "pastel"
+ * alone (product decision), Pastel style palettes rank before palettes that
+ * only have "Pastel" in a colour name, such as "Sand Pastel"; every other
+ * query, other style names included, ranks as before. Pinned by
+ * src/build/palette-meta.test.js and src/client/search.test.js.
+ */
+const LEGACY_DARK_VARIANT = / \(Dark\)$/;
+
+function styleLabels(labels) {
+  return Array.isArray(labels)
+    ? labels.filter((t, i, all) => typeof t === "string" && t.trim() && all.indexOf(t) === i)
     : [];
 }
 
@@ -1087,6 +1129,7 @@ function buildDataOnlyPaletteRecord(p) {
     description: "",
     categories: PALETTE_CATEGORIES.slice(),
     tags: tags,
+    styles: styleLabels(tags),
     keywords: [],
     colorNames: names,
     searchText: buildSearchText([names, wordsFromSlug(p.id), tags]),

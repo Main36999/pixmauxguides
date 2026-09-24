@@ -345,6 +345,9 @@
       "night",
       "dark"
     ],
+    "styles": [
+      "night"
+    ],
     "keywords": [],
     "colorNames": [
       "Nightshade",
@@ -376,6 +379,9 @@
       "warm",
       "earth",
       "light"
+    ],
+    "styles": [
+      "earth"
     ],
     "keywords": [],
     "colorNames": [
@@ -409,6 +415,9 @@
       "jewel",
       "dark"
     ],
+    "styles": [
+      "jewel"
+    ],
     "keywords": [],
     "colorNames": [
       "Espresso",
@@ -440,6 +449,9 @@
       "cool",
       "neon",
       "dark"
+    ],
+    "styles": [
+      "neon"
     ],
     "keywords": [],
     "colorNames": [
@@ -474,6 +486,7 @@
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Eclipse",
@@ -506,6 +519,9 @@
       "monochrome",
       "light"
     ],
+    "styles": [
+      "monochrome"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain",
@@ -535,10 +551,10 @@
     ],
     "tags": [
       "cool",
-      "pastel",
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blackcurrant",
@@ -546,7 +562,7 @@
       "Orchid",
       "Lilac"
     ],
-    "searchText": "powder sorbet (dark) p007 cool pastel night dark blackcurrant damson orchid lilac",
+    "searchText": "powder sorbet (dark) p007 cool night dark blackcurrant damson orchid lilac",
     "colors": [
       "#1C141D",
       "#312433",
@@ -570,6 +586,9 @@
       "cool",
       "pastel",
       "light"
+    ],
+    "styles": [
+      "pastel"
     ],
     "keywords": [],
     "colorNames": [
@@ -600,10 +619,10 @@
     ],
     "tags": [
       "cool",
-      "pastel",
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -611,7 +630,7 @@
       "Wisteria",
       "Lilac"
     ],
-    "searchText": "milky sorbet (dark) p009 cool pastel night dark onyx damson wisteria lilac",
+    "searchText": "milky sorbet (dark) p009 cool night dark onyx damson wisteria lilac",
     "colors": [
       "#17141D",
       "#292433",
@@ -635,6 +654,9 @@
       "cool",
       "pastel",
       "light"
+    ],
+    "styles": [
+      "pastel"
     ],
     "keywords": [],
     "colorNames": [
@@ -667,6 +689,9 @@
       "warm",
       "vintage",
       "light"
+    ],
+    "styles": [
+      "vintage"
     ],
     "keywords": [],
     "colorNames": [
@@ -701,6 +726,7 @@
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Eclipse",
@@ -732,6 +758,9 @@
       "warm",
       "retro",
       "light"
+    ],
+    "styles": [
+      "retro"
     ],
     "keywords": [],
     "colorNames": [
@@ -765,6 +794,9 @@
       "monochrome",
       "light"
     ],
+    "styles": [
+      "monochrome"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain",
@@ -796,6 +828,9 @@
       "cool",
       "neon",
       "dark"
+    ],
+    "styles": [
+      "neon"
     ],
     "keywords": [],
     "colorNames": [
@@ -829,6 +864,9 @@
       "vintage",
       "light"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Shell",
@@ -860,6 +898,9 @@
       "warm",
       "earth",
       "light"
+    ],
+    "styles": [
+      "earth"
     ],
     "keywords": [],
     "colorNames": [
@@ -893,6 +934,9 @@
       "retro",
       "light"
     ],
+    "styles": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Shell",
@@ -925,6 +969,9 @@
       "night",
       "dark"
     ],
+    "styles": [
+      "night"
+    ],
     "keywords": [],
     "colorNames": [
       "Navy",
@@ -954,10 +1001,10 @@
     ],
     "tags": [
       "cool",
-      "pastel",
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Soot",
@@ -965,7 +1012,7 @@
       "Aqua",
       "Harbor Mist"
     ],
-    "searchText": "blush feather (dark) p020 cool pastel night dark soot marine aqua harbor mist",
+    "searchText": "blush feather (dark) p020 cool night dark soot marine aqua harbor mist",
     "colors": [
       "#141C1D",
       "#243133",
@@ -989,6 +1036,9 @@
       "cool",
       "pastel",
       "light"
+    ],
+    "styles": [
+      "pastel"
     ],
     "keywords": [],
     "colorNames": [
@@ -1022,6 +1072,9 @@
       "night",
       "dark"
     ],
+    "styles": [
+      "night"
+    ],
     "keywords": [],
     "colorNames": [
       "Navy",
@@ -1054,6 +1107,9 @@
       "vintage",
       "light"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Shell",
@@ -1083,10 +1139,10 @@
     ],
     "tags": [
       "cool",
-      "pastel",
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -1094,7 +1150,7 @@
       "Wisteria",
       "Lilac"
     ],
-    "searchText": "chalk petal (dark) p024 cool pastel night dark onyx damson wisteria lilac",
+    "searchText": "chalk petal (dark) p024 cool night dark onyx damson wisteria lilac",
     "colors": [
       "#16131E",
       "#282334",
@@ -1118,6 +1174,9 @@
       "cool",
       "pastel",
       "light"
+    ],
+    "styles": [
+      "pastel"
     ],
     "keywords": [],
     "colorNames": [
@@ -1150,6 +1209,9 @@
       "warm",
       "retro",
       "light"
+    ],
+    "styles": [
+      "retro"
     ],
     "keywords": [],
     "colorNames": [
@@ -1184,6 +1246,7 @@
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Eclipse",
@@ -1215,6 +1278,9 @@
       "neutral",
       "monochrome",
       "light"
+    ],
+    "styles": [
+      "monochrome"
     ],
     "keywords": [],
     "colorNames": [
@@ -1248,6 +1314,9 @@
       "earth",
       "light"
     ],
+    "styles": [
+      "earth"
+    ],
     "keywords": [],
     "colorNames": [
       "Eggshell",
@@ -1279,6 +1348,9 @@
       "warm",
       "neon",
       "dark"
+    ],
+    "styles": [
+      "neon"
     ],
     "keywords": [],
     "colorNames": [
@@ -1312,6 +1384,9 @@
       "earth",
       "light"
     ],
+    "styles": [
+      "earth"
+    ],
     "keywords": [],
     "colorNames": [
       "Tusk",
@@ -1343,6 +1418,9 @@
       "cool",
       "night",
       "dark"
+    ],
+    "styles": [
+      "night"
     ],
     "keywords": [],
     "colorNames": [
@@ -1376,6 +1454,9 @@
       "retro",
       "light"
     ],
+    "styles": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Shell",
@@ -1407,6 +1488,9 @@
       "warm",
       "neon",
       "dark"
+    ],
+    "styles": [
+      "neon"
     ],
     "keywords": [],
     "colorNames": [
@@ -1441,6 +1525,7 @@
       "night",
       "dark"
     ],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Eclipse",
@@ -1472,6 +1557,9 @@
       "neutral",
       "monochrome",
       "light"
+    ],
+    "styles": [
+      "monochrome"
     ],
     "keywords": [],
     "colorNames": [
@@ -1505,6 +1593,9 @@
       "jewel",
       "dark"
     ],
+    "styles": [
+      "jewel"
+    ],
     "keywords": [],
     "colorNames": [
       "Blackcurrant",
@@ -1536,6 +1627,9 @@
       "cool",
       "jewel",
       "dark"
+    ],
+    "styles": [
+      "jewel"
     ],
     "keywords": [],
     "colorNames": [
@@ -1569,6 +1663,9 @@
       "jewel",
       "dark"
     ],
+    "styles": [
+      "jewel"
+    ],
     "keywords": [],
     "colorNames": [
       "Cypress",
@@ -1601,6 +1698,9 @@
       "vintage",
       "light"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Bone",
@@ -1629,6 +1729,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Linen",
@@ -1657,6 +1758,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -1685,6 +1787,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -1713,6 +1816,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Chalk",
@@ -1741,6 +1845,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bordeaux",
@@ -1769,6 +1874,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lilac Mist",
@@ -1797,6 +1903,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Obsidian",
@@ -1825,6 +1932,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Graphite",
@@ -1853,6 +1961,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Midnight",
@@ -1881,6 +1990,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pitch",
@@ -1909,6 +2019,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blush",
@@ -1937,6 +2048,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Mist",
@@ -1965,6 +2077,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Oat",
@@ -1993,6 +2106,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory",
@@ -2021,6 +2135,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Sea",
@@ -2049,6 +2164,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Wine",
@@ -2077,6 +2193,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blackwood",
@@ -2105,6 +2222,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Aubergine",
@@ -2133,6 +2251,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -2161,6 +2280,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Soot",
@@ -2189,6 +2309,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blackberry",
@@ -2217,6 +2338,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -2245,6 +2367,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ice",
@@ -2273,6 +2396,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -2301,6 +2425,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dew",
@@ -2329,6 +2454,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Mahogany",
@@ -2357,6 +2483,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -2385,6 +2512,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Meringue",
@@ -2413,6 +2541,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Anchor",
@@ -2441,6 +2570,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream",
@@ -2469,6 +2599,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Plum",
@@ -2497,6 +2628,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Fir",
@@ -2525,6 +2657,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Lagoon",
@@ -2553,6 +2686,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Alabaster",
@@ -2581,6 +2715,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Nightfall",
@@ -2609,6 +2744,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bisque",
@@ -2637,6 +2773,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Noir",
@@ -2665,6 +2802,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Forest Night",
@@ -2693,6 +2831,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Paper",
@@ -2721,6 +2860,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cacao",
@@ -2749,6 +2889,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Eggplant",
@@ -2777,6 +2918,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Coal",
@@ -2805,6 +2947,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Peach Blossom",
@@ -2833,6 +2976,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Blue",
@@ -2861,6 +3005,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Tar",
@@ -2889,6 +3034,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cotton",
@@ -2917,6 +3063,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ballet Pink",
@@ -2945,6 +3092,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Buttermilk",
@@ -2973,6 +3121,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pitch Green",
@@ -3001,6 +3150,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Navy Ink",
@@ -3029,6 +3179,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Basalt",
@@ -3057,6 +3208,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lime Cream",
@@ -3085,6 +3237,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Milk Glass",
@@ -3113,6 +3266,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Carbon",
@@ -3141,6 +3295,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Spruce",
@@ -3169,6 +3324,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -3197,6 +3353,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Indigo",
@@ -3225,6 +3382,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Loden",
@@ -3253,6 +3411,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Glacier Ice",
@@ -3281,6 +3440,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lavender Cream",
@@ -3309,6 +3469,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Chalk",
@@ -3337,6 +3498,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blackwood",
@@ -3365,6 +3527,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Buttercream",
@@ -3393,6 +3556,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bitter Cocoa",
@@ -3421,6 +3585,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Frost Green",
@@ -3449,6 +3614,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Soot",
@@ -3477,6 +3643,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Damson",
@@ -3505,6 +3672,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Parchment",
@@ -3533,6 +3701,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -3561,6 +3730,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream",
@@ -3589,6 +3759,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Rose Quartz",
@@ -3617,6 +3788,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Sand",
@@ -3645,6 +3817,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Forest Night",
@@ -3673,6 +3846,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Peach Cream",
@@ -3701,6 +3875,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -3729,6 +3904,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Fir",
@@ -3757,6 +3933,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bone",
@@ -3785,6 +3962,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -3813,6 +3991,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ecru",
@@ -3841,6 +4020,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Shell",
@@ -3869,6 +4049,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Treacle",
@@ -3897,6 +4078,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pearl",
@@ -3925,6 +4107,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Kelp",
@@ -3953,6 +4136,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Charcoal",
@@ -3981,6 +4165,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Navy",
@@ -4009,6 +4194,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Truffle",
@@ -4037,6 +4223,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory",
@@ -4065,6 +4252,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Porcelain",
@@ -4093,6 +4281,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Cherry",
@@ -4121,6 +4310,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Glass Green",
@@ -4149,6 +4339,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Meringue",
@@ -4177,6 +4368,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cotton",
@@ -4205,6 +4397,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Midnight Purple",
@@ -4233,6 +4426,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bisque",
@@ -4261,6 +4455,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -4289,6 +4484,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Sandcastle",
@@ -4317,6 +4513,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ice Mint",
@@ -4345,6 +4542,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Coffee Bean",
@@ -4373,6 +4571,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dewdrop",
@@ -4401,6 +4600,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Obsidian",
@@ -4429,6 +4629,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Hot Magenta",
@@ -4457,6 +4658,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Void Black",
@@ -4485,6 +4687,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream White",
@@ -4513,6 +4716,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Baby Pink",
@@ -4541,6 +4745,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Mint White",
@@ -4569,6 +4774,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Rose White",
@@ -4597,6 +4803,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lavender Frost",
@@ -4625,6 +4832,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ecru",
@@ -4653,6 +4861,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Paper White",
@@ -4681,6 +4890,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Midnight Navy",
@@ -4709,6 +4919,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cloud White",
@@ -4737,6 +4948,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Linen Taupe",
@@ -4765,6 +4977,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dew White",
@@ -4793,6 +5006,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Navy Slate",
@@ -4821,6 +5035,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Electric Indigo",
@@ -4849,6 +5064,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Ocean",
@@ -4877,6 +5093,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Cherry Red",
@@ -4905,6 +5122,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Navy",
@@ -4933,6 +5151,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blackwood Green",
@@ -4961,6 +5180,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bitumen",
@@ -4989,6 +5209,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Carbon Blue",
@@ -5017,6 +5238,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Coffee Black",
@@ -5045,6 +5267,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Midnight Plum",
@@ -5073,6 +5296,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Plum",
@@ -5101,6 +5325,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Putty",
@@ -5129,6 +5354,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -5157,6 +5383,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lilac White Pale",
@@ -5185,6 +5412,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Butter Cream",
@@ -5213,6 +5441,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Evergreen",
@@ -5241,6 +5470,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Almond Milk",
@@ -5269,6 +5499,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blush White",
@@ -5297,6 +5528,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Petrol Blue",
@@ -5325,6 +5557,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Sand Taupe",
@@ -5353,6 +5586,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Sorbet",
@@ -5381,6 +5615,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Slate Navy",
@@ -5409,6 +5644,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Petrol Deep",
@@ -5437,6 +5673,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Violet",
@@ -5465,6 +5702,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Chalk Cream",
@@ -5493,6 +5731,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Forest Ink",
@@ -5521,6 +5760,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Eggplant Dark",
@@ -5549,6 +5789,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lilac Sugar",
@@ -5577,6 +5818,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Blaze Orange",
@@ -5605,6 +5847,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -5633,6 +5876,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory Rose",
@@ -5661,6 +5905,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Brown",
@@ -5689,6 +5934,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dark Bark",
@@ -5717,6 +5963,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Chalk Sage",
@@ -5745,6 +5992,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory Paper",
@@ -5773,6 +6021,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ice Blue Pastel",
@@ -5801,6 +6050,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ice Aqua",
@@ -5829,6 +6079,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Oatmeal",
@@ -5857,6 +6108,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Pine",
@@ -5885,6 +6137,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Charcoal Red",
@@ -5913,6 +6166,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Chalk Green",
@@ -5941,6 +6195,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Thistle Mist",
@@ -5969,6 +6224,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Aqua Neon",
@@ -5997,6 +6253,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Emerald Neon",
@@ -6025,6 +6282,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Indigo",
@@ -6053,6 +6311,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory Cream",
@@ -6081,6 +6340,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -6109,6 +6369,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Meringue Cream",
@@ -6137,6 +6398,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Forest",
@@ -6165,6 +6427,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Linen Grey",
@@ -6193,6 +6456,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Peach Pale",
@@ -6221,6 +6485,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Petrol",
@@ -6249,6 +6514,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Shell Grey",
@@ -6277,6 +6543,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Peach White",
@@ -6305,6 +6572,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cypress Teal",
@@ -6333,6 +6601,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Violet",
@@ -6361,6 +6630,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Prussian Deep",
@@ -6389,6 +6659,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Plum Deep",
@@ -6417,6 +6688,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Cherry Ink",
@@ -6445,6 +6717,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Mint Sugar",
@@ -6473,6 +6746,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Orchid White",
@@ -6501,6 +6775,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ink Violet Dark",
@@ -6529,6 +6804,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Parchment Cream",
@@ -6557,6 +6833,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -6585,6 +6862,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Celadon White",
@@ -6613,6 +6891,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cocoa Bark",
@@ -6641,6 +6920,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Rose Quartz Pale",
@@ -6669,6 +6949,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Marine Teal",
@@ -6697,6 +6978,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dove Blue",
@@ -6725,6 +7007,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Charred Oak",
@@ -6753,6 +7036,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Obsidian Black",
@@ -6781,6 +7065,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Oyster White",
@@ -6809,6 +7094,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pearl Mauve",
@@ -6837,6 +7123,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Papaya Cream",
@@ -6865,6 +7152,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Charcoal Matte",
@@ -6893,6 +7181,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Royal Indigo Deep",
@@ -6921,6 +7210,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lace Pink",
@@ -6949,6 +7239,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bone White",
@@ -6977,6 +7268,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Plum Shadow",
@@ -7005,6 +7297,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Teal Ink",
@@ -7033,6 +7326,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -7061,6 +7355,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pine Night",
@@ -7089,6 +7384,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lemon Cream",
@@ -7117,6 +7413,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Slate",
@@ -7145,6 +7442,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Sea Blue",
@@ -7173,6 +7471,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Milk White",
@@ -7201,6 +7500,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Midnight Ink",
@@ -7229,6 +7529,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Spruce Teal",
@@ -7257,6 +7558,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory Sage",
@@ -7285,6 +7587,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Buff",
@@ -7313,6 +7616,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory Cream White",
@@ -7341,6 +7645,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Petal Cream Pale",
@@ -7369,6 +7674,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Grape",
@@ -7397,6 +7703,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Navy Ink",
@@ -7425,6 +7732,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Wine Black",
@@ -7453,6 +7761,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Navy Denim",
@@ -7481,6 +7790,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bitumen Brown",
@@ -7509,6 +7819,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Mist Sage",
@@ -7537,6 +7848,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Void Purple",
@@ -7565,6 +7877,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pearl Lilac",
@@ -7593,6 +7906,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ivory Linen",
@@ -7621,6 +7935,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Glacier Blue",
@@ -7649,6 +7964,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Charcoal Umber",
@@ -7677,6 +7993,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dark Molasses",
@@ -7705,6 +8022,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Forest Black",
@@ -7733,6 +8051,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Khaki",
@@ -7761,6 +8080,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Peach Powder",
@@ -7789,6 +8109,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Oat Grey",
@@ -7817,6 +8138,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pale Aqua",
@@ -7845,6 +8167,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Shell Beige",
@@ -7873,6 +8196,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Vanilla",
@@ -7901,6 +8225,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dew Green",
@@ -7929,6 +8254,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Abyss Blue",
@@ -7957,6 +8283,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Linen Gold",
@@ -7985,6 +8312,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Chalk Beige",
@@ -8013,6 +8341,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Petal White",
@@ -8041,6 +8370,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Walnut Shell",
@@ -8069,6 +8399,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Sky Cream",
@@ -8097,6 +8428,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Olive",
@@ -8125,6 +8457,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Marine",
@@ -8153,6 +8486,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Ash Rose",
@@ -8181,6 +8515,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Burgundy Dark",
@@ -8209,6 +8544,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Gunmetal Blue",
@@ -8237,6 +8573,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Dove Grey",
@@ -8265,6 +8602,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Violet Deep",
@@ -8293,6 +8631,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pitch Brown",
@@ -8321,6 +8660,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Silk",
@@ -8349,6 +8689,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Lime Sugar",
@@ -8377,6 +8718,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Indigo Night",
@@ -8405,6 +8747,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Bracken Dark",
@@ -8433,6 +8776,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Black Amethyst",
@@ -8461,6 +8805,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Sea Glass Pale",
@@ -8489,6 +8834,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Peach",
@@ -8517,6 +8863,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Peach Sand",
@@ -8545,6 +8892,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Apricot Light",
@@ -8573,6 +8921,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Pitch Black",
@@ -8601,6 +8950,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Turquoise Bright",
@@ -8629,6 +8979,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Emerald",
@@ -8657,6 +9008,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Noir Plum",
@@ -8685,6 +9037,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Honey Pastel",
@@ -8713,6 +9066,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Mist White",
@@ -8741,6 +9095,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Graphite Black",
@@ -8769,6 +9124,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Aubergine Deep",
@@ -8797,6 +9153,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Paper",
@@ -8825,6 +9182,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Deep Marine",
@@ -8853,6 +9211,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Cream Foam",
@@ -8881,6 +9240,7 @@
       "systems"
     ],
     "tags": [],
+    "styles": [],
     "keywords": [],
     "colorNames": [
       "Jet Ink",
@@ -8909,6 +9269,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -8941,6 +9304,9 @@
     "tags": [
       "branding"
     ],
+    "styles": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Clover",
@@ -8969,6 +9335,9 @@
       "systems"
     ],
     "tags": [
+      "tropical"
+    ],
+    "styles": [
       "tropical"
     ],
     "keywords": [],
@@ -9001,6 +9370,9 @@
     "tags": [
       "vintage"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -9029,6 +9401,9 @@
       "systems"
     ],
     "tags": [
+      "winter"
+    ],
+    "styles": [
       "winter"
     ],
     "keywords": [],
@@ -9061,6 +9436,9 @@
     "tags": [
       "analogous"
     ],
+    "styles": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Lavender Glow",
@@ -9089,6 +9467,9 @@
       "systems"
     ],
     "tags": [
+      "duotone"
+    ],
+    "styles": [
       "duotone"
     ],
     "keywords": [],
@@ -9121,6 +9502,9 @@
     "tags": [
       "tech"
     ],
+    "styles": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -9149,6 +9533,9 @@
       "systems"
     ],
     "tags": [
+      "retro"
+    ],
+    "styles": [
       "retro"
     ],
     "keywords": [],
@@ -9181,6 +9568,9 @@
     "tags": [
       "tech"
     ],
+    "styles": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Navy",
@@ -9209,6 +9599,9 @@
       "systems"
     ],
     "tags": [
+      "berry"
+    ],
+    "styles": [
       "berry"
     ],
     "keywords": [],
@@ -9241,6 +9634,9 @@
     "tags": [
       "fashion"
     ],
+    "styles": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -9269,6 +9665,9 @@
       "systems"
     ],
     "tags": [
+      "minimal"
+    ],
+    "styles": [
       "minimal"
     ],
     "keywords": [],
@@ -9301,6 +9700,9 @@
     "tags": [
       "ui-dark"
     ],
+    "styles": [
+      "ui-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -9329,6 +9731,9 @@
       "systems"
     ],
     "tags": [
+      "fashion"
+    ],
+    "styles": [
       "fashion"
     ],
     "keywords": [],
@@ -9361,6 +9766,9 @@
     "tags": [
       "earthy"
     ],
+    "styles": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Cocoa Bark",
@@ -9389,6 +9797,9 @@
       "systems"
     ],
     "tags": [
+      "light"
+    ],
+    "styles": [
       "light"
     ],
     "keywords": [],
@@ -9421,6 +9832,9 @@
     "tags": [
       "fashion"
     ],
+    "styles": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Coal",
@@ -9449,6 +9863,9 @@
       "systems"
     ],
     "tags": [
+      "vibrant"
+    ],
+    "styles": [
       "vibrant"
     ],
     "keywords": [],
@@ -9481,6 +9898,9 @@
     "tags": [
       "tropical"
     ],
+    "styles": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Emerald",
@@ -9509,6 +9929,9 @@
       "systems"
     ],
     "tags": [
+      "corporate"
+    ],
+    "styles": [
       "corporate"
     ],
     "keywords": [],
@@ -9541,6 +9964,9 @@
     "tags": [
       "light"
     ],
+    "styles": [
+      "light"
+    ],
     "keywords": [],
     "colorNames": [
       "Frost Green",
@@ -9569,6 +9995,9 @@
       "systems"
     ],
     "tags": [
+      "nature"
+    ],
+    "styles": [
       "nature"
     ],
     "keywords": [],
@@ -9601,6 +10030,9 @@
     "tags": [
       "ui"
     ],
+    "styles": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Dewdrop",
@@ -9629,6 +10061,9 @@
       "systems"
     ],
     "tags": [
+      "nature"
+    ],
+    "styles": [
       "nature"
     ],
     "keywords": [],
@@ -9661,6 +10096,9 @@
     "tags": [
       "autumn"
     ],
+    "styles": [
+      "autumn"
+    ],
     "keywords": [],
     "colorNames": [
       "Persimmon",
@@ -9689,6 +10127,9 @@
       "systems"
     ],
     "tags": [
+      "pastel"
+    ],
+    "styles": [
       "pastel"
     ],
     "keywords": [],
@@ -9721,6 +10162,9 @@
     "tags": [
       "forest"
     ],
+    "styles": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Green",
@@ -9749,6 +10193,9 @@
       "systems"
     ],
     "tags": [
+      "citrus"
+    ],
+    "styles": [
       "citrus"
     ],
     "keywords": [],
@@ -9781,6 +10228,9 @@
     "tags": [
       "triadic"
     ],
+    "styles": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Bright Azure",
@@ -9809,6 +10259,9 @@
       "systems"
     ],
     "tags": [
+      "minimal"
+    ],
+    "styles": [
       "minimal"
     ],
     "keywords": [],
@@ -9841,6 +10294,9 @@
     "tags": [
       "ocean"
     ],
+    "styles": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Teal",
@@ -9869,6 +10325,9 @@
       "systems"
     ],
     "tags": [
+      "branding"
+    ],
+    "styles": [
       "branding"
     ],
     "keywords": [],
@@ -9901,6 +10360,9 @@
     "tags": [
       "split"
     ],
+    "styles": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Rich Heather",
@@ -9929,6 +10391,9 @@
       "systems"
     ],
     "tags": [
+      "accessible-dark"
+    ],
+    "styles": [
       "accessible-dark"
     ],
     "keywords": [],
@@ -9961,6 +10426,9 @@
     "tags": [
       "fashion"
     ],
+    "styles": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Black",
@@ -9989,6 +10457,9 @@
       "systems"
     ],
     "tags": [
+      "accessible-dark"
+    ],
+    "styles": [
       "accessible-dark"
     ],
     "keywords": [],
@@ -10021,6 +10492,9 @@
     "tags": [
       "corporate"
     ],
+    "styles": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Smoked Bluebell",
@@ -10049,6 +10523,9 @@
       "systems"
     ],
     "tags": [
+      "tetradic"
+    ],
+    "styles": [
       "tetradic"
     ],
     "keywords": [],
@@ -10081,6 +10558,9 @@
     "tags": [
       "floral"
     ],
+    "styles": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Pear Green",
@@ -10109,6 +10589,9 @@
       "systems"
     ],
     "tags": [
+      "tropical"
+    ],
+    "styles": [
       "tropical"
     ],
     "keywords": [],
@@ -10141,6 +10624,9 @@
     "tags": [
       "analogous"
     ],
+    "styles": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Smoked Nightfall",
@@ -10169,6 +10655,9 @@
       "systems"
     ],
     "tags": [
+      "interior"
+    ],
+    "styles": [
       "interior"
     ],
     "keywords": [],
@@ -10201,6 +10690,9 @@
     "tags": [
       "modern"
     ],
+    "styles": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -10229,6 +10721,9 @@
       "systems"
     ],
     "tags": [
+      "monochromatic"
+    ],
+    "styles": [
       "monochromatic"
     ],
     "keywords": [],
@@ -10261,6 +10756,9 @@
     "tags": [
       "pastel"
     ],
+    "styles": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Mint",
@@ -10289,6 +10787,9 @@
       "systems"
     ],
     "tags": [
+      "ocean"
+    ],
+    "styles": [
       "ocean"
     ],
     "keywords": [],
@@ -10321,6 +10822,9 @@
     "tags": [
       "accessible"
     ],
+    "styles": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Powder Pink",
@@ -10349,6 +10853,9 @@
       "systems"
     ],
     "tags": [
+      "vibrant"
+    ],
+    "styles": [
       "vibrant"
     ],
     "keywords": [],
@@ -10381,6 +10888,9 @@
     "tags": [
       "minimal"
     ],
+    "styles": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Porcelain Blue",
@@ -10409,6 +10919,9 @@
       "systems"
     ],
     "tags": [
+      "vibrant"
+    ],
+    "styles": [
       "vibrant"
     ],
     "keywords": [],
@@ -10441,6 +10954,9 @@
     "tags": [
       "complementary"
     ],
+    "styles": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Ivy",
@@ -10469,6 +10985,9 @@
       "systems"
     ],
     "tags": [
+      "dark"
+    ],
+    "styles": [
       "dark"
     ],
     "keywords": [],
@@ -10501,6 +11020,9 @@
     "tags": [
       "dark"
     ],
+    "styles": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Pine",
@@ -10529,6 +11051,9 @@
       "systems"
     ],
     "tags": [
+      "autumn"
+    ],
+    "styles": [
       "autumn"
     ],
     "keywords": [],
@@ -10561,6 +11086,9 @@
     "tags": [
       "tropical"
     ],
+    "styles": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Viridian",
@@ -10589,6 +11117,9 @@
       "systems"
     ],
     "tags": [
+      "tetradic"
+    ],
+    "styles": [
       "tetradic"
     ],
     "keywords": [],
@@ -10621,6 +11152,9 @@
     "tags": [
       "editorial"
     ],
+    "styles": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Warm Ivory",
@@ -10649,6 +11183,9 @@
       "systems"
     ],
     "tags": [
+      "pastel"
+    ],
+    "styles": [
       "pastel"
     ],
     "keywords": [],
@@ -10681,6 +11218,9 @@
     "tags": [
       "branding"
     ],
+    "styles": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Olive",
@@ -10709,6 +11249,9 @@
       "systems"
     ],
     "tags": [
+      "accessible"
+    ],
+    "styles": [
       "accessible"
     ],
     "keywords": [],
@@ -10741,6 +11284,9 @@
     "tags": [
       "split"
     ],
+    "styles": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Petrol Teal",
@@ -10769,6 +11315,9 @@
       "systems"
     ],
     "tags": [
+      "minimal"
+    ],
+    "styles": [
       "minimal"
     ],
     "keywords": [],
@@ -10801,6 +11350,9 @@
     "tags": [
       "fashion"
     ],
+    "styles": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -10829,6 +11381,9 @@
       "systems"
     ],
     "tags": [
+      "ui"
+    ],
+    "styles": [
       "ui"
     ],
     "keywords": [],
@@ -10861,6 +11416,9 @@
     "tags": [
       "sunset"
     ],
+    "styles": [
+      "sunset"
+    ],
     "keywords": [],
     "colorNames": [
       "Carnation",
@@ -10889,6 +11447,9 @@
       "systems"
     ],
     "tags": [
+      "fashion"
+    ],
+    "styles": [
       "fashion"
     ],
     "keywords": [],
@@ -10921,6 +11482,9 @@
     "tags": [
       "monochromatic"
     ],
+    "styles": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Dusk Juniper",
@@ -10949,6 +11513,9 @@
       "systems"
     ],
     "tags": [
+      "elegant"
+    ],
+    "styles": [
       "elegant"
     ],
     "keywords": [],
@@ -10981,6 +11548,9 @@
     "tags": [
       "tetradic"
     ],
+    "styles": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Fuchsia Violet",
@@ -11009,6 +11579,9 @@
       "systems"
     ],
     "tags": [
+      "vintage"
+    ],
+    "styles": [
       "vintage"
     ],
     "keywords": [],
@@ -11041,6 +11614,9 @@
     "tags": [
       "winter"
     ],
+    "styles": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -11069,6 +11645,9 @@
       "systems"
     ],
     "tags": [
+      "duotone"
+    ],
+    "styles": [
       "duotone"
     ],
     "keywords": [],
@@ -11101,6 +11680,9 @@
     "tags": [
       "branding"
     ],
+    "styles": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Cerise Pink",
@@ -11129,6 +11711,9 @@
       "systems"
     ],
     "tags": [
+      "spring"
+    ],
+    "styles": [
       "spring"
     ],
     "keywords": [],
@@ -11161,6 +11746,9 @@
     "tags": [
       "tech"
     ],
+    "styles": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Grape",
@@ -11189,6 +11777,9 @@
       "systems"
     ],
     "tags": [
+      "ui"
+    ],
+    "styles": [
       "ui"
     ],
     "keywords": [],
@@ -11221,6 +11812,9 @@
     "tags": [
       "modern"
     ],
+    "styles": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow Grey",
@@ -11249,6 +11843,9 @@
       "systems"
     ],
     "tags": [
+      "vintage"
+    ],
+    "styles": [
       "vintage"
     ],
     "keywords": [],
@@ -11281,6 +11878,9 @@
     "tags": [
       "complementary"
     ],
+    "styles": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Raspberry",
@@ -11309,6 +11909,9 @@
       "systems"
     ],
     "tags": [
+      "vintage"
+    ],
+    "styles": [
       "vintage"
     ],
     "keywords": [],
@@ -11341,6 +11944,9 @@
     "tags": [
       "luxury"
     ],
+    "styles": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Coal",
@@ -11369,6 +11975,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -11401,6 +12010,9 @@
     "tags": [
       "tropical"
     ],
+    "styles": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Turquoise",
@@ -11429,6 +12041,9 @@
       "systems"
     ],
     "tags": [
+      "luxury"
+    ],
+    "styles": [
       "luxury"
     ],
     "keywords": [],
@@ -11461,6 +12076,9 @@
     "tags": [
       "earthy"
     ],
+    "styles": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Bitumen",
@@ -11489,6 +12107,9 @@
       "systems"
     ],
     "tags": [
+      "autumn"
+    ],
+    "styles": [
       "autumn"
     ],
     "keywords": [],
@@ -11521,6 +12142,9 @@
     "tags": [
       "candy"
     ],
+    "styles": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Clear Dragonfruit",
@@ -11549,6 +12173,9 @@
       "systems"
     ],
     "tags": [
+      "accessible"
+    ],
+    "styles": [
       "accessible"
     ],
     "keywords": [],
@@ -11581,6 +12208,9 @@
     "tags": [
       "sunset"
     ],
+    "styles": [
+      "sunset"
+    ],
     "keywords": [],
     "colorNames": [
       "Honey Cream",
@@ -11609,6 +12239,9 @@
       "systems"
     ],
     "tags": [
+      "floral"
+    ],
+    "styles": [
       "floral"
     ],
     "keywords": [],
@@ -11641,6 +12274,9 @@
     "tags": [
       "berry"
     ],
+    "styles": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Wine Purple",
@@ -11669,6 +12305,9 @@
       "systems"
     ],
     "tags": [
+      "nature"
+    ],
+    "styles": [
       "nature"
     ],
     "keywords": [],
@@ -11701,6 +12340,9 @@
     "tags": [
       "ocean"
     ],
+    "styles": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Harbor",
@@ -11729,6 +12371,9 @@
       "systems"
     ],
     "tags": [
+      "triadic"
+    ],
+    "styles": [
       "triadic"
     ],
     "keywords": [],
@@ -11761,6 +12406,9 @@
     "tags": [
       "candy"
     ],
+    "styles": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Carnation",
@@ -11789,6 +12437,9 @@
       "systems"
     ],
     "tags": [
+      "nature"
+    ],
+    "styles": [
       "nature"
     ],
     "keywords": [],
@@ -11821,6 +12472,9 @@
     "tags": [
       "light"
     ],
+    "styles": [
+      "light"
+    ],
     "keywords": [],
     "colorNames": [
       "Cream",
@@ -11849,6 +12503,9 @@
       "systems"
     ],
     "tags": [
+      "split"
+    ],
+    "styles": [
       "split"
     ],
     "keywords": [],
@@ -11881,6 +12538,9 @@
     "tags": [
       "forest"
     ],
+    "styles": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Kelp",
@@ -11909,6 +12569,9 @@
       "systems"
     ],
     "tags": [
+      "ocean"
+    ],
+    "styles": [
       "ocean"
     ],
     "keywords": [],
@@ -11941,6 +12604,9 @@
     "tags": [
       "interior"
     ],
+    "styles": [
+      "interior"
+    ],
     "keywords": [],
     "colorNames": [
       "Parchment",
@@ -11969,6 +12635,9 @@
       "systems"
     ],
     "tags": [
+      "accessible"
+    ],
+    "styles": [
       "accessible"
     ],
     "keywords": [],
@@ -12001,6 +12670,9 @@
     "tags": [
       "dark"
     ],
+    "styles": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Jet",
@@ -12029,6 +12701,9 @@
       "systems"
     ],
     "tags": [
+      "elegant"
+    ],
+    "styles": [
       "elegant"
     ],
     "keywords": [],
@@ -12061,6 +12736,9 @@
     "tags": [
       "tropical"
     ],
+    "styles": [
+      "tropical"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Lake",
@@ -12089,6 +12767,9 @@
       "systems"
     ],
     "tags": [
+      "sunset"
+    ],
+    "styles": [
       "sunset"
     ],
     "keywords": [],
@@ -12121,6 +12802,9 @@
     "tags": [
       "retro"
     ],
+    "styles": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Hot Pink",
@@ -12149,6 +12833,9 @@
       "systems"
     ],
     "tags": [
+      "citrus"
+    ],
+    "styles": [
       "citrus"
     ],
     "keywords": [],
@@ -12181,6 +12868,9 @@
     "tags": [
       "spring"
     ],
+    "styles": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Key Lime",
@@ -12209,6 +12899,9 @@
       "systems"
     ],
     "tags": [
+      "forest"
+    ],
+    "styles": [
       "forest"
     ],
     "keywords": [],
@@ -12241,6 +12934,9 @@
     "tags": [
       "accessible-dark"
     ],
+    "styles": [
+      "accessible-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Void Black",
@@ -12269,6 +12965,9 @@
       "systems"
     ],
     "tags": [
+      "earthy"
+    ],
+    "styles": [
       "earthy"
     ],
     "keywords": [],
@@ -12301,6 +13000,9 @@
     "tags": [
       "vintage"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -12329,6 +13031,9 @@
       "systems"
     ],
     "tags": [
+      "autumn"
+    ],
+    "styles": [
       "autumn"
     ],
     "keywords": [],
@@ -12361,6 +13066,9 @@
     "tags": [
       "minimal"
     ],
+    "styles": [
+      "minimal"
+    ],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -12389,6 +13097,9 @@
       "systems"
     ],
     "tags": [
+      "accessible-dark"
+    ],
+    "styles": [
       "accessible-dark"
     ],
     "keywords": [],
@@ -12421,6 +13132,9 @@
     "tags": [
       "split"
     ],
+    "styles": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Forest Pine",
@@ -12449,6 +13163,9 @@
       "systems"
     ],
     "tags": [
+      "tetradic"
+    ],
+    "styles": [
       "tetradic"
     ],
     "keywords": [],
@@ -12481,6 +13198,9 @@
     "tags": [
       "floral"
     ],
+    "styles": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Peach Soft",
@@ -12509,6 +13229,9 @@
       "systems"
     ],
     "tags": [
+      "earthy"
+    ],
+    "styles": [
       "earthy"
     ],
     "keywords": [],
@@ -12541,6 +13264,9 @@
     "tags": [
       "interior"
     ],
+    "styles": [
+      "interior"
+    ],
     "keywords": [],
     "colorNames": [
       "Sand Pastel",
@@ -12569,6 +13295,9 @@
       "systems"
     ],
     "tags": [
+      "complementary"
+    ],
+    "styles": [
       "complementary"
     ],
     "keywords": [],
@@ -12601,6 +13330,9 @@
     "tags": [
       "candy"
     ],
+    "styles": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Hibiscus",
@@ -12629,6 +13361,9 @@
       "systems"
     ],
     "tags": [
+      "fashion"
+    ],
+    "styles": [
       "fashion"
     ],
     "keywords": [],
@@ -12661,6 +13396,9 @@
     "tags": [
       "ui-dark"
     ],
+    "styles": [
+      "ui-dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Black Amethyst",
@@ -12689,6 +13427,9 @@
       "systems"
     ],
     "tags": [
+      "modern"
+    ],
+    "styles": [
       "modern"
     ],
     "keywords": [],
@@ -12721,6 +13462,9 @@
     "tags": [
       "monochromatic"
     ],
+    "styles": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Noir Plum",
@@ -12749,6 +13493,9 @@
       "systems"
     ],
     "tags": [
+      "tech"
+    ],
+    "styles": [
       "tech"
     ],
     "keywords": [],
@@ -12781,6 +13528,9 @@
     "tags": [
       "architecture"
     ],
+    "styles": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Ash",
@@ -12809,6 +13559,9 @@
       "systems"
     ],
     "tags": [
+      "vintage"
+    ],
+    "styles": [
       "vintage"
     ],
     "keywords": [],
@@ -12841,6 +13594,9 @@
     "tags": [
       "triadic"
     ],
+    "styles": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Clay",
@@ -12869,6 +13625,9 @@
       "systems"
     ],
     "tags": [
+      "tech"
+    ],
+    "styles": [
       "tech"
     ],
     "keywords": [],
@@ -12901,6 +13660,9 @@
     "tags": [
       "split"
     ],
+    "styles": [
+      "split"
+    ],
     "keywords": [],
     "colorNames": [
       "Radiant Nightfall",
@@ -12929,6 +13691,9 @@
       "systems"
     ],
     "tags": [
+      "spring"
+    ],
+    "styles": [
       "spring"
     ],
     "keywords": [],
@@ -12961,6 +13726,9 @@
     "tags": [
       "monochromatic"
     ],
+    "styles": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Lavender Glow",
@@ -12989,6 +13757,9 @@
       "systems"
     ],
     "tags": [
+      "luxury"
+    ],
+    "styles": [
       "luxury"
     ],
     "keywords": [],
@@ -13021,6 +13792,9 @@
     "tags": [
       "coffee"
     ],
+    "styles": [
+      "coffee"
+    ],
     "keywords": [],
     "colorNames": [
       "Eggshell",
@@ -13049,6 +13823,9 @@
       "systems"
     ],
     "tags": [
+      "retro"
+    ],
+    "styles": [
       "retro"
     ],
     "keywords": [],
@@ -13081,6 +13858,9 @@
     "tags": [
       "nature"
     ],
+    "styles": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -13109,6 +13889,9 @@
       "systems"
     ],
     "tags": [
+      "desert"
+    ],
+    "styles": [
       "desert"
     ],
     "keywords": [],
@@ -13141,6 +13924,9 @@
     "tags": [
       "pastel"
     ],
+    "styles": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Blush",
@@ -13169,6 +13955,9 @@
       "systems"
     ],
     "tags": [
+      "spring"
+    ],
+    "styles": [
       "spring"
     ],
     "keywords": [],
@@ -13201,6 +13990,9 @@
     "tags": [
       "corporate"
     ],
+    "styles": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Navy Blue",
@@ -13229,6 +14021,9 @@
       "systems"
     ],
     "tags": [
+      "berry"
+    ],
+    "styles": [
       "berry"
     ],
     "keywords": [],
@@ -13261,6 +14056,9 @@
     "tags": [
       "tetradic"
     ],
+    "styles": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Lacquer Red",
@@ -13289,6 +14087,9 @@
       "systems"
     ],
     "tags": [
+      "editorial"
+    ],
+    "styles": [
       "editorial"
     ],
     "keywords": [],
@@ -13321,6 +14122,9 @@
     "tags": [
       "editorial"
     ],
+    "styles": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Ecru",
@@ -13349,6 +14153,9 @@
       "systems"
     ],
     "tags": [
+      "branding"
+    ],
+    "styles": [
       "branding"
     ],
     "keywords": [],
@@ -13381,6 +14188,9 @@
     "tags": [
       "spring"
     ],
+    "styles": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Key Lime",
@@ -13409,6 +14219,9 @@
       "systems"
     ],
     "tags": [
+      "citrus"
+    ],
+    "styles": [
       "citrus"
     ],
     "keywords": [],
@@ -13441,6 +14254,9 @@
     "tags": [
       "analogous"
     ],
+    "styles": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch",
@@ -13469,6 +14285,9 @@
       "systems"
     ],
     "tags": [
+      "forest"
+    ],
+    "styles": [
       "forest"
     ],
     "keywords": [],
@@ -13501,6 +14320,9 @@
     "tags": [
       "tech"
     ],
+    "styles": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Black",
@@ -13529,6 +14351,9 @@
       "systems"
     ],
     "tags": [
+      "analogous"
+    ],
+    "styles": [
       "analogous"
     ],
     "keywords": [],
@@ -13561,6 +14386,9 @@
     "tags": [
       "architecture"
     ],
+    "styles": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Silver",
@@ -13589,6 +14417,9 @@
       "systems"
     ],
     "tags": [
+      "tropical"
+    ],
+    "styles": [
       "tropical"
     ],
     "keywords": [],
@@ -13621,6 +14452,9 @@
     "tags": [
       "architecture"
     ],
+    "styles": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Pebble Beige",
@@ -13649,6 +14483,9 @@
       "systems"
     ],
     "tags": [
+      "forest"
+    ],
+    "styles": [
       "forest"
     ],
     "keywords": [],
@@ -13681,6 +14518,9 @@
     "tags": [
       "berry"
     ],
+    "styles": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Smoked Oxblood",
@@ -13709,6 +14549,9 @@
       "systems"
     ],
     "tags": [
+      "modern"
+    ],
+    "styles": [
       "modern"
     ],
     "keywords": [],
@@ -13741,6 +14584,9 @@
     "tags": [
       "modern"
     ],
+    "styles": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Rice Paper",
@@ -13769,6 +14615,9 @@
       "systems"
     ],
     "tags": [
+      "candy"
+    ],
+    "styles": [
       "candy"
     ],
     "keywords": [],
@@ -13801,6 +14650,9 @@
     "tags": [
       "spring"
     ],
+    "styles": [
+      "spring"
+    ],
     "keywords": [],
     "colorNames": [
       "Vanilla Yellow",
@@ -13829,6 +14681,9 @@
       "systems"
     ],
     "tags": [
+      "split"
+    ],
+    "styles": [
       "split"
     ],
     "keywords": [],
@@ -13861,6 +14716,9 @@
     "tags": [
       "earthy"
     ],
+    "styles": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Brown",
@@ -13889,6 +14747,9 @@
       "systems"
     ],
     "tags": [
+      "berry"
+    ],
+    "styles": [
       "berry"
     ],
     "keywords": [],
@@ -13921,6 +14782,9 @@
     "tags": [
       "desert"
     ],
+    "styles": [
+      "desert"
+    ],
     "keywords": [],
     "colorNames": [
       "Latte",
@@ -13949,6 +14813,9 @@
       "systems"
     ],
     "tags": [
+      "tech"
+    ],
+    "styles": [
       "tech"
     ],
     "keywords": [],
@@ -13981,6 +14848,9 @@
     "tags": [
       "tetradic"
     ],
+    "styles": [
+      "tetradic"
+    ],
     "keywords": [],
     "colorNames": [
       "Radiant Sprout",
@@ -14009,6 +14879,9 @@
       "systems"
     ],
     "tags": [
+      "minimal"
+    ],
+    "styles": [
       "minimal"
     ],
     "keywords": [],
@@ -14041,6 +14914,9 @@
     "tags": [
       "candy"
     ],
+    "styles": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Blush",
@@ -14069,6 +14945,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -14101,6 +14980,9 @@
     "tags": [
       "triadic"
     ],
+    "styles": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Gold",
@@ -14129,6 +15011,9 @@
       "systems"
     ],
     "tags": [
+      "floral"
+    ],
+    "styles": [
       "floral"
     ],
     "keywords": [],
@@ -14161,6 +15046,9 @@
     "tags": [
       "vintage"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Ecru",
@@ -14189,6 +15077,9 @@
       "systems"
     ],
     "tags": [
+      "floral"
+    ],
+    "styles": [
       "floral"
     ],
     "keywords": [],
@@ -14221,6 +15112,9 @@
     "tags": [
       "modern"
     ],
+    "styles": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Snow",
@@ -14249,6 +15143,9 @@
       "systems"
     ],
     "tags": [
+      "spring"
+    ],
+    "styles": [
       "spring"
     ],
     "keywords": [],
@@ -14281,6 +15178,9 @@
     "tags": [
       "corporate"
     ],
+    "styles": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Evergreen",
@@ -14309,6 +15209,9 @@
       "systems"
     ],
     "tags": [
+      "earthy"
+    ],
+    "styles": [
       "earthy"
     ],
     "keywords": [],
@@ -14341,6 +15244,9 @@
     "tags": [
       "berry"
     ],
+    "styles": [
+      "berry"
+    ],
     "keywords": [],
     "colorNames": [
       "Wine Dark",
@@ -14369,6 +15275,9 @@
       "systems"
     ],
     "tags": [
+      "interior"
+    ],
+    "styles": [
       "interior"
     ],
     "keywords": [],
@@ -14401,6 +15310,9 @@
     "tags": [
       "winter"
     ],
+    "styles": [
+      "winter"
+    ],
     "keywords": [],
     "colorNames": [
       "Mist White",
@@ -14429,6 +15341,9 @@
       "systems"
     ],
     "tags": [
+      "autumn"
+    ],
+    "styles": [
       "autumn"
     ],
     "keywords": [],
@@ -14461,6 +15376,9 @@
     "tags": [
       "monochromatic"
     ],
+    "styles": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Peach Glow",
@@ -14489,6 +15407,9 @@
       "systems"
     ],
     "tags": [
+      "accessible-dark"
+    ],
+    "styles": [
       "accessible-dark"
     ],
     "keywords": [],
@@ -14521,6 +15442,9 @@
     "tags": [
       "branding"
     ],
+    "styles": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Holly Green",
@@ -14549,6 +15473,9 @@
       "systems"
     ],
     "tags": [
+      "dark"
+    ],
+    "styles": [
       "dark"
     ],
     "keywords": [],
@@ -14581,6 +15508,9 @@
     "tags": [
       "complementary"
     ],
+    "styles": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Indigo",
@@ -14609,6 +15539,9 @@
       "systems"
     ],
     "tags": [
+      "neutral"
+    ],
+    "styles": [
       "neutral"
     ],
     "keywords": [],
@@ -14641,6 +15574,9 @@
     "tags": [
       "earthy"
     ],
+    "styles": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Charcoal Red",
@@ -14669,6 +15605,9 @@
       "systems"
     ],
     "tags": [
+      "tropical"
+    ],
+    "styles": [
       "tropical"
     ],
     "keywords": [],
@@ -14701,6 +15640,9 @@
     "tags": [
       "candy"
     ],
+    "styles": [
+      "candy"
+    ],
     "keywords": [],
     "colorNames": [
       "Flamingo",
@@ -14729,6 +15671,9 @@
       "systems"
     ],
     "tags": [
+      "vibrant"
+    ],
+    "styles": [
       "vibrant"
     ],
     "keywords": [],
@@ -14761,6 +15706,9 @@
     "tags": [
       "forest"
     ],
+    "styles": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Pitch Green",
@@ -14789,6 +15737,9 @@
       "systems"
     ],
     "tags": [
+      "luxury"
+    ],
+    "styles": [
       "luxury"
     ],
     "keywords": [],
@@ -14821,6 +15772,9 @@
     "tags": [
       "duotone"
     ],
+    "styles": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Cacao",
@@ -14849,6 +15803,9 @@
       "systems"
     ],
     "tags": [
+      "editorial"
+    ],
+    "styles": [
       "editorial"
     ],
     "keywords": [],
@@ -14881,6 +15838,9 @@
     "tags": [
       "coffee"
     ],
+    "styles": [
+      "coffee"
+    ],
     "keywords": [],
     "colorNames": [
       "Flax",
@@ -14909,6 +15869,9 @@
       "systems"
     ],
     "tags": [
+      "modern"
+    ],
+    "styles": [
       "modern"
     ],
     "keywords": [],
@@ -14941,6 +15904,9 @@
     "tags": [
       "editorial"
     ],
+    "styles": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Parchment Cream",
@@ -14969,6 +15935,9 @@
       "systems"
     ],
     "tags": [
+      "modern"
+    ],
+    "styles": [
       "modern"
     ],
     "keywords": [],
@@ -15001,6 +15970,9 @@
     "tags": [
       "duotone"
     ],
+    "styles": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Spruce",
@@ -15029,6 +16001,9 @@
       "systems"
     ],
     "tags": [
+      "elegant"
+    ],
+    "styles": [
       "elegant"
     ],
     "keywords": [],
@@ -15061,6 +16036,9 @@
     "tags": [
       "complementary"
     ],
+    "styles": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Walnut Dark",
@@ -15089,6 +16067,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -15121,6 +16102,9 @@
     "tags": [
       "architecture"
     ],
+    "styles": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Greige Light",
@@ -15149,6 +16133,9 @@
       "systems"
     ],
     "tags": [
+      "ocean"
+    ],
+    "styles": [
       "ocean"
     ],
     "keywords": [],
@@ -15181,6 +16168,9 @@
     "tags": [
       "accessible"
     ],
+    "styles": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Ice Glass",
@@ -15209,6 +16199,9 @@
       "systems"
     ],
     "tags": [
+      "corporate"
+    ],
+    "styles": [
       "corporate"
     ],
     "keywords": [],
@@ -15241,6 +16234,9 @@
     "tags": [
       "accessible"
     ],
+    "styles": [
+      "accessible"
+    ],
     "keywords": [],
     "colorNames": [
       "Frost White",
@@ -15269,6 +16265,9 @@
       "systems"
     ],
     "tags": [
+      "ocean"
+    ],
+    "styles": [
       "ocean"
     ],
     "keywords": [],
@@ -15301,6 +16300,9 @@
     "tags": [
       "pastel"
     ],
+    "styles": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Vanilla Yellow",
@@ -15329,6 +16331,9 @@
       "systems"
     ],
     "tags": [
+      "architecture"
+    ],
+    "styles": [
       "architecture"
     ],
     "keywords": [],
@@ -15361,6 +16366,9 @@
     "tags": [
       "vintage"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Dune",
@@ -15389,6 +16397,9 @@
       "systems"
     ],
     "tags": [
+      "ui-dark"
+    ],
+    "styles": [
       "ui-dark"
     ],
     "keywords": [],
@@ -15421,6 +16432,9 @@
     "tags": [
       "complementary"
     ],
+    "styles": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine Teal",
@@ -15449,6 +16463,9 @@
       "systems"
     ],
     "tags": [
+      "architecture"
+    ],
+    "styles": [
       "architecture"
     ],
     "keywords": [],
@@ -15481,6 +16498,9 @@
     "tags": [
       "vibrant"
     ],
+    "styles": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Turquoise",
@@ -15509,6 +16529,9 @@
       "systems"
     ],
     "tags": [
+      "analogous"
+    ],
+    "styles": [
       "analogous"
     ],
     "keywords": [],
@@ -15541,6 +16564,9 @@
     "tags": [
       "branding"
     ],
+    "styles": [
+      "branding"
+    ],
     "keywords": [],
     "colorNames": [
       "Neon Midnight",
@@ -15569,6 +16595,9 @@
       "systems"
     ],
     "tags": [
+      "winter"
+    ],
+    "styles": [
       "winter"
     ],
     "keywords": [],
@@ -15601,6 +16630,9 @@
     "tags": [
       "vintage"
     ],
+    "styles": [
+      "vintage"
+    ],
     "keywords": [],
     "colorNames": [
       "Oatmeal",
@@ -15629,6 +16661,9 @@
       "systems"
     ],
     "tags": [
+      "tech"
+    ],
+    "styles": [
       "tech"
     ],
     "keywords": [],
@@ -15661,6 +16696,9 @@
     "tags": [
       "vibrant"
     ],
+    "styles": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Amber",
@@ -15689,6 +16727,9 @@
       "systems"
     ],
     "tags": [
+      "accessible"
+    ],
+    "styles": [
       "accessible"
     ],
     "keywords": [],
@@ -15721,6 +16762,9 @@
     "tags": [
       "triadic"
     ],
+    "styles": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Raspberry",
@@ -15749,6 +16793,9 @@
       "systems"
     ],
     "tags": [
+      "monochromatic"
+    ],
+    "styles": [
       "monochromatic"
     ],
     "keywords": [],
@@ -15781,6 +16828,9 @@
     "tags": [
       "triadic"
     ],
+    "styles": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Viridian",
@@ -15809,6 +16859,9 @@
       "systems"
     ],
     "tags": [
+      "dark"
+    ],
+    "styles": [
       "dark"
     ],
     "keywords": [],
@@ -15841,6 +16894,9 @@
     "tags": [
       "corporate"
     ],
+    "styles": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Pine",
@@ -15869,6 +16925,9 @@
       "systems"
     ],
     "tags": [
+      "nature"
+    ],
+    "styles": [
       "nature"
     ],
     "keywords": [],
@@ -15901,6 +16960,9 @@
     "tags": [
       "elegant"
     ],
+    "styles": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Bone Paper",
@@ -15929,6 +16991,9 @@
       "systems"
     ],
     "tags": [
+      "nature"
+    ],
+    "styles": [
       "nature"
     ],
     "keywords": [],
@@ -15961,6 +17026,9 @@
     "tags": [
       "dark"
     ],
+    "styles": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Midnight Black",
@@ -15989,6 +17057,9 @@
       "systems"
     ],
     "tags": [
+      "coffee"
+    ],
+    "styles": [
       "coffee"
     ],
     "keywords": [],
@@ -16021,6 +17092,9 @@
     "tags": [
       "monochromatic"
     ],
+    "styles": [
+      "monochromatic"
+    ],
     "keywords": [],
     "colorNames": [
       "Celery Pastel",
@@ -16049,6 +17123,9 @@
       "systems"
     ],
     "tags": [
+      "coffee"
+    ],
+    "styles": [
       "coffee"
     ],
     "keywords": [],
@@ -16081,6 +17158,9 @@
     "tags": [
       "pastel"
     ],
+    "styles": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Apricot Light",
@@ -16109,6 +17189,9 @@
       "systems"
     ],
     "tags": [
+      "light"
+    ],
+    "styles": [
       "light"
     ],
     "keywords": [],
@@ -16141,6 +17224,9 @@
     "tags": [
       "duotone"
     ],
+    "styles": [
+      "duotone"
+    ],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -16169,6 +17255,9 @@
       "systems"
     ],
     "tags": [
+      "duotone"
+    ],
+    "styles": [
       "duotone"
     ],
     "keywords": [],
@@ -16201,6 +17290,9 @@
     "tags": [
       "editorial"
     ],
+    "styles": [
+      "editorial"
+    ],
     "keywords": [],
     "colorNames": [
       "Warm Cream",
@@ -16229,6 +17321,9 @@
       "systems"
     ],
     "tags": [
+      "modern"
+    ],
+    "styles": [
       "modern"
     ],
     "keywords": [],
@@ -16261,6 +17356,9 @@
     "tags": [
       "floral"
     ],
+    "styles": [
+      "floral"
+    ],
     "keywords": [],
     "colorNames": [
       "Sky Pastel",
@@ -16289,6 +17387,9 @@
       "systems"
     ],
     "tags": [
+      "corporate"
+    ],
+    "styles": [
       "corporate"
     ],
     "keywords": [],
@@ -16321,6 +17422,9 @@
     "tags": [
       "vibrant"
     ],
+    "styles": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Rich Heather",
@@ -16349,6 +17453,9 @@
       "systems"
     ],
     "tags": [
+      "accessible-dark"
+    ],
+    "styles": [
       "accessible-dark"
     ],
     "keywords": [],
@@ -16381,6 +17488,9 @@
     "tags": [
       "earthy"
     ],
+    "styles": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Blackcurrant",
@@ -16409,6 +17519,9 @@
       "systems"
     ],
     "tags": [
+      "fashion"
+    ],
+    "styles": [
       "fashion"
     ],
     "keywords": [],
@@ -16441,6 +17554,9 @@
     "tags": [
       "complementary"
     ],
+    "styles": [
+      "complementary"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine Needle",
@@ -16469,6 +17585,9 @@
       "systems"
     ],
     "tags": [
+      "monochromatic"
+    ],
+    "styles": [
       "monochromatic"
     ],
     "keywords": [],
@@ -16501,6 +17620,9 @@
     "tags": [
       "architecture"
     ],
+    "styles": [
+      "architecture"
+    ],
     "keywords": [],
     "colorNames": [
       "Silver",
@@ -16529,6 +17651,9 @@
       "systems"
     ],
     "tags": [
+      "ui"
+    ],
+    "styles": [
       "ui"
     ],
     "keywords": [],
@@ -16561,6 +17686,9 @@
     "tags": [
       "luxury"
     ],
+    "styles": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Abyss",
@@ -16589,6 +17717,9 @@
       "systems"
     ],
     "tags": [
+      "dark"
+    ],
+    "styles": [
       "dark"
     ],
     "keywords": [],
@@ -16621,6 +17752,9 @@
     "tags": [
       "ui"
     ],
+    "styles": [
+      "ui"
+    ],
     "keywords": [],
     "colorNames": [
       "Milk Glass",
@@ -16649,6 +17783,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -16681,6 +17818,9 @@
     "tags": [
       "luxury"
     ],
+    "styles": [
+      "luxury"
+    ],
     "keywords": [],
     "colorNames": [
       "Void Black",
@@ -16709,6 +17849,9 @@
       "systems"
     ],
     "tags": [
+      "luxury"
+    ],
+    "styles": [
       "luxury"
     ],
     "keywords": [],
@@ -16741,6 +17884,9 @@
     "tags": [
       "nature"
     ],
+    "styles": [
+      "nature"
+    ],
     "keywords": [],
     "colorNames": [
       "Pine",
@@ -16769,6 +17915,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -16801,6 +17950,9 @@
     "tags": [
       "vibrant"
     ],
+    "styles": [
+      "vibrant"
+    ],
     "keywords": [],
     "colorNames": [
       "Azure",
@@ -16829,6 +17981,9 @@
       "systems"
     ],
     "tags": [
+      "desert"
+    ],
+    "styles": [
       "desert"
     ],
     "keywords": [],
@@ -16861,6 +18016,9 @@
     "tags": [
       "tech"
     ],
+    "styles": [
+      "tech"
+    ],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -16889,6 +18047,9 @@
       "systems"
     ],
     "tags": [
+      "pastel"
+    ],
+    "styles": [
       "pastel"
     ],
     "keywords": [],
@@ -16921,6 +18082,9 @@
     "tags": [
       "triadic"
     ],
+    "styles": [
+      "triadic"
+    ],
     "keywords": [],
     "colorNames": [
       "Periwinkle",
@@ -16949,6 +18113,9 @@
       "systems"
     ],
     "tags": [
+      "minimal"
+    ],
+    "styles": [
       "minimal"
     ],
     "keywords": [],
@@ -16981,6 +18148,9 @@
     "tags": [
       "retro"
     ],
+    "styles": [
+      "retro"
+    ],
     "keywords": [],
     "colorNames": [
       "Flame Orange",
@@ -17009,6 +18179,9 @@
       "systems"
     ],
     "tags": [
+      "candy"
+    ],
+    "styles": [
       "candy"
     ],
     "keywords": [],
@@ -17041,6 +18214,9 @@
     "tags": [
       "corporate"
     ],
+    "styles": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Deep Sea",
@@ -17069,6 +18245,9 @@
       "systems"
     ],
     "tags": [
+      "winter"
+    ],
+    "styles": [
       "winter"
     ],
     "keywords": [],
@@ -17101,6 +18280,9 @@
     "tags": [
       "analogous"
     ],
+    "styles": [
+      "analogous"
+    ],
     "keywords": [],
     "colorNames": [
       "Pale Sky",
@@ -17129,6 +18311,9 @@
       "systems"
     ],
     "tags": [
+      "architecture"
+    ],
+    "styles": [
       "architecture"
     ],
     "keywords": [],
@@ -17161,6 +18346,9 @@
     "tags": [
       "fashion"
     ],
+    "styles": [
+      "fashion"
+    ],
     "keywords": [],
     "colorNames": [
       "Void",
@@ -17189,6 +18377,9 @@
       "systems"
     ],
     "tags": [
+      "complementary"
+    ],
+    "styles": [
       "complementary"
     ],
     "keywords": [],
@@ -17221,6 +18412,9 @@
     "tags": [
       "elegant"
     ],
+    "styles": [
+      "elegant"
+    ],
     "keywords": [],
     "colorNames": [
       "Meringue",
@@ -17249,6 +18443,9 @@
       "systems"
     ],
     "tags": [
+      "ui"
+    ],
+    "styles": [
       "ui"
     ],
     "keywords": [],
@@ -17281,6 +18478,9 @@
     "tags": [
       "ocean"
     ],
+    "styles": [
+      "ocean"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Marine",
@@ -17309,6 +18509,9 @@
       "systems"
     ],
     "tags": [
+      "ocean"
+    ],
+    "styles": [
       "ocean"
     ],
     "keywords": [],
@@ -17341,6 +18544,9 @@
     "tags": [
       "earthy"
     ],
+    "styles": [
+      "earthy"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Brown",
@@ -17369,6 +18575,9 @@
       "systems"
     ],
     "tags": [
+      "winter"
+    ],
+    "styles": [
       "winter"
     ],
     "keywords": [],
@@ -17401,6 +18610,9 @@
     "tags": [
       "dark"
     ],
+    "styles": [
+      "dark"
+    ],
     "keywords": [],
     "colorNames": [
       "Ink Blue Black",
@@ -17429,6 +18641,9 @@
       "systems"
     ],
     "tags": [
+      "accessible-dark"
+    ],
+    "styles": [
       "accessible-dark"
     ],
     "keywords": [],
@@ -17461,6 +18676,9 @@
     "tags": [
       "forest"
     ],
+    "styles": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Evergreen",
@@ -17489,6 +18707,9 @@
       "systems"
     ],
     "tags": [
+      "elegant"
+    ],
+    "styles": [
       "elegant"
     ],
     "keywords": [],
@@ -17521,6 +18742,9 @@
     "tags": [
       "forest"
     ],
+    "styles": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Forest Ink",
@@ -17549,6 +18773,9 @@
       "systems"
     ],
     "tags": [
+      "ui"
+    ],
+    "styles": [
       "ui"
     ],
     "keywords": [],
@@ -17581,6 +18808,9 @@
     "tags": [
       "neon"
     ],
+    "styles": [
+      "neon"
+    ],
     "keywords": [],
     "colorNames": [
       "Onyx",
@@ -17609,6 +18839,9 @@
       "systems"
     ],
     "tags": [
+      "split"
+    ],
+    "styles": [
       "split"
     ],
     "keywords": [],
@@ -17641,6 +18874,9 @@
     "tags": [
       "forest"
     ],
+    "styles": [
+      "forest"
+    ],
     "keywords": [],
     "colorNames": [
       "Kelp",
@@ -17669,6 +18905,9 @@
       "systems"
     ],
     "tags": [
+      "neon"
+    ],
+    "styles": [
       "neon"
     ],
     "keywords": [],
@@ -17701,6 +18940,9 @@
     "tags": [
       "corporate"
     ],
+    "styles": [
+      "corporate"
+    ],
     "keywords": [],
     "colorNames": [
       "Oxblood",
@@ -17729,6 +18971,9 @@
       "systems"
     ],
     "tags": [
+      "accessible"
+    ],
+    "styles": [
       "accessible"
     ],
     "keywords": [],
@@ -17761,6 +19006,9 @@
     "tags": [
       "modern"
     ],
+    "styles": [
+      "modern"
+    ],
     "keywords": [],
     "colorNames": [
       "Paper White",
@@ -17789,6 +19037,9 @@
       "systems"
     ],
     "tags": [
+      "candy"
+    ],
+    "styles": [
       "candy"
     ],
     "keywords": [],
@@ -17821,6 +19072,9 @@
     "tags": [
       "citrus"
     ],
+    "styles": [
+      "citrus"
+    ],
     "keywords": [],
     "colorNames": [
       "Washed Honey",
@@ -17851,6 +19105,9 @@
     "tags": [
       "pastel"
     ],
+    "styles": [
+      "pastel"
+    ],
     "keywords": [],
     "colorNames": [
       "Periwinkle Cream",
@@ -17879,6 +19136,9 @@
       "systems"
     ],
     "tags": [
+      "floral"
+    ],
+    "styles": [
       "floral"
     ],
     "keywords": [],

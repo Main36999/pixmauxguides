@@ -271,6 +271,14 @@
     var terms = words.filter(function (term, i, all) {
       return all.indexOf(term) === i;
     });
+    // Style precedence is a product decision for ONE query only: "pastel"
+    // (after the normalization above, so "Pastel", "PASTEL" and "pastel."
+    // count). It ranks palettes made by a Pastel recipe (their `styles`,
+    // content.js styleLabels()) before those that only have "Pastel" in a
+    // colour name. Every other query, including other style names, ranks
+    // exactly as before — see scoreRecord().
+    var PRECEDENCE_STYLE = "pastel";
+    var stylePrecedence = terms.length === 1 && terms[0] === PRECEDENCE_STYLE;
     // The query as a whole, for the exact and phrase bonuses: as typed (so a
     // hyphenated slug such as "color-contrast-systems" or a title such as
     // "Bare Ledger (Dark)" still matches exactly), as its words, and with
@@ -368,6 +376,9 @@
         description: lower(record.description),
         category: categorySearchTextFor(record, sharedByType),
         tags: record.tags.map(lower),
+        // A palette's style labels (recipe provenance, content.js styleLabels()):
+        // a subset of its tags. Guides have none.
+        styles: (Array.isArray(record.styles) ? record.styles : []).map(lower),
         keywords: record.keywords.map(lower),
         searchText: lower(record.searchText),
         colors: Array.isArray(record.colors) ? record.colors.map(lower) : [],
@@ -390,13 +401,21 @@
     // both words of "dark blue" (82.5). An exact whole-query match counts
     // as matching every term.
     //
+    // It also returns `styled`: 1 when the query is "pastel" (see
+    // stylePrecedence) and the record carries the Pastel style, otherwise 0.
+    // runSearch() ranks on it right after `matched`, so a Pastel recipe
+    // palette comes before one that only has "Pastel" in a colour name, such
+    // as "Sand Pastel" (name 50 outscores tag 30, so the score alone put every
+    // such mention first). No weight or score changes; for every other query
+    // `styled` is 0 on every record and the order is unchanged.
+    //
     // It also returns `why`, the match explanation the result card shows
     // (see matchReasons()): for each field, whether — and on which of its
     // values — a weight above was actually earned. It is written down at
     // the same line that adds that weight, so it can only ever name a field
     // the score came from, and it never feeds back into the score.
     function scoreRecord(p) {
-      var result = { score: 0, matched: 0, why: newWhy() };
+      var result = { score: 0, matched: 0, styled: 0, why: newWhy() };
       if (!terms.length) return result;
       var why = result.why;
 
@@ -454,6 +473,8 @@
           if (at !== -1) addOnce(why.colorNames, p.record.colorNames[at]);
         });
       }
+
+      if (stylePrecedence && p.styles.indexOf(PRECEDENCE_STYLE) !== -1) result.styled = 1;
 
       if (
         terms.length > 1 &&
@@ -521,13 +542,21 @@
       }
       if (why.title) add("title");
       if (why.colorNames.length) add("color name", why.colorNames);
-      if (why.tags.length)
-        add(
-          "theme",
-          why.tags.map(function (t) {
-            return t.charAt(0).toUpperCase() + t.slice(1);
-          }),
+      // A matched tag that is one of the record's styles (recipe provenance)
+      // is named as a style. Any other tag — the legacy colour-derived
+      // labels such as Cool or Dark — keeps the older "theme" wording.
+      var styles = (record.styles || []).map(function (s) {
+        return String(s).toLowerCase();
+      });
+      var styleTags = [];
+      var otherTags = [];
+      why.tags.forEach(function (t) {
+        (styles.indexOf(String(t).toLowerCase()) !== -1 ? styleTags : otherTags).push(
+          t.charAt(0).toUpperCase() + t.slice(1),
         );
+      });
+      if (styleTags.length) add("style", styleTags);
+      if (otherTags.length) add("theme", otherTags);
       if (why.hex.length)
         add(
           "HEX",
@@ -564,14 +593,22 @@
         if (!ignoreFilters && !passesFilters(p.record)) return;
         var result = scoreRecord(p);
         if (result.score > 0) {
-          scored.push({ record: p.record, score: result.score, matched: result.matched, why: result.why });
+          scored.push({
+            record: p.record,
+            score: result.score,
+            matched: result.matched,
+            styled: result.styled,
+            why: result.why,
+          });
         }
       });
-      // More of the query's distinct terms matched first, then the higher
-      // combined score (spec §12); ties broken by title so the same search
-      // renders in a stable order every time.
+      // More of the query's distinct terms matched first, then — for the
+      // query "pastel" only — the Pastel style (see scoreRecord()), then the
+      // higher combined score (spec §12); ties broken by title so the same
+      // search renders in a stable order every time.
       scored.sort(function (a, b) {
         if (b.matched !== a.matched) return b.matched - a.matched;
+        if (b.styled !== a.styled) return b.styled - a.styled;
         if (b.score !== a.score) return b.score - a.score;
         return a.record.title.localeCompare(b.record.title);
       });
@@ -979,6 +1016,7 @@
         description: "",
         categories: ["color-theory", "systems"],
         tags: ["cool", "night", "dark"],
+        styles: ["night"],
         keywords: [],
         colorNames: ["Nightshade", "Twilight", "Ultraviolet", "Azure"],
         searchText: "starless frost p001 cool night dark",

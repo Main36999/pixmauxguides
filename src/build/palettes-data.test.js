@@ -64,6 +64,29 @@ test("only p301–p600 carry tags in the data file, one label each", () => {
   });
 });
 
+// The Pastel style is recipe provenance (src/build/content.js styleLabels()):
+// a generated palette has it only if the generator's "pastel" recipe made it,
+// and p041–p300, which no documented recipe made, have no style at all.
+test("the current Pastel style is exactly the pastel recipe's output; p041–p300 have none", () => {
+  // The test above proves each p301–p600 tag is the generator's own recipe
+  // label (generate() is not re-run here: its seeded stream is module-level,
+  // so a second call in one process would continue it, not repeat it).
+  const content = require("./content.js");
+  const fromRecipe = palettes.slice(300).filter((p) => p.tags[0] === "pastel").map((p) => p.id);
+  assert.ok(fromRecipe.length > 0, "the pastel recipe made no palette");
+
+  const index = content.buildContentIndex(content.load(config), config).records;
+  const styleOf = new Map(index.filter((r) => r.type === "palette").map((r) => [r.slug, r.styles]));
+  palettes.slice(300).forEach((p) => {
+    assert.deepStrictEqual(styleOf.get(p.id), p.tags, `${p.id}: style is not its recipe label`);
+  });
+  assert.deepStrictEqual(
+    palettes.slice(300).filter((p) => styleOf.get(p.id).includes("pastel")).map((p) => p.id),
+    fromRecipe,
+  );
+  palettes.slice(40, 300).forEach((p) => assert.deepStrictEqual(styleOf.get(p.id), [], `${p.id} has a style`));
+});
+
 // ---------------------------------------------------------------------
 // the validator itself
 // ---------------------------------------------------------------------

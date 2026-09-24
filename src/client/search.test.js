@@ -45,6 +45,10 @@ const START = SOURCE.indexOf("(function initSearchPage() {");
 const END = SOURCE.lastIndexOf("})();") + "})();".length;
 assert.ok(START !== -1 && END > START, "could not find initSearchPage() in search.js");
 const INIT_SEARCH_PAGE = SOURCE.slice(START, END);
+// The same page with one read-only hook, so a test can read each result's
+// score and matched-term count in ranked order. Nothing else differs.
+assert.ok(INIT_SEARCH_PAGE.includes("scored.sort("), "could not find the ranking sort in search.js");
+const INIT_SEARCH_PAGE_SCORED = INIT_SEARCH_PAGE.replace("scored.sort(", "globalThis.__scored = scored; scored.sort(");
 
 function element(created) {
   const attrs = {};
@@ -82,7 +86,7 @@ function element(created) {
  * `rawSearch` replaces the whole query string, for input a browser could
  * hand the page but encodeURIComponent never produces.
  */
-async function search(query, { extra = "", rawSearch } = {}) {
+async function search(query, { extra = "", rawSearch, scores = false } = {}) {
   const els = {};
   const created = []; // elements the page builds itself, in creation order
   let lastUrl = null; // the last history.replaceState() URL
@@ -133,7 +137,7 @@ async function search(query, { extra = "", rawSearch } = {}) {
           ),
       }),
   };
-  vm.runInNewContext(INIT_SEARCH_PAGE, context);
+  vm.runInNewContext(scores ? INIT_SEARCH_PAGE_SCORED : INIT_SEARCH_PAGE, context);
   await new Promise((resolve) => setImmediate(resolve)); // let the fetches settle
 
   // The empty state builds two elements of its own: the filtered message
@@ -171,6 +175,10 @@ async function search(query, { extra = "", rawSearch } = {}) {
       filteredMessage: shown(filteredMessageEl) ? filteredMessageEl.textContent : null,
       clearButtonShown: shown(clearButton),
       url: lastUrl,
+      // With { scores: true }: [record id, score, terms matched], ranked order.
+      // Array.from builds it in this realm: an array made inside the vm has
+      // another Array prototype, which deepStrictEqual would reject.
+      scored: scores ? Array.from(context.__scored || [], (s) => [s.record.id, s.score, s.matched]) : undefined,
       focused,
       /** Clicks the empty state's "Clear filters" button; returns the new state. */
       clearFilters() {
@@ -763,6 +771,94 @@ test('a label no other text contains finds exactly its tagged palettes: "modern"
 });
 
 // ---------------------------------------------------------------------
+// the Pastel style (recipe provenance — src/build/content.js styleLabels())
+// ---------------------------------------------------------------------
+// For the query "pastel" only (product decision): palettes made by a Pastel
+// recipe come first, then the palettes that only have "Pastel" in a colour
+// name — still found, never dropped. The style comes from provenance alone,
+// never from colours. Every other query ranks exactly as at commit 60edbbe.
+
+const FP8 = ["p007", "p009", "p020", "p024"];
+const pastelStyled = () =>
+  INDEX.filter((r) => r.type === "palette" && r.styles.includes("pastel")).map((r) => r.slug);
+const nameSaysPastel = (id) => RECORD.get(id).colorNames.some((n) => /pastel/i.test(n));
+
+test('"pastel": every Pastel style palette ranks before every colour-name-only match', async () => {
+  const styled = pastelStyled();
+  assert.strictEqual(styled.length, 12, "fixture assumption: 4 legacy + 8 current Pastel recipe palettes");
+  const { ids, matches } = await search("pastel");
+  assert.strictEqual(new Set(ids).size, ids.length, "a result is listed twice");
+
+  const first = ids.slice(0, styled.length);
+  assert.deepStrictEqual(first.slice().sort(), styled.slice().sort(), "the first results are not the Pastel style");
+  first.forEach((id) => assert.strictEqual(matches[`/palettes#${id}`], "Matched in style: Pastel", id));
+
+  assert.strictEqual(ids.length, 35, "total results");
+  const rest = ids.slice(styled.length);
+  assert.strictEqual(rest.length, 23, "colour-name-only matches must stay searchable");
+  rest.forEach((id) => {
+    assert.ok(!styled.includes(id), `${id} listed after the styles`);
+    assert.ok(nameSaysPastel(id), `${id} is neither a Pastel style nor a "Pastel" colour name`);
+    assert.match(matches[`/palettes#${id}`], /color name: .*Pastel/, id);
+  });
+  // Every palette with a "Pastel" colour name is still found.
+  PALETTES.filter((p) => nameSaysPastel(p.id)).forEach((p) => assert.ok(ids.includes(p.id), `lost ${p.id}`));
+});
+
+test('"pastel": no dark variant, no p041–p300 palette and no guide is a Pastel style match', async () => {
+  const { ids, hrefs } = await search("pastel");
+  FP8.forEach((id) => assert.ok(!ids.includes(id), `${id} (dark variant) still matches "pastel"`));
+  pastelStyled().forEach((id) => {
+    const n = +id.slice(1);
+    assert.ok(n <= 40 || n > 300, `${id} (p041–p300) carries the Pastel style`);
+  });
+  hrefs.forEach((href) => assert.ok(href.startsWith("/palettes#"), `unexpected result ${href}`));
+});
+
+for (const spelling of ["Pastel", "PASTEL"]) {
+  test(`"${spelling}" finds exactly what "pastel" finds, in the same order`, async () => {
+    await assertSameResults(spelling, "pastel");
+  });
+}
+
+test('"Pastel" and "PASTEL" rank the same 12 styles before the same 23 colour names, with the same scores', async () => {
+  const base = await search("pastel", { scores: true });
+  for (const spelling of ["Pastel", "PASTEL"]) {
+    const r = await search(spelling, { scores: true });
+    assert.deepStrictEqual(r.scored, base.scored, spelling);
+    assert.deepStrictEqual(Object.values(r.matches), Object.values(base.matches), spelling);
+  }
+});
+
+// Queries the Pastel decision must not move, pinned to their exact ranking at
+// commit 60edbbe — other style names, legacy tags, guides and plain words.
+// scripts/qa/fixtures/search-ranking-60edbbe.json was captured by running
+// that commit's search.js on that commit's content-index.json.
+const RANKING_60EDBBE = JSON.parse(
+  fs.readFileSync(path.join(config.paths.root, "scripts", "qa", "fixtures", "search-ranking-60edbbe.json"), "utf8"),
+).queries;
+
+for (const [query, expected] of Object.entries(RANKING_60EDBBE)) {
+  test(`"${query}" ranks exactly as at 60edbbe: same results, order, scores and matched counts`, async () => {
+    const r = await search(query, { scores: true });
+    assert.deepStrictEqual(r.scored, expected, `"${query}" differs from 60edbbe`);
+    // Guides stay where they were.
+    const guidesAt = (rows) => rows.map((row, i) => row[0].startsWith("guide:") && `${row[0]}@${i}`).filter(Boolean);
+    assert.deepStrictEqual(guidesAt(r.scored), guidesAt(expected), "guide placement");
+    assert.strictEqual(r.hrefs.length, expected.length, "rendered count");
+  });
+}
+
+test("no generic style promotion: a style other than Pastel does not outrank a colour name", async () => {
+  // At 60edbbe a "spring" colour-name match ranked first, above the Spring
+  // recipe palettes; it still does.
+  const styled = new Set(INDEX.filter((r) => r.type === "palette" && r.styles.includes("spring")).map((r) => r.slug));
+  const { ids } = await search("spring");
+  assert.ok(styled.size > 0, "fixture assumption: some palette has the Spring style");
+  assert.ok(!styled.has(ids[0]), `"spring" now leads with the Spring style (${ids[0]})`);
+});
+
+// ---------------------------------------------------------------------
 // match explanation
 // ---------------------------------------------------------------------
 // Each card says why it matched, from the fields scoreRecord() scored it
@@ -780,15 +876,22 @@ test('a title match says so: "Starless" on p001', async () => {
   assert.strictEqual(matches["/palettes#p001"], "Matched in title");
 });
 
-test('a generator theme label is named as a theme: "modern"', async () => {
+test('a generator recipe label is named as a style: "modern"', async () => {
   const { matches, hrefs } = await search("modern");
   assert.ok(hrefs.length > 0);
-  hrefs.forEach((href) => assert.strictEqual(matches[href], "Matched in theme: Modern", href));
+  hrefs.forEach((href) => assert.strictEqual(matches[href], "Matched in style: Modern", href));
 });
 
 test('several fields read as one concise line: "night" on p001', async () => {
   const { matches } = await search("night");
-  assert.strictEqual(matches["/palettes#p001"], "Matched in color name: Nightshade · theme: Night");
+  assert.strictEqual(matches["/palettes#p001"], "Matched in color name: Nightshade · style: Night");
+});
+
+test("a tag that is not a style keeps its wording: legacy Cool, and Night on a dark variant", async () => {
+  // Cool is computed from the background colour (not a recipe); a legacy
+  // dark variant was not made by a recipe, so its inherited Night is no style.
+  assert.strictEqual((await search("cool")).matches["/palettes#p021"], "Matched in theme: Cool");
+  assert.strictEqual((await search("night")).matches["/palettes#p007"], "Matched in theme: Night");
 });
 
 test("a colour name only matched inside a word is not claimed over a whole-word one", async () => {

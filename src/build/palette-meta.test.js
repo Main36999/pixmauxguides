@@ -27,6 +27,16 @@
  *
  * The fixture is the contract. If a test here fails, the migration lost or
  * changed data; do not update the fixture to match.
+ *
+ * ONE APPROVED CORRECTION SINCE (the Pastel style contract)
+ *
+ * "pastel" is a recipe/style provenance label (src/build/content.js
+ * styleLabels()). The legacy dark-mode copies of the Pastel palettes —
+ * p007, p009, p020, p024 — inherited it from their light originals without
+ * being made by the recipe, so it was removed from their tags and moods by
+ * product decision. The fixture is still not edited: PASTEL_CORRECTED below
+ * is the only difference allowed, and it is applied to the approved records
+ * in the open. Each record's `styles` is a later field, checked on its own.
  */
 
 "use strict";
@@ -70,6 +80,24 @@ const meta = JSON.parse(
 // JSON.stringify drops it, so key ORDER is still compared exactly.)
 const dataById = new Map(model.palettes.map((p) => [p.id, p]));
 
+// The Pastel style contract (see the header): these four records drop
+// "pastel" from their tags and their searchText, and nothing else.
+const PASTEL_CORRECTED = ["p007", "p009", "p020", "p024"];
+
+/** The approved record as the Pastel contract requires it. */
+function contractRecord(approved) {
+  if (!PASTEL_CORRECTED.includes(approved.slug)) return approved;
+  return {
+    ...approved,
+    tags: approved.tags.filter((t) => t !== "pastel"),
+    searchText: approved.searchText
+      .split(" ")
+      .filter((w) => w !== "pastel")
+      .join(" "),
+  };
+}
+const CONTRACT = APPROVED.map(contractRecord);
+
 /** The approved searchText plus the colour-name words it did not already hold. */
 function expectedSearchText(approved) {
   const words = approved.searchText.split(" ");
@@ -94,16 +122,16 @@ test("every approved palette record is reproduced, plus its colour names", () =>
     `built ${allPalettes.length} palette records, approved has ${APPROVED.length}`,
   );
 
-  APPROVED.forEach((approved, i) => {
+  CONTRACT.forEach((approved, i) => {
     const actual = builtPalettes[i];
     // JSON.stringify compares key ORDER as well as values: a record with the
     // right fields in the wrong order would change content-index.json's bytes
     // and break the build's own output gate. searchText is swapped for the
     // approved value so this compares every OTHER field exactly.
     assert.strictEqual(
-      JSON.stringify({ ...actual, searchText: approved.searchText, colorNames: undefined }),
+      JSON.stringify({ ...actual, searchText: approved.searchText, colorNames: undefined, styles: undefined }),
       JSON.stringify(approved),
-      `palette record ${approved.id} differs from the approved Phase 3 record outside searchText and colorNames`,
+      `palette record ${approved.id} differs from the approved Phase 3 record outside searchText, colorNames and styles`,
     );
     assert.deepStrictEqual(
       actual.colorNames,
@@ -126,12 +154,13 @@ test("every approved palette record is reproduced, plus its colour names", () =>
 test("the migrated palette section is otherwise byte-identical, in order", () => {
   const withApprovedText = builtPalettes.map((r, i) => ({
     ...r,
-    searchText: APPROVED[i] && APPROVED[i].searchText,
+    searchText: CONTRACT[i] && CONTRACT[i].searchText,
     colorNames: undefined,
+    styles: undefined,
   }));
   assert.strictEqual(
     JSON.stringify(withApprovedText),
-    JSON.stringify(APPROVED),
+    JSON.stringify(CONTRACT),
     "the 40 palette records differ from the approved set as a whole",
   );
 });
@@ -156,6 +185,63 @@ test("no palette record lost its borrowed metadata", () => {
     assert.ok(r.searchText && r.searchText.trim(), `${r.id} has empty searchText`);
     assert.ok(Array.isArray(r.tags) && r.tags.length, `${r.id} has no tags`);
     assert.ok(Array.isArray(r.colors) && r.colors.length === 4, `${r.id} lost its colours`);
+  });
+});
+
+// ---------------------------------------------------------------------
+// the Pastel style contract (src/build/content.js styleLabels())
+// ---------------------------------------------------------------------
+
+const isDarkVariant = (m) => / \(Dark\)$/.test(m.title);
+const builtBySlug = new Map(builtPalettes.map((r) => [r.slug, r]));
+
+test("FP8: the four Pastel dark variants carry no pastel, and keep every other label", () => {
+  PASTEL_CORRECTED.forEach((id) => {
+    const m = meta.find((x) => x.id === id);
+    const approved = APPROVED.find((a) => a.slug === id);
+    assert.ok(isDarkVariant(m), `${id} is not a dark variant`);
+    assert.ok(approved.tags.includes("pastel"), `fixture assumption: ${id} was approved with pastel`);
+    assert.ok(!m.tags.includes("pastel") && !m.moods.includes("pastel"), `${id} still carries pastel`);
+    assert.deepStrictEqual(m.tags, approved.tags.filter((t) => t !== "pastel"), `${id} lost another tag`);
+    assert.deepStrictEqual(m.tags, ["cool", "night", "dark"], id);
+    assert.strictEqual(m.lightness, "dark", id);
+    assert.deepStrictEqual(builtBySlug.get(id).styles, [], `${id} has a style`);
+    assert.deepStrictEqual(builtBySlug.get(id).colors, approved.colors, `${id} colours changed`);
+  });
+});
+
+test("the legacy Pastel style is exactly the Pastel recipe's own light palettes", () => {
+  // Derived from the approved Phase 3 records, not a list of ids: the
+  // palettes approved with pastel, minus the dark copies that inherited it.
+  const direct = APPROVED.filter((a) => a.tags.includes("pastel"))
+    .map((a) => meta.find((m) => m.id === a.slug))
+    .filter((m) => !isDarkVariant(m))
+    .map((m) => m.id);
+  assert.strictEqual(direct.length, 4, "fixture assumption: four legacy Pastel recipe palettes");
+  direct.forEach((id) => {
+    assert.ok(meta.find((m) => m.id === id).tags.includes("pastel"), `${id} lost pastel`);
+    assert.deepStrictEqual(builtBySlug.get(id).styles, ["pastel"], id);
+  });
+  assert.deepStrictEqual(
+    builtPalettes.filter((r) => r.styles.includes("pastel")).map((r) => r.slug),
+    direct,
+  );
+});
+
+test("a legacy palette's styles are its recipe moods; a dark variant has none", () => {
+  const darks = meta.filter(isDarkVariant);
+  assert.strictEqual(darks.length, 8, "the legacy generator made eight dark variants");
+  meta.forEach((m) => {
+    const record = builtBySlug.get(m.id);
+    if (isDarkVariant(m)) {
+      // "<source> (Dark)" is the legacy generator's own naming of a copy.
+      assert.ok(meta.some((s) => s.title === m.title.replace(/ \(Dark\)$/, "")), `${m.id} has no light source`);
+      assert.deepStrictEqual(record.styles, [], m.id);
+    } else {
+      assert.deepStrictEqual(record.styles, m.moods, m.id);
+    }
+    // family and lightness are colour-derived labels, never styles.
+    record.styles.forEach((s) => assert.ok(m.tags.includes(s) && s !== m.family && s !== m.lightness, `${m.id}: ${s}`));
   });
 });
 
