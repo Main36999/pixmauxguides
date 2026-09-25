@@ -41,6 +41,30 @@ test("tool cards: one real link per tool, live counts, no dead routes", () => {
   );
 });
 
+test("icon packs: one card per pack from the data, linking its page, plus the Explore link", () => {
+  const { html, count } = home.iconPacksHtml(model, config, knownUrls);
+  assert.strictEqual(count, model.iconPacks.length);
+  const hrefs = [...html.matchAll(/<a class="resource-card__link" href="([^"]+)">([^<]+)<\/a>/g)];
+  assert.deepStrictEqual(
+    hrefs.map((m) => [m[1], m[2]]),
+    model.iconPacks.map((p) => [`/icons/${p.id}.html`, p.name]),
+  );
+  hrefs.forEach((m) => assert.ok(knownUrls.has(m[1]), m[1]));
+  model.iconPacks.forEach((p) => assert.ok(html.includes(`${p.iconCount} icons</p>`), `${p.id} count`));
+  assert.ok(html.includes('<a class="home-more__link" href="/icons/">Explore Icon Packs'));
+  // previews are the packs' own published files, never copies
+  [...html.matchAll(/<img src="([^"]+)"/g)].forEach((m) => {
+    assert.match(m[1], /^\/icons\/[a-z0-9-]+\/(svg|png)\/[a-z0-9-]+\.(svg|png)$/);
+    assert.ok(fs.existsSync(path.join(config.paths.content.iconFiles, m[1].replace(/^\/icons\//, ""))), m[1]);
+  });
+  (html.match(/<p class="pack-card__icons[^>]*>/g) || []).forEach((tag) => assert.match(tag, /aria-hidden="true"/));
+  assert.ok(indexSource.includes("<!--HOME_ICON_PACKS_START--><!--HOME_ICON_PACKS_END-->"));
+});
+
+test("an icon pack card pointing at an unbuilt route fails the build", () => {
+  assert.throws(() => home.iconPacksHtml(model, config, new Set()), /not in the route table/);
+});
+
 test("a tool card pointing at an unbuilt route fails the build", () => {
   assert.throws(() => home.toolCardsHtml(model, new Set()), /not in the route table/);
 });

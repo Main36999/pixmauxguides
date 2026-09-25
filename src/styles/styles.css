@@ -315,9 +315,15 @@ ul {
    A tighter gap in just this band keeps the row whole at 768 and above;
    below ~720 it still scrolls, as it already did with six links. Desktop
    (900px+) keeps the base 34px gap. */
+/* Icons made it eight links: at 24px the inner-page row ran 30px short at
+   768px (Learning Roadmap clipped), and the home page's one-row header ran
+   18px past the viewport. An 18px gap keeps both rows whole at 768 and
+   above again, and applies the same step to the home row so the two navs
+   match. */
 @media (min-width: 641px) and (max-width: 899px) {
-  .header-bottom .site-nav {
-    gap: 24px;
+  .header-bottom .site-nav,
+  .site-header--home .site-nav {
+    gap: 18px;
   }
 }
 /* MAIN HEADER nav link colours. These base rules only ever paint the

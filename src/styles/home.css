@@ -230,9 +230,80 @@
   line-clamp: 3;
 }
 
+/* ---------- icon packs ----------
+   A compact row of the four packs on the resource-card surface: the
+   pack's first four glyphs, its name and "Style · N icons". The icons are
+   the pack's own published files. The section ends in one plain
+   "Explore Icon Packs" link to /icons/. */
+
+.home-section--icons {
+  max-width: 1320px;
+}
+.pack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+.pack-card {
+  min-height: 0;
+  padding: 28px;
+}
+.pack-card__icons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 36px;
+  margin-bottom: 22px;
+}
+.pack-card__icons img {
+  width: 26px;
+  height: 26px;
+}
+.pack-card__icons--raster img {
+  width: 34px;
+  height: 34px;
+}
+.pack-card__title {
+  font-size: clamp(22px, 1.7vw, 26px);
+}
+.pack-card__meta {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #4a5670;
+}
+.home-more {
+  margin-top: 32px;
+  text-align: center;
+}
+.home-more__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+}
+.home-more__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.home-more__arrow {
+  font-size: 1.6em;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
 /* ---------- tablet ---------- */
 
 @media (max-width: 1024px) {
+  .pack-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
   .home {
     padding: 72px 24px 96px;
   }
@@ -312,5 +383,33 @@
   .resource-card__desc {
     margin-top: 10px;
     font-size: 17px;
+  }
+  /* Two narrow columns: the preview row shrinks so four glyphs always fit
+     a 320px screen's card. */
+  .pack-grid {
+    gap: 12px;
+  }
+  .pack-card {
+    padding: 20px 18px;
+  }
+  .pack-card__icons {
+    gap: 8px;
+    height: 28px;
+    margin-bottom: 16px;
+  }
+  .pack-card__icons img {
+    width: 18px;
+    height: 18px;
+  }
+  .pack-card__icons--raster img {
+    width: 24px;
+    height: 24px;
+  }
+  .pack-card__title {
+    font-size: 19px;
+  }
+  .pack-card__meta {
+    margin-top: 6px;
+    font-size: 14px;
   }
 }

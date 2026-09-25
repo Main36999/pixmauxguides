@@ -230,12 +230,21 @@ const ROOT_LINKS = [
  * `font` entry (activePaths ["fonts/"]), which also marks it on every
  * /fonts/<id>.html detail page. Same every-page blast radius as the entries
  * above: one added <a> per nav region.
+ *
+ * ICONS — ADDED
+ *
+ * The icon library is a content browse destination like Fonts, so it sits
+ * directly after it and before the Image Picker tool. Its "you are here"
+ * state comes from resource-types.json's `icon` entry (activePaths
+ * ["icons/"]), which marks it on /icons/ and every /icons/<pack>.html. Same
+ * every-page blast radius: one added <a> per nav region.
  */
 const MAIN_HEADER_NAV = [
   { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors/" },
   { label: "Color Palettes", landingUrl: "/palettes/" },
   { label: "Fonts", landingUrl: "/fonts/" },
+  { label: "Icons", landingUrl: "/icons/" },
   { label: "Image Picker", landingUrl: "/image-picker/" },
   { label: "UI/UX Guides", landingUrl: "/guides/" },
   { label: "Learning Roadmap", landingUrl: "/roadmap.html" },

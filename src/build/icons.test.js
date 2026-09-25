@@ -461,10 +461,24 @@ test("the phone glyph size never applies to 3D (raster) previews", () => {
   assert.ok(block.includes(".icon-card__preview:not(.icon-card__preview--raster) img"), "phone glyph rule is scoped to non-raster tiles");
 });
 
-test("Phase 1: the icon pages are not in the sitemap or the header nav", () => {
+test("Icons is in the main header nav, after Fonts, and both partials are in sync", () => {
+  const labels = header.MAIN_HEADER_NAV.map((e) => e.label);
+  assert.strictEqual(labels.indexOf("Icons"), labels.indexOf("Fonts") + 1);
+  assert.strictEqual(header.MAIN_HEADER_NAV.find((e) => e.label === "Icons").landingUrl, "/icons/");
+  const links = header.navLinksHtml(header.MAIN_HEADER_NAV);
+  [header.PARTIAL, header.HOME_PARTIAL].forEach((rel) => {
+    const src = fs.readFileSync(path.join(config.paths.root, rel), "utf8");
+    assert.strictEqual(header.syncNavRegions(rel, src, links).changed, false, `${rel} is out of sync`);
+    assert.ok(src.includes('<a href="/icons/">Icons</a>'), `${rel} lacks the Icons link`);
+  });
+  // "you are here" on every icon page comes from the registry entry
+  const entry = model.resourceTypes.find((t) => t.landingUrl === "/icons/");
+  assert.ok(entry && entry.nav && entry.activePaths.includes("icons/"));
+});
+
+test("Phase 1: the icon pages are still not in the sitemap", () => {
   const sitemap = fs.readFileSync(path.join(config.paths.root, "public", "sitemap.xml"), "utf8");
   assert.ok(!sitemap.includes("/icons/"), "sitemap lists /icons/");
-  assert.ok(!header.MAIN_HEADER_NAV.some((e) => e.landingUrl.startsWith("/icons")), "nav links /icons/");
 });
 
 test("the client script parses and matches the page's element ids", () => {

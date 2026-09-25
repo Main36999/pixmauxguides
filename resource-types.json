@@ -38,5 +38,13 @@
     "nav": true,
     "activePaths": ["fonts/"],
     "home": null
+  },
+  {
+    "type": "icon",
+    "label": "Icons",
+    "landingUrl": "/icons/",
+    "nav": true,
+    "activePaths": ["icons/"],
+    "home": null
   }
 ]
