@@ -272,7 +272,7 @@ module.exports = {
    * checks every family's shipped OFL.txt against it.
    */
   fonts: {
-    count: 200,
+    count: 250,
     categories: [
       { slug: "serif", label: "Serif" },
       { slug: "sans-serif", label: "Sans Serif" },
@@ -364,11 +364,16 @@ module.exports = {
    *   sitemapUrls  243 → 243  (unchanged: the Phase 1 pages carry noindex
    *                            and are deliberately left out of the sitemap
    *                            until the real packs are imported)
+   *
+   * FONTS TO 250 (Batch 1 of the 500-family expansion) — 50 more families,
+   * one detail page each:
+   *   htmlPages    249 → 299  (+50: fonts/<id>.html per new record)
+   *   sitemapUrls  243 → 293  (+50: the same 50 URLs)
    */
   expected: {
-    htmlPages: 249,
+    htmlPages: 299,
     snapshotUrls: 89,
-    sitemapUrls: 243,
+    sitemapUrls: 293,
   },
 
   /**

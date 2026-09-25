@@ -372,6 +372,291 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "acme",
+      "family": "Acme",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Juan Pablo del Peral (juandelperal@htfonts.com), with Reserved Font Names \"Acme\"",
+      "reservedFontName": true,
+      "designer": "Juan Pablo del Peral, HT Fonts",
+      "manufacturerNameRecord": "Juan Pablo del Peral",
+      "version": "1.002",
+      "googleFontsPath": "ofl/acme",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/acme",
+      "sourceUrl": "https://fonts.google.com/specimen/Acme",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/acme/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/acme/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/acme",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/acme/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Acme-Regular.ttf",
+          "sha256": "76fdb582f54653c27274d5cd986f994c28d7fa7d323e7eb9ee14ce8875d39dc4",
+          "role": "original",
+          "upstreamPath": "ofl/acme/Acme-Regular.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 231,
+          "codepoints": 228,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "48f7bdf873033e141893f72d36f06ef8aa320c822d884d59ea7847899a291025",
+          "role": "license",
+          "upstreamPath": "ofl/acme/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "actor",
+      "family": "Actor",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Thomas Junold <hallo@buerofueraufmerksamkeit.de>, with Reserved Font Name \"Actor\".",
+      "reservedFontName": true,
+      "designer": "Thomas Junold",
+      "manufacturerNameRecord": "Thomas Junold",
+      "version": "1.001",
+      "googleFontsPath": "ofl/actor",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/actor",
+      "sourceUrl": "https://fonts.google.com/specimen/Actor",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/actor/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/actor/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/librefonts/actor",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/librefonts/actor/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Actor-Regular.ttf",
+          "sha256": "a7cf62975a5ecaa8a3be2e2913ffb4a335831315478b93bec722ad982308ea38",
+          "role": "original",
+          "upstreamPath": "ofl/actor/Actor-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 237,
+          "codepoints": 239,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "c1bcd16ffc9d095822fd6b7fa1a24c7918b24815ed05711421f804293d2efa62",
+          "role": "license",
+          "upstreamPath": "ofl/actor/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "adamina",
+      "family": "Adamina",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Cyreal (www.cyreal.org), with Reserved Font Name 'Adamina'.",
+      "reservedFontName": true,
+      "designer": "Cyreal",
+      "manufacturerNameRecord": "Alexei Vanyashin",
+      "version": "1.013",
+      "googleFontsPath": "ofl/adamina",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/adamina",
+      "sourceUrl": "https://fonts.google.com/specimen/Adamina",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/adamina/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/adamina/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/cyrealtype/Adamina",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/cyrealtype/Adamina/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Adamina-Regular.ttf",
+          "sha256": "e7108cfee0a718d5885fc8d0f03555fa6e0c4b6309e4b15ea991aadd824c34b7",
+          "role": "original",
+          "upstreamPath": "ofl/adamina/Adamina-Regular.ttf",
+          "fontVersion": "Version 1.013",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 225,
+          "codepoints": 214,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "16a8be6ac4b009ba1dd1e17cea48762f4915609ea5dca1303f716cf63998739d",
+          "role": "license",
+          "upstreamPath": "ofl/adamina/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "alata",
+      "family": "Alata",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2016 The Alata Project Authors (https://github.com/SorkinType/Alata)",
+      "reservedFontName": false,
+      "designer": "Spyros Zevelakis, Eben Sorkin",
+      "manufacturerNameRecord": "Spyros Zevelakis",
+      "version": "1.005",
+      "googleFontsPath": "ofl/alata",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/alata",
+      "sourceUrl": "https://fonts.google.com/specimen/Alata",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/alata/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/alata/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/SorkinType/Alata",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/SorkinType/Alata/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Alata-Regular.woff2",
+          "sha256": "546c7e61099c4d8895f2abf8ef9cba38ad4017fd5f5af33abc4daf8414cd2454",
+          "role": "web preview (WOFF2 of Alata-Regular.ttf)"
+        },
+        {
+          "file": "Alata-Regular.ttf",
+          "sha256": "7b71432a5e2e2409a3583553bc5ce703209a8bce9b2f136ca257ac4c2d3addc4",
+          "role": "original",
+          "upstreamPath": "ofl/alata/Alata-Regular.ttf",
+          "fontVersion": "Version 1.005; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 1038,
+          "codepoints": 893,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "ca7f9d453fe14052245af446203a47aeeb177f64ba5b60932b155a8d8a431fb5",
+          "role": "license",
+          "upstreamPath": "ofl/alata/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "alegreya-sans",
       "family": "Alegreya Sans",
       "licenseId": "OFL-1.1",
@@ -1337,6 +1622,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "antic-slab",
+      "family": "Antic Slab",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Santiago Orozco (hi@typemade.mx), with Reserved Font Name \"Antic Slab\".",
+      "reservedFontName": true,
+      "designer": "Santiago Orozco",
+      "manufacturerNameRecord": "Santiago Orozco",
+      "version": "001.002",
+      "googleFontsPath": "ofl/anticslab",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/anticslab",
+      "sourceUrl": "https://fonts.google.com/specimen/Antic+Slab",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/anticslab/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/anticslab/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/anticslab",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/anticslab/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "AnticSlab-Regular.ttf",
+          "sha256": "bea5831a412ccf18bf34612a575d908b7892c4669fa91b80405cba508fc32a56",
+          "role": "original",
+          "upstreamPath": "ofl/anticslab/AnticSlab-Regular.ttf",
+          "fontVersion": "Version 001.002 ",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 219,
+          "codepoints": 214,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "22d1914919d3fe08b179dc31169fc743ca7eede7827b91a5d48c23c8cdc7cb81",
+          "role": "license",
+          "upstreamPath": "ofl/anticslab/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "anton",
       "family": "Anton",
       "licenseId": "OFL-1.1",
@@ -1410,6 +1765,158 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "arapey",
+      "family": "Arapey",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Eduardo Tunni (http://www.tipo.net.ar), with Reserved Font Name \"Arapey\"",
+      "reservedFontName": true,
+      "designer": "Eduardo Tunni",
+      "manufacturerNameRecord": "Eduardo Rodriguez Tunni",
+      "version": "1.002",
+      "googleFontsPath": "ofl/arapey",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/arapey",
+      "sourceUrl": "https://fonts.google.com/specimen/Arapey",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/arapey/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/arapey/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/etunni/arapey",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/etunni/arapey/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Arapey-Regular.ttf",
+          "sha256": "5da4525899a27708241a4108e76d6bfd087766a66d159d80dcf986801bfb1092",
+          "role": "original",
+          "upstreamPath": "ofl/arapey/Arapey-Regular.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 248,
+          "codepoints": 244,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Arapey-Italic.ttf",
+          "sha256": "3053e62a5bf1fe0f08d8196bf31de312def7dea7b0415d6b20385caa5d333b0a",
+          "role": "original",
+          "upstreamPath": "ofl/arapey/Arapey-Italic.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 251,
+          "codepoints": 247,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "cf6dd07485d67d20f105afb9981dffdb6b180b59af45a228839cf3fb0277c9fb",
+          "role": "license",
+          "upstreamPath": "ofl/arapey/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "arbutus-slab",
+      "family": "Arbutus Slab",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2012 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"ArbutusSlab\".",
+      "reservedFontName": true,
+      "designer": "Karolina Lach",
+      "manufacturerNameRecord": "Karolina Lach",
+      "version": "1.002",
+      "googleFontsPath": "ofl/arbutusslab",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/arbutusslab",
+      "sourceUrl": "https://fonts.google.com/specimen/Arbutus+Slab",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/arbutusslab/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/arbutusslab/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/arbutusslab",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/arbutusslab/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "ArbutusSlab-Regular.ttf",
+          "sha256": "f4f55a6e95aa0dcad40077d4b4e9f7d0269ed2ca448134917c97d59c474e511c",
+          "role": "original",
+          "upstreamPath": "ofl/arbutusslab/ArbutusSlab-Regular.ttf",
+          "fontVersion": "Version 1.002; ttfautohint (v0.92) -l 10 -r 16 -G 200 -x 7 -w \"GD\"",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 434,
+          "codepoints": 420,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1."
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "1c023b4aca0e441c55c45c86cdff57fa524a96778f291d9a29a4ad777b70e2e3",
+          "role": "license",
+          "upstreamPath": "ofl/arbutusslab/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "architects-daughter",
@@ -2699,6 +3206,81 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "bad-script",
+      "family": "Bad Script",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2011 The Bad Script Project Authors (https://github.com/alexeiva/badscript)",
+      "reservedFontName": false,
+      "designer": "Gaslight",
+      "manufacturerNameRecord": "Gaslight",
+      "version": "2.000",
+      "googleFontsPath": "ofl/badscript",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/badscript",
+      "sourceUrl": "https://fonts.google.com/specimen/Bad+Script",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/badscript/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/badscript/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/alexeiva/badscript",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/alexeiva/badscript/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "BadScript-Regular.woff2",
+          "sha256": "310d8522c73eb8f9478eae3af43fcc022431d16a738202b0cb1414bd71f5652f",
+          "role": "web preview (WOFF2 of BadScript-Regular.ttf)"
+        },
+        {
+          "file": "BadScript-Regular.ttf",
+          "sha256": "40ec737eee65ec4efbc24ae636fa31d7d84d1ccca83ab54cd555edb72cb3eaf0",
+          "role": "original",
+          "upstreamPath": "ofl/badscript/BadScript-Regular.ttf",
+          "fontVersion": "Version 2.000; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 801,
+          "codepoints": 758,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "0b742ad45c246502b6d56c62146011e37098978b8feb5970d7da313553dedd91",
+          "role": "license",
+          "upstreamPath": "ofl/badscript/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "balsamiq-sans",
@@ -4069,6 +4651,81 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "bellefair",
+      "family": "Bellefair",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2015 The Bellefair Project Authors (https://github.com/shinntype/bellefair)",
+      "reservedFontName": false,
+      "designer": "Nick Shinn, Liron Lavi Turkenic",
+      "manufacturerNameRecord": "Shinntype",
+      "version": "1.003",
+      "googleFontsPath": "ofl/bellefair",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/bellefair",
+      "sourceUrl": "https://fonts.google.com/specimen/Bellefair",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/bellefair/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/bellefair/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/shinntype/bellefair",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/shinntype/bellefair/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Bellefair-Regular.woff2",
+          "sha256": "06010ddaf17b8d4eb9ceaff8e302e9901ce8b5a2c77eae34d8945f0b96eee189",
+          "role": "web preview (WOFF2 of Bellefair-Regular.ttf)"
+        },
+        {
+          "file": "Bellefair-Regular.ttf",
+          "sha256": "5c0cd4d526e6dfcb189106af6b5e6ec99a54efb6d458dfd61626ce6dc0f03026",
+          "role": "original",
+          "upstreamPath": "ofl/bellefair/Bellefair-Regular.ttf",
+          "fontVersion": "Version 1.003",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 483,
+          "codepoints": 465,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "2348c4852e6322105d130aa2addbe24c962e330094ad6dfbfd9fbd2281d76b0b",
+          "role": "license",
+          "upstreamPath": "ofl/bellefair/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "belleza",
       "family": "Belleza",
       "licenseId": "OFL-1.1",
@@ -4142,6 +4799,146 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "bentham",
+      "family": "Bentham",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2010, Ben Weiner (ben@readingtype.org.uk), with Reserved Font Name Bentham.",
+      "reservedFontName": true,
+      "designer": "Ben Weiner",
+      "manufacturerNameRecord": null,
+      "version": "002.002",
+      "googleFontsPath": "ofl/bentham",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/bentham",
+      "sourceUrl": "https://fonts.google.com/specimen/Bentham",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/bentham/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/bentham/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/bentham",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/bentham/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Bentham-Regular.ttf",
+          "sha256": "6b5d6ac11b4902fc6912c3afb99520e290f59a56245228ca7529fe3937cba793",
+          "role": "original",
+          "upstreamPath": "ofl/bentham/Bentham-Regular.ttf",
+          "fontVersion": "Version 002.002 ",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 318,
+          "codepoints": 315,
+          "licenseNameRecord": "Copyright (c) 2010, Ben Weiner (ben@readingtype.org.uk),\nwith Reserved Font Name Bentham.\n\nThis Font Software is licensed under the SIL Open Font License, Version 1.1.\nThis license is copied below, and is also available with a FAQ at:\nhttp://scripts.sil.org/OFL\n\n\n-----------------------------------------------------------\nSIL OPEN FONT LICENSE Version 1.1 - 26 February 2007\n-----------------------------------------------------------\n\nPREAMBLE\nThe goals of the Open Font License (OFL) are to stimulate worldwide\ndevelopment of collaborative font projects, to support the font creation\nefforts of academic and linguistic communities, and to provide a free and\nopen framework in which fonts may be shared and improved in partnership\nwith others.\n\nThe OFL allows the licensed fonts to be used, studied, modified and\nredistributed freely as long as they are not sold by themselves. The\nfonts, including any derivative works, can be bundled, embedded, \nredistributed and/or sold with any software provided that any reserved\nnames are not used by derivative works. The fonts and derivatives,\nhowever, cannot be released under any other type of license. The\nrequirement for fonts to remain under this license does not apply\nto any document created using the fonts or their derivatives.\n\nDEFINITIONS\n\"Font Software\" refers to the set of files released by the Copyright\nHolder(s) under this license and clearly marked as such. This may\ninclude source files, build scripts and documentation.\n\n\"Reserved Font Name\" refers to any names specified as such after the\ncopyright statement(s).\n\n\"Original Version\" refers to the collection of Font Software components as\ndistributed by the Copyright Holder(s).\n\n\"Modified Version\" refers to any derivative made by adding to, deleting,\nor substituting -- in part or in whole -- any of the components of the\nOriginal Version, by changing formats or by porting the Font Software to a\nnew environment.\n\n\"Author\" refers to any designer, engineer, programmer, technical\nwriter or other person who contributed to the Font Software.\n\nPERMISSION & CONDITIONS\nPermission is hereby granted, free of charge, to any person obtaining\na copy of the Font Software, to use, study, copy, merge, embed, modify,\nredistribute, and sell modified and unmodified copies of the Font\nSoftware, subject to the following conditions:\n\n1) Neither the Font Software nor any of its individual components,\nin Original or Modified Versions, may be sold by itself.\n\n2) Original or Modified Versions of the Font Software may be bundled,\nredistributed and/or sold with any software, provided that each copy\ncontains the above copyright notice and this license. These can be\nincluded either as stand-alone text files, human-readable headers or\nin the appropriate machine-readable metadata fields within text or\nbinary files as long as those fields can be easily viewed by the user.\n\n3) No Modified Version of the Font Software may use the Reserved Font\nName(s) unless explicit written permission is granted by the corresponding\nCopyright Holder. This restriction only applies to the primary font name as\npresented to the users.\n\n4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font\nSoftware shall not be used to promote, endorse or advertise any\nModified Version, except to acknowledge the contribution(s) of the\nCopyright Holder(s) and the Author(s) or with their explicit written\npermission.\n\n5) The Font Software, modified or unmodified, in part or in whole,\nmust be distributed entirely under this license, and must not be\ndistributed under any other license. The requirement for fonts to\nremain under this license does not apply to any document created\nusing the Font Software.\n\nTERMINATION\nThis license becomes null and void if any of the above conditions are\nnot met.\n\nDISCLAIMER\nTHE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT\nOF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE\nCOPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\nINCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL\nDAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\nFROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM\nOTHER DEALINGS IN THE FONT SOFTWARE."
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "4a7d2f227b91046ef7a54f8f735668d86e45f4fd4089268de292a6e9de108253",
+          "role": "license",
+          "upstreamPath": "ofl/bentham/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "berkshire-swash",
+      "family": "Berkshire Swash",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2012 by Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com), with Reserved Font Names \"Berkshire Swash\"",
+      "reservedFontName": true,
+      "designer": "Astigmatic",
+      "manufacturerNameRecord": "Astigmatic (AOETI)",
+      "version": "1.001",
+      "googleFontsPath": "ofl/berkshireswash",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/berkshireswash",
+      "sourceUrl": "https://fonts.google.com/specimen/Berkshire+Swash",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/berkshireswash/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/berkshireswash/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/librefonts/berkshireswash",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/librefonts/berkshireswash/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "BerkshireSwash-Regular.ttf",
+          "sha256": "f0c80837dc6f32b89b10894a7e39295db4a00ab697cada682a3f5942c342fe00",
+          "role": "original",
+          "upstreamPath": "ofl/berkshireswash/BerkshireSwash-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 379,
+          "codepoints": 371,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License,\rVersion 1.1. This license is available with a FAQ at:\rhttp://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "d941aa56e280b4f204272c4b1add01a8ebc7af3e8e69ba8ba9118aa2a5306dde",
+          "role": "license",
+          "upstreamPath": "ofl/berkshireswash/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "bevan",
@@ -5209,6 +6006,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "cantata-one",
+      "family": "Cantata One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"Cantata\".",
+      "reservedFontName": true,
+      "designer": "Joana Correia",
+      "manufacturerNameRecord": "Joana Maria Correia da Silva",
+      "version": "1.002",
+      "googleFontsPath": "ofl/cantataone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/cantataone",
+      "sourceUrl": "https://fonts.google.com/specimen/Cantata+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/cantataone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/cantataone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/cantataone",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/cantataone/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "CantataOne-Regular.ttf",
+          "sha256": "e12df35ae88a3e0898422110301e0b7ff4c54a4c129b92077ae7f456f45ba3db",
+          "role": "original",
+          "upstreamPath": "ofl/cantataone/CantataOne-Regular.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 424,
+          "codepoints": 411,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "f8fbefb5b1004615e6d1e84b1c75e68520d91196f600cb1b07620dd2748eff64",
+          "role": "license",
+          "upstreamPath": "ofl/cantataone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "cardo",
       "family": "Cardo",
       "licenseId": "OFL-1.1",
@@ -5574,6 +6441,158 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "changa-one",
+      "family": "Changa One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Eduardo Tunni (http://www.tipo.net.ar), with Reserved Font Name \"Changa\"",
+      "reservedFontName": true,
+      "designer": "Eduardo Tunni",
+      "manufacturerNameRecord": "Eduardo Rodriguez Tunni",
+      "version": "1.003",
+      "googleFontsPath": "ofl/changaone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/changaone",
+      "sourceUrl": "https://fonts.google.com/specimen/Changa+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/changaone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/changaone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/etunni/changa-one",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/etunni/changa-one/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "ChangaOne-Regular.ttf",
+          "sha256": "7ac4d26a3a45b4731904b59cbb8a9cc15b7b70d447fc2b5dda40ef17c5d2e16d",
+          "role": "original",
+          "upstreamPath": "ofl/changaone/ChangaOne-Regular.ttf",
+          "fontVersion": "Version 1.003",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 247,
+          "codepoints": 243,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "ChangaOne-Italic.ttf",
+          "sha256": "b6228f50f720651795c98aa24cf93bf062fee5899084a9e60f115ab3886f5583",
+          "role": "original",
+          "upstreamPath": "ofl/changaone/ChangaOne-Italic.ttf",
+          "fontVersion": "Version 1.003",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 247,
+          "codepoints": 243,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "67261c7ceb3e627da5c94d6617dac6da29bf36b910bee304a7680ad62e2c8b46",
+          "role": "license",
+          "upstreamPath": "ofl/changaone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "chango",
+      "family": "Chango",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 Fontstage (info@fontstage.com), with Reserved Font Names, 'Chango'",
+      "reservedFontName": true,
+      "designer": "Fontstage",
+      "manufacturerNameRecord": "Fontstage",
+      "version": "1.001",
+      "googleFontsPath": "ofl/chango",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/chango",
+      "sourceUrl": "https://fonts.google.com/specimen/Chango",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/chango/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/chango/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/chango",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/chango/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Chango-Regular.ttf",
+          "sha256": "3e566f4b881f24198fe1b6525aae970f9200078136e3416abc7ba0272d2f80d9",
+          "role": "original",
+          "upstreamPath": "ofl/chango/Chango-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 273,
+          "codepoints": 270,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "e98ce988fba1c138f4e7c0c5120809706ab1b24a3c29638ca83ab2ff082e08db",
+          "role": "license",
+          "upstreamPath": "ofl/chango/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "charis-sil",
       "family": "Charis SIL",
       "licenseId": "OFL-1.1",
@@ -5678,6 +6697,76 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "chelsea-market",
+      "family": "Chelsea Market",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Font Diner (www.fontdiner.com), with Reserved Font Name \"Chelsea Market\".",
+      "reservedFontName": true,
+      "designer": "Tart Workshop",
+      "manufacturerNameRecord": "Font Diner, Inc DBA Tart Workshop",
+      "version": "1.001",
+      "googleFontsPath": "ofl/chelseamarket",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/chelseamarket",
+      "sourceUrl": "https://fonts.google.com/specimen/Chelsea+Market",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/chelseamarket/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/chelseamarket/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/librefonts/chelseamarket",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/librefonts/chelseamarket/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "ChelseaMarket-Regular.ttf",
+          "sha256": "7243be29a2d74e6a826e1091f74c89e58cc8010047c6db8de13f616e81b1f5f2",
+          "role": "original",
+          "upstreamPath": "ofl/chelseamarket/ChelseaMarket-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 228,
+          "codepoints": 227,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "ae6de2f6fc00f76cc7eb0d97c1ae5e0b7ec734f20ad7f58cf4c74738dc822d21",
+          "role": "license",
+          "upstreamPath": "ofl/chelseamarket/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "cinzel-decorative",
@@ -6933,6 +8022,81 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "dawning-of-a-new-day",
+      "family": "Dawning of a New Day",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2010, Kimberly Geswein (kimberlygeswein.com)",
+      "reservedFontName": false,
+      "designer": "Kimberly Geswein",
+      "manufacturerNameRecord": "Kimberly Geswein",
+      "version": "1.002",
+      "googleFontsPath": "ofl/dawningofanewday",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/dawningofanewday",
+      "sourceUrl": "https://fonts.google.com/specimen/Dawning+of+a+New+Day",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/dawningofanewday/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/dawningofanewday/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/dawningofanewday",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/dawningofanewday/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "DawningofaNewDay.woff2",
+          "sha256": "e367b0ce9f4a3317fa68d55dc5e80205cb278985fe292363fd9665ec1e80f9ad",
+          "role": "web preview (WOFF2 of DawningofaNewDay.ttf)"
+        },
+        {
+          "file": "DawningofaNewDay.ttf",
+          "sha256": "2b2afa623dbb1926e3b026603287b4d15ee05778106e26a7b33ef94d4be29dcb",
+          "role": "original",
+          "upstreamPath": "ofl/dawningofanewday/DawningofaNewDay.ttf",
+          "fontVersion": "Version 1.002 2010",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 265,
+          "codepoints": 260,
+          "licenseNameRecord": "Copyright (c) 2010, Kimberly Geswein (kimberlygeswein.com)\r\n\r\nThis Font Software is licensed under the SIL Open Font License, Version 1.1.  This license is copied below, and is also available with a FAQ at:  http://scripts.sil.org/OFL\r\n\r\n\r\n-----------------------------------------------------------\r\nSIL OPEN FONT LICENSE Version 1.1 - 26 February 2007\r\n-----------------------------------------------------------\r\n\r\nPREAMBLE\r\nThe goals of the Open Font License (OFL) are to stimulate worldwide development of collaborative font projects, to support the font creation efforts of academic and linguistic communities, and to provide a free and open framework in which fonts may be shared and improved in partnership\r\nwith others.\r\n\r\nThe OFL allows the licensed fonts to be used, studied, modified and redistributed freely as long as they are not sold by themselves. The fonts, including any derivative works, can be bundled, embedded, redistributed and/or sold with any software provided that any reserved names are not used by derivative works. The fonts and derivatives, however, cannot be released under any other type of license. The requirement for fonts to remain under this license does not apply to any document created using the fonts or their derivatives.\r\n\r\nDEFINITIONS\r\n\"Font Software\" refers to the set of files released by the Copyright Holder(s) under this license and clearly marked as such. This may include source files, build scripts and documentation.\r\n\r\n\"Reserved Font Name\" refers to any names specified as such after the copyright statement(s).\r\n\r\n\"Original Version\" refers to the collection of Font Software components as distributed by the Copyright Holder(s).\r\n\r\n\"Modified Version\" refers to any derivative made by adding to, deleting, or substituting -- in part or in whole -- any of the components of the Original Version, by changing formats or by porting the Font Software to a new environment.\r\n\r\n\"Author\" refers to any designer, engineer, programmer, technical writer or other person who contributed to the Font Software.\r\n\r\nPERMISSION & CONDITIONS\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of the Font Software, to use, study, copy, merge, embed, modify, redistribute, and sell modified and unmodified copies of the Font Software, subject to the following conditions:\r\n\r\n1) Neither the Font Software nor any of its individual components, in Original or Modified Versions, may be sold by itself.\r\n\r\n2) Original or Modified Versions of the Font Software may be bundled, redistributed and/or sold with any software, provided that each copy contains the above copyright notice and this license. These can be included either as stand-alone text files, human-readable headers or in the appropriate machine-readable metadata fields within text or binary files as long as those fields can be easily viewed by the user.\r\n\r\n3) No Modified Version of the Font Software may use the Reserved Font Name(s) unless explicit written permission is granted by the corresponding Copyright Holder. This restriction only applies to the primary font name as\r\npresented to the users.\r\n\r\n4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font Software shall not be used to promote, endorse or advertise any Modified Version, except to acknowledge the contribution(s) of the Copyright Holder(s) and the Author(s) or with their explicit written\r\npermission.\r\n\r\n5) The Font Software, modified or unmodified, in part or in whole, must be distributed entirely under this license, and must not be distributed under any other license. The requirement for fonts to remain under this license does not apply to any document created using the Font Software.\r\n\r\nTERMINATION\r\nThis license becomes null and void if any of the above conditions are not met.\r\n\r\nDISCLAIMER\r\nTHE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE\r\nCOPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE."
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "0e441ae9f18ad0c294cc5b6ae3974c2db1614cab220598578b1b58c4cc334485",
+          "role": "license",
+          "upstreamPath": "ofl/dawningofanewday/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "delius",
       "family": "Delius",
       "licenseId": "OFL-1.1",
@@ -7316,6 +8480,146 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "doppio-one",
+      "family": "Doppio One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"Doppio\".",
+      "reservedFontName": true,
+      "designer": "Szymon Celej",
+      "manufacturerNameRecord": "Szymon Celej",
+      "version": "1.002",
+      "googleFontsPath": "ofl/doppioone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/doppioone",
+      "sourceUrl": "https://fonts.google.com/specimen/Doppio+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/doppioone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/doppioone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/doppioone",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/doppioone/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "DoppioOne-Regular.ttf",
+          "sha256": "2686a4eadfad03961f63e8474798a8b591d531aaa1bde6923481565830b19d9e",
+          "role": "original",
+          "upstreamPath": "ofl/doppioone/DoppioOne-Regular.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 403,
+          "codepoints": 391,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is copied below, and is also available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "4342add6f0f2261f8579f31c10a55938930559703eed18be4a33b74eb749d298",
+          "role": "license",
+          "upstreamPath": "ofl/doppioone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "eater",
+      "family": "Eater",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Typomondo, with Reserved Font Name \"Eater\".",
+      "reservedFontName": true,
+      "designer": "Typomondo",
+      "manufacturerNameRecord": null,
+      "version": "001.002",
+      "googleFontsPath": "ofl/eater",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/eater",
+      "sourceUrl": "https://fonts.google.com/specimen/Eater",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/eater/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/eater/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/eater",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/eater/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Eater-Regular.ttf",
+          "sha256": "df2744af0f58592c4ff13e8205e62a56f7bdf915b3e31c9def075668c42a2b3f",
+          "role": "original",
+          "upstreamPath": "ofl/eater/Eater-Regular.ttf",
+          "fontVersion": "Version 001.002 ",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 346,
+          "codepoints": 342,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "5946eec3a7d3bda02825930156e4716198e7753641dd3303a3e8c386c8011909",
+          "role": "license",
+          "upstreamPath": "ofl/eater/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "economica",
@@ -8619,6 +9923,146 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "fugaz-one",
+      "family": "Fugaz One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 by LatinoType Limitada (luciano@latinotype.com), with Reserved Font Names \"Fugaz One\"",
+      "reservedFontName": true,
+      "designer": "LatinoType",
+      "manufacturerNameRecord": "Daniel Hernandez",
+      "version": "1.002",
+      "googleFontsPath": "ofl/fugazone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/fugazone",
+      "sourceUrl": "https://fonts.google.com/specimen/Fugaz+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/fugazone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/fugazone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/fugazone",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/fugazone/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "FugazOne-Regular.ttf",
+          "sha256": "14fd5becce8b0ae987e44b3f9fa9e3e6c87463e9585ac15db6c8271462068a62",
+          "role": "original",
+          "upstreamPath": "ofl/fugazone/FugazOne-Regular.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 229,
+          "codepoints": 226,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "5951473ab31533bfe1452bbcece47f237a5546c7e7d45ff1aec0289619623294",
+          "role": "license",
+          "upstreamPath": "ofl/fugazone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "gabriela",
+      "family": "Gabriela",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2013 The Gabriela Project Authors (https://github.com/etunni/Gabriela), with Reserved Font Name \"Gabriela\".",
+      "reservedFontName": true,
+      "designer": "Eduardo Tunni",
+      "manufacturerNameRecord": "Eduardo Rodriguez Tunni",
+      "version": "2.001",
+      "googleFontsPath": "ofl/gabriela",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/gabriela",
+      "sourceUrl": "https://fonts.google.com/specimen/Gabriela",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/gabriela/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/gabriela/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/etunni/Gabriela",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/etunni/Gabriela/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Gabriela-Regular.ttf",
+          "sha256": "c38334bfff10cc97fa6e5c5ddf1f12dd54428bb218d7a423fb3c07bf8180bfd8",
+          "role": "original",
+          "upstreamPath": "ofl/gabriela/Gabriela-Regular.ttf",
+          "fontVersion": "Version 2.001;gftools[0.9.26]",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 604,
+          "codepoints": 566,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "c5478a76bd760eed7b741678b71d9dfe1062e7399739a3b6da8ebe00d19715d1",
+          "role": "license",
+          "upstreamPath": "ofl/gabriela/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "gentium-book-plus",
       "family": "Gentium Book Plus",
       "licenseId": "OFL-1.1",
@@ -8793,6 +10237,98 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "glegoo",
+      "family": "Glegoo",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Eduardo Tunni (http://www.tipo.net.ar), Copyright 2011-13 Lohit Fonts Project contributors (http://fedorahosted.org/lohit)",
+      "reservedFontName": false,
+      "designer": "Eduardo Tunni",
+      "manufacturerNameRecord": null,
+      "version": "2.0",
+      "googleFontsPath": "ofl/glegoo",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/glegoo",
+      "sourceUrl": "https://fonts.google.com/specimen/Glegoo",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/glegoo/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/glegoo/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/glegoo",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/glegoo/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Glegoo-Regular.woff2",
+          "sha256": "908961ef698133fe68b5ae4a35acbf5eb2b8cbc1278a47d46d6f84b02ae2b17c",
+          "role": "web preview (WOFF2 of Glegoo-Regular.ttf)"
+        },
+        {
+          "file": "Glegoo-Regular.ttf",
+          "sha256": "237ca320ef867416c46c6fdfa6edc2ac5f49a121396ad0279a2e0f8ed7aaa3b1",
+          "role": "original",
+          "upstreamPath": "ofl/glegoo/Glegoo-Regular.ttf",
+          "fontVersion": "Version 2.0.1; ttfautohint (v0.9) -r 48 -G 60",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 862,
+          "codepoints": 593,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Glegoo-Bold.woff2",
+          "sha256": "bca2274a56d0b491db6db08fc5f1453aaf8f9a730dfc012468eb040e8b600c0b",
+          "role": "web preview (WOFF2 of Glegoo-Bold.ttf)"
+        },
+        {
+          "file": "Glegoo-Bold.ttf",
+          "sha256": "8ad5922db134fe9bf9f2691fc5554293c06884cf89823f452fc76db6b3de7fef",
+          "role": "original",
+          "upstreamPath": "ofl/glegoo/Glegoo-Bold.ttf",
+          "fontVersion": "Version 2.0.1; ttfautohint (v0.9) -r 48 -G 60",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 860,
+          "codepoints": 593,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "638774cdf8233b5ddaf9ebee1821e9de1d5d59c335d8ee3ba0b47fb17833b502",
+          "role": "license",
+          "upstreamPath": "ofl/glegoo/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "gloock",
@@ -9090,6 +10626,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "graduate",
+      "family": "Graduate",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2012 The Graduate Project Authors (https://github.com/etunni/graduate) with Reserved Font Name \"Graduate\"",
+      "reservedFontName": true,
+      "designer": "Eduardo Tunni",
+      "manufacturerNameRecord": "Eduardo Tunni",
+      "version": "1.100",
+      "googleFontsPath": "ofl/graduate",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/graduate",
+      "sourceUrl": "https://fonts.google.com/specimen/Graduate",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/graduate/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/graduate/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/etunni/graduate",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/etunni/graduate/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Graduate-Regular.ttf",
+          "sha256": "971222b309851d86f2513f89b510dc52d52ef7798b5f43af2c6f58d43df568e5",
+          "role": "original",
+          "upstreamPath": "ofl/graduate/Graduate-Regular.ttf",
+          "fontVersion": "Version 1.100; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 408,
+          "codepoints": 402,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "2643f19f015fe49e170727d070b7ee501d3f38e0810208a0567aff7b656a1875",
+          "role": "license",
+          "upstreamPath": "ofl/graduate/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "grand-hotel",
       "family": "Grand Hotel",
       "licenseId": "OFL-1.1",
@@ -9158,6 +10764,76 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "gravitas-one",
+      "family": "Gravitas One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"Gravitas\".",
+      "reservedFontName": true,
+      "designer": "Riccardo De Franceschi",
+      "manufacturerNameRecord": "Sorkin Type Co.",
+      "version": "1.001",
+      "googleFontsPath": "ofl/gravitasone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/gravitasone",
+      "sourceUrl": "https://fonts.google.com/specimen/Gravitas+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/gravitasone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/gravitasone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/gravitasone",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/gravitasone/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "GravitasOne.ttf",
+          "sha256": "b40dc45f3354f282107286acf1542072d258c717c8edf1d118ef0105f25e627b",
+          "role": "original",
+          "upstreamPath": "ofl/gravitasone/GravitasOne.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 238,
+          "codepoints": 229,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. "
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "9860b97028024085855e503e32c1971bfd603374641cd018c136433ebcf5a338",
+          "role": "license",
+          "upstreamPath": "ofl/gravitasone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "great-vibes",
@@ -9233,6 +10909,81 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "gruppo",
+      "family": "Gruppo",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2010 The Gruppo Project Authors (https://github.com/googlefonts/GruppoFont)",
+      "reservedFontName": false,
+      "designer": "Vernon Adams",
+      "manufacturerNameRecord": "Vernon Adams",
+      "version": "1.001",
+      "googleFontsPath": "ofl/gruppo",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/gruppo",
+      "sourceUrl": "https://fonts.google.com/specimen/Gruppo",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/gruppo/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/gruppo/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/GruppoFont",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/GruppoFont/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Gruppo-Regular.woff2",
+          "sha256": "8fd6d4744dd57a753c56e3dd97b895198e9820b89c82b4416162065fc4bc1c46",
+          "role": "web preview (WOFF2 of Gruppo-Regular.ttf)"
+        },
+        {
+          "file": "Gruppo-Regular.ttf",
+          "sha256": "b14da5eb049a6dd097c79b0a7d55450542ad0ff213cdfea492815a79c58244a7",
+          "role": "original",
+          "upstreamPath": "ofl/gruppo/Gruppo-Regular.ttf",
+          "fontVersion": "Version 1.001; ttfautohint (v1.8.4.7-5d5b);gftools[0.9.28]",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 423,
+          "codepoints": 409,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "513de41f10e2a9e374fc23ac57dd0bcea4070ad7aaeaeec2e16656e025a2e19a",
+          "role": "license",
+          "upstreamPath": "ofl/gruppo/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "gudea",
@@ -13315,6 +15066,88 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "lusitana",
+      "family": "Lusitana",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 by Ana Paula Megda (www.anamegda.com|anapbm@gmail.com), with Reserved Font Name Lusitana.",
+      "reservedFontName": true,
+      "designer": "Ana Paula Megda",
+      "manufacturerNameRecord": "Ana Paula Megda",
+      "version": "1.001",
+      "googleFontsPath": "ofl/lusitana",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/lusitana",
+      "sourceUrl": "https://fonts.google.com/specimen/Lusitana",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/lusitana/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/lusitana/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/lusitana",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/lusitana/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Lusitana-Regular.ttf",
+          "sha256": "582ef819effed258c236f4924e2799323f3d474472d50939b817f91022ed1e60",
+          "role": "original",
+          "upstreamPath": "ofl/lusitana/Lusitana-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 214,
+          "codepoints": 209,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Lusitana-Bold.ttf",
+          "sha256": "7ce8affe6a9cf98304d33443f26b172f24230dc2b96d880f98679780e2e181ad",
+          "role": "original",
+          "upstreamPath": "ofl/lusitana/Lusitana-Bold.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 210,
+          "codepoints": 205,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "65f43260cf7e66b57ddca8d148384a6602e2c06edd389a8b3cf388045127b47d",
+          "role": "license",
+          "upstreamPath": "ofl/lusitana/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "lustria",
       "family": "Lustria",
       "licenseId": "OFL-1.1",
@@ -13832,6 +15665,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "monofett",
+      "family": "Monofett",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2010 The Monofett Project Authors (https://github.com/googlefonts/monofett), with Reserved Font Name Monofett.",
+      "reservedFontName": true,
+      "designer": "Vernon Adams",
+      "manufacturerNameRecord": "Vernon Adams",
+      "version": "1.100",
+      "googleFontsPath": "ofl/monofett",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/monofett",
+      "sourceUrl": "https://fonts.google.com/specimen/Monofett",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/monofett/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/monofett/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/monofett",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/monofett/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Monofett-Regular.ttf",
+          "sha256": "1483f18841a24238172d6f3462a3ea790b7a3e6ca8bb55d404dede93669238d5",
+          "role": "original",
+          "upstreamPath": "ofl/monofett/Monofett-Regular.ttf",
+          "fontVersion": "Version 1.100; ttfautohint (v1.8.4.7-5d5b);gftools[0.9.28]",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 435,
+          "codepoints": 435,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "a6695ce9e8a5a86bfa3a55b65c3be569a0eca8dbf4c38bae323ac2433008916b",
+          "role": "license",
+          "upstreamPath": "ofl/monofett/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "monoton",
       "family": "Monoton",
       "licenseId": "OFL-1.1",
@@ -14336,6 +16239,151 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "mrs-saint-delafield",
+      "family": "Mrs Saint Delafield",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 Alejandro Paul (sudtipos@sudtipos.com), with Reserved Font Name \"Mrs Saint Delafield\"",
+      "reservedFontName": true,
+      "designer": "Sudtipos",
+      "manufacturerNameRecord": "Alejandro Paul",
+      "version": "1.001",
+      "googleFontsPath": "ofl/mrssaintdelafield",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/mrssaintdelafield",
+      "sourceUrl": "https://fonts.google.com/specimen/Mrs+Saint+Delafield",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/mrssaintdelafield/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/mrssaintdelafield/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/mrssaintdelafield/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/mrssaintdelafield/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "MrsSaintDelafield-Regular.ttf",
+          "sha256": "67a7abc298ce9d368b2c00fcbff52ec54be948889b8a59032ae80ca3322e5b34",
+          "role": "original",
+          "upstreamPath": "ofl/mrssaintdelafield/MrsSaintDelafield-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 238,
+          "codepoints": 236,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License,\rVersion 1.1. This license is available with a FAQ at:\rhttp://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "f354ef1e7256644b320c5e1d9a07a819c2e2b930166003c96680894f9fba81be",
+          "role": "license",
+          "upstreamPath": "ofl/mrssaintdelafield/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "ms-madi",
+      "family": "Ms Madi",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2018 The Ms Madi Project Authors (https://github.com/googlefonts/ms-madi)",
+      "reservedFontName": false,
+      "designer": "Robert Leuschke",
+      "manufacturerNameRecord": "Robert E. Leuschke",
+      "version": "1.010",
+      "googleFontsPath": "ofl/msmadi",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/msmadi",
+      "sourceUrl": "https://fonts.google.com/specimen/Ms+Madi",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/msmadi/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/msmadi/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/ms-madi",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/ms-madi/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "MsMadi-Regular.woff2",
+          "sha256": "900ae6c69c12078119db155d402563de11fb914178f76c34088b547f43b72a98",
+          "role": "web preview (WOFF2 of MsMadi-Regular.ttf)"
+        },
+        {
+          "file": "MsMadi-Regular.ttf",
+          "sha256": "08dfe959077490d11a4dd0d3097b48daafdecef821e290c973cd1893595cc208",
+          "role": "original",
+          "upstreamPath": "ofl/msmadi/MsMadi-Regular.ttf",
+          "fontVersion": "Version 1.010; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 648,
+          "codepoints": 586,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "1f3ddf9e7c9ac7445b046a89d9b420fb4a3861f1d62091a85357179db73ebd12",
+          "role": "license",
+          "upstreamPath": "ofl/msmadi/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "neucha",
       "family": "Neucha",
       "licenseId": "OFL-1.1",
@@ -14409,6 +16457,158 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "news-cycle",
+      "family": "News Cycle",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2010-2011, Nathan Willis (nwillis@glyphography.com), with Reserved Font Name \"News Cycle.\"",
+      "reservedFontName": true,
+      "designer": "Nathan Willis",
+      "manufacturerNameRecord": null,
+      "version": "0.5",
+      "googleFontsPath": "ofl/newscycle",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/newscycle",
+      "sourceUrl": "https://fonts.google.com/specimen/News+Cycle",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/newscycle/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/newscycle/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/newscycle/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/newscycle/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "NewsCycle-Regular.ttf",
+          "sha256": "8653ccce06d26dcf19a68704a16063835fc9fea036638c2fcbd5bdc8c94e4e95",
+          "role": "original",
+          "upstreamPath": "ofl/newscycle/NewsCycle-Regular.ttf",
+          "fontVersion": "Version 0.5.1",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 1566,
+          "codepoints": 1564,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "NewsCycle-Bold.ttf",
+          "sha256": "97f733a3a414cef6c44d6a4fde8ce2543facbfd1f5a35ae80dbfd691a89dd632",
+          "role": "original",
+          "upstreamPath": "ofl/newscycle/NewsCycle-Bold.ttf",
+          "fontVersion": "Version 0.5.1",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 715,
+          "codepoints": 713,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "7729f005b7a087368e2cf61fc4b65cdc85988e47d0e6e38c93a72de345e86b41",
+          "role": "license",
+          "upstreamPath": "ofl/newscycle/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "niconne",
+      "family": "Niconne",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Vernon Adams (vern@newtypography.co.uk), with Reserved Font Name Nicone",
+      "reservedFontName": true,
+      "designer": "Vernon Adams",
+      "manufacturerNameRecord": "Vernon Adams",
+      "version": "1.002",
+      "googleFontsPath": "ofl/niconne",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/niconne",
+      "sourceUrl": "https://fonts.google.com/specimen/Niconne",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/niconne/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/niconne/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/niconne/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/niconne/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Niconne-Regular.ttf",
+          "sha256": "dc70580a25914aeec39a9460b7858ee08eb4ad0bbbcd1d7c9cb888a6ea989a27",
+          "role": "original",
+          "upstreamPath": "ofl/niconne/Niconne-Regular.ttf",
+          "fontVersion": "Version 1.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 293,
+          "codepoints": 283,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "70f664de65e7bb62e1ac728f20a9bb28de7fdc18be594186137a9e15ce9dcee5",
+          "role": "license",
+          "upstreamPath": "ofl/niconne/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "nobile",
@@ -14538,6 +16738,81 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "norican",
+      "family": "Norican",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2011 The Norican Project Authors (https://github.com/googlefonts/NoricanFont)",
+      "reservedFontName": false,
+      "designer": "Vernon Adams",
+      "manufacturerNameRecord": "Vernon Adams",
+      "version": "1.100",
+      "googleFontsPath": "ofl/norican",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/norican",
+      "sourceUrl": "https://fonts.google.com/specimen/Norican",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/norican/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/norican/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/NoricanFont",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/NoricanFont/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Norican-Regular.woff2",
+          "sha256": "52c5e054c703be27524321b8b0da01afa42e7b564a43c33499e9a67bd87f0db3",
+          "role": "web preview (WOFF2 of Norican-Regular.ttf)"
+        },
+        {
+          "file": "Norican-Regular.ttf",
+          "sha256": "71ee99002e70bb69f8f613bd29d646d6044aaf34612efcff689a11afa4291d04",
+          "role": "original",
+          "upstreamPath": "ofl/norican/Norican-Regular.ttf",
+          "fontVersion": "Version 1.100; ttfautohint (v1.8.4.7-5d5b);gftools[0.9.33]",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 396,
+          "codepoints": 362,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "b7ac0199d926980457302e0486f9561c61c0d2f84f3ba170fcd8e0f9d3956a4c",
+          "role": "license",
+          "upstreamPath": "ofl/norican/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "nothing-you-could-do",
@@ -14910,6 +17185,151 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "oooh-baby",
+      "family": "Oooh Baby",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2004-2021 The Oooh Baby Project Authors (https://github.com/googlefonts/oooh-baby)",
+      "reservedFontName": false,
+      "designer": "Robert Leuschke",
+      "manufacturerNameRecord": "Robert E. Leuschke",
+      "version": "1.011",
+      "googleFontsPath": "ofl/ooohbaby",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/ooohbaby",
+      "sourceUrl": "https://fonts.google.com/specimen/Oooh+Baby",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/ooohbaby/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/ooohbaby/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/oooh-baby",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/oooh-baby/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "OoohBaby-Regular.woff2",
+          "sha256": "8dd4469780b3a7bb542ec1f82d27554c3a18f7e1947385088de5c235190aa5ae",
+          "role": "web preview (WOFF2 of OoohBaby-Regular.ttf)"
+        },
+        {
+          "file": "OoohBaby-Regular.ttf",
+          "sha256": "904d1b79093da1ae4b7436ac2190ddf5048e3cb839b2dc0c0516d0f58a1c25ee",
+          "role": "original",
+          "upstreamPath": "ofl/ooohbaby/OoohBaby-Regular.ttf",
+          "fontVersion": "Version 1.011; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 635,
+          "codepoints": 588,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "a768f4c2b04f8e960236f9854c8afeb3626fb34927f25aa66aa7f1cc8cea715e",
+          "role": "license",
+          "upstreamPath": "ofl/ooohbaby/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "oranienbaum",
+      "family": "Oranienbaum",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2012, Oleg Pospelov (oleg@pospelov.com), Jovanny Lemonad (lemonad@jovanny.ru), with Reserved Font Name 'Oranienbaum'",
+      "reservedFontName": true,
+      "designer": "Oleg Pospelov, Jovanny Lemonad",
+      "manufacturerNameRecord": "Oleg Pospelov and jovanny Lemonad",
+      "version": "1.001",
+      "googleFontsPath": "ofl/oranienbaum",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/oranienbaum",
+      "sourceUrl": "https://fonts.google.com/specimen/Oranienbaum",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/oranienbaum/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/oranienbaum/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/oranienbaum/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/oranienbaum/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Oranienbaum-Regular.ttf",
+          "sha256": "d0c2527f106ddaf53bebce08e903b585d1fd1d830eddd23ed723c313b4fe2c6c",
+          "role": "original",
+          "upstreamPath": "ofl/oranienbaum/Oranienbaum-Regular.ttf",
+          "fontVersion": "Version 1.001; ttfautohint (v0.91) -l 8 -r 50 -G 200 -x 0 -w \"gGD\"",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 419,
+          "codepoints": 413,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "d941c5b788d47aa469ee54e30f4c12d6a43c45a295f10c568bdf9772f2893b7b",
+          "role": "license",
+          "upstreamPath": "ofl/oranienbaum/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "overlock",
@@ -15805,6 +18225,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "paytone-one",
+      "family": "Paytone One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2011 The Paytone Project Authors (https://github.com/googlefonts/paytoneFont), with Reserved Font Names \"Paytone\" and \"Paytone One\".",
+      "reservedFontName": true,
+      "designer": "Vernon Adams",
+      "manufacturerNameRecord": "Vernon Adams",
+      "version": "1.002",
+      "googleFontsPath": "ofl/paytoneone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/paytoneone",
+      "sourceUrl": "https://fonts.google.com/specimen/Paytone+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/paytoneone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/paytoneone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/paytoneFont",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/paytoneFont/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "PaytoneOne-Regular.ttf",
+          "sha256": "1c07073b0b578199b54c7866d55e2b631d285e8aa4bb4fbc08809d980cd49b14",
+          "role": "original",
+          "upstreamPath": "ofl/paytoneone/PaytoneOne-Regular.ttf",
+          "fontVersion": "Version 1.002; ttfautohint (v1.8.4.7-5d5b);gftools[0.9.23]",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 681,
+          "codepoints": 593,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "12404fcefccc3cb964cb2406510ba679b30f7d7ae689db08df5b455ae24b3feb",
+          "role": "license",
+          "upstreamPath": "ofl/paytoneone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "petit-formal-script",
       "family": "Petit Formal Script",
       "licenseId": "OFL-1.1",
@@ -15873,6 +18363,132 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "philosopher",
+      "family": "Philosopher",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2011 The Philosopher Project Authors (https://github.com/alexeiva/philosopher)",
+      "reservedFontName": false,
+      "designer": "Jovanny Lemonad",
+      "manufacturerNameRecord": "Jovanny Lemonad",
+      "version": "2.001",
+      "googleFontsPath": "ofl/philosopher",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/philosopher",
+      "sourceUrl": "https://fonts.google.com/specimen/Philosopher",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/philosopher/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/philosopher/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/alexeiva/philosopher",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/alexeiva/philosopher/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Philosopher-Regular.woff2",
+          "sha256": "db126b16aba5e1393496f460d77e9490fc494f05962902af0c4d74d2369a9b3a",
+          "role": "web preview (WOFF2 of Philosopher-Regular.ttf)"
+        },
+        {
+          "file": "Philosopher-Regular.ttf",
+          "sha256": "e1cba0b5003b5694f1d6cc0fbe629f78362ad38a9ffd4d0cb7abfd9698a575ed",
+          "role": "original",
+          "upstreamPath": "ofl/philosopher/Philosopher-Regular.ttf",
+          "fontVersion": "Version 2.001; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 555,
+          "codepoints": 538,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "Philosopher-Italic.woff2",
+          "sha256": "a35fc2e2f33220dece5f12c1ff1ad51a9739f65f78369db6c42470fa9ffb710c",
+          "role": "web preview (WOFF2 of Philosopher-Italic.ttf)"
+        },
+        {
+          "file": "Philosopher-Italic.ttf",
+          "sha256": "1ec5f0cc140a5daefca74692c1693c224aaac6936b8eda16598d56eba94cf008",
+          "role": "original",
+          "upstreamPath": "ofl/philosopher/Philosopher-Italic.ttf",
+          "fontVersion": "Version 2.001; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 553,
+          "codepoints": 534,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "Philosopher-Bold.woff2",
+          "sha256": "c13ade24afcbb58265af89a16f359fbe4e6ba56eabbf8cd5dbaefbe200e0a511",
+          "role": "web preview (WOFF2 of Philosopher-Bold.ttf)"
+        },
+        {
+          "file": "Philosopher-Bold.ttf",
+          "sha256": "2277c78b95657274b949f40b64b58d18fe7bbe0ec968c104d38906ec700024ea",
+          "role": "original",
+          "upstreamPath": "ofl/philosopher/Philosopher-Bold.ttf",
+          "fontVersion": "Version 2.001; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 555,
+          "codepoints": 538,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "Philosopher-BoldItalic.woff2",
+          "sha256": "b53f16e5971df076d32b5d85a63886c71d1b791bd0911cdbc11113b90215f977",
+          "role": "web preview (WOFF2 of Philosopher-BoldItalic.ttf)"
+        },
+        {
+          "file": "Philosopher-BoldItalic.ttf",
+          "sha256": "a8abb9341d1dc574d301edebf9ad8ea68dd0ae61ca1fa640b9bbdb5f388013c4",
+          "role": "original",
+          "upstreamPath": "ofl/philosopher/Philosopher-BoldItalic.ttf",
+          "fontVersion": "Version 2.001; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 553,
+          "codepoints": 534,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "f1e511c19c29907ff2e7a3a575e7fa4cbbf5cedf551a0044db74cf4dc52fde89",
+          "role": "license",
+          "upstreamPath": "ofl/philosopher/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "pinyon-script",
@@ -16018,6 +18634,163 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "play",
+      "family": "Play",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Jonas Hecksher, Playtypes, e-types AS (lasse@e-types.com), with Reserved Font Name 'Play', 'Playtype', 'Playtype Sans'.",
+      "reservedFontName": true,
+      "designer": "Jonas Hecksher",
+      "manufacturerNameRecord": "Jonas Hecksher, Playtype, e-types AS",
+      "version": "2.101",
+      "googleFontsPath": "ofl/play",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/play",
+      "sourceUrl": "https://fonts.google.com/specimen/Play",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/play/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/play/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/play/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/play/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Play-Regular.ttf",
+          "sha256": "eed0da79005cab35d6ed0eacab594ed67cc643be0b2632fa9e440b3bc5078dc4",
+          "role": "original",
+          "upstreamPath": "ofl/play/Play-Regular.ttf",
+          "fontVersion": "Version 2.101; ttfautohint (v1.6)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 1150,
+          "codepoints": 827,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Play-Bold.ttf",
+          "sha256": "45c572eccda4cf335165b750345258e753035bf48ee2fdf37faa07c7db88bce0",
+          "role": "original",
+          "upstreamPath": "ofl/play/Play-Bold.ttf",
+          "fontVersion": "Version 2.101; ttfautohint (v1.6)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 1150,
+          "codepoints": 827,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "6d216cec166b6e139adaa599053dd49720c053e1f2adb4845de3cc9c3704344d",
+          "role": "license",
+          "upstreamPath": "ofl/play/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "playball",
+      "family": "Playball",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2011 The Playball Project Authors (https://github.com/googlefonts/play-ball)",
+      "reservedFontName": false,
+      "designer": "Robert Leuschke",
+      "manufacturerNameRecord": "Robert E. Leuschke",
+      "version": "1.010",
+      "googleFontsPath": "ofl/playball",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/playball",
+      "sourceUrl": "https://fonts.google.com/specimen/Playball",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/playball/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/playball/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/play-ball",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/play-ball/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Playball-Regular.woff2",
+          "sha256": "8b7a77856f2d115987ddc51340af9570117854c483789e5f649530edf5b64bed",
+          "role": "web preview (WOFF2 of Playball-Regular.ttf)"
+        },
+        {
+          "file": "Playball-Regular.ttf",
+          "sha256": "130654dd192f4ccd1c4fa2dc516d03cca93dc8ecdaf30d458283e54dcaef8f40",
+          "role": "original",
+          "upstreamPath": "ofl/playball/Playball-Regular.ttf",
+          "fontVersion": "Version 1.010",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 785,
+          "codepoints": 554,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "271ad2688ff6199bc86135839c27a980d4cb3d2fae3a68ec01e98cb8b529d953",
+          "role": "license",
+          "upstreamPath": "ofl/playball/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "poiret-one",
@@ -16848,6 +19621,112 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "quantico",
+      "family": "Quantico",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011, Matthew Desmond (http://www.madtype.com | mattdesmond@gmail.com),with Reserved Font Name Quantico.",
+      "reservedFontName": true,
+      "designer": "MADType",
+      "manufacturerNameRecord": "MADtype",
+      "version": "2.002",
+      "googleFontsPath": "ofl/quantico",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/quantico",
+      "sourceUrl": "https://fonts.google.com/specimen/Quantico",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/quantico/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/quantico/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/quantico/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/quantico/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Quantico-Regular.ttf",
+          "sha256": "7f27dfb0658914ac570bf1da36a2527f10eefd41d25a8f9603d52957d61c075d",
+          "role": "original",
+          "upstreamPath": "ofl/quantico/Quantico-Regular.ttf",
+          "fontVersion": "Version 2.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 268,
+          "codepoints": 258,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Quantico-Italic.ttf",
+          "sha256": "e4761fc04d45ac81cb17cc12cc231af666d39b739dba1c1cbceada3ade8be001",
+          "role": "original",
+          "upstreamPath": "ofl/quantico/Quantico-Italic.ttf",
+          "fontVersion": "Version 2.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 268,
+          "codepoints": 258,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Quantico-Bold.ttf",
+          "sha256": "e3a88a18c85bfa8c08577abb07e3d490e9264fc09c3c690c6de382c8628901ff",
+          "role": "original",
+          "upstreamPath": "ofl/quantico/Quantico-Bold.ttf",
+          "fontVersion": "Version 2.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 268,
+          "codepoints": 258,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Quantico-BoldItalic.ttf",
+          "sha256": "88a44cbc5bd640f4940a3c42b12d42c6020ebcf71197875b8f553894ca4e209c",
+          "role": "original",
+          "upstreamPath": "ofl/quantico/Quantico-BoldItalic.ttf",
+          "fontVersion": "Version 2.002",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 268,
+          "codepoints": 258,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "25995bcf8e8ddea1aafa5449870567cbbeae7e26b27ba30aca5642f2c02e9757",
+          "role": "license",
+          "upstreamPath": "ofl/quantico/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "quattrocento",
       "family": "Quattrocento",
       "licenseId": "OFL-1.1",
@@ -17111,6 +19990,168 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "qwitcher-grypen",
+      "family": "Qwitcher Grypen",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2007-2021 The Qwitcher Grypen Project Authors (https://github.com/googlefonts/qwitcher-grypen)",
+      "reservedFontName": false,
+      "designer": "Robert Leuschke",
+      "manufacturerNameRecord": "Robert E. Leuschke",
+      "version": "1.100",
+      "googleFontsPath": "ofl/qwitchergrypen",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/qwitchergrypen",
+      "sourceUrl": "https://fonts.google.com/specimen/Qwitcher+Grypen",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/qwitchergrypen/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/qwitchergrypen/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/qwitcher-grypen",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/qwitcher-grypen/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "QwitcherGrypen-Regular.woff2",
+          "sha256": "15bd1906824d0e5412cef476fb8c131dd9ee7613b44cdcd7bafb42b66ea1f263",
+          "role": "web preview (WOFF2 of QwitcherGrypen-Regular.ttf)"
+        },
+        {
+          "file": "QwitcherGrypen-Regular.ttf",
+          "sha256": "54f877a938c45e55f44344a6fe143f83f60cedbc653dc2e318617a9df97e964e",
+          "role": "original",
+          "upstreamPath": "ofl/qwitchergrypen/QwitcherGrypen-Regular.ttf",
+          "fontVersion": "Version 1.100; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 619,
+          "codepoints": 567,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "QwitcherGrypen-Bold.woff2",
+          "sha256": "165487597019af165ce2c17b86a699e6f9177967d59838909ab324ea33107ab4",
+          "role": "web preview (WOFF2 of QwitcherGrypen-Bold.ttf)"
+        },
+        {
+          "file": "QwitcherGrypen-Bold.ttf",
+          "sha256": "a48354aa42dca6dfaf16700b453d03c73ef34e6168b05c100edd7b957eb3add7",
+          "role": "original",
+          "upstreamPath": "ofl/qwitchergrypen/QwitcherGrypen-Bold.ttf",
+          "fontVersion": "Version 1.100; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 619,
+          "codepoints": 567,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "893e23589ddf2536380e3ad01f2780c726919566440915971d58faef5247161f",
+          "role": "license",
+          "upstreamPath": "ofl/qwitchergrypen/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "racing-sans-one",
+      "family": "Racing Sans One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2012, Pablo Impallari (www.impallari.com|impallari@gmail.com),Rodrigo Fuenzalida (www.rfuenzalida.com|hello@rfuenzalida.com), with Reserved Font Name Racing Sans.",
+      "reservedFontName": true,
+      "designer": "Impallari Type",
+      "manufacturerNameRecord": "Pablo Impallari, Rodrigo Fuenzalida",
+      "version": "1.001",
+      "googleFontsPath": "ofl/racingsansone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/racingsansone",
+      "sourceUrl": "https://fonts.google.com/specimen/Racing+Sans+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/racingsansone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/racingsansone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/racingsansone/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/racingsansone/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "RacingSansOne-Regular.ttf",
+          "sha256": "8b5cada83e3e4692f624f1b583a069b34e457e07a4210ceddbb1133b3383673e",
+          "role": "original",
+          "upstreamPath": "ofl/racingsansone/RacingSansOne-Regular.ttf",
+          "fontVersion": "Version 1.001; ttfautohint (v0.8) -G 200 -r 50",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 474,
+          "codepoints": 441,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "cdcc959c42ab255b4cea4bd82f2db5c24a2da7ecabe615d02d5a5dba3716e446",
+          "role": "license",
+          "upstreamPath": "ofl/racingsansone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "radley",
       "family": "Radley",
       "licenseId": "OFL-1.1",
@@ -17309,6 +20350,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "rammetto-one",
+      "family": "Rammetto One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2011 The Rammetto Project Authors (https://github.com/googlefonts/RammettoFont), with Reserved Font Name Rammetto.",
+      "reservedFontName": true,
+      "designer": "Vernon Adams",
+      "manufacturerNameRecord": "Vernon Adams",
+      "version": "1.100",
+      "googleFontsPath": "ofl/rammettoone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/rammettoone",
+      "sourceUrl": "https://fonts.google.com/specimen/Rammetto+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/rammettoone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/rammettoone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/RammettoFont",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/RammettoFont/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "RammettoOne-Regular.ttf",
+          "sha256": "0063c5480f7868be5dd95dd668575643ff953199541dce65fe5a88310bd7733f",
+          "role": "original",
+          "upstreamPath": "ofl/rammettoone/RammettoOne-Regular.ttf",
+          "fontVersion": "Version 1.100; ttfautohint (v1.8.4.7-5d5b)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 384,
+          "codepoints": 376,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "88ae96c3cfcaea1d7d573675d7513c25716a048fdfa21f16768142ef235f9136",
+          "role": "license",
+          "upstreamPath": "ofl/rammettoone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "righteous",
       "family": "Righteous",
       "licenseId": "OFL-1.1",
@@ -17377,6 +20488,197 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "ropa-sans",
+      "family": "Ropa Sans",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2013 The Ropa Sans Project Authors (nikoltchev@lettersoup.de), with Reserved Font Name \"Ropa Sans\".",
+      "reservedFontName": true,
+      "designer": "Botjo Nikoltchev",
+      "manufacturerNameRecord": "Botio Nikoltchev",
+      "version": "1.100",
+      "googleFontsPath": "ofl/ropasans",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/ropasans",
+      "sourceUrl": "https://fonts.google.com/specimen/Ropa+Sans",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/ropasans/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/ropasans/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/lettersoup/Ropa-Sans",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/lettersoup/Ropa-Sans/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "RopaSans-Regular.ttf",
+          "sha256": "4a0bc3429f672cab4f9ad5e58047d9e7ccb6ad16db155ab92c56d1aefcdda8f1",
+          "role": "original",
+          "upstreamPath": "ofl/ropasans/RopaSans-Regular.ttf",
+          "fontVersion": "Version 1.100",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 349,
+          "codepoints": 335,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "RopaSans-Italic.ttf",
+          "sha256": "c7a8d38df247c21fb55ee452619b1ae5c452771c501972dbd317a0f07ca1706d",
+          "role": "original",
+          "upstreamPath": "ofl/ropasans/RopaSans-Italic.ttf",
+          "fontVersion": "Version 1.100",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 349,
+          "codepoints": 335,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "16741ac498178f645283cfb45b7a487b6d361b5de5730c5ea729f056f414f6b0",
+          "role": "license",
+          "upstreamPath": "ofl/ropasans/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
+      "id": "rowdies",
+      "family": "Rowdies",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2018 The Rowdies Project Authors (https://github.com/magictype/rowdy)",
+      "reservedFontName": false,
+      "designer": "Jaikishan Patel",
+      "manufacturerNameRecord": null,
+      "version": "1.000",
+      "googleFontsPath": "ofl/rowdies",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/rowdies",
+      "sourceUrl": "https://fonts.google.com/specimen/Rowdies",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/rowdies/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/rowdies/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/magictype/rowdies",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/magictype/rowdies/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "Rowdies-Light.woff2",
+          "sha256": "6a6c24cf487034766f916ee53c635543338d2f6c540ba0b968fba5eca9770fee",
+          "role": "web preview (WOFF2 of Rowdies-Light.ttf)"
+        },
+        {
+          "file": "Rowdies-Light.ttf",
+          "sha256": "fa368ef5ab634438738b930dcd24842d6726cb203339fa1e54fcc52cfd081b65",
+          "role": "original",
+          "upstreamPath": "ofl/rowdies/Rowdies-Light.ttf",
+          "fontVersion": "Version 1.000; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 639,
+          "codepoints": 595,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Rowdies-Regular.woff2",
+          "sha256": "3c69ba755f24ed2af8b4a2a16b09e30588271910abf44fd36165b31191470e23",
+          "role": "web preview (WOFF2 of Rowdies-Regular.ttf)"
+        },
+        {
+          "file": "Rowdies-Regular.ttf",
+          "sha256": "29c98412d1a6e1991ea6cbd36b5fd7cf579d69c1ba14ba857a16c7e8dd9d00a4",
+          "role": "original",
+          "upstreamPath": "ofl/rowdies/Rowdies-Regular.ttf",
+          "fontVersion": "Version 1.000; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 639,
+          "codepoints": 595,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "Rowdies-Bold.woff2",
+          "sha256": "627a643e4a71e761f569b7f627fbcc55f234654e1a3cd4d8a160bcefc0eeea68",
+          "role": "web preview (WOFF2 of Rowdies-Bold.ttf)"
+        },
+        {
+          "file": "Rowdies-Bold.ttf",
+          "sha256": "e56ac3fe30e56243483083a6ba271387e332f77920e850ce7dc1baead4fbede2",
+          "role": "original",
+          "upstreamPath": "ofl/rowdies/Rowdies-Bold.ttf",
+          "fontVersion": "Version 1.000; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 639,
+          "codepoints": 595,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "c585309492415154b9ad6401a9e0c5d9e3f9b2e92b71146d968e5bd4305ac74b",
+          "role": "license",
+          "upstreamPath": "ofl/rowdies/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "rozha-one",
@@ -17451,6 +20753,81 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "rubik-mono-one",
+      "family": "Rubik Mono One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2015 The Rubik Project Authors (mail@hubertfischer.com)",
+      "reservedFontName": false,
+      "designer": "Hubert and Fischer",
+      "manufacturerNameRecord": "Hubert and Fischer with Elvire Volk Leonovitch",
+      "version": "2.000",
+      "googleFontsPath": "ofl/rubikmonoone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/rubikmonoone",
+      "sourceUrl": "https://fonts.google.com/specimen/Rubik+Mono+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/rubikmonoone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/rubikmonoone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/alexeiva/rubikmonoone",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/alexeiva/rubikmonoone/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "RubikMonoOne-Regular.woff2",
+          "sha256": "8e7166d5edb41d6f387bce2aa790af3f26f9e33b76a0d2f7a59fbdf3c720b107",
+          "role": "web preview (WOFF2 of RubikMonoOne-Regular.ttf)"
+        },
+        {
+          "file": "RubikMonoOne-Regular.ttf",
+          "sha256": "b22624b6a36e543e942106edfccd198c50b57b65b924bfe02a6f0a5699429e6b",
+          "role": "original",
+          "upstreamPath": "ofl/rubikmonoone/RubikMonoOne-Regular.ttf",
+          "fontVersion": "Version 2.000",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 683,
+          "codepoints": 652,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "43d530580461a574f6dfed9e15af6a74e95f7c04d9bfa1174a63ff036e8eee07",
+          "role": "license",
+          "upstreamPath": "ofl/rubikmonoone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "rufina",
@@ -18359,6 +21736,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "sofia",
+      "family": "Sofia",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 by LatinoType Limitada (luciano@latinotype.com), with Reserved Font Names \"Sofia\"",
+      "reservedFontName": true,
+      "designer": "LatinoType",
+      "manufacturerNameRecord": "Paula Nazal, Daniel Hernndez",
+      "version": "1.001",
+      "googleFontsPath": "ofl/sofia",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/sofia",
+      "sourceUrl": "https://fonts.google.com/specimen/Sofia",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/sofia/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/sofia/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/sofia/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/sofia/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Sofia-Regular.ttf",
+          "sha256": "5634c4ecf066fba2fa11645a3c5b41e830ca240e1eeab81e10b9d476101b1eea",
+          "role": "original",
+          "upstreamPath": "ofl/sofia/Sofia-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 232,
+          "codepoints": 229,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "336fab6956d78eb34b50cd7bc6b16116c44735fbd0bf9f4def769ca4d8e218a9",
+          "role": "license",
+          "upstreamPath": "ofl/sofia/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "solway",
       "family": "Solway",
       "licenseId": "OFL-1.1",
@@ -18935,6 +22382,81 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "style-script",
+      "family": "Style Script",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2013 The Style Script Project Authors (https://github.com/googlefonts/style-script)",
+      "reservedFontName": false,
+      "designer": "Robert Leuschke",
+      "manufacturerNameRecord": "Robert E. Leuschke",
+      "version": "1.010",
+      "googleFontsPath": "ofl/stylescript",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/stylescript",
+      "sourceUrl": "https://fonts.google.com/specimen/Style+Script",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/stylescript/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/stylescript/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/style-script",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/style-script/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "StyleScript-Regular.woff2",
+          "sha256": "16cbd29e0c90b80213afbd730d65a7c62c2b4d9ff48ada3e39213d6440062000",
+          "role": "web preview (WOFF2 of StyleScript-Regular.ttf)"
+        },
+        {
+          "file": "StyleScript-Regular.ttf",
+          "sha256": "4f285aa7b2e87de9ea8fc3d3a571cc428257c42ac77b5f786d99d9949ac4ed9a",
+          "role": "original",
+          "upstreamPath": "ofl/stylescript/StyleScript-Regular.ttf",
+          "fontVersion": "Version 1.010; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 1439,
+          "codepoints": 481,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "47d3c6fc003cb3231297530b79ca108aaa4e504c0008a80fa3dc2ee4a3e8c4a6",
+          "role": "license",
+          "upstreamPath": "ofl/stylescript/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "sue-ellen-francisco",
       "family": "Sue Ellen Francisco",
       "licenseId": "OFL-1.1",
@@ -19245,6 +22767,76 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "text-me-one",
+      "family": "Text Me One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2012, Julia Petretta (julia.petretta@googlemail.com), with Reserved Font Name 'Text Me'",
+      "reservedFontName": true,
+      "designer": "Julia Petretta",
+      "manufacturerNameRecord": "Julia Petretta",
+      "version": "1.003",
+      "googleFontsPath": "ofl/textmeone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/textmeone",
+      "sourceUrl": "https://fonts.google.com/specimen/Text+Me+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/textmeone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/textmeone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/textmeone/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/textmeone/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "TextMeOne-Regular.ttf",
+          "sha256": "9fe85023985715c05af121a2a76431ca651ab77e25e32d8fb3079c5f23818849",
+          "role": "original",
+          "upstreamPath": "ofl/textmeone/TextMeOne-Regular.ttf",
+          "fontVersion": "Version 1.003",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 250,
+          "codepoints": 242,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "75798d56e448ba4d2aec3ef5f3c2d805d9c6fe2ba688cd3d7162b2dd31e9cf48",
+          "role": "license",
+          "upstreamPath": "ofl/textmeone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "titan-one",
@@ -19996,6 +23588,81 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "unica-one",
+      "family": "Unica One",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2012 The Unica One Project Authors (https://github.com/etunni/unica)",
+      "reservedFontName": false,
+      "designer": "Eduardo Tunni",
+      "manufacturerNameRecord": "Eduardo Rodriguez Tunni",
+      "version": "2.000",
+      "googleFontsPath": "ofl/unicaone",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/unicaone",
+      "sourceUrl": "https://fonts.google.com/specimen/Unica+One",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/unicaone/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/unicaone/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/etunni/unica",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/etunni/unica/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "UnicaOne-Regular.woff2",
+          "sha256": "5fd2f6e0a912326f058fbefb084c4ad614eb2dbb0331b1e708f157ca3e712aee",
+          "role": "web preview (WOFF2 of UnicaOne-Regular.ttf)"
+        },
+        {
+          "file": "UnicaOne-Regular.ttf",
+          "sha256": "5d5861ae199cb69049e77e7cd08a8ffd6c14e90da19c8db8df0f4004ca93bd8f",
+          "role": "original",
+          "upstreamPath": "ofl/unicaone/UnicaOne-Regular.ttf",
+          "fontVersion": "Version 2.000; ttfautohint (v1.8.4.7-5d5b);gftools[0.9.23]",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 645,
+          "codepoints": 603,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "05f4462985eece49ebd278c13ac1011b546e0a9a4675c542b7239edc90df55d4",
+          "role": "license",
+          "upstreamPath": "ofl/unicaone/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "unifrakturmaguntia",
       "family": "UnifrakturMaguntia",
       "licenseId": "OFL-1.1",
@@ -20332,6 +23999,76 @@
       "verifiedAt": "2026-09-23"
     },
     {
+      "id": "viga",
+      "family": "Viga",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright (c) 2011 Fontstage (info@fontstage.com), with Reserved Font Names, 'Viga'",
+      "reservedFontName": true,
+      "designer": "Fontstage",
+      "manufacturerNameRecord": "Fontstage",
+      "version": "1.001",
+      "googleFontsPath": "ofl/viga",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/viga",
+      "sourceUrl": "https://fonts.google.com/specimen/Viga",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/viga/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/viga/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "licenseFilePath": "ofl/viga/OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/googlefontdirectory-hg/blob/HEAD/ofl/viga/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": true
+      },
+      "files": [
+        {
+          "file": "Viga-Regular.ttf",
+          "sha256": "730ad2a38691ce19ee5aa9dd9ec84ae8737b2084b06eef13435a4facad9b063c",
+          "role": "original",
+          "upstreamPath": "ofl/viga/Viga-Regular.ttf",
+          "fontVersion": "Version 1.001",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 282,
+          "codepoints": 271,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "b67eed9578defb59cc4ff4b58428fb816786e499e84cdeafca54723b055c169e",
+          "role": "license",
+          "upstreamPath": "ofl/viga/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
+    },
+    {
       "id": "volkhov",
       "family": "Volkhov",
       "licenseId": "OFL-1.1",
@@ -20511,6 +24248,81 @@
       ],
       "verificationStatus": "verified",
       "verifiedAt": "2026-09-23"
+    },
+    {
+      "id": "vujahday-script",
+      "family": "Vujahday Script",
+      "licenseId": "OFL-1.1",
+      "license": "SIL Open Font License 1.1",
+      "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+      "licenseFile": "OFL.txt",
+      "copyright": "Copyright 2003 The Vujahday Script Project Authors (https://github.com/googlefonts/vujahday)",
+      "reservedFontName": false,
+      "designer": "Robert Leuschke",
+      "manufacturerNameRecord": "Robert E. Leuschke",
+      "version": "1.010",
+      "googleFontsPath": "ofl/vujahdayscript",
+      "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/vujahdayscript",
+      "sourceUrl": "https://fonts.google.com/specimen/Vujahday+Script",
+      "licenseEvidence": "upstream_license_file_verified",
+      "googleFontsEvidence": {
+        "metadataLicense": "ofl/vujahdayscript/METADATA.pb declares license \"OFL\"",
+        "licenseFile": "ofl/vujahdayscript/OFL.txt is the official OFL 1.1 text",
+        "fontLicenseRecords": "font files' license name records (ID 13) name the OFL"
+      },
+      "upstream": {
+        "status": "ofl-1.1",
+        "licenseEvidence": "upstream_license_file_verified",
+        "host": "github",
+        "repository": "https://github.com/googlefonts/vujahday",
+        "licenseFilePath": "OFL.txt",
+        "licenseFileUrl": "https://github.com/googlefonts/vujahday/blob/HEAD/OFL.txt"
+      },
+      "checks": {
+        "metadataLicense": "OFL",
+        "licenseTextMatchesOfficial": true,
+        "fontsStatic": true,
+        "weightsAndStylesMatchMetadata": true,
+        "embeddingPermitted": true,
+        "licenseNameRecordsConsistent": true,
+        "uniqueFileHashes": true
+      },
+      "rights": {
+        "redistributionAllowed": true,
+        "webEmbeddingAllowed": true,
+        "modificationAllowed": true,
+        "commercialUseAllowed": true,
+        "sellingFontsAloneAllowed": false,
+        "licenseMustAccompanyCopies": true,
+        "modifiedVersionsMustRename": false
+      },
+      "files": [
+        {
+          "file": "VujahdayScript-Regular.woff2",
+          "sha256": "366bf91dae168696e30cb8783a8029de626a999cd416774bec0444bba9fa05de",
+          "role": "web preview (WOFF2 of VujahdayScript-Regular.ttf)"
+        },
+        {
+          "file": "VujahdayScript-Regular.ttf",
+          "sha256": "f102428da88931f20c5ed947d9f8aea85ee3f1d4a18b51a74b4f59a344ce5daa",
+          "role": "original",
+          "upstreamPath": "ofl/vujahdayscript/VujahdayScript-Regular.ttf",
+          "fontVersion": "Version 1.010; ttfautohint (v1.8.3)",
+          "embedding": "installable",
+          "fsType": 0,
+          "glyphs": 1039,
+          "codepoints": 586,
+          "licenseNameRecord": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+        },
+        {
+          "file": "OFL.txt",
+          "sha256": "e609059f5600ecaa921d782de1f5072f92c08e5b4868de63be7c98abfd9b4061",
+          "role": "license",
+          "upstreamPath": "ofl/vujahdayscript/OFL.txt"
+        }
+      ],
+      "verificationStatus": "verified",
+      "verifiedAt": "2026-09-25"
     },
     {
       "id": "xanh-mono",

@@ -41,6 +41,12 @@
  *      searched; googlefontdirectory-hg is searched under ofl/<family>/)
  *   7. no font file duplicates the bytes of another family's file
  *
+ * Re-running on an existing library changes nothing it has already recorded:
+ * an existing family's audit record is kept verbatim (including verifiedAt)
+ * when re-verification reproduces it, and is replaced — and reported — only
+ * when something about the family actually changed. Rejections recorded by
+ * earlier runs are kept unless this run re-evaluates the same directory.
+ *
  * WOFF2 previews are generated only for families WITHOUT a Reserved Font
  * Name, then decompressed and compared (names, glyph count, code points)
  * against the original. RFN families are previewed from their original files.
@@ -375,6 +381,10 @@ async function main() {
   const editorial = JSON.parse(fs.readFileSync(opts.editorial, "utf8"));
   const existing = JSON.parse(fs.readFileSync(FONTS_JSON, "utf8"));
   const byId = new Map(existing.map((f) => [f.id, f]));
+  const previousAudit = fs.existsSync(AUDIT_JSON)
+    ? JSON.parse(fs.readFileSync(AUDIT_JSON, "utf8"))
+    : { families: [], rejected: [] };
+  const previousRecord = new Map(previousAudit.families.map((r) => [r.id, r]));
   const repoUrl = (dir) => `https://github.com/google/fonts/tree/${opts.commit}/${dir}`;
 
   const accepted = [];
@@ -478,7 +488,7 @@ async function main() {
     const version = versionOf(regular.info.names.version);
     const subsets = (v.meta.subsets || []).filter((s) => s !== "menu");
 
-    audit.push({
+    const record = {
       id,
       family: v.name,
       licenseId: "OFL-1.1",
@@ -526,7 +536,14 @@ async function main() {
       files,
       verificationStatus: "verified",
       verifiedAt: opts.date,
-    });
+    };
+    // An existing family keeps its record verbatim when re-verification
+    // reproduces it; a real change replaces it and is reported.
+    const prev = previousRecord.get(id);
+    const same =
+      prev && JSON.stringify(Object.assign({}, record, { verifiedAt: prev.verifiedAt })) === JSON.stringify(prev);
+    if (prev && !same) console.log(`! ${id}: audit record changed on re-verification — replaced`);
+    audit.push(same ? prev : record);
 
     const base = byId.get(id);
     const common = {
@@ -580,6 +597,11 @@ async function main() {
   while (cats.some((c) => queues[c].length)) {
     for (const c of cats) if (queues[c].length) queues[c].shift().featured = next++;
   }
+
+  // Rejections from earlier runs stay on record unless re-evaluated here.
+  const evaluated = new Set(selection.map((c) => c.dir));
+  const carried = (previousAudit.rejected || []).filter((r) => !evaluated.has(r.googleFontsPath));
+  rejected.unshift(...carried);
 
   records.sort((a, b) => a.id.localeCompare(b.id, "en"));
   audit.sort((a, b) => a.id.localeCompare(b.id, "en"));
