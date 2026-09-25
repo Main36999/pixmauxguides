@@ -144,6 +144,44 @@
     "upstreamUrl": "https://github.com/mooniak/abhaya-libre-font"
   },
   {
+    "id": "aboreto",
+    "name": "Aboreto",
+    "family": "Aboreto",
+    "category": "display",
+    "designer": "Dominik Jáger",
+    "description": "A display face by Dominik Jáger reviving the early Renaissance majuscule alphabet of the Florentine sculptor Luca della Robbia.",
+    "tags": [
+      "classical",
+      "revival",
+      "elegant"
+    ],
+    "background": "#F4EFE4",
+    "featured": 251,
+    "dateAdded": "2022-05-27",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2022 The Aboreto Project Authors (https://github.com/domija/Aboreto)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Aboreto",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/aboreto",
+    "version": "1.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/domija/Aboreto",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Aboreto-Regular.ttf",
+        "web": "Aboreto-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "abril-fatface",
     "name": "Abril Fatface",
     "family": "Abril Fatface",
@@ -328,6 +366,43 @@
         "style": "normal",
         "file": "Alata-Regular.ttf",
         "web": "Alata-Regular.woff2"
+      }
+    ]
+  },
+  {
+    "id": "aldrich",
+    "name": "Aldrich",
+    "family": "Aldrich",
+    "category": "sans-serif",
+    "designer": "MADType",
+    "description": "A rounded yet squarely proportioned sans from MADType with monoweight strokes, recalling early twentieth-century gothic styles.",
+    "tags": [
+      "squared",
+      "technical",
+      "headline"
+    ],
+    "background": "#E6F0EA",
+    "featured": 254,
+    "dateAdded": "2011-08-17",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Matthew Desmond (http://www.madtype.com | mattdesmond@gmail.com),with Reserved Font Name Aldrich.",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Aldrich",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/aldrich",
+    "version": "1.002",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/librefonts/aldrich",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Aldrich-Regular.ttf",
+        "web": "Aldrich-Regular.ttf"
       }
     ]
   },
@@ -571,6 +646,85 @@
     "upstreamUrl": "https://github.com/cyrealtype/Alice"
   },
   {
+    "id": "alike",
+    "name": "Alike",
+    "family": "Alike",
+    "category": "serif",
+    "designer": "Sveta Sebyakina, Cyreal",
+    "description": "A low-contrast text typeface by Sveta Sebyakina and Cyreal with expressive, tense letterforms softened for a friendly feel.",
+    "tags": [
+      "text",
+      "book",
+      "readable"
+    ],
+    "background": "#ECEAF7",
+    "featured": 255,
+    "dateAdded": "2011-08-24",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2009 The Alike Project Authors (https://github.com/cyrealtype/Alike) with Reserved Font Name \"Alike\" and \"Alike Angular\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Alike",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/alike",
+    "version": "1.301",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
+    ],
+    "upstreamUrl": "https://github.com/cyrealtype/Alike",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Alike-Regular.ttf",
+        "web": "Alike-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "allison",
+    "name": "Allison",
+    "family": "Allison",
+    "category": "handwriting",
+    "designer": "Robert Leuschke",
+    "description": "A casual handwriting script by Robert Leuschke with a flat-pen calligraphic lowercase and brushier capitals.",
+    "tags": [
+      "script",
+      "calligraphic",
+      "casual"
+    ],
+    "background": "#F7E8E4",
+    "featured": 252,
+    "dateAdded": "2021-07-02",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2020 The Allison Project Authors (https://github.com/googlefonts/allison)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Allison",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/allison",
+    "version": "1.010",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/allison",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Allison-Regular.ttf",
+        "web": "Allison-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "allura",
     "name": "Allura",
     "family": "Allura",
@@ -608,6 +762,62 @@
       "vietnamese"
     ],
     "upstreamUrl": "https://github.com/googlefonts/allura"
+  },
+  {
+    "id": "almendra",
+    "name": "Almendra",
+    "family": "Almendra",
+    "category": "serif",
+    "designer": "Ana Sanfelippo",
+    "description": "A calligraphic serif by Ana Sanfelippo related to chancery and gothic hands, intended for long texts and children's books. Regular and bold with italics.",
+    "tags": [
+      "calligraphic",
+      "book",
+      "medieval"
+    ],
+    "background": "#E4EEF7",
+    "featured": 259,
+    "dateAdded": "2011-12-19",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011-2012, Ana Sanfelippo (anasanfe@gmail.com), with Reserved Font Name 'Almendra'",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Almendra",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/almendra",
+    "version": "1.004",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/almendra",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Almendra-Regular.ttf",
+        "web": "Almendra-Regular.ttf"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "Almendra-Italic.ttf",
+        "web": "Almendra-Italic.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Almendra-Bold.ttf",
+        "web": "Almendra-Bold.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "italic",
+        "file": "Almendra-BoldItalic.ttf",
+        "web": "Almendra-BoldItalic.ttf"
+      }
+    ]
   },
   {
     "id": "amatic-sc",
@@ -712,6 +922,43 @@
         "style": "italic",
         "file": "Andika-BoldItalic.ttf",
         "web": "Andika-BoldItalic.ttf"
+      }
+    ]
+  },
+  {
+    "id": "annie-use-your-telescope",
+    "name": "Annie Use Your Telescope",
+    "family": "Annie Use Your Telescope",
+    "category": "handwriting",
+    "designer": "Kimberly Geswein",
+    "description": "A neat, cute handwriting font by Kimberly Geswein based on a photography student's hand.",
+    "tags": [
+      "handwritten",
+      "casual",
+      "personal"
+    ],
+    "background": "#F6F0D9",
+    "featured": 257,
+    "dateAdded": "2011-04-14",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, Kimberly Geswein (kimberlygeswein.com)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Annie+Use+Your+Telescope",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/annieuseyourtelescope",
+    "version": "1.003",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/librefonts/annieuseyourtelescope",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "AnnieUseYourTelescope-Regular.ttf",
+        "web": "AnnieUseYourTelescope-Regular.woff2"
       }
     ]
   },
@@ -1044,6 +1291,83 @@
     "upstreamUrl": "https://github.com/Omnibus-Type/ArchivoBlack"
   },
   {
+    "id": "arizonia",
+    "name": "Arizonia",
+    "family": "Arizonia",
+    "category": "handwriting",
+    "designer": "Robert Leuschke",
+    "description": "A sign-painterly brush script by Robert Leuschke inspired by lettering on a construction truck, with thick, contrasting pointed-brush strokes. Not for all caps.",
+    "tags": [
+      "script",
+      "brush",
+      "signage"
+    ],
+    "background": "#EFE7F2",
+    "featured": 261,
+    "dateAdded": "2011-12-19",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2007-2021 The Arizonia Project Authors (https://github.com/googlefonts/arizonia)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Arizonia",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/arizonia",
+    "version": "1.010",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/arizonia",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Arizonia-Regular.ttf",
+        "web": "Arizonia-Regular.woff2"
+      }
+    ]
+  },
+  {
+    "id": "armata",
+    "name": "Armata",
+    "family": "Armata",
+    "category": "sans-serif",
+    "designer": "Viktoriya Grabowska",
+    "description": "A low-contrast sans-serif text face by Viktoriya Grabowska that pairs steady, strong shapes with some delicate, unusual details.",
+    "tags": [
+      "text",
+      "contemporary",
+      "ui"
+    ],
+    "background": "#E2F1F0",
+    "featured": 258,
+    "dateAdded": "2011-12-19",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"Armata\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Armata",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/armata",
+    "version": "1.003",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/armata",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Armata-Regular.ttf",
+        "web": "Armata-Regular.ttf"
+      }
+    ]
+  },
+  {
     "id": "arsenal",
     "name": "Arsenal",
     "family": "Arsenal",
@@ -1283,6 +1607,49 @@
         "style": "italic",
         "file": "AsapCondensed-BlackItalic.ttf",
         "web": "AsapCondensed-BlackItalic.woff2"
+      }
+    ]
+  },
+  {
+    "id": "asul",
+    "name": "Asul",
+    "family": "Asul",
+    "category": "serif",
+    "designer": "Mariela Monsalve",
+    "description": "A baroque humanist typeface by Mariela Monsalve with semi-serifs, revived from early twentieth-century Argentinian books and magazines for editorial use.",
+    "tags": [
+      "revival",
+      "editorial",
+      "humanist"
+    ],
+    "background": "#F3EBE2",
+    "featured": 263,
+    "dateAdded": "2011-12-19",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Mariela Monsalve (marmonsalve@gmail.com), with Reserved Font Name \"Asul\". All Rights Reserved.",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Asul",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/asul",
+    "version": "1.002",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/asul",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Asul-Regular.ttf",
+        "web": "Asul-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Asul-Bold.ttf",
+        "web": "Asul-Bold.ttf"
       }
     ]
   },
@@ -1657,6 +2024,44 @@
     ]
   },
   {
+    "id": "balthazar",
+    "name": "Balthazar",
+    "family": "Balthazar",
+    "category": "serif",
+    "designer": "Dario Manuel Muhafara",
+    "description": "A serif by Dario Manuel Muhafara in the spirit of Copperplate Gothic and New York and Paris bistro lettering, with a lowercase, a high x-height and soft contrast.",
+    "tags": [
+      "retro",
+      "signage",
+      "elegant"
+    ],
+    "background": "#EBF2E0",
+    "featured": 267,
+    "dateAdded": "2011-12-13",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Dario Manuel Muhafara (http://www.tipo.net.ar), with Reserved Font Name \"Balthazar\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Balthazar",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/balthazar",
+    "version": "1.000",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/balthazar",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Balthazar-Regular.ttf",
+        "web": "Balthazar-Regular.ttf"
+      }
+    ]
+  },
+  {
     "id": "bangers",
     "name": "Bangers",
     "family": "Bangers",
@@ -1978,6 +2383,44 @@
     ]
   },
   {
+    "id": "basic",
+    "name": "Basic",
+    "family": "Basic",
+    "category": "sans-serif",
+    "designer": "Magnus Gaarde",
+    "description": "A low-contrast sans-serif text face by Magnus Gaarde that mixes familiar forms with a hint of novelty, from small text to display sizes.",
+    "tags": [
+      "text",
+      "readable",
+      "clean"
+    ],
+    "background": "#F4EFE4",
+    "featured": 262,
+    "dateAdded": "2011-12-15",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"Basic\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Basic",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/basic",
+    "version": "1.003",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/EbenSorkin/Basic",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Basic-Regular.ttf",
+        "web": "Basic-Regular.ttf"
+      }
+    ]
+  },
+  {
     "id": "be-vietnam-pro",
     "name": "Be Vietnam Pro",
     "family": "Be Vietnam Pro",
@@ -2157,6 +2600,56 @@
     "upstreamUrl": "https://github.com/dharmatype/Bebas-Neue"
   },
   {
+    "id": "belanosima",
+    "name": "Belanosima",
+    "family": "Belanosima",
+    "category": "display",
+    "designer": "The DocRepair Project, Santiago Orozco",
+    "description": "A DocRepair fallback for Berlin Sans FB based on Josefin Sans, a geometric sans with a vintage feel inspired by 1920s designs. Regular, semibold and bold.",
+    "tags": [
+      "geometric",
+      "headline",
+      "retro"
+    ],
+    "background": "#E6F0EA",
+    "featured": 256,
+    "dateAdded": "2023-06-14",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2023 The Belanosima Project Authors (https://github.com/docrepair-fonts/belanosima-fonts), with Reserved Font Name \"Josefin Sans\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Belanosima",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/belanosima",
+    "version": "2.000",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/docrepair-fonts/belanosima-fonts",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Belanosima-Regular.ttf",
+        "web": "Belanosima-Regular.ttf"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "Belanosima-SemiBold.ttf",
+        "web": "Belanosima-SemiBold.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Belanosima-Bold.ttf",
+        "web": "Belanosima-Bold.ttf"
+      }
+    ]
+  },
+  {
     "id": "bellefair",
     "name": "Bellefair",
     "family": "Bellefair",
@@ -2232,6 +2725,56 @@
       "latin-ext"
     ],
     "upstreamUrl": "https://github.com/etunni/belleza"
+  },
+  {
+    "id": "benchnine",
+    "name": "BenchNine",
+    "family": "BenchNine",
+    "category": "sans-serif",
+    "designer": "Vernon Adams",
+    "description": "A condensed sans by Vernon Adams loosely based on the ink spread of vernacular woodcut type, with slightly rounded corners. Light, regular and bold.",
+    "tags": [
+      "condensed",
+      "headline",
+      "retro"
+    ],
+    "background": "#ECEAF7",
+    "featured": 266,
+    "dateAdded": "2012-09-24",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2012, vernon adams (vern@newtypography.co.uk), with Reserved Font Name 'BenchNine'.",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/BenchNine",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/benchnine",
+    "version": "0.92",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/benchnine",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "BenchNine-Light.ttf",
+        "web": "BenchNine-Light.ttf"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "BenchNine-Regular.ttf",
+        "web": "BenchNine-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "BenchNine-Bold.ttf",
+        "web": "BenchNine-Bold.ttf"
+      }
+    ]
   },
   {
     "id": "bentham",
@@ -2350,6 +2893,45 @@
         "style": "italic",
         "file": "Bevan-Italic.ttf",
         "web": "Bevan-Italic.woff2"
+      }
+    ]
+  },
+  {
+    "id": "birthstone",
+    "name": "Birthstone",
+    "family": "Birthstone",
+    "category": "handwriting",
+    "designer": "Robert Leuschke",
+    "description": "A script by Robert Leuschke with Script, Casual and Formal stylistic sets plus a titling set that can be mixed within one block of text.",
+    "tags": [
+      "script",
+      "elegant",
+      "formal"
+    ],
+    "background": "#F7E8E4",
+    "featured": 265,
+    "dateAdded": "2021-08-06",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2019 The Birthstone Project Authors (https://github.com/googlefonts/birthstone)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Birthstone",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/birthstone",
+    "version": "1.013",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/birthstone",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Birthstone-Regular.ttf",
+        "web": "Birthstone-Regular.woff2"
       }
     ]
   },
@@ -2668,6 +3250,49 @@
     "upstreamUrl": "https://github.com/djrrb/Bungee"
   },
   {
+    "id": "cabin-sketch",
+    "name": "Cabin Sketch",
+    "family": "Cabin Sketch",
+    "category": "display",
+    "designer": "Impallari Type",
+    "description": "The sketch version of Impallari Type's Cabin, a humanist sans inspired by Johnston and Gill, given the texture of a doodle. Regular and bold.",
+    "tags": [
+      "hand-drawn",
+      "playful",
+      "headline"
+    ],
+    "background": "#E4EEF7",
+    "featured": 260,
+    "dateAdded": "2011-03-16",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2011 The Cabin Project Authors (impallari@gmail.com), with Reserved Font Name \"Cabin\", \"Cabin Sketch\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Cabin+Sketch",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/cabinsketch",
+    "version": "1.100",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/impallari/CabinSketch",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "CabinSketch-Regular.ttf",
+        "web": "CabinSketch-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "CabinSketch-Bold.ttf",
+        "web": "CabinSketch-Bold.ttf"
+      }
+    ]
+  },
+  {
     "id": "caladea",
     "name": "Caladea",
     "family": "Caladea",
@@ -2759,6 +3384,43 @@
         "style": "normal",
         "file": "Calistoga-Regular.ttf",
         "web": "Calistoga-Regular.woff2"
+      }
+    ]
+  },
+  {
+    "id": "candal",
+    "name": "Candal",
+    "family": "Candal",
+    "category": "sans-serif",
+    "designer": "Vernon Adams",
+    "description": "An original, fun sans-serif by Vernon Adams inspired by historical types.",
+    "tags": [
+      "playful",
+      "retro",
+      "headline"
+    ],
+    "background": "#F6F0D9",
+    "featured": 270,
+    "dateAdded": "2011-03-09",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Vernon Adams (vern@newtypography.co.uk), with Reserved Font Name Candal.",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Candal",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/candal",
+    "version": "1.000",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/candal",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Candal.ttf",
+        "web": "Candal.ttf"
       }
     ]
   },
@@ -2857,6 +3519,44 @@
     ]
   },
   {
+    "id": "caprasimo",
+    "name": "Caprasimo",
+    "family": "Caprasimo",
+    "category": "display",
+    "designer": "The DocRepair Project, Phaedra Charles, Flavia Zimbardi",
+    "description": "A DocRepair fallback for Cooper Black based on Fraunces, a soft-serif display face inspired by early twentieth-century types such as the Cooper series.",
+    "tags": [
+      "retro",
+      "heavy",
+      "headline"
+    ],
+    "background": "#EFE7F2",
+    "featured": 264,
+    "dateAdded": "2023-06-14",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2023 The Caprasimo Project Authors (https://github.com/docrepair-fonts/caprasimo-fonts).",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Caprasimo",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/caprasimo",
+    "version": "1.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/docrepair-fonts/caprasimo-fonts",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Caprasimo-Regular.ttf",
+        "web": "Caprasimo-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "cardo",
     "name": "Cardo",
     "family": "Cardo",
@@ -2911,6 +3611,43 @@
       "runic"
     ],
     "upstreamUrl": "https://github.com/googlefonts/CardoFont"
+  },
+  {
+    "id": "carter-one",
+    "name": "Carter One",
+    "family": "Carter One",
+    "category": "display",
+    "designer": "Vernon Adams",
+    "description": "Vernon Adams's reworking of casual mid-twentieth-century lettering seen in advertising and pulp fiction covers, opened up as a display webfont.",
+    "tags": [
+      "retro",
+      "casual",
+      "headline"
+    ],
+    "background": "#E2F1F0",
+    "featured": 268,
+    "dateAdded": "2011-05-04",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Vernon Adams (vern@newtypography.co.uk), with Reserved Font Name \"Carter\" and \"Carter One\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Carter+One",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/carterone",
+    "version": "1.000",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/carterone",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "CarterOne.ttf",
+        "web": "CarterOne.ttf"
+      }
+    ]
   },
   {
     "id": "caudex",
@@ -3342,6 +4079,52 @@
     ]
   },
   {
+    "id": "comic-relief",
+    "name": "Comic Relief",
+    "family": "Comic Relief",
+    "category": "display",
+    "designer": "Jeff Davis",
+    "description": "A comic-style typeface by Jeff Davis designed to be metrically equivalent to Comic Sans MS, so it can replace it without reflowing text. Regular and bold.",
+    "tags": [
+      "comic",
+      "casual",
+      "multilingual"
+    ],
+    "background": "#F3EBE2",
+    "featured": 272,
+    "dateAdded": "2025-02-13",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2013 The Comic Relief Project Authors (https://github.com/loudifier/Comic-Relief)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Comic+Relief",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/comicrelief",
+    "version": "1.200",
+    "subsets": [
+      "cyrillic",
+      "greek",
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/loudifier/Comic-Relief",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "ComicRelief-Regular.ttf",
+        "web": "ComicRelief-Regular.woff2"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "ComicRelief-Bold.ttf",
+        "web": "ComicRelief-Bold.woff2"
+      }
+    ]
+  },
+  {
     "id": "concert-one",
     "name": "Concert One",
     "family": "Concert One",
@@ -3414,6 +4197,132 @@
         "style": "normal",
         "file": "Cookie-Regular.ttf",
         "web": "Cookie-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "copse",
+    "name": "Copse",
+    "family": "Copse",
+    "category": "serif",
+    "designer": "Dan Rhatigan",
+    "description": "A low-contrast slab serif by Dan Rhatigan, a little soft around the edges with a clear, sturdy posture.",
+    "tags": [
+      "slab",
+      "sturdy",
+      "text"
+    ],
+    "background": "#EBF2E0",
+    "featured": 271,
+    "dateAdded": "2010-12-15",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, Daniel Rhatigan (sparky@ultrasparky.org) with Reserved Font Name Copse.",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Copse",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/copse",
+    "version": "1.000",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/copse",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Copse-Regular.ttf",
+        "web": "Copse-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "corben",
+    "name": "Corben",
+    "family": "Corben",
+    "category": "display",
+    "designer": "Vernon Adams",
+    "description": "A simple display face by Vernon Adams with ample curves and ligatures and a touch of classic display lettering. Regular and bold.",
+    "tags": [
+      "retro",
+      "rounded",
+      "headline"
+    ],
+    "background": "#F4EFE4",
+    "featured": 276,
+    "dateAdded": "2010-12-20",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, 2011 by vernon adams (vern@newtypography.co.uk), with Reserved Font Name Corben.",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Corben",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/corben",
+    "version": "1.101",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/librefonts/corben",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Corben-Regular.ttf",
+        "web": "Corben-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Corben-Bold.ttf",
+        "web": "Corben-Bold.ttf"
+      }
+    ]
+  },
+  {
+    "id": "corinthia",
+    "name": "Corinthia",
+    "family": "Corinthia",
+    "category": "handwriting",
+    "designer": "Robert Leuschke",
+    "description": "A flowing, connected script by Robert Leuschke in regular and bold, for invitations, packaging and other elegant work.",
+    "tags": [
+      "script",
+      "elegant",
+      "wedding"
+    ],
+    "background": "#E6F0EA",
+    "featured": 269,
+    "dateAdded": "2021-08-26",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2010 The Corinthia Project Authors (https://github.com/googlefonts/corinthia)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Corinthia",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/corinthia",
+    "version": "1.013",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/corinthia",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Corinthia-Regular.ttf",
+        "web": "Corinthia-Regular.woff2"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Corinthia-Bold.ttf",
+        "web": "Corinthia-Bold.woff2"
       }
     ]
   },
@@ -3570,6 +4479,50 @@
         "style": "italic",
         "file": "Cousine-BoldItalic.ttf",
         "web": "Cousine-BoldItalic.woff2"
+      }
+    ]
+  },
+  {
+    "id": "coustard",
+    "name": "Coustard",
+    "family": "Coustard",
+    "category": "serif",
+    "designer": "Vernon Adams",
+    "description": "A display and text serif by Vernon Adams developed from a fork of Tienne, in regular and black.",
+    "tags": [
+      "heavy",
+      "headline",
+      "text"
+    ],
+    "background": "#ECEAF7",
+    "featured": 275,
+    "dateAdded": "2011-08-10",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2011 The Coustard Project Authors (https://github.com/googlefonts/coustardFont)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Coustard",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/coustard",
+    "version": "1.100",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/coustardFont",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Coustard-Regular.ttf",
+        "web": "Coustard-Regular.woff2"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "Coustard-Black.ttf",
+        "web": "Coustard-Black.woff2"
       }
     ]
   },
@@ -3870,6 +4823,82 @@
         "style": "normal",
         "file": "DawningofaNewDay.ttf",
         "web": "DawningofaNewDay.woff2"
+      }
+    ]
+  },
+  {
+    "id": "days-one",
+    "name": "Days One",
+    "family": "Days One",
+    "category": "sans-serif",
+    "designer": "Jovanny Lemonad",
+    "description": "A wide, heavy-stroked sans by Jovanny Lemonad, begun in 2008 as an experiment and suited to headlines. Includes Cyrillic.",
+    "tags": [
+      "wide",
+      "bold",
+      "headline"
+    ],
+    "background": "#F7E8E4",
+    "featured": 274,
+    "dateAdded": "2011-08-17",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Jovanny Lemonad (http://www.jovanny.ru) with Reserved Font Name \"Days One\"",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Days+One",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/daysone",
+    "version": "1.002",
+    "subsets": [
+      "cyrillic",
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/daysone",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "DaysOne-Regular.ttf",
+        "web": "DaysOne-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "delicious-handrawn",
+    "name": "Delicious Handrawn",
+    "family": "Delicious Handrawn",
+    "category": "handwriting",
+    "designer": "Agung Rohmat",
+    "description": "A handwriting font by Agung Rohmat, drawn from his own hand on an iPad in Procreate.",
+    "tags": [
+      "handwritten",
+      "casual",
+      "hand-drawn"
+    ],
+    "background": "#E4EEF7",
+    "featured": 273,
+    "dateAdded": "2023-01-06",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2022 The Delicious Handrawn Project Authors (https://github.com/alphArtype/Delicious-Handrawn)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Delicious+Handrawn",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/delicioushandrawn",
+    "version": "1.002",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/alphArtype/Delicious-Handrawn",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "DeliciousHandrawn-Regular.ttf",
+        "web": "DeliciousHandrawn-Regular.woff2"
       }
     ]
   },
@@ -4197,6 +5226,43 @@
     ]
   },
   {
+    "id": "electrolize",
+    "name": "Electrolize",
+    "family": "Electrolize",
+    "category": "sans-serif",
+    "designer": "Gaslight",
+    "description": "A squarish geometric sans with humanist proportions by Valery Zaveryaev, inspired by lettering in a Russian commuter train. Works from body copy to headlines.",
+    "tags": [
+      "technical",
+      "squared",
+      "ui"
+    ],
+    "background": "#F6F0D9",
+    "featured": 278,
+    "dateAdded": "2011-12-07",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Cyreal (www.cyreal.org), with Reserved Font Name \"Electrolize\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Electrolize",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/electrolize",
+    "version": "1.002",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/librefonts/electrolize",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Electrolize-Regular.ttf",
+        "web": "Electrolize-Regular.ttf"
+      }
+    ]
+  },
+  {
     "id": "encode-sans-expanded",
     "name": "Encode Sans Expanded",
     "family": "Encode Sans Expanded",
@@ -4379,6 +5445,44 @@
         "style": "italic",
         "file": "FanwoodText-Italic.ttf",
         "web": "FanwoodText-Italic.woff2"
+      }
+    ]
+  },
+  {
+    "id": "fauna-one",
+    "name": "Fauna One",
+    "family": "Fauna One",
+    "category": "serif",
+    "designer": "Eduardo Tunni",
+    "description": "A slightly condensed serif by Eduardo Tunni with low contrast and soft terminals, clear in paragraphs and attractive in headlines.",
+    "tags": [
+      "text",
+      "readable",
+      "contemporary"
+    ],
+    "background": "#EFE7F2",
+    "featured": 279,
+    "dateAdded": "2013-06-05",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2013 The Fauna One Project Authors (https://github.com/etunni/fauna-one) with Reserved Font Name 'Fauna'",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Fauna+One",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/faunaone",
+    "version": "2.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/etunni/fauna-one",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "FaunaOne-Regular.ttf",
+        "web": "FaunaOne-Regular.ttf"
       }
     ]
   },
@@ -4661,6 +5765,50 @@
     ]
   },
   {
+    "id": "fondamento",
+    "name": "Fondamento",
+    "family": "Fondamento",
+    "category": "handwriting",
+    "designer": "Astigmatic",
+    "description": "A calligraphic style from Astigmatic based on Edward Johnston's Foundational Hand, clear, legible and formal. Regular and italic.",
+    "tags": [
+      "calligraphic",
+      "formal",
+      "classical"
+    ],
+    "background": "#E2F1F0",
+    "featured": 277,
+    "dateAdded": "2011-11-16",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com), with Reserved Font Names \"Fondamento\" and \"Fondamento Italic\"",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Fondamento",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/fondamento",
+    "version": "1.000",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/librefonts/fondamento",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Fondamento-Regular.ttf",
+        "web": "Fondamento-Regular.ttf"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "Fondamento-Italic.ttf",
+        "web": "Fondamento-Italic.ttf"
+      }
+    ]
+  },
+  {
     "id": "forum",
     "name": "Forum",
     "family": "Forum",
@@ -4697,6 +5845,51 @@
         "style": "normal",
         "file": "Forum-Regular.ttf",
         "web": "Forum-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "fragment-mono",
+    "name": "Fragment Mono",
+    "family": "Fragment Mono",
+    "category": "monospace",
+    "designer": "Wei Huang, URW Design Studio",
+    "description": "A monospaced coding typeface by Wei Huang, built by modifying and extending URW's Nimbus Sans, a Helvetica-style grotesque. Regular and italic.",
+    "tags": [
+      "code",
+      "grotesque",
+      "clean"
+    ],
+    "background": "#F3EBE2",
+    "featured": 253,
+    "dateAdded": "2022-10-24",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2022 The Fragment-Mono Project Authors (https://github.com/weiweihuanghuang/fragment-mono)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Fragment+Mono",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/fragmentmono",
+    "version": "1.011",
+    "subsets": [
+      "cyrillic-ext",
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/weiweihuanghuang/fragment-mono",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "FragmentMono-Regular.ttf",
+        "web": "FragmentMono-Regular.woff2"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "FragmentMono-Italic.ttf",
+        "web": "FragmentMono-Italic.woff2"
       }
     ]
   },
@@ -4913,6 +6106,44 @@
         "style": "italic",
         "file": "GentiumBookPlus-BoldItalic.ttf",
         "web": "GentiumBookPlus-BoldItalic.ttf"
+      }
+    ]
+  },
+  {
+    "id": "germania-one",
+    "name": "Germania One",
+    "family": "Germania One",
+    "category": "display",
+    "designer": "John Vargas Beltrán",
+    "description": "A display face by John Vargas Beltrán that blends old fraktur with simplified Bauhaus-style geometric sans forms.",
+    "tags": [
+      "blackletter",
+      "geometric",
+      "headline"
+    ],
+    "background": "#EBF2E0",
+    "featured": 280,
+    "dateAdded": "2012-01-18",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, John Vargas Beltr�n (www.johnvargasbeltran.com|john.vargasbeltran@gmail.com), with Reserved Font Name \"Germania\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Germania+One",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/germaniaone",
+    "version": "1.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/germaniaone",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "GermaniaOne-Regular.ttf",
+        "web": "GermaniaOne-Regular.ttf"
       }
     ]
   },
@@ -5570,6 +6801,45 @@
     "upstreamUrl": "https://github.com/itfoundry/hind"
   },
   {
+    "id": "hurricane",
+    "name": "Hurricane",
+    "family": "Hurricane",
+    "category": "handwriting",
+    "designer": "Robert Leuschke",
+    "description": "A fast-moving brush script by Robert Leuschke with a flourished uppercase in its Script stylistic set.",
+    "tags": [
+      "brush",
+      "script",
+      "energetic"
+    ],
+    "background": "#F4EFE4",
+    "featured": 281,
+    "dateAdded": "2021-10-08",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2016-2021 The Hurricane Project Authors (https://github.com/googlefonts/hurricane)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Hurricane",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/hurricane",
+    "version": "1.010",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/hurricane",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Hurricane-Regular.ttf",
+        "web": "Hurricane-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "ibm-plex-mono",
     "name": "IBM Plex Mono",
     "family": "IBM Plex Mono",
@@ -5922,6 +7192,49 @@
         "style": "italic",
         "file": "IBMPlexSerif-BoldItalic.ttf",
         "web": "IBMPlexSerif-BoldItalic.ttf"
+      }
+    ]
+  },
+  {
+    "id": "im-fell-dw-pica",
+    "name": "IM Fell DW Pica",
+    "family": "IM Fell DW Pica",
+    "category": "serif",
+    "designer": "Igino Marini",
+    "description": "Igino Marini's digital revival of the Fell Types, the seventeenth-century types given to the University of Oxford by Dr John Fell. Roman and italic.",
+    "tags": [
+      "revival",
+      "old-style",
+      "book"
+    ],
+    "background": "#E6F0EA",
+    "featured": 283,
+    "dateAdded": "2010-05-17",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, Igino Marini (mail@iginomarini.com)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/IM+Fell+DW+Pica",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/imfelldwpica",
+    "version": "3.00",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/librefonts/imfelldwpica",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "IMFePIrm28P.ttf",
+        "web": "IMFePIrm28P.woff2"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "IMFePIit28P.ttf",
+        "web": "IMFePIit28P.woff2"
       }
     ]
   },
@@ -6336,6 +7649,43 @@
     ]
   },
   {
+    "id": "italiana",
+    "name": "Italiana",
+    "family": "Italiana",
+    "category": "sans-serif",
+    "designer": "Santiago Orozco",
+    "description": "An elegant sans by Santiago Orozco inspired by the calligraphy of the Italian masters, drawn for newspaper and magazine headlines with economical proportions.",
+    "tags": [
+      "elegant",
+      "headline",
+      "editorial"
+    ],
+    "background": "#ECEAF7",
+    "featured": 282,
+    "dateAdded": "2012-03-14",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Santiago Orozco (hi@typemade.mx), with Reserved Font Name \"Italiana\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Italiana",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/italiana",
+    "version": "001.001",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Italiana-Regular.ttf",
+        "web": "Italiana-Regular.ttf"
+      }
+    ]
+  },
+  {
     "id": "italianno",
     "name": "Italianno",
     "family": "Italianno",
@@ -6371,6 +7721,44 @@
         "style": "normal",
         "file": "Italianno-Regular.ttf",
         "web": "Italianno-Regular.woff2"
+      }
+    ]
+  },
+  {
+    "id": "jersey-25",
+    "name": "Jersey 25",
+    "family": "Jersey 25",
+    "category": "display",
+    "designer": "Sarah Cadigan-Fried",
+    "description": "A sporty sans from Sarah Cadigan-Fried's Soft Type Collection, drawn on a grid so knitters can chart lettering for their projects.",
+    "tags": [
+      "pixel",
+      "playful",
+      "headline"
+    ],
+    "background": "#F7E8E4",
+    "featured": 284,
+    "dateAdded": "2024-03-15",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2023 The Soft Type Project Authors (https://github.com/scfried/soft-type-jersey)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Jersey+25",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/jersey25",
+    "version": "1.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/scfried/soft-type-jersey",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Jersey25-Regular.ttf",
+        "web": "Jersey25-Regular.woff2"
       }
     ]
   },
@@ -6548,6 +7936,43 @@
         "style": "normal",
         "file": "KaushanScript-Regular.ttf",
         "web": "KaushanScript-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "kristi",
+    "name": "Kristi",
+    "family": "Kristi",
+    "category": "handwriting",
+    "designer": "Birgit Pulk",
+    "description": "A felt-pen calligraphy font by Birgit Pulk inspired by old chancery hands, with tall ascenders and descenders and slim verticals.",
+    "tags": [
+      "calligraphic",
+      "script",
+      "elegant"
+    ],
+    "background": "#E4EEF7",
+    "featured": 285,
+    "dateAdded": "2010-12-20",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, Birgit Pulk (birgitpulk@gmail.com)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Kristi",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/kristi",
+    "version": "1.004",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Kristi-Regular.ttf",
+        "web": "Kristi-Regular.woff2"
       }
     ]
   },
@@ -6805,6 +8230,45 @@
         "style": "normal",
         "file": "LeckerliOne-Regular.ttf",
         "web": "LeckerliOne-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "ledger",
+    "name": "Ledger",
+    "family": "Ledger",
+    "category": "serif",
+    "designer": "Denis Masharov",
+    "description": "A serif by Denis Masharov with a large x-height, moderate contrast and wedge-like serifs, drawn to stay readable in difficult print and display conditions. Includes Cyrillic.",
+    "tags": [
+      "text",
+      "readable",
+      "multilingual"
+    ],
+    "background": "#F6F0D9",
+    "featured": 287,
+    "dateAdded": "2012-02-22",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2012, Denis Masharov <denis.masharov@gmail.com>, with Reserved Font Name \"Ledger\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Ledger",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/ledger",
+    "version": "1.003",
+    "subsets": [
+      "cyrillic",
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Ledger-Regular.ttf",
+        "web": "Ledger-Regular.ttf"
       }
     ]
   },
@@ -7636,6 +9100,45 @@
     ]
   },
   {
+    "id": "meow-script",
+    "name": "Meow Script",
+    "family": "Meow Script",
+    "category": "handwriting",
+    "designer": "Robert Leuschke",
+    "description": "A monoline script by Robert Leuschke with alternate forms in six stylistic sets, for fun, whimsical posters and invitations.",
+    "tags": [
+      "script",
+      "monoline",
+      "playful"
+    ],
+    "background": "#EFE7F2",
+    "featured": 289,
+    "dateAdded": "2021-11-02",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2017 The Meow Script Project Authors (https://github.com/googlefonts/meow-script)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Meow+Script",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/meowscript",
+    "version": "1.010",
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/meow-script",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "MeowScript-Regular.ttf",
+        "web": "MeowScript-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "michroma",
     "name": "Michroma",
     "family": "Michroma",
@@ -7745,6 +9248,44 @@
         "style": "normal",
         "file": "Monoton-Regular.ttf",
         "web": "Monoton-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "monsieur-la-doulaise",
+    "name": "Monsieur La Doulaise",
+    "family": "Monsieur La Doulaise",
+    "category": "handwriting",
+    "designer": "Sudtipos",
+    "description": "A script from the Charles Bluemlein Script Collection by Sudtipos, which recalls the heyday of professional hand lettering in the United States. Includes Latin Extended.",
+    "tags": [
+      "script",
+      "calligraphic",
+      "formal"
+    ],
+    "background": "#E2F1F0",
+    "featured": 293,
+    "dateAdded": "2011-11-30",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 Alejandro Paul (sudtipos@sudtipos.com), with Reserved Font Name \"Monsieur La Doulaise\"",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Monsieur+La+Doulaise",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/monsieurladoulaise",
+    "version": "1.000",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "MonsieurLaDoulaise-Regular.ttf",
+        "web": "MonsieurLaDoulaise-Regular.ttf"
       }
     ]
   },
@@ -8132,6 +9673,43 @@
     ]
   },
   {
+    "id": "nixie-one",
+    "name": "Nixie One",
+    "family": "Nixie One",
+    "category": "display",
+    "designer": "Jovanny Lemonad",
+    "description": "A display face by Jovanny Lemonad that mixes neon-tube signage with typewriter letterforms.",
+    "tags": [
+      "typewriter",
+      "retro",
+      "signage"
+    ],
+    "background": "#F3EBE2",
+    "featured": 288,
+    "dateAdded": "2011-06-21",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Jovanny Lemonad (http://www.jovanny.ru)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Nixie+One",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/nixieone",
+    "version": "1.004",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "NixieOne-Regular.ttf",
+        "web": "NixieOne-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "nobile",
     "name": "Nobile",
     "family": "Nobile",
@@ -8505,6 +10083,43 @@
         "style": "normal",
         "file": "Oranienbaum-Regular.ttf",
         "web": "Oranienbaum-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "id": "over-the-rainbow",
+    "name": "Over the Rainbow",
+    "family": "Over the Rainbow",
+    "category": "handwriting",
+    "designer": "Kimberly Geswein",
+    "description": "An upbeat handwriting font by Kimberly Geswein, slightly connected but not a true script.",
+    "tags": [
+      "handwritten",
+      "casual",
+      "playful"
+    ],
+    "background": "#EBF2E0",
+    "featured": 297,
+    "dateAdded": "2011-04-27",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, Kimberly Geswein (kimberlygeswein.com)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Over+the+Rainbow",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/overtherainbow",
+    "version": "1.002",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "OvertheRainbow.ttf",
+        "web": "OvertheRainbow.woff2"
       }
     ]
   },
@@ -9328,6 +10943,50 @@
     "upstreamUrl": "https://github.com/alexeiva/poiretone"
   },
   {
+    "id": "poly",
+    "name": "Poly",
+    "family": "Poly",
+    "category": "serif",
+    "designer": "Nicolás Silva",
+    "description": "A medium-contrast serif by Nicolás Silva with short ascenders and a very high x-height, economical and legible at small sizes. Regular and italic.",
+    "tags": [
+      "text",
+      "economical",
+      "readable"
+    ],
+    "background": "#F4EFE4",
+    "featured": 291,
+    "dateAdded": "2011-11-02",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2010, 2011 José Nicolás Silva Schwarzenberg <info@nsilva.com>, with Reserved Font Names \"Poly\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Poly",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/poly",
+    "version": "1.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Poly-Regular.ttf",
+        "web": "Poly-Regular.ttf"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "Poly-Italic.ttf",
+        "web": "Poly-Italic.ttf"
+      }
+    ]
+  },
+  {
     "id": "prata",
     "name": "Prata",
     "family": "Prata",
@@ -9708,6 +11367,44 @@
       "latin"
     ],
     "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg"
+  },
+  {
+    "id": "quando",
+    "name": "Quando",
+    "family": "Quando",
+    "category": "serif",
+    "designer": "Joana Correia",
+    "description": "A low-contrast serif text face by Joana Correia inspired by brushy lettering on a Second World War Italian poster, made to work on screens at small and large sizes.",
+    "tags": [
+      "text",
+      "readable",
+      "friendly"
+    ],
+    "background": "#E6F0EA",
+    "featured": 295,
+    "dateAdded": "2012-07-10",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Name \"Quando\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Quando",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/quando",
+    "version": "1.002",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/quando",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Quando-Regular.ttf",
+        "web": "Quando-Regular.ttf"
+      }
+    ]
   },
   {
     "id": "quantico",
@@ -10581,6 +12278,86 @@
     ]
   },
   {
+    "id": "sansita",
+    "name": "Sansita",
+    "family": "Sansita",
+    "category": "sans-serif",
+    "designer": "Omnibus-Type",
+    "description": "A calligraphy-influenced sans by Pablo Cosgaya of Omnibus-Type, from regular to black with italics, for packaging, branding and short texts.",
+    "tags": [
+      "bold",
+      "headline",
+      "friendly"
+    ],
+    "background": "#ECEAF7",
+    "featured": 286,
+    "dateAdded": "2016-12-04",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2016 The Sansita Project Authors (omnibus.type@gmail.com)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Sansita",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/sansita",
+    "version": "1.006",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/Omnibus-Type/Sansita",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Sansita-Regular.ttf",
+        "web": "Sansita-Regular.woff2"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "Sansita-Italic.ttf",
+        "web": "Sansita-Italic.woff2"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Sansita-Bold.ttf",
+        "web": "Sansita-Bold.woff2"
+      },
+      {
+        "weight": 700,
+        "style": "italic",
+        "file": "Sansita-BoldItalic.ttf",
+        "web": "Sansita-BoldItalic.woff2"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "Sansita-ExtraBold.ttf",
+        "web": "Sansita-ExtraBold.woff2"
+      },
+      {
+        "weight": 800,
+        "style": "italic",
+        "file": "Sansita-ExtraBoldItalic.ttf",
+        "web": "Sansita-ExtraBoldItalic.woff2"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "Sansita-Black.ttf",
+        "web": "Sansita-Black.woff2"
+      },
+      {
+        "weight": 900,
+        "style": "italic",
+        "file": "Sansita-BlackItalic.ttf",
+        "web": "Sansita-BlackItalic.woff2"
+      }
+    ]
+  },
+  {
     "id": "shadows-into-light",
     "name": "Shadows Into Light",
     "family": "Shadows Into Light",
@@ -10813,6 +12590,131 @@
     ]
   },
   {
+    "id": "sintony",
+    "name": "Sintony",
+    "family": "Sintony",
+    "category": "sans-serif",
+    "designer": "Eduardo Rodriguez Tunni",
+    "description": "A modern sans by Eduardo Rodriguez Tunni with a slightly square structure and smooth stroke modulation, suited to long passages. Regular and bold.",
+    "tags": [
+      "text",
+      "readable",
+      "squared"
+    ],
+    "background": "#F7E8E4",
+    "featured": 290,
+    "dateAdded": "2013-02-27",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2013, Eduardo Tunni (http://www.tipo.net.ar edu@tipo.net.ar), with Reserved Font Name 'Sintony'",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Sintony",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/sintony",
+    "version": "001.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/etunni/sintony",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Sintony-Regular.ttf",
+        "web": "Sintony-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Sintony-Bold.ttf",
+        "web": "Sintony-Bold.ttf"
+      }
+    ]
+  },
+  {
+    "id": "six-caps",
+    "name": "Six Caps",
+    "family": "Six Caps",
+    "category": "sans-serif",
+    "designer": "Vernon Adams",
+    "description": "A highly condensed, tightly spaced display face by Vernon Adams: a stripped-down, normalised take on classic grotesk display forms.",
+    "tags": [
+      "condensed",
+      "grotesque",
+      "headline"
+    ],
+    "background": "#E4EEF7",
+    "featured": 294,
+    "dateAdded": "2011-02-16",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011, Vernon Adams (vern@newtypography.co.uk), with Reserved Font Name \"Six Caps\" \"SixCaps\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Six+Caps",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/sixcaps",
+    "version": "001.000",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "SixCaps.ttf",
+        "web": "SixCaps.ttf"
+      }
+    ]
+  },
+  {
+    "id": "skranji",
+    "name": "Skranji",
+    "family": "Skranji",
+    "category": "display",
+    "designer": "Neapolitan",
+    "description": "A display face from Neapolitan (Font Diner) that is both primitive and exotic in feel, in regular and bold.",
+    "tags": [
+      "headline",
+      "bold",
+      "quirky"
+    ],
+    "background": "#F6F0D9",
+    "featured": 292,
+    "dateAdded": "2012-08-21",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2012, Font Diner (www.fontdiner.com), with Reserved Font Name \"Skranji\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Skranji",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/skranji",
+    "version": "1.001",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Skranji-Regular.ttf",
+        "web": "Skranji-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "Skranji-Bold.ttf",
+        "web": "Skranji-Bold.ttf"
+      }
+    ]
+  },
+  {
     "id": "sofia",
     "name": "Sofia",
     "family": "Sofia",
@@ -11013,6 +12915,44 @@
     "upstreamUrl": "https://github.com/googlefonts/spacemono"
   },
   {
+    "id": "special-gothic-expanded-one",
+    "name": "Special Gothic Expanded One",
+    "family": "Special Gothic Expanded One",
+    "category": "sans-serif",
+    "designer": "Alistair McCready",
+    "description": "An expanded gothic sans by Alistair McCready in a single weight, suited to wide, confident headings.",
+    "tags": [
+      "wide",
+      "grotesque",
+      "headline"
+    ],
+    "background": "#EFE7F2",
+    "featured": 298,
+    "dateAdded": "2025-03-07",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2023 The Special Gothic Project Authors (https://github.com/AlistairMcCready/Special-Gothic/)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Special+Gothic+Expanded+One",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/specialgothicexpandedone",
+    "version": "1.010",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/AlistairMcCready/Special-Gothic",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "SpecialGothicExpandedOne-Regular.ttf",
+        "web": "SpecialGothicExpandedOne-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "spinnaker",
     "name": "Spinnaker",
     "family": "Spinnaker",
@@ -11124,6 +13064,49 @@
       "latin-ext"
     ],
     "upstreamUrl": "https://github.com/googlefonts/staatliches"
+  },
+  {
+    "id": "stardos-stencil",
+    "name": "Stardos Stencil",
+    "family": "Stardos Stencil",
+    "category": "display",
+    "designer": "Vernon Adams",
+    "description": "A stencilled serif display face by Vernon Adams in regular and bold, intended for display use only.",
+    "tags": [
+      "stencil",
+      "headline",
+      "poster"
+    ],
+    "background": "#E2F1F0",
+    "featured": 296,
+    "dateAdded": "2011-07-06",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by vernon adams (vern@newtypography.co.uk), with Reserved Font Names \"Stardos\" and \"Stardos Stencil\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Stardos+Stencil",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/stardosstencil",
+    "version": "1.001",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "StardosStencil-Regular.ttf",
+        "web": "StardosStencil-Regular.ttf"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "StardosStencil-Bold.ttf",
+        "web": "StardosStencil-Bold.ttf"
+      }
+    ]
   },
   {
     "id": "style-script",
@@ -11636,6 +13619,44 @@
     ]
   },
   {
+    "id": "trocchi",
+    "name": "Trocchi",
+    "family": "Trocchi",
+    "category": "serif",
+    "designer": "Vernon Adams",
+    "description": "A casual slab serif by Vernon Adams derived from faces by the English typecutter Vincent Figgins and related Egyptian and Ionic designs, for text and display.",
+    "tags": [
+      "slab",
+      "revival",
+      "text"
+    ],
+    "background": "#F3EBE2",
+    "featured": 299,
+    "dateAdded": "2012-04-04",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright 2012 The Trocchi Project Authors (https://github.com/m4rc1e/Trocchi)",
+    "reservedFontName": false,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Trocchi",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/trocchi",
+    "version": "1.101",
+    "subsets": [
+      "latin",
+      "latin-ext"
+    ],
+    "upstreamUrl": "https://github.com/m4rc1e/Trocchi",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "Trocchi-Regular.ttf",
+        "web": "Trocchi-Regular.woff2"
+      }
+    ]
+  },
+  {
     "id": "uncial-antiqua",
     "name": "Uncial Antiqua",
     "family": "Uncial Antiqua",
@@ -11842,6 +13863,43 @@
       "vietnamese"
     ],
     "upstreamUrl": "https://github.com/m4rc1e/Varela-Round-Hebrew"
+  },
+  {
+    "id": "vast-shadow",
+    "name": "Vast Shadow",
+    "family": "Vast Shadow",
+    "category": "serif",
+    "designer": "Nicole Fally",
+    "description": "A Victorian slab serif advertising type by Nicole Fally with a thin shadow; best at 32px and larger.",
+    "tags": [
+      "slab",
+      "retro",
+      "poster"
+    ],
+    "background": "#EBF2E0",
+    "featured": 300,
+    "dateAdded": "2011-10-12",
+    "license": "SIL Open Font License 1.1",
+    "licenseUrl": "https://openfontlicense.org/open-font-license-official-text/",
+    "licenseFile": "OFL.txt",
+    "copyright": "Copyright (c) 2011 by Sorkin Type Co (www.sorkintype.com), with Reserved Font Names \"Vast\" and \"Vast Shadow\".",
+    "reservedFontName": true,
+    "source": "Google Fonts",
+    "sourceUrl": "https://fonts.google.com/specimen/Vast+Shadow",
+    "repositoryUrl": "https://github.com/google/fonts/tree/e44c4b011a820c2cbe2fd2cfa8052037d7edb571/ofl/vastshadow",
+    "version": "1.002",
+    "subsets": [
+      "latin"
+    ],
+    "upstreamUrl": "https://github.com/googlefonts/googlefontdirectory-hg",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "VastShadow-Regular.ttf",
+        "web": "VastShadow-Regular.ttf"
+      }
+    ]
   },
   {
     "id": "vidaloka",

@@ -2,12 +2,12 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 299,
+    "pages": 349,
     "dataEndpoints": 5,
     "siteFiles": 4,
-    "assets": 1749,
+    "assets": 1959,
     "code": 14,
-    "total": 2071
+    "total": 2331
   },
   "pages": [
     {
@@ -101,6 +101,11 @@
       "canonical": "https://bpozz.com/fonts/abhaya-libre.html"
     },
     {
+      "file": "fonts/aboreto.html",
+      "url": "/fonts/aboreto.html",
+      "canonical": "https://bpozz.com/fonts/aboreto.html"
+    },
+    {
       "file": "fonts/abril-fatface.html",
       "url": "/fonts/abril-fatface.html",
       "canonical": "https://bpozz.com/fonts/abril-fatface.html"
@@ -126,6 +131,11 @@
       "canonical": "https://bpozz.com/fonts/alata.html"
     },
     {
+      "file": "fonts/aldrich.html",
+      "url": "/fonts/aldrich.html",
+      "canonical": "https://bpozz.com/fonts/aldrich.html"
+    },
+    {
       "file": "fonts/alegreya-sans.html",
       "url": "/fonts/alegreya-sans.html",
       "canonical": "https://bpozz.com/fonts/alegreya-sans.html"
@@ -146,9 +156,24 @@
       "canonical": "https://bpozz.com/fonts/alice.html"
     },
     {
+      "file": "fonts/alike.html",
+      "url": "/fonts/alike.html",
+      "canonical": "https://bpozz.com/fonts/alike.html"
+    },
+    {
+      "file": "fonts/allison.html",
+      "url": "/fonts/allison.html",
+      "canonical": "https://bpozz.com/fonts/allison.html"
+    },
+    {
       "file": "fonts/allura.html",
       "url": "/fonts/allura.html",
       "canonical": "https://bpozz.com/fonts/allura.html"
+    },
+    {
+      "file": "fonts/almendra.html",
+      "url": "/fonts/almendra.html",
+      "canonical": "https://bpozz.com/fonts/almendra.html"
     },
     {
       "file": "fonts/amatic-sc.html",
@@ -159,6 +184,11 @@
       "file": "fonts/andika.html",
       "url": "/fonts/andika.html",
       "canonical": "https://bpozz.com/fonts/andika.html"
+    },
+    {
+      "file": "fonts/annie-use-your-telescope.html",
+      "url": "/fonts/annie-use-your-telescope.html",
+      "canonical": "https://bpozz.com/fonts/annie-use-your-telescope.html"
     },
     {
       "file": "fonts/anonymous-pro.html",
@@ -201,6 +231,16 @@
       "canonical": "https://bpozz.com/fonts/archivo-black.html"
     },
     {
+      "file": "fonts/arizonia.html",
+      "url": "/fonts/arizonia.html",
+      "canonical": "https://bpozz.com/fonts/arizonia.html"
+    },
+    {
+      "file": "fonts/armata.html",
+      "url": "/fonts/armata.html",
+      "canonical": "https://bpozz.com/fonts/armata.html"
+    },
+    {
       "file": "fonts/arsenal.html",
       "url": "/fonts/arsenal.html",
       "canonical": "https://bpozz.com/fonts/arsenal.html"
@@ -214,6 +254,11 @@
       "file": "fonts/asap-condensed.html",
       "url": "/fonts/asap-condensed.html",
       "canonical": "https://bpozz.com/fonts/asap-condensed.html"
+    },
+    {
+      "file": "fonts/asul.html",
+      "url": "/fonts/asul.html",
+      "canonical": "https://bpozz.com/fonts/asul.html"
     },
     {
       "file": "fonts/atkinson-hyperlegible.html",
@@ -251,6 +296,11 @@
       "canonical": "https://bpozz.com/fonts/balsamiq-sans.html"
     },
     {
+      "file": "fonts/balthazar.html",
+      "url": "/fonts/balthazar.html",
+      "canonical": "https://bpozz.com/fonts/balthazar.html"
+    },
+    {
       "file": "fonts/bangers.html",
       "url": "/fonts/bangers.html",
       "canonical": "https://bpozz.com/fonts/bangers.html"
@@ -266,6 +316,11 @@
       "canonical": "https://bpozz.com/fonts/barlow.html"
     },
     {
+      "file": "fonts/basic.html",
+      "url": "/fonts/basic.html",
+      "canonical": "https://bpozz.com/fonts/basic.html"
+    },
+    {
       "file": "fonts/be-vietnam-pro.html",
       "url": "/fonts/be-vietnam-pro.html",
       "canonical": "https://bpozz.com/fonts/be-vietnam-pro.html"
@@ -276,6 +331,11 @@
       "canonical": "https://bpozz.com/fonts/bebas-neue.html"
     },
     {
+      "file": "fonts/belanosima.html",
+      "url": "/fonts/belanosima.html",
+      "canonical": "https://bpozz.com/fonts/belanosima.html"
+    },
+    {
       "file": "fonts/bellefair.html",
       "url": "/fonts/bellefair.html",
       "canonical": "https://bpozz.com/fonts/bellefair.html"
@@ -284,6 +344,11 @@
       "file": "fonts/belleza.html",
       "url": "/fonts/belleza.html",
       "canonical": "https://bpozz.com/fonts/belleza.html"
+    },
+    {
+      "file": "fonts/benchnine.html",
+      "url": "/fonts/benchnine.html",
+      "canonical": "https://bpozz.com/fonts/benchnine.html"
     },
     {
       "file": "fonts/bentham.html",
@@ -299,6 +364,11 @@
       "file": "fonts/bevan.html",
       "url": "/fonts/bevan.html",
       "canonical": "https://bpozz.com/fonts/bevan.html"
+    },
+    {
+      "file": "fonts/birthstone.html",
+      "url": "/fonts/birthstone.html",
+      "canonical": "https://bpozz.com/fonts/birthstone.html"
     },
     {
       "file": "fonts/black-ops-one.html",
@@ -336,6 +406,11 @@
       "canonical": "https://bpozz.com/fonts/bungee.html"
     },
     {
+      "file": "fonts/cabin-sketch.html",
+      "url": "/fonts/cabin-sketch.html",
+      "canonical": "https://bpozz.com/fonts/cabin-sketch.html"
+    },
+    {
       "file": "fonts/caladea.html",
       "url": "/fonts/caladea.html",
       "canonical": "https://bpozz.com/fonts/caladea.html"
@@ -344,6 +419,11 @@
       "file": "fonts/calistoga.html",
       "url": "/fonts/calistoga.html",
       "canonical": "https://bpozz.com/fonts/calistoga.html"
+    },
+    {
+      "file": "fonts/candal.html",
+      "url": "/fonts/candal.html",
+      "canonical": "https://bpozz.com/fonts/candal.html"
     },
     {
       "file": "fonts/cantarell.html",
@@ -356,9 +436,19 @@
       "canonical": "https://bpozz.com/fonts/cantata-one.html"
     },
     {
+      "file": "fonts/caprasimo.html",
+      "url": "/fonts/caprasimo.html",
+      "canonical": "https://bpozz.com/fonts/caprasimo.html"
+    },
+    {
       "file": "fonts/cardo.html",
       "url": "/fonts/cardo.html",
       "canonical": "https://bpozz.com/fonts/cardo.html"
+    },
+    {
+      "file": "fonts/carter-one.html",
+      "url": "/fonts/carter-one.html",
+      "canonical": "https://bpozz.com/fonts/carter-one.html"
     },
     {
       "file": "fonts/caudex.html",
@@ -406,6 +496,11 @@
       "canonical": "https://bpozz.com/fonts/comic-neue.html"
     },
     {
+      "file": "fonts/comic-relief.html",
+      "url": "/fonts/comic-relief.html",
+      "canonical": "https://bpozz.com/fonts/comic-relief.html"
+    },
+    {
       "file": "fonts/concert-one.html",
       "url": "/fonts/concert-one.html",
       "canonical": "https://bpozz.com/fonts/concert-one.html"
@@ -414,6 +509,21 @@
       "file": "fonts/cookie.html",
       "url": "/fonts/cookie.html",
       "canonical": "https://bpozz.com/fonts/cookie.html"
+    },
+    {
+      "file": "fonts/copse.html",
+      "url": "/fonts/copse.html",
+      "canonical": "https://bpozz.com/fonts/copse.html"
+    },
+    {
+      "file": "fonts/corben.html",
+      "url": "/fonts/corben.html",
+      "canonical": "https://bpozz.com/fonts/corben.html"
+    },
+    {
+      "file": "fonts/corinthia.html",
+      "url": "/fonts/corinthia.html",
+      "canonical": "https://bpozz.com/fonts/corinthia.html"
     },
     {
       "file": "fonts/courgette.html",
@@ -429,6 +539,11 @@
       "file": "fonts/cousine.html",
       "url": "/fonts/cousine.html",
       "canonical": "https://bpozz.com/fonts/cousine.html"
+    },
+    {
+      "file": "fonts/coustard.html",
+      "url": "/fonts/coustard.html",
+      "canonical": "https://bpozz.com/fonts/coustard.html"
     },
     {
       "file": "fonts/covered-by-your-grace.html",
@@ -466,6 +581,16 @@
       "canonical": "https://bpozz.com/fonts/dawning-of-a-new-day.html"
     },
     {
+      "file": "fonts/days-one.html",
+      "url": "/fonts/days-one.html",
+      "canonical": "https://bpozz.com/fonts/days-one.html"
+    },
+    {
+      "file": "fonts/delicious-handrawn.html",
+      "url": "/fonts/delicious-handrawn.html",
+      "canonical": "https://bpozz.com/fonts/delicious-handrawn.html"
+    },
+    {
       "file": "fonts/delius.html",
       "url": "/fonts/delius.html",
       "canonical": "https://bpozz.com/fonts/delius.html"
@@ -501,6 +626,11 @@
       "canonical": "https://bpozz.com/fonts/economica.html"
     },
     {
+      "file": "fonts/electrolize.html",
+      "url": "/fonts/electrolize.html",
+      "canonical": "https://bpozz.com/fonts/electrolize.html"
+    },
+    {
       "file": "fonts/encode-sans-expanded.html",
       "url": "/fonts/encode-sans-expanded.html",
       "canonical": "https://bpozz.com/fonts/encode-sans-expanded.html"
@@ -514,6 +644,11 @@
       "file": "fonts/fanwood-text.html",
       "url": "/fonts/fanwood-text.html",
       "canonical": "https://bpozz.com/fonts/fanwood-text.html"
+    },
+    {
+      "file": "fonts/fauna-one.html",
+      "url": "/fonts/fauna-one.html",
+      "canonical": "https://bpozz.com/fonts/fauna-one.html"
     },
     {
       "file": "fonts/fenix.html",
@@ -536,9 +671,19 @@
       "canonical": "https://bpozz.com/fonts/fjalla-one.html"
     },
     {
+      "file": "fonts/fondamento.html",
+      "url": "/fonts/fondamento.html",
+      "canonical": "https://bpozz.com/fonts/fondamento.html"
+    },
+    {
       "file": "fonts/forum.html",
       "url": "/fonts/forum.html",
       "canonical": "https://bpozz.com/fonts/forum.html"
+    },
+    {
+      "file": "fonts/fragment-mono.html",
+      "url": "/fonts/fragment-mono.html",
+      "canonical": "https://bpozz.com/fonts/fragment-mono.html"
     },
     {
       "file": "fonts/francois-one.html",
@@ -564,6 +709,11 @@
       "file": "fonts/gentium-book-plus.html",
       "url": "/fonts/gentium-book-plus.html",
       "canonical": "https://bpozz.com/fonts/gentium-book-plus.html"
+    },
+    {
+      "file": "fonts/germania-one.html",
+      "url": "/fonts/germania-one.html",
+      "canonical": "https://bpozz.com/fonts/germania-one.html"
     },
     {
       "file": "fonts/gilda-display.html",
@@ -646,6 +796,11 @@
       "canonical": "https://bpozz.com/fonts/hind.html"
     },
     {
+      "file": "fonts/hurricane.html",
+      "url": "/fonts/hurricane.html",
+      "canonical": "https://bpozz.com/fonts/hurricane.html"
+    },
+    {
       "file": "fonts/ibm-plex-mono.html",
       "url": "/fonts/ibm-plex-mono.html",
       "canonical": "https://bpozz.com/fonts/ibm-plex-mono.html"
@@ -659,6 +814,11 @@
       "file": "fonts/ibm-plex-serif.html",
       "url": "/fonts/ibm-plex-serif.html",
       "canonical": "https://bpozz.com/fonts/ibm-plex-serif.html"
+    },
+    {
+      "file": "fonts/im-fell-dw-pica.html",
+      "url": "/fonts/im-fell-dw-pica.html",
+      "canonical": "https://bpozz.com/fonts/im-fell-dw-pica.html"
     },
     {
       "file": "fonts/im-fell-english.html",
@@ -696,9 +856,19 @@
       "canonical": "https://bpozz.com/fonts/istok-web.html"
     },
     {
+      "file": "fonts/italiana.html",
+      "url": "/fonts/italiana.html",
+      "canonical": "https://bpozz.com/fonts/italiana.html"
+    },
+    {
       "file": "fonts/italianno.html",
       "url": "/fonts/italianno.html",
       "canonical": "https://bpozz.com/fonts/italianno.html"
+    },
+    {
+      "file": "fonts/jersey-25.html",
+      "url": "/fonts/jersey-25.html",
+      "canonical": "https://bpozz.com/fonts/jersey-25.html"
     },
     {
       "file": "fonts/judson.html",
@@ -721,6 +891,11 @@
       "canonical": "https://bpozz.com/fonts/kaushan-script.html"
     },
     {
+      "file": "fonts/kristi.html",
+      "url": "/fonts/kristi.html",
+      "canonical": "https://bpozz.com/fonts/kristi.html"
+    },
+    {
       "file": "fonts/krona-one.html",
       "url": "/fonts/krona-one.html",
       "canonical": "https://bpozz.com/fonts/krona-one.html"
@@ -739,6 +914,11 @@
       "file": "fonts/leckerli-one.html",
       "url": "/fonts/leckerli-one.html",
       "canonical": "https://bpozz.com/fonts/leckerli-one.html"
+    },
+    {
+      "file": "fonts/ledger.html",
+      "url": "/fonts/ledger.html",
+      "canonical": "https://bpozz.com/fonts/ledger.html"
     },
     {
       "file": "fonts/lekton.html",
@@ -826,6 +1006,11 @@
       "canonical": "https://bpozz.com/fonts/mate.html"
     },
     {
+      "file": "fonts/meow-script.html",
+      "url": "/fonts/meow-script.html",
+      "canonical": "https://bpozz.com/fonts/meow-script.html"
+    },
+    {
       "file": "fonts/michroma.html",
       "url": "/fonts/michroma.html",
       "canonical": "https://bpozz.com/fonts/michroma.html"
@@ -839,6 +1024,11 @@
       "file": "fonts/monoton.html",
       "url": "/fonts/monoton.html",
       "canonical": "https://bpozz.com/fonts/monoton.html"
+    },
+    {
+      "file": "fonts/monsieur-la-doulaise.html",
+      "url": "/fonts/monsieur-la-doulaise.html",
+      "canonical": "https://bpozz.com/fonts/monsieur-la-doulaise.html"
     },
     {
       "file": "fonts/montserrat-alternates.html",
@@ -874,6 +1064,11 @@
       "file": "fonts/niconne.html",
       "url": "/fonts/niconne.html",
       "canonical": "https://bpozz.com/fonts/niconne.html"
+    },
+    {
+      "file": "fonts/nixie-one.html",
+      "url": "/fonts/nixie-one.html",
+      "canonical": "https://bpozz.com/fonts/nixie-one.html"
     },
     {
       "file": "fonts/nobile.html",
@@ -914,6 +1109,11 @@
       "file": "fonts/oranienbaum.html",
       "url": "/fonts/oranienbaum.html",
       "canonical": "https://bpozz.com/fonts/oranienbaum.html"
+    },
+    {
+      "file": "fonts/over-the-rainbow.html",
+      "url": "/fonts/over-the-rainbow.html",
+      "canonical": "https://bpozz.com/fonts/over-the-rainbow.html"
     },
     {
       "file": "fonts/overlock.html",
@@ -1011,6 +1211,11 @@
       "canonical": "https://bpozz.com/fonts/poiret-one.html"
     },
     {
+      "file": "fonts/poly.html",
+      "url": "/fonts/poly.html",
+      "canonical": "https://bpozz.com/fonts/poly.html"
+    },
+    {
       "file": "fonts/prata.html",
       "url": "/fonts/prata.html",
       "canonical": "https://bpozz.com/fonts/prata.html"
@@ -1044,6 +1249,11 @@
       "file": "fonts/puritan.html",
       "url": "/fonts/puritan.html",
       "canonical": "https://bpozz.com/fonts/puritan.html"
+    },
+    {
+      "file": "fonts/quando.html",
+      "url": "/fonts/quando.html",
+      "canonical": "https://bpozz.com/fonts/quando.html"
     },
     {
       "file": "fonts/quantico.html",
@@ -1146,6 +1356,11 @@
       "canonical": "https://bpozz.com/fonts/sanchez.html"
     },
     {
+      "file": "fonts/sansita.html",
+      "url": "/fonts/sansita.html",
+      "canonical": "https://bpozz.com/fonts/sansita.html"
+    },
+    {
       "file": "fonts/shadows-into-light.html",
       "url": "/fonts/shadows-into-light.html",
       "canonical": "https://bpozz.com/fonts/shadows-into-light.html"
@@ -1176,6 +1391,21 @@
       "canonical": "https://bpozz.com/fonts/silkscreen.html"
     },
     {
+      "file": "fonts/sintony.html",
+      "url": "/fonts/sintony.html",
+      "canonical": "https://bpozz.com/fonts/sintony.html"
+    },
+    {
+      "file": "fonts/six-caps.html",
+      "url": "/fonts/six-caps.html",
+      "canonical": "https://bpozz.com/fonts/six-caps.html"
+    },
+    {
+      "file": "fonts/skranji.html",
+      "url": "/fonts/skranji.html",
+      "canonical": "https://bpozz.com/fonts/skranji.html"
+    },
+    {
       "file": "fonts/sofia.html",
       "url": "/fonts/sofia.html",
       "canonical": "https://bpozz.com/fonts/sofia.html"
@@ -1196,6 +1426,11 @@
       "canonical": "https://bpozz.com/fonts/space-mono.html"
     },
     {
+      "file": "fonts/special-gothic-expanded-one.html",
+      "url": "/fonts/special-gothic-expanded-one.html",
+      "canonical": "https://bpozz.com/fonts/special-gothic-expanded-one.html"
+    },
+    {
       "file": "fonts/spinnaker.html",
       "url": "/fonts/spinnaker.html",
       "canonical": "https://bpozz.com/fonts/spinnaker.html"
@@ -1209,6 +1444,11 @@
       "file": "fonts/staatliches.html",
       "url": "/fonts/staatliches.html",
       "canonical": "https://bpozz.com/fonts/staatliches.html"
+    },
+    {
+      "file": "fonts/stardos-stencil.html",
+      "url": "/fonts/stardos-stencil.html",
+      "canonical": "https://bpozz.com/fonts/stardos-stencil.html"
     },
     {
       "file": "fonts/style-script.html",
@@ -1256,6 +1496,11 @@
       "canonical": "https://bpozz.com/fonts/tomorrow.html"
     },
     {
+      "file": "fonts/trocchi.html",
+      "url": "/fonts/trocchi.html",
+      "canonical": "https://bpozz.com/fonts/trocchi.html"
+    },
+    {
       "file": "fonts/uncial-antiqua.html",
       "url": "/fonts/uncial-antiqua.html",
       "canonical": "https://bpozz.com/fonts/uncial-antiqua.html"
@@ -1279,6 +1524,11 @@
       "file": "fonts/varela-round.html",
       "url": "/fonts/varela-round.html",
       "canonical": "https://bpozz.com/fonts/varela-round.html"
+    },
+    {
+      "file": "fonts/vast-shadow.html",
+      "url": "/fonts/vast-shadow.html",
+      "canonical": "https://bpozz.com/fonts/vast-shadow.html"
     },
     {
       "file": "fonts/vidaloka.html",
@@ -1557,6 +1807,10 @@
     "/fonts/abhaya-libre/AbhayaLibre-SemiBold.woff2",
     "/fonts/abhaya-libre/AbhayaLibre.zip",
     "/fonts/abhaya-libre/OFL.txt",
+    "/fonts/aboreto/Aboreto-Regular.ttf",
+    "/fonts/aboreto/Aboreto-Regular.woff2",
+    "/fonts/aboreto/Aboreto.zip",
+    "/fonts/aboreto/OFL.txt",
     "/fonts/abril-fatface/AbrilFatface-Regular.ttf",
     "/fonts/abril-fatface/AbrilFatface.zip",
     "/fonts/abril-fatface/OFL.txt",
@@ -1573,6 +1827,9 @@
     "/fonts/alata/Alata-Regular.woff2",
     "/fonts/alata/Alata.zip",
     "/fonts/alata/OFL.txt",
+    "/fonts/aldrich/Aldrich-Regular.ttf",
+    "/fonts/aldrich/Aldrich.zip",
+    "/fonts/aldrich/OFL.txt",
     "/fonts/alegreya-sans/AlegreyaSans-Black.ttf",
     "/fonts/alegreya-sans/AlegreyaSans-Black.woff2",
     "/fonts/alegreya-sans/AlegreyaSans-BlackItalic.ttf",
@@ -1614,10 +1871,23 @@
     "/fonts/alice/Alice-Regular.woff2",
     "/fonts/alice/Alice.zip",
     "/fonts/alice/OFL.txt",
+    "/fonts/alike/Alike-Regular.ttf",
+    "/fonts/alike/Alike.zip",
+    "/fonts/alike/OFL.txt",
+    "/fonts/allison/Allison-Regular.ttf",
+    "/fonts/allison/Allison-Regular.woff2",
+    "/fonts/allison/Allison.zip",
+    "/fonts/allison/OFL.txt",
     "/fonts/allura/Allura-Regular.ttf",
     "/fonts/allura/Allura-Regular.woff2",
     "/fonts/allura/Allura.zip",
     "/fonts/allura/OFL.txt",
+    "/fonts/almendra/Almendra-Bold.ttf",
+    "/fonts/almendra/Almendra-BoldItalic.ttf",
+    "/fonts/almendra/Almendra-Italic.ttf",
+    "/fonts/almendra/Almendra-Regular.ttf",
+    "/fonts/almendra/Almendra.zip",
+    "/fonts/almendra/OFL.txt",
     "/fonts/amatic-sc/AmaticSC-Bold.ttf",
     "/fonts/amatic-sc/AmaticSC-Bold.woff2",
     "/fonts/amatic-sc/AmaticSC-Regular.ttf",
@@ -1630,6 +1900,10 @@
     "/fonts/andika/Andika-Regular.ttf",
     "/fonts/andika/Andika.zip",
     "/fonts/andika/OFL.txt",
+    "/fonts/annie-use-your-telescope/AnnieUseYourTelescope-Regular.ttf",
+    "/fonts/annie-use-your-telescope/AnnieUseYourTelescope-Regular.woff2",
+    "/fonts/annie-use-your-telescope/AnnieUseYourTelescope.zip",
+    "/fonts/annie-use-your-telescope/OFL.txt",
     "/fonts/anonymous-pro/AnonymousPro-Bold.ttf",
     "/fonts/anonymous-pro/AnonymousPro-BoldItalic.ttf",
     "/fonts/anonymous-pro/AnonymousPro-Italic.ttf",
@@ -1661,6 +1935,13 @@
     "/fonts/archivo-black/ArchivoBlack-Regular.woff2",
     "/fonts/archivo-black/ArchivoBlack.zip",
     "/fonts/archivo-black/OFL.txt",
+    "/fonts/arizonia/Arizonia-Regular.ttf",
+    "/fonts/arizonia/Arizonia-Regular.woff2",
+    "/fonts/arizonia/Arizonia.zip",
+    "/fonts/arizonia/OFL.txt",
+    "/fonts/armata/Armata-Regular.ttf",
+    "/fonts/armata/Armata.zip",
+    "/fonts/armata/OFL.txt",
     "/fonts/arsenal/Arsenal-Bold.ttf",
     "/fonts/arsenal/Arsenal-Bold.woff2",
     "/fonts/arsenal/Arsenal-BoldItalic.ttf",
@@ -1711,6 +1992,10 @@
     "/fonts/asap-condensed/AsapCondensed-SemiBoldItalic.woff2",
     "/fonts/asap-condensed/AsapCondensed.zip",
     "/fonts/asap-condensed/OFL.txt",
+    "/fonts/asul/Asul-Bold.ttf",
+    "/fonts/asul/Asul-Regular.ttf",
+    "/fonts/asul/Asul.zip",
+    "/fonts/asul/OFL.txt",
     "/fonts/atkinson-hyperlegible/AtkinsonHyperlegible-Bold.ttf",
     "/fonts/atkinson-hyperlegible/AtkinsonHyperlegible-Bold.woff2",
     "/fonts/atkinson-hyperlegible/AtkinsonHyperlegible-BoldItalic.ttf",
@@ -1766,6 +2051,9 @@
     "/fonts/balsamiq-sans/BalsamiqSans-Regular.woff2",
     "/fonts/balsamiq-sans/BalsamiqSans.zip",
     "/fonts/balsamiq-sans/OFL.txt",
+    "/fonts/balthazar/Balthazar-Regular.ttf",
+    "/fonts/balthazar/Balthazar.zip",
+    "/fonts/balthazar/OFL.txt",
     "/fonts/bangers/Bangers-Regular.ttf",
     "/fonts/bangers/Bangers-Regular.woff2",
     "/fonts/bangers/Bangers.zip",
@@ -1846,6 +2134,9 @@
     "/fonts/barlow/Barlow-ThinItalic.woff2",
     "/fonts/barlow/Barlow.zip",
     "/fonts/barlow/OFL.txt",
+    "/fonts/basic/Basic-Regular.ttf",
+    "/fonts/basic/Basic.zip",
+    "/fonts/basic/OFL.txt",
     "/fonts/be-vietnam-pro/BeVietnamPro-Black.ttf",
     "/fonts/be-vietnam-pro/BeVietnamPro-Black.woff2",
     "/fonts/be-vietnam-pro/BeVietnamPro-BlackItalic.ttf",
@@ -1888,6 +2179,11 @@
     "/fonts/bebas-neue/BebasNeue-Regular.woff2",
     "/fonts/bebas-neue/BebasNeue.zip",
     "/fonts/bebas-neue/OFL.txt",
+    "/fonts/belanosima/Belanosima-Bold.ttf",
+    "/fonts/belanosima/Belanosima-Regular.ttf",
+    "/fonts/belanosima/Belanosima-SemiBold.ttf",
+    "/fonts/belanosima/Belanosima.zip",
+    "/fonts/belanosima/OFL.txt",
     "/fonts/bellefair/Bellefair-Regular.ttf",
     "/fonts/bellefair/Bellefair-Regular.woff2",
     "/fonts/bellefair/Bellefair.zip",
@@ -1896,6 +2192,11 @@
     "/fonts/belleza/Belleza-Regular.woff2",
     "/fonts/belleza/Belleza.zip",
     "/fonts/belleza/OFL.txt",
+    "/fonts/benchnine/BenchNine-Bold.ttf",
+    "/fonts/benchnine/BenchNine-Light.ttf",
+    "/fonts/benchnine/BenchNine-Regular.ttf",
+    "/fonts/benchnine/BenchNine.zip",
+    "/fonts/benchnine/OFL.txt",
     "/fonts/bentham/Bentham-Regular.ttf",
     "/fonts/bentham/Bentham.zip",
     "/fonts/bentham/OFL.txt",
@@ -1908,6 +2209,10 @@
     "/fonts/bevan/Bevan-Regular.woff2",
     "/fonts/bevan/Bevan.zip",
     "/fonts/bevan/OFL.txt",
+    "/fonts/birthstone/Birthstone-Regular.ttf",
+    "/fonts/birthstone/Birthstone-Regular.woff2",
+    "/fonts/birthstone/Birthstone.zip",
+    "/fonts/birthstone/OFL.txt",
     "/fonts/black-ops-one/BlackOpsOne-Regular.ttf",
     "/fonts/black-ops-one/BlackOpsOne-Regular.woff2",
     "/fonts/black-ops-one/BlackOpsOne.zip",
@@ -1949,6 +2254,10 @@
     "/fonts/bungee/Bungee-Regular.woff2",
     "/fonts/bungee/Bungee.zip",
     "/fonts/bungee/OFL.txt",
+    "/fonts/cabin-sketch/CabinSketch-Bold.ttf",
+    "/fonts/cabin-sketch/CabinSketch-Regular.ttf",
+    "/fonts/cabin-sketch/CabinSketch.zip",
+    "/fonts/cabin-sketch/OFL.txt",
     "/fonts/caladea/Caladea-Bold.ttf",
     "/fonts/caladea/Caladea-Bold.woff2",
     "/fonts/caladea/Caladea-BoldItalic.ttf",
@@ -1963,6 +2272,9 @@
     "/fonts/calistoga/Calistoga-Regular.woff2",
     "/fonts/calistoga/Calistoga.zip",
     "/fonts/calistoga/OFL.txt",
+    "/fonts/candal/Candal.ttf",
+    "/fonts/candal/Candal.zip",
+    "/fonts/candal/OFL.txt",
     "/fonts/cantarell/Cantarell-Bold.ttf",
     "/fonts/cantarell/Cantarell-Bold.woff2",
     "/fonts/cantarell/Cantarell-BoldItalic.ttf",
@@ -1976,6 +2288,10 @@
     "/fonts/cantata-one/CantataOne-Regular.ttf",
     "/fonts/cantata-one/CantataOne.zip",
     "/fonts/cantata-one/OFL.txt",
+    "/fonts/caprasimo/Caprasimo-Regular.ttf",
+    "/fonts/caprasimo/Caprasimo-Regular.woff2",
+    "/fonts/caprasimo/Caprasimo.zip",
+    "/fonts/caprasimo/OFL.txt",
     "/fonts/cardo/Cardo-Bold.ttf",
     "/fonts/cardo/Cardo-Bold.woff2",
     "/fonts/cardo/Cardo-Italic.ttf",
@@ -1984,6 +2300,9 @@
     "/fonts/cardo/Cardo-Regular.woff2",
     "/fonts/cardo/Cardo.zip",
     "/fonts/cardo/OFL.txt",
+    "/fonts/carter-one/CarterOne.ttf",
+    "/fonts/carter-one/CarterOne.zip",
+    "/fonts/carter-one/OFL.txt",
     "/fonts/caudex/Caudex-Bold.ttf",
     "/fonts/caudex/Caudex-BoldItalic.ttf",
     "/fonts/caudex/Caudex-Italic.ttf",
@@ -2033,12 +2352,31 @@
     "/fonts/comic-neue/ComicNeue-Regular.woff2",
     "/fonts/comic-neue/ComicNeue.zip",
     "/fonts/comic-neue/OFL.txt",
+    "/fonts/comic-relief/ComicRelief-Bold.ttf",
+    "/fonts/comic-relief/ComicRelief-Bold.woff2",
+    "/fonts/comic-relief/ComicRelief-Regular.ttf",
+    "/fonts/comic-relief/ComicRelief-Regular.woff2",
+    "/fonts/comic-relief/ComicRelief.zip",
+    "/fonts/comic-relief/OFL.txt",
     "/fonts/concert-one/ConcertOne-Regular.ttf",
     "/fonts/concert-one/ConcertOne.zip",
     "/fonts/concert-one/OFL.txt",
     "/fonts/cookie/Cookie-Regular.ttf",
     "/fonts/cookie/Cookie.zip",
     "/fonts/cookie/OFL.txt",
+    "/fonts/copse/Copse-Regular.ttf",
+    "/fonts/copse/Copse.zip",
+    "/fonts/copse/OFL.txt",
+    "/fonts/corben/Corben-Bold.ttf",
+    "/fonts/corben/Corben-Regular.ttf",
+    "/fonts/corben/Corben.zip",
+    "/fonts/corben/OFL.txt",
+    "/fonts/corinthia/Corinthia-Bold.ttf",
+    "/fonts/corinthia/Corinthia-Bold.woff2",
+    "/fonts/corinthia/Corinthia-Regular.ttf",
+    "/fonts/corinthia/Corinthia-Regular.woff2",
+    "/fonts/corinthia/Corinthia.zip",
+    "/fonts/corinthia/OFL.txt",
     "/fonts/courgette/Courgette-Regular.ttf",
     "/fonts/courgette/Courgette.zip",
     "/fonts/courgette/OFL.txt",
@@ -2062,6 +2400,12 @@
     "/fonts/cousine/Cousine-Regular.woff2",
     "/fonts/cousine/Cousine.zip",
     "/fonts/cousine/OFL.txt",
+    "/fonts/coustard/Coustard-Black.ttf",
+    "/fonts/coustard/Coustard-Black.woff2",
+    "/fonts/coustard/Coustard-Regular.ttf",
+    "/fonts/coustard/Coustard-Regular.woff2",
+    "/fonts/coustard/Coustard.zip",
+    "/fonts/coustard/OFL.txt",
     "/fonts/covered-by-your-grace/CoveredByYourGrace.ttf",
     "/fonts/covered-by-your-grace/CoveredByYourGrace.woff2",
     "/fonts/covered-by-your-grace/CoveredByYourGrace.zip",
@@ -2099,6 +2443,13 @@
     "/fonts/dawning-of-a-new-day/DawningofaNewDay.woff2",
     "/fonts/dawning-of-a-new-day/DawningofaNewDay.zip",
     "/fonts/dawning-of-a-new-day/OFL.txt",
+    "/fonts/days-one/DaysOne-Regular.ttf",
+    "/fonts/days-one/DaysOne.zip",
+    "/fonts/days-one/OFL.txt",
+    "/fonts/delicious-handrawn/DeliciousHandrawn-Regular.ttf",
+    "/fonts/delicious-handrawn/DeliciousHandrawn-Regular.woff2",
+    "/fonts/delicious-handrawn/DeliciousHandrawn.zip",
+    "/fonts/delicious-handrawn/OFL.txt",
     "/fonts/delius/Delius-Regular.ttf",
     "/fonts/delius/Delius.zip",
     "/fonts/delius/OFL.txt",
@@ -2136,6 +2487,9 @@
     "/fonts/economica/Economica-Regular.ttf",
     "/fonts/economica/Economica.zip",
     "/fonts/economica/OFL.txt",
+    "/fonts/electrolize/Electrolize-Regular.ttf",
+    "/fonts/electrolize/Electrolize.zip",
+    "/fonts/electrolize/OFL.txt",
     "/fonts/encode-sans-expanded/EncodeSansExpanded-Black.ttf",
     "/fonts/encode-sans-expanded/EncodeSansExpanded-Bold.ttf",
     "/fonts/encode-sans-expanded/EncodeSansExpanded-ExtraBold.ttf",
@@ -2159,6 +2513,9 @@
     "/fonts/fanwood-text/FanwoodText-Regular.woff2",
     "/fonts/fanwood-text/FanwoodText.zip",
     "/fonts/fanwood-text/OFL.txt",
+    "/fonts/fauna-one/FaunaOne-Regular.ttf",
+    "/fonts/fauna-one/FaunaOne.zip",
+    "/fonts/fauna-one/OFL.txt",
     "/fonts/fenix/Fenix-Regular.ttf",
     "/fonts/fenix/Fenix.zip",
     "/fonts/fenix/OFL.txt",
@@ -2212,9 +2569,19 @@
     "/fonts/fjalla-one/FjallaOne-Regular.woff2",
     "/fonts/fjalla-one/FjallaOne.zip",
     "/fonts/fjalla-one/OFL.txt",
+    "/fonts/fondamento/Fondamento-Italic.ttf",
+    "/fonts/fondamento/Fondamento-Regular.ttf",
+    "/fonts/fondamento/Fondamento.zip",
+    "/fonts/fondamento/OFL.txt",
     "/fonts/forum/Forum-Regular.ttf",
     "/fonts/forum/Forum.zip",
     "/fonts/forum/OFL.txt",
+    "/fonts/fragment-mono/FragmentMono-Italic.ttf",
+    "/fonts/fragment-mono/FragmentMono-Italic.woff2",
+    "/fonts/fragment-mono/FragmentMono-Regular.ttf",
+    "/fonts/fragment-mono/FragmentMono-Regular.woff2",
+    "/fonts/fragment-mono/FragmentMono.zip",
+    "/fonts/fragment-mono/OFL.txt",
     "/fonts/francois-one/FrancoisOne-Regular.ttf",
     "/fonts/francois-one/FrancoisOne-Regular.woff2",
     "/fonts/francois-one/FrancoisOne.zip",
@@ -2234,6 +2601,9 @@
     "/fonts/gentium-book-plus/GentiumBookPlus-Regular.ttf",
     "/fonts/gentium-book-plus/GentiumBookPlus.zip",
     "/fonts/gentium-book-plus/OFL.txt",
+    "/fonts/germania-one/GermaniaOne-Regular.ttf",
+    "/fonts/germania-one/GermaniaOne.zip",
+    "/fonts/germania-one/OFL.txt",
     "/fonts/gilda-display/GildaDisplay-Regular.ttf",
     "/fonts/gilda-display/GildaDisplay.zip",
     "/fonts/gilda-display/OFL.txt",
@@ -2301,6 +2671,10 @@
     "/fonts/hind/Hind-SemiBold.woff2",
     "/fonts/hind/Hind.zip",
     "/fonts/hind/OFL.txt",
+    "/fonts/hurricane/Hurricane-Regular.ttf",
+    "/fonts/hurricane/Hurricane-Regular.woff2",
+    "/fonts/hurricane/Hurricane.zip",
+    "/fonts/hurricane/OFL.txt",
     "/fonts/ibm-plex-mono/IBMPlexMono-Bold.ttf",
     "/fonts/ibm-plex-mono/IBMPlexMono-BoldItalic.ttf",
     "/fonts/ibm-plex-mono/IBMPlexMono-ExtraLight.ttf",
@@ -2349,6 +2723,12 @@
     "/fonts/ibm-plex-serif/IBMPlexSerif-ThinItalic.ttf",
     "/fonts/ibm-plex-serif/IBMPlexSerif.zip",
     "/fonts/ibm-plex-serif/OFL.txt",
+    "/fonts/im-fell-dw-pica/IMFePIit28P.ttf",
+    "/fonts/im-fell-dw-pica/IMFePIit28P.woff2",
+    "/fonts/im-fell-dw-pica/IMFePIrm28P.ttf",
+    "/fonts/im-fell-dw-pica/IMFePIrm28P.woff2",
+    "/fonts/im-fell-dw-pica/IMFellDWPica.zip",
+    "/fonts/im-fell-dw-pica/OFL.txt",
     "/fonts/im-fell-english/IMFeENit28P.ttf",
     "/fonts/im-fell-english/IMFeENit28P.woff2",
     "/fonts/im-fell-english/IMFeENrm28P.ttf",
@@ -2417,10 +2797,17 @@
     "/fonts/istok-web/IstokWeb-Regular.ttf",
     "/fonts/istok-web/IstokWeb.zip",
     "/fonts/istok-web/OFL.txt",
+    "/fonts/italiana/Italiana-Regular.ttf",
+    "/fonts/italiana/Italiana.zip",
+    "/fonts/italiana/OFL.txt",
     "/fonts/italianno/Italianno-Regular.ttf",
     "/fonts/italianno/Italianno-Regular.woff2",
     "/fonts/italianno/Italianno.zip",
     "/fonts/italianno/OFL.txt",
+    "/fonts/jersey-25/Jersey25-Regular.ttf",
+    "/fonts/jersey-25/Jersey25-Regular.woff2",
+    "/fonts/jersey-25/Jersey25.zip",
+    "/fonts/jersey-25/OFL.txt",
     "/fonts/judson/Judson-Bold.ttf",
     "/fonts/judson/Judson-Bold.woff2",
     "/fonts/judson/Judson-Italic.ttf",
@@ -2443,6 +2830,10 @@
     "/fonts/kaushan-script/KaushanScript-Regular.ttf",
     "/fonts/kaushan-script/KaushanScript.zip",
     "/fonts/kaushan-script/OFL.txt",
+    "/fonts/kristi/Kristi-Regular.ttf",
+    "/fonts/kristi/Kristi-Regular.woff2",
+    "/fonts/kristi/Kristi.zip",
+    "/fonts/kristi/OFL.txt",
     "/fonts/krona-one/KronaOne-Regular.ttf",
     "/fonts/krona-one/KronaOne.zip",
     "/fonts/krona-one/OFL.txt",
@@ -2473,6 +2864,9 @@
     "/fonts/leckerli-one/LeckerliOne-Regular.ttf",
     "/fonts/leckerli-one/LeckerliOne.zip",
     "/fonts/leckerli-one/OFL.txt",
+    "/fonts/ledger/Ledger-Regular.ttf",
+    "/fonts/ledger/Ledger.zip",
+    "/fonts/ledger/OFL.txt",
     "/fonts/lekton/Lekton-Bold.ttf",
     "/fonts/lekton/Lekton-Bold.woff2",
     "/fonts/lekton/Lekton-Italic.ttf",
@@ -2583,6 +2977,10 @@
     "/fonts/mate/Mate-Regular.ttf",
     "/fonts/mate/Mate.zip",
     "/fonts/mate/OFL.txt",
+    "/fonts/meow-script/MeowScript-Regular.ttf",
+    "/fonts/meow-script/MeowScript-Regular.woff2",
+    "/fonts/meow-script/MeowScript.zip",
+    "/fonts/meow-script/OFL.txt",
     "/fonts/michroma/Michroma-Regular.ttf",
     "/fonts/michroma/Michroma-Regular.woff2",
     "/fonts/michroma/Michroma.zip",
@@ -2593,6 +2991,9 @@
     "/fonts/monoton/Monoton-Regular.ttf",
     "/fonts/monoton/Monoton.zip",
     "/fonts/monoton/OFL.txt",
+    "/fonts/monsieur-la-doulaise/MonsieurLaDoulaise-Regular.ttf",
+    "/fonts/monsieur-la-doulaise/MonsieurLaDoulaise.zip",
+    "/fonts/monsieur-la-doulaise/OFL.txt",
     "/fonts/montserrat-alternates/MontserratAlternates-Black.ttf",
     "/fonts/montserrat-alternates/MontserratAlternates-Black.woff2",
     "/fonts/montserrat-alternates/MontserratAlternates-BlackItalic.ttf",
@@ -2652,6 +3053,10 @@
     "/fonts/niconne/Niconne-Regular.ttf",
     "/fonts/niconne/Niconne.zip",
     "/fonts/niconne/OFL.txt",
+    "/fonts/nixie-one/NixieOne-Regular.ttf",
+    "/fonts/nixie-one/NixieOne-Regular.woff2",
+    "/fonts/nixie-one/NixieOne.zip",
+    "/fonts/nixie-one/OFL.txt",
     "/fonts/nobile/Nobile-Bold.ttf",
     "/fonts/nobile/Nobile-BoldItalic.ttf",
     "/fonts/nobile/Nobile-Italic.ttf",
@@ -2693,6 +3098,10 @@
     "/fonts/oranienbaum/OFL.txt",
     "/fonts/oranienbaum/Oranienbaum-Regular.ttf",
     "/fonts/oranienbaum/Oranienbaum.zip",
+    "/fonts/over-the-rainbow/OFL.txt",
+    "/fonts/over-the-rainbow/OvertheRainbow.ttf",
+    "/fonts/over-the-rainbow/OvertheRainbow.woff2",
+    "/fonts/over-the-rainbow/OvertheRainbow.zip",
     "/fonts/overlock/OFL.txt",
     "/fonts/overlock/Overlock-Black.ttf",
     "/fonts/overlock/Overlock-BlackItalic.ttf",
@@ -2773,6 +3182,10 @@
     "/fonts/poiret-one/PoiretOne-Regular.ttf",
     "/fonts/poiret-one/PoiretOne-Regular.woff2",
     "/fonts/poiret-one/PoiretOne.zip",
+    "/fonts/poly/OFL.txt",
+    "/fonts/poly/Poly-Italic.ttf",
+    "/fonts/poly/Poly-Regular.ttf",
+    "/fonts/poly/Poly.zip",
     "/fonts/prata/OFL.txt",
     "/fonts/prata/Prata-Regular.ttf",
     "/fonts/prata/Prata-Regular.woff2",
@@ -2823,6 +3236,9 @@
     "/fonts/puritan/Puritan-Italic.ttf",
     "/fonts/puritan/Puritan-Regular.ttf",
     "/fonts/puritan/Puritan.zip",
+    "/fonts/quando/OFL.txt",
+    "/fonts/quando/Quando-Regular.ttf",
+    "/fonts/quando/Quando.zip",
     "/fonts/quantico/OFL.txt",
     "/fonts/quantico/Quantico-Bold.ttf",
     "/fonts/quantico/Quantico-BoldItalic.ttf",
@@ -2911,6 +3327,24 @@
     "/fonts/sanchez/Sanchez-Italic.ttf",
     "/fonts/sanchez/Sanchez-Regular.ttf",
     "/fonts/sanchez/Sanchez.zip",
+    "/fonts/sansita/OFL.txt",
+    "/fonts/sansita/Sansita-Black.ttf",
+    "/fonts/sansita/Sansita-Black.woff2",
+    "/fonts/sansita/Sansita-BlackItalic.ttf",
+    "/fonts/sansita/Sansita-BlackItalic.woff2",
+    "/fonts/sansita/Sansita-Bold.ttf",
+    "/fonts/sansita/Sansita-Bold.woff2",
+    "/fonts/sansita/Sansita-BoldItalic.ttf",
+    "/fonts/sansita/Sansita-BoldItalic.woff2",
+    "/fonts/sansita/Sansita-ExtraBold.ttf",
+    "/fonts/sansita/Sansita-ExtraBold.woff2",
+    "/fonts/sansita/Sansita-ExtraBoldItalic.ttf",
+    "/fonts/sansita/Sansita-ExtraBoldItalic.woff2",
+    "/fonts/sansita/Sansita-Italic.ttf",
+    "/fonts/sansita/Sansita-Italic.woff2",
+    "/fonts/sansita/Sansita-Regular.ttf",
+    "/fonts/sansita/Sansita-Regular.woff2",
+    "/fonts/sansita/Sansita.zip",
     "/fonts/shadows-into-light/OFL.txt",
     "/fonts/shadows-into-light/ShadowsIntoLight.ttf",
     "/fonts/shadows-into-light/ShadowsIntoLight.woff2",
@@ -2935,6 +3369,17 @@
     "/fonts/silkscreen/Silkscreen-Regular.ttf",
     "/fonts/silkscreen/Silkscreen-Regular.woff2",
     "/fonts/silkscreen/Silkscreen.zip",
+    "/fonts/sintony/OFL.txt",
+    "/fonts/sintony/Sintony-Bold.ttf",
+    "/fonts/sintony/Sintony-Regular.ttf",
+    "/fonts/sintony/Sintony.zip",
+    "/fonts/six-caps/OFL.txt",
+    "/fonts/six-caps/SixCaps.ttf",
+    "/fonts/six-caps/SixCaps.zip",
+    "/fonts/skranji/OFL.txt",
+    "/fonts/skranji/Skranji-Bold.ttf",
+    "/fonts/skranji/Skranji-Regular.ttf",
+    "/fonts/skranji/Skranji.zip",
     "/fonts/sofia/OFL.txt",
     "/fonts/sofia/Sofia-Regular.ttf",
     "/fonts/sofia/Sofia.zip",
@@ -2966,6 +3411,10 @@
     "/fonts/space-mono/SpaceMono-Regular.ttf",
     "/fonts/space-mono/SpaceMono-Regular.woff2",
     "/fonts/space-mono/SpaceMono.zip",
+    "/fonts/special-gothic-expanded-one/OFL.txt",
+    "/fonts/special-gothic-expanded-one/SpecialGothicExpandedOne-Regular.ttf",
+    "/fonts/special-gothic-expanded-one/SpecialGothicExpandedOne-Regular.woff2",
+    "/fonts/special-gothic-expanded-one/SpecialGothicExpandedOne.zip",
     "/fonts/spinnaker/OFL.txt",
     "/fonts/spinnaker/Spinnaker-Regular.ttf",
     "/fonts/spinnaker/Spinnaker.zip",
@@ -2976,6 +3425,10 @@
     "/fonts/staatliches/Staatliches-Regular.ttf",
     "/fonts/staatliches/Staatliches-Regular.woff2",
     "/fonts/staatliches/Staatliches.zip",
+    "/fonts/stardos-stencil/OFL.txt",
+    "/fonts/stardos-stencil/StardosStencil-Bold.ttf",
+    "/fonts/stardos-stencil/StardosStencil-Regular.ttf",
+    "/fonts/stardos-stencil/StardosStencil.zip",
     "/fonts/style-script/OFL.txt",
     "/fonts/style-script/StyleScript-Regular.ttf",
     "/fonts/style-script/StyleScript-Regular.woff2",
@@ -3065,6 +3518,10 @@
     "/fonts/tomorrow/Tomorrow-ThinItalic.ttf",
     "/fonts/tomorrow/Tomorrow-ThinItalic.woff2",
     "/fonts/tomorrow/Tomorrow.zip",
+    "/fonts/trocchi/OFL.txt",
+    "/fonts/trocchi/Trocchi-Regular.ttf",
+    "/fonts/trocchi/Trocchi-Regular.woff2",
+    "/fonts/trocchi/Trocchi.zip",
     "/fonts/uncial-antiqua/OFL.txt",
     "/fonts/uncial-antiqua/UncialAntiqua-Regular.ttf",
     "/fonts/uncial-antiqua/UncialAntiqua.zip",
@@ -3088,6 +3545,9 @@
     "/fonts/varela-round/OFL.txt",
     "/fonts/varela-round/VarelaRound-Regular.ttf",
     "/fonts/varela-round/VarelaRound.zip",
+    "/fonts/vast-shadow/OFL.txt",
+    "/fonts/vast-shadow/VastShadow-Regular.ttf",
+    "/fonts/vast-shadow/VastShadow.zip",
     "/fonts/vidaloka/OFL.txt",
     "/fonts/vidaloka/Vidaloka-Regular.ttf",
     "/fonts/vidaloka/Vidaloka.zip",

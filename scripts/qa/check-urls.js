@@ -125,6 +125,14 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * The gate confirmed they were the only additions — 0 removed, nothing else
  * moved, every surviving canonical unchanged — so the baseline was
  * re-recorded at 2071 URLs / 299 pages and the list empties again.
+ *
+ * FONTS TO 300 (Batch 2 of the 500-family expansion) held 260 entries here
+ * while its URL change was under review — every one under /fonts: 50 detail
+ * pages (/fonts/<id>.html) and 210 assets (each new family's original TTFs,
+ * WOFF2 previews where its license allows them, OFL.txt and download ZIP).
+ * The gate confirmed they were the only additions — 0 removed, nothing else
+ * moved, every surviving canonical unchanged — so the baseline was
+ * re-recorded at 2331 URLs / 349 pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 
