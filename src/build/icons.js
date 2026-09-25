@@ -654,8 +654,6 @@ module.exports = {
   zipName,
   packUrl,
   assetUrl,
-  previewUrl,
-  PACK_PREVIEW_COUNT,
   HEAD_OPTIONS,
   ICONS_DIR,
   STYLESHEET,

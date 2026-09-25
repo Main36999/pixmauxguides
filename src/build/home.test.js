@@ -41,30 +41,6 @@ test("tool cards: one real link per tool, live counts, no dead routes", () => {
   );
 });
 
-test("icon packs: one card per pack from the data, linking its page, plus the Explore link", () => {
-  const { html, count } = home.iconPacksHtml(model, config, knownUrls);
-  assert.strictEqual(count, model.iconPacks.length);
-  const hrefs = [...html.matchAll(/<a class="resource-card__link" href="([^"]+)">([^<]+)<\/a>/g)];
-  assert.deepStrictEqual(
-    hrefs.map((m) => [m[1], m[2]]),
-    model.iconPacks.map((p) => [`/icons/${p.id}.html`, p.name]),
-  );
-  hrefs.forEach((m) => assert.ok(knownUrls.has(m[1]), m[1]));
-  model.iconPacks.forEach((p) => assert.ok(html.includes(`${p.iconCount} icons</p>`), `${p.id} count`));
-  assert.ok(html.includes('<a class="home-more__link" href="/icons/">Explore Icon Packs'));
-  // previews are the packs' own published files, never copies
-  [...html.matchAll(/<img src="([^"]+)"/g)].forEach((m) => {
-    assert.match(m[1], /^\/icons\/[a-z0-9-]+\/(svg|png)\/[a-z0-9-]+\.(svg|png)$/);
-    assert.ok(fs.existsSync(path.join(config.paths.content.iconFiles, m[1].replace(/^\/icons\//, ""))), m[1]);
-  });
-  (html.match(/<p class="pack-card__icons[^>]*>/g) || []).forEach((tag) => assert.match(tag, /aria-hidden="true"/));
-  assert.ok(indexSource.includes("<!--HOME_ICON_PACKS_START--><!--HOME_ICON_PACKS_END-->"));
-});
-
-test("an icon pack card pointing at an unbuilt route fails the build", () => {
-  assert.throws(() => home.iconPacksHtml(model, config, new Set()), /not in the route table/);
-});
-
 test("a tool card pointing at an unbuilt route fails the build", () => {
   assert.throws(() => home.toolCardsHtml(model, new Set()), /not in the route table/);
 });
@@ -91,16 +67,26 @@ test("resource cards skip the pinned topics", () => {
   );
 
   const { html, count } = home.resourceCardsHtml(topics, knownUrls);
-  assert.strictEqual(count, topics.length + 2, "topics plus Free Fonts plus About");
+  assert.strictEqual(count, topics.length + 3, "topics plus Free Fonts, Icon Packs and About");
   const hrefs = [...html.matchAll(/<a class="resource-card__link" href="([^"]+)"/g)].map((m) => m[1]);
   assert.strictEqual(hrefs[hrefs.length - 1], home.HOME_ABOUT.url);
   assert.strictEqual(hrefs[0], "/fonts/", "Free Fonts opens the section");
   assert.deepStrictEqual(
     hrefs,
-    ["/fonts/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about.html"],
+    ["/fonts/", "/icons/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about.html"],
   );
   assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Free Fonts</a></h3>'));
+  // Icon Packs is ONE card in the same card system, straight after Free Fonts — not a card per pack.
+  assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/icons/">Icon Packs</a></h3><p class="resource-card__desc">Browse outline, solid, duotone, and 3D icon packs for web and mobile app design.</p></li>'));
+  assert.ok(!/\/icons\/[a-z0-9-]+\.html/.test(html), "no per-pack cards on Home");
   hrefs.forEach((href) => assert.ok(knownUrls.has(href), href));
+});
+
+test("Home has no standalone Icon Packs section: one resources heading, Icon Packs inside it", () => {
+  assert.ok(!indexSource.includes("HOME_ICON_PACKS"), "the standalone section's markers are gone");
+  assert.ok(!/<h2[^>]*>\s*Icon Packs\s*<\/h2>/i.test(indexSource), "no Icon Packs heading");
+  assert.strictEqual((indexSource.match(/>More useful resources</g) || []).length, 1);
+  assert.strictEqual(home.iconPacksHtml, undefined, "the per-pack renderer is gone");
 });
 
 // ---- hero explore strip: static markup in index.html ----
@@ -113,7 +99,7 @@ test("explore strip: real routes, one focusable list per row, identical loop cop
   assert.strictEqual(rows.length, 2);
   const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);
   const expected = [
-    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/guides/", "/roadmap.html", "/search.html"],
+    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/icons/", "/guides/", "/roadmap.html", "/search.html"],
     ["/category/typography", "/category/color-theory", "/category/web", "/category/mobile",
       "/category/systems", "/category/accessibility", "/category/motion", "/category/figma"],
   ];

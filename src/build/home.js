@@ -155,7 +155,6 @@ const path = require("path");
 const { escapeHtml } = require("../shared/html.js");
 const BpozzCard = require("../shared/card.js");
 const content = require("./content.js");
-const icons = require("./icons.js");
 
 /** The three pages this module patches, relative to the staging root. */
 const INDEX_PAGE = "index.html";
@@ -307,14 +306,12 @@ function buildRoadmap(guides) {
 // homepage: tool and resource cards (index.html, below the hero)
 // ---------------------------------------------------------------------
 // The hero (headline, search, explore strip) is static markup in
-// index.html. Everything below it is three card sections written here:
+// index.html. Everything below it is two card sections written here:
 //
 //   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
 //                             real, top-level destination
-//   HOME_ICON_PACKS_START/END the icon packs — one compact card per pack,
-//                             plus the "Explore Icon Packs" link
 //   HOME_RESOURCES_START/END  more useful resources — neutral title-and-text cards:
-//                             Free Fonts, the guide topics not in
+//                             Free Fonts, Icon Packs, the guide topics not in
 //                             RESOURCE_TOPICS_SKIPPED, plus About
 //
 // Every card is a real <a> (the title link, stretched over the card), every
@@ -387,6 +384,17 @@ const HOME_FONTS = {
   title: "Free Fonts",
   url: "/fonts/",
   desc: "Browse free fonts for personal and commercial design projects, with original font files and license information.",
+};
+
+/**
+ * The icon library, as a resource card beside the font library: one card to
+ * /icons/, not a card per pack. Its route is checked against the route table
+ * like every other card, so it can only point at the page the build made.
+ */
+const HOME_ICONS = {
+  title: "Icon Packs",
+  url: "/icons/",
+  desc: "Browse outline, solid, duotone, and 3D icon packs for web and mobile app design.",
 };
 
 /** The one resource card that is not a guide topic. */
@@ -488,7 +496,7 @@ function resourceCardHtml(card) {
 }
 
 function resourceCardsHtml(topics, knownUrls) {
-  const cards = [HOME_FONTS]
+  const cards = [HOME_FONTS, HOME_ICONS]
     .concat(
       topics.map(function (t) {
         return {
@@ -503,54 +511,6 @@ function resourceCardsHtml(topics, knownUrls) {
     assertRoute(knownUrls, card.url, `resource card "${card.title}"`);
   });
   return { html: cards.map(resourceCardHtml).join(""), count: cards.length };
-}
-
-// ---------------------------------------------------------------------
-// homepage: icon packs (index.html, between the tools and the resources)
-// ---------------------------------------------------------------------
-
-/**
- * One compact card per icon pack, from the loaded (validated) icon data —
- * icon-packs.json for the packs, icons.json for the preview glyphs. The
- * previews are the pack's own published files, the same ones the /icons/
- * pack cards show (src/build/icons.js previewUrl), so nothing is copied.
- * The cards reuse the resource-card surface; home.css adds the preview row
- * and the smaller title.
- */
-function iconPacksHtml(model, config, knownUrls) {
-  const styleLabel = {};
-  config.icons.styles.forEach(function (s) {
-    styleLabel[s.slug] = s.label;
-  });
-  const cards = model.iconPacks.map(function (pack) {
-    const url = icons.packUrl(pack);
-    assertRoute(knownUrls, url, `icon pack card "${pack.name}"`);
-    const members = model.icons.filter(function (i) {
-      return i.pack === pack.id;
-    });
-    const raster = members.length && !members[0].svg;
-    const preview = members
-      .slice(0, icons.PACK_PREVIEW_COUNT)
-      .map(function (i) {
-        return `<img src="${escapeHtml(icons.previewUrl(i))}" alt="" width="28" height="28" loading="lazy" decoding="async" />`;
-      })
-      .join("");
-    const count = `${pack.iconCount} icon${pack.iconCount === 1 ? "" : "s"}`;
-    return (
-      `<li class="resource-card pack-card">` +
-      `<p class="pack-card__icons${raster ? " pack-card__icons--raster" : ""}" aria-hidden="true">${preview}</p>` +
-      `<h3 class="resource-card__title pack-card__title"><a class="resource-card__link" href="${escapeHtml(url)}">${escapeHtml(pack.name)}</a></h3>` +
-      `<p class="pack-card__meta">${escapeHtml(styleLabel[pack.style])} · ${count}</p>` +
-      `</li>`
-    );
-  });
-  assertRoute(knownUrls, "/icons/", "icon packs link");
-  return {
-    html:
-      `<ul class="pack-grid">${cards.join("")}</ul>` +
-      `<p class="home-more"><a class="home-more__link" href="/icons/">Explore Icon Packs<span class="home-more__arrow" aria-hidden="true">→</span></a></p>`,
-    count: cards.length,
-  };
 }
 
 /**
@@ -675,7 +635,7 @@ function replaceBetween(html, startMarker, endMarker, replacement, fileLabel) {
  * Homepage: the tool cards and the resource cards below the static hero.
  * The resource cards skip RESOURCE_TOPICS_SKIPPED.
  */
-function buildIndexHtml(file, model, knownUrls, config) {
+function buildIndexHtml(file, model, knownUrls) {
   const label = "index.html";
   let html = fs.readFileSync(file, "utf8");
 
@@ -693,14 +653,6 @@ function buildIndexHtml(file, model, knownUrls, config) {
     toolCardsHtml(model, knownUrls),
     label,
   );
-  const packs = iconPacksHtml(model, config, knownUrls);
-  html = replaceBetween(
-    html,
-    "<!--HOME_ICON_PACKS_START-->",
-    "<!--HOME_ICON_PACKS_END-->",
-    packs.html,
-    label,
-  );
   html = replaceBetween(
     html,
     "<!--HOME_RESOURCES_START-->",
@@ -710,7 +662,7 @@ function buildIndexHtml(file, model, knownUrls, config) {
   );
 
   fs.writeFileSync(file, html);
-  return { tools: HOME_TOOLS.length, iconPacks: packs.count, resources: resources.count };
+  return { tools: HOME_TOOLS.length, resources: resources.count };
 }
 
 /**
@@ -832,7 +784,6 @@ function render(ctx) {
     path.join(stage, INDEX_PAGE),
     ctx.model,
     new Set((ctx.routes || []).map((r) => r.url)),
-    ctx.config,
   );
   const guidesPage = buildGuidesHtml(
     path.join(stage, GUIDES_PAGE),
@@ -848,13 +799,13 @@ function render(ctx) {
 module.exports = {
   render,
   buildIndexHtml,
-  iconPacksHtml,
   buildGuidesHtml,
   buildRoadmapHtml,
   buildRoadmap,
   groupRoadmap,
   HOME_TOOLS,
   HOME_FONTS,
+  HOME_ICONS,
   HOME_ABOUT,
   toolCardsHtml,
   RESOURCE_TOPICS_SKIPPED,
