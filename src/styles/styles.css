@@ -871,16 +871,9 @@ body:has(#mobile-menu:not([hidden])) {
   max-width: 1160px;
   margin: 48px auto 0;
 }
-.explore__label {
-  margin-bottom: 14px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: var(--text);
-  text-transform: uppercase;
-}
 .explore__rows {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 .explore__row {
   display: flex;
@@ -941,12 +934,12 @@ body:has(#mobile-menu:not([hidden])) {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 10px 18px;
   border: 1px solid var(--grid-line);
   border-radius: 999px;
   background: var(--card);
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.2;
   white-space: nowrap;
@@ -961,12 +954,11 @@ body:has(#mobile-menu:not([hidden])) {
 }
 .explore-item__icon {
   flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   color: var(--action);
 }
-/* Guide topics: lighter than the tools — no fill, a slash for a mark,
-   echoing the section label. */
+/* Guide topics: lighter than the tools — no fill, a slash for a mark. */
 .explore__row--topics .explore-item {
   background: transparent;
   font-weight: 500;
@@ -995,21 +987,17 @@ body:has(#mobile-menu:not([hidden])) {
     --explore-gap: 8px;
     margin-top: 28px;
   }
-  .explore__label {
-    margin-bottom: 10px;
-    font-size: 11px;
-  }
   .explore__rows {
-    gap: 4px;
+    gap: 6px;
   }
   .explore-item {
     gap: 6px;
-    padding: 6px 12px;
-    font-size: 13px;
+    padding: 7px 14px;
+    font-size: 14px;
   }
   .explore-item__icon {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
   }
 }
 /* Reduced motion: no drift. The copies go, and each row stays one
