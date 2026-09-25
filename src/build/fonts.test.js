@@ -233,9 +233,11 @@ test("the font routes are /fonts/ plus one /fonts/<id>.html per record", () => {
 });
 
 test("the builder produces exactly the pages the route table declares", () => {
+  // Scoped to fonts/: the icon library is a second generated route group,
+  // and src/build/icons.test.js makes the same assertion for icons/.
   const declared = routes
     .build(model)
-    .filter((r) => r.generated)
+    .filter((r) => r.generated && r.file.startsWith("fonts/"))
     .map((r) => r.file)
     .sort();
   assert.deepStrictEqual([...pageByFile.keys()].sort(), declared);

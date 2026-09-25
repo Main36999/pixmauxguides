@@ -110,6 +110,13 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * covers .jpg — no bucket change needed). The gate confirmed it was the
  * only addition — 108 URLs, 1 approved addition, nothing else moved — so
  * the baseline was re-recorded and the list empties again.
+ *
+ * ICON PACKS (Phase 1) held 103 entries here while its URL change was under
+ * review — every one under /icons: 5 pages (/icons and one /icons/<pack>.html
+ * per pack), 2 code files (/icons/icons.css, /icons/icons.js), 42 SVG sources,
+ * 47 PNGs and 7 pack ZIPs. The gate confirmed they were the only additions —
+ * 0 removed, nothing else moved, every surviving canonical unchanged — so the
+ * baseline was re-recorded at 1831 URLs / 249 pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 

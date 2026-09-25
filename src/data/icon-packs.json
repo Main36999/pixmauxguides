@@ -1,0 +1,26 @@
+[
+  {
+    "id": "outline-essentials",
+    "name": "Outline Essentials",
+    "style": "outline",
+    "description": "Clean outline icons for interfaces, dashboards, websites and mobile applications. Drawn on a 24px grid with a 1.5px stroke."
+  },
+  {
+    "id": "solid-essentials",
+    "name": "Solid Essentials",
+    "style": "solid",
+    "description": "Filled icons with strong silhouettes for tab bars, buttons and compact mobile layouts. Drawn on a 24px grid."
+  },
+  {
+    "id": "duotone-essentials",
+    "name": "Duotone Essentials",
+    "style": "duotone",
+    "description": "Two-tone icons that pair a 1.5px outline with a soft 30% fill. Both layers follow currentColor, so one color change restyles the icon."
+  },
+  {
+    "id": "3d-essentials",
+    "name": "3D Essentials",
+    "style": "3d",
+    "description": "Rendered 3D icons for onboarding screens, empty states and feature highlights. Supplied as 512px transparent PNGs."
+  }
+]

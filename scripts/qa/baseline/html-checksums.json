@@ -1,7 +1,7 @@
 {
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
-  "count": 244,
+  "count": 249,
   "files": {
     "about.html": "5ea68f60166e7204e8d84e3b65c80e8c",
     "category/accessibility.html": "f2f446d70033e1d2cf2e9486a4693fcd",
@@ -240,6 +240,11 @@
     "guide/type-scale-systems.html": "603218617c2a68214b274466f906d1c8",
     "guide/whitespace-as-ui-component.html": "75e8a588cfbb033c5e10a7a2695bd0e5",
     "guides/index.html": "d58aaf8dc38ae363c1c909b4d65a78ad",
+    "icons/3d-essentials.html": "0ccd18421cc8b2849bc49e9a63a9ac2a",
+    "icons/duotone-essentials.html": "9b2ccf5d19add1e2ebb24ce0827cd29e",
+    "icons/index.html": "7bb5c975e31dc8bb584190a47e45e8b1",
+    "icons/outline-essentials.html": "75457e2141402fae8f4fec63dcb1e188",
+    "icons/solid-essentials.html": "2c7181735ce7ca0fe4f896327ed6307c",
     "image-picker/index.html": "49cd689b2496c60ca6b89045818782b9",
     "index.html": "6ea5882c6e7032c4a9158439e9e617a8",
     "palettes/index.html": "986adc0851976b2f690d632f758c5d18",

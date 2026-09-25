@@ -265,11 +265,16 @@ function main() {
   // license files are static assets too. The .txt rule is scoped to
   // fonts/<id>/ so a stray text file anywhere else still fails as unclassified
   // instead of being swept in here.
+  //
+  // ICON PACKS: the icon SVGs and PNGs are already images by extension; the
+  // one new file type is each pack's generated download ZIP, scoped to
+  // icons/<pack>/ the same way the font rule is scoped to fonts/<id>/.
   const assets = files
     .filter(
       (f) =>
         /\.(png|jpe?g|webp|svg|ico)$/i.test(f) ||
-        /^fonts\/[a-z0-9-]+\/[^/]+\.(woff2|ttf|otf|zip|txt)$/.test(f),
+        /^fonts\/[a-z0-9-]+\/[^/]+\.(woff2|ttf|otf|zip|txt)$/.test(f) ||
+        /^icons\/[a-z0-9-]+\/[^/]+\.zip$/.test(f),
     )
     .map((f) => "/" + f)
     .filter((u) => !siteFileSet.has(u)) // og-image.png is listed under siteFiles
