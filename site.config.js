@@ -374,11 +374,16 @@ module.exports = {
    * one detail page each:
    *   htmlPages    299 → 349  (+50: fonts/<id>.html per new record)
    *   sitemapUrls  293 → 343  (+50: the same 50 URLs)
+   *
+   * /hoysomrach — the founder's personal page, one hand-authored root page
+   * served extensionless (see EXTENSIONLESS_ROOT_PAGES in src/build/routes.js):
+   *   htmlPages    349 → 350  (+1: hoysomrach.html)
+   *   sitemapUrls  343 → 344  (+1: https://bpozz.com/hoysomrach)
    */
   expected: {
-    htmlPages: 349,
+    htmlPages: 350,
     snapshotUrls: 89,
-    sitemapUrls: 343,
+    sitemapUrls: 344,
   },
 
   /**

@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoy Somrach — UI/UX Designer &amp; Computer Graphic and Design</title>
+    <meta
+      name="description"
+      content="Hoy Somrach is a UI/UX Designer and Computer Graphic and Design. Creator of BPOZZ."
+    />
+    <link rel="canonical" href="https://bpozz.com/hoysomrach" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://bpozz.com/hoysomrach" />
+    <meta property="og:site_name" content="BPOZZ" />
+    <meta
+      property="og:title"
+      content="Hoy Somrach — UI/UX Designer &amp; Computer Graphic and Design"
+    />
+    <meta
+      property="og:description"
+      content="Hoy Somrach is a UI/UX Designer and Computer Graphic and Design. Creator of BPOZZ."
+    />
+    <meta property="og:image" content="https://bpozz.com/assets/founder-somrach-hoy.jpg" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="800" />
+    <meta property="og:image:alt" content="Portrait of Hoy Somrach." />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bpozz" />
+    <meta
+      name="twitter:title"
+      content="Hoy Somrach — UI/UX Designer &amp; Computer Graphic and Design"
+    />
+    <meta
+      name="twitter:description"
+      content="Hoy Somrach is a UI/UX Designer and Computer Graphic and Design. Creator of BPOZZ."
+    />
+    <meta name="twitter:image" content="https://bpozz.com/assets/founder-somrach-hoy.jpg" />
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <!-- Page-scoped tab icon. The shared icon band above is required on
+         every page (src/build/head.test.js), so this page keeps it and
+         declares its own icon after it: browsers use the last matching
+         rel="icon". Only this page carries this line — the site favicon
+         and every other page are unchanged. -->
+    <link rel="icon" type="image/jpeg" href="/assets/founder-somrach-hoy.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ---------- /hoysomrach — personal page ----------
+         Page-scoped styles, inline for the same reason search.html keeps
+         its own: nothing else on the site uses them. Every selector is
+         prefixed .hs so none of it can reach the shared components. */
+      .hs {
+        --hs-yellow: #ffd400;
+        --hs-header: 154px; /* .header-top 84px + .header-bottom 70px */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: calc(100vh - var(--hs-header));
+        min-height: calc(100svh - var(--hs-header));
+      }
+      .hs__visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(32px, 5vw, 80px);
+        background: var(--hs-yellow);
+      }
+      .hs__portrait {
+        display: block;
+        width: min(100%, 560px, calc(100svh - var(--hs-header) - 96px));
+        min-width: min(100%, 320px);
+        height: auto;
+        aspect-ratio: 1;
+        border: clamp(8px, 0.9vw, 14px) solid #ffffff;
+        background: #ffffff;
+      }
+      .hs__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(40px, 6vw, 112px);
+        background: var(--paper);
+      }
+      .hs__title {
+        margin: 0;
+        font-size: clamp(64px, 9vw, 168px);
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.045em;
+      }
+      .hs__intro {
+        max-width: 30ch;
+        margin: clamp(24px, 2.5vw, 40px) 0 0;
+        font-size: clamp(19px, 0.9vw + 12px, 28px);
+        font-weight: 500;
+        line-height: 1.5;
+      }
+      .hs__intro a {
+        color: var(--action);
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.18em;
+      }
+      .hs__intro a:hover {
+        color: var(--action-hover);
+      }
+      .hs__social {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 28px;
+        margin: clamp(32px, 4vw, 64px) 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .hs__social a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 44px;
+        font-size: 17px;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .hs__social a:hover {
+        color: var(--action);
+      }
+      .hs__social a:hover span {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+      .hs__social svg {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+      }
+      @media (max-width: 640px) {
+        .hs {
+          --hs-header: 84px; /* .header-bottom is hidden at this width */
+        }
+      }
+      @media (max-width: 900px) {
+        .hs {
+          grid-template-columns: 1fr;
+          min-height: 0;
+        }
+        .hs__visual {
+          padding: clamp(24px, 8vw, 64px);
+        }
+        .hs__portrait {
+          width: min(100%, 440px);
+          min-width: 0;
+        }
+        .hs__content {
+          padding: clamp(40px, 10vw, 72px) clamp(20px, 8vw, 64px)
+            clamp(48px, 12vw, 88px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <!--HEADER_START--><header class="site-header site-header--inner">
+  <div class="header-top">
+    <a href="index.html" class="brand" aria-label="bpozz! home">
+      <img class="brand-logo" src="/assets/bpozz-logo.svg" alt="" width="88" height="32" />
+    </a>
+
+    <form
+      class="header-search header-search--full form"
+      role="search"
+      action="/search"
+      method="get"
+    >
+      <label for="header-search-input" class="sr-only">Search BPOZZ</label>
+      <button type="submit" aria-label="Search BPOZZ">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+      <input
+        type="search"
+        id="header-search-input"
+        name="s"
+        placeholder="Search guides, palettes…"
+        autocomplete="off"
+        class="input"
+      />
+      <button type="reset" class="reset" aria-label="Clear search">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+    </form>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="header-bottom">
+    <nav class="site-nav" aria-label="Primary">
+      <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/colors/">Colors</a>
+      <a href="/palettes/">Color Palettes</a>
+      <a href="/image-picker/">Image Picker</a>
+      <a href="/guides/">UI/UX Guides</a>
+      <a href="/roadmap">Learning Roadmap</a>
+      <!--NAV_RESOURCES_END-->
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/colors/">Colors</a>
+      <a href="/palettes/">Color Palettes</a>
+      <a href="/image-picker/">Image Picker</a>
+      <a href="/guides/">UI/UX Guides</a>
+      <a href="/roadmap">Learning Roadmap</a>
+      <!--NAV_RESOURCES_END-->
+    </nav>
+  </div>
+</header><!--HEADER_END-->
+
+    <main id="main" class="hs">
+      <div class="hs__visual">
+        <img
+          class="hs__portrait"
+          src="assets/founder-somrach-hoy.jpg"
+          alt="Black-and-white portrait of Hoy Somrach in a dark turtleneck"
+          width="800"
+          height="800"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="hs__content">
+        <h1 class="hs__title">Hello!</h1>
+        <p class="hs__intro">
+          I'm Hoy Somrach, UI/UX Designer and Computer Graphic and Design.
+          I created <a href="index.html">bpozz</a>.
+        </p>
+        <ul class="hs__social" aria-label="Social links">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/somrach-hoy-a8a911402/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+              </svg>
+              <span>LinkedIn</span><span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://t.me/HoySomrach"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.56 8.16-1.97 9.3c-.15.66-.54.82-1.09.51l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.21-3.05 5.56-5.02c.24-.21-.05-.33-.37-.12l-6.87 4.33-2.96-.92c-.64-.2-.66-.64.14-.95l11.57-4.46c.54-.2 1.01.13.84.89z" />
+              </svg>
+              <span>Telegram</span><span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <!-- Mobile menu toggle (kept in sync with app.js's "Mobile menu toggle" block —
+         this page loads no other script, so the wiring lives here too). -->
+    <script>
+      (function () {
+        var toggle = document.getElementById("menu-toggle");
+        var menu = document.getElementById("mobile-menu");
+        if (!toggle || !menu) return;
+
+        function closeMenu() {
+          menu.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open menu");
+        }
+
+        function openMenu() {
+          menu.hidden = false;
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.setAttribute("aria-label", "Close menu");
+        }
+
+        toggle.addEventListener("click", function () {
+          if (menu.hidden) {
+            openMenu();
+          } else {
+            closeMenu();
+          }
+        });
+
+        menu.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !menu.hidden) {
+            closeMenu();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

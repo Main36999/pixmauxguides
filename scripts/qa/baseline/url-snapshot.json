@@ -2,12 +2,12 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 349,
+    "pages": 350,
     "dataEndpoints": 5,
     "siteFiles": 4,
     "assets": 1959,
     "code": 14,
-    "total": 2331
+    "total": 2332
   },
   "pages": [
     {
@@ -1699,6 +1699,11 @@
       "file": "guides/index.html",
       "url": "/guides",
       "canonical": "https://bpozz.com/guides/"
+    },
+    {
+      "file": "hoysomrach.html",
+      "url": "/hoysomrach",
+      "canonical": "https://bpozz.com/hoysomrach"
     },
     {
       "file": "icons/index.html",

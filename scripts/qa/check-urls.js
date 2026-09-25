@@ -133,6 +133,13 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * The gate confirmed they were the only additions — 0 removed, nothing else
  * moved, every surviving canonical unchanged — so the baseline was
  * re-recorded at 2331 URLs / 349 pages and the list empties again.
+ *
+ * /hoysomrach held one entry here while under review: the founder's personal
+ * page, a hand-authored root page served extensionless. It reuses
+ * /assets/founder-somrach-hoy.jpg, already published, so it adds no asset.
+ * The gate confirmed it was the only addition — 0 removed, nothing else
+ * moved, every surviving canonical unchanged — so the baseline was
+ * re-recorded at 2332 URLs / 350 pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 

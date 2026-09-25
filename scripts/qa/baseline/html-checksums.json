@@ -1,7 +1,7 @@
 {
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
-  "count": 349,
+  "count": 350,
   "files": {
     "about.html": "87758ebfa56f7c99f97b11158de8605f",
     "category/accessibility.html": "5181f10dc9ff52a274e53f6f5870fe55",
@@ -340,6 +340,7 @@
     "guide/type-scale-systems.html": "3665e0c0df3d86fe81888ca8bfbfc889",
     "guide/whitespace-as-ui-component.html": "8946f1f37bb04b796f7d5ea57470e968",
     "guides/index.html": "be0b0f55dfa5223faaa6da6e895e3b7b",
+    "hoysomrach.html": "473c042ff8d90c9b941666e99a00fe68",
     "icons/3d-essentials.html": "e9916c5246c4000a431ff88a3eacced1",
     "icons/duotone-essentials.html": "c15905e45aa5036af9505cde89dd399c",
     "icons/index.html": "6616d52674ea38aea267481c07d424dd",

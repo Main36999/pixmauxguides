@@ -45,7 +45,16 @@ const STATIC_ROOT_PAGES = [
   "roadmap.html",
   "search.html",
   "terms.html",
+  "hoysomrach.html",
 ];
+
+/**
+ * Root pages published at an extensionless URL. The rest of the root keeps
+ * its .html (see URL SHAPE above); these are NEW pages whose URL was chosen
+ * extensionless from the start, so no existing URL changes. Netlify serves
+ * /<name> from <name>.html. scripts/qa/snapshot.js mirrors this set.
+ */
+const EXTENSIONLESS_ROOT_PAGES = new Set(["hoysomrach.html"]);
 
 /**
  * Section landing pages served from <dir>/index.html.
@@ -98,6 +107,9 @@ function urlFor(file) {
   // link without the slash therefore pointed at a redirect.
   if (file.endsWith("/index.html")) {
     return "/" + file.slice(0, -"index.html".length);
+  }
+  if (EXTENSIONLESS_ROOT_PAGES.has(file)) {
+    return "/" + file.slice(0, -".html".length);
   }
   const dir = file.split("/")[0];
   if (EXTENSIONLESS_DIRS.has(dir) && file.endsWith(".html")) {
