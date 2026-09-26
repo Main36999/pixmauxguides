@@ -10,8 +10,8 @@
  *
  * Visual pass (palette browsing upgrade): the color plate is now the
  * dominant element on every card, the grid is denser above 1160px, and
- * the page header + sort tabs are grouped into one band so the eye
- * runs title -> description -> controls -> grid without a gap. Purely
+ * the page header is grouped into one band so the eye runs
+ * title -> description -> grid without a gap. Purely
  * visual — palettes.js, the DOM it renders, and every interaction it
  * wires up are untouched. Selectors, data attributes and the inline
  * --sw-hex/--sw-label custom properties are exactly the ones that file
@@ -48,9 +48,8 @@
   padding-top: 28px;
 }
 
-/* ---------- header band (hero + sort tabs) ---------- */
-/* One grouped band, closed by a single hairline that the active tab's
-   underline sits on top of — so title, description and controls read
+/* ---------- header band ---------- */
+/* Title and description closed by a single hairline, so the intro reads
    as one unit attached to the grid below. */
 .palettes-head {
   border-bottom: 1px solid var(--grid-line);
@@ -72,79 +71,12 @@
   overflow-wrap: break-word;
   text-wrap: balance;
 }
-/* Hover gradient, no JS and no duplicated text node.
-   The gradient is always painted behind the glyphs and clipped to them;
-   an opaque -webkit-text-fill-color covers it at rest, and fading that
-   fill to transparent on hover is what reveals it. Guarded by @supports
-   because without background-clip:text the gradient would paint as a
-   solid block behind the heading instead of inside it — an engine that
-   can't do this keeps plain black text.
-   Ramp uses existing values only: --action (#2563eb), --cyan, and the
-   #e0245e already used by the like button. No new color enters here. */
-@supports ((background-clip: text) or (-webkit-background-clip: text)) {
-  .palettes-hero h1 {
-    background-image: linear-gradient(
-      92deg,
-      var(--action) 0%,
-      var(--cyan) 46%,
-      #e0245e 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: currentColor;
-    transition: -webkit-text-fill-color 0.2s var(--palette-ease);
-  }
-  .palettes-hero h1:hover {
-    -webkit-text-fill-color: transparent;
-  }
-}
 .palettes-hero p {
   max-width: 800px;
   margin-top: var(--intro-title-gap);
   color: var(--text-muted);
   font-size: var(--intro-dek);
   line-height: 1.45;
-}
-
-/* ---------- sort tabs ---------- */
-/* The hairline these sit on belongs to .palettes-head now, not to the
-   tab row — the -1px pulls the row down so the active 2px underline
-   overlaps it instead of doubling up against it. */
-.palettes-tabs {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-bottom: -1px;
-}
-.palettes-tab {
-  appearance: none;
-  background: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  border-radius: 6px 6px 0 0;
-  color: var(--text-muted);
-  font-family: var(--sans);
-  font-size: 14px;
-  /* Held at 600 in every state on purpose: bumping the weight on the
-     active tab would change its width and shove the other two sideways
-     on each switch. */
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 9px 12px 11px;
-  cursor: pointer;
-  transition:
-    color 0.18s var(--palette-ease),
-    background-color 0.18s var(--palette-ease),
-    border-color 0.18s var(--palette-ease);
-}
-.palettes-tab:hover {
-  color: var(--action);
-  background-color: var(--paper);
-}
-.palettes-tab[aria-pressed="true"] {
-  color: var(--action);
-  background-color: transparent;
-  border-bottom-color: var(--action);
 }
 
 /* ---------- grid ---------- */
@@ -262,6 +194,10 @@
   height: 150px;
   border-radius: var(--palette-radius, 10px);
   overflow: hidden;
+  /* Lets .palette-swatch__hex size itself against the plate's width
+     (cqi) instead of the viewport, so the label scales with the card at
+     every column count. */
+  container-type: inline-size;
 }
 /* Hairline containment ring. It lives on a positioned ::after rather
    than as an inset shadow on .palette-card__bars itself because the
@@ -311,16 +247,27 @@
   outline-offset: -3px;
 }
 .palette-swatch__hex {
+  /* Fills the strip and centres the label on both axes, the same way
+     .palette-swatch__copied centres its confirmation. */
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 8px 2px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
   font-family: var(--sans);
-  font-size: 11.5px;
-  font-weight: 600;
+  /* Two tiers. At rest a strip is 1/4 of the plate, which is all the
+     room the label gets on touch (sticky :hover, no expansion) and under
+     reduced motion — this size fits that. The expanded strip below gets
+     the larger, Color Library-scale size. 12px is the fallback for
+     engines without container units. */
+  font-size: 12px;
+  font-size: clamp(10px, 3.9cqi, 13px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
   color: var(--sw-label);
   opacity: 0;
   transform: translateY(3px);
@@ -332,6 +279,19 @@
 .palette-swatch:focus-visible .palette-swatch__hex {
   opacity: 1;
   transform: translateY(0);
+}
+/* Larger tier, only where the strip actually expands (same conditions
+   as the flex-grow rules above): an expanded strip is ~39% of the
+   plate, so 6cqi still leaves side room for a 7-character HEX. */
+@media (hover: hover) and (pointer: fine) {
+  .palette-swatch:hover .palette-swatch__hex {
+    font-size: 16px;
+    font-size: clamp(13px, 6cqi, 18px);
+  }
+}
+.palette-swatch:focus-visible .palette-swatch__hex {
+  font-size: 16px;
+  font-size: clamp(13px, 6cqi, 18px);
 }
 
 /* ---------- copied state ---------- */
@@ -492,10 +452,11 @@
   .palette-swatch:focus-visible {
     flex-grow: 1;
   }
-  /* The gradient reveal is a colour change, not motion, so it stays;
-     only its transition is dropped. */
-  .palettes-hero h1 {
-    transition: none;
+  /* No expansion, so the label stays at the at-rest tier. */
+  .palette-swatch:hover .palette-swatch__hex,
+  .palette-swatch:focus-visible .palette-swatch__hex {
+    font-size: 12px;
+    font-size: clamp(10px, 3.9cqi, 13px);
   }
 }
 

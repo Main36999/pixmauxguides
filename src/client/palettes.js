@@ -58,7 +58,6 @@
 
   var gridRoot = document.getElementById("palettes-grid-root");
   var emptyState = document.getElementById("palettes-empty-state");
-  var tabs = document.querySelectorAll(".palettes-tab");
   if (!gridRoot) return;
 
   // ---- small helpers -------------------------------------------------------
@@ -218,33 +217,12 @@
 
   // ---- state -----------------------------------------------------------
   var palettes = []; // as loaded from palettes-data.json
-  var currentSort = "new";
-  var randomOrder = null; // stable until re-shuffled
 
+  // Newest first.
   function sortedList() {
-    var list = palettes.slice();
-    if (currentSort === "new") {
-      list.sort(function (a, b) {
-        return (b.createdAt || "").localeCompare(a.createdAt || "");
-      });
-    } else if (currentSort === "random") {
-      if (!randomOrder) {
-        randomOrder = list.map(function (p) {
-          return p.id;
-        });
-        for (var i = randomOrder.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var t = randomOrder[i];
-          randomOrder[i] = randomOrder[j];
-          randomOrder[j] = t;
-        }
-      }
-      var order = randomOrder;
-      list.sort(function (a, b) {
-        return order.indexOf(a.id) - order.indexOf(b.id);
-      });
-    }
-    return list;
+    return palettes.slice().sort(function (a, b) {
+      return (b.createdAt || "").localeCompare(a.createdAt || "");
+    });
   }
 
   // Escapes the one piece of palettes-data.json that reaches the DOM as
@@ -333,25 +311,6 @@
     gridRoot.innerHTML = list.map(cardHtml).join("");
   }
 
-  // ---- sort tabs ---------------------------------------------------------
-  tabs.forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      var sort = tab.getAttribute("data-sort");
-      if (sort === currentSort) {
-        if (sort === "random") {
-          randomOrder = null;
-          render();
-        }
-        return;
-      }
-      currentSort = sort;
-      tabs.forEach(function (t) {
-        t.setAttribute("aria-pressed", t === tab ? "true" : "false");
-      });
-      render();
-    });
-  });
-
   // ---- copy + like click delegation --------------------------------------
   gridRoot.addEventListener("click", function (e) {
     var swatch = e.target.closest(".palette-swatch");
@@ -387,7 +346,7 @@
   // search result at /palettes#<id> — there's no separate per-palette page
   // to send it to, so this is what makes that link actually land on the
   // right card instead of just opening the gallery at the top. Runs once,
-  // right after the first render, not on every re-sort.
+  // right after the first render.
   function focusPaletteFromHash() {
     // A malformed escape (e.g. /palettes#%E0) makes decodeURIComponent
     // throw. Uncaught, that rejected the load promise AFTER render() had
