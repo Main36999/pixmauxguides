@@ -4,9 +4,14 @@
 
 - **Google sign-in is production-ready and live** on bpozz.com (commit
   `607363a`): sign-in, the signed-in header, session refresh and sign-out.
-- **Email magic link is implemented (Phase 4A) but NOT enabled in
-  production.** It stays off until `AUTH_EMAIL_ENABLED=true` is set, after
-  the real-project checks in [Enabling email in production](#enabling-email-in-production).
+- **Email magic link is live** on bpozz.com (commit `653265c`,
+  `AUTH_EMAIL_ENABLED=true`, Supabase custom SMTP via Resend). Verified in
+  production on 2026-09-26: confirmation email delivered, the link reached
+  the BPOZZ confirmation page, Continue created a session
+  (`/api/auth/session` → `authenticated: true`, `providers.email: true`),
+  sign-out returned to signed out.
+- **No passwords.** BPOZZ has no password sign-in, password reset, profile
+  management or marketing email.
 
 | phase | scope | state |
 |---|---|---|
@@ -14,14 +19,14 @@
 | 1 | Netlify Functions foundation, `GET /api/auth/session` | done |
 | 2 | Google sign-in, session cookies + refresh, sign-out | **live** |
 | 3 | header signed-in state, account menu, sign-out UI, `?auth_error` messages | **live** |
-| 4A | Email magic link | **implemented, off** behind `AUTH_EMAIL_ENABLED` |
-| later | `public.profiles`, account deletion | not started |
+| 4A | Email magic link | **live** behind `AUTH_EMAIL_ENABLED=true` |
+| later | `public.profiles`, self-service account deletion | not started (deletion is manual — see [Account deletion](#account-deletion)) |
 
 Each provider appears in the dialog only when it is fully configured
-(below); otherwise the dialog says *"Sign-in isn’t available yet"*. With
-`AUTH_EMAIL_ENABLED` unset, email behaves exactly as before Phase 4A: the
-option is shown as unavailable and no email request is ever made. No success
-is ever faked.
+(below); otherwise the dialog says *"Sign-in isn’t available yet"*.
+`AUTH_EMAIL_ENABLED` is the kill switch: unset it (and redeploy) and email
+behaves exactly as before Phase 4A — the option is shown as unavailable and
+no email request is ever made. No success is ever faked.
 
 ## Architecture (locked)
 
@@ -145,8 +150,8 @@ Google is not enabled in Supabase. `src/client/auth.js` removes
 
 Behind `AUTH_EMAIL_ENABLED`. Verified against Supabase Auth's source
 (`internal/api/otp.go`, `internal/crypto` `GenerateTokenHash`) and, with
-a local Supabase stand-in, end to end in headless Chrome. **Not yet run
-against the real Supabase project.**
+a local Supabase stand-in, end to end in headless Chrome, and in
+production against the real Supabase project (2026-09-26).
 
 ```text
 1. Browser   POST /api/auth/email/start   (fetch from the dialog)
@@ -341,8 +346,8 @@ sessions.
 | Authentication → Providers → Google | enabled, with Google's **Client ID** and **Client Secret** |
 | Authentication → Providers → **Email** | enabled (email only); keep **Confirm email** on. Password sign-in is not used by BPOZZ |
 | Authentication → "Allow new users to sign up" | on — otherwise a new address's request is refused, and BPOZZ masks that as "sent" (no email arrives) |
-| Authentication → **SMTP Settings** | **custom SMTP required** before enabling email. Supabase's built-in sender only mails the project's team (other addresses get `email_address_not_authorized`, answered as 503) and allows about 2 emails an hour. Transactional provider (Resend, Postmark, SES, …); sender e.g. `noreply@bpozz.com`, name "BPOZZ"; **SPF, DKIM and DMARC** published for the sending domain |
-| Authentication → Email Templates → **Magic Link** *and* **Confirm signup** | both links must be `{{ .SiteURL }}/api/auth/email/verify?token_hash={{ .TokenHash }}&type=email` (Site URL = `https://bpozz.com`). Supabase uses Magic Link for existing users and Confirm signup for new ones — edit **both**, or one group receives the default `…supabase.co/auth/v1/verify` link, which mail scanners can spend and which bypasses BPOZZ. Never put `returnTo` in the link |
+| Authentication → **SMTP Settings** | **custom SMTP — production uses Resend**: host `smtp.resend.com`, port `465`, username `resend`, password = a Resend API key with sending access (stored **only** in this Supabase field — never in Netlify or the repo), sender = an address on the Resend-verified sending domain, name "BPOZZ". SPF/DKIM records for that domain are exactly the ones Resend generates, in Netlify DNS; Resend click/open tracking off. Without custom SMTP, Supabase's built-in sender only mails the project's team (other addresses get `email_address_not_authorized`, answered as 503) |
+| Authentication → Email Templates → **Magic Link** *and* **Confirm signup** | both links must be `https://bpozz.com/api/auth/email/verify?token_hash={{ .TokenHash }}&type=email` (or the same with `{{ .SiteURL }}` when Site URL is exactly `https://bpozz.com`). Supabase uses Magic Link for existing users and Confirm signup for new ones — edit **both**, or one group receives the default `…supabase.co/auth/v1/verify` link, which mail scanners can spend and which bypasses BPOZZ. Never put `returnTo` in the link |
 | Authentication → Rate Limits | set "emails sent per hour" deliberately once SMTP is on; keep a per-address minimum interval (default 60 s) |
 | Authentication → Email → **Email OTP Expiration** | ≤ 3600 s (the email cookie lives 1 hour); 900 s suggested |
 
@@ -370,7 +375,7 @@ git-ignored for local use.
 | `SUPABASE_ANON_KEY` | Supabase configuration · browser-safe *by Supabase's design* — kept server-side anyway | all | least-privileged key for every call BPOZZ makes. Supabase's newer *publishable* key (`sb_publishable_…`) goes here too |
 | `AUTH_ORIGIN` | browser-safe value | Google, email, sign-out | bare origin, `https://bpozz.com`; builds `redirect_to`, is an accepted `Origin` for sign-out and the **only** accepted `Origin` for the email POSTs |
 | `AUTH_COOKIE_SECRET` | **server-only secret** | Google, email | ≥32 characters of randomness; signs the Google and email in-flight cookies (separate MAC contexts). Never signs a session. Rotating it only invalidates sign-ins in flight |
-| `AUTH_EMAIL_ENABLED` | switch · not secret | email | email sign-in is on only when this is exactly `true`. Unset / anything else: `providers.email` is false, `/email/start` answers 503 and no email request is made. **Leave unset in production** until the checklist below is done |
+| `AUTH_EMAIL_ENABLED` | switch · not secret | email | email sign-in is on only when this is exactly `true` — **`true` in production** (Functions scope). Unset / anything else: `providers.email` is false, `/email/start` answers 503 and no email request is made. Changing it takes effect after a redeploy |
 | `SUPABASE_SERVICE_ROLE_KEY` | **server-only secret** · Supabase configuration | later only | bypasses Row Level Security. **Read by no code** — Google and email both use the anon key; not needed yet |
 
 Example — **placeholders only**:
@@ -380,7 +385,7 @@ SUPABASE_URL=https://example.supabase.co
 SUPABASE_ANON_KEY=...
 AUTH_ORIGIN=https://bpozz.com
 AUTH_COOKIE_SECRET=...
-# AUTH_EMAIL_ENABLED=true   ← only after "Enabling email in production"
+AUTH_EMAIL_ENABLED=true
 ```
 
 Generate `AUTH_COOKIE_SECRET` with
@@ -395,9 +400,10 @@ only ever holds the four HttpOnly cookies above.
 **Never** in the browser: `SUPABASE_SERVICE_ROLE_KEY`, `AUTH_COOKIE_SECRET`,
 SMTP credentials, the PKCE verifier, `state`, or any session token.
 
-**Least privilege.** Every Supabase call (Google and email: `/settings`,
-`/authorize`, `/token`, `/otp`, `/verify`) uses the anon key, plus the
-user's own access token where one is needed (`/user`, `/logout`).
+**Least privilege.** Every server-side Supabase call (`/settings`, `/token`,
+`/otp`, `/verify`) uses the anon key, plus the user's own access token where
+one is needed (`/user`, `/logout`). `/authorize` is not a server call: the
+browser is redirected there, carrying no key.
 Setting only the service-role key does not make auth "configured".
 
 ## Deploying
@@ -430,27 +436,21 @@ Local check without deploying: `npm test` runs every function against a
 stubbed Supabase. Running them over HTTP needs the Netlify CLI
 (`netlify dev`), which is not a project dependency.
 
-## Enabling email in production
+## Email in production
 
-**Not done. Email is not production-enabled.** In order:
+**Enabled 2026-09-26.** Done: code deployed with the switch off and Google
+re-checked; Supabase custom SMTP via Resend and both templates; switch set
+and redeployed; production sign-in and sign-out verified (see Status).
 
-1. Deploy the code with `AUTH_EMAIL_ENABLED` **unset**. Check Google is
-   unchanged: sign in, header account menu, reload (refresh), sign out.
-   `GET /api/auth/session` must show `providers.email: false`, and
-   `POST /api/auth/email/start` must answer 503.
-2. Supabase: custom SMTP, SPF/DKIM/DMARC, both email templates, rate
-   limits and OTP expiry, as in [Configuration](#1-supabase-dashboard).
-3. Privacy Policy: email address as account data, the SMTP provider as a
-   processor. Cookiebot: declare `__Host-bpozz_email` as strictly
-   necessary.
-4. Set `AUTH_EMAIL_ENABLED=true` (Functions scope) and redeploy. Run the
-   real-project checks below. Any failure: unset the flag and redeploy —
-   Google is unaffected, and nothing else needs undoing.
+**Rollback:** delete `AUTH_EMAIL_ENABLED` in Netlify and redeploy. Google
+is unaffected and nothing else needs undoing.
 
-### Real-project checks — required before leaving the flag on
+### Real-project checks
 
-These can't be proven by the unit tests or the local stand-in; they depend
-on how the real Supabase project behaves:
+Verified in production: new-address confirmation email delivered with the
+BPOZZ link; confirmation page → Continue → signed-in session; sign-out.
+Still worth running once (they depend on how the real Supabase project and
+mail providers behave, and are not proven by the unit tests):
 
 1. **Account and provider linking** (BPOZZ adds no linking logic of its
    own; it relies entirely on Supabase's automatic identity linking):
@@ -480,6 +480,15 @@ on how the real Supabase project behaves:
    token refresh) see Netlify's addresses, not visitors'. Check the
    project's Rate Limits page and the auth logs under real use; raise the
    per-IP limits if sign-ins start failing with 429.
+
+### Account deletion
+
+The Privacy Policy lets people ask, through the contact form, for their
+account to be deleted. There is no self-service deletion. The owner deletes
+the user in Supabase → Authentication → Users (which removes the user and
+its linked Google/email identities); BPOZZ stores no other account data.
+The person's browser keeps any session cookie until it expires, but
+Supabase then refuses it and `/api/auth/session` clears it.
 
 ### Database (later) — planned, not created
 
@@ -528,10 +537,11 @@ keeps identities in `auth.identities`, keyed by Google's stable `sub`.
 
 ## Still to do
 
-1. Email: everything under [Enabling email in production](#enabling-email-in-production).
-2. Privacy Policy and Terms: account data (email, Google name and photo),
-   retention, deletion, Supabase and the SMTP provider as processors.
-   Cookiebot: declare the four `__Host-bpozz_*` cookies as strictly
-   necessary.
+1. The remaining [real-project checks](#real-project-checks) (linking,
+   scanners, deliverability headers, rate limits).
+2. Cookiebot: add the four `__Host-bpozz_*` cookies to the cookie
+   declaration as **Necessary** in the Cookiebot manager. Its scanner never
+   signs in, so it has not found them; they are server-set HttpOnly cookies,
+   so Cookiebot's blocking cannot affect them either way.
 3. Move the site CSP from `Report-Only` to enforced.
-4. Profiles and account deletion.
+4. Profiles and self-service account deletion (later, if ever needed).
