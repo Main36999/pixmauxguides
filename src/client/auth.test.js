@@ -6,8 +6,10 @@
  * header drawn from server data can't get there by HTML injection, and it
  * records every touch of localStorage, sessionStorage and document.cookie.
  *
- * The dialog itself (built with innerHTML from a fixed template) is not
- * opened here; its entry point is checked at source level.
+ * The dialog is built with innerHTML from a fixed template. The stub lets
+ * exactly that one write through on the <dialog> element and answers it
+ * with a skeleton of the same elements (dialogSkeleton), so the email step
+ * can be driven; every other innerHTML write still throws.
  *
  * All user data below is invented. No real account, token or cookie.
  */
@@ -149,6 +151,8 @@ function makeDocument() {
   }
 
   doc.createElement = (tag) => new El(tag);
+  // Text nodes: plain text, no attributes, never matched by a selector.
+  doc.createTextNode = (text) => ({ textContent: String(text), children: [], parentNode: null });
   doc.documentElement = new El("html");
   doc.body = doc.documentElement.appendChild(new El("body"));
   doc.getElementById = (id) => doc.documentElement.querySelector("#" + id);
@@ -189,6 +193,56 @@ function buildHeader(doc) {
   menu.appendChild(area("mobile-menu__auth"));
 }
 
+// The elements auth.js looks up in its dialog template, with the same
+// selectors. Only the fixed MARKUP string can build it.
+function dialogSkeleton(doc, dialog) {
+  const add = (parent, tag, attrs = {}) => {
+    const node = doc.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+    return parent.appendChild(node);
+  };
+  const body = add(dialog, "div", { class: "auth__body" });
+  add(body, "button", { class: "auth__back", "data-auth-back": "", hidden: "" });
+  add(body, "h2", { id: "auth-title", class: "auth__title" });
+  add(body, "p", { id: "auth-lede", class: "auth__lede" });
+  add(body, "p", { class: "auth__notice", "data-auth-notice": "" });
+  const choose = add(body, "div", { class: "auth__step", "data-step": "choose" });
+  add(choose, "button", { class: "auth__btn", "data-auth-google": "" });
+  add(choose, "button", { class: "auth__btn", "data-auth-email": "" });
+  const form = add(body, "form", { class: "auth__step auth__form", "data-step": "email", hidden: "" });
+  const input = add(form, "input", { id: "auth-email", type: "email" });
+  input.value = "";
+  input.select = () => {};
+  add(form, "p", { id: "auth-email-error", class: "auth__error", hidden: "" });
+  add(form, "button", { type: "submit", class: "btn btn-primary auth__submit" });
+  const sent = add(body, "div", { class: "auth__step", "data-step": "sent", hidden: "" });
+  add(sent, "button", { class: "auth__btn", "data-auth-retry": "" });
+  add(body, "span", { "data-auth-switch-text": "" });
+  add(body, "button", { class: "auth__link", "data-auth-switch": "" });
+}
+
+function installDialog(doc) {
+  const create = doc.createElement;
+  doc.createElement = (tag) => {
+    const node = create(tag);
+    if (tag !== "dialog") return node;
+    node.open = false;
+    node.offsetWidth = 0;
+    node.showModal = () => { node.open = true; };
+    node.close = () => {
+      node.open = false;
+      (node._listeners.close || []).forEach((fn) => fn({ type: "close" }));
+    };
+    Object.defineProperty(node, "innerHTML", {
+      set(markup) {
+        if (!/data-step="choose"/.test(markup) || node.children.length) throw new Error("innerHTML was used");
+        dialogSkeleton(doc, node);
+      },
+    });
+    return node;
+  };
+}
+
 // ---------------------------------------------------------------------
 // harness
 // ---------------------------------------------------------------------
@@ -220,8 +274,9 @@ const USER = {
  * GET /api/auth/session gives, in order (the last one repeats); each is a
  * response object, or a function returning one or throwing.
  */
-function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), search = "", hash = "", toast = null, hang = false } = {}) {
+function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false } = {}) {
   const doc = makeDocument();
+  installDialog(doc);
   buildHeader(doc);
   const calls = [];
   const storageTouches = [];
@@ -235,11 +290,13 @@ function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { 
     Promise,
     setTimeout: (fn, ms) => setTimeout(fn, ms === 1500 ? 5 : ms), // REVEAL_MS, fast-forwarded
     clearTimeout,
+    innerWidth: 1280,
+    matchMedia: () => ({ matches: true }), // reduced motion: the dialog closes at once
     document: doc,
     location: { pathname: "/guides/", search, hash, assign() { throw new Error("navigated"); } },
     history: { state: null, replaceState: (_s, _t, url) => (replaced = url) },
     fetch: (url, init = {}) => {
-      calls.push({ url, method: init.method || "GET", credentials: init.credentials, body: init.body });
+      calls.push({ url, method: init.method || "GET", credentials: init.credentials, body: init.body, headers: init.headers });
       if (url === "/api/auth/session") {
         if (hang) return new Promise(() => {});
         const answer = sessions[Math.min(sessionIndex++, sessions.length - 1)];
@@ -252,6 +309,13 @@ function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { 
       if (url === "/api/auth/signout") {
         try {
           return Promise.resolve(signout());
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      }
+      if (url === "/api/auth/email/start") {
+        try {
+          return Promise.resolve(emailStart());
         } catch (e) {
           return Promise.reject(e);
         }
@@ -544,4 +608,104 @@ test("public API: getSession, refreshSession, signOut; Google entry point unchan
     assert.strictEqual((text.match(/data-auth-open="signin"/g) || []).length, 2, partial);
     assert.strictEqual((text.match(/data-auth-open="signup"/g) || []).length, 2, partial);
   }
+});
+
+// ---------------------------------------------------------------------
+// email sign-in (Phase 4A)
+// ---------------------------------------------------------------------
+
+const EMAIL_ON = { authenticated: false, user: null, providers: { google: true, email: true } };
+
+// Opens the dialog from the header, goes to the email step and submits.
+async function submitEmail(p, email, mode = "signin") {
+  await settle();
+  fire(p.doc, p.q(`.header-auth [data-auth-open='${mode}']`), "click");
+  const dialog = p.q("dialog");
+  assert.ok(dialog && dialog.open, "dialog opened");
+  fire(p.doc, p.q("[data-auth-email]"), "click");
+  p.q("#auth-email").value = email;
+  fire(p.doc, p.q("form[data-step='email']"), "submit");
+  await settle(8);
+  return dialog;
+}
+
+const emailPosts = (p) => p.calls.filter((c) => c.url === "/api/auth/email/start");
+
+test("email provider off: no email request is ever made, the notice says unavailable", async () => {
+  const p = page({ sessions: [json(200, SIGNED_OUT)] });
+  await submitEmail(p, "dee@example.test");
+  assert.deepStrictEqual(emailPosts(p), []);
+  assert.match(p.q("[data-auth-notice]").textContent, /isn’t available yet/);
+  assert.strictEqual(p.q("[data-step='sent']").hidden, true);
+});
+
+test("email provider on: POSTs email, intent and return path, then shows the sent state", async () => {
+  const p = page({ sessions: [json(200, EMAIL_ON)] });
+  await submitEmail(p, "  dee@example.test ", "signup");
+  const posts = emailPosts(p);
+  assert.strictEqual(posts.length, 1);
+  assert.strictEqual(posts[0].method, "POST");
+  assert.strictEqual(posts[0].credentials, "same-origin");
+  assert.strictEqual(posts[0].headers["Content-Type"], "application/json");
+  assert.deepStrictEqual(JSON.parse(posts[0].body), { email: "dee@example.test", intent: "signup", returnTo: "/guides/" });
+  assert.strictEqual(p.q("[data-step='sent']").hidden, false);
+  assert.strictEqual(p.q("#auth-title").textContent, "Check your email");
+  const lede = p.q("#auth-lede");
+  assert.strictEqual(lede.querySelector("strong").textContent, "dee@example.test");
+  assert.match(lede.textContent, /^We sent a sign-in link to dee@example\.test\. Open it in this browser to finish signing in\./);
+  assert.doesNotMatch(lede.textContent, /this device/);
+});
+
+test("email sent state writes the address as text, never markup", async () => {
+  const hostile = "<b>x</b>@example.test";
+  const p = page({ sessions: [json(200, EMAIL_ON)] });
+  await submitEmail(p, hostile); // the stub throws on any other innerHTML write
+  const strong = p.q("#auth-lede").querySelector("strong");
+  assert.strictEqual(strong.textContent, hostile);
+  assert.strictEqual(strong.children.length, 0);
+});
+
+test("email start failures map to the existing messages", async () => {
+  const cases = [
+    [() => json(400, { error: "invalid_request" }), "That email address wasn’t accepted. Check it and try again."],
+    [() => json(429, { error: "rate_limited" }), "Too many attempts. Wait a few minutes, then try again."],
+    [() => json(503, { error: "auth_unavailable" }), "Something went wrong. Please try again."],
+    [() => { throw new TypeError("network down"); }, "Something went wrong. Please try again."],
+  ];
+  for (const [emailStart, message] of cases) {
+    const p = page({ sessions: [json(200, EMAIL_ON)], emailStart });
+    await submitEmail(p, "dee@example.test");
+    assert.strictEqual(p.q("#auth-email-error").textContent, message);
+    assert.strictEqual(p.q("[data-step='sent']").hidden, true);
+    assert.strictEqual(p.q(".auth__submit").disabled, false, "button re-enabled");
+  }
+});
+
+test("already signed in (e.g. in another tab): no email is sent, dialog closes, header redrawn", async () => {
+  const messages = [];
+  const p = page({
+    sessions: [json(200, EMAIL_ON), json(200, { ...signedIn(USER), providers: { google: true, email: true } })],
+    toast: (m) => messages.push(m),
+  });
+  const dialog = await submitEmail(p, "dee@example.test");
+  assert.deepStrictEqual(emailPosts(p), []);
+  assert.strictEqual(dialog.open, false);
+  assert.deepStrictEqual(messages, ["You’re already signed in."]);
+  assert.strictEqual(p.state(), "signed-in");
+});
+
+test("?auth_error=link from the email verify endpoint has its own message", async () => {
+  const got = [];
+  const p = page({ search: "?auth_error=link", toast: (m) => got.push(m) });
+  assert.strictEqual(p.replaced(), "/guides/");
+  await settle();
+  assert.deepStrictEqual(got, [
+    "That sign-in link is invalid or has expired, or was opened in a different browser. Request a new one.",
+  ]);
+});
+
+test("email flow touches no browser storage", async () => {
+  const p = page({ sessions: [json(200, EMAIL_ON)] });
+  await submitEmail(p, "dee@example.test");
+  assert.deepStrictEqual(p.storageTouches, []);
 });

@@ -113,6 +113,8 @@ test("session function is routed at exactly /api/auth/session", () => {
 test("the functions directory holds only deployable functions", () => {
   const files = fs.readdirSync(path.join(REPO, "netlify", "functions"));
   assert.deepEqual(files, [
+    "auth-email-start.mjs",
+    "auth-email-verify.mjs",
     "auth-google-callback.mjs",
     "auth-google-start.mjs",
     "auth-session.mjs",
@@ -149,6 +151,12 @@ test("response satisfies the existing frontend probe, which then reports 'not av
   assert.ok(accepted, "frontend would treat the backend as absent");
   assert.equal(accepted.providers.google, false);
   assert.equal(accepted.providers.email, false);
+});
+
+test("email stays off, and Supabase unasked, when AUTH_EMAIL_ENABLED is set but config is incomplete", async () => {
+  const env = { ...ENV, AUTH_EMAIL_ENABLED: "true" };
+  assert.deepEqual(await currentProviders(supabaseConfig(env), env), { google: false, email: false });
+  assert.equal(calls.length, 0);
 });
 
 test("providers stay off while the Google flow is not fully configured", async () => {

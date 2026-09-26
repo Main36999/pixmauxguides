@@ -29,10 +29,13 @@
  *   REFRESH_COOKIE  Supabase refresh token, renewed on every refresh
  *   OAUTH_COOKIE    the in-flight Google sign-in (state, PKCE verifier,
  *                   return_to), signed, 10 minutes, cleared by the callback
+ *   EMAIL_COOKIE    the in-flight email sign-in (return_to only), signed,
+ *                   1 hour, cleared by /api/auth/email/verify
  */
 export const SESSION_COOKIE = "__Host-bpozz_session";
 export const REFRESH_COOKIE = "__Host-bpozz_refresh";
 export const OAUTH_COOKIE = "__Host-bpozz_oauth";
+export const EMAIL_COOKIE = "__Host-bpozz_email";
 
 /** Refresh cookie lifetime: 30 days, restarted by every refresh. */
 export const REFRESH_MAX_AGE = 30 * 24 * 60 * 60;
@@ -243,8 +246,13 @@ export function isSameOriginRequest(request, env = process.env) {
  *   { outcome: "unavailable" } unreachable, timed out, 5xx, 429, non-JSON,
  *                              or Supabase rejecting OUR API key — a server
  *                              problem, logged without values
+ *
+ * Every result also carries `status` (the HTTP status, 0 when there was no
+ * response) and a refusal carries `errorCode` (Supabase's `error_code`, or
+ * null). Callers that read only `outcome` see exactly what they always did;
+ * the email flow needs the extra detail to tell a 429 or a 422 apart.
  */
-async function supabaseCall(config, where, pathAndQuery, { method = "GET", accessToken, body } = {}) {
+export async function supabaseCall(config, where, pathAndQuery, { method = "GET", accessToken, body } = {}) {
   const headers = { apikey: config.anonKey, Accept: "application/json" };
   if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
   if (body !== undefined) headers["Content-Type"] = "application/json";
@@ -260,29 +268,41 @@ async function supabaseCall(config, where, pathAndQuery, { method = "GET", acces
     });
   } catch {
     logProblem(where, "Supabase request failed or timed out");
-    return { outcome: "unavailable" };
+    return { outcome: "unavailable", status: 0 };
   }
 
-  if ([400, 401, 403, 404, 422].includes(res.status)) {
+  const status = res.status;
+  if ([400, 401, 403, 404, 422].includes(status)) {
     // A bad API key is also a 401. Tell it apart from a bad session so a
     // misconfiguration shows up in the logs instead of as silent sign-outs.
     const text = await res.text().catch(() => "");
     if (/api[\s_-]?key/i.test(text)) {
       logProblem(where, "Supabase rejected SUPABASE_ANON_KEY");
-      return { outcome: "unavailable" };
+      return { outcome: "unavailable", status };
     }
-    return { outcome: "invalid" };
+    return { outcome: "invalid", status, errorCode: errorCodeOf(text) };
   }
   if (!res.ok) {
-    logProblem(where, `Supabase responded ${res.status}`);
-    return { outcome: "unavailable" };
+    logProblem(where, `Supabase responded ${status}`);
+    return { outcome: "unavailable", status };
   }
-  if (res.status === 204) return { outcome: "ok", data: null };
+  if (status === 204) return { outcome: "ok", status, data: null };
   try {
-    return { outcome: "ok", data: await res.json() };
+    return { outcome: "ok", status, data: await res.json() };
   } catch {
     logProblem(where, "Supabase returned a non-JSON response");
-    return { outcome: "unavailable" };
+    return { outcome: "unavailable", status };
+  }
+}
+
+/** Supabase's machine-readable `error_code` from an error body, or null. */
+function errorCodeOf(text) {
+  try {
+    const body = JSON.parse(text);
+    const code = body && (body.error_code || body.code);
+    return typeof code === "string" && /^[a-z0-9_]{1,64}$/.test(code) ? code : null;
+  } catch {
+    return null;
   }
 }
 
@@ -347,6 +367,19 @@ export async function exchangeCodeForSession(config, authCode, codeVerifier) {
   return readSession("google-callback", result);
 }
 
+/**
+ * Email sign-in link: POST /auth/v1/verify { type: "email", token_hash }.
+ * Single use. Supabase answers with the same session document as a token
+ * exchange, so it goes through the same readSession() filter.
+ */
+export async function verifyEmailToken(config, tokenHash) {
+  const result = await supabaseCall(config, "email-verify", "/verify", {
+    method: "POST",
+    body: { type: "email", token_hash: tokenHash },
+  });
+  return readSession("email-verify", result);
+}
+
 /** POST /auth/v1/token?grant_type=refresh_token. Supabase rotates it. */
 export async function refreshSession(config, refreshToken, where = "session") {
   const result = await supabaseCall(config, where, "/token?grant_type=refresh_token", {
@@ -386,29 +419,54 @@ const SETTINGS_RETRY_MS = 30 * 1000;
 let settingsCache = null;
 
 /**
- * Is the Google provider switched on in Supabase? Read from Supabase's
- * public GET /auth/v1/settings (`external.google`) and cached per function
- * instance for 5 minutes (30 s after a failure), so the dialog never offers
- * a provider Supabase would refuse. Unreachable counts as "no".
+ * The provider switches (`external`) from Supabase's public
+ * GET /auth/v1/settings, or null when it can't be read. Cached per function
+ * instance for 5 minutes (30 s after a failure); one fetch serves both
+ * providers.
  */
-export async function googleEnabledInSupabase(config) {
+async function supabaseProviders(config) {
   const now = Date.now();
   const key = `${config.supabaseUrl}|${config.anonKey}`;
   if (settingsCache && settingsCache.key === key && settingsCache.until > now) {
-    return settingsCache.value;
+    return settingsCache.external;
   }
   const result = await supabaseCall(config, "settings", "/settings");
-  const value =
-    result.outcome === "ok" &&
-    !!result.data &&
-    !!result.data.external &&
-    result.data.external.google === true;
+  const external =
+    result.outcome === "ok" && !!result.data && !!result.data.external
+      ? result.data.external
+      : null;
   settingsCache = {
     key,
-    value,
+    external,
     until: now + (result.outcome === "ok" ? SETTINGS_TTL_MS : SETTINGS_RETRY_MS),
   };
-  return value;
+  return external;
+}
+
+/**
+ * Is the Google provider switched on in Supabase (`external.google`)? So
+ * the dialog never offers a provider Supabase would refuse. Unreachable
+ * counts as "no".
+ */
+export async function googleEnabledInSupabase(config) {
+  const external = await supabaseProviders(config);
+  return !!external && external.google === true;
+}
+
+/** Is the Email provider switched on in Supabase (`external.email`)? */
+export async function emailEnabledInSupabase(config) {
+  const external = await supabaseProviders(config);
+  return !!external && external.email === true;
+}
+
+/**
+ * BPOZZ's own switch for email sign-in: on only when AUTH_EMAIL_ENABLED is
+ * exactly "true". Supabase reports `external.email: true` by default, and
+ * nothing in its settings says whether production SMTP and the email
+ * templates are ready — only the operator knows that.
+ */
+export function emailFlagEnabled(env = process.env) {
+  return env.AUTH_EMAIL_ENABLED === "true";
 }
 
 /** Tests only: forget the cached Supabase settings. */
@@ -423,11 +481,15 @@ export function resetProviderCache() {
  *
  *   google  true only when the whole Google flow is configured here
  *           (oauthConfig) AND Supabase reports the provider enabled
- *   email   false until Phase 3
+ *   email   true only when the same configuration is valid AND
+ *           AUTH_EMAIL_ENABLED is "true" AND Supabase reports the Email
+ *           provider enabled. With the flag off Supabase isn't asked.
  */
 export async function currentProviders(config, env = process.env) {
-  const google = oauthConfig(env).ok && (await googleEnabledInSupabase(config));
-  return { google, email: false };
+  const configured = oauthConfig(env).ok;
+  const google = configured && (await googleEnabledInSupabase(config));
+  const email = configured && emailFlagEnabled(env) && (await emailEnabledInSupabase(config));
+  return { google, email };
 }
 
 // ---------------------------------------------------------------------

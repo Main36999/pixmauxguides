@@ -381,9 +381,13 @@
     setNotice("");
     setBusy(els.submit, true);
 
-    getSession()
+    // A fresh answer, not the cached one: someone who signed in in another
+    // tab since this page loaded must not be sent a second sign-in link.
+    // refreshSession also redraws the header from it.
+    refreshSession()
       .then(function (data) {
         if (!data || !data.providers.email) return "unavailable";
+        if (data.authenticated === true) return "signed-in";
         return fetch(API + "/email/start", {
           method: "POST",
           credentials: "same-origin",
@@ -411,13 +415,22 @@
         if (outcome === "sent") {
           showStep("sent");
           els.lede.textContent = "";
-          els.lede.appendChild(document.createTextNode("We sent a link to "));
+          els.lede.appendChild(
+            document.createTextNode("We sent a sign-in link to "),
+          );
           var strong = document.createElement("strong");
           strong.textContent = email;
           els.lede.appendChild(strong);
+          // The link finishes only in the browser that asked for it (the
+          // server checks a cookie set by this request), so say that.
           els.lede.appendChild(
-            document.createTextNode(". Open it on this device to continue."),
+            document.createTextNode(
+              ". Open it in this browser to finish signing in. If it doesn’t arrive in a few minutes, check your spam folder.",
+            ),
           );
+        } else if (outcome === "signed-in") {
+          close();
+          showAuthMessage("You’re already signed in.");
         } else if (outcome === "unavailable") {
           setNotice(UNAVAILABLE);
         } else if (outcome === "invalid") {
@@ -530,6 +543,7 @@
     failed: "Sign-in didn’t complete. Please try again.",
     expired: "Sign-in took too long. Please try again.",
     unavailable: "Sign-in isn’t available right now. Please try again later.",
+    link: "That sign-in link is invalid or has expired, or was opened in a different browser. Request a new one.",
   };
 
   var menuCount = 0;
