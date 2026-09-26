@@ -36,8 +36,21 @@
  * No client ID, secret or token ever passes through this file. Until the
  * backend exists the probe finds nothing, and the dialog says plainly that
  * sign-in is not available yet — it never pretends a sign-in succeeded.
- * The probe runs only when someone actually chooses a provider, so ordinary
- * page views never request a missing endpoint.
+ *
+ * HEADER AUTH STATE
+ *
+ * Every page load asks GET /api/auth/session once (getSession) and draws the
+ * header from the answer: Sign in / Sign up when signed out, an account
+ * button with a Sign out action when signed in — in the desktop header and
+ * the mobile panel alike. The session endpoint is the only source of truth;
+ * nothing about the session is stored in the browser. Tokens live in HttpOnly
+ * cookies this file can't read, and it never touches document.cookie,
+ * localStorage or sessionStorage. Server-provided names, emails and avatar
+ * URLs are written with textContent / validated properties, never as HTML.
+ *
+ * The header's auth area stays invisible (space reserved, no layout shift)
+ * until the first answer, so a signed-in visitor never sees Sign in flash
+ * first; if the answer is slow it is drawn signed-out after REVEAL_MS.
  * -----------------------------------------------------------------------
  */
 (function () {
@@ -47,6 +60,8 @@
 
   var API = "/api/auth";
   var CLOSE_MS = 220;
+  var SESSION_TIMEOUT_MS = 8000;
+  var REVEAL_MS = 1500;
 
   var COPY = {
     signin: {
@@ -157,7 +172,7 @@
   var step = "choose";
   var opener = null;
   var closeTimer = null;
-  var session = null; // Promise, cached per page load once probed
+  var session = null; // Promise of the latest GET /api/auth/session answer
 
   function $(selector) {
     return dialog.querySelector(selector);
@@ -277,28 +292,50 @@
   // --- backend boundary (see docs/AUTH.md) ----------------------------
 
   // Resolves to the backend's session document, or null when no auth
-  // backend answers — a 404, an HTML error page or a network failure all
-  // mean the same thing to a visitor: sign-in is not available.
-  function probe() {
-    if (!session) {
-      session = fetch(API + "/session", {
-        credentials: "same-origin",
-        headers: { Accept: "application/json" },
+  // backend answers — a 404, an HTML error page, a 503, a timeout or a
+  // network failure all mean the same thing to a visitor: signed out, and
+  // sign-in is not available.
+  function fetchSession() {
+    return fetch(API + "/session", {
+      credentials: "same-origin",
+      headers: { Accept: "application/json" },
+      signal: timeoutSignal(SESSION_TIMEOUT_MS),
+    })
+      .then(function (res) {
+        var type = res.headers.get("content-type") || "";
+        if (!res.ok || type.indexOf("application/json") === -1) return null;
+        return res.json();
       })
-        .then(function (res) {
-          var type = res.headers.get("content-type") || "";
-          if (!res.ok || type.indexOf("application/json") === -1) return null;
-          return res.json();
-        })
-        .then(function (data) {
-          return data && data.providers ? data : null;
-        })
-        .catch(function () {
-          return null;
-        });
-    }
+      .then(function (data) {
+        return data && data.providers ? data : null;
+      })
+      .catch(function () {
+        return null;
+      });
+  }
+
+  function timeoutSignal(ms) {
+    return typeof AbortSignal !== "undefined" && AbortSignal.timeout
+      ? AbortSignal.timeout(ms)
+      : undefined;
+  }
+
+  // The current answer, fetched once per page load and shared by the header
+  // and the dialog.
+  function getSession() {
+    if (!session) session = fetchSession();
     return session;
   }
+
+  // Asks again (after sign-out, say) and redraws the header from the answer.
+  function refreshSession() {
+    session = fetchSession();
+    return session.then(function (data) {
+      renderHeader(data);
+      return data;
+    });
+  }
+
 
   function returnTo() {
     return location.pathname + location.search;
@@ -307,7 +344,7 @@
   function startGoogle() {
     setBusy(els.google, true);
     setNotice("");
-    probe().then(function (data) {
+    getSession().then(function (data) {
       if (!data || !data.providers.google) {
         setBusy(els.google, false);
         setNotice(UNAVAILABLE);
@@ -344,7 +381,7 @@
     setNotice("");
     setBusy(els.submit, true);
 
-    probe()
+    getSession()
       .then(function (data) {
         if (!data || !data.providers.email) return "unavailable";
         return fetch(API + "/email/start", {
@@ -479,12 +516,326 @@
     opener = null;
   }
 
+  // --- header auth state -----------------------------------------------
+  //
+  // The Sign in / Sign up buttons stay in the page's HTML (both header
+  // partials render them in .header-auth and .mobile-menu__auth). When the
+  // session says signed in they are hidden and an account block is built
+  // beside them; when it says signed out the block is removed and they come
+  // back. <html data-auth="signed-in|signed-out"> records the drawn state;
+  // styles.css keeps both auth areas invisible until it is set.
+
+  var AUTH_ERROR_MESSAGES = {
+    cancelled: "Sign-in was cancelled.",
+    failed: "Sign-in didn’t complete. Please try again.",
+    expired: "Sign-in took too long. Please try again.",
+    unavailable: "Sign-in isn’t available right now. Please try again later.",
+  };
+
+  var menuCount = 0;
+
+  // The display model for a session answer, or null when signed out. Only
+  // plain strings leave here; nothing is ever treated as markup.
+  function accountView(data) {
+    if (!data || data.authenticated !== true || !data.user) return null;
+    var user = data.user;
+    var email = typeof user.email === "string" ? user.email.trim() : "";
+    var name =
+      typeof user.display_name === "string" && user.display_name.trim()
+        ? user.display_name.trim()
+        : email;
+    if (!name) name = "Account";
+    return {
+      name: name,
+      email: email,
+      avatar: httpsUrl(user.avatar_url),
+      initial: (Array.from(name)[0] || "?").toUpperCase(),
+    };
+  }
+
+  function httpsUrl(value) {
+    if (typeof value !== "string" || !value) return "";
+    try {
+      var url = new URL(value);
+      return url.protocol === "https:" ? url.href : "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  // A round avatar: the photo, or the name's first letter if there is no
+  // usable photo or it fails to load.
+  function avatar(view) {
+    var wrap = el("span", "account__avatar");
+    wrap.setAttribute("aria-hidden", "true");
+    function initial() {
+      wrap.textContent = view.initial;
+      wrap.classList.add("account__avatar--initial");
+    }
+    if (!view.avatar) {
+      initial();
+      return wrap;
+    }
+    var img = document.createElement("img");
+    img.alt = "";
+    img.width = 28;
+    img.height = 28;
+    img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
+    img.addEventListener("error", initial);
+    img.src = view.avatar;
+    wrap.appendChild(img);
+    return wrap;
+  }
+
+  // Desktop: an account button in the header row that discloses a small
+  // panel with who is signed in and Sign out.
+  function desktopAccount(view) {
+    var id = "account-menu-" + ++menuCount;
+    var root = el("div", "account");
+    root.setAttribute("data-auth-account", "");
+
+    var toggle = el("button", "account__toggle");
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", id);
+    toggle.setAttribute("aria-label", "Account: " + view.name);
+    toggle.setAttribute("data-account-toggle", "");
+    toggle.appendChild(avatar(view));
+    toggle.appendChild(el("span", "account__name", view.name));
+
+    var menu = el("div", "account__menu");
+    menu.id = id;
+    menu.hidden = true;
+    var who = el("p", "account__who");
+    who.appendChild(el("span", "account__who-name", view.name));
+    if (view.email && view.email !== view.name) {
+      who.appendChild(el("span", "account__email", view.email));
+    }
+    var signout = el("button", "account__signout", "Sign out");
+    signout.type = "button";
+    signout.setAttribute("data-auth-signout", "");
+    menu.appendChild(who);
+    menu.appendChild(signout);
+
+    root.appendChild(toggle);
+    root.appendChild(menu);
+    return root;
+  }
+
+  // Mobile panel: who is signed in, then a full-width Sign out, in the slot
+  // the two sign-in buttons use.
+  function mobileAccount(view) {
+    var root = el("div", "mobile-account");
+    root.setAttribute("data-auth-account", "");
+    var who = el("div", "mobile-account__who");
+    who.appendChild(avatar(view));
+    var text = el("div", "mobile-account__text");
+    text.appendChild(el("span", "mobile-account__name", view.name));
+    if (view.email && view.email !== view.name) {
+      text.appendChild(el("span", "mobile-account__email", view.email));
+    }
+    who.appendChild(text);
+    var signout = el("button", "btn btn-ghost", "Sign out");
+    signout.type = "button";
+    signout.setAttribute("data-auth-signout", "");
+    root.appendChild(who);
+    root.appendChild(signout);
+    return root;
+  }
+
+  function each(selector, fn) {
+    Array.prototype.forEach.call(document.querySelectorAll(selector), fn);
+  }
+
+  function renderHeader(data) {
+    var view = accountView(data);
+    document.documentElement.setAttribute(
+      "data-auth",
+      view ? "signed-in" : "signed-out",
+    );
+    [
+      [".header-auth", desktopAccount],
+      [".mobile-menu__auth", mobileAccount],
+    ].forEach(function (pair) {
+      each(pair[0], function (container) {
+        Array.prototype.forEach.call(
+          container.querySelectorAll("[data-auth-open]"),
+          function (button) {
+            button.hidden = !!view;
+          },
+        );
+        var old = container.querySelector("[data-auth-account]");
+        if (old) container.removeChild(old);
+        if (view) container.appendChild(pair[1](view));
+      });
+    });
+  }
+
+  function setAccountMenu(toggle, expanded) {
+    var menu = document.getElementById(toggle.getAttribute("aria-controls"));
+    if (!menu) return;
+    menu.hidden = !expanded;
+    toggle.setAttribute("aria-expanded", String(expanded));
+  }
+
+  function closeAccountMenus(except) {
+    each("[data-account-toggle][aria-expanded='true']", function (toggle) {
+      if (toggle !== except) setAccountMenu(toggle, false);
+    });
+  }
+
+  // POST /api/auth/signout (the server clears the HttpOnly cookies and
+  // revokes the session), then ask the server again and redraw from its
+  // answer. Resolves to true when the page ends up signed out.
+  function signOut() {
+    return fetch(API + "/signout", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { Accept: "application/json" },
+    })
+      .catch(function () {
+        return null;
+      })
+      .then(refreshSession)
+      .then(function (data) {
+        return !accountView(data);
+      });
+  }
+
+  function onSignOutClick(button) {
+    var mobile = !!button.closest(".mobile-menu__auth");
+    button.disabled = true;
+    signOut().then(function (signedOut) {
+      if (!signedOut) {
+        button.disabled = false;
+        showAuthMessage("Couldn’t sign out. Please try again.");
+        return;
+      }
+      // The button that had focus is gone; land on the matching Sign in.
+      var next = document.querySelector(
+        (mobile ? ".mobile-menu__auth" : ".header-auth") +
+          " [data-auth-open='signin']",
+      );
+      if (next && isVisible(next)) next.focus();
+    });
+  }
+
+  // A short, polite message: the site's shared toast where the page has one
+  // (core.js), otherwise a toast of the same style made on the spot.
+  var toastTimer = null;
+  function showAuthMessage(text) {
+    if (typeof window.bpozzShowToast === "function") {
+      window.bpozzShowToast(text);
+      return;
+    }
+    var toast = document.getElementById("auth-toast");
+    if (!toast) {
+      toast = el("div", "toast");
+      toast.id = "auth-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      document.body.appendChild(toast);
+    }
+    toast.textContent = text;
+    toast.setAttribute("data-visible", "true");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.removeAttribute("data-visible");
+    }, 4000);
+  }
+
+  // ?auth_error=… from the sign-in callback: read it now, before any page
+  // script rewrites the URL, drop it from the address bar so it doesn't
+  // linger or get shared, and say what happened once the page is ready.
+  function takeAuthError() {
+    var params = new URLSearchParams(location.search);
+    var code = params.get("auth_error");
+    if (code === null) return null;
+    params.delete("auth_error");
+    var query = params.toString();
+    try {
+      history.replaceState(
+        history.state,
+        "",
+        location.pathname + (query ? "?" + query : "") + location.hash,
+      );
+    } catch (e) {
+      // replaceState can be unavailable (sandboxed frames); keep going.
+    }
+    return AUTH_ERROR_MESSAGES[code] || null;
+  }
+
   document.addEventListener("click", function (e) {
-    var trigger = e.target.closest && e.target.closest("[data-auth-open]");
-    if (!trigger) return;
-    e.preventDefault();
-    open(trigger.getAttribute("data-auth-open"), trigger);
+    var target = e.target;
+    if (!target || !target.closest) return;
+
+    var trigger = target.closest("[data-auth-open]");
+    if (trigger) {
+      e.preventDefault();
+      open(trigger.getAttribute("data-auth-open"), trigger);
+      return;
+    }
+
+    var signout = target.closest("[data-auth-signout]");
+    if (signout) {
+      e.preventDefault();
+      onSignOutClick(signout);
+      return;
+    }
+
+    var toggle = target.closest("[data-account-toggle]");
+    if (toggle) {
+      var expand = toggle.getAttribute("aria-expanded") !== "true";
+      closeAccountMenus(toggle);
+      setAccountMenu(toggle, expand);
+      return;
+    }
+
+    if (!target.closest("[data-auth-account]")) closeAccountMenus(null);
   });
 
-  window.BpozzAuth = { open: open, close: close };
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    each("[data-account-toggle][aria-expanded='true']", function (toggle) {
+      setAccountMenu(toggle, false);
+      toggle.focus();
+    });
+  });
+
+  // --- boot --------------------------------------------------------------
+
+  var authMessage = takeAuthError();
+  var drawn = false;
+  // Never leave the header's auth area blank for long: if the server is
+  // slow, draw signed-out now and correct it when the answer arrives.
+  var revealTimer = setTimeout(function () {
+    if (!drawn) renderHeader(null);
+  }, REVEAL_MS);
+  getSession().then(function (data) {
+    drawn = true;
+    clearTimeout(revealTimer);
+    renderHeader(data);
+  });
+  // After the rest of /app.js has run, so core.js's shared toast exists.
+  if (authMessage) {
+    setTimeout(function () {
+      showAuthMessage(authMessage);
+    }, 0);
+  }
+
+  window.BpozzAuth = {
+    open: open,
+    close: close,
+    getSession: getSession,
+    refreshSession: refreshSession,
+    signOut: signOut,
+  };
 })();
