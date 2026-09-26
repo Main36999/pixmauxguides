@@ -39,6 +39,7 @@
           <li><a href="../contact.html">Contact</a></li>
           <li><a href="../privacy.html">Privacy Policy</a></li>
           <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="/privacy.html#cookies" data-cookie-settings>Cookie settings</a></li>
         </ul>
       </nav>
     </div>
@@ -51,4 +52,17 @@
       <p class="footer-tagline">Design Intelligence</p>
     </div>
   </div>
+  <!-- Cookie settings: reopens the Cookiebot consent dialog in place. Without
+       Cookiebot (blocked or not yet loaded) the link falls through to the
+       cookie section of the Privacy Policy. data-cookieconsent="ignore" keeps
+       Cookiebot's auto-blocking from holding back this handler, which sets
+       no cookies itself. -->
+  <script data-cookieconsent="ignore">
+    document.addEventListener("click", function (event) {
+      var link = event.target.closest && event.target.closest("[data-cookie-settings]");
+      if (!link || !window.Cookiebot || typeof window.Cookiebot.show !== "function") return;
+      event.preventDefault();
+      window.Cookiebot.show();
+    });
+  </script>
 </footer>
