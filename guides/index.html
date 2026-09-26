@@ -247,32 +247,33 @@
       build-home.js fills the GUIDE_CATEGORIES, RESULTS_COUNT and GUIDES_GRID
       regions (from categories.json + guides.json), build-header.js and
       build-footer.js fill HEADER/FOOTER. Do not hand-edit between markers.
-      app.js enhances #grid-root / #level-select / #empty-state / #toast
-      exactly as it used to on the homepage.
+      app.js enhances #grid-root / #level-select / #guides-search / the
+      .guides-filter chips / #empty-state / #toast.
+
+      The page organisation mirrors /fonts/ (src/build/fonts.js listingHtml):
+      hero, a toolbar of category chips + search + select, a count line, the
+      grid, then the empty state. The guide card itself is the shared
+      .content-card and keeps its own 4:3 .card-thumb.
     -->
     <main class="wrap guides-main" id="guides-content" tabindex="-1">
-      <div class="category-hero">
-        <p class="section-label mono">/ guides</p>
-        <h1 class="category-hero__title">Guides</h1>
-        <p class="category-hero__dek">
-          Practical UI/UX tutorials written like engineering specs. Filter by
-          level, or start from a category.
+      <div class="guides-hero">
+        <h1>Guides</h1>
+        <p>
+          Practical UI/UX tutorials written like engineering specs. Search by
+          topic, or filter by category and level.
         </p>
       </div>
-      <nav class="guide-categories" aria-label="Browse by category">
-        <p class="section-label guide-categories__label" aria-hidden="true">
-          / browse_by_category
-        </p>
-        <ul class="guide-categories__list"><!--GUIDE_CATEGORIES_START--><li><a href="/category/color-theory">Color Theory</a></li><li><a href="/category/typography">Typography</a></li><li><a href="/category/spacing">Spacing &amp; Layout</a></li><li><a href="/category/figma">Figma Workflow</a></li><li><a href="/category/adobe-xd">Adobe XD Workflow</a></li><li><a href="/category/mobile">Mobile App Design</a></li><li><a href="/category/web">Web Layout</a></li><li><a href="/category/systems">Design Systems</a></li><li><a href="/category/accessibility">Accessibility</a></li><li><a href="/category/motion">Prototyping &amp; Motion</a></li><!--GUIDE_CATEGORIES_END--></ul>
-      </nav>
-      <div class="section-head">
-        <h2 class="section-label">/ all_guides</h2>
-        <div class="section-head__meta">
-          <p class="results-count" id="results-count">
-            <!--RESULTS_COUNT-->Showing 22 of 22 guides<!--/RESULTS_COUNT-->
-          </p>
-          <div class="field select-field level-filter">
-            <label for="level-select" class="sr-only">Level</label>
+
+      <div class="guides-toolbar">
+        <div class="guides-filters" role="group" aria-label="Filter guides by category"><!--GUIDE_CATEGORIES_START--><button type="button" class="guides-filter" data-category="all" aria-pressed="true">All</button><button type="button" class="guides-filter" data-category="color-theory" aria-pressed="false">Color Theory</button><button type="button" class="guides-filter" data-category="typography" aria-pressed="false">Typography</button><button type="button" class="guides-filter" data-category="spacing" aria-pressed="false">Spacing &amp; Layout</button><button type="button" class="guides-filter" data-category="figma" aria-pressed="false">Figma Workflow</button><button type="button" class="guides-filter" data-category="adobe-xd" aria-pressed="false">Adobe XD Workflow</button><button type="button" class="guides-filter" data-category="mobile" aria-pressed="false">Mobile App Design</button><button type="button" class="guides-filter" data-category="web" aria-pressed="false">Web Layout</button><button type="button" class="guides-filter" data-category="systems" aria-pressed="false">Design Systems</button><button type="button" class="guides-filter" data-category="accessibility" aria-pressed="false">Accessibility</button><button type="button" class="guides-filter" data-category="motion" aria-pressed="false">Prototyping &amp; Motion</button><!--GUIDE_CATEGORIES_END--></div>
+        <div class="guides-controls">
+          <div class="guides-field guides-field--search">
+            <label class="sr-only" for="guides-search">Search guides</label>
+            <svg class="guides-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg>
+            <input type="search" id="guides-search" placeholder="Search guides…" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="guides-field guides-field--level">
+            <label for="level-select">Level</label>
             <select id="level-select">
               <option value="all">All Level</option>
               <option value="beginner">Beginner</option>
@@ -282,7 +283,11 @@
           </div>
         </div>
       </div>
-      <div class="grid" id="grid-root">
+
+      <h2 class="sr-only">All guides</h2>
+      <p class="guides-count" id="results-count"><!--RESULTS_COUNT-->22 guides<!--/RESULTS_COUNT--></p>
+
+      <div class="grid guides-grid" id="grid-root">
         <!--GUIDES_GRID_START--><article class="content-card"><div class="card-thumb"><svg viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <circle class="thumb-fill" cx="90" cy="24" r="3.4"/><circle class="thumb-fill" cx="120" cy="24" r="3.4"/><circle class="thumb-fill" cx="150" cy="24" r="3.4"/>
       <circle class="thumb-fill" cx="90" cy="44" r="3.4"/><circle class="thumb-fill" cx="120" cy="44" r="3.4"/><circle class="thumb-fill" cx="150" cy="44" r="3.4"/>
@@ -421,8 +426,9 @@
       <line x1="113" y1="84" x2="127" y2="84" stroke-width="2.2" stroke-linecap="round"/>
     <line x1="64" y1="99" x2="176" y2="99" class="thumb-dim-line"/><line x1="64" y1="95" x2="64" y2="103" class="thumb-dim-tick"/><line x1="176" y1="95" x2="176" y2="103" class="thumb-dim-tick"/><text x="120" y="112" text-anchor="middle" class="thumb-dim-label">375 × 812</text></svg><img src="/thumbnail_image_webp/Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels.webp" alt="Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels" loading="lazy" onerror="this.style.display='none'"></div><div class="card-body"><h3 class="card-title"><a class="card-link" href="/guide/mobile-breakpoints-device-categories">Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels</a></h3><p class="card-meta">Mobile App Design · Intermediate · 13 min read</p></div></article><!--GUIDES_GRID_END-->
       </div>
-      <div class="empty-state" id="empty-state">
+      <div class="empty-state guides-empty" id="empty-state">
         <p>No guides matched <strong id="empty-query"></strong>.</p>
+        <p>Try another topic, category or level.</p>
         <button type="button" class="btn btn-primary" id="reset-filters">
           Reset filters
         </button>
@@ -430,6 +436,7 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div id="guides-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!--FOOTER_START--><footer class="site-footer">
   <div class="wrap footer-inner">

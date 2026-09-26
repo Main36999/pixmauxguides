@@ -2327,39 +2327,234 @@ body > .site-footer {
   min-height: 0;
 }
 
-/* ---------- Phase 6: /guides collection ----------
-   /guides reuses .category-hero,
-   .section-head, the Level filter, .grid, .content-card and .empty-state
-   unchanged; only its category-discovery links (build-home.js, from
-   categories.json) are new. They wrap rather than scroll, so no row can
-   overflow on narrow screens. */
-.guide-categories {
-  margin: 24px 0 40px;
+/* ---------- /guides collection ----------
+   Organised like /fonts/: the same container, hero, toolbar (category
+   chips, search, select), count line, grid columns and gaps, and empty
+   state. The values are transcribed from src/styles/fonts.css — which only
+   the font pages load — and scoped to body.guides-page, so the other pages
+   that share .guides-main, .grid and .empty-state are untouched.
+
+   The card is NOT the font card: it stays the shared .content-card, whose
+   .card-thumb keeps its own 4:3 ratio at every width (the font card's
+   phone-width switch to 16:9 is deliberately not copied). */
+.guides-page {
+  --guides-radius: 8px;
+  --guides-line: #e7e9ee;
+  --guides-line-strong: #cfd4dd;
+  --guides-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
 }
-.guide-categories__label {
-  margin: 0 0 12px;
+.guides-page .guides-main {
+  max-width: 1160px;
+  padding: 28px 24px 72px;
 }
-.guide-categories__list {
+
+.guides-hero {
+  padding: var(--intro-space-top) 0 clamp(28px, 2.4vw + 12px, 48px);
+}
+.guides-hero h1 {
+  font-size: var(--intro-title-hero);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.guides-hero p {
+  max-width: 760px;
+  margin-top: var(--intro-title-gap);
+  color: var(--text-muted);
+  font-size: var(--intro-dek);
+  line-height: 1.45;
+}
+
+.guides-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--guides-line);
+  margin-bottom: 20px;
+}
+.guides-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-.guide-categories__list a {
+.guides-filter {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   min-height: 36px;
-  padding: 6px 14px;
-  border: 1px solid var(--grid-line);
-  border-radius: var(--radius);
-  background: var(--card);
+  padding: 7px 14px;
+  border: 1px solid var(--guides-line);
+  border-radius: 999px;
+  background: #fff;
   color: var(--text);
-  font-size: 14px;
+  font-family: var(--sans);
+  font-size: 13.5px;
   font-weight: 600;
-  line-height: 1.3;
-  text-decoration: none;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 0.15s var(--guides-ease),
+    background-color 0.15s var(--guides-ease),
+    color 0.15s var(--guides-ease);
 }
-.guide-categories__list a:hover,
-.guide-categories__list a:focus-visible {
-  border-color: var(--action);
-  color: var(--action);
+.guides-filter:hover {
+  border-color: var(--guides-line-strong);
+}
+/* Selected = inverted; aria-pressed carries the same state to assistive
+   tech, so it is never communicated by colour alone. */
+.guides-filter[aria-pressed="true"],
+.guides-filter[aria-pressed="true"]:hover {
+  background: var(--text);
+  border-color: var(--text);
+  color: #fff;
+}
+
+.guides-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.guides-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.guides-field input,
+.guides-field select {
+  height: 40px;
+  border: 1px solid var(--guides-line);
+  border-radius: var(--guides-radius);
+  background: #fff;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 0 12px;
+  min-width: 0;
+}
+.guides-field input::placeholder {
+  color: #6b7485;
+}
+.guides-field input:hover,
+.guides-field select:hover {
+  border-color: var(--guides-line-strong);
+}
+.guides-icon {
+  position: absolute;
+  left: 11px;
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: #6b7485;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.guides-field--search input {
+  width: 220px;
+  padding-left: 34px;
+}
+.guides-field--level {
+  gap: 8px;
+}
+.guides-field--level label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.guides-field--level select {
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.guides-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.guides-page .guides-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+@media (max-width: 1023px) {
+  .guides-page .guides-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .guides-page .guides-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 14px;
+  }
+}
+@media (max-width: 479px) {
+  .guides-page .guides-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+}
+
+/* The /fonts/ empty state (no box, centred, muted), keeping the guide
+   grid's query echo and reset button. Shown/hidden by [data-visible]. */
+.guides-page .guides-empty {
+  padding: 56px 0;
+  border: 0;
+}
+.guides-page .guides-empty p {
+  margin: 0;
+}
+.guides-page .guides-empty p + p {
+  margin-top: 6px;
+}
+.guides-page .guides-empty .btn {
+  margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  /* nowrap: in a wrapping column flexbox each line is as wide as its widest
+     item, so the single-row chip scroller below would widen the page. */
+  .guides-toolbar {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  .guides-toolbar > * {
+    min-width: 0;
+  }
+  .guides-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0 -24px;
+    padding: 2px 24px;
+    scrollbar-width: none;
+  }
+  .guides-filters::-webkit-scrollbar {
+    display: none;
+  }
+  .guides-filter {
+    flex: none;
+  }
+  .guides-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  .guides-field--search {
+    grid-column: 1 / -1;
+  }
+  .guides-field--search input {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guides-filter {
+    transition: none;
+  }
 }

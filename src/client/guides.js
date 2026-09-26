@@ -6,8 +6,9 @@
  * Runs in core.js's scope and depends on it for GUIDES, state, the DOM
  * handles, cardHtml and showToast.
  *
- * Surfaces: guides/index.html (#grid-root and the Level filter, guarded by
- * hasGuideGrid) and every /guide/ page (#guide-rail).
+ * Surfaces: guides/index.html (#grid-root and its toolbar — category chips,
+ * search and the Level filter — guarded by hasGuideGrid) and every /guide/
+ * page (#guide-rail).
  *
  * PHASE 4 STEP 2B — data-jump-category delegate removed
  *
@@ -33,21 +34,30 @@
     if (statCount) statCount.textContent = GUIDES.length;
   }
 
+  // Same matching as the /fonts/ search (src/client/fonts.js): lower-cased,
+  // hyphens and commas read as spaces, and every typed word must appear
+  // somewhere in the guide's title, description or category label.
+  function normalizeGuideQuery(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[-,]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function getFiltered() {
-    var q = state.search.trim().toLowerCase();
+    var terms = normalizeGuideQuery(state.search).split(" ").filter(Boolean);
     return GUIDES.filter(function (g) {
       if (state.category !== "all" && g.category !== state.category)
         return false;
       if (state.level !== "all" && g.level !== state.level) return false;
-      if (q) {
-        var hay = (
-          g.title +
-          " " +
-          g.description +
-          " " +
-          CATEGORIES[g.category].label
-        ).toLowerCase();
-        if (hay.indexOf(q) === -1) return false;
+      if (terms.length) {
+        var hay = normalizeGuideQuery(
+          g.title + " " + g.description + " " + CATEGORIES[g.category].label,
+        );
+        return terms.every(function (t) {
+          return hay.indexOf(t) !== -1;
+        });
       }
       return true;
     });
@@ -122,30 +132,93 @@
     var cards = filtered.map(cardHtml);
     gridRoot.innerHTML = cards.join("");
 
-    var q = state.search.trim();
-    if (q) {
-      // Once a search term is active there's no fixed "total" to show
-      // it against (unlike browsing a category), so report a plain
-      // count-for-query instead — e.g. `12 Results for "grid"`, or
-      // `0 Results for "asdf"` when nothing matches.
-      resultsCount.textContent =
-        filtered.length +
-        " Result" +
-        (filtered.length === 1 ? "" : "s") +
-        ' for "' +
-        q +
-        '"';
-    } else {
-      resultsCount.textContent =
-        "Showing " + filtered.length + " of " + GUIDES.length + " guides";
-    }
+    // The /fonts/ count line: the plain total when nothing is filtered out,
+    // "Showing N of total" otherwise.
+    var total = GUIDES.length;
+    resultsCount.textContent =
+      filtered.length === total
+        ? total + " guides"
+        : "Showing " + filtered.length + " of " + total + " guides";
 
+    var q = state.search.trim();
     if (filtered.length === 0) {
       emptyState.setAttribute("data-visible", "true");
       emptyQuery.textContent = q ? '"' + q + '"' : "your current filters";
     } else {
       emptyState.removeAttribute("data-visible");
     }
+
+    syncGuideControls();
+    writeGuidesUrl();
+  }
+
+  // ---------- /guides toolbar: category chips, search, level ----------
+  // Organised like the /fonts/ toolbar (src/client/fonts.js initListing):
+  // aria-pressed chips, a search box that filters as you type, the filter
+  // state kept in the query string (?category=&level=&q=) so a filtered
+  // view can be shared or reloaded, and a debounced screen-reader summary.
+
+  var guideChips = Array.prototype.slice.call(
+    document.querySelectorAll(".guides-filter"),
+  );
+  var guideSearch = document.getElementById("guides-search");
+  var guideStatus = document.getElementById("guides-status");
+  var guideAnnounceTimer = null;
+
+  function syncGuideControls() {
+    guideChips.forEach(function (chip) {
+      chip.setAttribute(
+        "aria-pressed",
+        String(chip.getAttribute("data-category") === state.category),
+      );
+    });
+    if (levelSelect) levelSelect.value = state.level;
+    if (guideSearch && guideSearch.value !== state.search) {
+      guideSearch.value = state.search;
+    }
+  }
+
+  function writeGuidesUrl() {
+    var next = new URLSearchParams();
+    if (state.category !== "all") next.set("category", state.category);
+    if (state.level !== "all") next.set("level", state.level);
+    if (state.search) next.set("q", state.search);
+    var qs = next.toString();
+    try {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + (qs ? "?" + qs : "") + window.location.hash,
+      );
+    } catch (e) {
+      /* file:// or a sandboxed frame — the filter still works */
+    }
+  }
+
+  function announceGuides() {
+    if (!guideStatus || !GUIDES.length) return;
+    window.clearTimeout(guideAnnounceTimer);
+    guideAnnounceTimer = window.setTimeout(function () {
+      var shown = getFiltered().length;
+      var where =
+        state.category !== "all" && CATEGORIES[state.category]
+          ? " in " + CATEGORIES[state.category].label
+          : "";
+      guideStatus.textContent =
+        shown + " " + (shown === 1 ? "guide" : "guides") + " shown" + where;
+    }, 400);
+  }
+
+  // Before guides.json arrives (or if it failed) GUIDES is empty and the
+  // grid holds the build-time cards; rendering then would wipe them. The
+  // state is kept, and init()'s first render() applies it.
+  function updateGuides() {
+    if (!GUIDES.length) {
+      syncGuideControls();
+      return;
+    }
+    render();
+    announceGuides();
   }
 
   // Shared by the empty-state's "reset filters" button. Also clears any
@@ -153,7 +226,6 @@
   // silently keep filtering the grid after a reset.
   function resetFilters() {
     state = { search: "", category: "all", level: "all" };
-    if (levelSelect) levelSelect.value = "all";
     headerSearchForms.forEach(function (form) {
       var input = form.querySelector("input[type='search']");
       if (input) input.value = "";
@@ -161,20 +233,53 @@
     render();
   }
 
-  // The level filter (#level-select) and the empty-state's #reset-filters
-  // button only exist on the guide-grid page (guides/index.html) — this
-  // whole block is skipped everywhere else instead of throwing on the
-  // missing elements.
+  // The toolbar and the empty-state's #reset-filters button only exist on
+  // the guide-grid page (guides/index.html) — this whole block is skipped
+  // everywhere else instead of throwing on the missing elements.
   if (hasGuideGrid) {
+    // Restore a shared/reloaded filter before the first render. Values
+    // that don't name a real chip or level option are ignored.
+    var guideParams = new URLSearchParams(window.location.search);
+    var chipCategories = guideChips.map(function (chip) {
+      return chip.getAttribute("data-category");
+    });
+    var levelValues = Array.prototype.map.call(
+      levelSelect.options,
+      function (option) {
+        return option.value;
+      },
+    );
+    if (chipCategories.indexOf(guideParams.get("category")) !== -1) {
+      state.category = guideParams.get("category");
+    }
+    if (levelValues.indexOf(guideParams.get("level")) !== -1) {
+      state.level = guideParams.get("level");
+    }
+    state.search = guideParams.get("q") || "";
+    syncGuideControls();
+
+    guideChips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        state.category = chip.getAttribute("data-category");
+        updateGuides();
+      });
+    });
+    if (guideSearch) {
+      guideSearch.addEventListener("input", function () {
+        state.search = guideSearch.value;
+        updateGuides();
+      });
+    }
     levelSelect.addEventListener("change", function (e) {
       state.level = e.target.value;
-      render();
+      updateGuides();
     });
     document
       .getElementById("reset-filters")
       .addEventListener("click", function () {
         resetFilters();
         showToast("Filters reset.");
+        if (guideSearch) guideSearch.focus();
       });
   }
 

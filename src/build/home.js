@@ -565,13 +565,10 @@ function loadCategoryLabels(categories) {
 // ---------------------------------------------------------------------
 // guides collection: category discovery (guides/index.html — Phase 6)
 // ---------------------------------------------------------------------
-// One link per guide category, from categories.json (sorted by `order`,
-// labeled with the full `name`, linked as /category/<slug> — the same URL form
-// as the footer's category row). A category is listed only if at least one
-// guide in guides.json has it as its `category`: that is the rule
-// src/build/categories.js uses to decide whether /category/<slug> exists, so a
-// listed link never points at a page that isn't built. (This module runs
-// before categories, so it can't check the file on disk.)
+// One filter chip per guide category, from categories.json (sorted by
+// `order`, labeled with the full `name`, keyed by the same slug guides.json
+// uses). A category is listed only if at least one guide in guides.json has it
+// as its `category`, so no chip can filter the grid down to nothing.
 
 function loadGuideCategories(categories, guides) {
   // PHASE 4 STEP 6: the second of the three copies of the categories.json
@@ -598,11 +595,19 @@ function loadGuideCategories(categories, guides) {
   };
 }
 
+// Rendered as the same filter chips as /fonts/ (a pressed "All" chip, then one
+// per category) and wired up by src/client/guides.js. The /category/<slug>
+// pages are still linked from the homepage's resource cards, the footer and
+// the sitemap.
 function guideCategoriesHtml(categories) {
-  return categories
-    .map(function (category) {
-      return `<li><a href="/category/${escapeHtml(category.slug)}">${escapeHtml(category.name)}</a></li>`;
-    })
+  return [
+    `<button type="button" class="guides-filter" data-category="all" aria-pressed="true">All</button>`,
+  ]
+    .concat(
+      categories.map(function (category) {
+        return `<button type="button" class="guides-filter" data-category="${escapeHtml(category.slug)}" aria-pressed="false">${escapeHtml(category.name)}</button>`;
+      }),
+    )
     .join("");
 }
 
@@ -685,7 +690,7 @@ function buildGuidesHtml(file, guides, guideCategories, cardHtml) {
     html,
     "<!--RESULTS_COUNT-->",
     "<!--/RESULTS_COUNT-->",
-    `Showing ${guides.length} of ${guides.length} guides`,
+    `${guides.length} guides`,
     label,
   );
 
