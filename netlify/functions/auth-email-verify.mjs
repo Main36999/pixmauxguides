@@ -51,7 +51,6 @@ import {
 import { AUTH_ERRORS, withAuthError } from "../lib/oauth.mjs";
 import {
   PAGE_HEADERS,
-  VERIFY_PATH,
   confirmationPage,
   emailAvailable,
   emailConfig,
@@ -62,9 +61,17 @@ import {
 } from "../lib/email.mjs";
 
 // Netlify code-based rate limit, per IP and domain, shared by GET and POST.
+//
+// Every value here must be a literal: Netlify reads this object statically at
+// deploy time and silently drops anything it can't evaluate — an imported
+// constant as `path` left this function without its /api route.
 export const config = {
-  path: VERIFY_PATH,
-  rateLimit: { windowLimit: 20, windowSize: 60, aggregateBy: ["ip", "domain"] },
+  path: "/api/auth/email/verify",
+  rateLimit: {
+    windowLimit: 20,
+    windowSize: 60,
+    aggregateBy: ["ip", "domain"],
+  },
 };
 
 const LINK_ERROR = "link";

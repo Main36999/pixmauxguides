@@ -23,7 +23,6 @@
 import { EMAIL_COOKIE, json, logProblem, setCookie } from "../lib/auth.mjs";
 import {
   EMAIL_TTL_SECONDS,
-  START_PATH,
   emailAvailable,
   emailConfig,
   newEmailTransaction,
@@ -36,9 +35,17 @@ import {
 // Netlify code-based rate limit, per IP and domain: a few sends a minute is
 // plenty for a person. Supabase's own per-address and per-project email
 // limits stay the authority behind it.
+//
+// Every value here must be a literal: Netlify reads this object statically at
+// deploy time and silently drops anything it can't evaluate — an imported
+// constant as `path` left this function without its /api route.
 export const config = {
-  path: START_PATH,
-  rateLimit: { windowLimit: 5, windowSize: 60, aggregateBy: ["ip", "domain"] },
+  path: "/api/auth/email/start",
+  rateLimit: {
+    windowLimit: 5,
+    windowSize: 60,
+    aggregateBy: ["ip", "domain"],
+  },
 };
 
 const UNAVAILABLE = Object.freeze({ error: "auth_unavailable" });

@@ -8,6 +8,8 @@
 import { test, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
+import fs from "node:fs";
+import vm from "node:vm";
 
 import emailStart, { config as startConfig } from "../functions/auth-email-start.mjs";
 import emailVerify, { config as verifyConfig } from "../functions/auth-email-verify.mjs";
@@ -207,6 +209,47 @@ test("email functions are routed at their paths with conservative Netlify rate l
     path: "/api/auth/email/verify",
     rateLimit: { windowLimit: 20, windowSize: 60, aggregateBy: ["ip", "domain"] },
   });
+});
+
+// Netlify reads `export const config` STATICALLY at deploy time and keeps
+// only literal values. An imported constant (`path: START_PATH`) is correct
+// at runtime — so the import-based test above passes — but Netlify reads it
+// as undefined and registers no route: in production the function answered
+// only at /.netlify/functions/<name> and /api/auth/email/* was a 404.
+// This checks the source text itself: the config object must evaluate in an
+// empty context, where any identifier throws a ReferenceError.
+test("every function's config is literal-only source, so Netlify can read its route", () => {
+  const expected = {
+    "auth-email-start.mjs": "/api/auth/email/start",
+    "auth-email-verify.mjs": "/api/auth/email/verify",
+    "auth-google-callback.mjs": "/api/auth/google/callback",
+    "auth-google-start.mjs": "/api/auth/google/start",
+    "auth-session.mjs": "/api/auth/session",
+    "auth-signout.mjs": "/api/auth/signout",
+  };
+  const dir = new URL("../functions/", import.meta.url);
+  assert.deepEqual(fs.readdirSync(dir).sort(), Object.keys(expected).sort());
+
+  for (const [file, route] of Object.entries(expected)) {
+    const source = fs.readFileSync(new URL(file, dir), "utf8");
+    const match = /^export const config = (\{[\s\S]*?\});$/m.exec(source);
+    assert.ok(match, `${file}: no top-level \`export const config = {…};\``);
+    let config;
+    assert.doesNotThrow(() => {
+      config = vm.runInNewContext(`(${match[1]})`, Object.create(null));
+    }, `${file}: config uses a non-literal value Netlify can't read statically`);
+    assert.equal(config.path, route, `${file}: route`);
+    assert.match(match[1], new RegExp(`path: "${route.replace(/\//g, "\\/")}"`), `${file}: path is a string literal`);
+  }
+});
+
+test("the literal-only check rejects an imported path (the 9d6e9b3 mistake)", () => {
+  const broken = `{ path: START_PATH, rateLimit: { windowLimit: 5, windowSize: 60, aggregateBy: ["ip", "domain"] } }`;
+  // The error comes from the vm's own realm, so match by name, not class.
+  assert.throws(
+    () => vm.runInNewContext(`(${broken})`, Object.create(null)),
+    (error) => error.name === "ReferenceError" && /START_PATH/.test(error.message),
+  );
 });
 
 // ---------------------------------------------------------------------
