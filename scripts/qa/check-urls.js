@@ -140,6 +140,14 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * The gate confirmed it was the only addition — 0 removed, nothing else
  * moved, every surviving canonical unchanged — so the baseline was
  * re-recorded at 2332 URLs / 350 pages and the list empties again.
+ *
+ * ICONS TO 95 (first-party expansion) held 96 entries here while its URL
+ * change was under review — every one under /icons: 48 new original BPOZZ
+ * icons (40 outline, 4 solid, 4 duotone), each an SVG source and its PNG.
+ * No page was added: the pages and ZIPs that changed were already in the
+ * baseline. The gate confirmed they were the only additions — 0 removed,
+ * nothing else moved, every surviving canonical unchanged — so the baseline was
+ * re-recorded at 2428 URLs / 350 pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 
