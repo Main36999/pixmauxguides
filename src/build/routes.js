@@ -46,6 +46,9 @@ const STATIC_ROOT_PAGES = [
   "search.html",
   "terms.html",
   "hoysomrach.html",
+  // The not-found page Netlify serves for any missing path. noindex, no
+  // canonical, and not in sitemap.xml.
+  "404.html",
 ];
 
 /**

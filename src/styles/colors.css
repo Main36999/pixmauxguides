@@ -232,6 +232,19 @@
   }
 }
 
+/* Reserve a screen of space while colors-data.json loads. The grid is
+   empty until colors.js renders it, so without this the footer is drawn
+   inside the first screen and then pushed off it — a large layout shift
+   (CLS ~0.47 on mobile). If the load fails, the error message shows
+   straight away instead of below an empty screen. */
+.colors-grid:empty {
+  min-height: 100vh;
+}
+
+.colors-grid:empty:has(~ .empty-state[data-visible="true"]) {
+  min-height: 0;
+}
+
 /* ---------- card ---------- */
 .color-card {
   min-width: 0;

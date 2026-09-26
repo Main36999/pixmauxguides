@@ -2383,6 +2383,68 @@ body > .site-footer {
   text-decoration: underline;
 }
 
+/* ---------- tool pages: explanatory notes ----------
+   The "About / How to use" block under the Colors, Palettes and Image
+   Picker tools. Set off from the tool by the same hairline rule as
+   .guide-rail, with the legal pages' text sizes, in a readable column. */
+.tool-notes {
+  max-width: 720px;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--grid-line);
+}
+.tool-notes h2 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 28px 0 10px;
+}
+.tool-notes h2:first-child {
+  margin-top: 0;
+}
+.tool-notes p,
+.tool-notes li {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.tool-notes p {
+  margin-bottom: 12px;
+}
+.tool-notes ul {
+  list-style: none;
+  margin: 0 0 12px;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tool-notes li {
+  padding-left: 18px;
+  position: relative;
+}
+.tool-notes li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--action);
+}
+.tool-notes a {
+  color: var(--action);
+  text-decoration: underline;
+}
+/* The site has one type family (var(--sans)); code terms stay in it. */
+.tool-notes code {
+  font-family: inherit;
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  .tool-notes {
+    margin-top: 52px;
+    padding-top: 32px;
+  }
+}
+
 /* ---------- about page: founder signature ----------
    Modeled on the founder photo + name + title block at the end of
    resourceboy.com/about — a small centered portrait with a name and

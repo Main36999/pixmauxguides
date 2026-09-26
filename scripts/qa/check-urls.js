@@ -148,8 +148,19 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * baseline. The gate confirmed they were the only additions — 0 removed,
  * nothing else moved, every surviving canonical unchanged — so the baseline was
  * re-recorded at 2428 URLs / 350 pages and the list empties again.
+ *
+ * 404 PAGE — one page added: /404.html, the not-found page Netlify serves
+ * for any missing path. Listed here so the gate can prove it is the only
+ * URL added; empty the list again once the baseline is re-recorded.
  */
 const ALLOWED_ADDED = [];
+
+/**
+ * Pages that intentionally declare no <link rel="canonical">. Only the 404
+ * page: it is noindex and served at whatever URL was missing, so a
+ * canonical would be wrong. Every other page must still declare one.
+ */
+const NO_CANONICAL_BY_DESIGN = new Set(["/404.html"]);
 
 /**
  * URLs this phase is approved to REMOVE. Empty, and that is the point —
@@ -320,7 +331,7 @@ function main() {
     base.pages.filter((p) => !p.canonical).map((p) => p.url),
   );
   noCanonical
-    .filter((p) => !baseNoCanonical.has(p.url))
+    .filter((p) => !baseNoCanonical.has(p.url) && !NO_CANONICAL_BY_DESIGN.has(p.url))
     .forEach((p) => problems.push(`canonical MISSING  ${p.url}`));
 
   console.log(

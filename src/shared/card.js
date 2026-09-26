@@ -188,6 +188,10 @@
     advanced: "Advanced",
   };
 
+  // Intrinsic size of every guide thumbnail in thumbnail_image_webp/.
+  var THUMB_WIDTH = 1448;
+  var THUMB_HEIGHT = 1086;
+
   function dimLine(label) {
     var x1 = 64,
       x2 = 176,
@@ -244,11 +248,20 @@
       dimLine(THUMB_DIM_LABEL[g.category]) +
       "</svg>";
     if (!g.thumbnail) return svg;
+    // width/height are the thumbnails' intrinsic size (every file in
+    // thumbnail_image_webp/ is 1448x1086, 4:3 — card.test.js checks it).
+    // They only give the browser an aspect ratio up front: the displayed
+    // size still comes from CSS (.card-thumb img / .article-hero img are
+    // absolutely positioned at 100% x 100% of a fixed-ratio box).
     var img =
       '<img src="' +
       escapeHtml(g.thumbnail) +
       '" alt="' +
       escapeHtml(g.title) +
+      '" width="' +
+      THUMB_WIDTH +
+      '" height="' +
+      THUMB_HEIGHT +
       '" loading="lazy" onerror="this.style.display=\'none\'">';
     return svg + img;
   }
@@ -328,6 +341,8 @@
     ICONS: ICONS,
     THUMBS: THUMBS,
     THUMB_DIM_LABEL: THUMB_DIM_LABEL,
+    THUMB_WIDTH: THUMB_WIDTH,
+    THUMB_HEIGHT: THUMB_HEIGHT,
     LEVEL_LABEL: LEVEL_LABEL,
     dimLine: dimLine,
     thumbMediaHtml: thumbMediaHtml,

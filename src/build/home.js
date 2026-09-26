@@ -331,7 +331,7 @@ const HOME_TOOLS = [
     tone: "cyan",
     cta: "Explore colors",
     desc: (m) =>
-      `${m.colors.length} named colors across ${new Set(m.colors.map((c) => c.category)).size} families, each with its HEX and RGB values.`,
+      `${m.colors.length} named colors across ${new Set(m.colors.map((c) => c.category)).size} families. Filter by family and copy any HEX value.`,
   },
   {
     title: "Color Palettes",
@@ -339,7 +339,7 @@ const HOME_TOOLS = [
     tone: "blue",
     cta: "Browse palettes",
     desc: (m) =>
-      `${m.palettes.length} palettes, each a surface, a deep tone and two accents. Like, sort and copy any value.`,
+      `${m.palettes.length} palettes of four named colors each. Copy any HEX value and like the ones you want to keep.`,
   },
   {
     title: "Image Picker",

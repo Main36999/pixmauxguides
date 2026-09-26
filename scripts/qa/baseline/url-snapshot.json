@@ -2,18 +2,23 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 350,
+    "pages": 351,
     "dataEndpoints": 5,
     "siteFiles": 4,
     "assets": 2055,
     "code": 15,
-    "total": 2429
+    "total": 2430
   },
   "pages": [
     {
       "file": "index.html",
       "url": "/",
       "canonical": "https://bpozz.com/"
+    },
+    {
+      "file": "404.html",
+      "url": "/404.html",
+      "canonical": null
     },
     {
       "file": "about.html",

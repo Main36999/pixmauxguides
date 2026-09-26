@@ -379,9 +379,14 @@ module.exports = {
    * served extensionless (see EXTENSIONLESS_ROOT_PAGES in src/build/routes.js):
    *   htmlPages    349 → 350  (+1: hoysomrach.html)
    *   sitemapUrls  343 → 344  (+1: https://bpozz.com/hoysomrach)
+   *
+   * 404.html — the custom not-found page Netlify serves for any missing
+   * path. Hand-authored root page, noindex, no canonical:
+   *   htmlPages    350 → 351  (+1: 404.html)
+   *   sitemapUrls  344 → 344  (unchanged: an error page is not content)
    */
   expected: {
-    htmlPages: 350,
+    htmlPages: 351,
     snapshotUrls: 89,
     sitemapUrls: 344,
   },

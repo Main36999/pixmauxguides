@@ -33,13 +33,21 @@
       gtag("set", "url_passthrough", false);
     </script>
     <meta charset="UTF-8" />
+    <!-- 404 page. Netlify serves this file, with status 404, at whatever
+         missing URL was requested, so relative links here (and the ones the
+         header and footer builders write for a root page) would resolve
+         against that URL. <base href="/"> resolves them from the site root.
+         For the same reason the page has no "#main" skip link: under <base>
+         it would point at /#main. noindex, and no canonical, Open Graph or
+         JSON-LD: an error page is not content. -->
+    <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About BPOZZ — Design Intelligence</title>
+    <title>Page not found — BPOZZ</title>
     <meta
       name="description"
-      content="BPOZZ is an independent design intelligence library — guides and color palettes, written like engineering specs, with no affiliate links or sponsored content."
+      content="The page you were looking for could not be found on BPOZZ."
     />
-    <link rel="canonical" href="https://bpozz.com/about.html" />
+    <meta name="robots" content="noindex" />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -56,42 +64,6 @@
       gtag("config", "G-NHGHCTY21D");
     </script>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bpozz.com/about.html" />
-    <meta property="og:site_name" content="BPOZZ" />
-    <meta
-      property="og:title"
-      content="About BPOZZ — Design Intelligence"
-    />
-    <meta
-      property="og:description"
-      content="BPOZZ is an independent design intelligence library — guides and color palettes, written like engineering specs, with no affiliate links or sponsored content."
-    />
-    <meta
-      property="og:image"
-      content="https://bpozz.com/og-image.png"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="BPOZZ — About the site." />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@bpozz" />
-    <meta
-      name="twitter:title"
-      content="About BPOZZ — Design Intelligence"
-    />
-    <meta
-      name="twitter:description"
-      content="BPOZZ is an independent design intelligence library — guides and color palettes, written like engineering specs, with no affiliate links or sponsored content."
-    />
-    <meta
-      name="twitter:image"
-      content="https://bpozz.com/og-image.png"
-    />
-
     <meta name="theme-color" content="#0F2A52" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
@@ -105,8 +77,6 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a href="#main" class="skip-link">Skip to content</a>
-
     <!--HEADER_START--><header class="site-header site-header--inner">
   <div class="header-top">
     <a href="index.html" class="brand" aria-label="bpozz! home">
@@ -230,98 +200,20 @@
     <div class="wrap page-view" id="page-view">
       <main class="page-view-body" id="main" tabindex="-1">
         <div class="legal-content">
-          <h1 class="legal-title">About BPOZZ</h1>
+          <h1 class="legal-title">Page not found</h1>
           <p>
-            BPOZZ is a small, independent design intelligence library: UI/UX
-            guides written the way an engineering spec is written — precise,
-            testable, and stripped of filler — alongside a set of practical
-            color, type and icon resources. Every guide exists because it
-            answers a question we've had to answer ourselves while building real
-            interfaces.
+            The page you were looking for doesn't exist. It may have been moved
+            or removed, or the address may contain a typo.
           </p>
-          <h2 class="legal-subheading">What you'll find on BPOZZ</h2>
+          <p>Here are some good places to start:</p>
           <ul>
-            <li>
-              <a href="/guides/">UI/UX guides</a> — 22 in-depth guides on color,
-              typography, spacing, layout, motion, accessibility and design
-              systems.
-            </li>
-            <li>
-              <a href="/colors/">Colors</a> — about 1,200 named colors in twelve
-              families, each with its HEX value.
-            </li>
-            <li>
-              <a href="/palettes/">Color palettes</a> — about 600 four-color
-              palettes with named colors.
-            </li>
-            <li>
-              <a href="/fonts/">Fonts</a> — about 300 free font families
-              released under the SIL Open Font License, with previews and
-              downloads.
-            </li>
-            <li>
-              <a href="/icons/">Icons</a> — icon packs in outline, solid,
-              duotone and 3D styles.
-            </li>
-            <li>
-              <a href="/image-picker/">Image Picker</a> — pull a palette out of
-              a photo, right in your browser.
-            </li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="/colors/">Colors</a></li>
+            <li><a href="/palettes/">Color palettes</a></li>
+            <li><a href="/fonts/">Fonts</a></li>
+            <li><a href="/search">Search</a></li>
           </ul>
-          <p>
-            Signing in is optional: you can use Google or a one-time link sent
-            to your email. Everything on BPOZZ works without an account.
-          </p>
-          <h2 class="legal-subheading">
-            What "documented like blueprints" means
-          </h2>
-          <p>
-            Most design writing either stays abstract — principles with no
-            numbers attached — or turns into a listicle of loosely related tips.
-            We aim for something closer to a spec sheet: concrete ratios,
-            concrete pixel values, and a stated reason for each one, so a guide
-            can be applied directly instead of just admired.
-          </p>
-          <h2 class="legal-subheading">
-            No affiliate links, no sponsored placement
-          </h2>
-          <p>
-            Every guide on this site is written first and monetized second. We
-            don't accept payment to feature a tool, and guide content itself is
-            never sponsored. Where the site does carry advertising, it's kept
-            clearly separate from the guides themselves and labeled as an
-            advertisement — see our
-            <a href="privacy.html">Privacy Policy</a> for the specifics of how
-            that works.
-          </p>
-          <h2 class="legal-subheading">Who this is for</h2>
-          <p>
-            Designers moving from visual intuition toward a more systematic
-            practice, and developers who need to understand the reasoning behind
-            a spec, not just the pixel values in it — plus anyone who needs a
-            color, palette, font or icon for their next project. Guides are
-            labeled beginner, intermediate, or advanced so you can find your
-            level quickly.
-          </p>
-          <h2 class="legal-subheading">Get in touch</h2>
-          <p>
-            Found an error, have a topic you'd like covered, or just want to say
-            hello? Visit our <a href="contact.html">Contact page</a> — we read
-            every message.
-          </p>
-
-          <div class="about-founder">
-            <img
-              class="about-founder__photo"
-              src="assets/founder-somrach-hoy.jpg"
-              alt="Somrach Hoy — Founder &amp; Lead UI/UX Designer of BPOZZ"
-              width="96"
-              height="96"
-              loading="lazy"
-            />
-            <p class="about-founder__name"><a href="/hoysomrach">Somrach Hoy</a></p>
-            <p class="about-founder__title">Founder &amp; Lead UI/UX Designer</p>
-          </div>
         </div>
       </main>
     </div>
