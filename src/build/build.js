@@ -191,6 +191,15 @@ const PUBLISH_FILES = [
   { from: "src/styles/guide-article.css", to: "guide-article.css" },
 
   /**
+   * AUTH — the header's Sign in / Sign up dialog. It is also bundled into
+   * /app.js (APP_BUNDLE.modules); this standalone copy is for the five
+   * hand-authored pages that carry the header but not app.js (about,
+   * contact, privacy, terms, hoysomrach). The module guards itself, so a
+   * page loading both copies runs it once.
+   */
+  { from: "src/client/auth.js", to: "auth.js" },
+
+  /**
    * HOMEPAGE — the stylesheet for the tool and resource cards below the
    * hero, published beside index.html at the root. Same shape as
    * colors.css and image-picker.css: styles only one page uses. The hero
@@ -310,7 +319,7 @@ const PUBLISH_FILES = [
  */
 const APP_BUNDLE = {
   to: "app.js",
-  modules: ["src/shared/html.js", "src/shared/card.js"],
+  modules: ["src/shared/html.js", "src/shared/card.js", "src/client/auth.js"],
   fragments: [
     "src/client/core.js",
     "src/client/guides.js",

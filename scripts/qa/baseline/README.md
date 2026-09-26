@@ -70,6 +70,23 @@ Two things about that row of +15 are worth knowing before reading the diff:
   byte-identical to the previous baseline once the two added
   `<a href="/colors">Colors</a>` lines are removed.
 
+### Header Sign in / Sign up (2026-09-26)
+
+The header gained Sign in / Sign up buttons (desktop row and mobile panel)
+and a full-screen auth dialog — UI only, see `docs/AUTH.md`.
+
+| measure | before | after | delta |
+|---|---|---|---|
+| HTML pages    | 350  | 350  | unchanged |
+| Public URLs   | 2428 | 2429 | +1 (`/auth.js`, code: 14 → 15) |
+
+Recorded the same way as Step 10: `/auth.js` in `ALLOWED_ADDED`, one gate
+run proving it was the only URL moved, then a re-record and an empty list.
+**All 350 pages changed md5**, measured rather than asserted: each is
+byte-identical to the pre-change build once the two inserted
+`.header-auth` / `.mobile-menu__auth` blocks (and, on the five pages that
+skip app.js, the one `<script src="/auth.js">` line) are removed.
+
 ## Re-recording this
 
     npm run build && npm run snapshot

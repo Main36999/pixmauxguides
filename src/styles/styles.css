@@ -186,11 +186,11 @@ ul {
        carry search instead. Bottom row is the nav link list. This
        mirrors resourceboy's own inner-page header (logo+search on
        top, category nav underneath).
-   Since bpozz has no accounts, neither variant has a stand-in for
-   resourceboy's "Sign in" pill — the home row's nav simply runs the
-   full width, and the inner header's search fills that same slot on
-   its own row. Both variants share .brand, .site-nav, .menu-toggle
-   and #mobile-menu markup/styles below. */
+   Both variants end in .header-auth (Sign in / Sign up) on the right —
+   the home row's third grid track, and after the search pill on the
+   inner header's top row — see "header auth actions" below. Both
+   variants share .brand, .site-nav, .menu-toggle and #mobile-menu
+   markup/styles below. */
 .site-header {
   position: sticky;
   top: 0;
@@ -242,6 +242,66 @@ ul {
 .site-header--home .header-inner > .menu-toggle {
   grid-column: 3;
   justify-self: end;
+}
+/* ---------- header auth actions ----------
+   Sign in / Sign up, right-aligned. Both reuse the site's existing button
+   classes: .btn-ghost (the on-dark outline) for the quieter Sign in and
+   .btn-primary (--action blue) for Sign up. Only the padding is trimmed so
+   the pair sits at the search pill's 40px height rather than the 44px of
+   a page-body CTA.
+   On the home row it shares grid track 3 with .menu-toggle; the two are
+   never shown at once (the toggle only exists at <=640px, where these
+   hide), so neither takes a second grid row. Below 641px the same two
+   buttons live in the mobile panel instead (.mobile-menu__auth). */
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.header-auth .btn {
+  padding: 9px 16px;
+  white-space: nowrap;
+}
+.site-header--home .header-inner > .header-auth {
+  grid-column: 3;
+  justify-self: end;
+}
+/* One row cannot hold the logo, the eight centred links and the two auth
+   buttons below ~1260px — measured: the nav meets Sign in at 1250 and, with
+   or without the buttons, already runs under the logo at 1024 and below.
+   So in that band the home header takes the inner header's shape: logo and
+   auth on the 84px top row, the unchanged centred nav on a row of its own
+   underneath, still on the dark bar. At <=640px .site-nav and .header-auth
+   are both hidden and this rule no longer applies. */
+@media (min-width: 641px) and (max-width: 1259px) {
+  .site-header--home .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 84px 56px;
+    row-gap: 0;
+    height: auto;
+  }
+  .site-header--home .header-inner > .brand {
+    grid-row: 1;
+  }
+  .site-header--home .header-inner > .header-auth {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .site-header--home .header-inner > .site-nav {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    align-self: stretch;
+    /* The row rule spans the full header width, not just the padded box. */
+    margin: 0 -32px;
+    padding: 0 32px;
+    width: calc(100% + 64px);
+    /* `safe` keeps the first link reachable if the row ever has to scroll
+       (the narrowest tablets); centring alone would clip it off the left. */
+    justify-content: center;
+    justify-content: safe center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
 }
 .brand {
   display: flex;
@@ -651,7 +711,22 @@ body:has(#mobile-menu:not([hidden])) {
 .mobile-menu__nav a:active {
   color: #fff;
 }
+/* The header's Sign in / Sign up, moved into the panel below 641px: two
+   full-width buttons under the links, so neither is squeezed into the
+   narrow header row beside the search pill. */
+.mobile-menu__auth {
+  display: grid;
+  gap: 10px;
+}
+.mobile-menu__auth .btn {
+  justify-content: center;
+  padding: 13px 18px;
+  font-size: 15px;
+}
 @media (max-width: 640px) {
+  .header-auth {
+    display: none;
+  }
   .header-inner,
   .header-top {
     padding: 0 20px;
@@ -2556,5 +2631,379 @@ body > .site-footer {
 @media (prefers-reduced-motion: reduce) {
   .guides-filter {
     transition: none;
+  }
+}
+
+/* ---------- authentication dialog (src/client/auth.js) ----------
+   Full-screen, not a centred modal: a native <dialog> opened with
+   showModal(), so it sits in the top layer above the sticky header and the
+   page behind it goes inert. Form panel left, visual panel right; below
+   900px the visual folds away and the form takes the whole viewport.
+   Everything reuses the site tokens (--paper, --text, --text-muted,
+   --action, --radius, --sans). The only new colours are the gradient's own,
+   scoped to .auth__visual below. */
+html.auth-open {
+  overflow: hidden;
+}
+.auth {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.auth[open] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.auth.is-open {
+  opacity: 1;
+}
+.auth::backdrop {
+  background: transparent;
+}
+
+/* Left: the form panel. It scrolls on its own if a short viewport (a phone
+   in landscape) can't fit it; margin: auto centres the column when there is
+   room and lets it start at the top when there isn't, so nothing is ever
+   clipped above the fold. */
+.auth__panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 24px 32px 32px;
+  overflow-y: auto;
+}
+.auth__bar {
+  display: flex;
+}
+.auth__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  transition: border-color 0.15s ease;
+}
+.auth__close:hover {
+  border-color: var(--text-muted);
+}
+.auth__close svg {
+  width: 18px;
+  height: 18px;
+}
+.auth__body {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 40px 0 16px;
+  transform: translateY(8px);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.auth.is-open .auth__body {
+  transform: none;
+}
+.auth__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 20px -2px;
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+.auth__back[hidden] {
+  display: none;
+}
+.auth__back:hover {
+  color: var(--text);
+}
+.auth__back svg {
+  width: 16px;
+  height: 16px;
+}
+.auth__title {
+  font-size: clamp(32px, 1.4vw + 22px, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+/* Focused programmatically when a step changes, for screen readers; it is
+   not an interactive control, so it draws no ring. */
+.auth__title:focus {
+  outline: none;
+}
+.auth__lede {
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+.auth__lede strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.auth__notice {
+  display: none;
+  margin-top: 24px;
+  padding: 12px 14px;
+  border: 1px solid var(--grid-line);
+  border-left: 3px solid var(--action);
+  border-radius: var(--radius);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.auth__notice.is-visible {
+  display: block;
+}
+.auth__step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 32px;
+}
+.auth__step[hidden] {
+  display: none;
+}
+.auth__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid rgba(16, 16, 16, 0.24);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+.auth__btn:hover {
+  border-color: var(--text);
+  background: rgba(37, 99, 235, 0.04);
+}
+.auth__btn:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+.auth__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.auth__or {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.auth__or::before,
+.auth__or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--grid-line);
+}
+.auth__form {
+  gap: 10px;
+}
+.auth__label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.auth__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(16, 16, 16, 0.32);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+}
+.auth__input:focus {
+  border-color: var(--action);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  outline: 2px solid transparent;
+}
+.auth__input[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+.auth__error {
+  font-size: 13px;
+  color: #c0392b;
+}
+.auth__error[hidden] {
+  display: none;
+}
+.auth__submit {
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 6px;
+  font-size: 15px;
+}
+.auth__switch {
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.auth__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--action);
+  font-size: inherit;
+  font-weight: 600;
+}
+.auth__link:hover {
+  color: var(--action-hover);
+  text-decoration: underline;
+}
+.auth__legal {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.auth__legal a {
+  color: var(--text);
+  text-underline-offset: 2px;
+}
+.auth__legal a:hover {
+  color: var(--action);
+}
+
+/* Right: the visual panel. An original gradient field (yellow, orange,
+   pink, purple and the site's own --action blue), blurred so the hues bleed
+   into each other, under a faint blueprint grid and one set of
+   construction lines: the "documented like blueprints" idea, drawn rather
+   than said. Static: it settles from a slight scale on open and otherwise
+   never moves. */
+.auth__visual {
+  --auth-yellow: #ffd23f;
+  --auth-orange: #ff8a3d;
+  --auth-pink: #ff4f9a;
+  --auth-purple: #7b5cff;
+  position: relative;
+  overflow: hidden;
+  background: #1a1d3a;
+  color: #fff;
+}
+.auth__field {
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(38% 42% at 24% 20%, var(--auth-yellow) 0%, transparent 70%),
+    radial-gradient(44% 48% at 76% 26%, var(--auth-orange) 0%, transparent 70%),
+    radial-gradient(48% 52% at 34% 68%, var(--auth-pink) 0%, transparent 72%),
+    radial-gradient(52% 56% at 80% 78%, var(--auth-purple) 0%, transparent 72%),
+    radial-gradient(60% 60% at 55% 50%, var(--action) 0%, transparent 78%);
+  filter: blur(48px);
+  transform: scale(1.06);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.auth.is-open .auth__field {
+  transform: none;
+}
+.auth__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+}
+.auth__guides {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(72%, 560px);
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.5);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.auth__caption {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  bottom: 36px;
+  max-width: 340px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
+}
+.auth__caption span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  opacity: 0.8;
+}
+
+@media (max-width: 899px) {
+  .auth[open] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .auth__visual {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .auth__panel {
+    padding: 16px 20px 28px;
+  }
+  .auth__body {
+    padding-top: 28px;
+  }
+  .auth__step {
+    margin-top: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth,
+  .auth__body,
+  .auth__field {
+    transition: none;
+  }
+  .auth__body,
+  .auth__field {
+    transform: none;
   }
 }

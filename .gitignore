@@ -11,3 +11,11 @@ dist/
 node_modules/
 npm-debug.log*
 .DS_Store
+
+# Local environment files. Real Supabase / auth credentials live only in
+# Netlify's environment settings, never in the repo (docs/AUTH.md).
+.env
+.env.*
+
+# Netlify CLI local state.
+.netlify/

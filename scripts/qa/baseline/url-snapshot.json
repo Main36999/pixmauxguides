@@ -6,8 +6,8 @@
     "dataEndpoints": 5,
     "siteFiles": 4,
     "assets": 2055,
-    "code": 14,
-    "total": 2428
+    "code": 15,
+    "total": 2429
   },
   "pages": [
     {
@@ -3833,6 +3833,7 @@
   ],
   "code": [
     "/app.js",
+    "/auth.js",
     "/colors/colors.css",
     "/colors/colors.js",
     "/fonts/fonts.css",
