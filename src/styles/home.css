@@ -118,25 +118,18 @@
   min-height: 332px;
   padding: 36px 36px 32px;
   background-color: var(--card-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-ink) 16%, transparent);
 }
 .tool-card:hover,
 .tool-card:focus-within {
   background-color: var(--card-bg-hover);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-ink) 30%, transparent);
   transform: translateY(-3px);
 }
 .tool-card--cyan {
   --card-bg: #c8ebf5;
   --card-bg-hover: #b2e2f0;
   --card-ink: #04495a;
-}
-/* Cyan alone gets a hairline inset ring (no layout change) to separate it
-   from the white page; the ring firms up on hover. */
-.tool-card.tool-card--cyan {
-  box-shadow: inset 0 0 0 1px rgba(4, 73, 90, 0.16);
-}
-.tool-card.tool-card--cyan:hover,
-.tool-card.tool-card--cyan:focus-within {
-  box-shadow: inset 0 0 0 1px rgba(4, 73, 90, 0.3);
 }
 .tool-card--blue {
   --card-bg: #dde6fd;
