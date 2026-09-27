@@ -3270,24 +3270,6 @@ html.auth-open {
     opacity: 1;
   }
 }
-.auth__caption {
-  position: absolute;
-  left: 40px;
-  right: 40px;
-  bottom: 36px;
-  max-width: 340px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
-}
-.auth__caption span {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  opacity: 0.8;
-}
 
 @media (max-width: 899px) {
   .auth[open] {

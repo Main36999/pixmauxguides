@@ -128,7 +128,6 @@
     PHRASES[0] +
     '</span><span class="auth__cursor"></span></span>' +
     "</p>" +
-    '<p class="auth__caption"><span>BPOZZ</span>Colors, type and systems — documented like blueprints.</p>' +
     "</div>";
 
   var MARKUP =
