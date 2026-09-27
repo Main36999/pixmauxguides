@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve", () => {
-  assert.strictEqual(PROTOTYPE.length, 182);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two", () => {
+  assert.strictEqual(PROTOTYPE.length, 184);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -849,7 +849,8 @@ test("Batch 3: every record stays within 2–6 characteristics, and uses no reje
     assert.ok(n >= 2 && n <= 6, `${id}: ${n}`);
   });
   const all = Object.keys(editorial.CHARACTERISTICS).concat(Object.keys(editorial.BEST_FOR));
-  ["stencil", "art-deco", "fat-face", "uncial", "upright", "character-variants", "width-stable"].forEach((t) => assert.ok(!all.includes(t), t));
+  // "stencil" left this list in Batch 10, as a term measured from the outlines only (FONT_FILE_ONLY)
+  ["art-deco", "fat-face", "uncial", "upright", "character-variants", "width-stable"].forEach((t) => assert.ok(!all.includes(t), t));
 });
 
 test("Batch 3 script terms rest on verified coverage", () => {
@@ -1118,7 +1119,7 @@ test("old-style figures: no ordinary lowercase, no x-height, no claim", () => {
   assert.strictEqual(fontMetrics.METRIC_SCOPE.defaultFigures, "latin-lowercase");
   // a claim may not rest on the upstream text: the files decide
   assert.throws(() => validateFixture("bentham", evidenced("bentham", [["oldstyle-figures", UP], ["small-x-height", FF]])), /needs font-file evidence/);
-  assert.deepStrictEqual(editorial.FONT_FILE_ONLY, ["oldstyle-figures"]);
+  assert.deepStrictEqual(editorial.FONT_FILE_ONLY, ["oldstyle-figures", "stencil", "unicase"]);
   assert.strictEqual(editorial.CHARACTERISTICS["oldstyle-figures"], "Old-style figures");
   assert.notStrictEqual(editorial.CHARACTERISTICS["oldstyle-figures"], editorial.CHARACTERISTICS["old-style"]);
 });
@@ -1184,7 +1185,8 @@ test("the six Group 1 families reach two evidenced characteristics with the new 
 });
 
 test("deferred vocabulary stays out", () => {
-  ["squared", "squared-forms", "metric-compatible", "low-contrast", "flared", "inscriptional", "stencil", "art-deco", "fat-face", "uncial", "upright", "character-variants", "width-stable"]
+  // Stencil and Unicase entered in Batch 10 as measured terms; everything else here stays deferred
+  ["squared", "squared-forms", "metric-compatible", "low-contrast", "flared", "inscriptional", "art-deco", "fat-face", "uncial", "upright", "character-variants", "width-stable"]
     .forEach((t) => assert.ok(!editorial.CHARACTERISTICS[t], t));
   // High contrast keeps no measured rule
   assert.ok(!editorial.MEASURED["characteristics:high-contrast"]);
@@ -1549,9 +1551,11 @@ test("Batch 8 leaves out the families the evidence cannot carry, and every earli
   ["fenix", "unna", "abel", "antic-didone", "balthazar", "cabin-sketch", "ovo", "quattrocento-sans", "squada-one",
     "cinzel-decorative", "coustard", "text-me-one", "vidaloka", "aldrich", "fugaz-one", "doppio-one", "passion-one",
     "asul", "abeezee"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
-  // Unica One: measured "caps", but upstream draws it unicase with lowercase forms, so All caps would mislead
+  // Unica One: measured "caps", but upstream draws it unicase with lowercase forms, so All caps would mislead.
+  // Batch 10 reopened it once the Unicase term existed; it still never claims All caps.
   assert.strictEqual(m("unica-one").lowercaseForm, "caps");
-  assert.ok(!raw["unica-one"] && !PROTOTYPE.includes("unica-one"));
+  assert.ok(raw["unica-one"].characteristics.includes("unicase") && !raw["unica-one"].characteristics.includes("all-caps"));
+  assert.ok(!raw["unica-one"].bestFor.includes("all-caps-titles"));
   ["belanosima", "rye", "rambla", "nixie-one", "handlee", "pirata-one", "vast-shadow", "neucha", "gochi-hand", "courgette",
     "carter-one", "volkhov", "goudy-bookletter-1911", "solway", "gravitas-one", "caprasimo", "boogaloo",
     "poly", "bowlby-one", "germania-one", "quando", "electrolize", "share-tech-mono", "nobile",
@@ -1631,9 +1635,8 @@ test("the 170 approved records are pinned: any edit to Batches 1–8 fails here"
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "b15946f56e3bc0f4f0ee67fe1d2dbf74de86e4009cc26ea2e49f315c8f34ddf9",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(170), BATCH9, "Batch 9 follows Batch 8, in declaration order");
-  assert.deepStrictEqual(PROTOTYPE.slice(170), BATCH9, "site.config declares Batch 9 in the same order");
-  assert.strictEqual(Object.keys(raw).length, 182);
+  assert.deepStrictEqual(Object.keys(raw).slice(170, 182), BATCH9, "Batch 9 follows Batch 8, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(170, 182), BATCH9, "site.config declares Batch 9 in the same order");
 });
 
 test("Batch 9 leaves out the families the evidence cannot carry, and every earlier exclusion stays out", () => {
@@ -1649,7 +1652,7 @@ test("Batch 9 leaves out the families the evidence cannot carry, and every earli
   assert.ok(!raw["architects-daughter"] && !PROTOTYPE.includes("architects-daughter"));
   ["fenix", "unna", "abel", "antic-didone", "balthazar", "cabin-sketch", "ovo", "quattrocento-sans", "squada-one",
     "cinzel-decorative", "coustard", "text-me-one", "vidaloka", "aldrich", "fugaz-one", "doppio-one", "passion-one",
-    "asul", "abeezee", "unica-one",
+    "asul", "abeezee",
     "belanosima", "rye", "rambla", "nixie-one", "handlee", "pirata-one", "vast-shadow", "neucha", "gochi-hand", "courgette",
     "carter-one", "volkhov", "goudy-bookletter-1911", "solway", "gravitas-one", "caprasimo", "boogaloo",
     "poly", "bowlby-one", "germania-one", "quando", "electrolize", "share-tech-mono", "nobile",
@@ -1707,4 +1710,194 @@ test("Batch 9 adds no pairing and links three guides, each to a named section", 
     const [id, g] = pair.split(":");
     assert.ok(raw[id].evidence.some((e) => e.for === `relatedGuides:${g}` && /Section 0\d/.test(e.detail)), pair);
   });
+});
+
+// ---------------------------------------------------------------------
+// Batch 10: Unicase and Stencil, measured from the glyph outlines
+// (scripts/fonts/sfnt.js OUTLINES), and the two families they made eligible
+// ---------------------------------------------------------------------
+
+const BATCH10 = ["unica-one", "saira-stencil-one"];
+
+test("the 182 approved records are pinned: any edit to Batches 1–9 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 182).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "4974b5b6123b2be1d308fc420e5c37b2a49b526d8b1724c5b45918e2e68e596f",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(182), BATCH10, "Batch 10 follows Batch 9, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(182), BATCH10, "site.config declares Batch 10 in the same order");
+  assert.strictEqual(Object.keys(raw).length, 184);
+});
+
+/** An evidenced() record with a second evidence entry for one characteristic. */
+function withSecondBasis(rec, term, basis, detail = "'a condensed unicase sans serif style' (fixture)") {
+  rec.evidence.push({ for: `characteristics:${term}`, basis, detail });
+  return rec;
+}
+
+test("Unicase: the rule, its threshold, and the library's counts", () => {
+  assert.strictEqual(editorial.CHARACTERISTICS.unicase, "Unicase");
+  assert.deepStrictEqual(editorial.MEASURED["characteristics:unicase"], [
+    { metric: "lowercaseForm", is: "caps" },
+    { metric: "unicaseLetterCount", atLeast: 10 },
+  ]);
+  assert.strictEqual(fontMetrics.METRIC_SCOPE.unicaseLetterCount, "latin");
+  // counted only where a–z stand at cap height
+  metrics.byId.forEach((x, id) => assert.strictEqual(x.unicaseLetterCount === null, x.lowercaseForm !== "caps", id));
+  // all-caps faces that repeat or re-encode their capitals score 0
+  ["bebas-neue", "bungee", "staatliches", "aboreto", "bangers", "creepster", "monofett", "rubik-mono-one", "silkscreen"].forEach((id) =>
+    assert.strictEqual(m(id).unicaseLetterCount, 0, id));
+  // Unica One's lowercase shapes, and Major Mono Display's second capital designs, both reach the threshold
+  assert.ok(m("unica-one").unicaseLetterCount >= 10);
+  assert.ok(m("major-mono-display").unicaseLetterCount >= 10);
+  const passing = [...metrics.byId].filter(([, x]) => x.lowercaseForm === "caps" && x.unicaseLetterCount >= 10).map(([id]) => id);
+  assert.deepStrictEqual(passing.sort(), ["major-mono-display", "unica-one"]);
+  // the comparator holds at the count and fails one above it
+  const n = m("unica-one").unicaseLetterCount;
+  assert.strictEqual(problem({ metric: "unicaseLetterCount", atLeast: n }, "unica-one"), null);
+  assert.match(problem({ metric: "unicaseLetterCount", atLeast: n + 1 }, "unica-one"), /fails unicaseLetterCount atLeast/);
+  // the helper and measure() agree
+  assert.strictEqual(sfnt.unicaseLetterCount(fs.readFileSync(fileOf("unica-one"))), n);
+});
+
+test("Unicase needs the measurement and the upstream description, and excludes All caps", () => {
+  const both = () => withSecondBasis(evidenced("unica-one", [["unicase", FF], ["large-glyph-set", FF]]), "unicase", UP);
+  assert.doesNotThrow(() => validateFixture("unica-one", both()));
+  // the file alone cannot say the shapes are lowercase
+  assert.throws(() => validateFixture("unica-one", evidenced("unica-one", [["unicase", FF], ["large-glyph-set", FF]])), /also needs upstream-description evidence/);
+  // the word "unicase" alone is not enough either
+  assert.throws(() => validateFixture("unica-one", evidenced("unica-one", [["unicase", UP], ["large-glyph-set", FF]])), /needs font-file evidence/);
+  // an ordinary all-caps face fails the count; a lowercase face fails the height
+  assert.throws(() => validateFixture("bebas-neue", withSecondBasis(evidenced("bebas-neue", [["unicase", FF], ["narrow", FF]]), "unicase", UP)), /fails unicaseLetterCount atLeast 10/);
+  assert.throws(() => validateFixture("lato", withSecondBasis(evidenced("lato", [["unicase", FF], ["humanist-details", UP]]), "unicase", UP)), /fails lowercaseForm is "caps"/);
+  // Unicase suppresses All caps: never both on one record
+  const twice = withSecondBasis(evidenced("unica-one", [["unicase", FF], ["all-caps", FF]]), "unicase", UP);
+  assert.throws(() => validateFixture("unica-one", twice), /"unicase" and "all-caps" are two readings of the same a–z at cap height/);
+  assert.deepStrictEqual(Object.keys(editorial.CONFIRMED_BY_UPSTREAM), ["unicase"]);
+  // an upstream entry that does not name the design is not confirmation
+  assert.throws(() => validateFixture("unica-one", withSecondBasis(evidenced("unica-one", [["unicase", FF], ["large-glyph-set", FF]]), "unicase", UP, "'mixes capital and lowercase forms at one height'")), /needs upstream-description evidence that names the design/);
+});
+
+test("Major Mono Display stays All caps: its lowercase keys hold capital designs, not lowercase forms", () => {
+  // The outlines differ from the capitals (the count passes), but upstream calls the family
+  // "all-uppercase", and its approved note describes two capital alphabets. The count cannot tell
+  // a second capital design from a lowercase form, so the record keeps All caps (pinned above).
+  assert.ok(m("major-mono-display").unicaseLetterCount >= 10);
+  assert.ok(raw["major-mono-display"].characteristics.includes("all-caps"));
+  assert.ok(!raw["major-mono-display"].characteristics.includes("unicase"));
+  assert.ok(raw["major-mono-display"].evidence.some((e) => e.for === "characteristics:geometric" && /all-uppercase/.test(e.detail)));
+  // the regression itself: the passing count plus Major Mono Display's real upstream sentence is refused
+  const mmd = withSecondBasis(evidenced("major-mono-display", [["unicase", FF], ["monospaced", FF]]), "unicase", UP, "'a monospaced geometric sans serif all-uppercase typeface'.");
+  assert.throws(() => validateFixture("major-mono-display", mmd), /needs upstream-description evidence that names the design/);
+  // every other record on a font that passes the Unicase count claims Unicase, never All caps
+  Object.entries(raw).forEach(([id, rec]) => {
+    if (id === "major-mono-display" || !(m(id).lowercaseForm === "caps" && m(id).unicaseLetterCount >= 10)) return;
+    assert.ok(rec.characteristics.includes("unicase") && !rec.characteristics.includes("all-caps"), id);
+  });
+});
+
+test("Stencil: the rule, its threshold, and the library's counts", () => {
+  assert.strictEqual(editorial.CHARACTERISTICS.stencil, "Stencil");
+  assert.deepStrictEqual(editorial.MEASURED["characteristics:stencil"], [{ metric: "stencilLetterCount", atLeast: 15 }]);
+  assert.strictEqual(fontMetrics.METRIC_SCOPE.stencilLetterCount, "latin");
+  assert.strictEqual(sfnt.STENCIL_GLYPHS.length, 19);
+  assert.strictEqual(String.fromCodePoint(...sfnt.STENCIL_GLYPHS), "abdegopqABDOPQR0689");
+  ["saira-stencil-one", "stardos-stencil", "black-ops-one"].forEach((id) => assert.ok(m(id).stencilLetterCount >= 15, id));
+  // Monoton's multi-line capitals are separate strokes, but every counter stays enclosed
+  assert.ok(m("monoton").stencilLetterCount < 15);
+  const passing = [...metrics.byId].filter(([, x]) => x.stencilLetterCount >= 15).map(([id]) => id);
+  assert.deepStrictEqual(passing.sort(), ["black-ops-one", "saira-stencil-one", "stardos-stencil"]);
+  // nothing else comes close to the threshold
+  metrics.byId.forEach((x, id) => {
+    if (!passing.includes(id) && id !== "monoton") assert.ok(x.stencilLetterCount <= 5, `${id} ${x.stencilLetterCount}`);
+  });
+  const n = m("saira-stencil-one").stencilLetterCount;
+  assert.strictEqual(problem({ metric: "stencilLetterCount", atLeast: n }, "saira-stencil-one"), null);
+  assert.match(problem({ metric: "stencilLetterCount", atLeast: n + 1 }, "saira-stencil-one"), /fails stencilLetterCount atLeast/);
+  assert.strictEqual(sfnt.stencilLetterCount(fs.readFileSync(fileOf("saira-stencil-one"))), n);
+});
+
+test("Stencil is established by the outlines, never by the name or the upstream word", () => {
+  assert.doesNotThrow(() => validateFixture("saira-stencil-one", evidenced("saira-stencil-one", [["stencil", FF], ["alternate-zero", FF]])));
+  assert.throws(() => validateFixture("saira-stencil-one", evidenced("saira-stencil-one", [["stencil", UP], ["alternate-zero", FF]])), /needs font-file evidence/);
+  assert.throws(() => validateFixture("monoton", evidenced("monoton", [["stencil", FF], ["small-caps", FF]])), /fails stencilLetterCount atLeast 15/);
+  // Black Ops One passes the rule; its approved record is unchanged (pinned above)
+  assert.doesNotThrow(() => validateFixture("black-ops-one", evidenced("black-ops-one", [["stencil", FF], ["wide-lowercase", FF]])));
+  assert.ok(!raw["black-ops-one"].characteristics.includes("stencil"));
+});
+
+test("outline measurements fail safely on missing or malformed glyph data", () => {
+  [Buffer.alloc(0), Buffer.alloc(12), Buffer.from("not a font at all")].forEach((b) => {
+    assert.strictEqual(sfnt.stencilLetterCount(b), null);
+    assert.strictEqual(sfnt.unicaseLetterCount(b), null);
+  });
+  const good = fs.readFileSync(fileOf("saira-stencil-one"));
+  // truncated before the glyph data ends
+  assert.strictEqual(sfnt.stencilLetterCount(good.subarray(0, Math.floor(good.length / 3))), null);
+  // no glyf table: no outlines, so no answer rather than a guess
+  const noGlyf = Buffer.from(good);
+  const numTables = noGlyf.readUInt16BE(4);
+  for (let i = 0; i < numTables; i++) {
+    if (noGlyf.toString("latin1", 12 + i * 16, 16 + i * 16) === "glyf") noGlyf.write("xxxx", 12 + i * 16, "latin1");
+  }
+  assert.ok(sfnt.tableDirectory(good).glyf && !sfnt.tableDirectory(noGlyf).glyf);
+  assert.strictEqual(sfnt.stencilLetterCount(noGlyf), null);
+  // scrambled glyph data: a number or null, never an exception
+  const caps = Buffer.from(fs.readFileSync(fileOf("unica-one")));
+  const glyf = sfnt.tableDirectory(caps).glyf;
+  caps.fill(0xff, glyf.offset, glyf.offset + glyf.length);
+  [sfnt.unicaseLetterCount(caps), sfnt.stencilLetterCount(caps)].forEach((v) => assert.ok(v === null || Number.isInteger(v)));
+  // and a null count never passes a rule
+  const fake = { byId: new Map([["x", Object.assign({}, m("unica-one"), { unicaseLetterCount: null, stencilLetterCount: null })]]) };
+  assert.match(editorial.measuredClaimProblem({ metric: "unicaseLetterCount", atLeast: 10 }, "x", fake), /fails/);
+  assert.match(editorial.measuredClaimProblem({ metric: "stencilLetterCount", atLeast: 15 }, "x", fake), /fails/);
+});
+
+test("the vocabulary gains exactly Unicase and Stencil; unknown and deferred terms are still refused", () => {
+  assert.strictEqual(Object.keys(editorial.CHARACTERISTICS).length, 45, "43 before Batch 10, plus Unicase and Stencil");
+  ["unicase", "stencil"].forEach((t) => assert.ok(editorial.CHARACTERISTICS[t], t));
+  ["unicameral", "stencilled", "stencil-cut", "squared", "mufi", "medieval", "low-contrast", "flared", "inscriptional"].forEach((t) => {
+    assert.ok(!editorial.CHARACTERISTICS[t], t);
+    assert.throws(() => validateFixture("unica-one", evidenced("unica-one", [[t, UP], ["large-glyph-set", FF]])), new RegExp(`"${t}" is not in the vocabulary`), t);
+  });
+});
+
+test("Batch 10: exactly the validated characteristics, each from the sources that can establish it", () => {
+  assert.deepStrictEqual(raw["unica-one"].characteristics, ["unicase", "large-glyph-set"]);
+  assert.deepStrictEqual(raw["saira-stencil-one"].characteristics, ["stencil", "alternate-zero", "case-sensitive-forms", "large-glyph-set"]);
+  const basesOf = (id, term) => raw[id].evidence.filter((e) => e.for === `characteristics:${term}`).map((e) => e.basis).sort();
+  assert.deepStrictEqual(basesOf("unica-one", "unicase"), ["font-file", "upstream-description"]);
+  assert.deepStrictEqual(basesOf("saira-stencil-one", "stencil"), ["font-file", "upstream-description"]);
+  // Unica One: upstream "condensed" is not claimed — the file's width class reads Normal
+  assert.strictEqual(m("unica-one").widthClass, 5);
+  assert.ok(!raw["unica-one"].characteristics.includes("condensed") && !raw["unica-one"].characteristics.includes("narrow"));
+  // no pairing, no guide: nothing in the library or the guides is specific to either
+  BATCH10.forEach((id) => {
+    assert.deepStrictEqual(raw[id].pairings, [], id);
+    assert.deepStrictEqual(raw[id].relatedGuides, [], id);
+    assert.ok(raw[id].notes, id);
+  });
+});
+
+test("Batch 10 reopens only Unica One and Saira Stencil One; every other exclusion stays out", () => {
+  // Stardos Stencil passes the Stencil rule but has one honest Best for term (display-only) and no verified Latin Extended core
+  assert.ok(m("stardos-stencil").stencilLetterCount >= 15);
+  assert.strictEqual(m("stardos-stencil").coverage.latinExtendedVerified, false);
+  ["stardos-stencil", "benchnine", "berkshire-swash", "caudex", "monofett", "comic-relief", "caladea", "libertinus-serif",
+    "electrolize", "aldrich", "quantico", "architects-daughter", "italiana", "forum", "marcellus", "sofia"].forEach((id) =>
+    assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+  // the approved 182 do not include either Batch 10 family
+  const before = PROTOTYPE.slice(0, 182);
+  assert.ok(!before.includes("unica-one") && !before.includes("saira-stencil-one"));
+});
+
+test("Batch 10 pages show Unicase and Stencil; Major Mono Display still shows All caps", () => {
+  const html = (id) => page(withLayer, id);
+  assert.match(html("unica-one"), />Unicase</);
+  assert.doesNotMatch(html("unica-one"), />All caps</);
+  assert.match(html("saira-stencil-one"), />Stencil</);
+  assert.match(html("major-mono-display"), />All caps</);
+  assert.doesNotMatch(html("major-mono-display"), />Unicase</);
 });

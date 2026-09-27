@@ -17,7 +17,8 @@
  *                    and caseless fonts it is the height of a capital form.
  *   latin            capHeight, lowercaseAdvance, asciiMonospaced,
  *                    digitsUniform, tabularFigures, lowercaseForm,
- *                    pixelsPerEm/pixelated — measured on Latin letters and
+ *                    pixelsPerEm/pixelated, unicaseLetterCount,
+ *                    stencilLetterCount — measured on Latin letters and
  *                    figures only. They describe the Latin text of a
  *                    multi-script font, never its other scripts.
  *   glyph-wide       numGlyphs, codepointCount, averageAdvance,
@@ -75,6 +76,8 @@ const METRIC_SCOPE = {
   lowercaseForm: "latin",
   pixelsPerEm: "latin",
   pixelated: "latin",
+  unicaseLetterCount: "latin",
+  stencilLetterCount: "latin",
   numGlyphs: "glyph-wide",
   codepointCount: "glyph-wide",
   averageAdvance: "glyph-wide",

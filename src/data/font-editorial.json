@@ -4017,5 +4017,46 @@
       { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
       { "for": "notes", "basis": "font-file", "detail": "Glyph count in the library's bottom twentieth; no GSUB liga, calt, salt or ssNN.", "measured": [{ "metric": "numGlyphs", "percentileAtMost": 5 }, { "metric": "features", "lacksFeatures": ["liga","calt","salt","ss01"] }] }
     ]
+  },
+  "unica-one": {
+    "bestFor": ["display-headings", "latin-extended-text", "vietnamese-text"],
+    "avoidFor": ["long-body-text", "bold-italic-emphasis"],
+    "characteristics": ["unicase", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Unica One puts lowercase shapes, not smaller capitals, on its lowercase keys and stands them at full cap height, so mixed-case typing changes letterforms without changing the line's height. The letters are not drawn narrow: the OS/2 width class reads Normal and the mean lowercase advance sits mid-library, so BPOZZ does not call it Condensed.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Good performance for composing headlines and short texts'." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "One height for every letter removes the ascender and descender cues that carry long reading." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:unicase", "basis": "font-file", "detail": "a–z stand at cap height, and enough of them are drawn unlike their capitals (measured rule)." },
+      { "for": "characteristics:unicase", "basis": "upstream-description", "detail": "'Unica One is a condensed unicase sans serif style'." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'Unica One is a condensed unicase sans serif style'." },
+      { "for": "notes", "basis": "font-file", "detail": "a–z at cap height with lowercase-shaped letters; OS/2 width class Normal (5); mean lowercase advance between the library's first and third quartiles.", "measured": [{ "metric": "lowercaseForm", "is": "caps" }, { "metric": "unicaseLetterCount", "atLeast": 10 }, { "metric": "widthClass", "between": [5,5] }, { "metric": "lowercaseAdvance", "percentileAtLeast": 25 }, { "metric": "lowercaseAdvance", "percentileAtMost": 75 }] }
+    ]
+  },
+  "saira-stencil-one": {
+    "bestFor": ["latin-extended-text", "vietnamese-text", "tabular-data"],
+    "avoidFor": ["long-body-text", "bold-italic-emphasis"],
+    "characteristics": ["stencil", "alternate-zero", "case-sensitive-forms", "large-glyph-set"],
+    "pairings": [],
+    "notes": "The stencil bridges open the counters of capitals, lowercase letters and figures alike, so part numbers and codes keep the same broken rhythm as the words around them. Its figures switch between tabular and proportional spacing and between lining and old-style forms through OpenType features, and a separate feature swaps in an alternate zero.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "Bridges that break every bowl slow word recognition over paragraphs; stencil lettering suits labels and headings." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:stencil", "basis": "font-file", "detail": "Counter-bearing letters and figures drawn as separate pieces with no enclosed counter (measured rule)." },
+      { "for": "characteristics:stencil", "basis": "upstream-description", "detail": "'Saira Stencil is the stencil version of Saira'." },
+      { "for": "characteristics:alternate-zero", "basis": "font-file", "detail": "GSUB feature 'zero' (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Stencil-broken capitals, lowercase and figures; GSUB tnum, pnum, lnum, onum and zero.", "measured": [{ "metric": "stencilLetterCount", "atLeast": 15 }, { "metric": "features", "hasAnyFeature": ["tnum"] }, { "metric": "features", "hasAnyFeature": ["pnum"] }, { "metric": "features", "hasAnyFeature": ["lnum"] }, { "metric": "features", "hasAnyFeature": ["onum"] }, { "metric": "features", "hasAnyFeature": ["zero"] }] }
+    ]
   }
 }

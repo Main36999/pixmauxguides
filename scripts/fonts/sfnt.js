@@ -2,7 +2,7 @@
  * scripts/fonts/sfnt.js — a small, dependency-free reader for the font files
  * the library ships: TrueType/OpenType (sfnt) and WOFF2.
  *
- * It reads only what the font checks need — never glyph contours:
+ * It reads only what the font checks need:
  *
  *   name   the naming records (family, style, version, copyright, license)
  *   OS/2   usWeightClass, fsType (embedding permissions), fsSelection
@@ -20,6 +20,9 @@
  *   GSUB        the single and alternate substitutions behind the
  *               alternate-letter features (alternateLetters())
  *   glyf        the boxes of the default digits (figureStyle())
+ *   glyf        the contours of a few letters and figures — only for the
+ *               two shape properties no box can show (OUTLINES):
+ *               stencil-broken counters and unicase lowercase shapes
  *
  * Every measure() value is a pure function of the file bytes, rounded to a
  * fixed precision, so the same file always gives the same numbers.
@@ -542,6 +545,313 @@ function pixelGrid(buf, tables, cmap, advances, upm) {
   return perEm <= MAX_PIXELS_PER_EM ? Math.round(perEm * 1000) / 1000 : null;
 }
 
+// ---------------------------------------------------------------------
+// outlines — the only measurements that read glyph contours
+// ---------------------------------------------------------------------
+
+/*
+ * OUTLINES. Two properties are about the drawn shapes themselves, so no
+ * box, advance or table flag can stand in for them: a stencil's broken
+ * counters, and a unicase design's lowercase shapes at cap height. For
+ * those, the glyf contours of a few Latin letters and figures are read
+ * (composites resolved), their quadratic curves flattened, and the result
+ * filled onto a pixel grid with the non-zero winding rule. The grid is
+ * integer arithmetic on the file's own coordinates, so the same bytes
+ * always give the same count. A CFF font, a missing glyph or unreadable
+ * glyph data gives no answer (null) rather than a guess.
+ */
+
+/** Contours of one glyf glyph as [[{x, y, on}, …], …]; composites resolved. */
+function glyphContours(buf, tables, glyph, depth = 0) {
+  if (!tables.glyf || !tables.loca || !glyph || depth > 8) return [];
+  const long = buf.readInt16BE(tables.head.offset + 50) === 1;
+  const loca = tables.loca.offset;
+  const start = long ? buf.readUInt32BE(loca + glyph * 4) : buf.readUInt16BE(loca + glyph * 2) * 2;
+  const end = long ? buf.readUInt32BE(loca + glyph * 4 + 4) : buf.readUInt16BE(loca + glyph * 2 + 2) * 2;
+  if (end <= start) return [];
+  const at = tables.glyf.offset + start;
+  const count = buf.readInt16BE(at);
+  if (count >= 0) {
+    const ends = [];
+    for (let i = 0; i < count; i++) ends.push(buf.readUInt16BE(at + 10 + i * 2));
+    const points = count ? ends[count - 1] + 1 : 0;
+    let p = at + 12 + count * 2 + buf.readUInt16BE(at + 10 + count * 2);
+    const flags = [];
+    while (flags.length < points) {
+      const f = buf[p++];
+      flags.push(f);
+      if (f & 8) for (let r = buf[p++]; r > 0; r--) flags.push(f);
+    }
+    const coords = (short, same) => {
+      const out = [];
+      let v = 0;
+      flags.forEach((f) => {
+        if (f & short) v += f & same ? buf[p++] : -buf[p++];
+        else if (!(f & same)) {
+          v += buf.readInt16BE(p);
+          p += 2;
+        }
+        out.push(v);
+      });
+      return out;
+    };
+    const xs = coords(2, 16);
+    const ys = coords(4, 32);
+    let first = 0;
+    return ends.map((last) => {
+      const c = [];
+      for (let i = first; i <= last; i++) c.push({ x: xs[i], y: ys[i], on: (flags[i] & 1) === 1 });
+      first = last + 1;
+      return c;
+    });
+  }
+  // composite: each component's contours, moved (and scaled) into place
+  const out = [];
+  let p = at + 10;
+  for (let more = true; more; ) {
+    const f = buf.readUInt16BE(p);
+    const component = buf.readUInt16BE(p + 2);
+    p += 4;
+    let dx, dy;
+    if (f & 1) [dx, dy, p] = [buf.readInt16BE(p), buf.readInt16BE(p + 2), p + 4];
+    else [dx, dy, p] = [buf.readInt8(p), buf.readInt8(p + 1), p + 2];
+    if (!(f & 2)) [dx, dy] = [0, 0]; // point-matched placement: rare, left unmoved
+    let [a, b, c, d] = [1, 0, 0, 1];
+    const f2 = (o) => buf.readInt16BE(p + o) / 16384;
+    if (f & 8) [a, d, p] = [f2(0), f2(0), p + 2];
+    else if (f & 0x40) [a, d, p] = [f2(0), f2(2), p + 4];
+    else if (f & 0x80) [a, b, c, d, p] = [f2(0), f2(2), f2(4), f2(6), p + 8];
+    glyphContours(buf, tables, component, depth + 1).forEach((contour) =>
+      out.push(contour.map((q) => ({ x: a * q.x + c * q.y + dx, y: b * q.x + d * q.y + dy, on: q.on }))),
+    );
+    more = (f & 0x20) !== 0;
+  }
+  return out;
+}
+
+/** A contour as a closed polyline [[x, y], …]; each quadratic curve becomes CURVE_STEPS lines. */
+const CURVE_STEPS = 8;
+function flattenContour(contour) {
+  const pts = [];
+  contour.forEach((q, i) => {
+    const next = contour[(i + 1) % contour.length];
+    pts.push(q);
+    if (!q.on && !next.on) pts.push({ x: (q.x + next.x) / 2, y: (q.y + next.y) / 2, on: true });
+  });
+  const start = pts.findIndex((q) => q.on);
+  if (start < 0) return [];
+  const ring = pts.slice(start).concat(pts.slice(0, start));
+  const out = [];
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i];
+    if (!a.on) continue;
+    const b = ring[(i + 1) % ring.length];
+    out.push([a.x, a.y]);
+    if (b.on) continue;
+    const c = ring[(i + 2) % ring.length];
+    for (let s = 1; s < CURVE_STEPS; s++) {
+      const t = s / CURVE_STEPS;
+      out.push([(1 - t) * (1 - t) * a.x + 2 * (1 - t) * t * b.x + t * t * c.x, (1 - t) * (1 - t) * a.y + 2 * (1 - t) * t * b.y + t * t * c.y]);
+    }
+  }
+  return out;
+}
+
+/**
+ * Fills closed polylines onto a width × height grid of pixel centres
+ * (non-zero winding). `toGrid` maps a font point to grid coordinates.
+ */
+function fillGrid(polylines, width, height, toGrid) {
+  const bits = new Uint8Array(width * height);
+  // each edge is filed under the pixel rows whose centres it crosses
+  const rows = Array.from({ length: height }, () => []);
+  polylines.forEach((line) => {
+    const pts = line.map(toGrid);
+    pts.forEach(([x0, y0], i) => {
+      const [x1, y1] = pts[(i + 1) % pts.length];
+      if (y0 === y1) return;
+      const first = Math.max(0, Math.ceil(Math.min(y0, y1) - 0.5));
+      const last = Math.min(height - 1, Math.ceil(Math.max(y0, y1) - 0.5) - 1);
+      for (let row = first; row <= last; row++) {
+        const y = row + 0.5;
+        if ((y0 <= y && y1 > y) || (y1 <= y && y0 > y)) rows[row].push(x0 + ((y - y0) / (y1 - y0)) * (x1 - x0), y1 > y0 ? 1 : -1);
+      }
+    });
+  });
+  for (let row = 0; row < height; row++) {
+    const flat = rows[row];
+    const hits = [];
+    for (let i = 0; i < flat.length; i += 2) hits.push([flat[i], flat[i + 1]]);
+    hits.sort((p, q) => p[0] - q[0]);
+    let winding = 0;
+    for (let i = 0; i < hits.length - 1; i++) {
+      winding += hits[i][1];
+      if (!winding) continue;
+      const from = Math.max(0, Math.round(hits[i][0]));
+      const to = Math.min(width, Math.round(hits[i + 1][0]));
+      bits.fill(1, row * width + from, Math.max(row * width + from, row * width + to));
+    }
+  }
+  return bits;
+}
+
+/**
+ * Connected regions of a filled grid (4-neighbour): how many separate
+ * pieces of ink, and how many enclosed counters — background regions that
+ * do not reach the grid's edge. Regions under `minSize` pixels are noise
+ * from the flattening, not shapes, and are not counted.
+ */
+function gridRegions(bits, width, height, minSize) {
+  const label = new Int32Array(bits.length).fill(-1);
+  const stack = new Int32Array(bits.length);
+  let ink = 0;
+  let counters = 0;
+  for (let start = 0; start < bits.length; start++) {
+    if (label[start] >= 0) continue;
+    const value = bits[start];
+    let top = 0;
+    let size = 0;
+    let edge = false;
+    stack[top++] = start;
+    label[start] = start;
+    while (top) {
+      const k = stack[--top];
+      size++;
+      const x = k % width;
+      const y = (k - x) / width;
+      if (x === 0 || y === 0 || x === width - 1 || y === height - 1) edge = true;
+      if (x > 0 && label[k - 1] < 0 && bits[k - 1] === value) (label[k - 1] = start), (stack[top++] = k - 1);
+      if (x < width - 1 && label[k + 1] < 0 && bits[k + 1] === value) (label[k + 1] = start), (stack[top++] = k + 1);
+      if (y > 0 && label[k - width] < 0 && bits[k - width] === value) (label[k - width] = start), (stack[top++] = k - width);
+      if (y < height - 1 && label[k + width] < 0 && bits[k + width] === value) (label[k + width] = start), (stack[top++] = k + width);
+    }
+    if (size < minSize) continue;
+    if (value) ink++;
+    else if (!edge) counters++;
+  }
+  return { ink, counters };
+}
+
+/** A glyph's outline filled at `pixelsPerEm`, with a one-pixel margin; null for an empty glyph. */
+function glyphGrid(buf, tables, glyph, upm, pixelsPerEm) {
+  const lines = glyphContours(buf, tables, glyph).map(flattenContour).filter((l) => l.length > 2);
+  if (!lines.length) return null;
+  const all = lines.flat();
+  const xMin = Math.min(...all.map((p) => p[0]));
+  const yMin = Math.min(...all.map((p) => p[1]));
+  const s = pixelsPerEm / upm;
+  const width = Math.ceil((Math.max(...all.map((p) => p[0])) - xMin) * s) + 3;
+  const height = Math.ceil((Math.max(...all.map((p) => p[1])) - yMin) * s) + 3;
+  return { bits: fillGrid(lines, width, height, ([x, y]) => [(x - xMin) * s + 1, (y - yMin) * s + 1]), width, height };
+}
+
+/** A glyph's outline stretched onto a size × size grid (its own bounding box); null for an empty glyph. */
+function glyphShape(buf, tables, glyph, size) {
+  const lines = glyphContours(buf, tables, glyph).map(flattenContour).filter((l) => l.length > 2);
+  if (!lines.length) return null;
+  const all = lines.flat();
+  const xMin = Math.min(...all.map((p) => p[0]));
+  const yMin = Math.min(...all.map((p) => p[1]));
+  const sx = size / Math.max(1, Math.max(...all.map((p) => p[0])) - xMin);
+  const sy = size / Math.max(1, Math.max(...all.map((p) => p[1])) - yMin);
+  return fillGrid(lines, size, size, ([x, y]) => [(x - xMin) * sx, (y - yMin) * sy]);
+}
+
+/*
+ * STENCIL LETTERS. A letter or figure that normally encloses a counter is
+ * drawn stencil-broken when its outline fills into two or more separate
+ * pieces of ink and encloses no counter at all: the bridges cut the bowl
+ * open instead of leaving a hole. STENCIL_GLYPHS are the counter-bearing
+ * reference characters; the count is how many of those the font maps draw
+ * broken. An unusual but closed counter (an inline or multi-line design
+ * still encloses its holes) does not count, and neither does a letter that
+ * is one piece.
+ *
+ * The grid is STENCIL_PIXELS_PER_EM: fine enough to keep a stencil bridge
+ * open, coarse enough to stay fast over the whole library.
+ */
+const STENCIL_GLYPHS = [..."abdegopqABDOPQR0689"].map((c) => c.codePointAt(0));
+const STENCIL_PIXELS_PER_EM = 200;
+const STENCIL_MIN_REGION = 3;
+
+function stencilLettersOf(buf, tables, cmap, upm) {
+  if (!tables.glyf || !tables.loca) return null;
+  let measured = 0;
+  let broken = 0;
+  STENCIL_GLYPHS.forEach((c) => {
+    const grid = cmap.has(c) ? glyphGrid(buf, tables, cmap.get(c), upm, STENCIL_PIXELS_PER_EM) : null;
+    if (!grid) return;
+    measured++;
+    const r = gridRegions(grid.bits, grid.width, grid.height, STENCIL_MIN_REGION);
+    if (r.counters === 0 && r.ink >= 2) broken++;
+  });
+  return measured ? broken : null;
+}
+
+/*
+ * UNICASE LETTERS. For a font whose a–z stand at cap height (lowercaseForm
+ * "caps"), how many of the 26 letters are drawn differently from their
+ * capital: the two outlines, each stretched onto its own bounding box on a
+ * UNICASE_GRID × UNICASE_GRID grid, overlap by less than UNICASE_OVERLAP
+ * (intersection over union). A letter that shares the capital's glyph, or
+ * repeats its drawing (Bebas Neue, Bungee), overlaps completely.
+ *
+ * The count says the shapes differ, not what they are: a second set of
+ * capital designs on the lowercase keys (Major Mono Display) differs from
+ * the capitals just as a lowercase form does. That is why the Unicase term
+ * needs both this count and an upstream statement (font-editorial.js).
+ * null for a font whose a–z are not at cap height.
+ */
+const UNICASE_GRID = 48;
+const UNICASE_OVERLAP = 0.75;
+
+function unicaseLettersOf(buf, tables, cmap, form) {
+  if (form !== "caps" || !tables.glyf || !tables.loca) return null;
+  let distinct = 0;
+  LOWERCASE.forEach((c) => {
+    const lower = cmap.get(c);
+    const upper = cmap.get(c - 0x20);
+    if (!lower || !upper || lower === upper) return;
+    const a = glyphShape(buf, tables, lower, UNICASE_GRID);
+    const b = glyphShape(buf, tables, upper, UNICASE_GRID);
+    if (!a || !b) return;
+    let both = 0;
+    let either = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] && b[i]) both++;
+      if (a[i] || b[i]) either++;
+    }
+    if (either && both / either < UNICASE_OVERLAP) distinct++;
+  });
+  return distinct;
+}
+
+/** An outline count, or null when the glyph data cannot be read. */
+function safely(fn) {
+  try {
+    return fn();
+  } catch {
+    return null;
+  }
+}
+
+/** How many counter-bearing reference glyphs one font file draws stencil-broken (see STENCIL LETTERS). */
+function stencilLetterCount(buf) {
+  return safely(() => {
+    const tables = tableDirectory(buf);
+    return stencilLettersOf(buf, tables, readCmap(buf, tables.cmap), buf.readUInt16BE(tables.head.offset + 18));
+  });
+}
+
+/** How many of a–z one font file draws at cap height in a shape unlike its capital (see UNICASE LETTERS). */
+function unicaseLetterCount(buf) {
+  return safely(() => {
+    const tables = tableDirectory(buf);
+    const cmap = readCmap(buf, tables.cmap);
+    return unicaseLettersOf(buf, tables, cmap, lowercaseForm(buf, tables, cmap));
+  });
+}
+
 /**
  * The comparable numbers of one TTF/OTF file. Lengths are fractions of the
  * em, rounded to three decimals:
@@ -570,6 +880,10 @@ function pixelGrid(buf, tables, cmap, advances, upm) {
  *                        or null (DEFAULT FIGURES, above)
  *   alternateLetterCount letters with a genuine alternate design (ALTERNATE
  *                        LETTERS, above) — substitutions, not feature tags
+ *   unicaseLetterCount   a–z drawn at cap height unlike their capitals
+ *                        (UNICASE LETTERS); null unless lowercaseForm "caps"
+ *   stencilLetterCount   counter-bearing reference glyphs drawn stencil-
+ *                        broken (STENCIL LETTERS); null without glyf outlines
  *   numGlyphs, codepointCount
  */
 function measure(buf) {
@@ -599,6 +913,7 @@ function measure(buf) {
   const digitsUniform = same(advanceOf(DIGITS));
   const pixels = pixelGrid(buf, tables, cmap, advances, upm);
   const inked = advances.filter((a) => a > 0);
+  const form = lowercaseForm(buf, tables, cmap);
   const mean = (list) => list.reduce((a, b) => a + b, 0) / list.length;
 
   return {
@@ -616,7 +931,7 @@ function measure(buf) {
     asciiMonospaced: same(advanceOf(PRINTABLE_ASCII)),
     digitsUniform,
     tabularFigures: digitsUniform || features.includes("tnum"),
-    lowercaseForm: lowercaseForm(buf, tables, cmap),
+    lowercaseForm: form,
     pixelsPerEm: pixels,
     pixelated: pixels !== null,
     widthClass: buf.readUInt16BE(os2 + 6),
@@ -624,6 +939,8 @@ function measure(buf) {
     gposFeatures: readFeatureTags(buf, tables.GPOS),
     figureStyle: figureStyleOf(buf, tables, cmap, upm),
     alternateLetterCount: alternateLettersOf(buf, tables, cmap).length,
+    unicaseLetterCount: safely(() => unicaseLettersOf(buf, tables, cmap, form)),
+    stencilLetterCount: safely(() => stencilLettersOf(buf, tables, cmap, upm)),
     numGlyphs: info.numGlyphs,
     codepointCount: info.codepoints.size,
   };
@@ -715,6 +1032,12 @@ module.exports = {
   measure,
   figureStyle,
   alternateLetters,
+  stencilLetterCount,
+  unicaseLetterCount,
+  STENCIL_GLYPHS,
+  STENCIL_PIXELS_PER_EM,
+  UNICASE_GRID,
+  UNICASE_OVERLAP,
   gsubSubstitutions,
   isItalic,
   embedding,

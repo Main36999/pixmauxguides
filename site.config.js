@@ -489,6 +489,9 @@ module.exports = {
         "sorts-mill-goudy",
         "six-caps",
         "leckerli-one",
+        // Batch 10: the two families the Unicase and Stencil terms made eligible
+        "unica-one",
+        "saira-stencil-one",
       ],
     },
   },

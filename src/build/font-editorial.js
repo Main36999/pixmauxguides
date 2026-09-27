@@ -84,10 +84,13 @@
  *
  * UPSTREAM_ONLY terms (classifications such as Transitional serif, Display
  * face, Text face) need upstream-description evidence; FONT_FILE_ONLY terms
- * (Old-style figures) need font-file evidence, so their measured rule always
- * runs. Text face and Display face exclude each other, and Text face is
- * refused for a family BPOZZ files under Display (EXCLUSIVE_CHARACTERISTICS,
- * NOT_IN_CATEGORY). Whether an upstream sentence states a text-face design
+ * (Old-style figures, Stencil, Unicase) need font-file evidence, so their
+ * measured rule always runs. Unicase also needs upstream-description
+ * evidence that the cap-height shapes are lowercase forms
+ * (CONFIRMED_BY_UPSTREAM). Text face and Display face exclude each other,
+ * as do Unicase and All caps, and Text face is refused for a family BPOZZ
+ * files under Display (EXCLUSIVE_CHARACTERISTICS, NOT_IN_CATEGORY).
+ * Whether an upstream sentence states a text-face design
  * intent — "a text typeface", "designed for text setting" — rather than
  * general suitability — "can be used for body text" — is the reviewer's
  * call; the validator enforces the conflicts.
@@ -182,6 +185,10 @@ const CHARACTERISTICS = {
   pixel: "Pixel grid",
   "all-caps": "All caps",
   "small-caps": "Small caps",
+  // measured from the glyph outlines (sfnt.js OUTLINES); Unicase also needs
+  // the upstream description to say the shapes are lowercase (CONFIRMED_BY_UPSTREAM)
+  unicase: "Unicase",
+  stencil: "Stencil",
   // classification terms: upstream-description evidence only (UPSTREAM_ONLY)
   monolinear: "Monolinear",
   transitional: "Transitional serif",
@@ -207,14 +214,32 @@ const UPSTREAM_ONLY = ["monolinear", "transitional", "old-style", "display-face"
  * a font "has oldstyle numerals" is not enough — optional onum figures and
  * lining defaults are common (Lato, Fira Mono, Cardo).
  */
-const FONT_FILE_ONLY = ["oldstyle-figures"];
+const FONT_FILE_ONLY = ["oldstyle-figures", "stencil", "unicase"];
 
 /**
- * Text face and Display face are opposite design intents. A record may not
- * claim both, and a family BPOZZ files under the Display category may not
- * claim Text face, whatever its upstream text says (Patua One).
+ * Measured terms whose measurement is necessary but not sufficient: the
+ * shipped files must pass the rule AND the upstream description must say
+ * what the file cannot. Unicase: the outlines show a–z at cap height drawn
+ * unlike their capitals, but not whether those shapes are lowercase forms
+ * (Unica One) or a second set of capital designs on the lowercase keys
+ * (Major Mono Display, which stays All caps). So the upstream-description
+ * evidence must quote the word itself: Unica One's "a condensed unicase sans
+ * serif style" qualifies; Major Mono Display's "all-uppercase typeface" does
+ * not, however its outlines measure.
  */
-const EXCLUSIVE_CHARACTERISTICS = [["text-face", "display-face"]];
+const CONFIRMED_BY_UPSTREAM = { unicase: /\bunicase\b/i };
+
+/**
+ * Pairs a record may not claim together, and why. Text face and Display face
+ * are opposite design intents, and a family BPOZZ files under the Display
+ * category may not claim Text face, whatever its upstream text says (Patua
+ * One). Unicase and All caps are two readings of the same measured a–z at
+ * cap height: a unicase face is described as Unicase, never also All caps.
+ */
+const EXCLUSIVE_CHARACTERISTICS = [
+  ["text-face", "display-face", "are opposite design intents"],
+  ["unicase", "all-caps", "are two readings of the same a–z at cap height"],
+];
 const NOT_IN_CATEGORY = { "text-face": "display" };
 
 const ROLES = { heading: "Heading", body: "Body", ui: "UI", mono: "Mono" };
@@ -296,7 +321,7 @@ const BOOLEAN_METRICS = ["fixedPitch", "asciiMonospaced", "tabularFigures", "pix
 const LOWERCASE_FORMS = ["lowercase", "caps", "small-caps", "none"];
 const FIGURE_STYLES = ["oldstyle", "lining", "mixed"];
 /** Whole-number counts, compared with atLeast. */
-const COUNT_METRICS = ["alternateLetterCount"];
+const COUNT_METRICS = ["alternateLetterCount", "unicaseLetterCount", "stencilLetterCount"];
 /** Metrics compared with "is", and the values each may take (booleans otherwise). */
 const ENUM_METRICS = { lowercaseForm: LOWERCASE_FORMS, defaultFigures: FIGURE_STYLES };
 const SCRIPT_IDS = Object.keys(fontScripts.SCRIPTS).concat(Object.keys(fontScripts.LANGUAGES));
@@ -428,6 +453,14 @@ const MEASURED = {
   "characteristics:all-caps": [{ metric: "lowercaseForm", is: "caps" }],
   "bestFor:all-caps-titles": [{ metric: "lowercaseForm", is: "caps" }],
   "characteristics:small-caps": [{ metric: "lowercaseForm", is: "small-caps" }],
+  // a–z at cap height, and at least 10 of the 26 drawn unlike their capital
+  // (sfnt.js UNICASE LETTERS). All-caps faces that repeat the capitals score
+  // 0 (Bebas Neue, Bungee, Staatliches); Unica One scores 10.
+  "characteristics:unicase": [{ metric: "lowercaseForm", is: "caps" }, { metric: "unicaseLetterCount", atLeast: 10 }],
+  // at least 15 of the 19 counter-bearing reference glyphs drawn as separate
+  // pieces with no enclosed counter (sfnt.js STENCIL LETTERS). The stencil
+  // faces score 18–19; Monoton's multi-line capitals, 13; scripts, 5 at most.
+  "characteristics:stencil": [{ metric: "stencilLetterCount", atLeast: 15 }],
   "characteristics:alternate-zero": [{ metric: "features", hasAnyFeature: ["zero"] }],
   "characteristics:stylistic-sets": [{ metric: "features", hasAnyFeature: ["ssNN"] }],
   "characteristics:case-sensitive-forms": [{ metric: "features", hasAnyFeature: ["case"] }],
@@ -741,9 +774,17 @@ function validateFontEditorial(raw, { fonts, guides, config, metrics, label = "f
         err(`${at}: "${c}" is measured from the shipped files; it needs font-file evidence, whatever the upstream text says`);
       }
     });
+    Object.entries(CONFIRMED_BY_UPSTREAM).forEach(([t, word]) => {
+      const c = `characteristics:${t}`;
+      if (!byClaim.has(c)) return;
+      const quotes = evidence.filter((e) => e && e.for === c && e.basis === "upstream-description" && isString(e.detail));
+      if (!quotes.some((e) => word.test(e.detail))) {
+        err(`${at}: "${c}" is measured from the shipped files, but the measurement cannot say what the shapes are; it also needs upstream-description evidence that names the design (${word})`);
+      }
+    });
     const chars = Array.isArray(rec.characteristics) ? rec.characteristics : [];
-    EXCLUSIVE_CHARACTERISTICS.forEach(([a, b]) => {
-      if (chars.includes(a) && chars.includes(b)) err(`${at}: "${a}" and "${b}" are opposite design intents; a record may claim only one`);
+    EXCLUSIVE_CHARACTERISTICS.forEach(([a, b, why]) => {
+      if (chars.includes(a) && chars.includes(b)) err(`${at}: "${a}" and "${b}" ${why}; a record may claim only one`);
     });
     Object.entries(NOT_IN_CATEGORY).forEach(([t, category]) => {
       if (chars.includes(t) && self && self.category === category) {
@@ -841,6 +882,7 @@ module.exports = {
   COVERAGE_TERMS,
   UPSTREAM_ONLY,
   FONT_FILE_ONLY,
+  CONFIRMED_BY_UPSTREAM,
   EXCLUSIVE_CHARACTERISTICS,
   NOT_IN_CATEGORY,
   COMPARATORS,
