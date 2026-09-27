@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty", () => {
-  assert.strictEqual(PROTOTYPE.length, 114);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty", () => {
+  assert.strictEqual(PROTOTYPE.length, 134);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -867,7 +867,7 @@ test("Batch 3 script terms rest on verified coverage", () => {
 
 test("large-x-height is claimed only by ordinary-lowercase fonts in the top quarter", () => {
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("large-x-height")).map(([id]) => id);
-  assert.deepStrictEqual(users.sort(), ["anton", "archivo-black", "arsenal", "audiowide", "black-ops-one", "calistoga", "economica", "glegoo", "jersey-25", "judson", "libertinus-mono", "noticia-text", "rozha-one", "syne-mono"]);
+  assert.deepStrictEqual(users.sort(), ["anton", "archivo-black", "arsenal", "audiowide", "black-ops-one", "calistoga", "economica", "fjalla-one", "francois-one", "glegoo", "jersey-25", "judson", "libertinus-mono", "limelight", "noticia-text", "play", "rozha-one", "syne-mono"]);
   users.forEach((id) => {
     assert.strictEqual(m(id).lowercaseForm, "lowercase", id);
     assert.ok(m(id).percentile.xToCap >= 75, id);
@@ -1190,7 +1190,7 @@ test("deferred vocabulary stays out", () => {
   assert.ok(!editorial.MEASURED["characteristics:high-contrast"]);
   // Batch 5 introduced the new terms; Batch 6 uses them where the evidence holds
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("text-face") || r.characteristics.includes("oldstyle-figures")).map(([id]) => id);
-  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley", "im-fell-dw-pica", "mate", "enriqueta", "almendra", "arsenal"]);
+  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley", "im-fell-dw-pica", "mate", "enriqueta", "almendra", "arsenal", "bad-script", "alice"]);
 });
 
 // ---------------------------------------------------------------------
@@ -1358,7 +1358,7 @@ test("the 94 approved records are pinned: any edit to Batches 1–6 fails here",
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "b7cb59dd9d451a4c27943d88abc931e78b91956db21c1867f26f244432b0fe48",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(94), BATCH7, "Batch 7 follows Batch 6, in declaration order");
+  assert.deepStrictEqual(Object.keys(raw).slice(94, 114), BATCH7, "Batch 7 follows Batch 6, in declaration order");
 });
 
 test("Batch 7 leaves out the families with one honest Best for term", () => {
@@ -1401,4 +1401,67 @@ test("Batch 7 pairs only with family members, and links two guides with section-
   assert.deepStrictEqual(guides, ["jersey-25:type-scale-systems", "pt-mono:font-pairing-hierarchy-decision"]);
   assert.ok(raw["jersey-25"].evidence.some((e) => e.for === "relatedGuides:type-scale-systems" && /Section 06/.test(e.detail)));
   assert.ok(raw["pt-mono"].evidence.some((e) => e.for === "relatedGuides:font-pairing-hierarchy-decision" && /Section 05/.test(e.detail)));
+});
+
+// ---------------------------------------------------------------------
+// Batch 7B: the plan sequence from Carter One (position 55)
+// ---------------------------------------------------------------------
+
+const BATCH7B = [
+  "belleza", "bad-script", "limelight", "gilda-display", "inria-sans",
+  "grand-hotel", "balsamiq-sans", "paytone-one", "kristi", "yeseva-one",
+  "special-gothic-expanded-one", "damion", "alice", "francois-one", "ms-madi",
+  "bevan", "play", "niconne", "oranienbaum", "fjalla-one",
+];
+
+test("the 114 approved records are pinned: any edit to Batches 1–7 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 114).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "14c81c31bf5551c5c226a37693d57682b2e4af423598a88877aa730418063f3e",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(114), BATCH7B, "Batch 7B follows Batch 7, in declaration order");
+});
+
+test("Batch 7B leaves out the families the evidence cannot carry", () => {
+  // one honest Best for term: Display headings, reading use, weights or aligned figures alone
+  ["carter-one", "volkhov", "goudy-bookletter-1911", "solway", "gravitas-one", "caprasimo"].forEach((id) =>
+    assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+  // Boogaloo: two Best for terms but Narrow is its only characteristic
+  assert.ok(!raw.boogaloo && !PROTOTYPE.includes("boogaloo"));
+  // earlier exclusions stay excluded
+  ["poly", "bowlby-one", "germania-one", "quando", "electrolize", "share-tech-mono", "nobile",
+    "puritan", "antic-slab", "cantarell", "oleo-script", "quattrocento", "ropa-sans", "petit-formal-script",
+    "adamina", "crete-round", "shanti", "benchnine"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+});
+
+test("Batch 7B: Alternate letterforms only where no stylistic set or salt could double-count it", () => {
+  BATCH7B.filter((id) => raw[id].characteristics.includes("alternate-letterforms")).forEach((id) => {
+    assert.ok(!raw[id].characteristics.includes("stylistic-sets") && !raw[id].characteristics.includes("stylistic-alternates"), id);
+    assert.ok(!m(id).features.some((t) => /^ssdd$/.test(t) || t === "salt"), id);
+  });
+  assert.deepStrictEqual(m("kristi").features, ["calt"]);
+});
+
+test("Batch 7B: the notes follow the shipped files where names or upstream say otherwise", () => {
+  // Special Gothic Expanded One: 'Expanded' in the name, normal OS/2 width, measured wide
+  assert.strictEqual(m("special-gothic-expanded-one").widthClass, 5);
+  assert.ok(!raw["special-gothic-expanded-one"].characteristics.includes("expanded"));
+  // Alice: 'widened proportions' upstream, not in the widest quarter; latin-ext listed but not verified
+  assert.ok(m("alice").percentile.lowercaseAdvance < 75 && !raw.alice.characteristics.includes("wide-lowercase"));
+  assert.strictEqual(m("alice").coverage.latinExtendedVerified, false);
+  // Belleza: default digits already tabular, no tnum
+  assert.strictEqual(m("belleza").tabularFigures, true);
+  assert.ok(!m("belleza").features.includes("tnum"));
+  // Limelight, Niconne, Oranienbaum: no substitution features to switch on
+  ["limelight", "niconne", "oranienbaum"].forEach((id) => assert.deepStrictEqual(m(id).features, [], id));
+});
+
+test("Batch 7B pairs Inria Sans with its Serif sibling and links one guide", () => {
+  const pairs = BATCH7B.flatMap((id) => raw[id].pairings.map((p) => `${id}:${p.font}`));
+  assert.deepStrictEqual(pairs, ["inria-sans:inria-serif"]);
+  const guides = BATCH7B.flatMap((id) => raw[id].relatedGuides.map((g) => `${id}:${g}`));
+  assert.deepStrictEqual(guides, ["inria-sans:font-pairing-hierarchy-decision"]);
+  assert.ok(raw["inria-sans"].evidence.some((e) => e.for === "relatedGuides:font-pairing-hierarchy-decision" && /Section 05/.test(e.detail)));
 });

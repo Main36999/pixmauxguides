@@ -2602,5 +2602,424 @@
       { "for": "notes", "basis": "font-file", "detail": "GSUB stylistic sets and ornm present.", "measured": [{ "metric": "features", "hasAnyFeature": ["ssNN"] }, { "metric": "features", "hasAnyFeature": ["ornm"] }] },
       { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts 4: stylistic sets (ssNN) and ornaments (ornm) are off by default; font-feature-settings enables them." }
     ]
+  },
+  "belleza": {
+    "bestFor": ["tabular-data", "latin-extended-text"],
+    "avoidFor": ["small-text", "bold-italic-emphasis", "non-latin-scripts"],
+    "characteristics": ["humanist-details", "high-contrast", "case-sensitive-forms"],
+    "pairings": [],
+    "notes": "Belleza's default digits already share one advance, so a column of prices lines up without any switch; there is no tnum feature in the file to turn on, and none is needed.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: default figures share one advance (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'The last release in June 2022, offers an major language support update'; Latin Extended core verified in the font file." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "characteristics:humanist-details", "basis": "upstream-description", "detail": "'Belleza is a humanist sans serif typeface inspired by the world of fashion'." },
+      { "for": "characteristics:high-contrast", "basis": "upstream-description", "detail": "'With classic proportions, high contrast in its strokes and special counters'." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Default figures share one advance; no GSUB tnum.", "measured": [{ "metric": "tabularFigures", "is": true }, { "metric": "features", "lacksFeatures": ["tnum"] }] }
+    ]
+  },
+  "bad-script": {
+    "bestFor": ["handwritten-accents", "cyrillic-text", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": ["long-body-text", "bold-italic-emphasis"],
+    "characteristics": ["handwritten", "oldstyle-figures", "small-x-height", "narrow", "stylistic-sets", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Bad Script's lowercase is not short: against the em it is taller than most of the library's. It measures small only beside capitals that reach nearly the full font size, among the tallest in the BPOZZ library.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:handwritten-accents", "basis": "upstream-description", "detail": "'made using a tablet to imitate casual and neat handwriting'; 'Designed to resemble the designer's own handwriting'." },
+      { "for": "bestFor:cyrillic-text", "basis": "upstream-description", "detail": "'supporting Latin and Cyrillic character sets'; Cyrillic verified in the font file." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'The 2024 update improves kerning and offers better language support'; Latin Extended core verified in the font file." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "A single-style handwriting face with towering capitals suits notes and short lines, not paragraphs." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:handwritten", "basis": "upstream-description", "detail": "'Designed to resemble the designer's own handwriting'." },
+      { "for": "characteristics:oldstyle-figures", "basis": "font-file", "detail": "Default digits old-style in every roman style (measured rule)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:stylistic-sets", "basis": "font-file", "detail": "GSUB ssNN features (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "x-height above the library median; cap height in the top 2%.", "measured": [{ "metric": "xHeight", "percentileAtLeast": 60 }, { "metric": "capHeight", "percentileAtLeast": 98 }] }
+    ]
+  },
+  "limelight": {
+    "bestFor": ["display-headings", "period-typography", "latin-extended-text"],
+    "avoidFor": ["small-text", "bold-italic-emphasis", "non-latin-scripts"],
+    "characteristics": ["high-contrast", "geometric", "large-x-height", "wide-lowercase"],
+    "pairings": [],
+    "notes": "Limelight's file carries no OpenType substitutions, not even standard ligatures, so what the specimen shows is every form there is: no alternates, figure styles or case forms to switch on.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'it will perform most reliably on web pages at medium and large font sizes'; category: display." },
+      { "for": "bestFor:period-typography", "basis": "upstream-description", "detail": "'This style is often used to suggest the 1920's time period as well as the theatre generally and hollywood filmmaking in particular'." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:small-text", "basis": "upstream-description", "detail": "'Because of the extreme contrast of the design it will perform most reliably on web pages at medium and large font sizes'." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "characteristics:high-contrast", "basis": "upstream-description", "detail": "'the classic high contrast' … 'style geometric sans serif'." },
+      { "for": "characteristics:geometric", "basis": "upstream-description", "detail": "'geometric sans serif'." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "No GSUB substitution features in the file.", "measured": [{ "metric": "features", "lacksFeatures": ["liga","salt","case","lnum","onum","calt"] }] }
+    ]
+  },
+  "gilda-display": {
+    "bestFor": ["display-headings", "latin-extended-text", "tabular-data"],
+    "avoidFor": ["bold-italic-emphasis", "non-latin-scripts"],
+    "characteristics": ["high-contrast", "case-sensitive-forms", "discretionary-ligatures"],
+    "pairings": [],
+    "notes": "Upstream sees potential for longer texts despite the Display in its name, but a single Regular is all there is: a longer passage set in Gilda has no designed italic or bold to emphasise with.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Gilda Display typically contributes all its glamor to headlines'." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'the glyphset is completed and and the font has a bigger language support'; Latin Extended core verified in the font file." },
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: default figures share one advance (measured rule)." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "characteristics:high-contrast", "basis": "upstream-description", "detail": "'The high stroke contrast has especially smooth transitions'." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:discretionary-ligatures", "basis": "font-file", "detail": "GSUB feature 'dlig' (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'the considered design of this font gives it potential for use in longer texts with a fine page texture'." },
+      { "for": "notes", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." }
+    ]
+  },
+  "inria-sans": {
+    "bestFor": ["tabular-data", "latin-extended-text"],
+    "avoidFor": ["non-latin-scripts"],
+    "characteristics": ["humanist-details", "case-sensitive-forms", "stylistic-sets"],
+    "pairings": [
+      {
+        "font": "inria-serif",
+        "role": "body",
+        "reason": "Sans for headings and interface, Serif for the reading text: the two halves of one institutional family, with matching weights and italics, so a report changes voice without changing proportions."
+      }
+    ],
+    "notes": "Numbers in a research paper can match their setting here: onum gives old-style digits that sit quietly in running prose, and tnum gives fixed-width digits for the data tables, all within the one family.",
+    "relatedGuides": ["font-pairing-hierarchy-decision"],
+    "evidence": [
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "characteristics:humanist-details", "basis": "upstream-description", "detail": "'Black[Foundry] created a humanist typeface with a unapologetically contemporary design as the Sans-Serif part'." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:stylistic-sets", "basis": "font-file", "detail": "GSUB ssNN features (measured rule)." },
+      { "for": "pairings:inria-serif", "basis": "upstream-description", "detail": "'Inria Sans and Inria Serif are the two members of a type family'; 'Both members come in 3 weights with matching Italics'." },
+      { "for": "pairings:inria-serif", "basis": "font-file", "detail": "x-height/cap-height ratios within the pairing limit (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "GSUB pnum, tnum, lnum and onum present.", "measured": [{ "metric": "features", "hasAnyFeature": ["pnum"] }, { "metric": "features", "hasAnyFeature": ["tnum"] }, { "metric": "features", "hasAnyFeature": ["lnum"] }, { "metric": "features", "hasAnyFeature": ["onum"] }] },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts 4: font-variant-numeric: tabular-nums enables tnum on the element it is set on." },
+      { "for": "relatedGuides:font-pairing-hierarchy-decision", "basis": "guide-content", "detail": "Section 05, 'Why a Superfamily Solves More Problems Than a Creative Pairing': siblings designed together on the same metrics, with weight steps that line up — Inria Sans and Inria Serif share their x-height ratio and their three weights." }
+    ]
+  },
+  "grand-hotel": {
+    "bestFor": ["names-short-phrases", "narrow-spaces", "latin-extended-text"],
+    "avoidFor": ["small-text", "long-body-text", "bold-italic-emphasis"],
+    "characteristics": ["connected-script", "small-x-height", "narrow"],
+    "pairings": [],
+    "notes": "Grand Hotel's connections are drawn into single letterforms: the file has no contextual alternates, swashes or stylistic alternates, so each letter has exactly one shape wherever it falls in a word.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "A single-style connecting script with a short lowercase suits titles and names, not paragraphs." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:connected-script", "basis": "upstream-description", "detail": "'This condensed' … 'connecting script has a classic vibe to it'." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "No GSUB calt, swsh or salt.", "measured": [{ "metric": "features", "lacksFeatures": ["calt","swsh","salt"] }] }
+    ]
+  },
+  "balsamiq-sans": {
+    "bestFor": ["handwritten-accents", "cyrillic-text", "latin-extended-text"],
+    "avoidFor": ["many-weight-hierarchies"],
+    "characteristics": ["handwritten", "case-sensitive-forms", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Balsamiq Sans is the lettering of the Balsamiq Wireframes app, so a mock-up and the page built from it can share one handwriting; its bold and italics let annotations keep a hierarchy that most hand-drawn faces lack.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:handwritten-accents", "basis": "upstream-description", "detail": "'Balsamiq Sans is the handwritten font created for the Balsamiq Wireframes'." },
+      { "for": "bestFor:cyrillic-text", "basis": "upstream-description", "detail": "'includes the basic and extended latin character set, Cyrillic'; Cyrillic verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'the basic and extended latin character set'; Latin Extended core verified in the font file." },
+      { "for": "avoidFor:many-weight-hierarchies", "basis": "bpozz-data", "detail": "variants: 400 and 700, each with italic; two weights." },
+      { "for": "characteristics:handwritten", "basis": "upstream-description", "detail": "'the handwritten font created for the Balsamiq Wireframes'." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'the handwritten font created for the Balsamiq Wireframes and has been in use since version 2.1'; '2 weights with italics/obliques'." },
+      { "for": "notes", "basis": "bpozz-data", "detail": "variants: 400, 400 italic, 700, 700 italic." }
+    ]
+  },
+  "paytone-one": {
+    "bestFor": ["display-headings", "vietnamese-text", "latin-extended-text", "tabular-data"],
+    "avoidFor": ["many-weight-hierarchies", "non-latin-scripts"],
+    "characteristics": ["wide-lowercase", "case-sensitive-forms", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Paytone One has only its one heavy Regular, so a heading hierarchy built on it has to step by size, colour or case rather than by weight.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'designed for use as a display and headline font on modern websites'." },
+      { "for": "bestFor:vietnamese-text", "basis": "upstream-description", "detail": "'now includes GF Plus encoding, revised outlines, Vietnamese diacritics'; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
+      { "for": "avoidFor:many-weight-hierarchies", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext, vietnamese; no script but Latin verified in the font file." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "bpozz-data", "detail": "variants: 400 only; one weight." }
+    ]
+  },
+  "kristi": {
+    "bestFor": ["display-headings", "names-short-phrases"],
+    "avoidFor": ["small-text", "long-body-text", "extended-latin-languages"],
+    "characteristics": ["small-x-height", "narrow", "alternate-letterforms"],
+    "pairings": [],
+    "notes": "Kristi's one OpenType feature is contextual alternates, which browsers apply by default: letters change shape according to their neighbours with no CSS at all, and turning calt off in CSS returns every letter to a single form.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Kristi can be used large size, for example as in logotype or headlines'." },
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "A quick felt-pen hand with a very narrow lowercase suits a logotype or a headline, not paragraphs." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets: latin only; the Latin Extended core is not in the font file." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:alternate-letterforms", "basis": "font-file", "detail": "Letters with a genuine alternate design in GSUB (calt, the file's only feature) (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "GSUB calt present.", "measured": [{ "metric": "features", "hasAnyFeature": ["calt"] }] },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts 4: contextual alternates (calt) are enabled by default; font-variant-ligatures: no-contextual disables them." }
+    ]
+  },
+  "yeseva-one": {
+    "bestFor": ["display-headings", "cyrillic-text", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": ["bold-italic-emphasis"],
+    "characteristics": ["display-face", "wide-lowercase", "discretionary-ligatures", "case-sensitive-forms", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Latin, Cyrillic and Vietnamese all verify in the one Regular file, so a headline running in Russian, English and Vietnamese stays in a single face with a single set of proportions.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'A serif display type'." },
+      { "for": "bestFor:cyrillic-text", "basis": "bpozz-data", "detail": "subsets include cyrillic and cyrillic-ext; Cyrillic verified in the font file." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:display-face", "basis": "upstream-description", "detail": "'A serif display type'." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "characteristics:discretionary-ligatures", "basis": "font-file", "detail": "GSUB feature 'dlig' (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Cyrillic and Latin scripts and Vietnamese verified in the file.", "measured": [{ "metric": "scripts", "includes": "cyrillic" }, { "metric": "scripts", "includes": "latin" }, { "metric": "languages", "includes": "vietnamese" }] }
+    ]
+  },
+  "special-gothic-expanded-one": {
+    "bestFor": ["tabular-data", "latin-extended-text"],
+    "avoidFor": ["long-prose", "bold-italic-emphasis", "non-latin-scripts"],
+    "characteristics": ["wide-lowercase", "case-sensitive-forms", "discretionary-ligatures", "stylistic-sets"],
+    "pairings": [],
+    "notes": "Expanded is in the name, and the lowercase measures among the widest five percent of the library, but the file's OS/2 header records a normal width: BPOZZ's Expanded tag follows that declared class, so the profile lists Wide lowercase instead.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:long-prose", "basis": "design-guidance", "detail": "A lowercase among the library's widest holds fewer characters per line than a comfortable reading measure needs." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:discretionary-ligatures", "basis": "font-file", "detail": "GSUB feature 'dlig' (measured rule)." },
+      { "for": "characteristics:stylistic-sets", "basis": "font-file", "detail": "GSUB ssNN features (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest 5%; OS/2 usWidthClass the normal setting.", "measured": [{ "metric": "lowercaseAdvance", "percentileAtLeast": 95 }, { "metric": "widthClass", "between": [5,5] }] }
+    ]
+  },
+  "damion": {
+    "bestFor": ["names-short-phrases", "latin-extended-text"],
+    "avoidFor": ["small-text", "long-body-text", "bold-italic-emphasis"],
+    "characteristics": ["display-face", "small-x-height", "case-sensitive-forms"],
+    "pairings": [],
+    "notes": "Measured against the em, Damion's lowercase is in the library's bottom tenth while its capitals stand above the median, so a lowercase word looks a size smaller than the capital that starts it.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'Latest upgrade from April 2024 expands the Latin script language coverage'; Latin Extended core verified in the font file." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "A single-style casual script made for display use; paragraphs need a text face." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:display-face", "basis": "upstream-description", "detail": "'to create a casual webfont for Display use on modern web pages'." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "x-height in the library's bottom tenth; cap height above the median.", "measured": [{ "metric": "xHeight", "percentileAtMost": 10 }, { "metric": "capHeight", "percentileAtLeast": 50 }] }
+    ]
+  },
+  "alice": {
+    "bestFor": ["literary-settings", "display-headings", "cyrillic-text"],
+    "avoidFor": ["extended-latin-languages", "bold-italic-emphasis"],
+    "characteristics": ["text-face", "stylistic-sets", "stylistic-alternates", "discretionary-ligatures", "case-sensitive-forms"],
+    "pairings": [],
+    "notes": "Upstream describes widened proportions, but measured the lowercase sits only a little above the library median, outside its widest quarter. The subset list also names latin-ext, yet Central European letters such as ą, č and ő are missing from the file.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:literary-settings", "basis": "upstream-description", "detail": "'inspired by Lewis Carrol's novel and decided to make a typeface that will be suitable for typesetting that book'; 'perfect for long meditative text-setting'." },
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'perfect for long meditative text-setting and headlines'." },
+      { "for": "bestFor:cyrillic-text", "basis": "bpozz-data", "detail": "subsets include cyrillic and cyrillic-ext; Cyrillic verified in the font file." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets list latin-ext, but the Latin Extended core is not in the font file." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:text-face", "basis": "upstream-description", "detail": "'decided to make a typeface that will be suitable for typesetting that book' — a stated purpose of setting a whole book." },
+      { "for": "characteristics:stylistic-sets", "basis": "font-file", "detail": "GSUB ssNN features (measured rule)." },
+      { "for": "characteristics:stylistic-alternates", "basis": "font-file", "detail": "GSUB feature 'salt' (measured rule)." },
+      { "for": "characteristics:discretionary-ligatures", "basis": "font-file", "detail": "GSUB feature 'dlig' (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'eclectic and quaint, old-fashioned, having widened proportions, open aperture'." },
+      { "for": "notes", "basis": "font-file", "detail": "Mean lowercase advance between the library median and its widest quarter.", "measured": [{ "metric": "lowercaseAdvance", "percentileAtLeast": 50 }, { "metric": "lowercaseAdvance", "percentileAtMost": 74 }] },
+      { "for": "notes", "basis": "bpozz-data", "detail": "subsets include latin-ext; font-scripts.js does not verify the Latin Extended core in the file." }
+    ]
+  },
+  "francois-one": {
+    "bestFor": ["display-headings", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": ["bold-italic-emphasis", "non-latin-scripts"],
+    "characteristics": ["large-x-height", "case-sensitive-forms"],
+    "pairings": [],
+    "notes": "Its lowercase is both tall and compact: against the em it ranks in the library's top tenth, while its mean width stays in the narrower half, so headlines keep their height without running long.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'the stems optimised for use as bold display font in modern web browsers'." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext, vietnamese; no script but Latin verified in the font file." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "x-height in the library's top tenth; mean lowercase advance below the median.", "measured": [{ "metric": "xHeight", "percentileAtLeast": 90 }, { "metric": "lowercaseAdvance", "percentileAtMost": 50 }] }
+    ]
+  },
+  "ms-madi": {
+    "bestFor": ["names-short-phrases", "narrow-spaces", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": ["small-text", "long-body-text", "letterspaced-settings"],
+    "characteristics": ["monolinear", "connected-script", "small-x-height", "narrow", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Ms Madi joins its letters without contextual alternates: the file has no calt feature, so each letter's one form carries its own connecting strokes, and any added letter-spacing opens visible gaps in the joins.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "bestFor:vietnamese-text", "basis": "upstream-description", "detail": "'Latin Character sets including Western, Central, and Vietnamese language support'; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'Western, Central, and Vietnamese language support'; Latin Extended core verified in the font file." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "A single-style cursive with a short lowercase suits names and short lines, not paragraphs." },
+      { "for": "avoidFor:letterspaced-settings", "basis": "design-guidance", "detail": "Joined letters drawn to touch their neighbours separate when letter-spacing is added." },
+      { "for": "characteristics:monolinear", "basis": "upstream-description", "detail": "'Ms Madi is a monoline hand written script'." },
+      { "for": "characteristics:connected-script", "basis": "upstream-description", "detail": "'It's clean connections and quite legible hand written cursive style'." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "No GSUB calt.", "measured": [{ "metric": "features", "lacksFeatures": ["calt"] }] },
+      { "for": "notes", "basis": "upstream-description", "detail": "'clean connections and quite legible hand written cursive style'." }
+    ]
+  },
+  "bevan": {
+    "bestFor": ["display-headings", "vietnamese-text", "latin-extended-text", "tabular-data"],
+    "avoidFor": ["many-weight-hierarchies", "non-latin-scripts"],
+    "characteristics": ["slab-serif", "wide-lowercase", "stylistic-sets", "stylistic-alternates", "case-sensitive-forms", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Bevan had no italic until December 2021, when the one drawn during the 2016 Summer of Type program was added; pages that styled it italic before then were showing a slanted roman.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'the stems optimised for use as bold display font in modern web browsers'." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
+      { "for": "avoidFor:many-weight-hierarchies", "basis": "bpozz-data", "detail": "variants: 400 with italic; one weight." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext, vietnamese; no script but Latin verified in the font file." },
+      { "for": "characteristics:slab-serif", "basis": "upstream-description", "detail": "'Bevan is a reworking of a traditional slab serif display typeface created by Heinrich Jost in the 1930s'." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "characteristics:stylistic-sets", "basis": "font-file", "detail": "GSUB ssNN features (measured rule)." },
+      { "for": "characteristics:stylistic-alternates", "basis": "font-file", "detail": "GSUB feature 'salt' (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'Upgrade December 2021: an Italic style was added during the Summer of Type Program 2016'." },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts 4: when no italic face exists, user agents may synthesize an oblique by slanting the roman (font-synthesis-style)." }
+    ]
+  },
+  "play": {
+    "bestFor": ["cyrillic-text", "greek-text", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": ["many-weight-hierarchies"],
+    "characteristics": ["large-x-height", "case-sensitive-forms", "stylistic-sets", "discretionary-ligatures", "large-glyph-set"],
+    "pairings": [],
+    "notes": "Play has a bold but no italic in either weight, so emphasis inside running text either goes bold or receives a slanted roman the browser synthesises.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:cyrillic-text", "basis": "bpozz-data", "detail": "subsets include cyrillic and cyrillic-ext; Cyrillic verified in the font file." },
+      { "for": "bestFor:greek-text", "basis": "bpozz-data", "detail": "subsets include greek; the Greek core is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:many-weight-hierarchies", "basis": "bpozz-data", "detail": "variants: 400 and 700; two weights." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:stylistic-sets", "basis": "font-file", "detail": "GSUB ssNN features (measured rule)." },
+      { "for": "characteristics:discretionary-ligatures", "basis": "font-file", "detail": "GSUB feature 'dlig' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "bpozz-data", "detail": "variants: 400 and 700; no italic style." },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts 4: when no italic face exists, user agents may synthesize an oblique by slanting the roman (font-synthesis-style)." }
+    ]
+  },
+  "niconne": {
+    "bestFor": ["names-short-phrases", "narrow-spaces"],
+    "avoidFor": ["small-text", "long-body-text", "extended-latin-languages"],
+    "characteristics": ["historical-revival", "small-x-height", "narrow"],
+    "pairings": [],
+    "notes": "Niconne's lowercase is among the three percent shortest in the library measured against its capitals, and the file has no OpenType features beyond kerning: every letter has one form.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "A single-style cursive display script with a tiny lowercase suits names and titles only." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets list latin-ext, but the Latin Extended core is not in the font file." },
+      { "for": "characteristics:historical-revival", "basis": "upstream-description", "detail": "'based on the designs of the Stephenson Blake typeface, Madonna, first released in 1925'; 'a new version of the 1925 typeface'." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom 3%; no GSUB substitution features.", "measured": [{ "metric": "xToCap", "percentileAtMost": 3 }, { "metric": "features", "lacksFeatures": ["liga","calt","salt","swsh","dlig"] }] }
+    ]
+  },
+  "oranienbaum": {
+    "bestFor": ["display-headings", "cyrillic-text", "latin-extended-text"],
+    "avoidFor": ["bold-italic-emphasis"],
+    "characteristics": ["high-contrast", "small-x-height"],
+    "pairings": [],
+    "notes": "Upstream suits Oranienbaum to both headlines and body text in Latin and Cyrillic, but the file is a single Regular with no OpenType features beyond kerning: no italic, no figure styles and no small capitals for running text.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'The font is well suited for both headlines and body text'." },
+      { "for": "bestFor:cyrillic-text", "basis": "bpozz-data", "detail": "subsets include cyrillic and cyrillic-ext; Cyrillic verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "characteristics:high-contrast", "basis": "upstream-description", "detail": "'Oranienbaum is a modern high contrast Antiqua'." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'The font is well suited for both headlines and body text'." },
+      { "for": "notes", "basis": "font-file", "detail": "No GSUB features: no smcp, onum, lnum or liga.", "measured": [{ "metric": "features", "lacksFeatures": ["smcp","onum","lnum","liga"] }] },
+      { "for": "notes", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." }
+    ]
+  },
+  "fjalla-one": {
+    "bestFor": ["display-headings", "vietnamese-text", "latin-extended-text", "tabular-data"],
+    "avoidFor": ["many-weight-hierarchies", "non-latin-scripts"],
+    "characteristics": ["display-face", "large-x-height", "case-sensitive-forms", "large-glyph-set"],
+    "pairings": [],
+    "notes": "At any font-size Fjalla One stands taller than almost everything in the library: both its capitals and its lowercase rank in the top five percent against the em, so a heading scale tuned for another face will look a step larger in Fjalla.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Fjalla One is a medium contrast display sans serif'." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese verified in the font file." },
+      { "for": "bestFor:latin-extended-text", "basis": "upstream-description", "detail": "'Latest upgrade from March 2023 expands the Latin script language coverage'; Latin Extended core verified in the font file." },
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
+      { "for": "avoidFor:many-weight-hierarchies", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: cyrillic-ext, latin, latin-ext, vietnamese; only Latin verified in the font file." },
+      { "for": "characteristics:display-face", "basis": "upstream-description", "detail": "'Fjalla One is a medium contrast display sans serif'." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Cap height and x-height both in the library's top 5%.", "measured": [{ "metric": "capHeight", "percentileAtLeast": 95 }, { "metric": "xHeight", "percentileAtLeast": 95 }] }
+    ]
   }
 }
