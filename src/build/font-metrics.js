@@ -29,7 +29,17 @@
  *   declared         fixedPitch, widthClass — what the font's own tables
  *                    say about itself; recorded, never proof on their own.
  *   font-wide        features, gposFeatures — OpenType tags for all scripts
- *                    together.
+ *                    together; alternateLetterCount, read from the GSUB
+ *                    substitutions themselves.
+ *   every-upright    defaultFigures — unlike every other value, measured on
+ *                    EVERY upright style, not the reference style alone: a
+ *                    family has old-style figures only if each upright file
+ *                    draws them by default (Puritan's Regular does, its Bold
+ *                    does not). Italics are left out, as the reference
+ *                    variant leaves them out; a family with no upright
+ *                    style is measured on its italics instead. Needs an
+ *                    ordinary lowercase to define x-height, so it is scoped
+ *                    latin-lowercase.
  *   per-script       scripts, historical, languages, coverage — verified
  *                    script by script.
  *
@@ -73,6 +83,9 @@ const METRIC_SCOPE = {
   widthClass: "declared",
   features: "font-wide",
   gposFeatures: "font-wide",
+  alternateLetterCount: "font-wide",
+  figureStyle: "latin-lowercase",
+  defaultFigures: "latin-lowercase",
   scripts: "per-script",
   historical: "per-script",
   languages: "per-script",
@@ -95,16 +108,38 @@ function referenceVariant(font) {
     .sort((a, b) => Math.abs(a.weight - 400) - Math.abs(b.weight - 400) || a.weight - b.weight)[0];
 }
 
+/** The styles defaultFigures is measured on: every upright one, or every style if none is upright. */
+function figureVariants(font) {
+  const upright = font.variants.filter((v) => v.style === "normal");
+  return upright.length ? upright : font.variants;
+}
+
+/**
+ * "oldstyle" or "lining" when every measured style agrees, "mixed" when they
+ * disagree or any is mixed, null when any style cannot be measured.
+ */
+function familyFigures(styles) {
+  const values = Object.values(styles);
+  if (values.some((x) => x === null)) return null;
+  return values.every((x) => x === values[0]) ? values[0] : "mixed";
+}
+
 function measureFamily(font, fontDir) {
   const v = referenceVariant(font);
   const buf = fs.readFileSync(path.join(fontDir, font.id, v.file));
   const m = sfnt.measure(buf);
   const coverage = fontScripts.coverage(font.subsets, sfnt.readSfnt(buf).codepoints);
+  const figureStyles = {};
+  figureVariants(font).forEach((x) => {
+    figureStyles[x.file] = x.file === v.file ? m.figureStyle : sfnt.figureStyle(fs.readFileSync(path.join(fontDir, font.id, x.file)));
+  });
   return Object.assign({ file: v.file }, m, {
     coverage,
     scripts: coverage.scripts,
     historical: coverage.historical,
     languages: coverage.languages,
+    figureStyles,
+    defaultFigures: familyFigures(figureStyles),
   });
 }
 
@@ -148,6 +183,8 @@ function measureLibrary(fonts, fontDir) {
 
 module.exports = {
   referenceVariant,
+  figureVariants,
+  familyFigures,
   measureFamily,
   measureLibrary,
   inPopulation,

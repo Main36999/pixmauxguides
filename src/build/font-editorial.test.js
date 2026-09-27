@@ -134,6 +134,8 @@ test("each comparator holds when the measurement satisfies it and fails when it 
     [{ font: "ibm-plex-mono", metric: "fixedPitch", is: true }, { metric: "fixedPitch", is: true }],
     [{ font: "ibm-plex-mono", metric: "features", hasAnyFeature: ["ssNN"] }, { metric: "features", hasAnyFeature: ["ssNN", "zero"] }],
     [{ font: "prata", metric: "scripts", includes: "cyrillic" }, { metric: "scripts", includes: "cyrillic" }],
+    [{ font: "crimson-text", metric: "features", lacksFeatures: ["onum", "smcp"] }, { font: "crimson-text", metric: "features", lacksFeatures: ["onum", "dlig"] }],
+    [{ font: "lobster", metric: "alternateLetterCount", atLeast: 2 }, { font: "radley", metric: "alternateLetterCount", atLeast: 1 }],
   ];
   assert.deepStrictEqual(CASES.map(([ok]) => Object.keys(ok).find((k) => editorial.COMPARATORS[k])).sort(), Object.keys(editorial.COMPARATORS).sort());
   CASES.forEach(([ok, bad]) => {
@@ -152,6 +154,10 @@ test("malformed measured claims are refused", () => {
     [{ metric: "xToCap", between: [0.6, 0.4] }, /invalid value/],
     [{ metric: "xHeight", sameAs: "comic-sans" }, /invalid value/],
     [{ metric: "features", hasAnyFeature: [] }, /invalid value/],
+    [{ metric: "features", lacksFeatures: [] }, /invalid value/],
+    [{ metric: "features", lacksFeatures: ["ssNN"] }, /invalid value/],
+    [{ metric: "gposFeatures", lacksFeatures: ["mkmk"] }, /does not apply to metric "gposFeatures"/],
+    [{ metric: "scripts", hasAnyFeature: ["mkmk"] }, /does not apply to metric "scripts"/],
     [{ font: "comic-sans", metric: "xToCap", percentileAtMost: 10 }, /not a measured family/],
     [{ metric: "xToCap", percentileAtMost: 10, source: "x" }, /unknown field "source"/],
     ["xToCap <= 10", /must be an object/],
@@ -190,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty", () => {
-  assert.strictEqual(PROTOTYPE.length, 50);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four", () => {
+  assert.strictEqual(PROTOTYPE.length, 74);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -834,7 +840,7 @@ test("the 30 approved records are pinned: any edit to Batch 1 or Batch 2 fails h
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "a067bcd885ff7c0cfba265295a4a95fb58266b14c24d7a7adc808898ed35da84",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(30), BATCH3, "Batch 3 follows Batch 2, in declaration order");
+  assert.deepStrictEqual(Object.keys(raw).slice(30, 50), BATCH3, "Batch 3 follows Batch 2, in declaration order");
 });
 
 test("Batch 3: every record stays within 2–6 characteristics, and uses no rejected category as a term", () => {
@@ -861,7 +867,7 @@ test("Batch 3 script terms rest on verified coverage", () => {
 
 test("large-x-height is claimed only by ordinary-lowercase fonts in the top quarter", () => {
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("large-x-height")).map(([id]) => id);
-  assert.deepStrictEqual(users.sort(), ["black-ops-one", "glegoo", "rozha-one"]);
+  assert.deepStrictEqual(users.sort(), ["anton", "black-ops-one", "glegoo", "judson", "noticia-text", "rozha-one"]);
   users.forEach((id) => {
     assert.strictEqual(m(id).lowercaseForm, "lowercase", id);
     assert.ok(m(id).percentile.xToCap >= 75, id);
@@ -937,4 +943,327 @@ test("Iosevka Charon Mono keeps every Armenian letter on its ASCII cell", () => 
     const off = ARMENIAN.filter((c) => advance(c) !== cell).map((c) => `U+${c.toString(16).toUpperCase()}`);
     assert.deepStrictEqual(off, [], `${style}: Armenian off the cell`);
   });
+});
+
+// ---------------------------------------------------------------------
+// Batch 4: twenty records, a checked absence (lacksFeatures) and GPOS tags
+// ---------------------------------------------------------------------
+
+const BATCH4 = [
+  "ibm-plex-sans-condensed", "pt-sans", "b612-mono", "fira-mono", "barlow", "crimson-text", "charis-sil",
+  "old-standard-tt", "noticia-text", "abril-fatface", "dm-serif-display", "anton", "silkscreen", "andika",
+  "alegreya-sans", "great-vibes", "tangerine", "mansalva", "bungee", "judson",
+];
+
+test("the 50 approved records are pinned: any edit to Batches 1–3 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 50).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "30e80b536257c815d1dfe5a91bb0592458b5b985fd76d53850d54307bce56212",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(50, 70), BATCH4, "Batch 4 follows Batch 3, in declaration order");
+});
+
+test("lacksFeatures checks an absence against the shipped file", () => {
+  // Crimson Text's upstream text promises oldstyle figures and small caps; the file has neither
+  assert.ok(!m("crimson-text").features.includes("onum") && !m("crimson-text").features.includes("smcp"));
+  assert.strictEqual(problem({ font: "crimson-text", metric: "features", lacksFeatures: ["onum", "smcp"] }), null);
+  // one present tag is enough to fail the claim
+  assert.match(problem({ font: "crimson-text", metric: "features", lacksFeatures: ["smcp", "zero"] }), /fails .*lacksFeatures/);
+  // a note that denies a feature the file has is refused by the validator
+  const wrong = mutated("anton", (r) => {
+    r.evidence.find((e) => e.for === "notes" && e.basis === "font-file").measured = [{ metric: "features", lacksFeatures: ["smcp"] }];
+  });
+  assert.throws(() => validate(wrong), /"notes" measured\[0\] Anton-Regular\.ttf fails features lacksFeatures \["smcp"\]/);
+});
+
+test("hasAnyFeature reads GPOS tags from gposFeatures and GSUB tags from features, never across", () => {
+  assert.ok(m("judson").gposFeatures.includes("mkmk"));
+  assert.strictEqual(problem({ font: "judson", metric: "gposFeatures", hasAnyFeature: ["mkmk"] }), null);
+  assert.match(problem({ font: "judson", metric: "features", hasAnyFeature: ["mkmk"] }), /fails/, "mkmk is a GPOS tag, not GSUB");
+  assert.deepStrictEqual(m("b612-mono").gposFeatures, []);
+  assert.match(problem({ font: "b612-mono", metric: "gposFeatures", hasAnyFeature: ["mark", "mkmk"] }), /fails/);
+});
+
+test("Batch 4: bounds, and script claims rest on verified coverage", () => {
+  BATCH4.forEach((id) => {
+    const n = raw[id].characteristics.length;
+    assert.ok(n >= 2 && n <= 6, `${id}: ${n}`);
+    assert.ok(raw[id].pairings.length || raw[id].notes, `${id} says something of its own`);
+  });
+  // IBM Plex Sans Condensed declares cyrillic-ext but maps no basic Cyrillic: no Cyrillic claim, and the page shows none
+  assert.deepStrictEqual(m("ibm-plex-sans-condensed").coverage.unverified, ["cyrillic-ext"]);
+  assert.ok(raw["ibm-plex-sans-condensed"].avoidFor.includes("cyrillic-greek"));
+  assert.strictEqual(label("ibm-plex-sans-condensed"), "Latin (incl. Extended), Vietnamese");
+  // Old Standard TT: Cyrillic verified, Greek neither listed nor verified, as its note says
+  assert.ok(m("old-standard-tt").scripts.includes("cyrillic") && !m("old-standard-tt").scripts.includes("greek"));
+  assert.ok(!model.fonts.find((f) => f.id === "old-standard-tt").subsets.some((s) => s.startsWith("greek")));
+  // Silkscreen lists latin-ext but the Latin Extended core is not in the file: no Latin Extended claim
+  assert.strictEqual(m("silkscreen").coverage.latinExtendedVerified, false);
+  assert.ok(!raw.silkscreen.bestFor.includes("latin-extended-text"));
+  // Tangerine, B612 Mono: basic Latin only, and the records say so
+  ["tangerine", "b612-mono"].forEach((id) => {
+    assert.strictEqual(label(id), "Latin", id);
+    assert.ok(raw[id].avoidFor.includes("extended-latin-languages"), id);
+  });
+});
+
+test("Batch 4 notes that name a missing companion or style are true of the library", () => {
+  const ids = new Set(model.fonts.map((f) => f.id));
+  ["dm-serif-text", "alegreya-sans-sc"].forEach((id) => assert.ok(!ids.has(id), id));
+  assert.match(raw["dm-serif-display"].notes, /not in the BPOZZ library/);
+  assert.match(raw["alegreya-sans"].notes, /not in the BPOZZ library/);
+  // Fira Mono has no italic; Fira Sans has one for every weight
+  const styles = (id) => model.fonts.find((f) => f.id === id).variants;
+  assert.ok(styles("fira-mono").every((v) => v.style === "normal"));
+  const sans = styles("fira-sans");
+  assert.deepStrictEqual([...new Set(sans.filter((v) => v.style === "italic").map((v) => v.weight))], [...new Set(sans.map((v) => v.weight))]);
+  // Judson: no 700 italic
+  assert.ok(!styles("judson").some((v) => v.weight === 700 && v.style === "italic"));
+});
+
+test("Batch 4 sibling pairings do not restate the approved sibling's reason", () => {
+  const SIBLINGS = [
+    ["ibm-plex-sans-condensed", "ibm-plex-mono"], ["ibm-plex-sans-condensed", "ibm-plex-serif"], ["pt-sans", "pt-serif"],
+    ["b612-mono", "b612"], ["fira-mono", "fira-sans"], ["barlow", "barlow-condensed"],
+  ];
+  SIBLINGS.forEach(([mine, approved]) => {
+    const names = [nameOf(mine), nameOf(approved)];
+    const theirs = raw[approved].pairings.map((p) => p.reason);
+    raw[mine].pairings.forEach((p) => theirs.forEach((r) => {
+      const score = editorial.similarity(editorial.contentWords(p.reason, names), editorial.contentWords(r, names));
+      assert.ok(score < 0.3, `${mine} restates ${approved} (${score})`);
+    }));
+  });
+  // one Batch 4 guide link, and it names the section that mentions the family
+  const withGuides = BATCH4.filter((id) => raw[id].relatedGuides.length);
+  assert.deepStrictEqual(withGuides, ["pt-sans"]);
+  assert.ok(raw["pt-sans"].evidence.some((e) => e.for === "relatedGuides:font-pairing-hierarchy-decision" && /Section 05/.test(e.detail) && /PT Sans \/ PT Serif/.test(e.detail)));
+});
+
+// ---------------------------------------------------------------------
+// Old-style figures (N1), Text face (N3), and alternate letters read from
+// the GSUB substitutions instead of the 'aalt' tag
+// ---------------------------------------------------------------------
+
+/** An in-memory record with explicit evidence bases: [[term, basis], …]. */
+function evidenced(id, characteristics) {
+  const rec = {
+    bestFor: ["display-headings", "short-headings"],
+    avoidFor: [],
+    characteristics: characteristics.map(([t]) => t),
+    pairings: [],
+    notes: "An in-memory record for the vocabulary tests, checking who may establish each characteristic.",
+    relatedGuides: [],
+    evidence: [
+      { for: "bestFor:display-headings", basis: "design-guidance", detail: "fixture" },
+      { for: "bestFor:short-headings", basis: "design-guidance", detail: "fixture" },
+      { for: "notes", basis: "upstream-description", detail: "fixture" },
+    ].concat(characteristics.map(([t, basis]) => ({ for: `characteristics:${t}`, basis, detail: "fixture" }))),
+  };
+  return rec;
+}
+const FF = "font-file";
+const UP = "upstream-description";
+const OLDSTYLE_FIGURES = [
+  "actor", "alegreya-sans", "almendra", "bad-script", "bentham", "berkshire-swash", "crete-round", "enriqueta",
+  "fanwood-text", "goudy-bookletter-1911", "im-fell-dw-pica", "im-fell-english", "italiana", "linden-hill", "nobile",
+  "radley", "rufina", "sorts-mill-goudy", "trocchi", "uncial-antiqua", "young-serif",
+];
+
+test("old-style figures: the default digits of every upright style, measured", () => {
+  const found = [...metrics.byId].filter(([, x]) => x.lowercaseForm === "lowercase" && x.defaultFigures === "oldstyle").map(([id]) => id).sort();
+  assert.deepStrictEqual(found, OLDSTYLE_FIGURES);
+  ["bentham", "crete-round", "radley", "actor", "fanwood-text", "goudy-bookletter-1911", "linden-hill", "sorts-mill-goudy", "young-serif", "nobile"].forEach((id) => {
+    assert.strictEqual(problem({ font: id, metric: "defaultFigures", is: "oldstyle" }), null, id);
+  });
+  // each measured style is recorded, so the claim is traceable to the files
+  assert.deepStrictEqual(m("crete-round").figureStyles, { "CreteRound-Regular.ttf": "oldstyle" });
+  assert.deepStrictEqual(Object.values(m("nobile").figureStyles), ["oldstyle", "oldstyle", "oldstyle"], "three upright weights");
+});
+
+test("old-style figures: an optional onum is not evidence — lining defaults are refused", () => {
+  ["lato", "fira-mono", "cardo"].forEach((id) => {
+    assert.ok(m(id).features.includes("onum"), `${id} offers onum`);
+    assert.strictEqual(m(id).defaultFigures, "lining", id);
+    assert.match(problem({ font: id, metric: "defaultFigures", is: "oldstyle" }), new RegExp(`fails ${id} defaultFigures is "oldstyle"`), id);
+  });
+  // lining, and no onum at all
+  ["crimson-text", "b612-mono"].forEach((id) => {
+    assert.ok(!m(id).features.includes("onum"), id);
+    assert.strictEqual(m(id).defaultFigures, "lining", id);
+  });
+});
+
+test("old-style figures: mixed digits, and every upright style must agree", () => {
+  // Zilla Slab offers onum, and its default digits are neither old-style nor lining
+  assert.strictEqual(m("zilla-slab").defaultFigures, "mixed");
+  // Puritan: the Regular draws old-style figures, the Bold lining ones — the family does not qualify
+  assert.deepStrictEqual(m("puritan").figureStyles, { "Puritan-Regular.ttf": "oldstyle", "Puritan-Bold.ttf": "lining" });
+  assert.strictEqual(m("puritan").defaultFigures, "mixed");
+  assert.strictEqual(m("puritan").figureStyle, "oldstyle", "the reference style alone would have passed");
+  assert.throws(() => validateFixture("puritan", evidenced("puritan", [["oldstyle-figures", FF], ["large-x-height", FF]])), /fails defaultFigures is "oldstyle"/);
+  // italics are left out, as the reference variant leaves them out: IM Fell DW Pica's italic digits are mixed
+  assert.deepStrictEqual(Object.keys(m("im-fell-dw-pica").figureStyles), ["IMFePIrm28P.ttf"]);
+  assert.strictEqual(fontMetrics.familyFigures({ a: "oldstyle", b: "oldstyle" }), "oldstyle");
+  assert.strictEqual(fontMetrics.familyFigures({ a: "oldstyle", b: "mixed" }), "mixed");
+  assert.strictEqual(fontMetrics.familyFigures({ a: "oldstyle", b: null }), null, "an unmeasurable style blocks the claim");
+});
+
+test("old-style figures: no ordinary lowercase, no x-height, no claim", () => {
+  // Bebas Neue draws its a–z as capitals, so there is no x-height to measure figures against
+  assert.strictEqual(m("bebas-neue").lowercaseForm, "caps");
+  assert.match(problem({ font: "bebas-neue", metric: "defaultFigures", is: "oldstyle" }), /describes ordinary lowercase/);
+  assert.strictEqual(fontMetrics.METRIC_SCOPE.defaultFigures, "latin-lowercase");
+  // a claim may not rest on the upstream text: the files decide
+  assert.throws(() => validateFixture("bentham", evidenced("bentham", [["oldstyle-figures", UP], ["small-x-height", FF]])), /needs font-file evidence/);
+  assert.deepStrictEqual(editorial.FONT_FILE_ONLY, ["oldstyle-figures"]);
+  assert.strictEqual(editorial.CHARACTERISTICS["oldstyle-figures"], "Old-style figures");
+  assert.notStrictEqual(editorial.CHARACTERISTICS["oldstyle-figures"], editorial.CHARACTERISTICS["old-style"]);
+});
+
+test("text face: upstream evidence only, never with Display face, never for a Display-category family", () => {
+  assert.ok(editorial.UPSTREAM_ONLY.includes("text-face"));
+  assert.doesNotThrow(() => validateFixture("adamina", evidenced("adamina", [["text-face", UP], ["transitional", UP]])));
+  assert.throws(() => validateFixture("adamina", evidenced("adamina", [["text-face", FF], ["transitional", UP]])), /only the upstream description can establish/);
+  assert.throws(() => validateFixture("alike", evidenced("alike", [["text-face", UP], ["display-face", UP]])), /opposite design intents/);
+  // Patua One's upstream calls it "a slab serif text type", but BPOZZ files it under Display
+  assert.strictEqual(model.fonts.find((f) => f.id === "patua-one").category, "display");
+  assert.throws(() => validateFixture("patua-one", evidenced("patua-one", [["text-face", UP], ["slab-serif", UP]])), /conflicts with the family's BPOZZ category "display"/);
+  assert.deepStrictEqual(editorial.NOT_IN_CATEGORY, { "text-face": "display" });
+});
+
+test("alternate letterforms: aalt that holds only ordinals, superiors and locale forms is refused", () => {
+  const AALT_ONLY = ["alike", "brawler", "caladea", "gruppo", "marcellus", "philosopher", "radley"];
+  AALT_ONLY.forEach((id) => {
+    assert.ok(m(id).features.includes("aalt"), id);
+    assert.strictEqual(m(id).alternateLetterCount, 0, id);
+  });
+  // what Brawler's aalt actually substitutes: letters to ordinals, digits to superiors — all produced by ordn/sups
+  const buf = fs.readFileSync(fileOf("brawler"));
+  const subs = sfnt.gsubSubstitutions(buf, sfnt.tableDirectory(buf).GSUB);
+  const explained = new Set(["ordn", "sups"].flatMap((t) => (subs.get(t) || []).map(([, o]) => o)));
+  assert.ok(subs.get("aalt").length > 0 && subs.get("aalt").every(([, o]) => explained.has(o)));
+  assert.throws(() => validateFixture("radley", evidenced("radley", [["alternate-letterforms", FF], ["discretionary-ligatures", FF]])), /fails alternateLetterCount atLeast 2/);
+  assert.deepStrictEqual(editorial.MEASURED["characteristics:alternate-letterforms"], [{ metric: "alternateLetterCount", atLeast: 2 }]);
+});
+
+test("alternate letterforms: genuine salt, ss and calt alternates are accepted, and approved records stay valid", () => {
+  [["lobster", "salt"], ["style-script", "ss01"], ["mansalva", "calt"]].forEach(([id, t]) => {
+    assert.ok(m(id).features.includes(t), id);
+    assert.ok(m(id).alternateLetterCount >= 2, `${id}: ${m(id).alternateLetterCount}`);
+    assert.ok(raw[id].characteristics.includes("alternate-letterforms"), id);
+  });
+  assert.doesNotThrow(() => validate(raw));
+  // Montserrat Alternates: its aalt letter substitutions are all small capitals (smcp, c2sc), so the file
+  // has no switchable alternate letters; its approved claim rests on the upstream text about the design itself
+  assert.strictEqual(m("montserrat-alternates").alternateLetterCount, 0);
+  assert.deepStrictEqual(raw["montserrat-alternates"].evidence.filter((e) => e.for === "characteristics:alternate-letterforms").map((e) => e.basis), ["upstream-description"]);
+});
+
+test("the six Group 1 families reach two evidenced characteristics with the new terms", () => {
+  const SIX = {
+    bentham: [["oldstyle-figures", FF], ["small-x-height", FF]],
+    "crete-round": [["oldstyle-figures", FF], ["slab-serif", UP]],
+    radley: [["oldstyle-figures", FF], ["discretionary-ligatures", FF]],
+    adamina: [["text-face", UP], ["transitional", UP]],
+    alike: [["text-face", UP], ["case-sensitive-forms", FF]],
+    lusitana: [["text-face", UP], ["small-x-height", FF]],
+  };
+  Object.entries(SIX).forEach(([id, chars]) => {
+    assert.doesNotThrow(() => validateFixture(id, evidenced(id, chars)), id);
+  });
+  // neither new term lifts a family that has nothing else: Actor and Italiana measure old-style figures but stay at one
+  ["actor", "italiana"].forEach((id) => {
+    assert.strictEqual(m(id).defaultFigures, "oldstyle", id);
+    assert.throws(() => validateFixture(id, evidenced(id, [["oldstyle-figures", FF]])), /characteristics needs 2–6 entries, has 1/, id);
+  });
+  assert.ok(!raw.benchnine, "BenchNine stays a normal B classification");
+  assert.deepStrictEqual(editorial.LIMITS.characteristics, [2, 6]);
+});
+
+test("deferred vocabulary stays out", () => {
+  ["squared", "squared-forms", "metric-compatible", "low-contrast", "flared", "inscriptional", "stencil", "art-deco", "fat-face", "uncial", "upright", "character-variants", "width-stable"]
+    .forEach((t) => assert.ok(!editorial.CHARACTERISTICS[t], t));
+  // High contrast keeps no measured rule
+  assert.ok(!editorial.MEASURED["characteristics:high-contrast"]);
+  // only Batch 5 uses the new terms
+  const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("text-face") || r.characteristics.includes("oldstyle-figures")).map(([id]) => id);
+  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley"]);
+});
+
+// ---------------------------------------------------------------------
+// Batch 5: the Group 1 families the new terms made eligible
+// ---------------------------------------------------------------------
+
+const BATCH5 = ["alike", "lusitana", "bentham", "radley"];
+
+test("the 70 approved records are pinned: any edit to Batches 1–4 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 70).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "aff7269321a891278c52eb50fbb49219cf141861a1fb7e8b1ca1e11833d6f030",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(70), BATCH5, "Batch 5 follows Batch 4, in declaration order");
+});
+
+test("Batch 5: exactly the validated characteristics, each from the source that can establish it", () => {
+  const EXPECTED = {
+    alike: ["text-face", "case-sensitive-forms"],
+    lusitana: ["text-face", "small-x-height"],
+    bentham: ["small-x-height", "oldstyle-figures"],
+    radley: ["discretionary-ligatures", "oldstyle-figures"],
+  };
+  Object.entries(EXPECTED).forEach(([id, chars]) => assert.deepStrictEqual(raw[id].characteristics, chars, id));
+  const basesOf = (id, term) => raw[id].evidence.filter((e) => e.for === `characteristics:${term}`).map((e) => e.basis);
+  BATCH5.filter((id) => raw[id].characteristics.includes("text-face")).forEach((id) => assert.deepStrictEqual(basesOf(id, "text-face"), ["upstream-description"], id));
+  BATCH5.filter((id) => raw[id].characteristics.includes("oldstyle-figures")).forEach((id) => {
+    assert.deepStrictEqual(basesOf(id, "oldstyle-figures"), ["font-file"], id);
+    assert.strictEqual(m(id).defaultFigures, "oldstyle", id);
+  });
+  // none of the Text face families is filed under Display
+  ["alike", "lusitana"].forEach((id) => assert.notStrictEqual(model.fonts.find((f) => f.id === id).category, "display", id));
+});
+
+test("Batch 5: coverage claims follow the verified files, not the subset list", () => {
+  // Lusitana lists latin-ext, but the Latin Extended core is not in the file
+  assert.ok(model.fonts.find((f) => f.id === "lusitana").subsets.includes("latin-ext"));
+  assert.strictEqual(m("lusitana").coverage.latinExtendedVerified, false);
+  assert.ok(raw.lusitana.avoidFor.includes("extended-latin-languages") && !raw.lusitana.bestFor.includes("latin-extended-text"));
+  ["alike", "radley"].forEach((id) => {
+    assert.strictEqual(m(id).coverage.latinExtendedVerified, true, id);
+    assert.ok(raw[id].bestFor.includes("latin-extended-text"), id);
+  });
+  BATCH5.forEach((id) => assert.strictEqual(label(id).startsWith("Latin"), true, id));
+});
+
+test("Batch 5: the figure notes describe the default digits the files draw", () => {
+  // Bentham: old-style, and all ten digits share one advance; no lnum anywhere
+  assert.strictEqual(m("bentham").digitsUniform, true);
+  assert.ok(!m("bentham").features.includes("lnum"));
+  // Radley's note: discretionary ligatures present in the file
+  assert.ok(m("radley").features.includes("dlig"));
+  assert.strictEqual(m("radley").defaultFigures, "oldstyle");
+});
+
+test("Batch 5 excludes Adamina, Crete Round, Shanti and BenchNine, and adds no deferred term", () => {
+  // Crete Round: two valid characteristics and a verified Latin Extended core, but only one defensible
+  // Best for term — its upstream "sturdy slabs" sentence is about "web use", not headings — so no record
+  assert.strictEqual(m("crete-round").coverage.latinExtendedVerified, true);
+  assert.ok(!raw["crete-round"] && !PROTOTYPE.includes("crete-round"));
+  // Adamina reaches two characteristics but only one honest Best for term (Literary settings):
+  // it ships basic Latin only and nothing else in the vocabulary applies, so it gets no record
+  assert.strictEqual(m("adamina").coverage.latinExtendedVerified, false);
+  assert.ok(!raw.adamina && !PROTOTYPE.includes("adamina"));
+  // Shanti: Stylistic sets and Alternate letterforms would rest on the same ss01/ss02 — a review-policy exclusion
+  assert.ok(!raw.shanti && !PROTOTYPE.includes("shanti"));
+  assert.ok(!raw.benchnine && !PROTOTYPE.includes("benchnine"));
+  // Style Script's approved record is untouched by the policy
+  assert.deepStrictEqual(raw["style-script"].characteristics, ["stylistic-sets", "alternate-letterforms"]);
+  const guides = BATCH5.flatMap((id) => raw[id].relatedGuides.map((g) => `${id}:${g}`));
+  assert.deepStrictEqual(guides, ["alike:font-pairing-hierarchy-decision", "lusitana:type-scale-systems"]);
+  assert.ok(raw.alike.evidence.some((e) => e.for === "relatedGuides:font-pairing-hierarchy-decision" && /pitfall 03/.test(e.detail)));
+  assert.ok(raw.lusitana.evidence.some((e) => e.for === "relatedGuides:type-scale-systems" && /Section 03/.test(e.detail)));
 });

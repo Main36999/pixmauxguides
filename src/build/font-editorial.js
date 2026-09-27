@@ -80,6 +80,18 @@
  * deliberately no spacing row: the only source for one would be the
  * category, which is not a measurement.
  *
+ * WHO MAY ESTABLISH A TERM
+ *
+ * UPSTREAM_ONLY terms (classifications such as Transitional serif, Display
+ * face, Text face) need upstream-description evidence; FONT_FILE_ONLY terms
+ * (Old-style figures) need font-file evidence, so their measured rule always
+ * runs. Text face and Display face exclude each other, and Text face is
+ * refused for a family BPOZZ files under Display (EXCLUSIVE_CHARACTERISTICS,
+ * NOT_IN_CATEGORY). Whether an upstream sentence states a text-face design
+ * intent — "a text typeface", "designed for text setting" — rather than
+ * general suitability — "can be used for body text" — is the reviewer's
+ * call; the validator enforces the conflicts.
+ *
  * SCRIPT AND LANGUAGE CLAIMS
  *
  * COVERAGE_TERMS ties every script or language term ("Cyrillic text",
@@ -177,6 +189,9 @@ const CHARACTERISTICS = {
   "display-face": "Display face",
   "serif-monospace": "Serif monospace",
   slanted: "Slanted",
+  "text-face": "Text face",
+  // measured on the default digits of every upright style (FONT_FILE_ONLY)
+  "oldstyle-figures": "Old-style figures",
 };
 
 /**
@@ -184,7 +199,23 @@ const CHARACTERISTICS = {
  * records: a record may use one only when the family's upstream description
  * states it (evidence basis "upstream-description").
  */
-const UPSTREAM_ONLY = ["monolinear", "transitional", "old-style", "display-face", "serif-monospace", "slanted"];
+const UPSTREAM_ONLY = ["monolinear", "transitional", "old-style", "display-face", "serif-monospace", "slanted", "text-face"];
+
+/**
+ * Terms only the shipped files can establish: a record may use one only with
+ * font-file evidence, so its MEASURED rule always runs. An upstream note that
+ * a font "has oldstyle numerals" is not enough — optional onum figures and
+ * lining defaults are common (Lato, Fira Mono, Cardo).
+ */
+const FONT_FILE_ONLY = ["oldstyle-figures"];
+
+/**
+ * Text face and Display face are opposite design intents. A record may not
+ * claim both, and a family BPOZZ files under the Display category may not
+ * claim Text face, whatever its upstream text says (Patua One).
+ */
+const EXCLUSIVE_CHARACTERISTICS = [["text-face", "display-face"]];
+const NOT_IN_CATEGORY = { "text-face": "display" };
 
 const ROLES = { heading: "Heading", body: "Body", ui: "UI", mono: "Mono" };
 
@@ -263,6 +294,11 @@ function sentences(text) {
 const RANKED_METRICS = ["xHeight", "capHeight", "xToCap", "lowercaseAdvance", "numGlyphs"];
 const BOOLEAN_METRICS = ["fixedPitch", "asciiMonospaced", "tabularFigures", "pixelated"];
 const LOWERCASE_FORMS = ["lowercase", "caps", "small-caps", "none"];
+const FIGURE_STYLES = ["oldstyle", "lining", "mixed"];
+/** Whole-number counts, compared with atLeast. */
+const COUNT_METRICS = ["alternateLetterCount"];
+/** Metrics compared with "is", and the values each may take (booleans otherwise). */
+const ENUM_METRICS = { lowercaseForm: LOWERCASE_FORMS, defaultFigures: FIGURE_STYLES };
 const SCRIPT_IDS = Object.keys(fontScripts.SCRIPTS).concat(Object.keys(fontScripts.LANGUAGES));
 
 const isPercent = (v) => Number.isInteger(v) && v >= 0 && v <= 100;
@@ -287,9 +323,14 @@ const COMPARATORS = {
     test: (m, k, a, lib) => m[k] === lib.byId.get(a)[k],
   },
   is: {
-    metrics: BOOLEAN_METRICS.concat("lowercaseForm"),
-    valid: (a, lib, k) => (k === "lowercaseForm" ? LOWERCASE_FORMS.includes(a) : typeof a === "boolean"),
+    metrics: BOOLEAN_METRICS.concat(Object.keys(ENUM_METRICS)),
+    valid: (a, lib, k) => (ENUM_METRICS[k] ? ENUM_METRICS[k].includes(a) : typeof a === "boolean"),
     test: (m, k, a) => m[k] === a,
+  },
+  atLeast: {
+    metrics: COUNT_METRICS,
+    valid: (a) => Number.isInteger(a) && a >= 1,
+    test: (m, k, a) => m[k] >= a,
   },
   /** Verified coverage (src/build/font-scripts.js) includes this script or language. */
   includes: {
@@ -297,11 +338,24 @@ const COMPARATORS = {
     valid: (a) => SCRIPT_IDS.includes(a),
     test: (m, k, a) => m[k].includes(a),
   },
-  /** Any of these GSUB tags; "ssNN" stands for any stylistic set ss01–ss20. */
+  /**
+   * Any of these tags — GSUB tags for "features", GPOS tags for
+   * "gposFeatures"; "ssNN" stands for any stylistic set ss01–ss20.
+   */
   hasAnyFeature: {
-    metrics: ["features"],
+    metrics: ["features", "gposFeatures"],
     valid: (a) => Array.isArray(a) && a.length > 0 && a.every((t) => typeof t === "string" && t.length === 4),
     test: (m, k, a) => m[k].some((t) => a.includes(t) || (a.includes("ssNN") && /^ss\d\d$/.test(t))),
+  },
+  /**
+   * None of these GSUB tags. For a note that corrects an upstream promise
+   * ("oldstyle figures, small caps") the shipped file does not keep: the
+   * absence is checked, never assumed.
+   */
+  lacksFeatures: {
+    metrics: ["features"],
+    valid: (a) => Array.isArray(a) && a.length > 0 && a.every((t) => typeof t === "string" && t.length === 4 && t !== "ssNN"),
+    test: (m, k, a) => a.every((t) => !m[k].includes(t)),
   },
 };
 
@@ -380,7 +434,12 @@ const MEASURED = {
   "characteristics:historical-forms": [{ metric: "features", hasAnyFeature: ["hist"] }],
   "characteristics:discretionary-ligatures": [{ metric: "features", hasAnyFeature: ["dlig"] }],
   "characteristics:stylistic-alternates": [{ metric: "features", hasAnyFeature: ["salt"] }],
-  "characteristics:alternate-letterforms": [{ metric: "features", hasAnyFeature: ["aalt", "salt", "calt", "swsh", "ssNN"] }],
+  // Letters with a genuine alternate design, read from the GSUB substitutions
+  // (sfnt.js ALTERNATE LETTERS). A feature tag alone is not enough: 'aalt'
+  // often holds only ordinals, superiors and locale forms (Brawler, Radley).
+  "characteristics:alternate-letterforms": [{ metric: "alternateLetterCount", atLeast: 2 }],
+  // Default digits of every upright style; an optional onum never counts.
+  "characteristics:oldstyle-figures": [{ metric: "defaultFigures", is: "oldstyle" }],
   "bestFor:period-typography": [{ metric: "features", hasAnyFeature: ["hist", "dlig"] }],
   "characteristics:small-x-height": [{ metric: "xToCap", percentileAtMost: 25 }],
   // The mirror of small-x-height. xToCap is a latin-lowercase metric, so
@@ -676,6 +735,21 @@ function validateFontEditorial(raw, { fonts, guides, config, metrics, label = "f
         err(`${at}: "${c}" is a classification only the upstream description can establish; it needs upstream-description evidence`);
       }
     });
+    FONT_FILE_ONLY.forEach((t) => {
+      const c = `characteristics:${t}`;
+      if (byClaim.has(c) && !byClaim.get(c).includes("font-file")) {
+        err(`${at}: "${c}" is measured from the shipped files; it needs font-file evidence, whatever the upstream text says`);
+      }
+    });
+    const chars = Array.isArray(rec.characteristics) ? rec.characteristics : [];
+    EXCLUSIVE_CHARACTERISTICS.forEach(([a, b]) => {
+      if (chars.includes(a) && chars.includes(b)) err(`${at}: "${a}" and "${b}" are opposite design intents; a record may claim only one`);
+    });
+    Object.entries(NOT_IN_CATEGORY).forEach(([t, category]) => {
+      if (chars.includes(t) && self && self.category === category) {
+        err(`${at}: "${t}" conflicts with the family's BPOZZ category "${category}"`);
+      }
+    });
 
     // font-file claims must hold on the shipped files
     if (metrics && metrics.byId.has(id)) {
@@ -766,6 +840,9 @@ module.exports = {
   MEASURED,
   COVERAGE_TERMS,
   UPSTREAM_ONLY,
+  FONT_FILE_ONLY,
+  EXCLUSIVE_CHARACTERISTICS,
+  NOT_IN_CATEGORY,
   COMPARATORS,
   measuredClaimProblem,
   PAIRING_X_TO_CAP,

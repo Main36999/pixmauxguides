@@ -17,6 +17,9 @@
  *               of the "x" and "H" boxes — the box only, never the contours)
  *   post        isFixedPitch
  *   GSUB/GPOS   the OpenType feature tags
+ *   GSUB        the single and alternate substitutions behind the
+ *               alternate-letter features (alternateLetters())
+ *   glyf        the boxes of the default digits (figureStyle())
  *
  * Every measure() value is a pure function of the file bytes, rounded to a
  * fixed precision, so the same file always gives the same numbers.
@@ -284,6 +287,216 @@ const CAPS_X_TO_CAP = 0.95;
 /** A glyph grid this coarse or coarser (pixels per em) is a pixel/bitmap design. */
 const MAX_PIXELS_PER_EM = 64;
 
+/*
+ * DEFAULT FIGURES. How the digits the keyboard produces — the cmap glyphs,
+ * never an optional onum/lnum substitution — are drawn:
+ *
+ *   "oldstyle"  0, 1 and 2 top out at x-height (at most FIGURE_X_TOLERANCE ×
+ *               the "x" top) and at least three of 3 4 5 7 9 descend at least
+ *               FIGURE_DESCENT of the em below the baseline
+ *   "lining"    no digit descends and 0, 1 and 2 stand above that x-height
+ *               limit: figures at or near cap height
+ *   "mixed"     neither (irregular handwriting, hybrid figures)
+ *   null        a digit or the "x" is missing, so the question has no answer
+ */
+const FIGURE_X_TOLERANCE = 1.15;
+const FIGURE_DESCENT = 0.08;
+const DESCENDING_DIGITS = [0x33, 0x34, 0x35, 0x37, 0x39];
+const SHORT_DIGITS = [0x30, 0x31, 0x32];
+
+function figureStyleOf(buf, tables, cmap, upm) {
+  const x = glyphTop(buf, tables, cmap.get(0x78));
+  const box = (c) => glyphBox(buf, tables, cmap.get(c));
+  const desc = DESCENDING_DIGITS.map(box);
+  const short = SHORT_DIGITS.map(box);
+  if (!x || desc.some((b) => !b) || short.some((b) => !b)) return null;
+  const descending = desc.filter((b) => b.yMin / upm <= -FIGURE_DESCENT).length;
+  const atX = short.every((b) => b.yMax <= x * FIGURE_X_TOLERANCE);
+  if (descending >= 3 && atX) return "oldstyle";
+  if (descending === 0 && short.every((b) => b.yMax > x * FIGURE_X_TOLERANCE)) return "lining";
+  return "mixed";
+}
+
+/** The default-figure style of one font file (see DEFAULT FIGURES). */
+function figureStyle(buf) {
+  const tables = tableDirectory(buf);
+  return figureStyleOf(buf, tables, readCmap(buf, tables.cmap), buf.readUInt16BE(tables.head.offset + 18));
+}
+
+/*
+ * ALTERNATE LETTERS. A feature tag is not proof of alternate letterforms:
+ * 'aalt' (Access All Alternates) collects every substitution the font
+ * offers, and in many fonts that is only the ordinals, superiors and
+ * locale forms other features already provide (Brawler's aalt covers
+ * a → ª, 1 → ¹ and nothing else). So the substitutions themselves are read.
+ *
+ * A letter has a genuine alternate when one of ALTERNATE_FEATURES
+ * substitutes its default glyph — directly, or through a lookup a
+ * contextual rule calls (calt) — with a glyph that is
+ *
+ *   - not produced by any of EXPLAINED_FEATURES (ordinals, superiors,
+ *     fractions, locale forms, small caps, figure styles …), and
+ *   - not itself the default glyph of another character (Romanian Ş → Ș is
+ *     a different character, not a second design of the same one).
+ *
+ * Letters are code points of Unicode category L, excluding modifier letters
+ * (Lm: ˆ ˇ) and the ordinal indicators ª º.
+ */
+const ALTERNATE_FEATURES = /^(aalt|salt|swsh|cswh|calt|ss\d\d|cv\d\d)$/;
+const EXPLAINED_FEATURES = /^(ordn|sups|subs|sinf|numr|dnom|frac|afrc|locl|smcp|c2sc|pcap|c2pc|case|onum|lnum|pnum|tnum|zero|ccmp)$/;
+
+function coverageGlyphs(buf, at) {
+  const format = buf.readUInt16BE(at);
+  const out = [];
+  if (format === 1) {
+    for (let i = 0, n = buf.readUInt16BE(at + 2); i < n; i++) out.push(buf.readUInt16BE(at + 4 + i * 2));
+  } else if (format === 2) {
+    for (let i = 0, n = buf.readUInt16BE(at + 2); i < n; i++) {
+      const r = at + 4 + i * 6;
+      for (let g = buf.readUInt16BE(r); g <= buf.readUInt16BE(r + 2); g++) out.push(g);
+    }
+  }
+  return out;
+}
+
+/** Lookup indices named by the SubstLookupRecords of a context (5) or chaining context (6) subtable. */
+function nestedLookups(buf, st, type) {
+  const out = [];
+  const records = (at, count) => {
+    for (let i = 0; i < count; i++) out.push(buf.readUInt16BE(at + i * 4 + 2));
+  };
+  const format = buf.readUInt16BE(st);
+  if (type === 5 && format === 3) {
+    const glyphs = buf.readUInt16BE(st + 2);
+    records(st + 6 + glyphs * 2, buf.readUInt16BE(st + 4));
+  } else if (type === 5) {
+    // format 1 (SubRuleSet/SubRule) and 2 (SubClassSet/SubClassRule) share the rule layout
+    const setsAt = format === 1 ? st + 6 : st + 8;
+    for (let s = 0, n = buf.readUInt16BE(setsAt - 2); s < n; s++) {
+      const off = buf.readUInt16BE(setsAt + s * 2);
+      if (!off) continue;
+      const set = st + off;
+      for (let r = 0, m = buf.readUInt16BE(set); r < m; r++) {
+        const rule = set + buf.readUInt16BE(set + 2 + r * 2);
+        const glyphs = buf.readUInt16BE(rule);
+        records(rule + 4 + (glyphs - 1) * 2, buf.readUInt16BE(rule + 2));
+      }
+    }
+  } else if (type === 6 && format === 3) {
+    let p = st + 2;
+    p += 2 + buf.readUInt16BE(p) * 2; // backtrack coverages
+    p += 2 + buf.readUInt16BE(p) * 2; // input coverages
+    p += 2 + buf.readUInt16BE(p) * 2; // lookahead coverages
+    records(p + 2, buf.readUInt16BE(p));
+  } else if (type === 6) {
+    // format 1 (ChainSubRuleSet) and 2 (ChainSubClassSet) share the rule layout
+    const setsAt = format === 1 ? st + 6 : st + 12;
+    for (let s = 0, n = buf.readUInt16BE(setsAt - 2); s < n; s++) {
+      const off = buf.readUInt16BE(setsAt + s * 2);
+      if (!off) continue;
+      const set = st + off;
+      for (let r = 0, m = buf.readUInt16BE(set); r < m; r++) {
+        let p = set + buf.readUInt16BE(set + 2 + r * 2);
+        p += 2 + buf.readUInt16BE(p) * 2; // backtrack
+        p += 2 + (buf.readUInt16BE(p) - 1) * 2; // input (first glyph is the coverage)
+        p += 2 + buf.readUInt16BE(p) * 2; // lookahead
+        records(p + 2, buf.readUInt16BE(p));
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Map of GSUB feature tag → [[input glyph, output glyph], …] from the single
+ * (1) and alternate (3) substitutions a feature applies, including those
+ * reached through contextual rules (5, 6) and extension subtables (7).
+ */
+function gsubSubstitutions(buf, table) {
+  const out = new Map();
+  if (!table) return out;
+  const gsub = table.offset;
+  const featureList = gsub + buf.readUInt16BE(gsub + 6);
+  const lookupList = gsub + buf.readUInt16BE(gsub + 8);
+  const lookupCount = buf.readUInt16BE(lookupList);
+  const memo = new Map();
+  function pairsOf(index, depth) {
+    if (index >= lookupCount || depth > 4) return [];
+    if (memo.has(index)) return memo.get(index);
+    memo.set(index, []);
+    const lookup = lookupList + buf.readUInt16BE(lookupList + 2 + index * 2);
+    const type = buf.readUInt16BE(lookup);
+    const pairs = [];
+    for (let s = 0, n = buf.readUInt16BE(lookup + 4); s < n; s++) {
+      let st = lookup + buf.readUInt16BE(lookup + 6 + s * 2);
+      let t = type;
+      if (t === 7) {
+        t = buf.readUInt16BE(st + 2);
+        st += buf.readUInt32BE(st + 4);
+      }
+      const format = buf.readUInt16BE(st);
+      if (t === 1) {
+        const cov = coverageGlyphs(buf, st + buf.readUInt16BE(st + 2));
+        if (format === 1) {
+          const delta = buf.readInt16BE(st + 4);
+          cov.forEach((g) => pairs.push([g, (g + delta) & 0xffff]));
+        } else {
+          cov.forEach((g, i) => pairs.push([g, buf.readUInt16BE(st + 6 + i * 2)]));
+        }
+      } else if (t === 3) {
+        const cov = coverageGlyphs(buf, st + buf.readUInt16BE(st + 2));
+        cov.forEach((g, i) => {
+          const set = st + buf.readUInt16BE(st + 6 + i * 2);
+          for (let a = 0, m = buf.readUInt16BE(set); a < m; a++) pairs.push([g, buf.readUInt16BE(set + 2 + a * 2)]);
+        });
+      } else if (t === 5 || t === 6) {
+        nestedLookups(buf, st, t).forEach((li) => pairsOf(li, depth + 1).forEach((p) => pairs.push(p)));
+      }
+    }
+    memo.set(index, pairs);
+    return pairs;
+  }
+  for (let i = 0, n = buf.readUInt16BE(featureList); i < n; i++) {
+    const rec = featureList + 2 + i * 6;
+    const feature = featureList + buf.readUInt16BE(rec + 4);
+    const list = out.get(tag(buf, rec)) || [];
+    for (let j = 0, m = buf.readUInt16BE(feature + 2); j < m; j++) {
+      pairsOf(buf.readUInt16BE(feature + 4 + j * 2), 0).forEach((p) => list.push(p));
+    }
+    out.set(tag(buf, rec), list);
+  }
+  return out;
+}
+
+const LETTER = /^[\p{Lu}\p{Ll}\p{Lt}\p{Lo}]$/u;
+const ORDINAL_INDICATORS = new Set([0xaa, 0xba]);
+
+/** Sorted code points of the letters that have a genuine alternate design (see ALTERNATE LETTERS). */
+function alternateLettersOf(buf, tables, cmap) {
+  const subs = gsubSubstitutions(buf, tables.GSUB);
+  const explained = new Set();
+  subs.forEach((pairs, t) => EXPLAINED_FEATURES.test(t) && pairs.forEach(([, o]) => explained.add(o)));
+  const encoded = new Set(cmap.values());
+  const letterOf = new Map();
+  cmap.forEach((g, cp) => {
+    if (!ORDINAL_INDICATORS.has(cp) && LETTER.test(String.fromCodePoint(cp)) && !letterOf.has(g)) letterOf.set(g, cp);
+  });
+  const found = new Set();
+  subs.forEach((pairs, t) => {
+    if (!ALTERNATE_FEATURES.test(t)) return;
+    pairs.forEach(([i, o]) => {
+      if (i !== o && letterOf.has(i) && !explained.has(o) && !encoded.has(o)) found.add(letterOf.get(i));
+    });
+  });
+  return [...found].sort((a, b) => a - b);
+}
+
+/** The letters of one font file that have a genuine alternate design. */
+function alternateLetters(buf) {
+  const tables = tableDirectory(buf);
+  return alternateLettersOf(buf, tables, readCmap(buf, tables.cmap));
+}
+
 /**
  * How the font draws a–z, from glyph ids and bounding boxes:
  *
@@ -353,6 +566,10 @@ function pixelGrid(buf, tables, cmap, advances, upm) {
  *                        pixelated is pixelsPerEm !== null
  *   widthClass           OS/2 usWidthClass (5 normal, 3 condensed, …)
  *   features             GSUB feature tags; gposFeatures, the GPOS ones
+ *   figureStyle          the default digits: "oldstyle", "lining", "mixed"
+ *                        or null (DEFAULT FIGURES, above)
+ *   alternateLetterCount letters with a genuine alternate design (ALTERNATE
+ *                        LETTERS, above) — substitutions, not feature tags
  *   numGlyphs, codepointCount
  */
 function measure(buf) {
@@ -405,6 +622,8 @@ function measure(buf) {
     widthClass: buf.readUInt16BE(os2 + 6),
     features,
     gposFeatures: readFeatureTags(buf, tables.GPOS),
+    figureStyle: figureStyleOf(buf, tables, cmap, upm),
+    alternateLetterCount: alternateLettersOf(buf, tables, cmap).length,
     numGlyphs: info.numGlyphs,
     codepointCount: info.codepoints.size,
   };
@@ -489,4 +708,18 @@ function checkWoff2(buf) {
   return { flavor: tag(buf, 4), numTables, tables, decompressedBytes: out.length };
 }
 
-module.exports = { readSfnt, readCmap, tableDirectory, measure, isItalic, embedding, checkWoff2, NAME_IDS };
+module.exports = {
+  readSfnt,
+  readCmap,
+  tableDirectory,
+  measure,
+  figureStyle,
+  alternateLetters,
+  gsubSubstitutions,
+  isItalic,
+  embedding,
+  checkWoff2,
+  NAME_IDS,
+  FIGURE_X_TOLERANCE,
+  FIGURE_DESCENT,
+};
