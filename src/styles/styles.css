@@ -942,18 +942,27 @@ html[data-auth] .mobile-menu__auth {
 }
 
 /* ---------- hero ----------
-   Flat and light, resourceboy.com-style: no dark gradient panel, no
-   graph-paper backdrop, no glow. It sits on the same plain body
-   background as the rest of the site, separated only by whitespace
-   and a hairline rule — minimalism through spacing and type, not
-   color blocking. */
+   The backdrop is the sign-in dialog's visual (.auth__visual, further
+   down), reused class for class: gradient field, blueprint grid and
+   construction lines. .hero__visual only turns that panel into a
+   full-bleed background layer — absolutely placed behind .hero-inner,
+   clipped to the hero, and kept visible below 900px, where the dialog
+   folds its own copy away. The field is centred and oversized, so a
+   narrower hero crops it rather than squeezing it. */
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: 88px 24px 72px;
   text-align: center;
-  background-color: rgb(233, 240, 245);
   border-bottom: 1px solid var(--grid-line);
 }
+.hero__visual.auth__visual {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
 .hero-inner {
+  position: relative;
   max-width: 1160px;
   margin: 0 auto;
 }
@@ -995,7 +1004,9 @@ html[data-auth] .mobile-menu__auth {
   margin: 0 auto;
 }
 .hero h1 {
-  color: var(--header-bg);
+  /* white on the auth visual, with the same soft shadow as its caption */
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
   font-size: clamp(24px, 3.4vw, 38px);
   margin: 0 0 34px;
   font-weight: 800;
@@ -1206,13 +1217,21 @@ html[data-auth] .mobile-menu__auth {
   height: 18px;
   color: var(--action);
 }
-/* Guide topics: lighter than the tools — no fill, a slash for a mark. */
+/* Guide topics: lighter than the tools — no fill, a slash for a mark.
+   Unfilled, they sit straight on the hero's dark visual, so they are
+   drawn in white instead of the site's text colours. */
 .explore__row--topics .explore-item {
   background: transparent;
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
   font-weight: 500;
 }
+.explore__row--topics .explore-item:hover {
+  color: #fff;
+  border-color: #fff;
+}
 .explore-item__mark {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
 }
 .explore-item:hover .explore-item__mark {

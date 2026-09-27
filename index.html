@@ -205,6 +205,24 @@
 
     <div id="home-view">
       <section class="hero">
+        <!--
+          Background: the sign-in dialog's visual (.auth__visual and its
+          layers in styles.css, built in src/client/auth.js), reused class
+          for class — only .hero__visual is hero-specific. The caption is
+          left out; the headline says it. Purely decorative.
+        -->
+        <div class="auth__visual hero__visual" aria-hidden="true">
+          <div class="auth__field"></div>
+          <div class="auth__grid"></div>
+          <svg class="auth__guides" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+            <circle cx="200" cy="200" r="128" />
+            <circle cx="200" cy="200" r="79" stroke-dasharray="2 5" />
+            <line x1="40" y1="200" x2="360" y2="200" />
+            <line x1="200" y1="40" x2="200" y2="360" />
+            <circle cx="328" cy="200" r="3" fill="currentColor" />
+            <circle cx="200" cy="72" r="3" fill="currentColor" />
+          </svg>
+        </div>
         <div class="hero-inner">
           <div class="hero-copy">
             <h1 class="fade-up">
