@@ -2434,9 +2434,12 @@ body > .site-footer {
 /* ---------- 404 (404.html) ----------
    The Home Hero's backdrop (.auth__visual field and grid, further down),
    placed the same way as .hero__visual but with none of its drift: the
-   page is static. flex: 1 fills the body's column between header and
-   footer, and the copy sits centred on top in white, as on the hero. */
+   page is static. Like the hero, it fills the first screen below the
+   header (--notfound-header: the inner header's 84px top row, plus its
+   70px nav row from 641px up), so the footer starts at the fold. The
+   copy sits centred on top in white, as on the hero. */
 .notfound {
+  --notfound-header: 84px;
   position: relative;
   overflow: hidden;
   flex: 1 0 auto;
@@ -2444,11 +2447,17 @@ body > .site-footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 360px;
+  min-height: calc(100vh - var(--notfound-header));
+  min-height: calc(100svh - var(--notfound-header));
   padding: 72px 16px;
   text-align: center;
   color: #fff;
   text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
+}
+@media (min-width: 641px) {
+  .notfound {
+    --notfound-header: 154px;
+  }
 }
 .notfound__visual.auth__visual {
   display: block;
