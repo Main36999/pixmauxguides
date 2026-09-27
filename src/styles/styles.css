@@ -943,18 +943,38 @@ html[data-auth] .mobile-menu__auth {
 
 /* ---------- hero ----------
    The backdrop is the sign-in dialog's visual (.auth__visual, further
-   down), reused class for class: gradient field, blueprint grid and
-   construction lines. .hero__visual only turns that panel into a
-   full-bleed background layer — absolutely placed behind .hero-inner,
-   clipped to the hero, and kept visible below 900px, where the dialog
-   folds its own copy away. The field is centred and oversized, so a
-   narrower hero crops it rather than squeezing it. */
+   down), reused class for class: gradient field and blueprint grid.
+   .hero__visual only turns that panel into a full-bleed background
+   layer — absolutely placed behind .hero-inner, clipped to the hero,
+   and kept visible below 900px, where the dialog folds its own copy
+   away. The field is centred and oversized, so a narrower hero crops
+   it rather than squeezing it.
+
+   Height: the viewport less the home header (--hero-header), so the
+   header and hero together fill the first screen, with the content
+   centred vertically. svh, where supported, is the viewport with the
+   mobile browser bars shown, so the hero never runs under them. It is
+   a minimum: content taller than that (short landscape screens) still
+   grows the hero. */
 .hero {
+  --hero-header: 84px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--hero-header));
+  min-height: calc(100svh - var(--hero-header));
   padding: 88px 24px 72px;
   text-align: center;
   border-bottom: 1px solid var(--grid-line);
+}
+/* Between 641 and 1259px the home header wraps its nav onto a second
+   56px row under the 84px top row (see .site-header--home above). */
+@media (min-width: 641px) and (max-width: 1259px) {
+  .hero {
+    --hero-header: 140px;
+  }
 }
 .hero__visual.auth__visual {
   display: block;
@@ -963,6 +983,8 @@ html[data-auth] .mobile-menu__auth {
 }
 .hero-inner {
   position: relative;
+  /* a flex item with auto side margins would shrink to its content */
+  width: 100%;
   max-width: 1160px;
   margin: 0 auto;
 }
