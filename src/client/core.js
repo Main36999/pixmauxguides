@@ -450,6 +450,132 @@
     });
   }
 
+  // ---------- homepage hero headline: typing loop ----------
+  // The headline is held, deleted letter by letter, and typed again, on a
+  // slow loop. It never leaves the page: its text is split into the typed
+  // part and a transparent remainder, so the whole sentence is always laid
+  // out — same size, same line breaks, nothing shifts — and assistive
+  // technology always reads it in full; only the colour of the untyped
+  // letters changes. The thin cursor sits after all of the text and is
+  // moved (transform) to the end of the typed part: any box between the
+  // two parts, even an out-of-flow one, splits the text for shaping and
+  // drops the kerning pair across it, nudging centred lines by up to half
+  // a pixel. After the text it touches nothing. The loop opens on the complete
+  // sentence after the fade-up entrance, stops while the hero is off
+  // screen, and never runs under reduced motion (the markup then stays as
+  // it shipped).
+  (function heroTyping() {
+    var title = document.querySelector(".hero h1");
+    if (!title || !window.matchMedia) return;
+    var TYPE_MS = 90;
+    var DELETE_MS = 50;
+    var HOLD_MS = 2000;
+    var GAP_MS = 500;
+    var FIRST_HOLD_MS = HOLD_MS + 600; // lets the 0.6s fade-up finish first
+    var text = title.textContent.trim();
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var typed = null;
+    var rest = null;
+    var cursor = null;
+    var timer = null;
+    var onScreen = true;
+    var started = false;
+    var shown = text.length;
+    var phase = "hold";
+
+    function render() {
+      typed.textContent = text.slice(0, shown);
+      rest.textContent = text.slice(shown);
+      place();
+    }
+    // Right after the last typed letter (or just before the first letter
+    // while nothing is typed), centred on that letter's line.
+    function place() {
+      var node = shown ? typed.firstChild : rest.firstChild;
+      if (!node) return;
+      var range = document.createRange();
+      range.setStart(node, shown ? shown - 1 : 0);
+      range.setEnd(node, shown ? shown : 1);
+      var rects = range.getClientRects();
+      var letter = shown ? rects[rects.length - 1] : rects[0];
+      if (!letter) return;
+      var box = title.getBoundingClientRect();
+      var gap = parseFloat(getComputedStyle(title).fontSize) * 0.05;
+      var x = shown ? letter.right - box.left + gap : letter.left - box.left - gap - cursor.offsetWidth;
+      var y = letter.top - box.top + (letter.height - cursor.offsetHeight) / 2;
+      cursor.style.transform = "translate(" + x + "px, " + y + "px)";
+    }
+    function build() {
+      if (typed) return;
+      typed = document.createElement("span");
+      rest = document.createElement("span");
+      cursor = document.createElement("span");
+      rest.className = "hero-type__rest";
+      cursor.className = "hero-type__cursor";
+      cursor.setAttribute("aria-hidden", "true");
+      title.textContent = "";
+      title.classList.add("hero-type");
+      title.appendChild(typed);
+      title.appendChild(rest);
+      title.appendChild(cursor);
+      render();
+      // re-wrapping (resize, late web font) moves the letters under it
+      window.addEventListener("resize", place);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    }
+    function next(ms) {
+      timer = setTimeout(tick, ms);
+    }
+    function tick() {
+      if (phase === "hold") phase = "delete";
+      else if (phase === "gap") phase = "type";
+      shown += phase === "delete" ? -1 : 1;
+      render();
+      if (phase === "delete" && shown === 0) {
+        phase = "gap";
+        title.classList.remove("is-typing");
+        return next(GAP_MS);
+      }
+      if (phase === "type" && shown === text.length) {
+        phase = "hold";
+        title.classList.remove("is-typing");
+        return next(HOLD_MS);
+      }
+      title.classList.add("is-typing");
+      next(phase === "delete" ? DELETE_MS : TYPE_MS);
+    }
+    function stop() {
+      clearTimeout(timer);
+      timer = null;
+      if (!typed) return;
+      shown = text.length;
+      phase = "hold";
+      title.classList.remove("is-typing");
+      render();
+    }
+    function start() {
+      if (timer || reduced.matches || !onScreen) return;
+      build();
+      next(started ? HOLD_MS : FIRST_HOLD_MS);
+      started = true;
+    }
+
+    if (reduced.addEventListener) {
+      reduced.addEventListener("change", function () {
+        if (reduced.matches) stop();
+        else start();
+      });
+    }
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[entries.length - 1].isIntersecting;
+        if (onScreen) start();
+        else stop();
+      }).observe(title);
+    }
+    start();
+  })();
+
   // ---------- data loading ----------
   // Guide data lives in guides.json, fetched here with async/await
   // instead of being hardcoded in this file. Everything that depends
