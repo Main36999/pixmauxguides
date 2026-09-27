@@ -108,20 +108,26 @@
     '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 18 5 12 11 6"/></svg>';
 
   // The right-hand visual: an original gradient field under a faint
-  // blueprint grid and one set of construction lines — the "documented like
-  // blueprints" idea, drawn rather than said. Purely decorative.
+  // blueprint grid, with one short phrase typed, held, deleted and replaced
+  // by the next in a slow loop (see TYPING below). Purely decorative — the
+  // whole panel is aria-hidden and nothing in it is needed to sign in.
+  var PHRASES = ["Design better.", "Build smarter.", "Learn UI/UX.", "Create with purpose."];
+
+  // Every phrase is also laid down invisibly in the same grid cell as the
+  // live line, so the block is always as wide as the widest phrase: it is
+  // centred once and never moves or reflows while the letters change.
   var VISUAL =
     '<div class="auth__visual" aria-hidden="true">' +
     '<div class="auth__field"></div>' +
     '<div class="auth__grid"></div>' +
-    '<svg class="auth__guides" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">' +
-    '<circle cx="200" cy="200" r="128"/>' +
-    '<circle cx="200" cy="200" r="79" stroke-dasharray="2 5"/>' +
-    '<line x1="40" y1="200" x2="360" y2="200"/>' +
-    '<line x1="200" y1="40" x2="200" y2="360"/>' +
-    '<circle cx="328" cy="200" r="3" fill="currentColor"/>' +
-    '<circle cx="200" cy="72" r="3" fill="currentColor"/>' +
-    "</svg>" +
+    '<p class="auth__type">' +
+    PHRASES.map(function (p) {
+      return '<span class="auth__type-sizer">' + p + "</span>";
+    }).join("") +
+    '<span class="auth__type-line"><span data-auth-type>' +
+    PHRASES[0] +
+    '</span><span class="auth__cursor"></span></span>' +
+    "</p>" +
     '<p class="auth__caption"><span>BPOZZ</span>Colors, type and systems — documented like blueprints.</p>' +
     "</div>";
 
@@ -231,6 +237,7 @@
     // does on a second ESC with no user activation in between). Whatever
     // closed it, the page underneath must get its scroll back.
     dialog.addEventListener("close", finishClose);
+    watchTyping();
   }
 
   function setMode(next) {
@@ -496,6 +503,7 @@
     }
     dialog.classList.add("is-open");
     els.google.focus();
+    if (!typeTimer) startTyping();
   }
 
   function close() {
@@ -527,6 +535,88 @@
       : document.getElementById("menu-toggle");
     if (isVisible(target)) target.focus();
     opener = null;
+    stopTyping();
+  }
+
+  // ---------- TYPING ----------
+  // The visual's phrase loop: hold the phrase, delete it letter by letter,
+  // pause, type the next, hold, and round again. It runs only while the
+  // dialog is open and the panel is shown — below 900px the panel is
+  // display:none, and timers there would only spend battery — and never
+  // under reduced motion, which keeps the first phrase, fully typed, with a
+  // still cursor. The cursor is solid while letters move and blinks (CSS)
+  // while the text rests.
+  var TYPE_MS = 90;
+  var DELETE_MS = 45;
+  var HOLD_MS = 1900;
+  var GAP_MS = 500;
+  var PANEL_QUERY = "(min-width: 900px)";
+  var REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
+  var typeTimer = null;
+
+  function mediaMatches(query) {
+    return !!(window.matchMedia && window.matchMedia(query).matches);
+  }
+
+  function stopTyping() {
+    if (typeTimer) {
+      clearTimeout(typeTimer);
+      typeTimer = null;
+    }
+    var line = dialog && $("[data-auth-type]");
+    if (!line) return;
+    line.textContent = PHRASES[0];
+    line.parentNode.classList.remove("is-typing");
+  }
+
+  function startTyping() {
+    stopTyping();
+    var line = dialog && $("[data-auth-type]");
+    if (!line || !mediaMatches(PANEL_QUERY) || mediaMatches(REDUCED_QUERY)) return;
+    var box = line.parentNode;
+    var index = 0;
+    var shown = PHRASES[0].length;
+    var phase = "hold";
+
+    function next(ms) {
+      typeTimer = setTimeout(tick, ms);
+    }
+    function tick() {
+      if (phase === "hold") phase = "delete";
+      else if (phase === "gap") {
+        phase = "type";
+        index = (index + 1) % PHRASES.length;
+      }
+      shown += phase === "delete" ? -1 : 1;
+      line.textContent = PHRASES[index].slice(0, shown);
+      if (phase === "delete" && shown === 0) {
+        phase = "gap";
+        box.classList.remove("is-typing");
+        return next(GAP_MS);
+      }
+      if (phase === "type" && shown === PHRASES[index].length) {
+        phase = "hold";
+        box.classList.remove("is-typing");
+        return next(HOLD_MS);
+      }
+      box.classList.add("is-typing");
+      next(phase === "delete" ? DELETE_MS : TYPE_MS);
+    }
+    next(HOLD_MS);
+  }
+
+  // Resizing across 900px, or switching reduced motion on or off, while
+  // the dialog is open starts or stops the loop to match.
+  function watchTyping() {
+    if (!window.matchMedia) return;
+    [PANEL_QUERY, REDUCED_QUERY].forEach(function (query) {
+      var list = window.matchMedia(query);
+      if (!list || !list.addEventListener) return;
+      list.addEventListener("change", function () {
+        if (dialog.open && dialog.classList.contains("is-open")) startTyping();
+        else stopTyping();
+      });
+    });
   }
 
   // --- header auth state -----------------------------------------------
