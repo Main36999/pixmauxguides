@@ -2969,6 +2969,19 @@ body > .site-footer {
   }
 }
 
+/* The listing's cards take the .font-card__preview plate edge — its radius
+   (--guides-radius, transcribed from --font-radius) and its hairline border
+   — and show the title alone. The meta line stays in the shared cardHtml()
+   markup for the homepage, category, search and related-guides grids, which
+   do not carry body.guides-page. */
+.guides-page .guides-grid .card-thumb {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--guides-radius);
+}
+.guides-page .guides-grid .card-meta {
+  display: none;
+}
+
 /* The /fonts/ empty state (no box, centred, muted), keeping the guide
    grid's query echo and reset button. Shown/hidden by [data-visible]. */
 .guides-page .guides-empty {
