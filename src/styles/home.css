@@ -122,7 +122,6 @@
 .tool-card:hover,
 .tool-card:focus-within {
   background-color: var(--card-bg-hover);
-  box-shadow: 0 10px 24px -12px rgba(15, 23, 42, 0.22);
   transform: translateY(-3px);
 }
 .tool-card--cyan {
