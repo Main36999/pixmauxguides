@@ -5,7 +5,7 @@
   "status": "RECORDED by an explicit approval run — the diff is the review, not this field",
   "count": 2432,
   "files": {
-    "404.html": "7e542de5ecb059af8edad2905d2669237d4b28cfcdd0595dfe93e903ac0cc528",
+    "404.html": "31ae034a503c829c7fdfff498154d2cbbc8c64a238d35faaca857420b1245902",
     "_headers": "87202337435c414e64aa9454215746074382c5ba78bfbd5ecf8da42eedc9fb58",
     "_redirects": "d15fb804cd0c216ef03c48764c22f33a54a9b1a457dfa97e7abc296e539ddf4d",
     "about.html": "d2f23699db6a784509b90c6270cd1e5f9413b620f1abf31f844ba7baf7a813df",
@@ -2413,7 +2413,7 @@
     "robots.txt": "ef1429427789518066bbecf8413292eba1adb956eb8145483001c4e44a9320a0",
     "search.html": "cc0b2f14b005c41ec311b26038b653c25b81734426e58c87233fe9481a45b631",
     "sitemap.xml": "6a0f20ab553224a7705e6076db8533ba0481ea6cf08792a2ffccd4b2b6b9e85a",
-    "styles.css": "0dbdfd34abf4372429b2fbb061ab3b41c7640771daa5af8966c8133f00a660a5",
+    "styles.css": "587a2a39b51101519beb9444422e06cf8b5b4426d499a62705a040114772a2ef",
     "terms.html": "ce0fd6ce7f822333b4d12ec9bb788ce74784d009241c3ce7797d836de3259a51",
     "thumbnail_image_webp/A Color Palette Is a Token System, Not a Row of Swatches.webp": "96de12d8307d2eb9f2daeca8eabdb9c343aecc77444aba89fc2cc9605ccd287d",
     "thumbnail_image_webp/Accessibility Is a Structural Decision, Not a Final Pass.webp": "efa2b4c93e301cd89b6a43c8b5ff3c7af69929947dea832413d3faf335cb3443",

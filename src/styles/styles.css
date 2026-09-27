@@ -2431,6 +2431,47 @@ body > .site-footer {
   }
 }
 
+/* ---------- 404 (404.html) ----------
+   The Home Hero's backdrop (.auth__visual field and grid, further down),
+   placed the same way as .hero__visual but with none of its drift: the
+   page is static. flex: 1 fills the body's column between header and
+   footer, and the copy sits centred on top in white, as on the hero. */
+.notfound {
+  position: relative;
+  overflow: hidden;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 360px;
+  padding: 72px 16px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
+}
+.notfound__visual.auth__visual {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+.notfound__copy {
+  position: relative;
+}
+.notfound__code {
+  font-size: clamp(88px, 18vw, 168px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.notfound__title {
+  margin-top: 12px;
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
 /* legal / static pages */
 /* Standalone pages (about.html, contact.html, privacy.html,
          terms.html) use real heading levels — h1 for the page title,
