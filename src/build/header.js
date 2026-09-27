@@ -169,7 +169,7 @@ const ROOT_LINKS = [
  *
  * It is deliberately NOT the resource-type registry: it is a short,
  * browse-oriented set that names each destination the way a visitor looks for it
- * ("Color Palettes", not "Palettes"). resource-types.json still supplies the
+ * (the nav's own short labels, e.g. "Palettes"). resource-types.json still supplies the
  * `activePaths` that drive the aria-current highlight, and its `label`
  * values are also the homepage's section headings (build-home.js) — which is
  * why they are not renamed to match this list.
@@ -242,7 +242,7 @@ const ROOT_LINKS = [
 const MAIN_HEADER_NAV = [
   { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors/" },
-  { label: "Color Palettes", landingUrl: "/palettes/" },
+  { label: "Palettes", landingUrl: "/palettes/" },
   { label: "Fonts", landingUrl: "/fonts/" },
   { label: "Icons", landingUrl: "/icons/" },
   { label: "Image Picker", landingUrl: "/image-picker/" },

@@ -273,34 +273,41 @@ ul {
    So in that band the home header takes the inner header's shape: logo and
    auth on the 84px top row, the unchanged centred nav on a row of its own
    underneath, still on the dark bar. At <=640px .site-nav and .header-auth
-   are both hidden and this rule no longer applies. */
-@media (min-width: 641px) and (max-width: 1259px) {
-  .site-header--home .header-inner {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: 84px 56px;
-    row-gap: 0;
-    height: auto;
-  }
-  .site-header--home .header-inner > .brand {
-    grid-row: 1;
-  }
-  .site-header--home .header-inner > .header-auth {
-    grid-row: 1;
-    grid-column: 2;
-  }
-  .site-header--home .header-inner > .site-nav {
-    grid-row: 2;
-    grid-column: 1 / -1;
-    align-self: stretch;
-    /* The row rule spans the full header width, not just the padded box. */
-    margin: 0 -32px;
-    padding: 0 32px;
-    width: calc(100% + 64px);
-    /* `safe` keeps the first link reachable if the row ever has to scroll
-       (the narrowest tablets); centring alone would clip it off the left. */
-    justify-content: center;
-    justify-content: safe center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+   are both hidden and this rule no longer applies.
+   Header "desktop" queries are written `not all and (max-width: 640px)`
+   — the exact complement of the mobile query — rather than
+   `(min-width: 641px)`: fractional viewports (640.8px at 125% scaling)
+   matched neither, and the home row fell back to its one-row layout with
+   no menu button. */
+@media not all and (max-width: 640px) {
+  @media (max-width: 1259px) {
+    .site-header--home .header-inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: 84px 56px;
+      row-gap: 0;
+      height: auto;
+    }
+    .site-header--home .header-inner > .brand {
+      grid-row: 1;
+    }
+    .site-header--home .header-inner > .header-auth {
+      grid-row: 1;
+      grid-column: 2;
+    }
+    .site-header--home .header-inner > .site-nav {
+      grid-row: 2;
+      grid-column: 1 / -1;
+      align-self: stretch;
+      /* The row rule spans the full header width, not just the padded box. */
+      margin: 0 -32px;
+      padding: 0 32px;
+      width: calc(100% + 64px);
+      /* `safe` keeps the first link reachable if the row ever has to scroll
+         (the narrowest tablets); centring alone would clip it off the left. */
+      justify-content: center;
+      justify-content: safe center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
   }
 }
 .brand {
@@ -380,10 +387,12 @@ ul {
    18px past the viewport. An 18px gap keeps both rows whole at 768 and
    above again, and applies the same step to the home row so the two navs
    match. */
-@media (min-width: 641px) and (max-width: 899px) {
-  .header-bottom .site-nav,
-  .site-header--home .site-nav {
-    gap: 18px;
+@media not all and (max-width: 640px) {
+  @media (max-width: 899px) {
+    .header-bottom .site-nav,
+    .site-header--home .site-nav {
+      gap: 18px;
+    }
   }
 }
 /* MAIN HEADER nav link colours. These base rules only ever paint the
@@ -933,7 +942,7 @@ html[data-auth] .mobile-menu__auth {
     display: flex;
   }
 }
-@media (min-width: 641px) {
+@media not all and (max-width: 640px) {
   /* Safety net: if the viewport is resized past the breakpoint while the
      panel happens to be open, don't let it linger under the desktop header. */
   .mobile-menu {
@@ -971,9 +980,11 @@ html[data-auth] .mobile-menu__auth {
 }
 /* Between 641 and 1259px the home header wraps its nav onto a second
    56px row under the 84px top row (see .site-header--home above). */
-@media (min-width: 641px) and (max-width: 1259px) {
-  .hero {
-    --hero-header: 140px;
+@media not all and (max-width: 640px) {
+  @media (max-width: 1259px) {
+    .hero {
+      --hero-header: 140px;
+    }
   }
 }
 .hero__visual.auth__visual {
@@ -2454,7 +2465,7 @@ body > .site-footer {
   color: #fff;
   text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
 }
-@media (min-width: 641px) {
+@media not all and (max-width: 640px) {
   .notfound {
     --notfound-header: 154px;
   }
