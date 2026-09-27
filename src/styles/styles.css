@@ -981,78 +981,47 @@ html[data-auth] .mobile-menu__auth {
   position: absolute;
   inset: 0;
 }
-/* Ambient colour drift, hero only (the sign-in dialog's field stays
-   still). The field element never moves; the colours inside it do. The
-   hero re-declares the dialog's five radial gradients — same sizes, same
-   colours, same fades — with each centre ("at x y") held in a registered
-   custom property, which CSS can interpolate, so every colour glides on
-   its own path and they drift past and through each other.
-
-   The path: all x centres share one animation and all y centres another,
-   both easing back and forth over 16s (alternate: no restart, no jump),
-   with y a quarter-cycle behind. Each colour therefore traces a slow,
-   never-stopping ellipse — one full loop every 32s — and the colours'
-   directions differ, so the mix between them keeps changing. Excursions
-   lean inward, keeping every colour's clipped outer edge inside the
-   field's 15% overhang, off-screen.
-
-   Only under no-preference: with reduced motion none of this applies and
-   the field is exactly the static one. */
-@property --hx1 { syntax: "<percentage>"; inherits: false; initial-value: 24%; }
-@property --hy1 { syntax: "<percentage>"; inherits: false; initial-value: 20%; }
-@property --hx2 { syntax: "<percentage>"; inherits: false; initial-value: 76%; }
-@property --hy2 { syntax: "<percentage>"; inherits: false; initial-value: 26%; }
-@property --hx3 { syntax: "<percentage>"; inherits: false; initial-value: 34%; }
-@property --hy3 { syntax: "<percentage>"; inherits: false; initial-value: 68%; }
-@property --hx4 { syntax: "<percentage>"; inherits: false; initial-value: 80%; }
-@property --hy4 { syntax: "<percentage>"; inherits: false; initial-value: 78%; }
-@property --hx5 { syntax: "<percentage>"; inherits: false; initial-value: 55%; }
-@property --hy5 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-@media (prefers-reduced-motion: no-preference) {
+/* Ambient drift, hero only (the sign-in dialog's field stays still). The
+   same colour field slowly wanders, turns and breathes: three independent
+   transform properties on three unrelated periods, each easing back and
+   forth (alternate), so the motion never visibly loops or jumps. The
+   field's 15% overhang and its blur keep every edge out of view. */
+.hero__visual .auth__field {
+  animation:
+    hero-drift 38s ease-in-out infinite alternate,
+    hero-turn 57s ease-in-out infinite alternate,
+    hero-breathe 46s ease-in-out infinite alternate;
+  will-change: translate, rotate, scale;
+}
+@keyframes hero-drift {
+  from {
+    translate: -2.5% 1.5%;
+  }
+  to {
+    translate: 2.5% -1.5%;
+  }
+}
+@keyframes hero-turn {
+  from {
+    rotate: -3deg;
+  }
+  to {
+    rotate: 3deg;
+  }
+}
+@keyframes hero-breathe {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.05;
+  }
+}
+/* static field, as before (animation: none, not the global near-zero
+   duration, which would flicker an infinite alternate loop) */
+@media (prefers-reduced-motion: reduce) {
   .hero__visual .auth__field {
-    background:
-      radial-gradient(38% 42% at var(--hx1) var(--hy1), var(--auth-yellow) 0%, transparent 70%),
-      radial-gradient(44% 48% at var(--hx2) var(--hy2), var(--auth-orange) 0%, transparent 70%),
-      radial-gradient(48% 52% at var(--hx3) var(--hy3), var(--auth-pink) 0%, transparent 72%),
-      radial-gradient(52% 56% at var(--hx4) var(--hy4), var(--auth-purple) 0%, transparent 72%),
-      radial-gradient(60% 60% at var(--hx5) var(--hy5), var(--action) 0%, transparent 78%);
-    animation:
-      hero-colour-x 16s ease-in-out infinite alternate,
-      hero-colour-y 16s ease-in-out -8s infinite alternate;
-  }
-}
-/* yellow → right and down, orange ← left and up, pink → right and up,
-   purple ← left and down, the central blue barely */
-@keyframes hero-colour-x {
-  from {
-    --hx1: 18%;
-    --hx2: 82%;
-    --hx3: 26%;
-    --hx4: 84%;
-    --hx5: 50%;
-  }
-  to {
-    --hx1: 34%;
-    --hx2: 64%;
-    --hx3: 44%;
-    --hx4: 68%;
-    --hx5: 60%;
-  }
-}
-@keyframes hero-colour-y {
-  from {
-    --hy1: 14%;
-    --hy2: 32%;
-    --hy3: 76%;
-    --hy4: 70%;
-    --hy5: 45%;
-  }
-  to {
-    --hy1: 28%;
-    --hy2: 18%;
-    --hy3: 60%;
-    --hy4: 84%;
-    --hy5: 55%;
+    animation: none;
   }
 }
 .hero-inner {
