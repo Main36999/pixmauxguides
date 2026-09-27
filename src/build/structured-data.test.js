@@ -144,8 +144,22 @@ test("no nested node re-declares @context", () => {
 // ---------------------------------------------------------------------
 
 test("every URL in every guide block resolves to a route or a published file", () => {
-  const dist = config.paths.dist;
-  const distHas = (rel) => fs.existsSync(path.join(dist, rel));
+  // "Published" is decided from the build's own publish tables — the same
+  // PUBLISH_FILES / PUBLISH_DIRS the copy stage reads — mapped back to the
+  // source file it would copy. That keeps the check independent of dist/,
+  // which the build's approval gate deletes when it stops.
+  const { PUBLISH_FILES, PUBLISH_DIRS, APP_BUNDLE } = require("./build.js");
+  const root = config.paths.root;
+  const distHas = (rel) => {
+    if (rel === APP_BUNDLE.to) return true;
+    if (PUBLISH_FILES.some((e) => e.to === rel && fs.existsSync(path.join(root, e.from)))) return true;
+    return PUBLISH_DIRS.some(
+      (e) => rel.startsWith(e.to + "/") && fs.statSync(path.join(root, e.from, rel.slice(e.to.length + 1)), { throwIfNoEntry: false })?.isFile(),
+    );
+  };
+  // the resolver itself: it finds real published files and nothing else
+  assert.ok(distHas("styles.css") && distHas("fonts/b612/OFL.txt"));
+  assert.ok(!distHas("thumbnail_image_webp/no-such-thumbnail.webp") && !distHas("thumbnail_image_webp") && !distHas("src/build/build.js"));
 
   pages.forEach((page) => {
     blocksOf(page).forEach((block) => {
@@ -158,8 +172,8 @@ test("every URL in every guide block resolves to a route or a published file", (
         if (routeUrls.has(rest)) return;
         assert.ok(
           distHas(rest.replace(/^\//, "")),
-          `guide/${page.id}.html: ${url} is neither a route nor a file in ` +
-            `dist/ — run 'npm run build' first if dist/ is missing`,
+          `guide/${page.id}.html: ${url} is neither a route nor a file the build publishes ` +
+            `(build.js PUBLISH_FILES / PUBLISH_DIRS)`,
         );
       });
     });

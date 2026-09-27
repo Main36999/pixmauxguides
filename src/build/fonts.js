@@ -52,6 +52,7 @@ const path = require("path");
 const { escapeHtml } = require("../shared/html.js");
 const structuredData = require("./structured-data.js");
 const head = require("./head.js");
+const editorialSchema = require("./font-editorial.js");
 
 const HEADER_PARTIAL = path.join("partials", "header.html");
 const FOOTER_PARTIAL = path.join("partials", "footer.html");
@@ -590,6 +591,109 @@ const PRESETS = [
   { key: "symbols", label: "Symbols", text: "! ? & @ # $ % * ( ) [ ] { } / – — “ ” ‘ ’ , . : ;" },
 ];
 
+// ---------------------------------------------------------------------
+// the editorial layer (prototype) — only for families with a record in
+// src/data/font-editorial.json; see src/build/font-editorial.js
+// ---------------------------------------------------------------------
+
+function chipsHtml(terms, vocab) {
+  return (
+    `<ul class="font-chips">` +
+    terms.map((t) => `<li class="font-chip">${escapeHtml(vocab[t])}</li>`).join("") +
+    `</ul>`
+  );
+}
+
+/** Typography profile: derived rows first, then the curated lists. */
+function profileHtml(font, rec, measured) {
+  const rows = editorialSchema
+    .profileRows(font, measured)
+    .map(([label, text]) => `<div><dt>${label}</dt><dd>${escapeHtml(text)}</dd></div>`);
+  rows.push(
+    `<div class="font-profile__wide"><dt>Best for</dt><dd>${chipsHtml(rec.bestFor, editorialSchema.BEST_FOR)}</dd></div>`,
+  );
+  // Optional: a family with no evidence-backed alternative gets no row at
+  // all — never an empty list, a dash or a "None".
+  if (rec.avoidFor.length) {
+    rows.push(
+      `<div class="font-profile__wide"><dt>Consider alternatives for</dt><dd><ul class="font-profile__plain">${rec.avoidFor
+        .map((t) => `<li>${escapeHtml(editorialSchema.AVOID_FOR[t])}</li>`)
+        .join("")}</ul></dd></div>`,
+    );
+  }
+  rows.push(
+    `<div class="font-profile__wide"><dt>Characteristics</dt><dd>${chipsHtml(rec.characteristics, editorialSchema.CHARACTERISTICS)}</dd></div>`,
+  );
+  return `
+        <section class="font-profile" aria-labelledby="font-profile-title">
+          <h2 class="font-section-title" id="font-profile-title">Typography profile</h2>
+          <dl class="font-profile__list">
+            ${rows.join("\n            ")}
+          </dl>
+        </section>
+`;
+}
+
+/** Pairs well with, BPOZZ Design Note, Related UI/UX guides — each only if non-empty. */
+function editorialHtml(rec, byId, guidesById) {
+  const parts = [];
+
+  if (rec.pairings.length) {
+    const items = rec.pairings.map((p) => {
+      const f = byId.get(p.font);
+      const style = `font-family:${cssFamily(f)};font-weight:${previewVariant(f).weight};font-style:${previewVariant(f).style}`;
+      return (
+        `<li class="font-pairing">` +
+        `<p class="font-pairing__role">${editorialSchema.ROLES[p.role]}</p>` +
+        `<a class="font-pairing__name" href="${pageUrl(f)}" style="${escapeHtml(style)}">${escapeHtml(f.name)}</a>` +
+        `<p class="font-pairing__reason">${escapeHtml(p.reason)}</p>` +
+        `</li>`
+      );
+    });
+    parts.push(`
+          <section class="font-editorial__block" aria-labelledby="font-pairings-title">
+            <h2 class="font-section-title" id="font-pairings-title">Pairs well with</h2>
+            <ul class="font-pairings">
+              ${items.join("\n              ")}
+            </ul>
+          </section>`);
+  }
+
+  // Optional: a record without a note gets no heading and no container.
+  if (typeof rec.notes === "string" && rec.notes.trim()) {
+    parts.push(`
+          <section class="font-editorial__block" aria-labelledby="font-note-title">
+            <h2 class="font-section-title" id="font-note-title">BPOZZ Design Note</h2>
+            <p class="font-note">${escapeHtml(rec.notes)}</p>
+            <p class="font-note__by">BPOZZ editorial guidance for designers.</p>
+          </section>`);
+  }
+
+  if (rec.relatedGuides.length) {
+    const items = rec.relatedGuides.map((id) => {
+      const g = guidesById.get(id);
+      const level = g.level.charAt(0).toUpperCase() + g.level.slice(1);
+      return (
+        `<li><a class="font-guide__link" href="/guide/${g.id}">${escapeHtml(g.title)}</a>` +
+        `<span class="font-guide__meta">${escapeHtml(level)} · ${g.readTime} min read</span></li>`
+      );
+    });
+    parts.push(`
+          <section class="font-editorial__block" aria-labelledby="font-guides-title">
+            <h2 class="font-section-title" id="font-guides-title">Related UI/UX guides</h2>
+            <ul class="font-guides">
+              ${items.join("\n              ")}
+            </ul>
+          </section>`);
+  }
+
+  if (!parts.length) return "";
+  return `
+        <div class="font-editorial">${parts.join("")}
+        </div>
+`;
+}
+
 function detailHtml(font, fonts, pkg, ctx, partials) {
   const { config } = ctx;
   const origin = config.origin;
@@ -621,9 +725,26 @@ function detailHtml(font, fonts, pkg, ctx, partials) {
   );
 
   const related = relatedFonts(font, fonts);
+  const editorial = (ctx.model.fontEditorial || {})[font.id] || null;
+  const byId = new Map(fonts.map((f) => [f.id, f]));
+  // A pairing's name is set in its own face; a face already declared for the
+  // related cards is not declared twice.
+  const pairingFaces = editorial
+    ? editorial.pairings
+        .map((p) => byId.get(p.font))
+        .filter((f) => !related.includes(f))
+        .map((f) => fontFaceRule(f, previewVariant(f)))
+    : [];
   const faces = variants
     .map((v) => fontFaceRule(font, v))
-    .concat(related.map((f) => fontFaceRule(f, previewVariant(f))));
+    .concat(related.map((f) => fontFaceRule(f, previewVariant(f))))
+    .concat(pairingFaces);
+  const editorialProfile = editorial
+    ? profileHtml(font, editorial, ctx.model.fontMeasurements.byId.get(font.id))
+    : "";
+  const editorialBody = editorial
+    ? editorialHtml(editorial, byId, new Map(ctx.model.guides.map((g) => [g.id, g])))
+    : "";
 
   const headMarkup = head.headHtml({
     consentNote: HEAD_OPTIONS.consentNote,
@@ -702,7 +823,7 @@ ${head.skipLinkHtml("font-content", "Skip to content")}
         </ol>
       </nav>
 
-      <div class="font-detail">
+      <div class="font-detail${editorial ? " font-detail--editorial" : ""}">
         <header class="font-detail__head">
           <h1 class="font-detail__title" style="${escapeHtml(heroStyle)}">${name}</h1>
           <p class="font-detail__meta">${escapeHtml(categoryLabel)} · by ${escapeHtml(font.designer)} · ${styleCount}</p>
@@ -723,7 +844,7 @@ ${head.skipLinkHtml("font-content", "Skip to content")}
           </div>
           <p class="font-info__size">${escapeHtml(pkg.file)} · ${formatBytes(pkg.bytes)} · ${pkg.count} files including ${escapeHtml(font.licenseFile)}</p>
         </div>
-
+${editorialProfile}
         <section class="font-specimens" aria-labelledby="font-specimens-title">
           <h2 class="font-section-title" id="font-specimens-title">Styles</h2>
           <div class="font-tester">
@@ -746,7 +867,7 @@ ${head.skipLinkHtml("font-content", "Skip to content")}
             ${specimenRows(font)}
           </ol>
         </section>
-
+${editorialBody}
         <div class="font-panel font-panel--info">
           <h2 class="sr-only">About ${name}</h2>
           <dl class="font-info__list">

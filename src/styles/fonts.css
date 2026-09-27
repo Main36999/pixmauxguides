@@ -686,6 +686,202 @@
   margin-bottom: 20px;
 }
 
+/* ---------- editorial layer (prototype) ----------
+   Only pages with a record in src/data/font-editorial.json carry
+   .font-detail--editorial, so every other detail page keeps the grid above
+   unchanged. Reading order: title, actions, Typography profile, specimens,
+   then pairings / note / guides, then the About/License panel — the tester
+   stays near the top on phones, and on desktop the About panel keeps its
+   right-hand column beside everything. Plain rules and small chips only:
+   the specimens stay the loudest thing on the page. */
+.font-detail--editorial {
+  grid-template-areas:
+    "head"
+    "actions"
+    "profile"
+    "specimens"
+    "editorial"
+    "info";
+}
+@media (min-width: 1024px) {
+  .font-detail--editorial {
+    grid-template-areas:
+      "head actions"
+      "head info"
+      "profile info"
+      "specimens info"
+      "editorial info";
+    grid-template-rows: auto auto auto auto 1fr;
+  }
+  .font-detail--editorial .font-profile {
+    margin-bottom: 44px;
+  }
+  .font-detail--editorial .font-editorial {
+    margin-top: 56px;
+  }
+}
+
+.font-profile {
+  grid-area: profile;
+  min-width: 0;
+}
+.font-profile .font-section-title,
+.font-editorial__block .font-section-title {
+  margin-bottom: 14px;
+}
+.font-profile__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 32px;
+  margin: 0;
+  border-top: 1px solid var(--font-line);
+}
+.font-profile__list > div {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--font-line);
+}
+.font-profile__wide {
+  grid-column: 1 / -1;
+}
+.font-profile__list dt {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--font-ink);
+}
+.font-profile__list dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #3d4556;
+}
+.font-profile__plain {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.font-profile__plain li + li {
+  margin-top: 2px;
+}
+
+.font-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.font-chip {
+  padding: 3px 10px;
+  border: 1px solid var(--font-line-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--font-ink);
+  background: #fff;
+}
+
+.font-editorial {
+  grid-area: editorial;
+  display: grid;
+  gap: 48px;
+  min-width: 0;
+}
+
+.font-pairings,
+.font-guides {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--font-line);
+}
+.font-pairing {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 200px) minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--font-line);
+}
+.font-pairing__role {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.font-pairing__name {
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--font-ink);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.font-pairing__name:hover,
+.font-pairing__name:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.font-pairing__reason {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #3d4556;
+}
+
+.font-note {
+  max-width: 62ch;
+  padding-left: 16px;
+  border-left: 2px solid var(--font-line-strong);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--font-ink);
+}
+.font-note__by {
+  margin-top: 8px;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.font-guides li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 12px;
+  row-gap: 2px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--font-line);
+}
+.font-guide__link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--font-ink);
+  text-decoration: none;
+}
+.font-guide__link:hover,
+.font-guide__link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.font-guide__meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 767px) {
+  .font-pairing {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4px;
+  }
+  .font-pairing__name {
+    font-size: 24px;
+  }
+  .font-editorial {
+    gap: 40px;
+  }
+}
+
 @media (max-width: 767px) {
   /* nowrap: in a wrapping column flexbox each line is as wide as its widest
      item, so the single-row filter scroller below would widen the page. */

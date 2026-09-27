@@ -70,6 +70,8 @@ const path = require("path");
 
 const guideTemplate = require("./guide-template.js");
 const structuredData = require("./structured-data.js");
+const fontEditorialSchema = require("./font-editorial.js");
+const fontMetrics = require("./font-metrics.js");
 
 /** content/guide/'s index of page records. */
 const GUIDE_PAGES_INDEX = "pages.json";
@@ -1390,6 +1392,17 @@ function load(config) {
     "fonts.json",
     config,
   );
+  const fontMeasurements = fontMetrics.measureLibrary(fonts, src.fontFiles);
+  const fontEditorial = fontEditorialSchema.validateFontEditorial(
+    JSON.parse(fs.readFileSync(src.fontEditorial, "utf8")),
+    {
+      fonts,
+      guides,
+      config,
+      metrics: fontMeasurements,
+      label: "font-editorial.json",
+    },
+  );
   const iconLibrary = validateIcons(
     readJsonArray(src.iconPacks, "icon-packs.json"),
     readJsonArray(src.icons, "icons.json"),
@@ -1439,6 +1452,18 @@ function load(config) {
      * palettes.
      */
     fonts,
+    /**
+     * FONT EDITORIAL (prototype): { id: record } for the families declared in
+     * site.config.js fonts.editorial.ids, validated against the vocabulary,
+     * fonts.json, guides.json and the measured font files. Feeds the detail pages in src/build/fonts.js.
+     */
+    fontEditorial,
+    /**
+     * FONT MEASUREMENTS: src/build/font-metrics.js measureLibrary() over the
+     * shipped files — { byId: Map(id → measurements), median }. The profile's
+     * Scripts row reads its verified coverage.
+     */
+    fontMeasurements,
     /**
      * ICON PACKS: validated against the contract and the files on disk.
      * Feeds src/build/icons.js (/icons/ and every /icons/<pack>.html) and

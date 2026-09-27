@@ -84,6 +84,14 @@ module.exports = {
       fontFiles: path.join(ROOT, "public", "fonts"),
 
       /**
+       * FONT EDITORIAL (prototype) — curated, evidence-backed notes for the
+       * families listed in fonts.editorial.ids below, keyed by font id. A
+       * build input like fonts.json; never published. Validated and
+       * documented in src/build/font-editorial.js.
+       */
+      fontEditorial: path.join(ROOT, "src", "data", "font-editorial.json"),
+
+      /**
        * ICON PACKS — two build inputs, the same shape as fonts.json: the
        * packs (one record per pack, in display order) and the icons (one
        * record per icon, naming the pack it belongs to and the asset files it
@@ -281,6 +289,68 @@ module.exports = {
       { slug: "monospace", label: "Monospace" },
     ],
     licenses: ["SIL Open Font License 1.1"],
+
+    /**
+     * EDITORIAL PROTOTYPE. The families that carry an editorial layer. The
+     * validator requires a record for every id here and refuses a record for
+     * any other family, so the layer cannot spread to a page by accident.
+     */
+    editorial: {
+      ids: [
+        "b612",
+        "be-vietnam-pro",
+        "ibm-plex-mono",
+        "prata",
+        "sue-ellen-francisco",
+        "lobster",
+        "im-fell-english",
+        "sanchez",
+        "herr-von-muellerhoff",
+        "mr-dafoe",
+        // Batch 2
+        "atkinson-hyperlegible",
+        "hind",
+        "barlow-condensed",
+        "bebas-neue",
+        "encode-sans-expanded",
+        "varela-round",
+        "montserrat-alternates",
+        "pt-serif",
+        "cardo",
+        "abhaya-libre",
+        "instrument-serif",
+        "arvo",
+        "courier-prime",
+        "xanh-mono",
+        "major-mono-display",
+        "kalam",
+        "comic-neue",
+        "amatic-sc",
+        "unifrakturmaguntia",
+        "press-start-2p",
+        // Batch 3
+        "fira-sans",
+        "lato",
+        "michroma",
+        "questrial",
+        "didact-gothic",
+        "asap-condensed",
+        "gentium-book-plus",
+        "ibm-plex-serif",
+        "rozha-one",
+        "bellefair",
+        "glegoo",
+        "shrikhand",
+        "poiret-one",
+        "monoton",
+        "iosevka-charon-mono",
+        "fragment-mono",
+        "cousine",
+        "style-script",
+        "black-ops-one",
+        "uncial-antiqua",
+      ],
+    },
   },
 
   /**
