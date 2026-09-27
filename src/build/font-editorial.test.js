@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty", () => {
-  assert.strictEqual(PROTOTYPE.length, 134);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen", () => {
+  assert.strictEqual(PROTOTYPE.length, 150);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -867,7 +867,7 @@ test("Batch 3 script terms rest on verified coverage", () => {
 
 test("large-x-height is claimed only by ordinary-lowercase fonts in the top quarter", () => {
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("large-x-height")).map(([id]) => id);
-  assert.deepStrictEqual(users.sort(), ["anton", "archivo-black", "arsenal", "audiowide", "black-ops-one", "calistoga", "economica", "fjalla-one", "francois-one", "glegoo", "jersey-25", "judson", "libertinus-mono", "limelight", "noticia-text", "play", "rozha-one", "syne-mono"]);
+  assert.deepStrictEqual(users.sort(), ["anton", "archivo-black", "arsenal", "audiowide", "black-ops-one", "calistoga", "economica", "fjalla-one", "francois-one", "glegoo", "jersey-25", "judson", "libertinus-mono", "limelight", "noticia-text", "pangolin", "play", "righteous", "rozha-one", "russo-one", "sansita", "syne-mono"]);
   users.forEach((id) => {
     assert.strictEqual(m(id).lowercaseForm, "lowercase", id);
     assert.ok(m(id).percentile.xToCap >= 75, id);
@@ -1190,7 +1190,7 @@ test("deferred vocabulary stays out", () => {
   assert.ok(!editorial.MEASURED["characteristics:high-contrast"]);
   // Batch 5 introduced the new terms; Batch 6 uses them where the evidence holds
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("text-face") || r.characteristics.includes("oldstyle-figures")).map(([id]) => id);
-  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley", "im-fell-dw-pica", "mate", "enriqueta", "almendra", "arsenal", "bad-script", "alice"]);
+  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley", "im-fell-dw-pica", "mate", "enriqueta", "almendra", "arsenal", "bad-script", "alice", "trocchi", "cantata-one", "fanwood-text"]);
 });
 
 // ---------------------------------------------------------------------
@@ -1421,7 +1421,7 @@ test("the 114 approved records are pinned: any edit to Batches 1–7 fails here"
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "14c81c31bf5551c5c226a37693d57682b2e4af423598a88877aa730418063f3e",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(114), BATCH7B, "Batch 7B follows Batch 7, in declaration order");
+  assert.deepStrictEqual(Object.keys(raw).slice(114, 134), BATCH7B, "Batch 7B follows Batch 7, in declaration order");
 });
 
 test("Batch 7B leaves out the families the evidence cannot carry", () => {
@@ -1464,4 +1464,62 @@ test("Batch 7B pairs Inria Sans with its Serif sibling and links one guide", () 
   const guides = BATCH7B.flatMap((id) => raw[id].relatedGuides.map((g) => `${id}:${g}`));
   assert.deepStrictEqual(guides, ["inria-sans:font-pairing-hierarchy-decision"]);
   assert.ok(raw["inria-sans"].evidence.some((e) => e.for === "relatedGuides:font-pairing-hierarchy-decision" && /Section 05/.test(e.detail)));
+});
+
+// ---------------------------------------------------------------------
+// Batch 7C: the plan sequence from Norican (position 82) to 150 records
+// ---------------------------------------------------------------------
+
+const BATCH7C = [
+  "norican", "inria-serif", "tomorrow", "corinthia", "trocchi", "pangolin", "cantata-one", "rubik-mono-one",
+  "sansita", "gloock", "fanwood-text", "news-cycle", "staatliches", "zilla-slab", "russo-one", "righteous",
+];
+
+test("the 134 approved records are pinned: any edit to Batches 1–7B fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 134).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "f2bb092ff30626d9df3b10fe09566a45090b32ff7c18b75b734a357b2007c78b",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(134), BATCH7C, "Batch 7C follows Batch 7B, in declaration order");
+  assert.strictEqual(Object.keys(raw).length, 150);
+});
+
+test("Batch 7C leaves out the families the evidence cannot carry, and every earlier exclusion stays out", () => {
+  // one honest Best for term, or one characteristic
+  ["belanosima", "rye", "rambla", "nixie-one", "handlee", "pirata-one", "vast-shadow", "neucha", "gochi-hand", "courgette"].forEach((id) =>
+    assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+  ["carter-one", "volkhov", "goudy-bookletter-1911", "solway", "gravitas-one", "caprasimo", "boogaloo",
+    "poly", "bowlby-one", "germania-one", "quando", "electrolize", "share-tech-mono", "nobile",
+    "puritan", "antic-slab", "cantarell", "oleo-script", "quattrocento", "ropa-sans", "petit-formal-script",
+    "adamina", "crete-round", "shanti", "benchnine"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+});
+
+test("Batch 7C: no record claims Alternate letterforms", () => {
+  BATCH7C.forEach((id) => assert.ok(!raw[id].characteristics.includes("alternate-letterforms"), id));
+});
+
+test("Batch 7C: the notes follow the shipped files where upstream says otherwise", () => {
+  // Corinthia: 'three weights' upstream, two in the served family
+  assert.deepStrictEqual([...new Set(model.fonts.find((f) => f.id === "corinthia").variants.map((v) => v.weight))], [400, 700]);
+  // Gloock: cyrillic-ext subset, Latin only verified
+  assert.deepStrictEqual(m("gloock").scripts, ["latin"]);
+  assert.ok(raw.gloock.avoidFor.includes("cyrillic-greek") && !raw.gloock.bestFor.includes("cyrillic-text"));
+  // News Cycle: Greek and Cyrillic 'soon' upstream, both verified now
+  ["greek", "cyrillic"].forEach((s) => assert.ok(m("news-cycle").scripts.includes(s), s));
+  // Staatliches: discretionary ligatures promised upstream, absent from the file
+  assert.ok(!m("staatliches").features.includes("dlig") && !raw.staatliches.characteristics.includes("discretionary-ligatures"));
+  // Cantata One: 'extended' upstream, normal OS/2 width, measured wide
+  assert.strictEqual(m("cantata-one").widthClass, 5);
+  assert.ok(!raw["cantata-one"].characteristics.includes("expanded") && raw["cantata-one"].characteristics.includes("wide-lowercase"));
+  // Rubik Mono One is a caps-only monospace: no x-height claim can reach it
+  assert.strictEqual(m("rubik-mono-one").lowercaseForm, "caps");
+});
+
+test("Batch 7C pairs Inria Serif back to Inria Sans and links one guide", () => {
+  const pairs = BATCH7C.flatMap((id) => raw[id].pairings.map((p) => `${id}:${p.font}`));
+  assert.deepStrictEqual(pairs, ["inria-serif:inria-sans"]);
+  const guides = BATCH7C.flatMap((id) => raw[id].relatedGuides.map((g) => `${id}:${g}`));
+  assert.deepStrictEqual(guides, ["rubik-mono-one:type-scale-systems"]);
 });
