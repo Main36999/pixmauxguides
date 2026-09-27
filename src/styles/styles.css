@@ -981,6 +981,49 @@ html[data-auth] .mobile-menu__auth {
   position: absolute;
   inset: 0;
 }
+/* Ambient drift, hero only (the sign-in dialog's field stays still). The
+   same colour field slowly wanders, turns and breathes: three independent
+   transform properties on three unrelated periods, each easing back and
+   forth (alternate), so the motion never visibly loops or jumps. The
+   field's 15% overhang and its blur keep every edge out of view. */
+.hero__visual .auth__field {
+  animation:
+    hero-drift 38s ease-in-out infinite alternate,
+    hero-turn 57s ease-in-out infinite alternate,
+    hero-breathe 46s ease-in-out infinite alternate;
+  will-change: translate, rotate, scale;
+}
+@keyframes hero-drift {
+  from {
+    translate: -2.5% 1.5%;
+  }
+  to {
+    translate: 2.5% -1.5%;
+  }
+}
+@keyframes hero-turn {
+  from {
+    rotate: -3deg;
+  }
+  to {
+    rotate: 3deg;
+  }
+}
+@keyframes hero-breathe {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.05;
+  }
+}
+/* static field, as before (animation: none, not the global near-zero
+   duration, which would flicker an infinite alternate loop) */
+@media (prefers-reduced-motion: reduce) {
+  .hero__visual .auth__field {
+    animation: none;
+  }
+}
 .hero-inner {
   position: relative;
   /* a flex item with auto side margins would shrink to its content */
@@ -1142,7 +1185,8 @@ html[data-auth] .mobile-menu__auth {
    and the restart is invisible. Three copies keep the row filled while
    one copy is narrower than the strip.
 
-   Pausing: hover pauses a row. Keyboard focus stops it and snaps the
+   Pausing: hover never touches the motion — the rows keep drifting
+   under the pointer. Keyboard focus stops a row and snaps the
    real list back to its start, so a focused link is never parked
    off-screen to the left, where an overflow-hidden row cannot scroll;
    core.js then scrolls the row to keep each focused link in view. */
@@ -1188,9 +1232,6 @@ html[data-auth] .mobile-menu__auth {
 .explore__row--topics .explore__list {
   animation-name: explore-right;
   animation-duration: 52s;
-}
-.explore__row:hover .explore__list {
-  animation-play-state: paused;
 }
 .explore__row:has(:focus-visible) .explore__list {
   animation: none;
