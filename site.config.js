@@ -504,6 +504,8 @@ module.exports = {
         "zeyada",
         "indie-flower",
         "shadows-into-light",
+        // Batch 14: Dawning of a New Day reopened; measured proportions only
+        "dawning-of-a-new-day",
       ],
     },
   },

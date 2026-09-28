@@ -4188,5 +4188,21 @@
       { "for": "characteristics:handwritten", "basis": "upstream-description", "detail": "'This clean, neat handwriting font'." },
       { "for": "notes", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top twentieth; mean lowercase advance in the narrowest 15%.", "measured": [{ "metric": "xToCap", "percentileAtLeast": 95 }, { "metric": "lowercaseAdvance", "percentileAtMost": 15 }] }
     ]
+  },
+  "dawning-of-a-new-day": {
+    "bestFor": ["names-short-phrases", "narrow-spaces"],
+    "avoidFor": ["small-text"],
+    "characteristics": ["small-x-height", "narrow"],
+    "pairings": [],
+    "notes": "Dawning of a New Day's lowercase is among the narrowest tenth in the library, measured by mean advance width. Its font file still declares a normal width, so the saving in line length comes from the letter shapes themselves rather than from a condensed width class.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "avoidFor:small-text", "basis": "font-file", "detail": "x-height in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest tenth; OS/2 width class Normal.", "measured": [{ "metric": "lowercaseAdvance", "percentileAtMost": 10 }, { "metric": "widthClass", "between": [5, 5] }] }
+    ]
   }
 }

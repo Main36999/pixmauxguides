@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one, Batch 12's four, Batch 13's three", () => {
-  assert.strictEqual(PROTOTYPE.length, 192);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one, Batch 12's four, Batch 13's three, Batch 14's one", () => {
+  assert.strictEqual(PROTOTYPE.length, 193);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -2056,8 +2056,8 @@ test("Batch 12 pages show the new terms and notes", () => {
     assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
   });
   assert.doesNotMatch(page(withLayer, "oooh-baby"), />Narrow</);
-  // (Zeyada was held here until Batch 13 found upstream evidence for Handwritten and a distinct note)
-  assert.ok(!raw["dawning-of-a-new-day"] && !PROTOTYPE.includes("dawning-of-a-new-day"), "dawning-of-a-new-day is held, not added");
+  // (Zeyada was held here until Batch 13 found upstream evidence for Handwritten and a distinct note;
+  // Dawning of a New Day until Batch 14 reopened it on its measurements)
 });
 
 // ---------------------------------------------------------------------
@@ -2074,9 +2074,8 @@ test("the 189 approved records are pinned: any edit to Batches 1–12 fails here
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "a61e33479f50d5b59f893b4cc3ca42d8cfd216be218cb5177cc7c0cbabd54801",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(189), BATCH13, "Batch 13 follows Batch 12, in declaration order");
-  assert.deepStrictEqual(PROTOTYPE.slice(189), BATCH13, "site.config declares Batch 13 in the same order");
-  assert.strictEqual(Object.keys(raw).length, 192);
+  assert.deepStrictEqual(Object.keys(raw).slice(189, 192), BATCH13, "Batch 13 follows Batch 12, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(189, 192), BATCH13, "site.config declares Batch 13 in the same order");
 });
 
 test("Batch 13: exactly the reviewed terms, each from the source that can establish it", () => {
@@ -2140,6 +2139,65 @@ test("Batch 13 pages show the new terms and notes; the held families stay out", 
     assert.doesNotMatch(html, />Connected script</, id);
   });
   // Handwritten alone, but no use sentence upstream: one Best for term each
-  ["nothing-you-could-do", "cedarville-cursive", "dawning-of-a-new-day"].forEach((id) =>
+  // (Dawning of a New Day was on this list until Batch 14 found two measured Best for terms)
+  ["nothing-you-could-do", "cedarville-cursive"].forEach((id) =>
     assert.ok(!raw[id] && !PROTOTYPE.includes(id), `${id} is held, not added`));
+});
+
+// ---------------------------------------------------------------------
+// Batch 14: Dawning of a New Day reopened — the Batch 13 hold said one
+// Best for term, but the file measures two; claims rest on measurement only
+// ---------------------------------------------------------------------
+
+const BATCH14 = ["dawning-of-a-new-day"];
+
+test("the 192 approved records are pinned: any edit to Batches 1–13 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 192).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "f959ed9e54fbb8fa5aa4e99720216b8803cfe56786e24af375f6c53e5e8a31c0",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(192), BATCH14, "Batch 14 follows Batch 13, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(192), BATCH14, "site.config declares Batch 14 in the same order");
+  assert.strictEqual(Object.keys(raw).length, 193);
+});
+
+test("Batch 14: Dawning of a New Day claims only what the file measures", () => {
+  const rec = raw["dawning-of-a-new-day"];
+  assert.deepStrictEqual(rec.bestFor, ["names-short-phrases", "narrow-spaces"]);
+  assert.deepStrictEqual(rec.avoidFor, ["small-text"]);
+  assert.deepStrictEqual(rec.characteristics, ["small-x-height", "narrow"]);
+  assert.ok(rec.evidence.every((e) => e.basis === "font-file"));
+  // unlike Covered By Your Grace, the lowercase itself is short, so it carries the small-text warning
+  assert.strictEqual(m("dawning-of-a-new-day").heightSource, "outline");
+  assert.ok(m("dawning-of-a-new-day").percentile.xHeight <= 25);
+  // the note rests on width, not on the x-height the avoid rule already uses
+  assert.strictEqual(m("dawning-of-a-new-day").widthClass, 5);
+  assert.ok(m("dawning-of-a-new-day").percentile.lowercaseAdvance <= 10);
+  ["handwritten", "connected-script", "condensed"].forEach((t) => assert.ok(!rec.characteristics.includes(t), t));
+  assert.deepStrictEqual(rec.pairings, []);
+  assert.deepStrictEqual(rec.relatedGuides, []);
+});
+
+test("Batch 14 note stays below the near-duplicate limit, against every record and the About text", (t) => {
+  BATCH14.forEach((id) => {
+    const own = editorial.contentWords(raw[id].notes, [nameOf(id)]);
+    const others = Object.entries(raw).filter(([x, rec]) => x !== id && rec.notes);
+    const best = others
+      .map(([x, rec]) => ({ x, score: editorial.similarity(own, editorial.contentWords(rec.notes, [nameOf(x)])) }))
+      .sort((a, b) => b.score - a.score)[0];
+    const aboutScore = editorial.similarity(own, editorial.contentWords(model.fonts.find((f) => f.id === id).description, [nameOf(id)]));
+    t.diagnostic(`${id}: closest ${best.x} ${best.score}; About ${aboutScore}`);
+    assert.ok(best.score < editorial.SIMILARITY_THRESHOLD, `${id} ~ ${best.x}`);
+    assert.ok(aboutScore < editorial.SIMILARITY_THRESHOLD, `${id} ~ About`);
+  });
+});
+
+test("Batch 14 page shows the measured terms and the note", () => {
+  const html = page(withLayer, "dawning-of-a-new-day");
+  ["Small x-height", "Narrow", "Names and short phrases", "Words in narrow spaces", "Small text sizes"].forEach((l) =>
+    assert.ok(html.includes(`>${l}<`), l));
+  assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'));
+  assert.doesNotMatch(html, />Handwritten</);
 });
