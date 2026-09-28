@@ -500,6 +500,10 @@ module.exports = {
         "oooh-baby",
         "covered-by-your-grace",
         "annie-use-your-telescope",
+        // Batch 13: measured proportions, with Handwritten stated upstream
+        "zeyada",
+        "indie-flower",
+        "shadows-into-light",
       ],
     },
   },

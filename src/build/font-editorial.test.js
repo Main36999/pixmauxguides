@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one, Batch 12's four", () => {
-  assert.strictEqual(PROTOTYPE.length, 189);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one, Batch 12's four, Batch 13's three", () => {
+  assert.strictEqual(PROTOTYPE.length, 192);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -868,7 +868,7 @@ test("Batch 3 script terms rest on verified coverage", () => {
 
 test("large-x-height is claimed only by ordinary-lowercase fonts in the top quarter", () => {
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("large-x-height")).map(([id]) => id);
-  assert.deepStrictEqual(users.sort(), ["anton", "archivo-black", "arsenal", "audiowide", "basic", "black-ops-one", "blinker", "calistoga", "days-one", "eater", "economica", "fauna-one", "fjalla-one", "francois-one", "glegoo", "jersey-25", "judson", "krona-one", "libertinus-mono", "limelight", "noticia-text", "pangolin", "pathway-gothic-one", "play", "rammetto-one", "righteous", "rozha-one", "russo-one", "sansita", "short-stack", "syne-mono", "titan-one"]);
+  assert.deepStrictEqual(users.sort(), ["anton", "archivo-black", "arsenal", "audiowide", "basic", "black-ops-one", "blinker", "calistoga", "days-one", "eater", "economica", "fauna-one", "fjalla-one", "francois-one", "glegoo", "jersey-25", "judson", "krona-one", "libertinus-mono", "limelight", "noticia-text", "pangolin", "pathway-gothic-one", "play", "rammetto-one", "righteous", "rozha-one", "russo-one", "sansita", "shadows-into-light", "short-stack", "syne-mono", "titan-one"]);
   users.forEach((id) => {
     assert.strictEqual(m(id).lowercaseForm, "lowercase", id);
     assert.ok(m(id).percentile.xToCap >= 75, id);
@@ -1975,9 +1975,8 @@ test("the 185 approved records are pinned: any edit to Batches 1–11 fails here
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "eabf12c156a2bf638ad1fc1bb38a379391a6dc211d4fc152006e5cbd384fed6b",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(185), BATCH12, "Batch 12 follows Batch 11, in declaration order");
-  assert.deepStrictEqual(PROTOTYPE.slice(185), BATCH12, "site.config declares Batch 12 in the same order");
-  assert.strictEqual(Object.keys(raw).length, 189);
+  assert.deepStrictEqual(Object.keys(raw).slice(185, 189), BATCH12, "Batch 12 follows Batch 11, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(185, 189), BATCH12, "site.config declares Batch 12 in the same order");
 });
 
 test("Batch 12: Berkshire Swash is a deliberate reopen, judged only on today's rules", () => {
@@ -2057,5 +2056,90 @@ test("Batch 12 pages show the new terms and notes", () => {
     assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
   });
   assert.doesNotMatch(page(withLayer, "oooh-baby"), />Narrow</);
-  ["zeyada", "dawning-of-a-new-day"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), `${id} is held, not added`));
+  // (Zeyada was held here until Batch 13 found upstream evidence for Handwritten and a distinct note)
+  assert.ok(!raw["dawning-of-a-new-day"] && !PROTOTYPE.includes("dawning-of-a-new-day"), "dawning-of-a-new-day is held, not added");
+});
+
+// ---------------------------------------------------------------------
+// Batch 13: measured proportions, with Handwritten stated upstream
+// (google/fonts DESCRIPTION.en_us.html at the pinned commit)
+// ---------------------------------------------------------------------
+
+const BATCH13 = ["zeyada", "indie-flower", "shadows-into-light"];
+
+test("the 189 approved records are pinned: any edit to Batches 1–12 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 189).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "a61e33479f50d5b59f893b4cc3ca42d8cfd216be218cb5177cc7c0cbabd54801",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(189), BATCH13, "Batch 13 follows Batch 12, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(189), BATCH13, "site.config declares Batch 13 in the same order");
+  assert.strictEqual(Object.keys(raw).length, 192);
+});
+
+test("Batch 13: exactly the reviewed terms, each from the source that can establish it", () => {
+  const basesOf = (id, claim) => raw[id].evidence.filter((e) => e.for === claim).map((e) => e.basis);
+  assert.deepStrictEqual(raw.zeyada.bestFor, ["names-short-phrases", "narrow-spaces"]);
+  assert.deepStrictEqual(raw.zeyada.characteristics, ["small-x-height", "narrow", "handwritten"]);
+  assert.deepStrictEqual(raw["indie-flower"].bestFor, ["names-short-phrases", "vietnamese-text", "latin-extended-text"]);
+  assert.deepStrictEqual(raw["indie-flower"].characteristics, ["small-x-height", "handwritten"]);
+  assert.deepStrictEqual(raw["shadows-into-light"].bestFor, ["narrow-spaces", "handwritten-accents"]);
+  assert.deepStrictEqual(raw["shadows-into-light"].characteristics, ["large-x-height", "narrow", "handwritten"]);
+  // Handwritten rests on upstream wording only, never on the "handwriting" category
+  BATCH13.forEach((id) => assert.deepStrictEqual(basesOf(id, "characteristics:handwritten"), ["upstream-description"], id));
+  // one upstream sentence per claim: Shadows Into Light's use sentence is not its handwriting sentence
+  const hw = raw["shadows-into-light"].evidence.find((e) => e.for === "characteristics:handwritten").detail;
+  const use = raw["shadows-into-light"].evidence.find((e) => e.for === "bestFor:handwritten-accents").detail;
+  assert.notStrictEqual(hw, use);
+  assert.ok(/handwriting/.test(hw) && /personalized touch/.test(use));
+  // no use sentence upstream for Zeyada or Indie Flower, so no Handwritten accents
+  ["zeyada", "indie-flower"].forEach((id) => assert.ok(!raw[id].bestFor.includes("handwritten-accents"), id));
+  BATCH13.forEach((id) => {
+    assert.ok(!raw[id].characteristics.includes("connected-script"), id);
+    assert.deepStrictEqual(raw[id].pairings, [], id);
+    assert.deepStrictEqual(raw[id].relatedGuides, [], id);
+  });
+  // the measurements behind the notes
+  assert.ok(m("indie-flower").features.includes("frac"));
+  assert.ok(m("shadows-into-light").percentile.xToCap >= 95 && m("shadows-into-light").percentile.lowercaseAdvance <= 15);
+});
+
+test("Batch 13 notes stay below the near-duplicate limit, against every record and the About text", (t) => {
+  const texts = [];
+  Object.entries(raw).forEach(([id, rec]) => {
+    if (rec.notes) texts.push({ id, field: "notes", words: editorial.contentWords(rec.notes, [nameOf(id)]) });
+    rec.pairings.forEach((p, i) =>
+      texts.push({ id, field: `pairings[${i}]`, words: editorial.contentWords(p.reason, [nameOf(id), nameOf(p.font)]) }));
+  });
+  BATCH13.forEach((id) => {
+    const own = editorial.contentWords(raw[id].notes, [nameOf(id)]);
+    const best = texts
+      .filter((x) => x.id !== id)
+      .map((x) => ({ x, score: editorial.similarity(own, x.words) }))
+      .sort((a, b) => b.score - a.score)[0];
+    const about = model.fonts.find((f) => f.id === id).description;
+    const aboutScore = editorial.similarity(own, editorial.contentWords(about, [nameOf(id)]));
+    t.diagnostic(`${id}: closest ${best.x.id}.${best.x.field} ${best.score}; About ${aboutScore}`);
+    assert.ok(best.score < editorial.SIMILARITY_THRESHOLD, `${id} ~ ${best.x.id}`);
+    assert.ok(aboutScore < editorial.SIMILARITY_THRESHOLD, `${id} ~ About`);
+  });
+});
+
+test("Batch 13 pages show the new terms and notes; the held families stay out", () => {
+  const expect = {
+    zeyada: ["Small x-height", "Narrow", "Handwritten", "Names and short phrases", "Words in narrow spaces"],
+    "indie-flower": ["Small x-height", "Handwritten", "Vietnamese text", "Latin Extended languages"],
+    "shadows-into-light": ["Large x-height", "Narrow", "Handwritten", "Handwritten accents", "Words in narrow spaces"],
+  };
+  Object.entries(expect).forEach(([id, labels]) => {
+    const html = page(withLayer, id);
+    labels.forEach((l) => assert.ok(html.includes(`>${l}<`), `${id}: ${l}`));
+    assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
+    assert.doesNotMatch(html, />Connected script</, id);
+  });
+  // Handwritten alone, but no use sentence upstream: one Best for term each
+  ["nothing-you-could-do", "cedarville-cursive", "dawning-of-a-new-day"].forEach((id) =>
+    assert.ok(!raw[id] && !PROTOTYPE.includes(id), `${id} is held, not added`));
 });

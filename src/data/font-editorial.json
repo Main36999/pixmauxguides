@@ -4140,5 +4140,53 @@
       { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
       { "for": "notes", "basis": "font-file", "detail": "Default digits measure as neither lining nor old-style (sfnt.js DEFAULT FIGURES).", "measured": [{ "metric": "defaultFigures", "is": "mixed" }] }
     ]
+  },
+  "zeyada": {
+    "bestFor": ["names-short-phrases", "narrow-spaces"],
+    "avoidFor": [],
+    "characteristics": ["small-x-height", "narrow", "handwritten"],
+    "pairings": [],
+    "notes": "Upstream describes Zeyada as neither a typical cursive nor a typical print: it is slightly connected, but not a traditional script in any way. Its letters join only in places, so a word keeps the separate strokes of print while still reading as one continuous hand.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:handwritten", "basis": "upstream-description", "detail": "'based on the handwriting of a warm and generous young mom'." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'not a typical cursive, nor a typical print. It is slightly connected, but not a traditional script in any way'." }
+    ]
+  },
+  "indie-flower": {
+    "bestFor": ["names-short-phrases", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": [],
+    "characteristics": ["small-x-height", "handwritten"],
+    "pairings": [],
+    "notes": "Indie Flower's file carries a frac feature, so font-variant-numeric: diagonal-fractions sets a typed 1/2 or 3/4 as a proper fraction instead of three separate characters. On a recipe card or price tag, quantities can then stay in the same handwritten setting.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:handwritten", "basis": "upstream-description", "detail": "'This handwriting font feels carefree and open to me'." },
+      { "for": "notes", "basis": "font-file", "detail": "GSUB feature 'frac' present in the shipped file.", "measured": [{ "metric": "features", "hasAnyFeature": ["frac"] }] }
+    ]
+  },
+  "shadows-into-light": {
+    "bestFor": ["narrow-spaces", "handwritten-accents"],
+    "avoidFor": [],
+    "characteristics": ["large-x-height", "narrow", "handwritten"],
+    "pairings": [],
+    "notes": "Shadows Into Light's lowercase stands almost as tall as its capitals, among the highest x-height-to-cap-height ratios in the library, while its letters are among the narrowest. Words stay compact yet large-looking, but an initial capital has less visual contrast to mark a name or the start of a sentence.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "bestFor:handwritten-accents", "basis": "upstream-description", "detail": "'perfect for adding a personalized touch to your project'." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:handwritten", "basis": "upstream-description", "detail": "'This clean, neat handwriting font'." },
+      { "for": "notes", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top twentieth; mean lowercase advance in the narrowest 15%.", "measured": [{ "metric": "xToCap", "percentileAtLeast": 95 }, { "metric": "lowercaseAdvance", "percentileAtMost": 15 }] }
+    ]
   }
 }
