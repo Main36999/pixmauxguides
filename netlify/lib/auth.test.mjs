@@ -119,6 +119,8 @@ test("the functions directory holds only deployable functions", () => {
     "auth-google-start.mjs",
     "auth-session.mjs",
     "auth-signout.mjs",
+    "saved-import.mjs",
+    "saved.mjs",
   ]);
 });
 

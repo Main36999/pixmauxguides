@@ -226,6 +226,8 @@ test("every function's config is literal-only source, so Netlify can read its ro
     "auth-google-start.mjs": "/api/auth/google/start",
     "auth-session.mjs": "/api/auth/session",
     "auth-signout.mjs": "/api/auth/signout",
+    "saved-import.mjs": "/api/saved/import",
+    "saved.mjs": "/api/saved",
   };
   const dir = new URL("../functions/", import.meta.url);
   assert.deepEqual(fs.readdirSync(dir).sort(), Object.keys(expected).sort());

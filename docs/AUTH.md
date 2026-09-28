@@ -20,6 +20,7 @@
 | 2 | Google sign-in, session cookies + refresh, sign-out | **live** |
 | 3 | header signed-in state, account menu, sign-out UI, `?auth_error` messages | **live** |
 | 4A | Email magic link | **live** behind `AUTH_EMAIL_ENABLED=true` |
+| Saved | account Saved items: `public.saved_items`, `/api/saved*` — see [SAVED.md](SAVED.md) | Phase 1 code written; table not created, `SAVED_ENABLED` off |
 | later | `public.profiles`, self-service account deletion | not started (deletion is manual — see [Account deletion](#account-deletion)) |
 
 Each provider appears in the dialog only when it is fully configured
@@ -486,14 +487,23 @@ mail providers behave, and are not proven by the unit tests):
 The Privacy Policy lets people ask, through the contact form, for their
 account to be deleted. There is no self-service deletion. The owner deletes
 the user in Supabase → Authentication → Users (which removes the user and
-its linked Google/email identities); BPOZZ stores no other account data.
+its linked Google/email identities, and their saved items once
+`public.saved_items` exists — `on delete cascade`, see [SAVED.md](SAVED.md));
+BPOZZ stores no other account data.
 The person's browser keeps any session cookie until it expires, but
 Supabase then refuses it and `/api/auth/session` clears it.
 
-### Database (later) — planned, not created
+### Database
 
-No application tables exist yet; the migration is deferred until data is
-actually stored. Planned model:
+**`public.saved_items`** (account Saved items) is implemented in Saved
+Phase 1. The code is in `netlify/functions/saved.mjs`,
+`netlify/functions/saved-import.mjs` and `netlify/lib/saved.mjs`, with tests
+in `netlify/lib/saved.test.mjs`; [SAVED.md](SAVED.md) documents the
+migration SQL, the verification script and the API. The owner runs the
+migration from there in the Supabase SQL editor.
+
+**`public.profiles`** is planned, not created; its migration is deferred
+until profile data is actually stored. Planned model:
 
 ```sql
 create table public.profiles (
