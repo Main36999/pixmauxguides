@@ -4079,5 +4079,66 @@
       { "for": "notes", "basis": "font-file", "detail": "The printable ASCII characters do not share one advance, so the project's ASCII-monospaced rule fails.", "measured": [{ "metric": "asciiMonospaced", "is": false }] },
       { "for": "notes", "basis": "upstream-description", "detail": "'a bold, eye catching decal-like display face'." }
     ]
+  },
+  "berkshire-swash": {
+    "bestFor": ["names-short-phrases", "latin-extended-text"],
+    "avoidFor": [],
+    "characteristics": ["small-x-height", "oldstyle-figures"],
+    "pairings": [],
+    "notes": "Berkshire Swash's capitals are among the tallest in the BPOZZ library, while its default digits are old-style and follow the lowercase instead. In an all-caps title a year or a number therefore sits visibly lower and smaller than the letters around it, so check any figures set beside capitals.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:oldstyle-figures", "basis": "font-file", "detail": "Default digits of every upright style are old-style (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Cap height in the library's top twentieth; default digits old-style in every upright style.", "measured": [{ "metric": "capHeight", "percentileAtLeast": 95 }, { "metric": "defaultFigures", "is": "oldstyle" }] }
+    ]
+  },
+  "oooh-baby": {
+    "bestFor": ["names-short-phrases", "vietnamese-text", "latin-extended-text"],
+    "avoidFor": [],
+    "characteristics": ["small-x-height", "case-sensitive-forms"],
+    "pairings": [],
+    "notes": "Only the lowercase is small in Oooh Baby: its capitals are an ordinary height for the library, while the lowercase falls in the shortest tenth measured against the em. Words typed in capitals set at a normal scale and the same words in lowercase look markedly smaller, so choose one case per line rather than mixing them.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:vietnamese-text", "basis": "bpozz-data", "detail": "subsets include vietnamese; Vietnamese is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:case-sensitive-forms", "basis": "font-file", "detail": "GSUB feature 'case' (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Cap height between the library's first and third quartiles; x-height in the library's bottom tenth.", "measured": [{ "metric": "capHeight", "percentileAtLeast": 25 }, { "metric": "capHeight", "percentileAtMost": 75 }, { "metric": "xHeight", "percentileAtMost": 10 }] }
+    ]
+  },
+  "covered-by-your-grace": {
+    "bestFor": ["names-short-phrases", "narrow-spaces"],
+    "avoidFor": [],
+    "characteristics": ["small-x-height", "narrow"],
+    "pairings": [],
+    "notes": "Its small x-height ratio comes from the capitals, not from a short lowercase: the cap height is in the library's top tenth, while the lowercase sits mid-library against the em. Lowercase text reads at an ordinary size, and each capital starts its word conspicuously tall.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Cap height in the library's top tenth; x-height between the library's first and third quartiles.", "measured": [{ "metric": "capHeight", "percentileAtLeast": 90 }, { "metric": "xHeight", "percentileAtLeast": 25 }, { "metric": "xHeight", "percentileAtMost": 75 }] }
+    ]
+  },
+  "annie-use-your-telescope": {
+    "bestFor": ["names-short-phrases", "narrow-spaces"],
+    "avoidFor": [],
+    "characteristics": ["small-x-height", "narrow"],
+    "pairings": [],
+    "notes": "Annie Use Your Telescope's digits measure as neither lining nor old-style: they neither stand level with the capitals nor keep consistently to lowercase height. A date, price or phone number set in it will not align the way the surrounding text does.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "characteristics:small-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
+      { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Default digits measure as neither lining nor old-style (sfnt.js DEFAULT FIGURES).", "measured": [{ "metric": "defaultFigures", "is": "mixed" }] }
+    ]
   }
 }

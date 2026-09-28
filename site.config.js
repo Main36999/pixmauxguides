@@ -494,6 +494,12 @@ module.exports = {
         "saira-stencil-one",
         // Batch 11: all caps measured, display face stated upstream
         "monofett",
+        // Batch 12: Berkshire Swash reopened under the current rules; three
+        // never-reviewed families measured small x-height (and narrow)
+        "berkshire-swash",
+        "oooh-baby",
+        "covered-by-your-grace",
+        "annie-use-your-telescope",
       ],
     },
   },

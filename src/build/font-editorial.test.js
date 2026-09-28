@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one", () => {
-  assert.strictEqual(PROTOTYPE.length, 185);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one, Batch 12's four", () => {
+  assert.strictEqual(PROTOTYPE.length, 189);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -1192,7 +1192,7 @@ test("deferred vocabulary stays out", () => {
   assert.ok(!editorial.MEASURED["characteristics:high-contrast"]);
   // Batch 5 introduced the new terms; Batch 6 uses them where the evidence holds
   const users = Object.entries(raw).filter(([, r]) => r.characteristics.includes("text-face") || r.characteristics.includes("oldstyle-figures")).map(([id]) => id);
-  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley", "im-fell-dw-pica", "mate", "enriqueta", "almendra", "arsenal", "bad-script", "alice", "trocchi", "cantata-one", "fanwood-text", "basic", "tenor-sans", "young-serif", "linden-hill", "sorts-mill-goudy"]);
+  assert.deepStrictEqual(users, ["alike", "lusitana", "bentham", "radley", "im-fell-dw-pica", "mate", "enriqueta", "almendra", "arsenal", "bad-script", "alice", "trocchi", "cantata-one", "fanwood-text", "basic", "tenor-sans", "young-serif", "linden-hill", "sorts-mill-goudy", "berkshire-swash"]);
 });
 
 // ---------------------------------------------------------------------
@@ -1657,7 +1657,8 @@ test("Batch 9 leaves out the families the evidence cannot carry, and every earli
     "carter-one", "volkhov", "goudy-bookletter-1911", "solway", "gravitas-one", "caprasimo", "boogaloo",
     "poly", "bowlby-one", "germania-one", "quando", "electrolize", "share-tech-mono", "nobile",
     "puritan", "antic-slab", "cantarell", "oleo-script", "quattrocento", "ropa-sans", "petit-formal-script",
-    "adamina", "crete-round", "shanti", "benchnine", "berkshire-swash"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+    "adamina", "crete-round", "shanti", "benchnine"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+  // (Berkshire Swash was on this list, with no recorded reason, until Batch 12 reopened it)
 });
 
 test("Batch 9: no alternate mechanism is counted twice, and small-caps faces claim no lowercase width", () => {
@@ -1728,7 +1729,6 @@ test("the 182 approved records are pinned: any edit to Batches 1–9 fails here"
   );
   assert.deepStrictEqual(Object.keys(raw).slice(182, 184), BATCH10, "Batch 10 follows Batch 9, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(182, 184), BATCH10, "site.config declares Batch 10 in the same order");
-  assert.strictEqual(Object.keys(raw).length, 185);
 });
 
 /** An evidenced() record with a second evidence entry for one characteristic. */
@@ -1885,8 +1885,9 @@ test("Batch 10 reopens only Unica One and Saira Stencil One; every other exclusi
   // Stardos Stencil passes the Stencil rule but has one honest Best for term (display-only) and no verified Latin Extended core
   assert.ok(m("stardos-stencil").stencilLetterCount >= 15);
   assert.strictEqual(m("stardos-stencil").coverage.latinExtendedVerified, false);
-  // (Monofett was on this list until Batch 11 found upstream evidence for a second characteristic)
-  ["stardos-stencil", "benchnine", "berkshire-swash", "caudex", "comic-relief", "caladea", "libertinus-serif",
+  // (Monofett was on this list until Batch 11 found upstream evidence for a second characteristic;
+  // Berkshire Swash until Batch 12 reopened it under the current rules)
+  ["stardos-stencil", "benchnine", "caudex", "comic-relief", "caladea", "libertinus-serif",
     "electrolize", "aldrich", "quantico", "architects-daughter", "italiana", "forum", "marcellus", "sofia"].forEach((id) =>
     assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
   // the approved 182 do not include either Batch 10 family
@@ -1916,8 +1917,8 @@ test("the 184 approved records are pinned: any edit to Batches 1–10 fails here
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "05e7851bebc5772d89981ef8e5f45a8628f6b35ce0913fc93bb0e58615e10d72",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(184), BATCH11, "Batch 11 follows Batch 10, in declaration order");
-  assert.deepStrictEqual(PROTOTYPE.slice(184), BATCH11, "site.config declares Batch 11 in the same order");
+  assert.deepStrictEqual(Object.keys(raw).slice(184, 185), BATCH11, "Batch 11 follows Batch 10, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(184, 185), BATCH11, "site.config declares Batch 11 in the same order");
 });
 
 test("Batch 11: Monofett claims exactly what the file and upstream establish, and nothing its Monospace filing suggests", () => {
@@ -1945,7 +1946,8 @@ test("Batch 11: Monofett claims exactly what the file and upstream establish, an
 test("Batch 11 adds only Monofett; the other reviewed families and every earlier exclusion stay out", () => {
   // reviewed with Monofett: no second characteristic upstream
   ["creepster", "titillium-web", "proza-libre"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
-  ["stardos-stencil", "benchnine", "berkshire-swash", "caudex", "comic-relief", "caladea", "libertinus-serif",
+  // (Berkshire Swash was on this list until Batch 12 reopened it under the current rules)
+  ["stardos-stencil", "benchnine", "caudex", "comic-relief", "caladea", "libertinus-serif",
     "electrolize", "aldrich", "quantico", "architects-daughter", "italiana", "forum", "marcellus", "sofia"].forEach((id) =>
     assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
   // Black Ops One is unchanged: it still does not claim Stencil
@@ -1957,4 +1959,103 @@ test("Batch 11 page shows All caps and Display face, never Monospaced", () => {
   assert.match(html, />All caps</);
   assert.match(html, />Display face</);
   assert.doesNotMatch(html, />Monospaced</);
+});
+
+// ---------------------------------------------------------------------
+// Batch 12: Berkshire Swash reopened, and three families measured small
+// x-height — all from rules and measurements that already existed
+// ---------------------------------------------------------------------
+
+const BATCH12 = ["berkshire-swash", "oooh-baby", "covered-by-your-grace", "annie-use-your-telescope"];
+
+test("the 185 approved records are pinned: any edit to Batches 1–11 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 185).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "eabf12c156a2bf638ad1fc1bb38a379391a6dc211d4fc152006e5cbd384fed6b",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(185), BATCH12, "Batch 12 follows Batch 11, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(185), BATCH12, "site.config declares Batch 12 in the same order");
+  assert.strictEqual(Object.keys(raw).length, 189);
+});
+
+test("Batch 12: Berkshire Swash is a deliberate reopen, judged only on today's rules", () => {
+  // Batch 9 excluded it without recording a reason, and Batches 10–11 carried the exclusion forward.
+  // That reason is unknown; the record rests only on what the shipped file measures today.
+  const rec = raw["berkshire-swash"];
+  assert.deepStrictEqual(rec.bestFor, ["names-short-phrases", "latin-extended-text"]);
+  assert.deepStrictEqual(rec.characteristics, ["small-x-height", "oldstyle-figures"]);
+  assert.ok(m("berkshire-swash").percentile.xToCap <= 25);
+  assert.strictEqual(m("berkshire-swash").defaultFigures, "oldstyle");
+  assert.strictEqual(m("berkshire-swash").coverage.latinExtendedVerified, true);
+  // its aalt substitutes no letters, so the name's "swash" earns no alternate-letter claim
+  assert.ok(m("berkshire-swash").features.includes("aalt"));
+  assert.strictEqual(m("berkshire-swash").alternateLetterCount, 0);
+  ["alternate-letterforms", "handwritten", "connected-script"].forEach((t) => assert.ok(!rec.characteristics.includes(t), t));
+});
+
+test("Batch 12: the three measured families claim only what the files measure", () => {
+  assert.deepStrictEqual(raw["oooh-baby"].bestFor, ["names-short-phrases", "vietnamese-text", "latin-extended-text"]);
+  assert.deepStrictEqual(raw["oooh-baby"].characteristics, ["small-x-height", "case-sensitive-forms"]);
+  // Oooh Baby's lowercase width sits exactly on the Narrow boundary: neither width term is claimed
+  assert.strictEqual(m("oooh-baby").percentile.lowercaseAdvance, 15);
+  assert.ok(!raw["oooh-baby"].characteristics.includes("narrow") && !raw["oooh-baby"].bestFor.includes("narrow-spaces"));
+  ["covered-by-your-grace", "annie-use-your-telescope"].forEach((id) => {
+    assert.deepStrictEqual(raw[id].bestFor, ["names-short-phrases", "narrow-spaces"], id);
+    assert.deepStrictEqual(raw[id].characteristics, ["small-x-height", "narrow"], id);
+    // the small ratio comes from tall capitals: the lowercase itself is mid-library, so no small-text warning
+    assert.ok(m(id).percentile.xHeight > 25, id);
+    assert.ok(!raw[id].avoidFor.includes("small-text"), id);
+  });
+  assert.strictEqual(m("annie-use-your-telescope").defaultFigures, "mixed");
+});
+
+test("Batch 12 claims no handwriting, script or swash label, and no pairing or guide", () => {
+  BATCH12.forEach((id) => {
+    const rec = raw[id];
+    ["handwritten", "connected-script", "signature-script", "alternate-letterforms"].forEach((t) => assert.ok(!rec.characteristics.includes(t), `${id} ${t}`));
+    ["handwritten-accents", "signature-lettering"].forEach((t) => assert.ok(!rec.bestFor.includes(t), `${id} ${t}`));
+    assert.ok(!rec.evidence.some((e) => e.basis === "upstream-description"), id);
+    assert.deepStrictEqual(rec.pairings, [], id);
+    assert.deepStrictEqual(rec.relatedGuides, [], id);
+    assert.ok(rec.notes, id);
+  });
+});
+
+test("Batch 12 notes stay below the near-duplicate limit, against every record and the About text", (t) => {
+  const texts = [];
+  Object.entries(raw).forEach(([id, rec]) => {
+    if (rec.notes) texts.push({ id, field: "notes", words: editorial.contentWords(rec.notes, [nameOf(id)]) });
+    rec.pairings.forEach((p, i) =>
+      texts.push({ id, field: `pairings[${i}]`, words: editorial.contentWords(p.reason, [nameOf(id), nameOf(p.font)]) }));
+  });
+  BATCH12.forEach((id) => {
+    const own = editorial.contentWords(raw[id].notes, [nameOf(id)]);
+    const best = texts
+      .filter((x) => x.id !== id)
+      .map((x) => ({ x, score: editorial.similarity(own, x.words) }))
+      .sort((a, b) => b.score - a.score)[0];
+    const about = model.fonts.find((f) => f.id === id).description;
+    const aboutScore = editorial.similarity(own, editorial.contentWords(about, [nameOf(id)]));
+    t.diagnostic(`${id}: closest ${best.x.id}.${best.x.field} ${best.score}; About ${aboutScore}`);
+    assert.ok(best.score < editorial.SIMILARITY_THRESHOLD, `${id} ~ ${best.x.id}`);
+    assert.ok(aboutScore < editorial.SIMILARITY_THRESHOLD, `${id} ~ About`);
+  });
+});
+
+test("Batch 12 pages show the new terms and notes", () => {
+  const expect = {
+    "berkshire-swash": ["Small x-height", "Old-style figures", "Names and short phrases", "Latin Extended languages"],
+    "oooh-baby": ["Small x-height", "Case-sensitive forms", "Vietnamese text"],
+    "covered-by-your-grace": ["Small x-height", "Narrow", "Words in narrow spaces"],
+    "annie-use-your-telescope": ["Small x-height", "Narrow", "Words in narrow spaces"],
+  };
+  Object.entries(expect).forEach(([id, labels]) => {
+    const html = page(withLayer, id);
+    labels.forEach((l) => assert.ok(html.includes(`>${l}<`), `${id}: ${l}`));
+    assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
+  });
+  assert.doesNotMatch(page(withLayer, "oooh-baby"), />Narrow</);
+  ["zeyada", "dawning-of-a-new-day"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), `${id} is held, not added`));
 });
