@@ -620,9 +620,15 @@ module.exports = {
    * path. Hand-authored root page, noindex, no canonical:
    *   htmlPages    350 → 351  (+1: 404.html)
    *   sitemapUrls  344 → 344  (unchanged: an error page is not content)
+   *
+   * /account — Profile, Saved and Settings for a signed-in visitor, the
+   * header account menu's destinations. Hand-authored root page served
+   * extensionless, noindex:
+   *   htmlPages    351 → 352  (+1: account.html)
+   *   sitemapUrls  344 → 344  (unchanged: a personal page is not content)
    */
   expected: {
-    htmlPages: 351,
+    htmlPages: 352,
     snapshotUrls: 89,
     sitemapUrls: 344,
   },

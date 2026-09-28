@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="585f3600-2a77-4ba9-87f7-9aac44c21247"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
+
+    <!-- Google Consent Mode v2 — default state, set before gtag.js loads.
+         data-cookieconsent="ignore" exempts this script from Cookiebot's
+         auto-blocking so the default always fires immediately; Cookiebot
+         then pushes gtag('consent','update', …) automatically once the
+         visitor makes a choice in the banner. -->
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    <meta charset="UTF-8" />
+    <!-- /account — the signed-in visitor's own page, reached from the header's
+         account menu (Profile, Saved, Settings). Personal, so noindex and not
+         in sitemap.xml; it still declares its canonical like every page but
+         the 404. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Account — BPOZZ</title>
+    <meta
+      name="description"
+      content="Your BPOZZ account: your profile, what you've saved and your settings."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://bpozz.com/account" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NHGHCTY21D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NHGHCTY21D");
+    </script>
+
+    <meta name="theme-color" content="#0F2A52" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ---------- /account — Your Account ----------
+         Page-scoped styles, inline for the same reason search.html and
+         hoysomrach.html keep theirs: nothing else on the site uses them.
+         The page itself is a legal-page column (.page-view, .legal-content)
+         like about.html; every selector here is prefixed .account-page or
+         .account-profile. */
+
+      /* Which half shows is decided by <html data-auth>, which auth.js sets
+         from the session — the same answer that draws the header. Until it
+         arrives the signed-in half keeps its layout but stays invisible, so
+         a link to /account#settings still lands on its section; the
+         signed-out half appears only once the session says signed out. */
+      .account-page__signed-out {
+        display: none;
+      }
+      html[data-auth="signed-out"] .account-page__signed-out {
+        display: block;
+      }
+      html[data-auth="signed-out"] .account-page__signed-in {
+        display: none;
+      }
+      html:not([data-auth]) .account-page__signed-in {
+        visibility: hidden;
+      }
+
+      /* One hairline-topped block per menu item. Each h2 is the first of its
+         type in its section, so .legal-subheading's top margin is already 0
+         there and the section supplies the spacing. */
+      .account-page__section {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1px solid var(--grid-line);
+      }
+      /* Clear of the sticky header — its 84px top row plus the 70px nav
+         row, and the top row alone at <=640px, where the nav row folds
+         away — whether a section is reached by its #link or a button is
+         given focus (after Sign out, focus moves to the page's Sign in). */
+      .account-page__section,
+      .account-page__actions .btn {
+        scroll-margin-top: 178px;
+      }
+      @media (max-width: 640px) {
+        .account-page__section,
+        .account-page__actions .btn {
+          scroll-margin-top: 108px;
+        }
+      }
+      .account-page__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 4px 0 16px;
+      }
+      /* The quieter of the page's two buttons: the header's outline button,
+         drawn for a white page instead of the dark bar. */
+      .account-page__button {
+        background: var(--paper);
+        color: var(--text);
+        border: 1px solid var(--text-muted);
+      }
+      .account-page__button:hover {
+        border-color: var(--action);
+        color: var(--action);
+      }
+      .account-page__button:disabled {
+        cursor: progress;
+      }
+
+      /* Profile: the header's avatar and name, drawn by auth.js into
+         [data-account-profile]. The avatar's header colours are for the dark
+         bar, so its initial is recoloured for the page. min-height holds the
+         row's space while the session is still loading. */
+      .account-profile {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 56px;
+        margin-bottom: 14px;
+      }
+      .account-profile .account__avatar {
+        width: 56px;
+        height: 56px;
+        background: var(--grid-line);
+        color: var(--text);
+        font-size: 22px;
+      }
+      .account-profile__text {
+        min-width: 0;
+      }
+      .legal-content .account-profile__name,
+      .legal-content .account-profile__email {
+        margin: 0;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+      }
+      .legal-content .account-profile__name {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .legal-content .account-profile__email {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!--HEADER_START--><header class="site-header site-header--inner">
+  <div class="header-top">
+    <a href="/" class="brand" aria-label="bpozz! home">
+      <img class="brand-logo" src="/assets/bpozz-logo.svg" alt="" width="88" height="32" />
+    </a>
+
+    <form
+      class="header-search header-search--full form"
+      role="search"
+      action="/search"
+      method="get"
+    >
+      <label for="header-search-input" class="sr-only">Search BPOZZ</label>
+      <button type="submit" aria-label="Search BPOZZ">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+      <input
+        type="search"
+        id="header-search-input"
+        name="s"
+        placeholder="Search guides, palettes…"
+        autocomplete="off"
+        class="input"
+      />
+      <button type="reset" class="reset" aria-label="Clear search">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+    </form>
+
+    <div class="header-auth">
+      <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
+      <button type="button" class="btn btn-primary" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg
+        class="menu-toggle__icon menu-toggle__icon--close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="header-bottom">
+    <nav class="site-nav" aria-label="Primary">
+      <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/colors/">Colors</a>
+      <a href="/palettes/">Palettes</a>
+      <a href="/fonts/">Fonts</a>
+      <a href="/icons/">Icons</a>
+      <a href="/image-picker/">Image Picker</a>
+      <a href="/guides/">UI/UX Guides</a>
+      <a href="/roadmap.html">Learning Roadmap</a>
+      <!--NAV_RESOURCES_END-->
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="mobile-menu__nav" aria-label="Primary">
+      <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/colors/">Colors</a>
+      <a href="/palettes/">Palettes</a>
+      <a href="/fonts/">Fonts</a>
+      <a href="/icons/">Icons</a>
+      <a href="/image-picker/">Image Picker</a>
+      <a href="/guides/">UI/UX Guides</a>
+      <a href="/roadmap.html">Learning Roadmap</a>
+      <!--NAV_RESOURCES_END-->
+    </nav>
+    <div class="mobile-menu__auth">
+      <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
+      <button type="button" class="btn btn-primary" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
+    </div>
+  </div>
+</header><!--HEADER_END-->
+
+    <div class="wrap page-view" id="page-view">
+      <main class="page-view-body" id="main" tabindex="-1">
+        <div class="legal-content account-page" data-account-page>
+          <h1 class="legal-title">Your Account</h1>
+          <noscript>
+            <p>Signing in needs JavaScript, which is turned off in this browser.</p>
+          </noscript>
+
+          <div class="account-page__signed-out">
+            <p>
+              Sign in to see your profile and settings. An account is optional:
+              everything on BPOZZ works without one.
+            </p>
+            <div class="account-page__actions">
+              <button type="button" class="btn btn-primary" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
+            </div>
+          </div>
+
+          <div class="account-page__signed-in">
+            <section class="account-page__section" id="profile" aria-labelledby="profile-title">
+              <h2 class="legal-subheading" id="profile-title">Profile</h2>
+              <div class="account-profile" data-account-profile></div>
+              <p>
+                BPOZZ doesn't keep a profile of its own. Your name and photo come
+                from Google when you sign in with it; with an email sign-in link,
+                BPOZZ has only your email address.
+              </p>
+            </section>
+
+            <section class="account-page__section" id="saved" aria-labelledby="saved-title">
+              <h2 class="legal-subheading" id="saved-title">Saved</h2>
+              <p>
+                Fonts you save are kept in this browser, not in your account, so
+                they don't follow you to another browser or device.
+              </p>
+              <p><a href="/fonts/?category=saved">See your saved fonts</a></p>
+            </section>
+
+            <section class="account-page__section" id="settings" aria-labelledby="settings-title">
+              <h2 class="legal-subheading" id="settings-title">Settings</h2>
+              <p>Sign out of BPOZZ in this browser.</p>
+              <div class="account-page__actions">
+                <button type="button" class="btn account-page__button" data-auth-signout>Sign out</button>
+              </div>
+              <p>
+                To delete your account, ask us through the
+                <a href="contact.html">contact form</a>. Deleting it removes your
+                account and the sign-in information stored with it — see
+                <a href="privacy.html#accounts">Accounts and sign-in</a> in our
+                Privacy Policy.
+              </p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!--FOOTER_START--><footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
+  </div>
+</footer><!--FOOTER_END-->
+
+    <!-- Mobile menu toggle (kept in sync with app.js's "Mobile menu toggle" block —
+         this page loads no other script, so the wiring lives here too). -->
+    <script>
+      (function () {
+        var toggle = document.getElementById("menu-toggle");
+        var menu = document.getElementById("mobile-menu");
+        if (!toggle || !menu) return;
+
+        function closeMenu() {
+          menu.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open menu");
+        }
+
+        function openMenu() {
+          menu.hidden = false;
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.setAttribute("aria-label", "Close menu");
+        }
+
+        toggle.addEventListener("click", function () {
+          if (menu.hidden) {
+            openMenu();
+          } else {
+            closeMenu();
+          }
+        });
+
+        menu.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !menu.hidden) {
+            closeMenu();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+    <script src="/auth.js"></script>
+  </body>
+</html>

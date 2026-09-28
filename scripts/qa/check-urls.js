@@ -152,6 +152,13 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * 404 PAGE — one page added: /404.html, the not-found page Netlify serves
  * for any missing path. Listed here so the gate can prove it is the only
  * URL added; empty the list again once the baseline is re-recorded.
+ *
+ * /account held one entry here while under review: Profile, Saved and
+ * Settings for a signed-in visitor, the header account menu's destinations —
+ * a hand-authored root page served extensionless, noindex, adding no asset
+ * or code file. The gate confirmed it was the only addition — 0 removed,
+ * nothing else moved, every surviving canonical unchanged — so the baseline
+ * was re-recorded at 2431 URLs / 352 pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 

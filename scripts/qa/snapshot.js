@@ -160,6 +160,7 @@ function urlFor(rel) {
   if (rel === "index.html") return "/";
   // Mirrors EXTENSIONLESS_ROOT_PAGES in src/build/routes.js.
   if (rel === "hoysomrach.html") return "/hoysomrach";
+  if (rel === "account.html") return "/account";
   if (rel.endsWith("/index.html")) return "/" + rel.slice(0, -"/index.html".length);
   if (/^(guide|category)\//.test(rel) && rel.endsWith(".html")) {
     return "/" + rel.slice(0, -".html".length);

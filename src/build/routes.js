@@ -49,6 +49,10 @@ const STATIC_ROOT_PAGES = [
   // The not-found page Netlify serves for any missing path. noindex, no
   // canonical, and not in sitemap.xml.
   "404.html",
+  // /account — Profile, Saved and Settings for a signed-in visitor, the
+  // three destinations of the header's account menu. noindex, and not in
+  // sitemap.xml: it is personal, not content.
+  "account.html",
 ];
 
 /**
@@ -57,7 +61,7 @@ const STATIC_ROOT_PAGES = [
  * extensionless from the start, so no existing URL changes. Netlify serves
  * /<name> from <name>.html. scripts/qa/snapshot.js mirrors this set.
  */
-const EXTENSIONLESS_ROOT_PAGES = new Set(["hoysomrach.html"]);
+const EXTENSIONLESS_ROOT_PAGES = new Set(["hoysomrach.html", "account.html"]);
 
 /**
  * Section landing pages served from <dir>/index.html.

@@ -1,10 +1,11 @@
 {
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
-  "count": 351,
+  "count": 352,
   "files": {
     "404.html": "f06e79dcb2d643a093988aaec8df6298",
     "about.html": "b493259c5ea0f51b9af044319b30fbe8",
+    "account.html": "6ac24d9d43726a88ae6bdfd7d972526d",
     "category/accessibility.html": "abbc6c77febc532678615d4eddd528c6",
     "category/adobe-xd.html": "b742d88cef4a9d24166493025732b3b9",
     "category/color-theory.html": "42c6cc72e6785de6fcf052e03161c6bc",

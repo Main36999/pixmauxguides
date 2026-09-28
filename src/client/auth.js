@@ -41,8 +41,10 @@
  *
  * Every page load asks GET /api/auth/session once (getSession) and draws the
  * header from the answer: Sign in / Sign up when signed out, an account
- * button with a Sign out action when signed in — in the desktop header and
- * the mobile panel alike. The session endpoint is the only source of truth;
+ * button opening the account menu (Profile, Saved, Settings, Sign out) when
+ * signed in — in the desktop header and the mobile panel alike. The /account
+ * page's Profile section is drawn from the same answer, by the same code.
+ * The session endpoint is the only source of truth;
  * nothing about the session is stored in the browser. Tokens live in HttpOnly
  * cookies this file can't read, and it never touches document.cookie,
  * localStorage or sessionStorage. Server-provided names, emails and avatar
@@ -637,6 +639,24 @@
 
   var menuCount = 0;
 
+  // The account menu's pages. All three are sections of the one /account
+  // page (account.html); Saved leads on from there to the fonts saved in
+  // this browser, the only saving the site has so far.
+  var ACCOUNT_LINKS = [
+    ["Profile", "/account#profile"],
+    ["Saved", "/account#saved"],
+    ["Settings", "/account#settings"],
+  ];
+
+  function addAccountLinks(parent, className) {
+    ACCOUNT_LINKS.forEach(function (link) {
+      var a = el("a", className, link[0]);
+      a.setAttribute("href", link[1]);
+      a.setAttribute("data-account-link", "");
+      parent.appendChild(a);
+    });
+  }
+
   // The display model for a session answer, or null when signed out. Only
   // plain strings leave here; nothing is ever treated as markup.
   function accountView(data) {
@@ -698,8 +718,10 @@
     return wrap;
   }
 
-  // Desktop: an account button in the header row that discloses a small
-  // panel with who is signed in and Sign out.
+  // Desktop: an account button in the header row that discloses the account
+  // menu — Your Account: Profile, Saved, Settings, a rule, Sign out. A
+  // disclosure (button + aria-expanded), not an ARIA menu: its items are
+  // ordinary links and one button, reached with Tab or the arrow keys.
   function desktopAccount(view) {
     var id = "account-menu-" + ++menuCount;
     var root = el("div", "account");
@@ -709,35 +731,45 @@
     toggle.type = "button";
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-controls", id);
-    toggle.setAttribute("aria-label", "Account: " + view.name);
+    toggle.setAttribute("aria-label", "Account menu: " + view.name);
     toggle.setAttribute("data-account-toggle", "");
     toggle.appendChild(avatar(view));
     toggle.appendChild(el("span", "account__name", view.name));
 
-    var menu = el("div", "account__menu");
+    var menu = el("nav", "account__menu");
     menu.id = id;
     menu.hidden = true;
-    var who = el("p", "account__who");
-    who.appendChild(el("span", "account__who-name", view.name));
-    if (view.email && view.email !== view.name) {
-      who.appendChild(el("span", "account__email", view.email));
-    }
+    menu.setAttribute("aria-labelledby", id + "-title");
+    var title = el("p", "account__title", "Your Account");
+    title.id = id + "-title";
+    menu.appendChild(title);
+    addAccountLinks(menu, "account__item");
+    menu.appendChild(el("hr", "account__divider"));
     var signout = el("button", "account__signout", "Sign out");
     signout.type = "button";
     signout.setAttribute("data-auth-signout", "");
-    menu.appendChild(who);
     menu.appendChild(signout);
 
     root.appendChild(toggle);
     root.appendChild(menu);
+    // Tabbing out of the menu closes it. A focusout with no relatedTarget
+    // (a click on the menu's own label, the window losing focus) is left
+    // to the outside-click rule below.
+    root.addEventListener("focusout", function (e) {
+      if (e.relatedTarget && !root.contains(e.relatedTarget)) {
+        setAccountMenu(toggle, false);
+      }
+    });
     return root;
   }
 
-  // Mobile panel: who is signed in, then a full-width Sign out, in the slot
-  // the two sign-in buttons use.
+  // Mobile panel: the same menu in the slot the two sign-in buttons use —
+  // who is signed in, the three links styled as the panel's own nav, then a
+  // full-width Sign out.
   function mobileAccount(view) {
     var root = el("div", "mobile-account");
     root.setAttribute("data-auth-account", "");
+    root.appendChild(el("p", "mobile-account__title", "Your Account"));
     var who = el("div", "mobile-account__who");
     who.appendChild(avatar(view));
     var text = el("div", "mobile-account__text");
@@ -746,12 +778,33 @@
       text.appendChild(el("span", "mobile-account__email", view.email));
     }
     who.appendChild(text);
+    var nav = el("nav", "mobile-account__nav");
+    nav.setAttribute("aria-label", "Your Account");
+    addAccountLinks(nav, "");
     var signout = el("button", "btn btn-ghost", "Sign out");
     signout.type = "button";
     signout.setAttribute("data-auth-signout", "");
     root.appendChild(who);
+    root.appendChild(nav);
     root.appendChild(signout);
     return root;
+  }
+
+  // The /account page's Profile section (account.html): the same avatar,
+  // name and email as the header, or nothing when signed out — the page's
+  // own CSS shows its sign-in prompt instead.
+  function renderProfile(view) {
+    each("[data-account-profile]", function (box) {
+      box.textContent = "";
+      if (!view) return;
+      box.appendChild(avatar(view));
+      var text = el("div", "account-profile__text");
+      text.appendChild(el("p", "account-profile__name", view.name));
+      if (view.email && view.email !== view.name) {
+        text.appendChild(el("p", "account-profile__email", view.email));
+      }
+      box.appendChild(text);
+    });
   }
 
   function each(selector, fn) {
@@ -780,6 +833,7 @@
         if (view) container.appendChild(pair[1](view));
       });
     });
+    renderProfile(view);
   }
 
   function setAccountMenu(toggle, expanded) {
@@ -814,7 +868,11 @@
   }
 
   function onSignOutClick(button) {
-    var mobile = !!button.closest(".mobile-menu__auth");
+    var scope = button.closest(".mobile-menu__auth")
+      ? ".mobile-menu__auth"
+      : button.closest("[data-account-page]")
+        ? "[data-account-page]"
+        : ".header-auth";
     button.disabled = true;
     signOut().then(function (signedOut) {
       if (!signedOut) {
@@ -824,8 +882,7 @@
       }
       // The button that had focus is gone; land on the matching Sign in.
       var next = document.querySelector(
-        (mobile ? ".mobile-menu__auth" : ".header-auth") +
-          " [data-auth-open='signin']",
+        scope + " [data-auth-open='signin']",
       );
       if (next && isVisible(next)) next.focus();
     });
@@ -902,11 +959,53 @@
       return;
     }
 
+    // Choosing Profile, Saved or Settings closes the menu (and the mobile
+    // panel) before the link is followed — which matters on /account
+    // itself, where the link only moves to another section of the page.
+    if (target.closest("[data-account-link]")) {
+      closeAccountMenus(null);
+      closeMobileMenu();
+      return;
+    }
+
     if (!target.closest("[data-auth-account]")) closeAccountMenus(null);
   });
 
+  // Arrow keys, Home and End move between an open account menu's items; Tab
+  // still walks them in order. ArrowDown or ArrowUp on the closed button
+  // opens the menu at its first or last item.
+  function onAccountMenuKey(e) {
+    var step = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+    if (!step && e.key !== "Home" && e.key !== "End") return;
+    var root = e.target && e.target.closest && e.target.closest(".account");
+    if (!root) return;
+    var toggle = root.querySelector("[data-account-toggle]");
+    var menu = toggle && document.getElementById(toggle.getAttribute("aria-controls"));
+    if (!menu) return;
+    if (menu.hidden) {
+      if (e.target !== toggle || !step) return;
+      closeAccountMenus(toggle);
+      setAccountMenu(toggle, true);
+    }
+    var items = Array.prototype.filter.call(menu.children, function (item) {
+      return (item.tagName === "A" || item.tagName === "BUTTON") && !item.disabled;
+    });
+    if (!items.length) return;
+    e.preventDefault();
+    var at = items.indexOf(document.activeElement);
+    var next;
+    if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = items.length - 1;
+    else if (at === -1) next = step > 0 ? 0 : items.length - 1;
+    else next = (at + step + items.length) % items.length;
+    items[next].focus();
+  }
+
   document.addEventListener("keydown", function (e) {
-    if (e.key !== "Escape") return;
+    if (e.key !== "Escape") {
+      onAccountMenuKey(e);
+      return;
+    }
     each("[data-account-toggle][aria-expanded='true']", function (toggle) {
       setAccountMenu(toggle, false);
       toggle.focus();

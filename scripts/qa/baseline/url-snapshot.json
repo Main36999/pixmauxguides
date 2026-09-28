@@ -2,12 +2,12 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 351,
+    "pages": 352,
     "dataEndpoints": 5,
     "siteFiles": 4,
     "assets": 2055,
     "code": 15,
-    "total": 2430
+    "total": 2431
   },
   "pages": [
     {
@@ -24,6 +24,11 @@
       "file": "about.html",
       "url": "/about.html",
       "canonical": "https://bpozz.com/about.html"
+    },
+    {
+      "file": "account.html",
+      "url": "/account",
+      "canonical": "https://bpozz.com/account"
     },
     {
       "file": "category/accessibility.html",

@@ -193,6 +193,25 @@ function buildHeader(doc) {
   menu.appendChild(area("mobile-menu__auth"));
 }
 
+// The parts of account.html that auth.js touches: the Profile box it draws
+// into, the page's own Sign in and its Settings Sign out.
+function buildAccountPage(doc) {
+  const page = doc.body.appendChild(doc.createElement("div"));
+  page.className = "legal-content account-page";
+  page.setAttribute("data-account-page", "");
+  const signin = page.appendChild(doc.createElement("button"));
+  signin.className = "btn btn-primary";
+  signin.setAttribute("data-auth-open", "signin");
+  signin.textContent = "Sign in";
+  const profile = page.appendChild(doc.createElement("div"));
+  profile.className = "account-profile";
+  profile.setAttribute("data-account-profile", "");
+  const signout = page.appendChild(doc.createElement("button"));
+  signout.className = "btn account-page__button";
+  signout.setAttribute("data-auth-signout", "");
+  signout.textContent = "Sign out";
+}
+
 // The elements auth.js looks up in its dialog template, with the same
 // selectors. Only the fixed MARKUP string can build it.
 function dialogSkeleton(doc, dialog) {
@@ -274,10 +293,11 @@ const USER = {
  * GET /api/auth/session gives, in order (the last one repeats); each is a
  * response object, or a function returning one or throwing.
  */
-function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false } = {}) {
+function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false, accountPage = false } = {}) {
   const doc = makeDocument();
   installDialog(doc);
   buildHeader(doc);
+  if (accountPage) buildAccountPage(doc);
   const calls = [];
   const storageTouches = [];
   let replaced = null;
@@ -382,12 +402,10 @@ test("signed in: account UI replaces the buttons on desktop and mobile", async (
 
   const toggle = p.q(".header-auth [data-account-toggle]");
   assert.strictEqual(p.q(".account__name").textContent, "Dee Signer");
-  assert.strictEqual(toggle.getAttribute("aria-label"), "Account: Dee Signer");
+  assert.strictEqual(toggle.getAttribute("aria-label"), "Account menu: Dee Signer");
   assert.strictEqual(toggle.getAttribute("aria-expanded"), "false");
   const menu = p.doc.getElementById(toggle.getAttribute("aria-controls"));
   assert.ok(menu && menu.hidden, "menu starts closed");
-  assert.strictEqual(p.q(".account__who-name").textContent, "Dee Signer");
-  assert.strictEqual(p.q(".account__email").textContent, "dee@example.test");
   assert.strictEqual(p.q(".header-auth [data-auth-signout]").textContent, "Sign out");
 
   const img = p.q(".header-auth .account__avatar img");
@@ -401,12 +419,13 @@ test("signed in: account UI replaces the buttons on desktop and mobile", async (
 });
 
 test("missing display name falls back to the email, shown once", async () => {
-  const p = page({ sessions: [json(200, signedIn({ ...USER, display_name: null }))] });
+  const p = page({ sessions: [json(200, signedIn({ ...USER, display_name: null }))], accountPage: true });
   await settle();
   assert.strictEqual(p.q(".account__name").textContent, "dee@example.test");
-  assert.strictEqual(p.q(".account__who-name").textContent, "dee@example.test");
-  assert.strictEqual(p.q(".account__email"), null, "email not repeated under itself");
-  assert.strictEqual(p.q(".mobile-account__email"), null);
+  assert.strictEqual(p.q(".mobile-account__name").textContent, "dee@example.test");
+  assert.strictEqual(p.q(".mobile-account__email"), null, "email not repeated under itself");
+  assert.strictEqual(p.q(".account-profile__name").textContent, "dee@example.test");
+  assert.strictEqual(p.q(".account-profile__email"), null);
   // Neither name nor email: a neutral label, never "undefined".
   const q = page({ sessions: [json(200, signedIn({ id: "x", email: null, display_name: "  ", avatar_url: null }))] });
   await settle();
@@ -509,15 +528,17 @@ test("user data is written as text, never as markup", async () => {
   const hostile = "<img src=x onerror=alert(1)>";
   const p = page({
     sessions: [json(200, signedIn({ ...USER, display_name: hostile, email: "<b>x</b>@example.test", avatar_url: "javascript:alert(1)" }))],
+    accountPage: true,
   });
   await settle(); // the DOM stub throws on any innerHTML write
-  for (const selector of [".account__name", ".account__who-name", ".mobile-account__name"]) {
+  for (const selector of [".account__name", ".mobile-account__name", ".account-profile__name"]) {
     const node = p.q(selector);
     assert.strictEqual(node.textContent, hostile);
     assert.strictEqual(node.children.length, 0, `${selector} has no child elements`);
   }
-  assert.strictEqual(p.q(".account__email").textContent, "<b>x</b>@example.test");
-  assert.strictEqual(p.q(".header-auth [data-account-toggle]").getAttribute("aria-label"), "Account: " + hostile);
+  assert.strictEqual(p.q(".mobile-account__email").textContent, "<b>x</b>@example.test");
+  assert.strictEqual(p.q(".account-profile__email").textContent, "<b>x</b>@example.test");
+  assert.strictEqual(p.q(".header-auth [data-account-toggle]").getAttribute("aria-label"), "Account menu: " + hostile);
   assert.strictEqual(p.doc.querySelectorAll("img").length, 0, "no image created from user data");
 });
 
@@ -545,10 +566,150 @@ test("account menu: toggle, Escape and outside click close it", async () => {
   assert.strictEqual(menu().hidden, true);
   assert.strictEqual(p.doc.activeElement, toggle, "focus returns to the toggle");
   fire(p.doc, toggle, "click");
-  fire(p.doc, p.q(".account__who"), "click"); // inside: stays open
+  fire(p.doc, p.q(".account__title"), "click"); // inside: stays open
   assert.strictEqual(menu().hidden, false);
   fire(p.doc, p.doc.body, "click"); // outside: closes
   assert.strictEqual(menu().hidden, true);
+});
+
+// ---------------------------------------------------------------------
+// account menu: Profile, Saved, Settings, Sign out
+// ---------------------------------------------------------------------
+
+const ACCOUNT_LINKS = [
+  ["Profile", "/account#profile"],
+  ["Saved", "/account#saved"],
+  ["Settings", "/account#settings"],
+];
+const links = (nodes) => nodes.map((a) => [a.textContent, a.getAttribute("href")]);
+
+test("account menu: exactly Your Account, Profile, Saved, Settings, a divider, Sign out", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))] });
+  await settle();
+  const toggle = p.q(".header-auth [data-account-toggle]");
+  const menu = p.doc.getElementById(toggle.getAttribute("aria-controls"));
+  assert.strictEqual(menu.tagName, "NAV");
+  assert.deepStrictEqual(
+    menu.children.map((n) => [n.tagName, n.textContent]),
+    [["P", "Your Account"], ["A", "Profile"], ["A", "Saved"], ["A", "Settings"], ["HR", ""], ["BUTTON", "Sign out"]],
+  );
+  const title = menu.children[0];
+  assert.strictEqual(menu.getAttribute("aria-labelledby"), title.id, "the menu is named by its title");
+  assert.deepStrictEqual(links(menu.querySelectorAll("a")), ACCOUNT_LINKS);
+  assert.ok(menu.querySelectorAll("a").every((a) => a.className === "account__item"));
+  assert.strictEqual(menu.querySelector("button").getAttribute("type"), "button");
+});
+
+test("mobile panel: Your Account, who is signed in, the same three links, Sign out", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))] });
+  await settle();
+  const box = p.mobileAccount();
+  assert.deepStrictEqual(
+    box.children.map((n) => n.className),
+    ["mobile-account__title", "mobile-account__who", "mobile-account__nav", "btn btn-ghost"],
+  );
+  assert.strictEqual(p.q(".mobile-account__title").textContent, "Your Account");
+  const nav = p.q(".mobile-account__nav");
+  assert.strictEqual(nav.tagName, "NAV");
+  assert.strictEqual(nav.getAttribute("aria-label"), "Your Account");
+  assert.deepStrictEqual(links(nav.querySelectorAll("a")), ACCOUNT_LINKS);
+});
+
+test("signed out: no account links anywhere", async () => {
+  const p = page({ accountPage: true });
+  await settle();
+  assert.deepStrictEqual(p.doc.querySelectorAll("[data-account-link]"), []);
+  assert.deepStrictEqual(p.q("[data-account-profile]").children, []);
+});
+
+test("choosing Profile, Saved or Settings closes the menu and the mobile panel", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))] });
+  await settle();
+  const toggle = p.q(".header-auth [data-account-toggle]");
+  const menu = p.doc.getElementById(toggle.getAttribute("aria-controls"));
+  for (const link of menu.querySelectorAll("a")) {
+    fire(p.doc, toggle, "click");
+    assert.strictEqual(menu.hidden, false);
+    const evt = fire(p.doc, link, "click");
+    assert.strictEqual(evt.defaultPrevented, false, "the link is followed");
+    assert.strictEqual(menu.hidden, true);
+    assert.strictEqual(toggle.getAttribute("aria-expanded"), "false");
+  }
+  const panel = p.doc.getElementById("mobile-menu");
+  panel.hidden = false; // the panel, opened
+  const evt = fire(p.doc, p.q(".mobile-account__nav a"), "click");
+  assert.strictEqual(evt.defaultPrevented, false);
+  assert.strictEqual(panel.hidden, true, "the mobile panel closes too");
+});
+
+test("account menu keyboard: arrows open and move, Home/End jump, Escape returns to the button", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))] });
+  await settle();
+  const toggle = p.q(".header-auth [data-account-toggle]");
+  const menu = p.doc.getElementById(toggle.getAttribute("aria-controls"));
+  const items = menu.children.filter((n) => n.tagName === "A" || n.tagName === "BUTTON");
+  const key = (target, k) => fire(p.doc, target, "keydown", { key: k });
+
+  toggle.focus();
+  assert.ok(key(toggle, "ArrowDown").defaultPrevented);
+  assert.strictEqual(menu.hidden, false, "ArrowDown opens the menu");
+  assert.strictEqual(p.doc.activeElement, items[0], "…at Profile");
+  key(items[0], "ArrowDown");
+  assert.strictEqual(p.doc.activeElement, items[1]);
+  key(items[1], "End");
+  assert.strictEqual(p.doc.activeElement, items[3], "End: Sign out");
+  key(items[3], "ArrowDown");
+  assert.strictEqual(p.doc.activeElement, items[0], "wraps to the top");
+  key(items[0], "ArrowUp");
+  assert.strictEqual(p.doc.activeElement, items[3], "wraps to the bottom");
+  key(items[3], "Home");
+  assert.strictEqual(p.doc.activeElement, items[0]);
+  const letter = key(items[0], "a");
+  assert.strictEqual(letter.defaultPrevented, false, "other keys are left alone");
+
+  key(items[0], "Escape");
+  assert.strictEqual(menu.hidden, true);
+  assert.strictEqual(p.doc.activeElement, toggle);
+
+  toggle.focus();
+  key(toggle, "ArrowUp");
+  assert.strictEqual(p.doc.activeElement, items[3], "ArrowUp opens at the last item");
+  key(items[3], "Escape");
+  assert.strictEqual(key(toggle, "Home").defaultPrevented, false, "Home on the closed button does nothing");
+  assert.strictEqual(menu.hidden, true);
+});
+
+test("account menu: tabbing out closes it; focus moving within it does not", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))] });
+  await settle();
+  const toggle = p.q(".header-auth [data-account-toggle]");
+  const menu = p.doc.getElementById(toggle.getAttribute("aria-controls"));
+  const signout = menu.querySelector("button");
+  fire(p.doc, toggle, "click");
+  fire(p.doc, menu.querySelector("a"), "focusout", { relatedTarget: signout });
+  assert.strictEqual(menu.hidden, false, "still inside");
+  fire(p.doc, signout, "focusout", { relatedTarget: null });
+  assert.strictEqual(menu.hidden, false, "no new focus target: left to the outside-click rule");
+  fire(p.doc, signout, "focusout", { relatedTarget: p.desktopButtons()[0] });
+  assert.strictEqual(menu.hidden, true, "focus left the menu");
+  assert.strictEqual(toggle.getAttribute("aria-expanded"), "false");
+});
+
+test("/account Profile: drawn from the session, cleared on sign-out", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER)), json(200, SIGNED_OUT)], accountPage: true });
+  await settle();
+  const box = p.q("[data-account-profile]");
+  assert.strictEqual(box.querySelector(".account__avatar img").src, "https://avatars.example.test/dee.png");
+  assert.strictEqual(p.q(".account-profile__name").textContent, "Dee Signer");
+  assert.strictEqual(p.q(".account-profile__email").textContent, "dee@example.test");
+
+  // The page's own Settings > Sign out uses the same sign-out as the header.
+  fire(p.doc, p.q("[data-account-page] [data-auth-signout]"), "click");
+  await settle(6);
+  assert.strictEqual(p.calls.filter((c) => c.url === "/api/auth/signout" && c.method === "POST").length, 1);
+  assert.strictEqual(p.state(), "signed-out");
+  assert.deepStrictEqual(box.children, [], "profile cleared");
+  assert.strictEqual(p.doc.activeElement, p.q("[data-account-page] [data-auth-open='signin']"), "focus lands on the page's Sign in");
 });
 
 test("?auth_error: message shown once, parameter removed, rest of the URL kept", async () => {

@@ -701,11 +701,15 @@ ul {
 body:has(#mobile-menu:not([hidden])) {
   overflow: hidden;
 }
-.mobile-menu__nav {
+/* .mobile-account__nav is the signed-in panel's Profile / Saved / Settings
+   (src/client/auth.js), drawn exactly like the panel's own links. */
+.mobile-menu__nav,
+.mobile-account__nav {
   display: flex;
   flex-direction: column;
 }
-.mobile-menu__nav a {
+.mobile-menu__nav a,
+.mobile-account__nav a {
   text-decoration: none;
   color: #cdd6e8;
   font-weight: 600;
@@ -713,11 +717,14 @@ body:has(#mobile-menu:not([hidden])) {
   padding: 14px 2px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-.mobile-menu__nav a:last-child {
+.mobile-menu__nav a:last-child,
+.mobile-account__nav a:last-child {
   border-bottom: none;
 }
 .mobile-menu__nav a:hover,
-.mobile-menu__nav a:active {
+.mobile-menu__nav a:active,
+.mobile-account__nav a:hover,
+.mobile-account__nav a:active {
   color: #fff;
 }
 /* The header's Sign in / Sign up, moved into the panel below 641px: two
@@ -812,36 +819,30 @@ html[data-auth] .mobile-menu__auth {
   height: 100%;
   object-fit: cover;
 }
+/* The account menu: "Your Account", Profile / Saved / Settings, a hairline,
+   Sign out. The name is already on the button, so the panel is only the
+   actions. Every row is the same compact text row; the label above them
+   takes the legal pages' small muted caption. */
 .account__menu {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
   z-index: 5;
-  width: 260px;
-  padding: 14px;
+  width: 220px;
+  padding: 6px;
   background: var(--paper);
   color: var(--text);
   border: 1px solid var(--grid-line);
   border-radius: var(--radius);
   box-shadow: 0 12px 28px rgba(15, 42, 82, 0.18);
 }
-.account__who {
-  display: grid;
-  gap: 2px;
-  margin-bottom: 8px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--grid-line);
-}
-.account__who-name {
-  font-size: 14px;
+.account__title {
+  padding: 8px 10px 6px;
+  font-size: 12px;
   font-weight: 600;
-  overflow-wrap: anywhere;
-}
-.account__email {
-  font-size: 13px;
   color: var(--text-muted);
-  overflow-wrap: anywhere;
 }
+.account__item,
 .account__signout {
   display: block;
   width: 100%;
@@ -853,21 +854,40 @@ html[data-auth] .mobile-menu__auth {
   font-size: 14px;
   font-weight: 600;
   text-align: left;
+  text-decoration: none;
 }
+.account__item:hover,
 .account__signout:hover {
   background: rgba(37, 99, 235, 0.06);
   color: var(--action);
+}
+.account__divider {
+  height: 0;
+  margin: 6px 0;
+  border: 0;
+  border-top: 1px solid var(--grid-line);
 }
 .account__signout:disabled,
 .mobile-account .btn:disabled {
   opacity: 0.6;
   cursor: progress;
 }
-/* Signed in, mobile panel: who is signed in, then a full-width Sign out in
-   the slot the two sign-in buttons use. */
+/* Signed in, mobile panel: "Your Account", who is signed in, Profile /
+   Saved / Settings, then a full-width Sign out, in the slot the two
+   sign-in buttons use. A hairline sets it apart from the primary links. */
 .mobile-account {
   display: grid;
   gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mobile-account__title {
+  color: #cdd6e8;
+  font-size: 13px;
+  font-weight: 600;
+}
+.mobile-account__nav {
+  margin-top: -8px;
 }
 .mobile-account__who {
   display: flex;
