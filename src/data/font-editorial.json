@@ -4204,5 +4204,135 @@
       { "for": "characteristics:narrow", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
       { "for": "notes", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest tenth; OS/2 width class Normal.", "measured": [{ "metric": "lowercaseAdvance", "percentileAtMost": 10 }, { "metric": "widthClass", "between": [5, 5] }] }
     ]
+  },
+  "bowlby-one": {
+    "bestFor": ["display-headings", "period-typography"],
+    "avoidFor": ["non-latin-scripts", "cyrillic-greek", "extended-latin-languages"],
+    "characteristics": ["large-x-height", "wide-lowercase"],
+    "pairings": [],
+    "notes": "Upstream describes Bowlby One as an all caps display font and points to a separate version with lowercase letters, but the file published here measures as ordinary lowercase: its a to z are true lowercase forms, not repeated capitals. Sentence-case text therefore sets in mixed case, so apply text-transform: uppercase where a design needs the all-caps look.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Bowlby One is perfect for big bold headlines and display uses that need a slightly roughened look'." },
+      { "for": "bestFor:period-typography", "basis": "upstream-description", "detail": "'Its forms are a fusion of a handfull of designs scanned from old, early Twentieth Century type specimens'." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin only; no script but Latin verified in the font file." },
+      { "for": "avoidFor:cyrillic-greek", "basis": "bpozz-data", "detail": "subsets: latin only; neither Cyrillic nor Greek verified in the font file." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets: latin only; the Latin Extended core is not in the font file." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'designed for use as a utilitarian, all caps display font'; 'A version with lowercase characters is also available'." },
+      { "for": "notes", "basis": "font-file", "detail": "a–z measured as ordinary lowercase forms, not capitals or small capitals.", "measured": [{ "metric": "lowercaseForm", "is": "lowercase" }] },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Text: text-transform: uppercase maps each lowercase letter to its capital." }
+    ]
+  },
+  "carter-one": {
+    "bestFor": ["display-headings", "period-typography"],
+    "avoidFor": ["non-latin-scripts", "cyrillic-greek", "extended-latin-languages"],
+    "characteristics": ["large-x-height", "wide-lowercase"],
+    "pairings": [],
+    "notes": "Carter One's digits each keep their own width and the file has no tnum feature, so font-variant-numeric: tabular-nums changes nothing. A number that updates in place, such as a countdown or a sale price, will change width as its digits change; set live figures in a face with fixed-width numerals.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'the stems optimised for use as display font for modern web browsers'." },
+      { "for": "bestFor:period-typography", "basis": "upstream-description", "detail": "'a reworking of particular casual typeforms that were popular around the mid Twentieth Century, often found used areas such advertising or pulp fiction book covers'." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin only; no script but Latin verified in the font file." },
+      { "for": "avoidFor:cyrillic-greek", "basis": "bpozz-data", "detail": "subsets: latin only; neither Cyrillic nor Greek verified in the font file." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets: latin only; the Latin Extended core is not in the font file." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Default digits do not share one advance, and GSUB has no 'tnum' feature.", "measured": [{ "metric": "tabularFigures", "is": false }, { "metric": "features", "lacksFeatures": ["tnum"] }] },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts: font-variant-numeric: tabular-nums switches on the font's 'tnum' feature, and does nothing where the font has none." }
+    ]
+  },
+  "electrolize": {
+    "bestFor": ["display-headings", "ui-labels"],
+    "avoidFor": ["non-latin-scripts", "cyrillic-greek", "extended-latin-languages"],
+    "characteristics": ["geometric", "technical"],
+    "pairings": [],
+    "notes": "Upstream credits Electrolize's steady baseline to its rectangular, modular construction, and says the detailing in its terminals becomes noticeable only at display sizes. Set it large when those terminals are meant to carry the look; at small sizes the same letters show little of that detail.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'It came out solid enought to work well in any size from body copy to headlines'." },
+      { "for": "bestFor:ui-labels", "basis": "upstream-description", "detail": "'It is optimized for screen'." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin only; no script but Latin verified in the font file." },
+      { "for": "avoidFor:cyrillic-greek", "basis": "bpozz-data", "detail": "subsets: latin only; neither Cyrillic nor Greek verified in the font file." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets: latin only; the Latin Extended core is not in the font file." },
+      { "for": "characteristics:geometric", "basis": "upstream-description", "detail": "'Electrolize can be best described as a squarish geometric typeface'." },
+      { "for": "characteristics:technical", "basis": "upstream-description", "detail": "'to create the Electrolize typeface with an accurate techno character'." },
+      { "for": "notes", "basis": "upstream-description", "detail": "'holds the baseline well because of its rectangular modular-based construction'; 'At display sizes its detailing in terminals become noticeable'." }
+    ]
+  },
+  "gravitas-one": {
+    "bestFor": ["display-headings", "period-typography"],
+    "avoidFor": ["non-latin-scripts", "cyrillic-greek", "extended-latin-languages"],
+    "characteristics": ["large-x-height", "wide-lowercase", "high-contrast"],
+    "pairings": [],
+    "notes": "Gravitas One's lowercase ranks in the widest one percent of the library by average advance, so each word takes up far more of the line than its point size suggests. Test the longest title at the narrowest breakpoint before fixing a headline length, since even a short phrase can break onto a second line.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'it will be most useful when set from medium to large sizes'." },
+      { "for": "bestFor:period-typography", "basis": "upstream-description", "detail": "'modeled on the \"UK fat face\" which is a kind of very heavy advertising type created during the industrial revolution in England'." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin only; no script but Latin verified in the font file." },
+      { "for": "avoidFor:cyrillic-greek", "basis": "bpozz-data", "detail": "subsets: latin only; neither Cyrillic nor Greek verified in the font file." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets: latin only; the Latin Extended core is not in the font file." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "characteristics:high-contrast", "basis": "upstream-description", "detail": "'an attention getting and strong contrast between the very heavy vertical shapes and the thin horizontal ones'." },
+      { "for": "notes", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest one percent.", "measured": [{ "metric": "lowercaseAdvance", "percentileAtLeast": 99 }] }
+    ]
+  },
+  "nobile": {
+    "bestFor": ["cyrillic-text", "ui-labels"],
+    "avoidFor": ["extended-latin-languages"],
+    "characteristics": ["oldstyle-figures", "legibility-focused"],
+    "pairings": [],
+    "notes": "Nobile's figures are old-style and of uneven width, and the file offers no lnum or tnum to change them, so font-variant-numeric: lining-nums tabular-nums has no effect. In an interface set in Nobile, amounts in a table column or counters on a dashboard will neither align vertically nor sit at capital height.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:cyrillic-text", "basis": "bpozz-data", "detail": "subsets include cyrillic; Cyrillic verified in the font file." },
+      { "for": "bestFor:ui-labels", "basis": "upstream-description", "detail": "'designed to work with the technologies of digital screens and handheld devices'." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets list latin-ext, but the Latin Extended core is not in the font file." },
+      { "for": "characteristics:oldstyle-figures", "basis": "font-file", "detail": "Default digits of every upright style are old-style (measured rule)." },
+      { "for": "characteristics:legibility-focused", "basis": "upstream-description", "detail": "'the aim was to design a font that could function well, have good legibility on screen'." },
+      { "for": "notes", "basis": "font-file", "detail": "Default digits old-style and not of one width; GSUB has no 'lnum', 'tnum' or 'pnum' feature.", "measured": [{ "metric": "defaultFigures", "is": "oldstyle" }, { "metric": "tabularFigures", "is": false }, { "metric": "features", "lacksFeatures": ["lnum","tnum","pnum"] }] },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts: font-variant-numeric switches on figure features the font provides, and has no effect where it provides none." }
+    ]
+  },
+  "quando": {
+    "bestFor": ["latin-extended-text", "period-typography"],
+    "avoidFor": ["non-latin-scripts", "cyrillic-greek"],
+    "characteristics": ["text-face", "large-x-height", "wide-lowercase"],
+    "pairings": [],
+    "notes": "Measured in em rather than against its capitals, Quando's x-height is in the library's top twentieth, so at the same font-size its lowercase looks a size bigger than most text faces beside it. When pairing it, match the two by x-height, for example with font-size-adjust, rather than by the font-size value.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "bestFor:period-typography", "basis": "upstream-description", "detail": "'inspired by brushy handwritten letters seen on an italian poster from the second world war'." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "avoidFor:cyrillic-greek", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; neither Cyrillic nor Greek verified in the font file." },
+      { "for": "characteristics:text-face", "basis": "upstream-description", "detail": "'Quando is a flexible text typeface made for the web' — the upstream text names it a text typeface." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "x-height in em in the library's top twentieth.", "measured": [{ "metric": "xHeight", "percentileAtLeast": 95 }] },
+      { "for": "notes", "basis": "css-spec", "detail": "CSS Fonts: font-size-adjust scales a font so that its x-height is a set proportion of the font size." }
+    ]
+  },
+  "vast-shadow": {
+    "bestFor": ["display-headings", "period-typography"],
+    "avoidFor": ["non-latin-scripts", "cyrillic-greek", "extended-latin-languages"],
+    "characteristics": ["large-x-height", "wide-lowercase"],
+    "pairings": [],
+    "notes": "Vast Shadow's capitals are among the shortest tenth in the library measured against the em, so at any given font-size its letters stand lower than those of most faces set beside it. Match it to neighbouring type by the height of the capitals, raising its font-size, rather than by using equal size values.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'we recommend that you use it from 32px and larger'." },
+      { "for": "bestFor:period-typography", "basis": "upstream-description", "detail": "'Vast is a Victorian slab serif advertising type'." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin only; no script but Latin verified in the font file." },
+      { "for": "avoidFor:cyrillic-greek", "basis": "bpozz-data", "detail": "subsets: latin only; neither Cyrillic nor Greek verified in the font file." },
+      { "for": "avoidFor:extended-latin-languages", "basis": "bpozz-data", "detail": "subsets: latin only; the Latin Extended core is not in the font file." },
+      { "for": "characteristics:large-x-height", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's top quarter (measured rule)." },
+      { "for": "characteristics:wide-lowercase", "basis": "font-file", "detail": "Mean lowercase advance in the library's widest quarter (measured rule)." },
+      { "for": "notes", "basis": "font-file", "detail": "Cap height in em in the library's bottom tenth.", "measured": [{ "metric": "capHeight", "percentileAtMost": 10 }] }
+    ]
   }
 }

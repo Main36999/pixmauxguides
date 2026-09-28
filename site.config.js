@@ -506,6 +506,15 @@ module.exports = {
         "shadows-into-light",
         // Batch 14: Dawning of a New Day reopened; measured proportions only
         "dawning-of-a-new-day",
+        // Batch 16: seven Batch 7–7C holds reopened — a second Best for term
+        // each, from upstream wording approved records already accept
+        "bowlby-one",
+        "carter-one",
+        "electrolize",
+        "gravitas-one",
+        "nobile",
+        "quando",
+        "vast-shadow",
       ],
     },
   },
