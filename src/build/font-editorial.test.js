@@ -196,8 +196,8 @@ test("the committed editorial data passes validation", () => {
   assert.doesNotThrow(() => validate(raw));
 });
 
-test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two", () => {
-  assert.strictEqual(PROTOTYPE.length, 184);
+test("exactly the declared families have a record: Batch 1's ten, Batch 2's twenty, Batch 3's twenty, Batch 4's twenty, Batch 5's four, Batch 6's twenty, Batch 7's twenty, Batch 7B's twenty, Batch 7C's sixteen, Batch 8's twenty, Batch 9's twelve, Batch 10's two, Batch 11's one", () => {
+  assert.strictEqual(PROTOTYPE.length, 185);
   assert.strictEqual(new Set(PROTOTYPE).size, PROTOTYPE.length);
   assert.deepStrictEqual(PROTOTYPE.slice(0, 10), BATCH1);
   assert.deepStrictEqual(Object.keys(raw), PROTOTYPE, "records appear in declaration order, Batch 1 first");
@@ -1726,9 +1726,9 @@ test("the 182 approved records are pinned: any edit to Batches 1–9 fails here"
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
     "4974b5b6123b2be1d308fc420e5c37b2a49b526d8b1724c5b45918e2e68e596f",
   );
-  assert.deepStrictEqual(Object.keys(raw).slice(182), BATCH10, "Batch 10 follows Batch 9, in declaration order");
-  assert.deepStrictEqual(PROTOTYPE.slice(182), BATCH10, "site.config declares Batch 10 in the same order");
-  assert.strictEqual(Object.keys(raw).length, 184);
+  assert.deepStrictEqual(Object.keys(raw).slice(182, 184), BATCH10, "Batch 10 follows Batch 9, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(182, 184), BATCH10, "site.config declares Batch 10 in the same order");
+  assert.strictEqual(Object.keys(raw).length, 185);
 });
 
 /** An evidenced() record with a second evidence entry for one characteristic. */
@@ -1885,7 +1885,8 @@ test("Batch 10 reopens only Unica One and Saira Stencil One; every other exclusi
   // Stardos Stencil passes the Stencil rule but has one honest Best for term (display-only) and no verified Latin Extended core
   assert.ok(m("stardos-stencil").stencilLetterCount >= 15);
   assert.strictEqual(m("stardos-stencil").coverage.latinExtendedVerified, false);
-  ["stardos-stencil", "benchnine", "berkshire-swash", "caudex", "monofett", "comic-relief", "caladea", "libertinus-serif",
+  // (Monofett was on this list until Batch 11 found upstream evidence for a second characteristic)
+  ["stardos-stencil", "benchnine", "berkshire-swash", "caudex", "comic-relief", "caladea", "libertinus-serif",
     "electrolize", "aldrich", "quantico", "architects-daughter", "italiana", "forum", "marcellus", "sofia"].forEach((id) =>
     assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
   // the approved 182 do not include either Batch 10 family
@@ -1900,4 +1901,60 @@ test("Batch 10 pages show Unicase and Stencil; Major Mono Display still shows Al
   assert.match(html("saira-stencil-one"), />Stencil</);
   assert.match(html("major-mono-display"), />All caps</);
   assert.doesNotMatch(html("major-mono-display"), />Unicase</);
+});
+
+// ---------------------------------------------------------------------
+// Batch 11: Monofett — all caps measured, display face stated upstream
+// ---------------------------------------------------------------------
+
+const BATCH11 = ["monofett"];
+
+test("the 184 approved records are pinned: any edit to Batches 1–10 fails here", () => {
+  const crypto = require("crypto");
+  const approved = Object.keys(raw).slice(0, 184).map((k) => [k, raw[k]]);
+  assert.strictEqual(
+    crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
+    "05e7851bebc5772d89981ef8e5f45a8628f6b35ce0913fc93bb0e58615e10d72",
+  );
+  assert.deepStrictEqual(Object.keys(raw).slice(184), BATCH11, "Batch 11 follows Batch 10, in declaration order");
+  assert.deepStrictEqual(PROTOTYPE.slice(184), BATCH11, "site.config declares Batch 11 in the same order");
+});
+
+test("Batch 11: Monofett claims exactly what the file and upstream establish, and nothing its Monospace filing suggests", () => {
+  const rec = raw.monofett;
+  assert.deepStrictEqual(rec.characteristics, ["all-caps", "display-face"]);
+  assert.deepStrictEqual(rec.bestFor, ["all-caps-titles", "tabular-data", "latin-extended-text"]);
+  const basesOf = (claim) => rec.evidence.filter((e) => e.for === claim).map((e) => e.basis);
+  assert.deepStrictEqual(basesOf("characteristics:all-caps"), ["font-file"]);
+  assert.deepStrictEqual(basesOf("characteristics:display-face"), ["upstream-description"]);
+  assert.deepStrictEqual(basesOf("bestFor:tabular-data"), ["font-file"]);
+  // filed as monospace, but the ASCII advances differ: never Monospaced
+  assert.strictEqual(model.fonts.find((f) => f.id === "monofett").category, "monospace");
+  assert.strictEqual(m("monofett").asciiMonospaced, false);
+  assert.strictEqual(m("monofett").lowercaseForm, "caps");
+  assert.strictEqual(m("monofett").tabularFigures, true);
+  assert.ok(!m("monofett").features.includes("tnum"), "tabular by default, not through tnum");
+  // a–z are capitals, so no lowercase width (the Graduate precedent), and no unicase reading
+  ["monospaced", "wide-lowercase", "unicase", "technical"].forEach((t) => assert.ok(!rec.characteristics.includes(t), t));
+  assert.strictEqual(m("monofett").unicaseLetterCount, 0);
+  assert.deepStrictEqual(rec.pairings, []);
+  assert.deepStrictEqual(rec.relatedGuides, []);
+  assert.ok(rec.notes);
+});
+
+test("Batch 11 adds only Monofett; the other reviewed families and every earlier exclusion stay out", () => {
+  // reviewed with Monofett: no second characteristic upstream
+  ["creepster", "titillium-web", "proza-libre"].forEach((id) => assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+  ["stardos-stencil", "benchnine", "berkshire-swash", "caudex", "comic-relief", "caladea", "libertinus-serif",
+    "electrolize", "aldrich", "quantico", "architects-daughter", "italiana", "forum", "marcellus", "sofia"].forEach((id) =>
+    assert.ok(!raw[id] && !PROTOTYPE.includes(id), id));
+  // Black Ops One is unchanged: it still does not claim Stencil
+  assert.ok(!raw["black-ops-one"].characteristics.includes("stencil"));
+});
+
+test("Batch 11 page shows All caps and Display face, never Monospaced", () => {
+  const html = page(withLayer, "monofett");
+  assert.match(html, />All caps</);
+  assert.match(html, />Display face</);
+  assert.doesNotMatch(html, />Monospaced</);
 });

@@ -4058,5 +4058,26 @@
       { "for": "characteristics:large-glyph-set", "basis": "font-file", "detail": "Glyph count in the library's top quarter (measured rule)." },
       { "for": "notes", "basis": "font-file", "detail": "Stencil-broken capitals, lowercase and figures; GSUB tnum, pnum, lnum, onum and zero.", "measured": [{ "metric": "stencilLetterCount", "atLeast": 15 }, { "metric": "features", "hasAnyFeature": ["tnum"] }, { "metric": "features", "hasAnyFeature": ["pnum"] }, { "metric": "features", "hasAnyFeature": ["lnum"] }, { "metric": "features", "hasAnyFeature": ["onum"] }, { "metric": "features", "hasAnyFeature": ["zero"] }] }
     ]
+  },
+  "monofett": {
+    "bestFor": ["all-caps-titles", "tabular-data", "latin-extended-text"],
+    "avoidFor": ["long-body-text", "bold-italic-emphasis", "non-latin-scripts"],
+    "characteristics": ["all-caps", "display-face"],
+    "pairings": [],
+    "notes": "BPOZZ files Monofett under Monospace, yet its printable ASCII characters do not share one advance, so code, ASCII tables or anything that depends on character columns will drift out of line. Treat it as a proportional display face for titles and badges, and set fixed-width material in a true monospace.",
+    "relatedGuides": [],
+    "evidence": [
+      { "for": "bestFor:all-caps-titles", "basis": "font-file", "detail": "a–z drawn as capitals (measured rule)." },
+      { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: the default digits share one advance; there is no tnum feature (measured rule)." },
+      { "for": "bestFor:latin-extended-text", "basis": "bpozz-data", "detail": "subsets include latin-ext; the Latin Extended core is verified in the font file (font-scripts.js)." },
+      { "for": "avoidFor:long-body-text", "basis": "design-guidance", "detail": "An all-capital decal alphabet removes the word-shape cues that carry long reading." },
+      { "for": "avoidFor:bold-italic-emphasis", "basis": "bpozz-data", "detail": "variants: 400 only, no italic." },
+      { "for": "avoidFor:non-latin-scripts", "basis": "bpozz-data", "detail": "subsets: latin, latin-ext; no script but Latin verified in the font file." },
+      { "for": "characteristics:all-caps", "basis": "font-file", "detail": "a–z drawn as capitals (measured rule)." },
+      { "for": "characteristics:display-face", "basis": "upstream-description", "detail": "'designed to be a bold, eye catching decal-like display face'." },
+      { "for": "notes", "basis": "bpozz-data", "detail": "category: monospace." },
+      { "for": "notes", "basis": "font-file", "detail": "The printable ASCII characters do not share one advance, so the project's ASCII-monospaced rule fails.", "measured": [{ "metric": "asciiMonospaced", "is": false }] },
+      { "for": "notes", "basis": "upstream-description", "detail": "'a bold, eye catching decal-like display face'." }
+    ]
   }
 }

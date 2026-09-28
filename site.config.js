@@ -492,6 +492,8 @@ module.exports = {
         // Batch 10: the two families the Unicase and Stencil terms made eligible
         "unica-one",
         "saira-stencil-one",
+        // Batch 11: all caps measured, display face stated upstream
+        "monofett",
       ],
     },
   },
