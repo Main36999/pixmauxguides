@@ -928,6 +928,17 @@
     flex: 1;
     width: auto;
   }
+  /* Save, Download and the More options button need ~281px; below ~371px
+     the button ran past the panel and the viewport. Wrapping moves it to its
+     own line, pushed right so its right-anchored menu still opens on screen.
+     Where the row fits, Download's flex: 1 takes the space and neither rule
+     changes anything. */
+  .font-actions {
+    flex-wrap: wrap;
+  }
+  .font-actions > .font-menu {
+    margin-left: auto;
+  }
   .font-related {
     margin-top: 56px;
   }
