@@ -21,7 +21,10 @@
  * validator refuses any claim that has none.
  *
  *   upstream-description  the family's DESCRIPTION.en_us.html in google/fonts
- *                         at the commit fonts.json pins
+ *                         at the commit fonts.json pins — or, only when that
+ *                         file does not exist there, article/ARTICLE.en_us.html
+ *                         at the same commit. When both exist, DESCRIPTION
+ *                         governs. The same quote standards apply to either.
  *   font-file             measured from the shipped font file (glyph
  *                         outlines, hmtx, post, GSUB, cmap)
  *   bpozz-data            a field of the family's record in fonts.json

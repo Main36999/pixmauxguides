@@ -2201,3 +2201,37 @@ test("Batch 14 page shows the measured terms and the note", () => {
   assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'));
   assert.doesNotMatch(html, />Handwritten</);
 });
+
+// ---------------------------------------------------------------------
+// Upstream source rule: DESCRIPTION.en_us.html at the pinned commit, or
+// article/ARTICLE.en_us.html only where no DESCRIPTION exists there
+// ---------------------------------------------------------------------
+
+/** The pinned google/fonts commit, and the families with no DESCRIPTION.en_us.html at it (checked upstream). */
+const PINNED_COMMIT = "e44c4b011a820c2cbe2fd2cfa8052037d7edb571";
+const ARTICLE_ONLY = [
+  "bungee", "iosevka-charon-mono", "libertinus-mono", "libertinus-serif", "space-mono", "special-gothic-expanded-one",
+];
+
+test("upstream source rule: the article stands in only where the pinned commit has no DESCRIPTION", () => {
+  // every family is pinned to one commit; if an import moves it, ARTICLE_ONLY must be re-checked upstream
+  assert.deepStrictEqual([...new Set(model.fonts.map((f) => f.repositoryUrl.split("/")[6]))], [PINNED_COMMIT]);
+  ARTICLE_ONLY.forEach((id) => assert.ok(model.fonts.some((f) => f.id === id), id));
+  // the four approved records whose upstream-description evidence is their article
+  const citing = ARTICLE_ONLY.filter((id) => raw[id] && raw[id].evidence.some((e) => e.basis === "upstream-description"));
+  assert.deepStrictEqual(citing, ["bungee", "iosevka-charon-mono", "libertinus-mono", "space-mono"]);
+  assert.ok(raw["special-gothic-expanded-one"].evidence.every((e) => e.basis !== "upstream-description"));
+  // the rule adds no record: Libertinus Serif's article states no characteristic under the existing standards
+  assert.ok(!raw["libertinus-serif"] && !PROTOTYPE.includes("libertinus-serif"));
+});
+
+test("upstream source rule changes no other policy", () => {
+  // Handwritten never rests on BPOZZ data alone
+  Object.entries(raw).forEach(([id, rec]) => {
+    const bases = rec.evidence.filter((e) => e.for === "characteristics:handwritten").map((e) => e.basis);
+    if (bases.length) assert.ok(bases.includes("upstream-description"), id);
+  });
+  // Display face and Text face stay upstream-only; the vocabulary is unchanged
+  ["display-face", "text-face"].forEach((t) => assert.ok(editorial.UPSTREAM_ONLY.includes(t), t));
+  assert.strictEqual(Object.keys(editorial.CHARACTERISTICS).length, 45);
+});
