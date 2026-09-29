@@ -325,6 +325,15 @@
     return !!(store && store.ids[id] === true);
   }
 
+  // Whether isSaved is an answer rather than a guess: the kind's list has
+  // loaded, or a change to this item has been confirmed (or another tab
+  // reported one) since this page started. While a list is still loading,
+  // has failed or was never asked for, "not saved" is only a guess.
+  function isKnown(kind, id) {
+    var store = stores[kind];
+    return !!(store && (store.state === "ready" || store.changed[id]));
+  }
+
   // Records a change the server confirmed (or another tab reported).
   function markSaved(kind, id, saved) {
     var store = storeFor(kind);
@@ -574,12 +583,13 @@
 
   // Sends the next request for one item, if it needs one and none is out.
   // A click while a request runs only moves `desired`; the answer then
-  // decides whether another request is needed.
+  // decides whether another request is needed. Only a known state skips
+  // the request: a removal while the list is unknown still goes out.
   function pump(kind, id) {
     var key = keyOf(kind, id);
     if (inflight[key] || !Object.prototype.hasOwnProperty.call(desired, key)) return;
     var want = desired[key];
-    if (want === isSaved(kind, id)) {
+    if (want === isSaved(kind, id) && isKnown(kind, id)) {
       delete desired[key];
       delete origins[key];
       paintItem(kind, id);

@@ -481,6 +481,100 @@ test("save()/remove() use the same queue and resolve with the outcome", async ()
   assert.strictEqual(p.writes().length, 2, "a malformed id never leaves the browser");
 });
 
+test("remove() while the kind's list is still loading: DELETE is sent, never a local success", async () => {
+  const server = fakeServer({ saved: [["font", "abel"]] });
+  const held = deferred();
+  const p = load({
+    controls: [["font", "abel"]],
+    api: (method, url, body) => {
+      const answer = server.handler(method, url, body); // what the server holds at this moment
+      return method === "GET" ? held.promise.then(() => answer) : answer;
+    },
+  });
+  await settle(); // the list is asked for; its answer (abel saved) is held
+  assert.strictEqual(p.api.has("font", "abel"), null, "not known yet");
+  assert.deepStrictEqual(plain(await p.api.remove("font", "abel")), { ok: true, saved: false });
+  assert.deepStrictEqual(
+    p.writes().map((c) => [c.method, c.url]),
+    [["DELETE", "/api/saved?kind=font&id=abel"]],
+  );
+  assert.deepStrictEqual(server.rows, []);
+  held.resolve();
+  await settle(10);
+  assert.strictEqual(pressed(p.nodes[0]), "false", "the older list answer does not bring it back");
+  assert.strictEqual(p.api.has("font", "abel"), false);
+});
+
+test("remove() while the list is loading and the DELETE fails: the failure is reported, not success", async () => {
+  const server = fakeServer({ saved: [["font", "abel"]] });
+  const held = deferred();
+  const p = load({
+    controls: [["font", "abel"]],
+    api: (method, url, body) =>
+      method === "GET"
+        ? held.promise.then(() => server.handler(method, url, body))
+        : response(503, { error: "saved_unavailable" }),
+  });
+  await settle();
+  const out = await p.api.remove("font", "abel");
+  assert.strictEqual(out.ok, false);
+  assert.strictEqual(out.reason, "unavailable");
+  assert.deepStrictEqual(p.writes().map((c) => c.method), ["DELETE"]);
+  assert.deepStrictEqual(p.toasts, ["Saving isn’t available right now. Please try again later."]);
+  held.resolve();
+  await settle(10);
+  assert.strictEqual(pressed(p.nodes[0]), "true", "still saved, as the list then says");
+  assert.strictEqual(p.api.has("font", "abel"), true);
+});
+
+test("remove() after the kind's list failed, or for a kind never loaded: DELETE is sent and decides", async () => {
+  for (const deleted of [200, 503]) {
+    const server = fakeServer({ saved: [["font", "abel"], ["guide", "type-scale-systems"]] });
+    const p = load({
+      controls: [["font", "abel"]],
+      api: (method, url, body) => {
+        if (method === "GET") return response(503, { error: "saved_unavailable" });
+        return deleted === 200 ? server.handler(method, url, body) : response(503, { error: "saved_unavailable" });
+      },
+    });
+    await settle(10);
+    assert.strictEqual(p.api.has("font", "abel"), null, "the list failed");
+
+    const font = await p.api.remove("font", "abel");
+    const guide = await p.api.remove("guide", "type-scale-systems"); // no control: its list was never asked for
+    assert.deepStrictEqual(
+      p.writes().map((c) => [c.method, c.url]),
+      [
+        ["DELETE", "/api/saved?kind=font&id=abel"],
+        ["DELETE", "/api/saved?kind=guide&id=type-scale-systems"],
+      ],
+    );
+    if (deleted === 200) {
+      assert.deepStrictEqual(plain(font), { ok: true, saved: false });
+      assert.deepStrictEqual(plain(guide), { ok: true, saved: false });
+      assert.deepStrictEqual(server.rows, []);
+      // Now confirmed unsaved: removing again needs no request.
+      assert.deepStrictEqual(plain(await p.api.remove("font", "abel")), { ok: true, saved: false });
+      assert.strictEqual(p.writes().length, 2);
+    } else {
+      assert.strictEqual(font.ok, false);
+      assert.strictEqual(font.reason, "unavailable");
+      assert.strictEqual(guide.ok, false);
+      assert.strictEqual(guide.reason, "unavailable");
+      assert.strictEqual(server.rows.length, 2);
+    }
+  }
+});
+
+test("remove() of an item the loaded list says isn't saved: settled at once, no request", async () => {
+  const p = load({ controls: [["font", "abel"]] });
+  await settle();
+  assert.strictEqual(p.api.has("font", "abel"), false);
+  assert.deepStrictEqual(plain(await p.api.remove("font", "abel")), { ok: true, saved: false });
+  assert.deepStrictEqual(p.writes(), []);
+  assert.strictEqual(pressed(p.nodes[0]), "false");
+});
+
 // ---------------------------------------------------------------------
 // errors
 // ---------------------------------------------------------------------
