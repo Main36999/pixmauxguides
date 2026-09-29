@@ -16,6 +16,6 @@
     "check:fonts": "node scripts/fonts/check-fonts.js",
     "check:palettes": "node scripts/palettes/check-palettes.js",
     "qa": "npm run build && npm run check:fonts && npm run check:palettes && npm run snapshot && npm run check:urls && npm run check:baseline",
-    "test": "node --test src/build/palette-meta.test.js src/build/guide-template.test.js src/build/structured-data.test.js src/build/head.test.js src/build/colors-data.test.js src/build/palettes-data.test.js src/shared/card.test.js src/client/search.test.js src/client/image-picker.test.js src/client/auth.test.js src/build/home.test.js src/build/fonts.test.js src/build/icons.test.js src/build/footer.test.js src/build/font-editorial.test.js netlify/lib/auth.test.mjs netlify/lib/google.test.mjs netlify/lib/email.test.mjs netlify/lib/saved.test.mjs"
+    "test": "node --test src/build/palette-meta.test.js src/build/guide-template.test.js src/build/structured-data.test.js src/build/head.test.js src/build/colors-data.test.js src/build/palettes-data.test.js src/shared/card.test.js src/client/search.test.js src/client/image-picker.test.js src/client/auth.test.js src/client/saved.test.js src/build/home.test.js src/build/fonts.test.js src/build/icons.test.js src/build/footer.test.js src/build/font-editorial.test.js netlify/lib/auth.test.mjs netlify/lib/google.test.mjs netlify/lib/email.test.mjs netlify/lib/saved.test.mjs"
   }
 }

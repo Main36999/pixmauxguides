@@ -292,8 +292,12 @@ const USER = {
  * Loads auth.js into a fresh page. `sessions` is the list of answers
  * GET /api/auth/session gives, in order (the last one repeats); each is a
  * response object, or a function returning one or throwing.
+ *
+ * `sessionEvents` gives the page CustomEvent and document.dispatchEvent and
+ * records every event dispatched. Without it the page has neither, as every
+ * other test here runs — which is what proves the guard in announceSession.
  */
-function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false, accountPage = false } = {}) {
+function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false, accountPage = false, sessionEvents = false } = {}) {
   const doc = makeDocument();
   installDialog(doc);
   buildHeader(doc);
@@ -351,6 +355,20 @@ function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { 
     set: () => storageTouches.push("document.cookie"),
   });
   if (toast) ctx.bpozzShowToast = toast;
+  const dispatched = [];
+  if (sessionEvents) {
+    ctx.CustomEvent = class CustomEvent {
+      constructor(type, init = {}) {
+        this.type = type;
+        this.detail = init.detail;
+      }
+    };
+    doc.dispatchEvent = (evt) => {
+      dispatched.push([evt.type, { ...evt.detail }]);
+      (doc._listeners[evt.type] || []).forEach((fn) => fn(evt));
+      return true;
+    };
+  }
   ctx.window = ctx;
   vm.runInNewContext(SOURCE, ctx);
 
@@ -360,6 +378,7 @@ function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { 
     ctx,
     calls,
     storageTouches,
+    dispatched: () => dispatched,
     replaced: () => replaced,
     q,
     state: () => doc.documentElement.getAttribute("data-auth"),
@@ -869,4 +888,67 @@ test("email flow touches no browser storage", async () => {
   const p = page({ sessions: [json(200, EMAIL_ON)] });
   await submitEmail(p, "dee@example.test");
   assert.deepStrictEqual(p.storageTouches, []);
+});
+
+// ---------------------------------------------------------------------
+// bpozz:session — what src/client/saved.js listens for
+// ---------------------------------------------------------------------
+
+test("bpozz:session: fired once the real answer has been drawn", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))], sessionEvents: true });
+  assert.deepStrictEqual(p.dispatched(), [], "nothing before the answer");
+  await settle();
+  assert.deepStrictEqual(p.dispatched(), [["bpozz:session", { authenticated: true }]]);
+  assert.strictEqual(p.state(), "signed-in");
+});
+
+test("bpozz:session: a signed-out or failed answer is announced as signed out", async () => {
+  for (const answer of [json(200, SIGNED_OUT), json(503, { authenticated: false, user: null, error: "auth_unavailable" }), html(404)]) {
+    const p = page({ sessions: [answer], sessionEvents: true });
+    await settle();
+    assert.deepStrictEqual(p.dispatched(), [["bpozz:session", { authenticated: false }]]);
+  }
+});
+
+test("bpozz:session: never for the slow-answer placeholder", async () => {
+  const p = page({ hang: true, sessionEvents: true });
+  await new Promise((r) => setTimeout(r, 20)); // past the (fast-forwarded) reveal delay
+  assert.strictEqual(p.state(), "signed-out", "the placeholder was drawn");
+  assert.deepStrictEqual(p.dispatched(), []);
+});
+
+test("bpozz:session: sign-out and refreshSession announce the fresh answer", async () => {
+  const p = page({
+    sessions: [json(200, signedIn(USER)), json(200, SIGNED_OUT), json(200, signedIn(USER))],
+    sessionEvents: true,
+  });
+  await settle();
+  fire(p.doc, p.q(".header-auth [data-account-toggle]"), "click");
+  fire(p.doc, p.q(".header-auth [data-auth-signout]"), "click");
+  await settle(6);
+  await p.ctx.BpozzAuth.refreshSession();
+  assert.deepStrictEqual(
+    p.dispatched().map(([type, detail]) => [type, detail.authenticated]),
+    [["bpozz:session", true], ["bpozz:session", false], ["bpozz:session", true]],
+  );
+});
+
+test("bpozz:session: carries whether someone is signed in, never who", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER))], sessionEvents: true });
+  await settle();
+  const [[, detail]] = p.dispatched();
+  assert.deepStrictEqual(Object.keys(detail), ["authenticated"]);
+  const text = JSON.stringify(detail);
+  for (const value of [USER.id, USER.email, USER.display_name, USER.avatar_url]) {
+    assert.ok(!text.includes(value), value);
+  }
+});
+
+test("bpozz:session: without CustomEvent the header is drawn just the same", async () => {
+  const p = page({ sessions: [json(200, signedIn(USER)), json(200, SIGNED_OUT)] });
+  assert.strictEqual(typeof p.ctx.CustomEvent, "undefined");
+  await settle();
+  assert.strictEqual(p.state(), "signed-in");
+  await p.ctx.BpozzAuth.refreshSession();
+  assert.strictEqual(p.state(), "signed-out");
 });

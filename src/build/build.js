@@ -200,6 +200,15 @@ const PUBLISH_FILES = [
   { from: "src/client/auth.js", to: "auth.js" },
 
   /**
+   * SAVED — the browser half of account Saved (docs/SAVED.md). Like auth.js
+   * it is also bundled into /app.js (APP_BUNDLE.modules, right after
+   * auth.js, which it relies on); this standalone copy is for /account,
+   * which loads /auth.js but not app.js. It ships dormant (LAUNCHED false)
+   * and guards itself, so a page loading both copies runs it once.
+   */
+  { from: "src/client/saved.js", to: "saved.js" },
+
+  /**
    * HOMEPAGE — the stylesheet for the tool and resource cards below the
    * hero, published beside index.html at the root. Same shape as
    * colors.css and image-picker.css: styles only one page uses. The hero
@@ -319,7 +328,7 @@ const PUBLISH_FILES = [
  */
 const APP_BUNDLE = {
   to: "app.js",
-  modules: ["src/shared/html.js", "src/shared/card.js", "src/client/auth.js"],
+  modules: ["src/shared/html.js", "src/shared/card.js", "src/client/auth.js", "src/client/saved.js"],
   fragments: [
     "src/client/core.js",
     "src/client/guides.js",

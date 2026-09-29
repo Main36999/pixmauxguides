@@ -242,6 +242,62 @@ test("id rules accept the documented shapes and nothing else", () => {
   for (const [kind, id] of bad) assert.equal(isValidItem(kind, id), false, `${String(kind)} ${String(id)}`);
 });
 
+// The browser half repeats these rules so a malformed id never leaves the
+// page. It lives here rather than in src/client because nothing under src/
+// may name this library (see the last test in this file).
+test("the browser module's kinds, id rules and limits match this API's (src/client/saved.js)", () => {
+  const source = fs.readFileSync(path.join(REPO, "src", "client", "saved.js"), "utf8");
+  const context = { document: {} };
+  context.window = context;
+  vm.runInNewContext(source, context);
+  const browser = context.BpozzSaved;
+  assert.equal(browser.active, false, "src/client/saved.js ships dormant");
+  assert.deepEqual([...browser.kinds], [...SAVED_KINDS]);
+  assert.deepEqual({ ...browser.limits }, { ...LIMITS });
+
+  const read = (file) => JSON.parse(fs.readFileSync(path.join(REPO, file), "utf8"));
+  const cases = [
+    ...read("colors/colors-data.json").map((c) => ["color", c.id]),
+    ...read("palettes/palettes-data.json").map((p) => ["palette", p.id]),
+    ...read("src/data/fonts.json").map((f) => ["font", f.id]),
+    ...read("src/data/icons.json").map((i) => ["icon", `${i.pack}--${i.id}`]),
+    ...read("guides.json").map((g) => ["guide", g.id]),
+    ["image_palette", "1e193b-322a57-5438e6"],
+    ["image_palette", Array(8).fill("abcdef").join("-")],
+    ["color", "c01"],
+    ["color", "c12000"],
+    ["color", "C001"],
+    ["palette", "p1"],
+    ["font", "Abel"],
+    ["font", "abel-"],
+    ["font", "a--b"],
+    ["font", "a b"],
+    ["font", "a".repeat(64)],
+    ["font", "a".repeat(65)],
+    ["icon", "arrow-left"],
+    ["icon", "pack---id"],
+    ["icon", `${"a".repeat(59)}--${"b".repeat(59)}`],
+    ["icon", `${"a".repeat(60)}--${"b".repeat(60)}`],
+    ["guide", "a".repeat(100)],
+    ["guide", "a".repeat(101)],
+    ["guide", "../etc"],
+    ["image_palette", "1e193b-322a57"],
+    ["image_palette", Array(9).fill("abcdef").join("-")],
+    ["image_palette", "#1e193b-322a57-5438e6"],
+    ["image_palette", "1E193B-322A57-5438E6"],
+    ["image_palette", "1e193b-322a57-5438e6\n"],
+    ["roadmap", "type-scale-systems"],
+    ["unknown", "c001"],
+    ["color", 1],
+    [undefined, "c001"],
+    ["__proto__", "c001"],
+    ["constructor", "c001"],
+  ];
+  for (const [kind, id] of cases) {
+    assert.equal(browser.isValidItem(kind, id), isValidItem(kind, id), `${String(kind)} ${String(id)}`);
+  }
+});
+
 // ---------------------------------------------------------------------
 // identity
 // ---------------------------------------------------------------------

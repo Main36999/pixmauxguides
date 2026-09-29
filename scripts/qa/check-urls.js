@@ -159,6 +159,13 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * or code file. The gate confirmed it was the only addition — 0 removed,
  * nothing else moved, every surviving canonical unchanged — so the baseline
  * was re-recorded at 2431 URLs / 352 pages and the list empties again.
+ *
+ * /saved.js held one entry here while under review: the browser half of
+ * account Saved (Saved Phase 2, M1), published standalone for /account and
+ * bundled into /app.js, shipping dormant. It adds no page. The gate
+ * confirmed it was the only addition — 0 removed, nothing else moved, every
+ * surviving canonical unchanged — so the baseline was re-recorded at 2432
+ * URLs / 352 pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 

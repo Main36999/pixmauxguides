@@ -1,14 +1,20 @@
 # Account Saved items
 
-**Status (2026-09-28): Phase 1 — code written, not live.** The database
-script below has **not** been run, `SAVED_ENABLED` is not set, and nothing on
-the site calls the API yet.
+**Status (2026-09-29):**
+
+- **Phase 1 is in place.** The migration below has been run and its
+  verification passed, in the Supabase SQL editor; neither is to be run
+  again. `SAVED_ENABLED` is not set, so Saved is **off** in production: both
+  endpoints answer `503 saved_unavailable`.
+- **Phase 2 has started, dormant.** The browser module
+  ([Browser module](#browser-module)) is written and published but ships
+  with `LAUNCHED = false`, so nothing on the site calls the API yet.
 
 | phase | scope | state |
 |---|---|---|
-| 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | code written; SQL not run |
-| 2 | shared Save code in the browser, Fonts and Palettes switched over, the account Saved area, explicit import of old browser saves, privacy policy | not started |
-| 3 | Save buttons on Colors, Icons, UI/UX Guides and the Image Picker | not started |
+| 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1 written, dormant; M2–M11 not started |
+| later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
 
@@ -25,8 +31,9 @@ One account-level list per signed-in user. A row holds its owner
 | `guide` | slug | `guides.json` `id` |
 | `image_palette` | the colours in order, lowercase, no `#`, joined by `-`, 3–8 of them, e.g. `1e193b-322a57-5438e6` | the Image Picker's on-screen palette |
 
-The account Saved area (Phase 2) shows all six: Colors, Palettes, Fonts,
-Icons, Image Picker palettes and UI/UX Guides.
+The account Saved area (Phase 2) shows Colors, Palettes, Fonts, Image Picker
+palettes and UI/UX Guides. Icons are already a valid kind; they get Save
+buttons once the real icon packs replace the current sample set.
 
 - **Learning Roadmap progress is not a saved item.** It stays in the browser
   (`point-roadmap-progress`, `src/client/roadmap.js`); `roadmap` is not a
@@ -81,7 +88,9 @@ re-issues the cookies — and retries once.
 | `netlify/functions/saved.mjs` | `GET`, `POST`, `DELETE /api/saved` |
 | `netlify/functions/saved-import.mjs` | `POST /api/saved/import` |
 | `netlify/lib/saved.mjs` | kinds and id rules, request checks, token reading, Supabase Data API calls, list pagination, response mapping. Uses `netlify/lib/auth.mjs` helpers without changing them |
-| `netlify/lib/saved.test.mjs` | tests, with Supabase stubbed (`npm test`) |
+| `netlify/lib/saved.test.mjs` | tests, with Supabase stubbed (`npm test`), including the check that `src/client/saved.js` repeats these kinds, id rules and limits exactly |
+| `src/client/saved.js` | the browser module — see [Browser module](#browser-module) |
+| `src/client/saved.test.js` | its tests, run in a vm against `src/client/test-dom.js` (`npm test`) |
 
 ## API
 
@@ -127,6 +136,39 @@ What the browser (Phase 2) must do with a `429`:
   the visitor can import later.
 - A `429` is not a sign-out: never send it through the 401 refresh-and-retry
   path.
+
+## Browser module
+
+`src/client/saved.js` is the browser half. It ships inside `/app.js`, right
+after `auth.js` (whose `window.BpozzAuth` it relies on), and on its own at
+`/saved.js` for `/account`, which loads `/auth.js` but not `app.js`.
+
+**Dormant until launch.** The file holds `var LAUNCHED = false;`. While it is
+false the module publishes only
+`window.BpozzSaved = { active: false, kinds, limits, isValidItem, imagePaletteId }`
+and stops: no listener, no request, no storage access, nothing drawn, so every
+page behaves exactly as before Saved. Launching is changing that one line
+(milestone M10, together with the privacy policy).
+
+Once active:
+
+| part | behaviour |
+|---|---|
+| session | the answer `auth.js` already fetched (`BpozzAuth.getSession()`), then the `bpozz:session` event `auth.js` fires on `document` after every real answer (`{ authenticated }` only — never for the header's 1.5 s placeholder). After a `401` from this API: one `BpozzAuth.refreshSession()` shared by every request that failed together, then each is sent once more; still `401`, or signed out, and the page is treated as signed out |
+| state | page memory only, per kind, from `GET /api/saved?kind=<kind>` for the kinds the page has controls for; read again when the page comes back from the back/forward cache, or is shown again 5 minutes or more after its list loaded. Nothing about the account is written to browser storage |
+| controls | every `button[data-save-kind][data-save-id]`, plus any drawn later and handed over with `BpozzSaved.sync(root)`: `aria-pressed`, `aria-busy` while a request runs, and a `[data-save-label]` child reading Save / Saved (or the pair it names, e.g. `"Save palette\|Saved"`). Signed out, a click opens the existing sign-in dialog; nothing is remembered for after it |
+| changes | shown at once, one request at a time per item. A failed change is undone and said once in the site toast: 429 "Too many changes at once. Try again in a minute." (never retried, never refreshed), the two 409 limits, 503 or no answer "Saving isn’t available right now", anything else "Couldn’t save that" / "Couldn’t remove that". Success is only announced, in a polite live region |
+| other tabs | `BroadcastChannel("bpozz-saved")`, where the browser has it: `{ type: "item", kind, id, saved }` after a change, and `{ type: "session" }` after a sign-out, on which other tabs ask the server again. Nothing about who is signed in |
+| old browser saves | `legacy()` reads `bpozz:font-favorites` and `bpozz-palette-likes`, keeping only well-formed ids. `importLegacy({ fonts, palettes, known })` sends fonts by default and palette likes only when asked, at most 1,000, to `POST /api/saved/import`. Afterwards it removes from `bpozz:font-favorites` only the ids answered `created` or `exists` (re-reading the list first, deleting it once empty), never writes `bpozz-palette-likes`, and writes `bpozz:saved-import` = `{"v":1,"dismissed":true}`; any failure leaves browser storage as it was |
+
+The rest of `window.BpozzSaved` once active: `signedIn()`, `has(kind, id)`,
+`list(kind?)`, `save(kind, id)`, `remove(kind, id)`, `onChange(fn)`,
+`importDismissed()` and `dismissImport()`.
+
+It never reads `point-roadmap-progress` (Learning Roadmap progress stays in
+the browser), never touches the Firebase like counter, never stores or sends a
+token, user id or email address, and never inserts text from the server or
+browser storage as HTML.
 
 ## Supabase requests
 

@@ -44,6 +44,8 @@
  * button opening the account menu (Profile, Saved, Settings, Sign out) when
  * signed in — in the desktop header and the mobile panel alike. The /account
  * page's Profile section is drawn from the same answer, by the same code.
+ * Each real answer is then announced as a `bpozz:session` event on document
+ * (see announceSession) for src/client/saved.js.
  * The session endpoint is the only source of truth;
  * nothing about the session is stored in the browser. Tokens live in HttpOnly
  * cookies this file can't read, and it never touches document.cookie,
@@ -340,6 +342,7 @@
     session = fetchSession();
     return session.then(function (data) {
       renderHeader(data);
+      announceSession(data);
       return data;
     });
   }
@@ -640,8 +643,9 @@
   var menuCount = 0;
 
   // The account menu's pages. All three are sections of the one /account
-  // page (account.html); Saved leads on from there to the fonts saved in
-  // this browser, the only saving the site has so far.
+  // page (account.html). Saved leads on from there to the fonts saved in
+  // this browser until account Saved launches (src/client/saved.js,
+  // docs/SAVED.md); the links stay the same either way.
   var ACCOUNT_LINKS = [
     ["Profile", "/account#profile"],
     ["Saved", "/account#saved"],
@@ -836,6 +840,18 @@
     renderProfile(view);
   }
 
+  // Tells the page's other scripts (src/client/saved.js) what the header was
+  // just drawn from: after the first real answer, after a refresh and after
+  // sign-out — never for the REVEAL_MS placeholder, which is only a guess.
+  // It carries whether someone is signed in, never who. Skipped where there
+  // is no CustomEvent, so it can never stop the header being drawn.
+  function announceSession(data) {
+    if (typeof CustomEvent !== "function" || typeof document.dispatchEvent !== "function") return;
+    document.dispatchEvent(
+      new CustomEvent("bpozz:session", { detail: { authenticated: !!accountView(data) } }),
+    );
+  }
+
   function setAccountMenu(toggle, expanded) {
     var menu = document.getElementById(toggle.getAttribute("aria-controls"));
     if (!menu) return;
@@ -1025,6 +1041,7 @@
     drawn = true;
     clearTimeout(revealTimer);
     renderHeader(data);
+    announceSession(data);
   });
   // After the rest of /app.js has run, so core.js's shared toast exists.
   if (authMessage) {

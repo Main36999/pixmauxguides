@@ -20,7 +20,7 @@
 | 2 | Google sign-in, session cookies + refresh, sign-out | **live** |
 | 3 | header signed-in state, account menu, sign-out UI, `?auth_error` messages | **live** |
 | 4A | Email magic link | **live** behind `AUTH_EMAIL_ENABLED=true` |
-| Saved | account Saved items: `public.saved_items`, `/api/saved*` — see [SAVED.md](SAVED.md) | Phase 1 code written; table not created, `SAVED_ENABLED` off |
+| Saved | account Saved items: `public.saved_items`, `/api/saved*` — see [SAVED.md](SAVED.md) | Phase 1 done: table created and verified, `SAVED_ENABLED` not set (off). Phase 2 browser module written, dormant |
 | later | `public.profiles`, self-service account deletion | not started (deletion is manual — see [Account deletion](#account-deletion)) |
 
 Each provider appears in the dialog only when it is fully configured
@@ -67,7 +67,7 @@ Browser ──> bpozz.com/api/auth/*  ──> Netlify Functions ──> Supabase
 | `netlify/lib/oauth.mjs` | Google sign-in transaction: state, PKCE, signed transaction cookie, authorize URL. **Not touched by Phase 4A** |
 | `netlify/lib/email.mjs` | email sign-in: request validation, Supabase `/otp`, the signed email cookie, the confirmation page |
 | `netlify/lib/auth.test.mjs`, `google.test.mjs`, `email.test.mjs` | tests (in `lib/`, because every file in `functions/` deploys as a function) |
-| `src/client/auth.js` | the dialog and header — browser half of the contract |
+| `src/client/auth.js` | the dialog and header — browser half of the contract. After every session answer it draws from (not the header's 1.5 s placeholder) it fires `bpozz:session` on `document`, `{ authenticated }` only, for `src/client/saved.js` |
 
 No dependencies. The Supabase Auth REST endpoints below are called with
 `fetch`; `node:crypto` provides randomness, SHA-256 and HMAC.
@@ -291,8 +291,9 @@ before (one `/settings` fetch serves both).
   is user-editable, so it is capped at 200 characters and `avatar_url`
   must be `https:`.
 - Malformed cookies are rejected before any network call.
-- The frontend calls this only when someone picks a sign-in method, so
-  ordinary page views cost no function invocations.
+- The frontend asks it once per page view, to draw the header (and again
+  when someone requests an email sign-in link or signs out), so every page
+  view costs one function invocation.
 
 ### `POST /api/auth/signout`
 
@@ -487,8 +488,8 @@ mail providers behave, and are not proven by the unit tests):
 The Privacy Policy lets people ask, through the contact form, for their
 account to be deleted. There is no self-service deletion. The owner deletes
 the user in Supabase → Authentication → Users (which removes the user and
-its linked Google/email identities, and their saved items once
-`public.saved_items` exists — `on delete cascade`, see [SAVED.md](SAVED.md));
+its linked Google/email identities, and their saved items in
+`public.saved_items` — `on delete cascade`, see [SAVED.md](SAVED.md));
 BPOZZ stores no other account data.
 The person's browser keeps any session cookie until it expires, but
 Supabase then refuses it and `/api/auth/session` clears it.
@@ -499,8 +500,9 @@ Supabase then refuses it and `/api/auth/session` clears it.
 Phase 1. The code is in `netlify/functions/saved.mjs`,
 `netlify/functions/saved-import.mjs` and `netlify/lib/saved.mjs`, with tests
 in `netlify/lib/saved.test.mjs`; [SAVED.md](SAVED.md) documents the
-migration SQL, the verification script and the API. The owner runs the
-migration from there in the Supabase SQL editor.
+migration SQL, the verification script and the API. The owner has run the
+migration and its verification in the Supabase SQL editor; neither is run
+again.
 
 **`public.profiles`** is planned, not created; its migration is deferred
 until profile data is actually stored. Planned model:
