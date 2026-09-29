@@ -176,6 +176,74 @@
         font-size: 14px;
         color: var(--text-muted);
       }
+
+      /* Saved, once account Saved is on: account.js hides the section's
+         original text and draws the list into .account-saved (a third
+         prefix, for that list only). While Saved is off it stays hidden. */
+      .account-saved__group {
+        margin-top: 20px;
+      }
+      .legal-content .account-saved__heading {
+        margin: 0 0 8px;
+      }
+      .legal-content .account-saved__list {
+        gap: 0;
+        margin: 0;
+      }
+      .legal-content .account-saved__item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-top: 1px solid var(--grid-line);
+      }
+      .legal-content .account-saved__item::before {
+        content: none;
+      }
+      .account-saved__preview {
+        display: flex;
+        flex: none;
+        width: 56px;
+        height: 28px;
+        border: 1px solid var(--grid-line);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .account-saved__swatch {
+        flex: 1;
+      }
+      .account-saved__text {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+      .account-saved__detail {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .account-saved__remove {
+        flex: none;
+        padding: 7px 12px;
+        font-size: 13px;
+      }
+      .account-saved__remove[aria-busy="true"] {
+        cursor: progress;
+      }
+      .account-saved__import {
+        margin-bottom: 20px;
+        padding: 16px;
+        border: 1px solid var(--grid-line);
+        border-radius: var(--radius);
+      }
+      .account-saved__choice {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-size: 14.5px;
+      }
     </style>
   </head>
   <body>
@@ -345,11 +413,14 @@
 
             <section class="account-page__section" id="saved" aria-labelledby="saved-title">
               <h2 class="legal-subheading" id="saved-title">Saved</h2>
-              <p>
-                Fonts you save are kept in this browser, not in your account, so
-                they don't follow you to another browser or device.
-              </p>
-              <p><a href="/fonts/?category=saved">See your saved fonts</a></p>
+              <div data-account-saved-fallback>
+                <p>
+                  Fonts you save are kept in this browser, not in your account, so
+                  they don't follow you to another browser or device.
+                </p>
+                <p><a href="/fonts/?category=saved">See your saved fonts</a></p>
+              </div>
+              <div class="account-saved" data-account-saved hidden></div>
             </section>
 
             <section class="account-page__section" id="settings" aria-labelledby="settings-title">
@@ -425,5 +496,7 @@
       })();
     </script>
     <script src="/auth.js"></script>
+    <script src="/saved.js"></script>
+    <script src="/account.js"></script>
   </body>
 </html>

@@ -7,13 +7,15 @@
   again. `SAVED_ENABLED` is not set, so Saved is **off** in production: both
   endpoints answer `503 saved_unavailable`.
 - **Phase 2 has started, dormant.** The browser module
-  ([Browser module](#browser-module)) is written and published but ships
-  with `LAUNCHED = false`, so nothing on the site calls the API yet.
+  ([Browser module](#browser-module)) and the account Saved area
+  ([Account Saved area](#account-saved-area)) are written and published, but
+  the module ships with `LAUNCHED = false`, so nothing on the site calls the
+  API yet and `/account` shows its Saved section as before.
 
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1 written, dormant; M2–M11 not started |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1 and M2 written, dormant; M3–M11 not started |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -91,6 +93,8 @@ re-issues the cookies — and retries once.
 | `netlify/lib/saved.test.mjs` | tests, with Supabase stubbed (`npm test`), including the check that `src/client/saved.js` repeats these kinds, id rules and limits exactly |
 | `src/client/saved.js` | the browser module — see [Browser module](#browser-module) |
 | `src/client/saved.test.js` | its tests, run in a vm against `src/client/test-dom.js` (`npm test`) |
+| `src/client/account.js` | the account Saved area on `/account` — see [Account Saved area](#account-saved-area) |
+| `src/client/account.test.js` | its tests, with the real `saved.js`, plus checks on `account.html` and the build wiring (`npm test`) |
 
 ## API
 
@@ -169,6 +173,29 @@ It never reads `point-roadmap-progress` (Learning Roadmap progress stays in
 the browser), never touches the Firebase like counter, never stores or sends a
 token, user id or email address, and never inserts text from the server or
 browser storage as HTML.
+
+## Account Saved area
+
+`src/client/account.js`, published at `/account.js` and loaded only by
+`account.html`, after `/auth.js` and `/saved.js`. It is not in `/app.js`. The
+header's account menu already links its Saved item to `/account#saved`, so
+`auth.js` is unchanged.
+
+**Dormant with the module.** Unless `window.BpozzSaved.active` is true it does
+nothing: the Saved section keeps its original text (a link to the fonts saved
+in this browser) and the list container stays hidden.
+
+Once active:
+
+| part | behaviour |
+|---|---|
+| list | `BpozzSaved.list()`, drawn newest first in five groups — Colors, Palettes, Fonts, Image Picker palettes, UI/UX Guides. Icon items are not drawn yet |
+| names | from `/colors/colors-data.json`, `/palettes/palettes-data.json` and `/guides.json`, each fetched only when the list holds that kind. Fonts have no published names file yet, so a font shows its id; an Image Picker palette is its own colours. Without a file an item shows its id; an id the file no longer has reads "No longer available" and is not linked |
+| links | colours `/colors/`, palettes `/palettes#<id>`, fonts `/fonts/<id>.html`, guides `/guide/<id>`; Image Picker palettes have no page |
+| states | loading, empty, the list, and a failed list with Try again. Signed out, nothing about the account stays on the page |
+| remove | `BpozzSaved.remove()`; the row goes once the server confirms, and focus moves to the next Remove button (or the one before, or the empty message). A failure keeps the row; `saved.js` says why |
+| current | a removal in another tab disappears at once; the list is read again when the page is shown after a minute away or restored from the back/forward cache |
+| import | offered once when `legacy()` finds old font favorites or palette likes (likes only for palettes still on the site) and the offer wasn't dismissed. Fonts are ticked, likes are not. Add runs `importLegacy`; No thanks runs `dismissImport` |
 
 ## Supabase requests
 

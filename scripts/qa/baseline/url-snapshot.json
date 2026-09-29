@@ -6,8 +6,8 @@
     "dataEndpoints": 5,
     "siteFiles": 4,
     "assets": 2055,
-    "code": 16,
-    "total": 2432
+    "code": 17,
+    "total": 2433
   },
   "pages": [
     {
@@ -3842,6 +3842,7 @@
     "/thumbnail_image_webp/iOS and Android Are Different Systems, Not One Design Reused Twice.webp"
   ],
   "code": [
+    "/account.js",
     "/app.js",
     "/auth.js",
     "/colors/colors.css",

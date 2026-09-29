@@ -209,6 +209,13 @@ const PUBLISH_FILES = [
   { from: "src/client/saved.js", to: "saved.js" },
 
   /**
+   * ACCOUNT — the Saved section of /account (account.html), which loads it
+   * after /auth.js and /saved.js. Not in APP_BUNDLE: no other page has the
+   * section. It does nothing while saved.js is dormant.
+   */
+  { from: "src/client/account.js", to: "account.js" },
+
+  /**
    * HOMEPAGE — the stylesheet for the tool and resource cards below the
    * hero, published beside index.html at the root. Same shape as
    * colors.css and image-picker.css: styles only one page uses. The hero
