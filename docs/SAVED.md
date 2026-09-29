@@ -7,15 +7,17 @@
   again. `SAVED_ENABLED` is not set, so Saved is **off** in production: both
   endpoints answer `503 saved_unavailable`.
 - **Phase 2 has started, dormant.** The browser module
-  ([Browser module](#browser-module)) and the account Saved area
-  ([Account Saved area](#account-saved-area)) are written and published, but
-  the module ships with `LAUNCHED = false`, so nothing on the site calls the
-  API yet and `/account` shows its Saved section as before.
+  ([Browser module](#browser-module)), the account Saved area
+  ([Account Saved area](#account-saved-area)) and Save on the font pages
+  ([Save on Fonts](#save-on-fonts)) are written and published, but the module
+  ships with `LAUNCHED = false`, so nothing on the site calls the API yet:
+  `/account` shows its Saved section as before, and the font pages' hearts
+  still save to this browser.
 
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1 and M2 written, dormant; M3–M11 not started |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1, M2 and M3 (Fonts) written, dormant; M4–M11 not started |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -95,6 +97,8 @@ re-issues the cookies — and retries once.
 | `src/client/saved.test.js` | its tests, run in a vm against `src/client/test-dom.js` (`npm test`) |
 | `src/client/account.js` | the account Saved area on `/account` — see [Account Saved area](#account-saved-area) |
 | `src/client/account.test.js` | its tests, with the real `saved.js`, plus checks on `account.html` and the build wiring (`npm test`) |
+| `src/client/fonts.js` | the font pages' script; hands their Save buttons to `saved.js` once launched — see [Save on Fonts](#save-on-fonts) |
+| `src/client/fonts.test.js` | its Save tests, dormant and launched, with the real `saved.js` (`npm test`) |
 
 ## API
 
@@ -196,6 +200,28 @@ Once active:
 | remove | `BpozzSaved.remove()`; the row goes once the server confirms, and focus moves to the next Remove button (or the one before, or the empty message). A failure keeps the row; `saved.js` says why |
 | current | a removal in another tab disappears at once; the list is read again when the page is shown after a minute away or restored from the back/forward cache |
 | import | offered once when `legacy()` finds old font favorites or palette likes (likes only for palettes still on the site) and the offer wasn't dismissed. Fonts are ticked, likes are not. Add runs `importLegacy`; No thanks runs `dismissImport` |
+
+## Save on Fonts
+
+The heart on every `/fonts/` card and the Save button on each
+`/fonts/<id>.html` page (both rendered by `src/build/fonts.js`, unchanged) are
+handled by `src/client/fonts.js`, which runs after `/app.js`.
+
+**Dormant with the module.** While `window.BpozzSaved.active` is false,
+nothing changes: the buttons save to this browser (`bpozz:font-favorites`),
+other tabs follow through the `storage` event, and `?category=saved` lists
+this browser's favorites.
+
+Once active, the same buttons are account Saved:
+
+| part | behaviour |
+|---|---|
+| buttons | at load, each gains `data-save-kind="font"`, `data-save-id` and `data-save-name` (the detail page's text also `data-save-label`) and is handed to `saved.js` with `sync()`. `saved.js` paints, saves, removes, announces and, signed out, opens sign-in; `fonts.js` no longer handles them, so each click is handled once and nothing is written to this browser. The markup and `fonts.css` are unchanged |
+| requests | the page's one `GET /api/saved?kind=font`, from `saved.js`; `fonts.js` makes none |
+| Saved view | `?category=saved` shows the account's saved fonts, following `onChange`. Until they are known it shows none: signed out, "Sign in to see your saved fonts."; still loading (or failed — `saved.js` then says so), "Your saved fonts haven't loaded yet." This browser's favorites never show here |
+| old favorites | never shown or sent from the font pages. When the Saved view is empty and `legacy()` still has fonts (and the offer wasn't dismissed), it points to Your Account, where the import is |
+
+Font names on `/account` are not part of this: it still shows fonts by id.
 
 ## Supabase requests
 

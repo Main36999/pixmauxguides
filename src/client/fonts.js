@@ -6,7 +6,8 @@
  * every specimen row and every control at build time, so with JS off the
  * pages still list, link and download. This script adds:
  *
- *   both pages   lazy font application for cards, favorites (localStorage),
+ *   both pages   lazy font application for cards, favorites (localStorage,
+ *                or account Saved once it is launched — see handToSaved),
  *                the "…" menus, copy-to-clipboard
  *   /fonts/      search, category filter, sort, preview text, URL state
  *   detail page  preview presets, custom text, display size
@@ -19,6 +20,12 @@
 
   var STORE_KEY = "bpozz:font-favorites";
   var status = document.getElementById("fonts-status");
+
+  // Account Saved (docs/SAVED.md), once it is launched: saved.js, inside
+  // /app.js, which runs first, then publishes an active window.BpozzSaved.
+  // While Saved is dormant this is null, and everything here works exactly
+  // as it always has, on this browser's favorites.
+  var account = window.BpozzSaved && window.BpozzSaved.active === true ? window.BpozzSaved : null;
 
   function announce(message) {
     if (!status) return;
@@ -104,11 +111,14 @@
     }
   }
 
-  var favorites = readFavorites();
+  var favorites = account ? [] : readFavorites();
   var warnedStorage = false;
   var onFavoritesChange = function () {};
 
+  // Once Saved is launched: saved in the account, as far as it is known
+  // (has() answers null until the list has loaded, and while signed out).
   function isFavorite(id) {
+    if (account) return account.has("font", id) === true;
     return favorites.indexOf(id) !== -1;
   }
 
@@ -132,7 +142,8 @@
 
   document.addEventListener("click", function (e) {
     var btn = e.target.closest("[data-font-fav]");
-    if (!btn) return;
+    // Once Saved is launched the buttons are saved.js's (handToSaved).
+    if (!btn || account) return;
     var id = btn.getAttribute("data-font-fav");
     var name = fontNameFor(btn);
     if (isFavorite(id)) {
@@ -154,13 +165,39 @@
 
   // Another tab changed the list.
   window.addEventListener("storage", function (e) {
-    if (e.key !== STORE_KEY) return;
+    if (account || e.key !== STORE_KEY) return;
     favorites = readFavorites();
     syncFavoriteButtons();
     onFavoritesChange();
   });
 
-  syncFavoriteButtons();
+  /**
+   * Once Saved is launched, every Save button becomes one of saved.js's
+   * controls (docs/SAVED.md): it gains data-save-kind, -id and -name, and
+   * the detail page's text gains data-save-label. saved.js then paints it,
+   * saves or removes on click, opens sign-in when signed out and announces
+   * the outcome, and the favorites code above leaves it alone, so each
+   * click is handled once and nothing is written to this browser. The
+   * buttons keep data-font-fav, which fonts.css styles them by.
+   */
+  function handToSaved() {
+    toArray(document.querySelectorAll("[data-font-fav]")).forEach(function (btn) {
+      btn.setAttribute("data-save-kind", "font");
+      btn.setAttribute("data-save-id", btn.getAttribute("data-font-fav"));
+      btn.setAttribute("data-save-name", fontNameFor(btn));
+      if (btn.hasAttribute("data-font-fav-label")) {
+        var label = btn.querySelector("span");
+        if (label) label.setAttribute("data-save-label", "");
+      }
+    });
+    account.sync(document);
+    account.onChange(function () {
+      onFavoritesChange();
+    });
+  }
+
+  if (account) handToSaved();
+  else syncFavoriteButtons();
 
   // -------------------------------------------------------------------
   // copy
@@ -357,6 +394,35 @@
 
     var announceTimer = null;
 
+    // Once Saved is launched: whether the account's saved fonts are known —
+    // signed in, and the list loaded. Until then has() answers null for
+    // every font.
+    function savedKnown() {
+      return (
+        account.signedIn() === true &&
+        gridCards.length > 0 &&
+        account.has("font", gridCards[0].getAttribute("data-font-id")) !== null
+      );
+    }
+
+    // This browser's favorites from before accounts are never shown or sent
+    // from here. When some are waiting to be added, the empty Saved view
+    // points to Your Account, where they can be.
+    function pointToImport() {
+      if (account.importDismissed() || !account.legacy().fonts.length) return;
+      emptyHint.textContent = "";
+      emptyHint.appendChild(
+        document.createTextNode(
+          "Select the heart on a font to keep it here. Fonts saved in this browser before accounts can be added from ",
+        ),
+      );
+      var link = document.createElement("a");
+      link.setAttribute("href", "/account#saved");
+      link.textContent = "Your Account";
+      emptyHint.appendChild(link);
+      emptyHint.appendChild(document.createTextNode("."));
+    }
+
     function apply(options) {
       var terms = normalize(state.query).split(" ").filter(Boolean);
       var shown = 0;
@@ -395,9 +461,18 @@
         shown === total ? total + " fonts" : "Showing " + shown + " of " + total + " " + (total === 1 ? "font" : "fonts");
 
       empty.hidden = shown > 0;
-      if (state.category === "saved" && !terms.length) {
+      if (state.category === "saved" && account && !savedKnown()) {
+        // Launched, and the account's saved fonts aren't known: signed
+        // out, or the list hasn't loaded (saved.js says so if it failed).
+        var signedOut = account.signedIn() === false;
+        emptyTitle.textContent = signedOut ? "Sign in to see your saved fonts." : "Your saved fonts haven't loaded yet.";
+        emptyHint.textContent = signedOut
+          ? "Fonts you save are kept in your account, wherever you sign in."
+          : "They'll appear here as soon as they do.";
+      } else if (state.category === "saved" && !terms.length) {
         emptyTitle.textContent = "You haven't saved any fonts yet.";
         emptyHint.textContent = "Select the heart on a font to keep it here.";
+        if (account) pointToImport();
       } else {
         emptyTitle.textContent = "No fonts match your search.";
         emptyHint.textContent = "Try another name, designer or category.";
