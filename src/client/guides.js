@@ -8,7 +8,8 @@
  *
  * Surfaces: guides/index.html (#grid-root and its toolbar — category chips,
  * search and the Level filter — guarded by hasGuideGrid) and every /guide/
- * page (#guide-rail).
+ * page (#guide-rail, and the hero's Save once account Saved is launched —
+ * see initGuideSave).
  *
  * PHASE 4 STEP 2B — data-jump-category delegate removed
  *
@@ -282,6 +283,40 @@
         if (guideSearch) guideSearch.focus();
       });
   }
+
+  // ---------- Save on a guide page (account Saved) ----------
+  // Once account Saved is launched (docs/SAVED.md), the hero's meta line on
+  // every /guide/ page ends in a bookmark that saves the guide to the
+  // account. It is one of saved.js's controls (data-save-kind, -id and
+  // -name): saved.js — bundled into /app.js ahead of these fragments, so
+  // window.BpozzSaved is already published here — paints it, saves or
+  // removes on click, opens sign-in when signed out and announces the
+  // outcome. Nothing in this bundle handles its click.
+  //
+  // The id is the page's own <body data-guide-id> (guides.json's id, the
+  // one the rail reads) and the name is its heading. Both are in the page
+  // already, so the bookmark is drawn at once rather than after
+  // guides.json loads. While Saved is dormant, on a page that isn't a
+  // guide, or for an id Saved wouldn't accept, nothing is drawn.
+  (function initGuideSave() {
+    var saved = window.BpozzSaved;
+    if (!saved || saved.active !== true) return;
+    var meta = document.querySelector(".guide-hero .guide-hero__meta");
+    var id = document.body.getAttribute("data-guide-id");
+    if (!meta || !saved.isValidItem("guide", id)) return;
+    var heading = document.querySelector(".guide-hero__title");
+    var name = heading ? heading.textContent.replace(/\s+/g, " ").trim() : "";
+    meta.insertAdjacentHTML(
+      "beforeend",
+      '<button type="button" class="guide-save-btn" data-save-kind="guide" data-save-id="' +
+        id +
+        '"' +
+        (name ? ' data-save-name="' + escapeHtml(name) + '"' : "") +
+        ' aria-pressed="false" aria-label="Save this guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>',
+    );
+    // The bookmark just drawn is saved.js's from here.
+    saved.sync(meta);
+  })();
 
   // (A dead click delegate was removed here in Phase 4 Step 2B — see
   // this file's header.)

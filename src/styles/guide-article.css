@@ -594,3 +594,74 @@
   font-size: 14.5px;
   color: var(--text);
 }
+
+/* --------------------------------------------------------------------------
+   12. Save — the bookmark at the end of the hero's meta line, drawn by
+   /app.js (src/client/guides.js, initGuideSave) only once account Saved is
+   launched (docs/SAVED.md), so nothing here matches before then. The
+   bookmark and its states are the ones /palettes and /colors use: muted,
+   the action blue on hover or focus and when saved (filled), dimmed while
+   aria-busy, at least 24px square. The negative block margins keep that
+   target from growing the 17.5px meta line, so drawing it never moves the
+   title below.
+   -------------------------------------------------------------------------- */
+.guide-save-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 2px 3px;
+  margin: -4px 0 -4px 6px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition:
+    color 0.16s cubic-bezier(0.2, 0.6, 0.3, 1),
+    opacity 0.16s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+.guide-save-btn svg {
+  width: 16px;
+  height: 16px;
+  transition:
+    transform 0.16s cubic-bezier(0.2, 0.6, 0.3, 1),
+    fill 0.16s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+/* Hover guarded on a fine pointer: a tap would otherwise leave an unsaved
+   bookmark blue until the next tap elsewhere. */
+@media (hover: hover) and (pointer: fine) {
+  .guide-save-btn:hover {
+    color: var(--action);
+  }
+  .guide-save-btn:hover svg {
+    transform: scale(1.08);
+  }
+}
+.guide-save-btn:focus-visible {
+  color: var(--action);
+}
+.guide-save-btn:active svg {
+  transform: scale(0.9);
+}
+/* Saved: filled in the action blue, hovered or not. */
+.guide-save-btn[aria-pressed="true"] {
+  color: var(--action);
+}
+.guide-save-btn[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+.guide-save-btn[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.55;
+}
+/* styles.css already shortens every transition; the scale is switched off
+   outright, as /palettes and /colors do. */
+@media (prefers-reduced-motion: reduce) {
+  .guide-save-btn:hover svg,
+  .guide-save-btn:active svg {
+    transform: none;
+  }
+}

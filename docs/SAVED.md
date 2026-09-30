@@ -10,17 +10,18 @@
   ([Browser module](#browser-module)), the account Saved area
   ([Account Saved area](#account-saved-area)), Save on the font pages
   ([Save on Fonts](#save-on-fonts)), Save on `/palettes`
-  ([Save on Palettes](#save-on-palettes)) and Save on `/colors`
-  ([Save on Colors](#save-on-colors)) are written and published, but the
+  ([Save on Palettes](#save-on-palettes)), Save on `/colors`
+  ([Save on Colors](#save-on-colors)) and Save on the guide pages
+  ([Save on Guides](#save-on-guides)) are written and published, but the
   module ships with `LAUNCHED = false`, so nothing on the site calls the API
   yet: `/account` shows its Saved section as before, the font pages' hearts
-  still save to this browser, and `/palettes` and `/colors` have no Save
-  button.
+  still save to this browser, and `/palettes`, `/colors` and the guide pages
+  have no Save button.
 
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1, M2, M3 (Fonts), M4 (Palettes) and M5 (Colors) written, dormant; M6–M11 not started |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) written, dormant; M7 not started |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -106,6 +107,8 @@ re-issues the cookies — and retries once.
 | `src/client/palettes.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the Like's independence (`npm test`) |
 | `src/client/colors.js` | the `/colors` script; draws a Save button beside each colour's name once launched — see [Save on Colors](#save-on-colors) |
 | `src/client/colors.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the copy's independence (`npm test`) |
+| `src/client/guides.js` | an `/app.js` fragment; on every `/guide/` page, adds a Save button to the hero once launched — see [Save on Guides](#save-on-guides) |
+| `src/client/guides.test.js` | its Save tests, dormant and launched, with the real `saved.js`, plus checks on every guide page and on `/app.js`'s order (`npm test`) |
 
 ## API
 
@@ -162,8 +165,8 @@ after `auth.js` (whose `window.BpozzAuth` it relies on), and on its own at
 false the module publishes only
 `window.BpozzSaved = { active: false, kinds, limits, isValidItem, imagePaletteId }`
 and stops: no listener, no request, no storage access, nothing drawn, so every
-page behaves exactly as before Saved. Launching is changing that one line
-(milestone M10, together with the privacy policy).
+page behaves exactly as before Saved. Launching is changing that one line,
+together with the privacy policy.
 
 Once active:
 
@@ -286,6 +289,33 @@ none. A card's other action is copying its hex from the plate, which is
 unchanged and separate from Save. Nothing on `/colors` writes to this
 browser, launched or not, and there is nothing to import: the account's
 saved colours are listed on `/account`, linked back to `/colors/`.
+
+## Save on Guides
+
+Every `/guide/<id>` page (rendered by `src/build/guide-template.js`,
+unchanged) loads only `/app.js`. Save there is `initGuideSave` in
+`src/client/guides.js`, one of `/app.js`'s fragments, which run after the
+bundled `saved.js`. Styles are in `src/styles/guide-article.css`.
+
+**Dormant with the module.** While `window.BpozzSaved.active` is false,
+`initGuideSave` returns at once, on every page that loads `/app.js`: no Save
+button, the page exactly as before, and nothing asks the API. No page's HTML
+changes either way.
+
+Once active:
+
+| part | behaviour |
+|---|---|
+| button | the hero's meta line ("Color Theory · Beginner · 10 min read") ends in a bookmark `button.guide-save-btn` with `data-save-kind="guide"`, `data-save-id` (the page's `<body data-guide-id>`, its `guides.json` id), `data-save-name` (the page's heading, whitespace collapsed; left out when empty), `aria-label="Save this guide"` and `aria-pressed`. It is drawn at once from what the page holds, not after `guides.json` loads. A page without that id, with an id `isValidItem` refuses, or without the hero gets none. `initGuideSave` then hands it to `saved.js` with `sync(meta)`, which is needed: `saved.js` looked at the page before `/app.js`'s fragments ran |
+| clicks | `saved.js` paints, saves, removes, announces and, signed out, opens sign-in. Nothing in `/app.js` handles the Save's click; the table of contents, the article's links and the related-guides rail are untouched and still followed |
+| requests | the page's one `GET /api/saved?kind=guide`, from `saved.js`, once the session is known; `guides.js` makes none |
+| styles | `.guide-save-btn` in `guide-article.css`: the bookmark and states of `/palettes` and `/colors`, a 16 px icon in a 24 px target whose negative block margins keep the meta line's height, so drawing it never moves the title; hover only on a fine pointer. Nothing matches it while dormant |
+
+Guide cards — on `/guides`, the home page, the `/category/` pages and the
+related-guides rail — get no Save: they come from the shared card renderer,
+`src/shared/card.js`, which the build uses too, and M6 leaves it alone. A
+guide page has no Like or favourite. The account's saved guides are listed on
+`/account`, linked back to `/guide/<id>`.
 
 ## Supabase requests
 
