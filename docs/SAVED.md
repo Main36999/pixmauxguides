@@ -4,24 +4,23 @@
 
 - **Phase 1 is in place.** The migration below has been run and its
   verification passed, in the Supabase SQL editor; neither is to be run
-  again. `SAVED_ENABLED` is not set, so Saved is **off** in production: both
-  endpoints answer `503 saved_unavailable`.
-- **Phase 2 has started, dormant.** The browser module
+  again. `SAVED_ENABLED` is `"true"` in Netlify's production context, so both
+  endpoints are on in production; deploy previews and branch deploys leave it
+  unset and answer `503 saved_unavailable`.
+- **Phase 2 is launched.** The browser module
   ([Browser module](#browser-module)), the account Saved area
   ([Account Saved area](#account-saved-area)), Save on the font pages
   ([Save on Fonts](#save-on-fonts)), Save on `/palettes`
   ([Save on Palettes](#save-on-palettes)), Save on `/colors`
   ([Save on Colors](#save-on-colors)) and Save on the guide pages
-  ([Save on Guides](#save-on-guides)) are written and published, but the
-  module ships with `LAUNCHED = false`, so nothing on the site calls the API
-  yet: `/account` shows its Saved section as before, the font pages' hearts
-  still save to this browser, and `/palettes`, `/colors` and the guide pages
-  have no Save button.
+  ([Save on Guides](#save-on-guides)) ship with `LAUNCHED = true`: signed-in
+  visitors save to their account, `/account` lists their Saved items, and the
+  privacy policy describes it (`privacy.html`, "Saved items").
 
 | phase | scope | state |
 |---|---|---|
-| 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) written, dormant; M7 in progress (M7.1: the cross-page integration test, and `/account`'s empty-state hint no longer names Image Picker palettes; M7.2: the Saved tests set the launch switch both ways themselves) |
+| 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` `"true"` in production |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | launched: M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) done; M7 done (M7.1: the cross-page integration test, and `/account`'s empty-state hint no longer names Image Picker palettes; M7.2: the Saved tests set the launch switch both ways themselves; M7.3: the dormant build verified in production; M7.4: the privacy policy, `SAVED_ENABLED` in production, and `LAUNCHED = true`) |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -162,19 +161,19 @@ What the browser (Phase 2) must do with a `429`:
 after `auth.js` (whose `window.BpozzAuth` it relies on), and on its own at
 `/saved.js` for `/account`, which loads `/auth.js` but not `app.js`.
 
-**Dormant until launch.** The file holds `var LAUNCHED = false;`. While it is
-false the module publishes only
+**The launch switch.** The file holds `var LAUNCHED = true;`: Saved is
+launched. Set to false, the module would publish only
 `window.BpozzSaved = { active: false, kinds, limits, isValidItem, imagePaletteId }`
-and stops: no listener, no request, no storage access, nothing drawn, so every
-page behaves exactly as before Saved. Launching is changing that one line,
+and stop: no listener, no request, no storage access, nothing drawn, so every
+page would behave exactly as before Saved. The launch changed that one line,
 together with the privacy policy.
 
 **Tests and the switch.** Every Saved test sets the switch itself, whichever
 value `saved.js` ships with: the dormant tests run it with `LAUNCHED false`,
 the launched tests with it `true`, and `saved.test.js` checks that this works
-from either value. One test checks what ships — "the shipped file is dormant",
-in `src/client/saved.test.js` — so launching changes that line and that test's
-expected value together, and its approval build re-records `saved.js` and
+from either value. One test checks what ships — "the shipped file is
+launched", in `src/client/saved.test.js` — so changing that line changes that
+test's expected value too, and its approval build re-records `saved.js` and
 `app.js`.
 
 Once active:

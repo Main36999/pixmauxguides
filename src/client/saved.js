@@ -10,14 +10,13 @@
  *
  * The window.BpozzSaved guard makes a second copy on the same page a no-op.
  *
- * DORMANT UNTIL LAUNCH
+ * THE LAUNCH SWITCH
  *
- * LAUNCHED (below) is false. While it is, this file publishes only
- * window.BpozzSaved = { active: false, kinds, limits, isValidItem,
- * imagePaletteId } and stops: no listener, no request, no storage access,
- * nothing drawn, so every page behaves exactly as it did before Saved.
- * Launching is changing that one line — see "Browser module" in
- * docs/SAVED.md.
+ * LAUNCHED (below) is true: Saved is launched. Set to false, this file
+ * would publish only window.BpozzSaved = { active: false, kinds, limits,
+ * isValidItem, imagePaletteId } and stop: no listener, no request, no
+ * storage access, nothing drawn, so every page would behave exactly as it
+ * did before Saved — see "Browser module" in docs/SAVED.md.
  *
  * ONCE ACTIVE
  *
@@ -56,8 +55,8 @@
 
   if (window.BpozzSaved || typeof document === "undefined") return;
 
-  // The launch switch. See DORMANT UNTIL LAUNCH above.
-  var LAUNCHED = false;
+  // The launch switch. See THE LAUNCH SWITCH above.
+  var LAUNCHED = true;
 
   var API = "/api/saved";
   var TIMEOUT_MS = 10000;

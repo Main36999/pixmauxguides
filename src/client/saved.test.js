@@ -10,8 +10,7 @@
  *
  * The tests set the file's one launch switch themselves, whichever value it
  * ships with: the dormant tests run it with LAUNCHED false, the rest with it
- * true, the way launch will. One test checks what actually ships — that it
- * is dormant — and the launch changes that test too.
+ * true. One test checks what actually ships: that it is launched.
  *
  * All account data below is invented.
  */
@@ -225,7 +224,7 @@ const pressed = (node) => node.getAttribute("aria-pressed");
 const onlyGets = (api) => (method, url, body) => (method === "GET" ? response(200, { items: [] }) : api(method, url, body));
 
 // ---------------------------------------------------------------------
-// shipped dormant
+// dormant, and what ships
 // ---------------------------------------------------------------------
 
 test("dormant (LAUNCHED false): only the pure helpers — no listener, request or storage", async () => {
@@ -250,11 +249,11 @@ test("dormant (LAUNCHED false): only the pure helpers — no listener, request o
   assert.strictEqual(pressed(p.nodes[0]), "false");
 });
 
-// The one test of what ships. Launching changes saved.js's switch and this
-// test's expected value, together (docs/SAVED.md).
-test("the shipped file is dormant: one launch switch, set to false", () => {
+// The one test of what ships. saved.js's switch and this test's expected
+// value change together (docs/SAVED.md).
+test("the shipped file is launched: one launch switch, set to true", () => {
   const gates = SOURCE.split("\n").filter((line) => GATE.test(line));
-  assert.deepStrictEqual(gates.map((line) => line.trim()), ["var LAUNCHED = false;"]);
+  assert.deepStrictEqual(gates.map((line) => line.trim()), ["var LAUNCHED = true;"]);
 });
 
 test("the harness sets the switch both ways, whichever value the file ships with", () => {
