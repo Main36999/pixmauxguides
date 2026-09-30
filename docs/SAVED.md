@@ -1,6 +1,6 @@
 # Account Saved items
 
-**Status (2026-09-29):**
+**Status (2026-09-30):**
 
 - **Phase 1 is in place.** The migration below has been run and its
   verification passed, in the Supabase SQL editor; neither is to be run
@@ -9,16 +9,18 @@
 - **Phase 2 has started, dormant.** The browser module
   ([Browser module](#browser-module)), the account Saved area
   ([Account Saved area](#account-saved-area)), Save on the font pages
-  ([Save on Fonts](#save-on-fonts)) and Save on `/palettes`
-  ([Save on Palettes](#save-on-palettes)) are written and published, but the
+  ([Save on Fonts](#save-on-fonts)), Save on `/palettes`
+  ([Save on Palettes](#save-on-palettes)) and Save on `/colors`
+  ([Save on Colors](#save-on-colors)) are written and published, but the
   module ships with `LAUNCHED = false`, so nothing on the site calls the API
   yet: `/account` shows its Saved section as before, the font pages' hearts
-  still save to this browser, and `/palettes` has no Save button.
+  still save to this browser, and `/palettes` and `/colors` have no Save
+  button.
 
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1, M2, M3 (Fonts) and M4 (Palettes) written, dormant; M5–M11 not started |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1, M2, M3 (Fonts), M4 (Palettes) and M5 (Colors) written, dormant; M6–M11 not started |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -102,6 +104,8 @@ re-issues the cookies — and retries once.
 | `src/client/fonts.test.js` | its Save tests, dormant and launched, with the real `saved.js` (`npm test`) |
 | `src/client/palettes.js` | the `/palettes` script; draws a Save button beside each heart once launched — see [Save on Palettes](#save-on-palettes) |
 | `src/client/palettes.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the Like's independence (`npm test`) |
+| `src/client/colors.js` | the `/colors` script; draws a Save button beside each colour's name once launched — see [Save on Colors](#save-on-colors) |
+| `src/client/colors.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the copy's independence (`npm test`) |
 
 ## API
 
@@ -257,6 +261,31 @@ There is no Saved view on `/palettes`: the account's saved palettes are
 listed on `/account`, linked back to `/palettes#<id>`. The page's own wording
 ("Tap the heart to like a palette", "You don't need an account") is
 unchanged while Saved is dormant.
+
+## Save on Colors
+
+`/colors` (`colors/index.html`, unchanged) is drawn by
+`src/client/colors.js`, which runs after `/app.js`. Styles are in
+`src/styles/colors.css`.
+
+**Dormant with the module.** While `window.BpozzSaved.active` is false there
+is no Save button: every card is drawn exactly as before, byte for byte, and
+nothing asks the API.
+
+Once active:
+
+| part | behaviour |
+|---|---|
+| button | each card's name moves into a `div.color-card__foot` row, followed by a bookmark `button.color-save-btn` with `data-save-kind="color"`, `data-save-id`, `data-save-name` (the colour's name; left out when it isn't text or is empty), `aria-label="Save this color"` and `aria-pressed`. It sits outside the plate, which stays the copy button. A colour whose id `isValidItem` refuses gets none, and its card is drawn as before. After drawing the grid, `colors.js` hands the buttons to `saved.js` with `sync(grid)` |
+| clicks | `saved.js` paints, saves, removes, announces and, signed out, opens sign-in. `colors.js` has no Save handler: its grid click handling knows only `.color-card__plate`, so each Save click is handled once and never copies |
+| requests | the page's one `GET /api/saved?kind=color`, from `saved.js`, once both the session and the grid are known; `colors.js` makes none. Filtering only hides and shows cards, so it neither redraws the buttons nor asks again |
+| styles | `.color-card__foot` and `.color-save-btn` in `colors.css`: the bookmark and states of `.palette-save-btn` — the site's action blue when saved, dimmed while `aria-busy`, at least 24 px square — with hover only on a fine pointer, as the plate's lift is. Nothing matches either while dormant |
+
+**No Like on `/colors`.** The page has no Like or favourite, and M5 adds
+none. A card's other action is copying its hex from the plate, which is
+unchanged and separate from Save. Nothing on `/colors` writes to this
+browser, launched or not, and there is nothing to import: the account's
+saved colours are listed on `/account`, linked back to `/colors/`.
 
 ## Supabase requests
 

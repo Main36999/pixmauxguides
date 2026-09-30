@@ -24,6 +24,10 @@
  *   3. the category filter row is built FROM THE DATA, not hard-coded, so
  *      adding a category to colors-data.json adds a chip. CATEGORY_ORDER
  *      below only decides the order they appear in.
+ *   4. once account Saved is launched (docs/SAVED.md), each card also gets
+ *      a Save button beside its name, handed to saved.js — see saveHtml.
+ *      While Saved is dormant there is none, and every card is exactly as
+ *      before.
  *
  * NO PAGINATION, NO VIRTUALISATION, deliberately. 300 cards is ~300 nodes;
  * the browser handles that without help, and adding either would be
@@ -66,6 +70,12 @@
   ];
 
   var ALL = "All";
+
+  // Account Saved (docs/SAVED.md), once it is launched: saved.js, inside
+  // /app.js, which runs first, then publishes an active window.BpozzSaved.
+  // While Saved is dormant this is null, and the page is exactly as it
+  // always was.
+  var account = window.BpozzSaved && window.BpozzSaved.active === true ? window.BpozzSaved : null;
 
   // ---- small helpers -----------------------------------------------------
 
@@ -290,6 +300,28 @@
   // ---- render ------------------------------------------------------------
 
   /**
+   * Once Saved is launched, a bookmark beside the name that saves the
+   * colour to the account. It is one of saved.js's controls
+   * (data-save-kind, -id and -name): saved.js paints it, saves or removes
+   * on click, opens sign-in when signed out and announces the outcome.
+   * This file never handles its click — the grid's delegation below knows
+   * only .color-card__plate — so the copy is untouched by it. A colour
+   * whose id Saved wouldn't accept gets no button.
+   */
+  function saveHtml(color) {
+    if (!account || !account.isValidItem("color", color.id)) return "";
+    // Its name, as its card shows it, for the announcement.
+    var name = typeof color.name === "string" ? color.name : "";
+    return (
+      '<button type="button" class="color-save-btn" data-save-kind="color" data-save-id="' +
+      color.id +
+      '"' +
+      (name ? ' data-save-name="' + escapeHtml(name) + '"' : "") +
+      ' aria-pressed="false" aria-label="Save this color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>'
+    );
+  }
+
+  /**
    * One card = one colour. The whole colour plate is the copy button, so the
    * target is the large thing rather than the small HEX text — which is what
    * §4's "fast copy" actually means on a touch screen.
@@ -304,6 +336,9 @@
     var hex = color.hex;
     var name = escapeHtml(color.name);
     var label = escapeHtml("Copy " + hex + ", " + color.name);
+    // Launched, the name and its Save share one row; otherwise the name
+    // stands alone, exactly as before.
+    var save = saveHtml(color);
     return (
       '<article class="color-card" data-id="' +
       escapeHtml(color.id) +
@@ -330,9 +365,11 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>' +
       "Copied</span>" +
       "</button>" +
+      (save ? '<div class="color-card__foot">' : "") +
       '<p class="color-card__name">' +
       name +
       "</p>" +
+      (save ? save + "</div>" : "") +
       "</article>"
     );
   }
@@ -355,6 +392,8 @@
     }
     if (emptyState) emptyState.removeAttribute("data-visible");
     gridRoot.innerHTML = colors.map(cardHtml).join("");
+    // The Save buttons just drawn are saved.js's from here (saveHtml).
+    if (account) account.sync(gridRoot);
   }
 
   function applyFilter(announceResult) {

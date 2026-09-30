@@ -378,6 +378,78 @@
   text-overflow: ellipsis;
 }
 
+/* ---------- save ---------- */
+/* Save to the account (docs/SAVED.md): drawn by colors.js only once Saved
+   is launched, so nothing here matches before then. The name and a
+   bookmark share one row, and the name still shrinks and clips first. The
+   6px top margin keeps the name where it sat alone: the 24px row centres
+   it about 4px down. The bookmark, its colours and its states are
+   .palette-save-btn's on /palettes, declared here for the reason the
+   header gives. saved.js sets aria-pressed, and aria-busy while a request
+   runs. 24px minimum so the target stays usable beside the name. */
+.color-card__foot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.color-card__foot .color-card__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-top: 0;
+}
+.color-save-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 2px 3px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition:
+    color 0.16s var(--color-ease),
+    opacity 0.16s var(--color-ease);
+}
+.color-save-btn svg {
+  width: 18px;
+  height: 18px;
+  transition:
+    transform 0.16s var(--color-ease),
+    fill 0.16s var(--color-ease);
+}
+/* Hover guarded on a fine pointer, as the plate's lift is: a tap would
+   otherwise leave an unsaved bookmark blue until the next tap elsewhere. */
+@media (hover: hover) and (pointer: fine) {
+  .color-save-btn:hover {
+    color: var(--action);
+  }
+  .color-save-btn:hover svg {
+    transform: scale(1.08);
+  }
+}
+.color-save-btn:focus-visible {
+  color: var(--action);
+}
+.color-save-btn:active svg {
+  transform: scale(0.9);
+}
+/* Saved: filled in the action blue, hovered or not. */
+.color-save-btn[aria-pressed="true"] {
+  color: var(--action);
+}
+.color-save-btn[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+.color-save-btn[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.55;
+}
+
 /* ---------- reduced motion ---------- */
 /* styles.css already forces every transition-duration to 0.001ms site-wide.
    The lift is switched off outright rather than sped up: a 2px jump is a
@@ -385,6 +457,10 @@
    opacity and stays — it never moved anything. */
 @media (prefers-reduced-motion: reduce) {
   .color-card__plate:hover {
+    transform: none;
+  }
+  .color-save-btn:hover svg,
+  .color-save-btn:active svg {
     transform: none;
   }
 }
