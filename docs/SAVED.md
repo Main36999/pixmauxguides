@@ -21,7 +21,7 @@
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) written, dormant; M7 not started |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) written, dormant; M7 in progress (M7.1: the cross-page integration test, and `/account`'s empty-state hint no longer names Image Picker palettes) |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -109,6 +109,7 @@ re-issues the cookies — and retries once.
 | `src/client/colors.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the copy's independence (`npm test`) |
 | `src/client/guides.js` | an `/app.js` fragment; on every `/guide/` page, adds a Save button to the hero once launched — see [Save on Guides](#save-on-guides) |
 | `src/client/guides.test.js` | its Save tests, dormant and launched, with the real `saved.js`, plus checks on every guide page and on `/app.js`'s order (`npm test`) |
+| `src/client/saved-integration.test.js` | the wiring across pages: the Save kinds drawn (font, palette, color, guide), auth and Saved loaded before each page's script, `saved.js` as the one Save click handler, and the one launch switch (`npm test`) |
 
 ## API
 

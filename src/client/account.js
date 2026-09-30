@@ -78,7 +78,7 @@
     tooMany: "Too many requests. Try again in a minute.",
     tryAgain: "Try again",
     empty: "You haven’t saved anything yet.",
-    emptyHint: "Save colors, palettes, fonts, Image Picker palettes and guides, and they’ll appear here.",
+    emptyHint: "Save colors, palettes, fonts and guides, and they’ll appear here.",
     gone: "No longer available",
     remove: "Remove",
     removing: "Removing…",

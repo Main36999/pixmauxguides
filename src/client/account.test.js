@@ -294,7 +294,7 @@ test("empty: says so, and fetches no data file", async () => {
   assert.strictEqual(p.state(), "empty");
   assert.deepStrictEqual(
     p.all(".account-saved__body p").map((n) => n.textContent),
-    ["You haven’t saved anything yet.", "Save colors, palettes, fonts, Image Picker palettes and guides, and they’ll appear here."],
+    ["You haven’t saved anything yet.", "Save colors, palettes, fonts and guides, and they’ll appear here."],
   );
   assert.deepStrictEqual(p.fileCalls(), []);
 });
