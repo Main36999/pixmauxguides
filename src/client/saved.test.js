@@ -8,8 +8,10 @@
  * getSession, refreshSession (which, like auth.js, fires bpozz:session with
  * the fresh answer) and open.
  *
- * The file ships with LAUNCHED = false. The first tests run it exactly as
- * shipped; the rest switch that one line on in memory, the way launch will.
+ * The tests set the file's one launch switch themselves, whichever value it
+ * ships with: the dormant tests run it with LAUNCHED false, the rest with it
+ * true, the way launch will. One test checks what actually ships — that it
+ * is dormant — and the launch changes that test too.
  *
  * All account data below is invented.
  */
@@ -25,7 +27,10 @@ const vm = require("vm");
 const { makeDocument, fire, dispatch, makeStorage, response, deferred, settle, wait } = require("./test-dom.js");
 
 const SOURCE = fs.readFileSync(path.join(__dirname, "saved.js"), "utf8");
-const LAUNCH_LINE = "var LAUNCHED = false;";
+// The file's one launch switch, whichever value it ships with.
+const GATE = /var LAUNCHED = (?:true|false);/;
+const withLaunch = (source, launched) => source.replace(GATE, `var LAUNCHED = ${launched};`);
+const savedWith = (launched) => withLaunch(SOURCE, launched);
 
 const SIGNED_IN = { authenticated: true, user: { id: "00000000-0000-4000-8000-000000000000", email: "dee@example.test" } };
 const SIGNED_OUT = { authenticated: false, user: null };
@@ -116,7 +121,7 @@ function control(doc, kind, id, attrs = {}) {
 /**
  * Loads saved.js into a fresh page.
  *
- *   launched  false runs the file as shipped; true switches LAUNCHED on
+ *   launched  false runs the file with LAUNCHED false; true with it on
  *   session   what BpozzAuth.getSession() resolves to (a value or a promise)
  *   refresh   refreshSession()'s answers in order, the last repeating; each
  *             a value, a promise or a function returning one
@@ -192,8 +197,7 @@ function load({
   }
   ctx.window = ctx;
 
-  const source = launched ? SOURCE.replace(LAUNCH_LINE, "var LAUNCHED = true;") : SOURCE;
-  vm.runInNewContext(source, ctx);
+  vm.runInNewContext(savedWith(launched), ctx);
 
   return {
     doc,
@@ -224,7 +228,7 @@ const onlyGets = (api) => (method, url, body) => (method === "GET" ? response(20
 // shipped dormant
 // ---------------------------------------------------------------------
 
-test("as shipped (LAUNCHED false): only the pure helpers — no listener, request or storage", async () => {
+test("dormant (LAUNCHED false): only the pure helpers — no listener, request or storage", async () => {
   const p = load({
     launched: false,
     controls: [["font", "abel"]],
@@ -246,16 +250,49 @@ test("as shipped (LAUNCHED false): only the pure helpers — no listener, reques
   assert.strictEqual(pressed(p.nodes[0]), "false");
 });
 
-test("the launch switch is one line of the shipped file, and it is off", () => {
-  assert.strictEqual(SOURCE.split(LAUNCH_LINE).length - 1, 1);
-  assert.ok(!SOURCE.includes("var LAUNCHED = true;"));
+// The one test of what ships. Launching changes saved.js's switch and this
+// test's expected value, together (docs/SAVED.md).
+test("the shipped file is dormant: one launch switch, set to false", () => {
+  const gates = SOURCE.split("\n").filter((line) => GATE.test(line));
+  assert.deepStrictEqual(gates.map((line) => line.trim()), ["var LAUNCHED = false;"]);
+});
+
+test("the harness sets the switch both ways, whichever value the file ships with", () => {
+  for (const shipped of [false, true]) {
+    const file = withLaunch(SOURCE, shipped);
+    for (const launched of [false, true]) {
+      const source = withLaunch(file, launched);
+      const doc = makeDocument();
+      const ctx = {
+        Promise,
+        URLSearchParams,
+        setTimeout,
+        clearTimeout,
+        document: doc,
+        fetch: () => Promise.reject(new Error("no network here")),
+        addEventListener: () => {},
+      };
+      ctx.window = ctx;
+      vm.runInNewContext(source, ctx);
+      const as = `shipped ${shipped}, run ${launched}`;
+      assert.strictEqual(ctx.BpozzSaved.active, launched, as);
+      if (!launched) {
+        assert.deepStrictEqual(Object.keys(ctx.BpozzSaved).sort(), ["active", "imagePaletteId", "isValidItem", "kinds", "limits"], as);
+      }
+      assert.strictEqual(typeof ctx.BpozzSaved.sync, launched ? "function" : "undefined", as);
+      assert.strictEqual((doc._listeners.click || []).length, launched ? 1 : 0, as);
+      assert.strictEqual(doc.documentElement.getAttribute("data-saved-ui"), launched ? "on" : null, as);
+    }
+  }
+  assert.strictEqual(savedWith(false), withLaunch(SOURCE, false));
+  assert.strictEqual(savedWith(true), withLaunch(SOURCE, true));
 });
 
 test("a second copy on the same page does nothing", async () => {
   const p = load({ controls: [["font", "abel"]] });
   await settle();
   const first = p.ctx.BpozzSaved;
-  vm.runInNewContext(SOURCE.replace(LAUNCH_LINE, "var LAUNCHED = true;"), p.ctx);
+  vm.runInNewContext(savedWith(true), p.ctx);
   await settle();
   assert.strictEqual(p.ctx.BpozzSaved, first);
   assert.strictEqual(p.calls.length, 1, "no second list request");

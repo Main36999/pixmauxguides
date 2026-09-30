@@ -249,9 +249,11 @@ test("the browser module's kinds, id rules and limits match this API's (src/clie
   const source = fs.readFileSync(path.join(REPO, "src", "client", "saved.js"), "utf8");
   const context = { document: {} };
   context.window = context;
-  vm.runInNewContext(source, context);
+  // Run dormant whichever way its launch switch ships: the kinds, id rules
+  // and limits are published either way, and dormant needs no page. What
+  // ships is checked once, in src/client/saved.test.js.
+  vm.runInNewContext(source.replace(/var LAUNCHED = (?:true|false);/, "var LAUNCHED = false;"), context);
   const browser = context.BpozzSaved;
-  assert.equal(browser.active, false, "src/client/saved.js ships dormant");
   assert.deepEqual([...browser.kinds], [...SAVED_KINDS]);
   assert.deepEqual({ ...browser.limits }, { ...LIMITS });
 

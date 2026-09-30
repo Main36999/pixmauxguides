@@ -21,7 +21,7 @@
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) written, dormant; M7 in progress (M7.1: the cross-page integration test, and `/account`'s empty-state hint no longer names Image Picker palettes) |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) written, dormant; M7 in progress (M7.1: the cross-page integration test, and `/account`'s empty-state hint no longer names Image Picker palettes; M7.2: the Saved tests set the launch switch both ways themselves) |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -168,6 +168,14 @@ false the module publishes only
 and stops: no listener, no request, no storage access, nothing drawn, so every
 page behaves exactly as before Saved. Launching is changing that one line,
 together with the privacy policy.
+
+**Tests and the switch.** Every Saved test sets the switch itself, whichever
+value `saved.js` ships with: the dormant tests run it with `LAUNCHED false`,
+the launched tests with it `true`, and `saved.test.js` checks that this works
+from either value. One test checks what ships — "the shipped file is dormant",
+in `src/client/saved.test.js` — so launching changes that line and that test's
+expected value together, and its approval build re-records `saved.js` and
+`app.js`.
 
 Once active:
 

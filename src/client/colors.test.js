@@ -9,9 +9,10 @@
  * intro, the filter row, the count line, the grid root, its empty state,
  * the toast and the two live regions.
  *
- * saved.js ships with LAUNCHED = false. The first tests run it as shipped:
- * no Save button, and every card exactly as before. The rest switch that
- * one line on in memory, the way launch will.
+ * The tests set saved.js's one launch switch themselves, whichever value it
+ * ships with. The first run it dormant (LAUNCHED false): no Save button, and
+ * every card exactly as before. The rest switch it on in memory, the way
+ * launch will.
  *
  * /colors has no Like or favourite: a card's one action is copying its hex
  * from the plate. That copy is what stays separate from Save throughout,
@@ -33,7 +34,9 @@ const { makeDocument, fire, dispatch, makeStorage, response, deferred, settle, w
 const ROOT = path.join(__dirname, "..", "..");
 const SAVED = fs.readFileSync(path.join(__dirname, "saved.js"), "utf8");
 const COLORS_JS = fs.readFileSync(path.join(__dirname, "colors.js"), "utf8");
-const LAUNCH_LINE = "var LAUNCHED = false;";
+// saved.js's one launch switch, whichever value it ships with.
+const GATE = /var LAUNCHED = (?:true|false);/;
+const savedWith = (launched) => SAVED.replace(GATE, `var LAUNCHED = ${launched};`);
 
 const SIGNED_IN = { authenticated: true, user: { id: "00000000-0000-4000-8000-000000000000", email: "dee@example.test" } };
 const SIGNED_OUT = { authenticated: false, user: null };
@@ -156,7 +159,7 @@ function el(doc, parent, tag, attrs = {}) {
  * Loads saved.js (unless withSaved is false), then colors.js, into a fresh
  * /colors.
  *
- *   launched   false runs saved.js as shipped; true switches LAUNCHED on
+ *   launched   false runs saved.js with LAUNCHED false; true with it on
  *   session    what BpozzAuth.getSession() resolves to (or a promise of it)
  *   server     a fakeServer(); api overrides it
  *   colors     what colors-data.json holds; data overrides its answer
@@ -234,7 +237,7 @@ function load({
   if (now) ctx.Date = { now: () => now.t };
   ctx.window = ctx;
 
-  if (withSaved) vm.runInNewContext(launched ? SAVED.replace(LAUNCH_LINE, "var LAUNCHED = true;") : SAVED, ctx);
+  if (withSaved) vm.runInNewContext(savedWith(launched), ctx);
   vm.runInNewContext(COLORS_JS, ctx);
 
   const apiCalls = () => calls.filter((c) => c.url !== DATA_URL);
@@ -281,7 +284,7 @@ const classes = (node) => node.children.map((c) => c.className);
 // dormant: exactly as before
 // ---------------------------------------------------------------------
 
-test("dormant (Saved as shipped): no Save button; every card drawn exactly as before; copy works; no account request, nothing in this browser", async () => {
+test("dormant (LAUNCHED false): no Save button; every card drawn exactly as before; copy works; no account request, nothing in this browser", async () => {
   for (const withSaved of [true, false]) {
     const p = load({ launched: false, withSaved });
     await settle(10);

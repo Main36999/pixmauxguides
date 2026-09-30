@@ -13,9 +13,10 @@
  * toast. The last tests check that every committed guide page has the
  * hooks, and that /app.js is assembled in the order this relies on.
  *
- * saved.js ships with LAUNCHED = false. The first tests run it as shipped:
- * no Save button, and the page exactly as before. The rest switch that one
- * line on in memory, the way launch will.
+ * The tests set saved.js's one launch switch themselves, whichever value it
+ * ships with. The first run it dormant (LAUNCHED false): no Save button, and
+ * the page exactly as before. The rest switch it on in memory, the way
+ * launch will.
  *
  * A guide page has no Like or favourite. Its own interactions are links —
  * the table of contents, the article's anchors, the rail — and those stay
@@ -40,7 +41,9 @@ const SAVED = fs.readFileSync(path.join(__dirname, "saved.js"), "utf8");
 const HTML_JS = fs.readFileSync(path.join(ROOT, "src", "shared", "html.js"), "utf8");
 const CORE_JS = fs.readFileSync(path.join(__dirname, "core.js"), "utf8");
 const GUIDES_JS = fs.readFileSync(path.join(__dirname, "guides.js"), "utf8");
-const LAUNCH_LINE = "var LAUNCHED = false;";
+// saved.js's one launch switch, whichever value it ships with.
+const GATE = /var LAUNCHED = (?:true|false);/;
+const savedWith = (launched) => SAVED.replace(GATE, `var LAUNCHED = ${launched};`);
 
 // initGuideSave, exactly as it ships.
 const START = GUIDES_JS.indexOf("(function initGuideSave() {");
@@ -153,7 +156,7 @@ function el(doc, parent, tag, attrs = {}, text = null) {
  * Loads saved.js (unless withSaved is false), then initGuideSave, into a
  * fresh guide page.
  *
- *   launched   false runs saved.js as shipped; true switches LAUNCHED on
+ *   launched   false runs saved.js with LAUNCHED false; true with it on
  *   session    what BpozzAuth.getSession() resolves to (or a promise of it)
  *   server     a fakeServer(); api overrides it
  *   id         the page's data-guide-id (null: none)
@@ -236,7 +239,7 @@ function load({
   ctx.window = ctx;
 
   vm.runInNewContext(HTML_JS, ctx);
-  if (withSaved) vm.runInNewContext(launched ? SAVED.replace(LAUNCH_LINE, "var LAUNCHED = true;") : SAVED, ctx);
+  if (withSaved) vm.runInNewContext(savedWith(launched), ctx);
   vm.runInNewContext(fragment(block), ctx);
 
   return {
@@ -280,7 +283,7 @@ function shape(node) {
 // dormant: exactly as before
 // ---------------------------------------------------------------------
 
-test("dormant (Saved as shipped): no Save button; the page exactly as before; no account request, nothing in this browser", async () => {
+test("dormant (LAUNCHED false): no Save button; the page exactly as before; no account request, nothing in this browser", async () => {
   const before = shape(load({ withSaved: false, block: "" }).doc.body);
   for (const withSaved of [true, false]) {
     const p = load({ launched: false, withSaved });

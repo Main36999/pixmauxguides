@@ -8,9 +8,10 @@
  * palettes-data.json. The page is a small copy of palettes/index.html: the
  * grid root, its empty state and the toast.
  *
- * saved.js ships with LAUNCHED = false. The first tests run it as shipped:
- * no Save button, and the heart likes exactly as before. The rest switch
- * that one line on in memory, the way launch will.
+ * The tests set saved.js's one launch switch themselves, whichever value it
+ * ships with. The first run it dormant (LAUNCHED false): no Save button, and
+ * the heart likes exactly as before. The rest switch it on in memory, the way
+ * launch will.
  *
  * The Like — bpozz-palette-likes in this browser, and the Firebase counter
  * behind window.__bpozzLikeDelta — is separate from Save throughout: tests
@@ -32,7 +33,9 @@ const { makeDocument, fire, dispatch, makeStorage, response, deferred, settle, w
 const ROOT = path.join(__dirname, "..", "..");
 const SAVED = fs.readFileSync(path.join(__dirname, "saved.js"), "utf8");
 const PALETTES_JS = fs.readFileSync(path.join(__dirname, "palettes.js"), "utf8");
-const LAUNCH_LINE = "var LAUNCHED = false;";
+// saved.js's one launch switch, whichever value it ships with.
+const GATE = /var LAUNCHED = (?:true|false);/;
+const savedWith = (launched) => SAVED.replace(GATE, `var LAUNCHED = ${launched};`);
 
 const SIGNED_IN = { authenticated: true, user: { id: "00000000-0000-4000-8000-000000000000", email: "dee@example.test" } };
 const SIGNED_OUT = { authenticated: false, user: null };
@@ -170,7 +173,7 @@ function el(doc, parent, tag, attrs = {}) {
  * Loads saved.js (unless withSaved is false), then palettes.js, into a
  * fresh /palettes.
  *
- *   launched   false runs saved.js as shipped; true switches LAUNCHED on
+ *   launched   false runs saved.js with LAUNCHED false; true with it on
  *   session    what BpozzAuth.getSession() resolves to (or a promise of it)
  *   server     a fakeServer(); api overrides it
  *   palettes   what palettes-data.json holds; data overrides its answer
@@ -251,7 +254,7 @@ function load({
   if (channel) ctx.BroadcastChannel = channel;
   ctx.window = ctx;
 
-  if (withSaved) vm.runInNewContext(launched ? SAVED.replace(LAUNCH_LINE, "var LAUNCHED = true;") : SAVED, ctx);
+  if (withSaved) vm.runInNewContext(savedWith(launched), ctx);
   vm.runInNewContext(PALETTES_JS, ctx);
 
   const apiCalls = () => calls.filter((c) => c.url !== DATA_URL);
@@ -302,7 +305,7 @@ const ALL_OFF = { p001: "false", p002: "false", p003: "false" };
 // dormant: exactly as before
 // ---------------------------------------------------------------------
 
-test("dormant (Saved as shipped): no Save button; the heart likes exactly as before — this browser, the counter, no account request", async () => {
+test("dormant (LAUNCHED false): no Save button; the heart likes exactly as before — this browser, the counter, no account request", async () => {
   for (const withSaved of [true, false]) {
     const p = load({ launched: false, withSaved, storage: { [LIKES_KEY]: JSON.stringify(["p002"]) } });
     await settle(10);

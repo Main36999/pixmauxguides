@@ -8,9 +8,10 @@
  * are answered by small in-memory stand-ins. window.BpozzAuth is a stub with
  * auth.js's public shape.
  *
- * saved.js ships with LAUNCHED = false, and account.js does nothing while
- * it is. The first tests run both exactly as shipped; the rest switch that
- * one line on in memory, the way launch will.
+ * account.js does nothing while saved.js is dormant. The tests set
+ * saved.js's one launch switch themselves, whichever value it ships with:
+ * the first run it dormant (LAUNCHED false); the rest switch it on in
+ * memory, the way launch will.
  *
  * The last tests read the real account.html and src/build/build.js.
  *
@@ -31,7 +32,9 @@ const ROOT = path.join(__dirname, "..", "..");
 const SAVED = fs.readFileSync(path.join(__dirname, "saved.js"), "utf8");
 const ACCOUNT = fs.readFileSync(path.join(__dirname, "account.js"), "utf8");
 const PAGE = fs.readFileSync(path.join(ROOT, "account.html"), "utf8");
-const LAUNCH_LINE = "var LAUNCHED = false;";
+// saved.js's one launch switch, whichever value it ships with.
+const GATE = /var LAUNCHED = (?:true|false);/;
+const savedWith = (launched) => SAVED.replace(GATE, `var LAUNCHED = ${launched};`);
 
 const SIGNED_IN = { authenticated: true, user: { id: "00000000-0000-4000-8000-000000000000", email: "dee@example.test" } };
 const SIGNED_OUT = { authenticated: false, user: null };
@@ -122,7 +125,7 @@ function buildSection(doc) {
 /**
  * Loads saved.js, then account.js, into a fresh /account page.
  *
- *   launched  false runs saved.js as shipped; true switches LAUNCHED on
+ *   launched  false runs saved.js with LAUNCHED false; true with it on
  *   session   what BpozzAuth.getSession() resolves to
  *   server    a fakeServer(); api overrides it: (method, url, body) => response
  *   files     data file answers by path (a value is sent as 200 JSON)
@@ -194,7 +197,7 @@ function load({
   if (now) ctx.Date = { now: () => now.t };
   ctx.window = ctx;
 
-  if (withSaved) vm.runInNewContext(launched ? SAVED.replace(LAUNCH_LINE, "var LAUNCHED = true;") : SAVED, ctx);
+  if (withSaved) vm.runInNewContext(savedWith(launched), ctx);
   vm.runInNewContext(ACCOUNT, ctx);
 
   const q = (selector) => page.root.querySelector(selector);
@@ -233,7 +236,7 @@ const text = (node) => (node ? node.textContent : null);
 // dormant
 // ---------------------------------------------------------------------
 
-test("as shipped (saved.js dormant): nothing changes — no listener, request or storage; the original text stays", async () => {
+test("dormant (LAUNCHED false): nothing changes — no listener, request or storage; the original text stays", async () => {
   for (const withSaved of [true, false]) {
     const p = load({ launched: false, withSaved, storage: { [FONTS_KEY]: JSON.stringify(["abel"]) } });
     await settle();

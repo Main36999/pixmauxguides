@@ -9,9 +9,10 @@
  * category chips with Saved, search, sort, the empty state) and a detail
  * page (the Save button with its text, and a related card).
  *
- * saved.js ships with LAUNCHED = false. The first tests run it as shipped:
- * the hearts must keep saving to this browser exactly as before. The rest
- * switch that one line on in memory, the way launch will.
+ * The tests set saved.js's one launch switch themselves, whichever value it
+ * ships with. The first run it dormant (LAUNCHED false): the hearts must
+ * keep saving to this browser exactly as before. The rest switch it on in
+ * memory, the way launch will.
  *
  * All account data below is invented.
  */
@@ -29,7 +30,9 @@ const { makeDocument, fire, makeStorage, response, deferred, settle, wait } = re
 const ROOT = path.join(__dirname, "..", "..");
 const SAVED = fs.readFileSync(path.join(__dirname, "saved.js"), "utf8");
 const FONTS = fs.readFileSync(path.join(__dirname, "fonts.js"), "utf8");
-const LAUNCH_LINE = "var LAUNCHED = false;";
+// saved.js's one launch switch, whichever value it ships with.
+const GATE = /var LAUNCHED = (?:true|false);/;
+const savedWith = (launched) => SAVED.replace(GATE, `var LAUNCHED = ${launched};`);
 
 const SIGNED_IN = { authenticated: true, user: { id: "00000000-0000-4000-8000-000000000000", email: "dee@example.test" } };
 const SIGNED_OUT = { authenticated: false, user: null };
@@ -174,7 +177,7 @@ function buildDetail(doc) {
  * font page.
  *
  *   page       "listing" (/fonts/) or "detail" (/fonts/abel.html)
- *   launched   false runs saved.js as shipped; true switches LAUNCHED on
+ *   launched   false runs saved.js with LAUNCHED false; true with it on
  *   session    what BpozzAuth.getSession() resolves to
  *   server     a fakeServer(); api overrides it
  *   storage    localStorage's contents; storageThrows blocks it entirely
@@ -230,7 +233,7 @@ function load({
   if (channel) ctx.BroadcastChannel = channel;
   ctx.window = ctx;
 
-  if (withSaved) vm.runInNewContext(launched ? SAVED.replace(LAUNCH_LINE, "var LAUNCHED = true;") : SAVED, ctx);
+  if (withSaved) vm.runInNewContext(savedWith(launched), ctx);
   vm.runInNewContext(FONTS, ctx);
 
   const grid = parts.grid;
@@ -263,7 +266,7 @@ function load({
 // dormant: exactly as before
 // ---------------------------------------------------------------------
 
-test("dormant (Saved as shipped): the heart saves to this browser exactly as before — no account request, no saved.js attributes", async () => {
+test("dormant (LAUNCHED false): the heart saves to this browser exactly as before — no account request, no saved.js attributes", async () => {
   for (const withSaved of [true, false]) {
     const p = load({ launched: false, withSaved });
     await settle();
