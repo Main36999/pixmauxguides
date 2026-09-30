@@ -401,7 +401,7 @@ const HOME_ICONS = {
 const HOME_ABOUT = {
   title: "About BPOZZ",
   url: "/about",
-  desc: "Why BPOZZ exists, and what documenting design like a blueprint actually means.",
+  desc: "BPOZZ is an independent platform for practical design tools, resources, and insights.",
 };
 
 /**
