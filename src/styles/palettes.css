@@ -411,6 +411,57 @@
   fill: #e0245e;
   stroke: #e0245e;
 }
+/* Save to the account (docs/SAVED.md): drawn by palettes.js beside the
+   heart only once Saved is launched, so nothing here matches before then.
+   A bookmark in the site's action blue rather than a second pink heart,
+   so Save and Like never read as the same control. saved.js sets
+   aria-pressed, and aria-busy while a request runs. 24px minimum so the
+   target stays usable next to the heart. */
+.palette-save-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 2px 3px;
+  margin-left: 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition:
+    color 0.16s var(--palette-ease),
+    opacity 0.16s var(--palette-ease);
+}
+.palette-save-btn svg {
+  width: 18px;
+  height: 18px;
+  transition:
+    transform 0.16s var(--palette-ease),
+    fill 0.16s var(--palette-ease);
+}
+.palette-save-btn:hover,
+.palette-save-btn:focus-visible {
+  color: var(--action);
+}
+.palette-save-btn:hover svg {
+  transform: scale(1.08);
+}
+.palette-save-btn:active svg {
+  transform: scale(0.9);
+}
+/* Saved: filled in the action blue, hovered or not. */
+.palette-save-btn[aria-pressed="true"] {
+  color: var(--action);
+}
+.palette-save-btn[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+.palette-save-btn[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.55;
+}
 /* This palette's 4 color names (palettes-data.json's names[], joined
    with " · "), moved here from the swatches as plain, non-interactive
    text. Shrinks below its own content width (min-width:0) and clips
@@ -454,7 +505,9 @@
     transform: none;
   }
   .palette-like-btn:hover svg,
-  .palette-like-btn:active svg {
+  .palette-like-btn:active svg,
+  .palette-save-btn:hover svg,
+  .palette-save-btn:active svg {
     transform: none;
   }
   /* Zeroing the duration is not enough here: the strip would still snap

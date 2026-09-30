@@ -8,16 +8,17 @@
   endpoints answer `503 saved_unavailable`.
 - **Phase 2 has started, dormant.** The browser module
   ([Browser module](#browser-module)), the account Saved area
-  ([Account Saved area](#account-saved-area)) and Save on the font pages
-  ([Save on Fonts](#save-on-fonts)) are written and published, but the module
-  ships with `LAUNCHED = false`, so nothing on the site calls the API yet:
-  `/account` shows its Saved section as before, and the font pages' hearts
-  still save to this browser.
+  ([Account Saved area](#account-saved-area)), Save on the font pages
+  ([Save on Fonts](#save-on-fonts)) and Save on `/palettes`
+  ([Save on Palettes](#save-on-palettes)) are written and published, but the
+  module ships with `LAUNCHED = false`, so nothing on the site calls the API
+  yet: `/account` shows its Saved section as before, the font pages' hearts
+  still save to this browser, and `/palettes` has no Save button.
 
 | phase | scope | state |
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` not set (off) |
-| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1, M2 and M3 (Fonts) written, dormant; M4–M11 not started |
+| 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M7 Save on Fonts, Palettes (beside the Like), Colors, the Image Picker and guide article pages · M8 docs · M9 a production-only preview · M10 launch, with the privacy policy · M11 cleanup | M1, M2, M3 (Fonts) and M4 (Palettes) written, dormant; M5–M11 not started |
 | later | Save on Icons | waits until the real icon packs replace the current sample set |
 
 ## What is saved
@@ -99,6 +100,8 @@ re-issues the cookies — and retries once.
 | `src/client/account.test.js` | its tests, with the real `saved.js`, plus checks on `account.html` and the build wiring (`npm test`) |
 | `src/client/fonts.js` | the font pages' script; hands their Save buttons to `saved.js` once launched — see [Save on Fonts](#save-on-fonts) |
 | `src/client/fonts.test.js` | its Save tests, dormant and launched, with the real `saved.js` (`npm test`) |
+| `src/client/palettes.js` | the `/palettes` script; draws a Save button beside each heart once launched — see [Save on Palettes](#save-on-palettes) |
+| `src/client/palettes.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the Like's independence (`npm test`) |
 
 ## API
 
@@ -222,6 +225,38 @@ Once active, the same buttons are account Saved:
 | old favorites | never shown or sent from the font pages. When the Saved view is empty and `legacy()` still has fonts (and the offer wasn't dismissed), it points to Your Account, where the import is |
 
 Font names on `/account` are not part of this: it still shows fonts by id.
+
+## Save on Palettes
+
+`/palettes` (`palettes/index.html`, unchanged) is drawn by
+`src/client/palettes.js`, which runs after `/app.js`. Styles are in
+`src/styles/palettes.css`.
+
+**Dormant with the module.** While `window.BpozzSaved.active` is false there
+is no Save button: every card is drawn exactly as before, and nothing asks
+the API.
+
+Once active:
+
+| part | behaviour |
+|---|---|
+| button | each card's foot gets a bookmark `button.palette-save-btn` right after the heart, with `data-save-kind="palette"`, `data-save-id`, `data-save-name` (its colour names, joined with ", "; left out when it has none), `aria-label="Save this palette"` and `aria-pressed`. A palette whose id `isValidItem` refuses gets none. After drawing the grid, `palettes.js` hands the buttons to `saved.js` with `sync(grid)` |
+| clicks | `saved.js` paints, saves, removes, announces and, signed out, opens sign-in. `palettes.js` has no Save handler: its own click handling knows only the swatches and `.palette-like-btn`, so each Save click is handled once |
+| requests | the page's one `GET /api/saved?kind=palette`, from `saved.js`, once both the session and the grid are known; `palettes.js` makes none |
+| styles | `.palette-save-btn` in `palettes.css`: the site's action blue when saved (the heart stays pink), dimmed while `aria-busy`, at least 24 px square. Nothing matches it while dormant |
+
+**The Like is separate and unchanged.** The heart keeps
+`bpozz-palette-likes` in this browser and the anonymous Firebase counter
+(`likes/<id>`) exactly as before, for signed-in and signed-out visitors
+alike. Save never reads or writes either, and the heart never reads or
+writes Saved; a palette can be liked, saved, both or neither. M4 migrates no
+likes: they reach the account only through the import on `/account`, which
+leaves them unticked (see [Account Saved area](#account-saved-area)).
+
+There is no Saved view on `/palettes`: the account's saved palettes are
+listed on `/account`, linked back to `/palettes#<id>`. The page's own wording
+("Tap the heart to like a palette", "You don't need an account") is
+unchanged while Saved is dormant.
 
 ## Supabase requests
 

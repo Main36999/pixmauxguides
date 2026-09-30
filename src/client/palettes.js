@@ -18,6 +18,10 @@
  *      (localStorage) in every mode; until firebaseConfig is filled in,
  *      nothing is recorded remotely — see the "preview" tag rendered on
  *      each card's like button in that mode.
+ *   4. Once account Saved is launched (docs/SAVED.md), each card also gets
+ *      a Save button beside the heart, handed to saved.js — see saveHtml.
+ *      While Saved is dormant there is none. Save and Like are separate:
+ *      neither reads nor changes the other.
  *
  * WHY NO COUNTS AND NO "POPULAR" SORT
  *
@@ -55,6 +59,12 @@
   var FIREBASE_CONFIGURED = firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY";
 
   var LIKED_KEY = "bpozz-palette-likes"; // localStorage: palette ids this browser has liked
+
+  // Account Saved (docs/SAVED.md), once it is launched: saved.js, inside
+  // /app.js, which runs first, then publishes an active window.BpozzSaved.
+  // While Saved is dormant this is null, and the page is exactly as it
+  // always was.
+  var account = window.BpozzSaved && window.BpozzSaved.active === true ? window.BpozzSaved : null;
 
   var gridRoot = document.getElementById("palettes-grid-root");
   var emptyState = document.getElementById("palettes-empty-state");
@@ -255,6 +265,33 @@
       .join(" · ");
   }
 
+  /**
+   * Once Saved is launched, a bookmark beside the heart that saves the
+   * palette to the account. It is one of saved.js's controls
+   * (data-save-kind, -id and -name): saved.js paints it, saves or removes
+   * on click, opens sign-in when signed out and announces the outcome.
+   * This file never handles its click — the delegation below knows only
+   * swatches and .palette-like-btn — so the Like is untouched by it. A
+   * palette whose id Saved wouldn't accept gets no button.
+   */
+  function saveHtml(p) {
+    if (!account || !account.isValidItem("palette", p.id)) return "";
+    // Its colour names, as its card shows them, for the announcement.
+    var name = p.colors
+      .map(function (hex, i) {
+        return p.names && typeof p.names[i] === "string" ? p.names[i] : "";
+      })
+      .filter(Boolean)
+      .join(", ");
+    return (
+      '<button type="button" class="palette-save-btn" data-save-kind="palette" data-save-id="' +
+      p.id +
+      '"' +
+      (name ? ' data-save-name="' + escapeHtml(name) + '"' : "") +
+      ' aria-pressed="false" aria-label="Save this palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>'
+    );
+  }
+
   function cardHtml(p) {
     var bars = p.colors
       .map(function (hex) {
@@ -288,6 +325,7 @@
       '" aria-pressed="' +
       (liked ? "true" : "false") +
       '" aria-label="Like this palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>' +
+      saveHtml(p) +
       '<span class="palette-card__names">' +
       namesHtml(p) +
       "</span>" +
@@ -309,6 +347,8 @@
     }
     if (emptyState) emptyState.removeAttribute("data-visible");
     gridRoot.innerHTML = list.map(cardHtml).join("");
+    // The Save buttons just drawn are saved.js's from here (saveHtml).
+    if (account) account.sync(gridRoot);
   }
 
   // ---- copy + like click delegation --------------------------------------
