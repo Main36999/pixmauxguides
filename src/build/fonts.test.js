@@ -59,7 +59,7 @@ function publishedFontUrls() {
   };
   walk(FONT_DIR, "");
   out.packages.forEach((p) => urls.add("/" + p.file));
-  out.pages.forEach((p) => urls.add("/" + p.file.replace(/index\.html$/, "")));
+  out.pages.forEach((p) => urls.add("/" + p.file.replace(/index\.html$/, "").replace(/\.html$/, "")));
   urls.add(fonts.STYLESHEET);
   urls.add(fonts.SCRIPT);
   return urls;
@@ -221,13 +221,13 @@ test("validateFonts rejects a duplicate id", () => {
 // routes
 // ---------------------------------------------------------------------
 
-test("the font routes are /fonts/ plus one /fonts/<id>.html per record", () => {
+test("the font routes are /fonts/ plus one /fonts/<id> per record", () => {
   const table = routes.build(model).filter((r) => r.file.startsWith("fonts/"));
   assert.strictEqual(table.length, model.fonts.length + 1);
   assert.ok(table.every((r) => r.generated));
   assert.ok(table.some((r) => r.url === "/fonts/" && r.file === "fonts/index.html"));
   model.fonts.forEach((f) =>
-    assert.ok(table.some((r) => r.url === `/fonts/${f.id}.html`), f.id),
+    assert.ok(table.some((r) => r.url === `/fonts/${f.id}` && r.file === `fonts/${f.id}.html`), f.id),
   );
   assert.strictEqual(routes.build(model).length, config.expected.htmlPages);
 });
@@ -325,7 +325,7 @@ test("the listing renders one card per font, each linking to its page", () => {
   const cards = [...html.matchAll(/<li class="font-card" data-font-id="([^"]+)"/g)].map((m) => m[1]);
   assert.deepStrictEqual(cards.sort(), model.fonts.map((f) => f.id).sort());
   model.fonts.forEach((f) =>
-    assert.ok(html.includes(`<a href="/fonts/${f.id}.html">`), `${f.id} card has no link`),
+    assert.ok(html.includes(`<a href="/fonts/${f.id}">`), `${f.id} card has no link`),
   );
   config.fonts.categories.forEach((c) =>
     assert.ok(html.includes(`data-category="${c.slug}" aria-pressed="false">${c.label}</button>`), c.slug),
@@ -335,7 +335,7 @@ test("the listing renders one card per font, each linking to its page", () => {
 test("every font page carries title, description, canonical, Open Graph and valid JSON-LD", () => {
   out.pages.forEach((page) => {
     const html = page.html;
-    const url = page.file === "fonts/index.html" ? "/fonts/" : "/" + page.file;
+    const url = page.file === "fonts/index.html" ? "/fonts/" : "/" + page.file.replace(/\.html$/, "");
     const canonical = config.origin + url;
     assert.match(html, /<title>[^<]+<\/title>/, page.file);
     assert.match(html, /<meta name="description" content="[^"]{50,}" \/>/, page.file);
@@ -377,7 +377,7 @@ test("the sitemap lists /fonts/ and every font page", () => {
   const xml = fs.readFileSync(path.join(config.paths.root, "public", "sitemap.xml"), "utf8");
   assert.ok(xml.includes(`<loc>${config.origin}/fonts/</loc>`));
   model.fonts.forEach((f) =>
-    assert.ok(xml.includes(`<loc>${config.origin}/fonts/${f.id}.html</loc>`), f.id),
+    assert.ok(xml.includes(`<loc>${config.origin}/fonts/${f.id}</loc>`), f.id),
   );
 });
 

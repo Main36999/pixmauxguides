@@ -153,16 +153,27 @@ function walk(dir, acc) {
 
 /**
  * The URL a file is served at. Mirrors how the site is actually linked:
- * /guide/ and /category/ pages are linked extensionless (and
- * .htaccess 301s the .html form); root-level pages keep their .html.
+ * pages are linked extensionless (Netlify Pretty URLs); 404.html keeps its
+ * .html.
  */
+const EXTENSIONLESS_ROOT_PAGES = new Set([
+  "hoysomrach.html",
+  "account.html",
+  "about.html",
+  "contact.html",
+  "privacy.html",
+  "roadmap.html",
+  "search.html",
+  "terms.html",
+]);
+
 function urlFor(rel) {
   if (rel === "index.html") return "/";
   // Mirrors EXTENSIONLESS_ROOT_PAGES in src/build/routes.js.
-  if (rel === "hoysomrach.html") return "/hoysomrach";
-  if (rel === "account.html") return "/account";
+  if (EXTENSIONLESS_ROOT_PAGES.has(rel)) return "/" + rel.slice(0, -".html".length);
   if (rel.endsWith("/index.html")) return "/" + rel.slice(0, -"/index.html".length);
-  if (/^(guide|category)\//.test(rel) && rel.endsWith(".html")) {
+  // Mirrors EXTENSIONLESS_DIRS in src/build/routes.js.
+  if (/^(guide|category|fonts|icons)\//.test(rel) && rel.endsWith(".html")) {
     return "/" + rel.slice(0, -".html".length);
   }
   return "/" + rel;

@@ -1170,7 +1170,7 @@ function buildGuideRecords(guides, categorySlugs, warnings) {
       type: "guide",
       title: g.title || "",
       slug: g.id,
-      url: `/guide/${g.id}.html`,
+      url: `/guide/${g.id}`,
       description: g.description || "",
       categories: categories,
       tags: tags,

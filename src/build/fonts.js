@@ -161,7 +161,7 @@ function previewVariant(font) {
 }
 
 const fileUrl = (font, file) => `/${FONTS_DIR}/${font.id}/${file}`;
-const pageUrl = (font) => `/${FONTS_DIR}/${font.id}.html`;
+const pageUrl = (font) => `/${FONTS_DIR}/${font.id}`;
 const zipName = (font) => `${font.name.replace(/[^A-Za-z0-9]+/g, "")}.zip`;
 
 /** The CSS font-family value for a family, with its generic fallback. */

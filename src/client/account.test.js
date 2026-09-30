@@ -326,8 +326,8 @@ test("populated: five groups in order, newest first; names, previews and links p
     [
       ["A", "/colors/"],
       ["A", "/palettes#p001"],
-      ["A", "/fonts/abel.html"],
-      ["A", "/fonts/aboreto.html"],
+      ["A", "/fonts/abel"],
+      ["A", "/fonts/aboreto"],
       ["SPAN", null],
       ["A", `/guide/${GUIDE}`],
     ],

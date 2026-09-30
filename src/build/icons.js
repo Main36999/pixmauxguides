@@ -78,7 +78,7 @@ const SUBTITLE = "Curated icon sets for modern web and mobile interfaces.";
 // ---------------------------------------------------------------------
 
 const assetUrl = (icon, file) => `/${ICONS_DIR}/${icon.pack}/${file}`;
-const packUrl = (pack) => `/${ICONS_DIR}/${pack.id}.html`;
+const packUrl = (pack) => `/${ICONS_DIR}/${pack.id}`;
 const iconKey = (icon) => `${icon.pack}--${icon.id}`;
 const compactName = (pack) => pack.name.replace(/[^A-Za-z0-9]+/g, "");
 const zipName = (pack, format) => `${compactName(pack)}-${format.toUpperCase()}.zip`;

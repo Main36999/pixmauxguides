@@ -298,7 +298,7 @@ test("the model carries the colours and the page is a route", () => {
 
   // The existing section pages must still be there. This is the whole point
   // of the feature being additive.
-  ["/palettes/", "/guides/", "/search.html", "/"].forEach((url) => {
+  ["/palettes/", "/guides/", "/search", "/"].forEach((url) => {
     assert.ok(
       table.some((r) => r.url === url),
       `${url} is no longer in the route table`,

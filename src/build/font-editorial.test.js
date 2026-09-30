@@ -449,7 +449,7 @@ test("pairings link to real font pages and declare the partner's face", () => {
     const html = page(withLayer, id);
     raw[id].pairings.forEach((p) => {
       const f = model.fonts.find((x) => x.id === p.font);
-      assert.ok(html.includes(`class="font-pairing__name" href="/fonts/${p.font}.html"`), `${id} -> ${p.font}`);
+      assert.ok(html.includes(`class="font-pairing__name" href="/fonts/${p.font}"`), `${id} -> ${p.font}`);
       assert.ok(withLayer.pages.some((pg) => pg.file === `fonts/${p.font}.html`), p.font);
       assert.ok(html.includes(`font-family: "${f.family}"`) || html.includes(`font-family:"${f.family}"`), `${id}: no @font-face for ${p.font}`);
       assert.ok(html.includes(`<p class="font-pairing__role">${editorial.ROLES[p.role]}</p>`), `${id} role`);

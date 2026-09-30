@@ -322,7 +322,7 @@ function fontsCollectionJsonLd(input) {
           "@type": "ListItem",
           position: i + 1,
           name: font.name,
-          url: absolute(origin, `/fonts/${font.id}.html`),
+          url: absolute(origin, `/fonts/${font.id}`),
         };
       }),
     },
@@ -341,7 +341,7 @@ function fontsCollectionJsonLd(input) {
  */
 function fontJsonLd(input) {
   const { font, description, origin } = input;
-  const url = absolute(origin, `/fonts/${font.id}.html`);
+  const url = absolute(origin, `/fonts/${font.id}`);
   return [
     topLevel({
       "@type": "CreativeWork",
@@ -362,7 +362,7 @@ function fontJsonLd(input) {
       breadcrumbList(origin, [
         HOME_CRUMB,
         FONTS_CRUMB,
-        { name: font.name, path: `/fonts/${font.id}.html` },
+        { name: font.name, path: `/fonts/${font.id}` },
       ]),
     ),
   ];

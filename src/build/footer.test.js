@@ -47,7 +47,7 @@ test("the footer partial carries exactly one Cookie settings link", () => {
   const links = cookieLinks(partial);
   assert.strictEqual(links.length, 1);
   assert.strictEqual(links[0][1].trim(), "Cookie settings");
-  assert.match(links[0][0], /href="\/privacy\.html#cookies"/);
+  assert.match(links[0][0], /href="\/privacy#cookies"/);
 });
 
 test("the Cookie settings fallback target exists in the Privacy Policy", () => {
@@ -60,7 +60,7 @@ test("footerFor() keeps one Cookie settings link at every depth", () => {
     (file) => {
       const links = cookieLinks(footer.footerFor(file, partial));
       assert.strictEqual(links.length, 1, file);
-      assert.match(links[0][0], /href="\/privacy\.html#cookies"/, file);
+      assert.match(links[0][0], /href="\/privacy#cookies"/, file);
     },
   );
 });
@@ -229,5 +229,5 @@ test("the Privacy Policy does not describe local storage as cookies", () => {
 test("the Privacy Policy keeps the data-request flow through the Contact page", () => {
   const html = fs.readFileSync(path.join(ROOT, "privacy.html"), "utf8");
   assert.match(html, /Your choices and rights/);
-  assert.match(html, /href="contact\.html">contact form<\/a> and\s+describe your request/);
+  assert.match(html, /href="\/contact">contact form<\/a> and\s+describe your request/);
 });

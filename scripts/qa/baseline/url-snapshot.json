@@ -22,8 +22,8 @@
     },
     {
       "file": "about.html",
-      "url": "/about.html",
-      "canonical": "https://bpozz.com/about.html"
+      "url": "/about",
+      "canonical": "https://bpozz.com/about"
     },
     {
       "file": "account.html",
@@ -87,8 +87,8 @@
     },
     {
       "file": "contact.html",
-      "url": "/contact.html",
-      "canonical": "https://bpozz.com/contact.html"
+      "url": "/contact",
+      "canonical": "https://bpozz.com/contact"
     },
     {
       "file": "fonts/index.html",
@@ -97,1503 +97,1503 @@
     },
     {
       "file": "fonts/abeezee.html",
-      "url": "/fonts/abeezee.html",
-      "canonical": "https://bpozz.com/fonts/abeezee.html"
+      "url": "/fonts/abeezee",
+      "canonical": "https://bpozz.com/fonts/abeezee"
     },
     {
       "file": "fonts/abel.html",
-      "url": "/fonts/abel.html",
-      "canonical": "https://bpozz.com/fonts/abel.html"
+      "url": "/fonts/abel",
+      "canonical": "https://bpozz.com/fonts/abel"
     },
     {
       "file": "fonts/abhaya-libre.html",
-      "url": "/fonts/abhaya-libre.html",
-      "canonical": "https://bpozz.com/fonts/abhaya-libre.html"
+      "url": "/fonts/abhaya-libre",
+      "canonical": "https://bpozz.com/fonts/abhaya-libre"
     },
     {
       "file": "fonts/aboreto.html",
-      "url": "/fonts/aboreto.html",
-      "canonical": "https://bpozz.com/fonts/aboreto.html"
+      "url": "/fonts/aboreto",
+      "canonical": "https://bpozz.com/fonts/aboreto"
     },
     {
       "file": "fonts/abril-fatface.html",
-      "url": "/fonts/abril-fatface.html",
-      "canonical": "https://bpozz.com/fonts/abril-fatface.html"
+      "url": "/fonts/abril-fatface",
+      "canonical": "https://bpozz.com/fonts/abril-fatface"
     },
     {
       "file": "fonts/acme.html",
-      "url": "/fonts/acme.html",
-      "canonical": "https://bpozz.com/fonts/acme.html"
+      "url": "/fonts/acme",
+      "canonical": "https://bpozz.com/fonts/acme"
     },
     {
       "file": "fonts/actor.html",
-      "url": "/fonts/actor.html",
-      "canonical": "https://bpozz.com/fonts/actor.html"
+      "url": "/fonts/actor",
+      "canonical": "https://bpozz.com/fonts/actor"
     },
     {
       "file": "fonts/adamina.html",
-      "url": "/fonts/adamina.html",
-      "canonical": "https://bpozz.com/fonts/adamina.html"
+      "url": "/fonts/adamina",
+      "canonical": "https://bpozz.com/fonts/adamina"
     },
     {
       "file": "fonts/alata.html",
-      "url": "/fonts/alata.html",
-      "canonical": "https://bpozz.com/fonts/alata.html"
+      "url": "/fonts/alata",
+      "canonical": "https://bpozz.com/fonts/alata"
     },
     {
       "file": "fonts/aldrich.html",
-      "url": "/fonts/aldrich.html",
-      "canonical": "https://bpozz.com/fonts/aldrich.html"
+      "url": "/fonts/aldrich",
+      "canonical": "https://bpozz.com/fonts/aldrich"
     },
     {
       "file": "fonts/alegreya-sans.html",
-      "url": "/fonts/alegreya-sans.html",
-      "canonical": "https://bpozz.com/fonts/alegreya-sans.html"
+      "url": "/fonts/alegreya-sans",
+      "canonical": "https://bpozz.com/fonts/alegreya-sans"
     },
     {
       "file": "fonts/alex-brush.html",
-      "url": "/fonts/alex-brush.html",
-      "canonical": "https://bpozz.com/fonts/alex-brush.html"
+      "url": "/fonts/alex-brush",
+      "canonical": "https://bpozz.com/fonts/alex-brush"
     },
     {
       "file": "fonts/alfa-slab-one.html",
-      "url": "/fonts/alfa-slab-one.html",
-      "canonical": "https://bpozz.com/fonts/alfa-slab-one.html"
+      "url": "/fonts/alfa-slab-one",
+      "canonical": "https://bpozz.com/fonts/alfa-slab-one"
     },
     {
       "file": "fonts/alice.html",
-      "url": "/fonts/alice.html",
-      "canonical": "https://bpozz.com/fonts/alice.html"
+      "url": "/fonts/alice",
+      "canonical": "https://bpozz.com/fonts/alice"
     },
     {
       "file": "fonts/alike.html",
-      "url": "/fonts/alike.html",
-      "canonical": "https://bpozz.com/fonts/alike.html"
+      "url": "/fonts/alike",
+      "canonical": "https://bpozz.com/fonts/alike"
     },
     {
       "file": "fonts/allison.html",
-      "url": "/fonts/allison.html",
-      "canonical": "https://bpozz.com/fonts/allison.html"
+      "url": "/fonts/allison",
+      "canonical": "https://bpozz.com/fonts/allison"
     },
     {
       "file": "fonts/allura.html",
-      "url": "/fonts/allura.html",
-      "canonical": "https://bpozz.com/fonts/allura.html"
+      "url": "/fonts/allura",
+      "canonical": "https://bpozz.com/fonts/allura"
     },
     {
       "file": "fonts/almendra.html",
-      "url": "/fonts/almendra.html",
-      "canonical": "https://bpozz.com/fonts/almendra.html"
+      "url": "/fonts/almendra",
+      "canonical": "https://bpozz.com/fonts/almendra"
     },
     {
       "file": "fonts/amatic-sc.html",
-      "url": "/fonts/amatic-sc.html",
-      "canonical": "https://bpozz.com/fonts/amatic-sc.html"
+      "url": "/fonts/amatic-sc",
+      "canonical": "https://bpozz.com/fonts/amatic-sc"
     },
     {
       "file": "fonts/andika.html",
-      "url": "/fonts/andika.html",
-      "canonical": "https://bpozz.com/fonts/andika.html"
+      "url": "/fonts/andika",
+      "canonical": "https://bpozz.com/fonts/andika"
     },
     {
       "file": "fonts/annie-use-your-telescope.html",
-      "url": "/fonts/annie-use-your-telescope.html",
-      "canonical": "https://bpozz.com/fonts/annie-use-your-telescope.html"
+      "url": "/fonts/annie-use-your-telescope",
+      "canonical": "https://bpozz.com/fonts/annie-use-your-telescope"
     },
     {
       "file": "fonts/anonymous-pro.html",
-      "url": "/fonts/anonymous-pro.html",
-      "canonical": "https://bpozz.com/fonts/anonymous-pro.html"
+      "url": "/fonts/anonymous-pro",
+      "canonical": "https://bpozz.com/fonts/anonymous-pro"
     },
     {
       "file": "fonts/antic-didone.html",
-      "url": "/fonts/antic-didone.html",
-      "canonical": "https://bpozz.com/fonts/antic-didone.html"
+      "url": "/fonts/antic-didone",
+      "canonical": "https://bpozz.com/fonts/antic-didone"
     },
     {
       "file": "fonts/antic-slab.html",
-      "url": "/fonts/antic-slab.html",
-      "canonical": "https://bpozz.com/fonts/antic-slab.html"
+      "url": "/fonts/antic-slab",
+      "canonical": "https://bpozz.com/fonts/antic-slab"
     },
     {
       "file": "fonts/anton.html",
-      "url": "/fonts/anton.html",
-      "canonical": "https://bpozz.com/fonts/anton.html"
+      "url": "/fonts/anton",
+      "canonical": "https://bpozz.com/fonts/anton"
     },
     {
       "file": "fonts/arapey.html",
-      "url": "/fonts/arapey.html",
-      "canonical": "https://bpozz.com/fonts/arapey.html"
+      "url": "/fonts/arapey",
+      "canonical": "https://bpozz.com/fonts/arapey"
     },
     {
       "file": "fonts/arbutus-slab.html",
-      "url": "/fonts/arbutus-slab.html",
-      "canonical": "https://bpozz.com/fonts/arbutus-slab.html"
+      "url": "/fonts/arbutus-slab",
+      "canonical": "https://bpozz.com/fonts/arbutus-slab"
     },
     {
       "file": "fonts/architects-daughter.html",
-      "url": "/fonts/architects-daughter.html",
-      "canonical": "https://bpozz.com/fonts/architects-daughter.html"
+      "url": "/fonts/architects-daughter",
+      "canonical": "https://bpozz.com/fonts/architects-daughter"
     },
     {
       "file": "fonts/archivo-black.html",
-      "url": "/fonts/archivo-black.html",
-      "canonical": "https://bpozz.com/fonts/archivo-black.html"
+      "url": "/fonts/archivo-black",
+      "canonical": "https://bpozz.com/fonts/archivo-black"
     },
     {
       "file": "fonts/arizonia.html",
-      "url": "/fonts/arizonia.html",
-      "canonical": "https://bpozz.com/fonts/arizonia.html"
+      "url": "/fonts/arizonia",
+      "canonical": "https://bpozz.com/fonts/arizonia"
     },
     {
       "file": "fonts/armata.html",
-      "url": "/fonts/armata.html",
-      "canonical": "https://bpozz.com/fonts/armata.html"
+      "url": "/fonts/armata",
+      "canonical": "https://bpozz.com/fonts/armata"
     },
     {
       "file": "fonts/arsenal.html",
-      "url": "/fonts/arsenal.html",
-      "canonical": "https://bpozz.com/fonts/arsenal.html"
+      "url": "/fonts/arsenal",
+      "canonical": "https://bpozz.com/fonts/arsenal"
     },
     {
       "file": "fonts/arvo.html",
-      "url": "/fonts/arvo.html",
-      "canonical": "https://bpozz.com/fonts/arvo.html"
+      "url": "/fonts/arvo",
+      "canonical": "https://bpozz.com/fonts/arvo"
     },
     {
       "file": "fonts/asap-condensed.html",
-      "url": "/fonts/asap-condensed.html",
-      "canonical": "https://bpozz.com/fonts/asap-condensed.html"
+      "url": "/fonts/asap-condensed",
+      "canonical": "https://bpozz.com/fonts/asap-condensed"
     },
     {
       "file": "fonts/asul.html",
-      "url": "/fonts/asul.html",
-      "canonical": "https://bpozz.com/fonts/asul.html"
+      "url": "/fonts/asul",
+      "canonical": "https://bpozz.com/fonts/asul"
     },
     {
       "file": "fonts/atkinson-hyperlegible.html",
-      "url": "/fonts/atkinson-hyperlegible.html",
-      "canonical": "https://bpozz.com/fonts/atkinson-hyperlegible.html"
+      "url": "/fonts/atkinson-hyperlegible",
+      "canonical": "https://bpozz.com/fonts/atkinson-hyperlegible"
     },
     {
       "file": "fonts/audiowide.html",
-      "url": "/fonts/audiowide.html",
-      "canonical": "https://bpozz.com/fonts/audiowide.html"
+      "url": "/fonts/audiowide",
+      "canonical": "https://bpozz.com/fonts/audiowide"
     },
     {
       "file": "fonts/averia-serif-libre.html",
-      "url": "/fonts/averia-serif-libre.html",
-      "canonical": "https://bpozz.com/fonts/averia-serif-libre.html"
-    },
-    {
-      "file": "fonts/b612-mono.html",
-      "url": "/fonts/b612-mono.html",
-      "canonical": "https://bpozz.com/fonts/b612-mono.html"
+      "url": "/fonts/averia-serif-libre",
+      "canonical": "https://bpozz.com/fonts/averia-serif-libre"
     },
     {
       "file": "fonts/b612.html",
-      "url": "/fonts/b612.html",
-      "canonical": "https://bpozz.com/fonts/b612.html"
+      "url": "/fonts/b612",
+      "canonical": "https://bpozz.com/fonts/b612"
+    },
+    {
+      "file": "fonts/b612-mono.html",
+      "url": "/fonts/b612-mono",
+      "canonical": "https://bpozz.com/fonts/b612-mono"
     },
     {
       "file": "fonts/bad-script.html",
-      "url": "/fonts/bad-script.html",
-      "canonical": "https://bpozz.com/fonts/bad-script.html"
+      "url": "/fonts/bad-script",
+      "canonical": "https://bpozz.com/fonts/bad-script"
     },
     {
       "file": "fonts/balsamiq-sans.html",
-      "url": "/fonts/balsamiq-sans.html",
-      "canonical": "https://bpozz.com/fonts/balsamiq-sans.html"
+      "url": "/fonts/balsamiq-sans",
+      "canonical": "https://bpozz.com/fonts/balsamiq-sans"
     },
     {
       "file": "fonts/balthazar.html",
-      "url": "/fonts/balthazar.html",
-      "canonical": "https://bpozz.com/fonts/balthazar.html"
+      "url": "/fonts/balthazar",
+      "canonical": "https://bpozz.com/fonts/balthazar"
     },
     {
       "file": "fonts/bangers.html",
-      "url": "/fonts/bangers.html",
-      "canonical": "https://bpozz.com/fonts/bangers.html"
-    },
-    {
-      "file": "fonts/barlow-condensed.html",
-      "url": "/fonts/barlow-condensed.html",
-      "canonical": "https://bpozz.com/fonts/barlow-condensed.html"
+      "url": "/fonts/bangers",
+      "canonical": "https://bpozz.com/fonts/bangers"
     },
     {
       "file": "fonts/barlow.html",
-      "url": "/fonts/barlow.html",
-      "canonical": "https://bpozz.com/fonts/barlow.html"
+      "url": "/fonts/barlow",
+      "canonical": "https://bpozz.com/fonts/barlow"
+    },
+    {
+      "file": "fonts/barlow-condensed.html",
+      "url": "/fonts/barlow-condensed",
+      "canonical": "https://bpozz.com/fonts/barlow-condensed"
     },
     {
       "file": "fonts/basic.html",
-      "url": "/fonts/basic.html",
-      "canonical": "https://bpozz.com/fonts/basic.html"
+      "url": "/fonts/basic",
+      "canonical": "https://bpozz.com/fonts/basic"
     },
     {
       "file": "fonts/be-vietnam-pro.html",
-      "url": "/fonts/be-vietnam-pro.html",
-      "canonical": "https://bpozz.com/fonts/be-vietnam-pro.html"
+      "url": "/fonts/be-vietnam-pro",
+      "canonical": "https://bpozz.com/fonts/be-vietnam-pro"
     },
     {
       "file": "fonts/bebas-neue.html",
-      "url": "/fonts/bebas-neue.html",
-      "canonical": "https://bpozz.com/fonts/bebas-neue.html"
+      "url": "/fonts/bebas-neue",
+      "canonical": "https://bpozz.com/fonts/bebas-neue"
     },
     {
       "file": "fonts/belanosima.html",
-      "url": "/fonts/belanosima.html",
-      "canonical": "https://bpozz.com/fonts/belanosima.html"
+      "url": "/fonts/belanosima",
+      "canonical": "https://bpozz.com/fonts/belanosima"
     },
     {
       "file": "fonts/bellefair.html",
-      "url": "/fonts/bellefair.html",
-      "canonical": "https://bpozz.com/fonts/bellefair.html"
+      "url": "/fonts/bellefair",
+      "canonical": "https://bpozz.com/fonts/bellefair"
     },
     {
       "file": "fonts/belleza.html",
-      "url": "/fonts/belleza.html",
-      "canonical": "https://bpozz.com/fonts/belleza.html"
+      "url": "/fonts/belleza",
+      "canonical": "https://bpozz.com/fonts/belleza"
     },
     {
       "file": "fonts/benchnine.html",
-      "url": "/fonts/benchnine.html",
-      "canonical": "https://bpozz.com/fonts/benchnine.html"
+      "url": "/fonts/benchnine",
+      "canonical": "https://bpozz.com/fonts/benchnine"
     },
     {
       "file": "fonts/bentham.html",
-      "url": "/fonts/bentham.html",
-      "canonical": "https://bpozz.com/fonts/bentham.html"
+      "url": "/fonts/bentham",
+      "canonical": "https://bpozz.com/fonts/bentham"
     },
     {
       "file": "fonts/berkshire-swash.html",
-      "url": "/fonts/berkshire-swash.html",
-      "canonical": "https://bpozz.com/fonts/berkshire-swash.html"
+      "url": "/fonts/berkshire-swash",
+      "canonical": "https://bpozz.com/fonts/berkshire-swash"
     },
     {
       "file": "fonts/bevan.html",
-      "url": "/fonts/bevan.html",
-      "canonical": "https://bpozz.com/fonts/bevan.html"
+      "url": "/fonts/bevan",
+      "canonical": "https://bpozz.com/fonts/bevan"
     },
     {
       "file": "fonts/birthstone.html",
-      "url": "/fonts/birthstone.html",
-      "canonical": "https://bpozz.com/fonts/birthstone.html"
+      "url": "/fonts/birthstone",
+      "canonical": "https://bpozz.com/fonts/birthstone"
     },
     {
       "file": "fonts/black-ops-one.html",
-      "url": "/fonts/black-ops-one.html",
-      "canonical": "https://bpozz.com/fonts/black-ops-one.html"
+      "url": "/fonts/black-ops-one",
+      "canonical": "https://bpozz.com/fonts/black-ops-one"
     },
     {
       "file": "fonts/blinker.html",
-      "url": "/fonts/blinker.html",
-      "canonical": "https://bpozz.com/fonts/blinker.html"
+      "url": "/fonts/blinker",
+      "canonical": "https://bpozz.com/fonts/blinker"
     },
     {
       "file": "fonts/boogaloo.html",
-      "url": "/fonts/boogaloo.html",
-      "canonical": "https://bpozz.com/fonts/boogaloo.html"
+      "url": "/fonts/boogaloo",
+      "canonical": "https://bpozz.com/fonts/boogaloo"
     },
     {
       "file": "fonts/bowlby-one.html",
-      "url": "/fonts/bowlby-one.html",
-      "canonical": "https://bpozz.com/fonts/bowlby-one.html"
+      "url": "/fonts/bowlby-one",
+      "canonical": "https://bpozz.com/fonts/bowlby-one"
     },
     {
       "file": "fonts/brawler.html",
-      "url": "/fonts/brawler.html",
-      "canonical": "https://bpozz.com/fonts/brawler.html"
+      "url": "/fonts/brawler",
+      "canonical": "https://bpozz.com/fonts/brawler"
     },
     {
       "file": "fonts/bree-serif.html",
-      "url": "/fonts/bree-serif.html",
-      "canonical": "https://bpozz.com/fonts/bree-serif.html"
+      "url": "/fonts/bree-serif",
+      "canonical": "https://bpozz.com/fonts/bree-serif"
     },
     {
       "file": "fonts/bungee.html",
-      "url": "/fonts/bungee.html",
-      "canonical": "https://bpozz.com/fonts/bungee.html"
+      "url": "/fonts/bungee",
+      "canonical": "https://bpozz.com/fonts/bungee"
     },
     {
       "file": "fonts/cabin-sketch.html",
-      "url": "/fonts/cabin-sketch.html",
-      "canonical": "https://bpozz.com/fonts/cabin-sketch.html"
+      "url": "/fonts/cabin-sketch",
+      "canonical": "https://bpozz.com/fonts/cabin-sketch"
     },
     {
       "file": "fonts/caladea.html",
-      "url": "/fonts/caladea.html",
-      "canonical": "https://bpozz.com/fonts/caladea.html"
+      "url": "/fonts/caladea",
+      "canonical": "https://bpozz.com/fonts/caladea"
     },
     {
       "file": "fonts/calistoga.html",
-      "url": "/fonts/calistoga.html",
-      "canonical": "https://bpozz.com/fonts/calistoga.html"
+      "url": "/fonts/calistoga",
+      "canonical": "https://bpozz.com/fonts/calistoga"
     },
     {
       "file": "fonts/candal.html",
-      "url": "/fonts/candal.html",
-      "canonical": "https://bpozz.com/fonts/candal.html"
+      "url": "/fonts/candal",
+      "canonical": "https://bpozz.com/fonts/candal"
     },
     {
       "file": "fonts/cantarell.html",
-      "url": "/fonts/cantarell.html",
-      "canonical": "https://bpozz.com/fonts/cantarell.html"
+      "url": "/fonts/cantarell",
+      "canonical": "https://bpozz.com/fonts/cantarell"
     },
     {
       "file": "fonts/cantata-one.html",
-      "url": "/fonts/cantata-one.html",
-      "canonical": "https://bpozz.com/fonts/cantata-one.html"
+      "url": "/fonts/cantata-one",
+      "canonical": "https://bpozz.com/fonts/cantata-one"
     },
     {
       "file": "fonts/caprasimo.html",
-      "url": "/fonts/caprasimo.html",
-      "canonical": "https://bpozz.com/fonts/caprasimo.html"
+      "url": "/fonts/caprasimo",
+      "canonical": "https://bpozz.com/fonts/caprasimo"
     },
     {
       "file": "fonts/cardo.html",
-      "url": "/fonts/cardo.html",
-      "canonical": "https://bpozz.com/fonts/cardo.html"
+      "url": "/fonts/cardo",
+      "canonical": "https://bpozz.com/fonts/cardo"
     },
     {
       "file": "fonts/carter-one.html",
-      "url": "/fonts/carter-one.html",
-      "canonical": "https://bpozz.com/fonts/carter-one.html"
+      "url": "/fonts/carter-one",
+      "canonical": "https://bpozz.com/fonts/carter-one"
     },
     {
       "file": "fonts/caudex.html",
-      "url": "/fonts/caudex.html",
-      "canonical": "https://bpozz.com/fonts/caudex.html"
+      "url": "/fonts/caudex",
+      "canonical": "https://bpozz.com/fonts/caudex"
     },
     {
       "file": "fonts/caveat-brush.html",
-      "url": "/fonts/caveat-brush.html",
-      "canonical": "https://bpozz.com/fonts/caveat-brush.html"
+      "url": "/fonts/caveat-brush",
+      "canonical": "https://bpozz.com/fonts/caveat-brush"
     },
     {
       "file": "fonts/cedarville-cursive.html",
-      "url": "/fonts/cedarville-cursive.html",
-      "canonical": "https://bpozz.com/fonts/cedarville-cursive.html"
+      "url": "/fonts/cedarville-cursive",
+      "canonical": "https://bpozz.com/fonts/cedarville-cursive"
     },
     {
       "file": "fonts/changa-one.html",
-      "url": "/fonts/changa-one.html",
-      "canonical": "https://bpozz.com/fonts/changa-one.html"
+      "url": "/fonts/changa-one",
+      "canonical": "https://bpozz.com/fonts/changa-one"
     },
     {
       "file": "fonts/chango.html",
-      "url": "/fonts/chango.html",
-      "canonical": "https://bpozz.com/fonts/chango.html"
+      "url": "/fonts/chango",
+      "canonical": "https://bpozz.com/fonts/chango"
     },
     {
       "file": "fonts/charis-sil.html",
-      "url": "/fonts/charis-sil.html",
-      "canonical": "https://bpozz.com/fonts/charis-sil.html"
+      "url": "/fonts/charis-sil",
+      "canonical": "https://bpozz.com/fonts/charis-sil"
     },
     {
       "file": "fonts/chelsea-market.html",
-      "url": "/fonts/chelsea-market.html",
-      "canonical": "https://bpozz.com/fonts/chelsea-market.html"
+      "url": "/fonts/chelsea-market",
+      "canonical": "https://bpozz.com/fonts/chelsea-market"
     },
     {
       "file": "fonts/cinzel-decorative.html",
-      "url": "/fonts/cinzel-decorative.html",
-      "canonical": "https://bpozz.com/fonts/cinzel-decorative.html"
+      "url": "/fonts/cinzel-decorative",
+      "canonical": "https://bpozz.com/fonts/cinzel-decorative"
     },
     {
       "file": "fonts/comic-neue.html",
-      "url": "/fonts/comic-neue.html",
-      "canonical": "https://bpozz.com/fonts/comic-neue.html"
+      "url": "/fonts/comic-neue",
+      "canonical": "https://bpozz.com/fonts/comic-neue"
     },
     {
       "file": "fonts/comic-relief.html",
-      "url": "/fonts/comic-relief.html",
-      "canonical": "https://bpozz.com/fonts/comic-relief.html"
+      "url": "/fonts/comic-relief",
+      "canonical": "https://bpozz.com/fonts/comic-relief"
     },
     {
       "file": "fonts/concert-one.html",
-      "url": "/fonts/concert-one.html",
-      "canonical": "https://bpozz.com/fonts/concert-one.html"
+      "url": "/fonts/concert-one",
+      "canonical": "https://bpozz.com/fonts/concert-one"
     },
     {
       "file": "fonts/cookie.html",
-      "url": "/fonts/cookie.html",
-      "canonical": "https://bpozz.com/fonts/cookie.html"
+      "url": "/fonts/cookie",
+      "canonical": "https://bpozz.com/fonts/cookie"
     },
     {
       "file": "fonts/copse.html",
-      "url": "/fonts/copse.html",
-      "canonical": "https://bpozz.com/fonts/copse.html"
+      "url": "/fonts/copse",
+      "canonical": "https://bpozz.com/fonts/copse"
     },
     {
       "file": "fonts/corben.html",
-      "url": "/fonts/corben.html",
-      "canonical": "https://bpozz.com/fonts/corben.html"
+      "url": "/fonts/corben",
+      "canonical": "https://bpozz.com/fonts/corben"
     },
     {
       "file": "fonts/corinthia.html",
-      "url": "/fonts/corinthia.html",
-      "canonical": "https://bpozz.com/fonts/corinthia.html"
+      "url": "/fonts/corinthia",
+      "canonical": "https://bpozz.com/fonts/corinthia"
     },
     {
       "file": "fonts/courgette.html",
-      "url": "/fonts/courgette.html",
-      "canonical": "https://bpozz.com/fonts/courgette.html"
+      "url": "/fonts/courgette",
+      "canonical": "https://bpozz.com/fonts/courgette"
     },
     {
       "file": "fonts/courier-prime.html",
-      "url": "/fonts/courier-prime.html",
-      "canonical": "https://bpozz.com/fonts/courier-prime.html"
+      "url": "/fonts/courier-prime",
+      "canonical": "https://bpozz.com/fonts/courier-prime"
     },
     {
       "file": "fonts/cousine.html",
-      "url": "/fonts/cousine.html",
-      "canonical": "https://bpozz.com/fonts/cousine.html"
+      "url": "/fonts/cousine",
+      "canonical": "https://bpozz.com/fonts/cousine"
     },
     {
       "file": "fonts/coustard.html",
-      "url": "/fonts/coustard.html",
-      "canonical": "https://bpozz.com/fonts/coustard.html"
+      "url": "/fonts/coustard",
+      "canonical": "https://bpozz.com/fonts/coustard"
     },
     {
       "file": "fonts/covered-by-your-grace.html",
-      "url": "/fonts/covered-by-your-grace.html",
-      "canonical": "https://bpozz.com/fonts/covered-by-your-grace.html"
+      "url": "/fonts/covered-by-your-grace",
+      "canonical": "https://bpozz.com/fonts/covered-by-your-grace"
     },
     {
       "file": "fonts/creepster.html",
-      "url": "/fonts/creepster.html",
-      "canonical": "https://bpozz.com/fonts/creepster.html"
+      "url": "/fonts/creepster",
+      "canonical": "https://bpozz.com/fonts/creepster"
     },
     {
       "file": "fonts/crete-round.html",
-      "url": "/fonts/crete-round.html",
-      "canonical": "https://bpozz.com/fonts/crete-round.html"
+      "url": "/fonts/crete-round",
+      "canonical": "https://bpozz.com/fonts/crete-round"
     },
     {
       "file": "fonts/crimson-text.html",
-      "url": "/fonts/crimson-text.html",
-      "canonical": "https://bpozz.com/fonts/crimson-text.html"
+      "url": "/fonts/crimson-text",
+      "canonical": "https://bpozz.com/fonts/crimson-text"
     },
     {
       "file": "fonts/cutive-mono.html",
-      "url": "/fonts/cutive-mono.html",
-      "canonical": "https://bpozz.com/fonts/cutive-mono.html"
+      "url": "/fonts/cutive-mono",
+      "canonical": "https://bpozz.com/fonts/cutive-mono"
     },
     {
       "file": "fonts/damion.html",
-      "url": "/fonts/damion.html",
-      "canonical": "https://bpozz.com/fonts/damion.html"
+      "url": "/fonts/damion",
+      "canonical": "https://bpozz.com/fonts/damion"
     },
     {
       "file": "fonts/dawning-of-a-new-day.html",
-      "url": "/fonts/dawning-of-a-new-day.html",
-      "canonical": "https://bpozz.com/fonts/dawning-of-a-new-day.html"
+      "url": "/fonts/dawning-of-a-new-day",
+      "canonical": "https://bpozz.com/fonts/dawning-of-a-new-day"
     },
     {
       "file": "fonts/days-one.html",
-      "url": "/fonts/days-one.html",
-      "canonical": "https://bpozz.com/fonts/days-one.html"
+      "url": "/fonts/days-one",
+      "canonical": "https://bpozz.com/fonts/days-one"
     },
     {
       "file": "fonts/delicious-handrawn.html",
-      "url": "/fonts/delicious-handrawn.html",
-      "canonical": "https://bpozz.com/fonts/delicious-handrawn.html"
+      "url": "/fonts/delicious-handrawn",
+      "canonical": "https://bpozz.com/fonts/delicious-handrawn"
     },
     {
       "file": "fonts/delius.html",
-      "url": "/fonts/delius.html",
-      "canonical": "https://bpozz.com/fonts/delius.html"
+      "url": "/fonts/delius",
+      "canonical": "https://bpozz.com/fonts/delius"
     },
     {
       "file": "fonts/didact-gothic.html",
-      "url": "/fonts/didact-gothic.html",
-      "canonical": "https://bpozz.com/fonts/didact-gothic.html"
+      "url": "/fonts/didact-gothic",
+      "canonical": "https://bpozz.com/fonts/didact-gothic"
     },
     {
       "file": "fonts/dm-mono.html",
-      "url": "/fonts/dm-mono.html",
-      "canonical": "https://bpozz.com/fonts/dm-mono.html"
+      "url": "/fonts/dm-mono",
+      "canonical": "https://bpozz.com/fonts/dm-mono"
     },
     {
       "file": "fonts/dm-serif-display.html",
-      "url": "/fonts/dm-serif-display.html",
-      "canonical": "https://bpozz.com/fonts/dm-serif-display.html"
+      "url": "/fonts/dm-serif-display",
+      "canonical": "https://bpozz.com/fonts/dm-serif-display"
     },
     {
       "file": "fonts/doppio-one.html",
-      "url": "/fonts/doppio-one.html",
-      "canonical": "https://bpozz.com/fonts/doppio-one.html"
+      "url": "/fonts/doppio-one",
+      "canonical": "https://bpozz.com/fonts/doppio-one"
     },
     {
       "file": "fonts/eater.html",
-      "url": "/fonts/eater.html",
-      "canonical": "https://bpozz.com/fonts/eater.html"
+      "url": "/fonts/eater",
+      "canonical": "https://bpozz.com/fonts/eater"
     },
     {
       "file": "fonts/economica.html",
-      "url": "/fonts/economica.html",
-      "canonical": "https://bpozz.com/fonts/economica.html"
+      "url": "/fonts/economica",
+      "canonical": "https://bpozz.com/fonts/economica"
     },
     {
       "file": "fonts/electrolize.html",
-      "url": "/fonts/electrolize.html",
-      "canonical": "https://bpozz.com/fonts/electrolize.html"
+      "url": "/fonts/electrolize",
+      "canonical": "https://bpozz.com/fonts/electrolize"
     },
     {
       "file": "fonts/encode-sans-expanded.html",
-      "url": "/fonts/encode-sans-expanded.html",
-      "canonical": "https://bpozz.com/fonts/encode-sans-expanded.html"
+      "url": "/fonts/encode-sans-expanded",
+      "canonical": "https://bpozz.com/fonts/encode-sans-expanded"
     },
     {
       "file": "fonts/enriqueta.html",
-      "url": "/fonts/enriqueta.html",
-      "canonical": "https://bpozz.com/fonts/enriqueta.html"
+      "url": "/fonts/enriqueta",
+      "canonical": "https://bpozz.com/fonts/enriqueta"
     },
     {
       "file": "fonts/fanwood-text.html",
-      "url": "/fonts/fanwood-text.html",
-      "canonical": "https://bpozz.com/fonts/fanwood-text.html"
+      "url": "/fonts/fanwood-text",
+      "canonical": "https://bpozz.com/fonts/fanwood-text"
     },
     {
       "file": "fonts/fauna-one.html",
-      "url": "/fonts/fauna-one.html",
-      "canonical": "https://bpozz.com/fonts/fauna-one.html"
+      "url": "/fonts/fauna-one",
+      "canonical": "https://bpozz.com/fonts/fauna-one"
     },
     {
       "file": "fonts/fenix.html",
-      "url": "/fonts/fenix.html",
-      "canonical": "https://bpozz.com/fonts/fenix.html"
+      "url": "/fonts/fenix",
+      "canonical": "https://bpozz.com/fonts/fenix"
     },
     {
       "file": "fonts/fira-mono.html",
-      "url": "/fonts/fira-mono.html",
-      "canonical": "https://bpozz.com/fonts/fira-mono.html"
+      "url": "/fonts/fira-mono",
+      "canonical": "https://bpozz.com/fonts/fira-mono"
     },
     {
       "file": "fonts/fira-sans.html",
-      "url": "/fonts/fira-sans.html",
-      "canonical": "https://bpozz.com/fonts/fira-sans.html"
+      "url": "/fonts/fira-sans",
+      "canonical": "https://bpozz.com/fonts/fira-sans"
     },
     {
       "file": "fonts/fjalla-one.html",
-      "url": "/fonts/fjalla-one.html",
-      "canonical": "https://bpozz.com/fonts/fjalla-one.html"
+      "url": "/fonts/fjalla-one",
+      "canonical": "https://bpozz.com/fonts/fjalla-one"
     },
     {
       "file": "fonts/fondamento.html",
-      "url": "/fonts/fondamento.html",
-      "canonical": "https://bpozz.com/fonts/fondamento.html"
+      "url": "/fonts/fondamento",
+      "canonical": "https://bpozz.com/fonts/fondamento"
     },
     {
       "file": "fonts/forum.html",
-      "url": "/fonts/forum.html",
-      "canonical": "https://bpozz.com/fonts/forum.html"
+      "url": "/fonts/forum",
+      "canonical": "https://bpozz.com/fonts/forum"
     },
     {
       "file": "fonts/fragment-mono.html",
-      "url": "/fonts/fragment-mono.html",
-      "canonical": "https://bpozz.com/fonts/fragment-mono.html"
+      "url": "/fonts/fragment-mono",
+      "canonical": "https://bpozz.com/fonts/fragment-mono"
     },
     {
       "file": "fonts/francois-one.html",
-      "url": "/fonts/francois-one.html",
-      "canonical": "https://bpozz.com/fonts/francois-one.html"
+      "url": "/fonts/francois-one",
+      "canonical": "https://bpozz.com/fonts/francois-one"
     },
     {
       "file": "fonts/fredericka-the-great.html",
-      "url": "/fonts/fredericka-the-great.html",
-      "canonical": "https://bpozz.com/fonts/fredericka-the-great.html"
+      "url": "/fonts/fredericka-the-great",
+      "canonical": "https://bpozz.com/fonts/fredericka-the-great"
     },
     {
       "file": "fonts/fugaz-one.html",
-      "url": "/fonts/fugaz-one.html",
-      "canonical": "https://bpozz.com/fonts/fugaz-one.html"
+      "url": "/fonts/fugaz-one",
+      "canonical": "https://bpozz.com/fonts/fugaz-one"
     },
     {
       "file": "fonts/gabriela.html",
-      "url": "/fonts/gabriela.html",
-      "canonical": "https://bpozz.com/fonts/gabriela.html"
+      "url": "/fonts/gabriela",
+      "canonical": "https://bpozz.com/fonts/gabriela"
     },
     {
       "file": "fonts/gentium-book-plus.html",
-      "url": "/fonts/gentium-book-plus.html",
-      "canonical": "https://bpozz.com/fonts/gentium-book-plus.html"
+      "url": "/fonts/gentium-book-plus",
+      "canonical": "https://bpozz.com/fonts/gentium-book-plus"
     },
     {
       "file": "fonts/germania-one.html",
-      "url": "/fonts/germania-one.html",
-      "canonical": "https://bpozz.com/fonts/germania-one.html"
+      "url": "/fonts/germania-one",
+      "canonical": "https://bpozz.com/fonts/germania-one"
     },
     {
       "file": "fonts/gilda-display.html",
-      "url": "/fonts/gilda-display.html",
-      "canonical": "https://bpozz.com/fonts/gilda-display.html"
+      "url": "/fonts/gilda-display",
+      "canonical": "https://bpozz.com/fonts/gilda-display"
     },
     {
       "file": "fonts/glegoo.html",
-      "url": "/fonts/glegoo.html",
-      "canonical": "https://bpozz.com/fonts/glegoo.html"
+      "url": "/fonts/glegoo",
+      "canonical": "https://bpozz.com/fonts/glegoo"
     },
     {
       "file": "fonts/gloock.html",
-      "url": "/fonts/gloock.html",
-      "canonical": "https://bpozz.com/fonts/gloock.html"
+      "url": "/fonts/gloock",
+      "canonical": "https://bpozz.com/fonts/gloock"
     },
     {
       "file": "fonts/gloria-hallelujah.html",
-      "url": "/fonts/gloria-hallelujah.html",
-      "canonical": "https://bpozz.com/fonts/gloria-hallelujah.html"
+      "url": "/fonts/gloria-hallelujah",
+      "canonical": "https://bpozz.com/fonts/gloria-hallelujah"
     },
     {
       "file": "fonts/gochi-hand.html",
-      "url": "/fonts/gochi-hand.html",
-      "canonical": "https://bpozz.com/fonts/gochi-hand.html"
+      "url": "/fonts/gochi-hand",
+      "canonical": "https://bpozz.com/fonts/gochi-hand"
     },
     {
       "file": "fonts/goudy-bookletter-1911.html",
-      "url": "/fonts/goudy-bookletter-1911.html",
-      "canonical": "https://bpozz.com/fonts/goudy-bookletter-1911.html"
+      "url": "/fonts/goudy-bookletter-1911",
+      "canonical": "https://bpozz.com/fonts/goudy-bookletter-1911"
     },
     {
       "file": "fonts/graduate.html",
-      "url": "/fonts/graduate.html",
-      "canonical": "https://bpozz.com/fonts/graduate.html"
+      "url": "/fonts/graduate",
+      "canonical": "https://bpozz.com/fonts/graduate"
     },
     {
       "file": "fonts/grand-hotel.html",
-      "url": "/fonts/grand-hotel.html",
-      "canonical": "https://bpozz.com/fonts/grand-hotel.html"
+      "url": "/fonts/grand-hotel",
+      "canonical": "https://bpozz.com/fonts/grand-hotel"
     },
     {
       "file": "fonts/gravitas-one.html",
-      "url": "/fonts/gravitas-one.html",
-      "canonical": "https://bpozz.com/fonts/gravitas-one.html"
+      "url": "/fonts/gravitas-one",
+      "canonical": "https://bpozz.com/fonts/gravitas-one"
     },
     {
       "file": "fonts/great-vibes.html",
-      "url": "/fonts/great-vibes.html",
-      "canonical": "https://bpozz.com/fonts/great-vibes.html"
+      "url": "/fonts/great-vibes",
+      "canonical": "https://bpozz.com/fonts/great-vibes"
     },
     {
       "file": "fonts/gruppo.html",
-      "url": "/fonts/gruppo.html",
-      "canonical": "https://bpozz.com/fonts/gruppo.html"
+      "url": "/fonts/gruppo",
+      "canonical": "https://bpozz.com/fonts/gruppo"
     },
     {
       "file": "fonts/gudea.html",
-      "url": "/fonts/gudea.html",
-      "canonical": "https://bpozz.com/fonts/gudea.html"
+      "url": "/fonts/gudea",
+      "canonical": "https://bpozz.com/fonts/gudea"
     },
     {
       "file": "fonts/hammersmith-one.html",
-      "url": "/fonts/hammersmith-one.html",
-      "canonical": "https://bpozz.com/fonts/hammersmith-one.html"
+      "url": "/fonts/hammersmith-one",
+      "canonical": "https://bpozz.com/fonts/hammersmith-one"
     },
     {
       "file": "fonts/handlee.html",
-      "url": "/fonts/handlee.html",
-      "canonical": "https://bpozz.com/fonts/handlee.html"
+      "url": "/fonts/handlee",
+      "canonical": "https://bpozz.com/fonts/handlee"
     },
     {
       "file": "fonts/herr-von-muellerhoff.html",
-      "url": "/fonts/herr-von-muellerhoff.html",
-      "canonical": "https://bpozz.com/fonts/herr-von-muellerhoff.html"
+      "url": "/fonts/herr-von-muellerhoff",
+      "canonical": "https://bpozz.com/fonts/herr-von-muellerhoff"
     },
     {
       "file": "fonts/hind.html",
-      "url": "/fonts/hind.html",
-      "canonical": "https://bpozz.com/fonts/hind.html"
+      "url": "/fonts/hind",
+      "canonical": "https://bpozz.com/fonts/hind"
     },
     {
       "file": "fonts/hurricane.html",
-      "url": "/fonts/hurricane.html",
-      "canonical": "https://bpozz.com/fonts/hurricane.html"
+      "url": "/fonts/hurricane",
+      "canonical": "https://bpozz.com/fonts/hurricane"
     },
     {
       "file": "fonts/ibm-plex-mono.html",
-      "url": "/fonts/ibm-plex-mono.html",
-      "canonical": "https://bpozz.com/fonts/ibm-plex-mono.html"
+      "url": "/fonts/ibm-plex-mono",
+      "canonical": "https://bpozz.com/fonts/ibm-plex-mono"
     },
     {
       "file": "fonts/ibm-plex-sans-condensed.html",
-      "url": "/fonts/ibm-plex-sans-condensed.html",
-      "canonical": "https://bpozz.com/fonts/ibm-plex-sans-condensed.html"
+      "url": "/fonts/ibm-plex-sans-condensed",
+      "canonical": "https://bpozz.com/fonts/ibm-plex-sans-condensed"
     },
     {
       "file": "fonts/ibm-plex-serif.html",
-      "url": "/fonts/ibm-plex-serif.html",
-      "canonical": "https://bpozz.com/fonts/ibm-plex-serif.html"
+      "url": "/fonts/ibm-plex-serif",
+      "canonical": "https://bpozz.com/fonts/ibm-plex-serif"
     },
     {
       "file": "fonts/im-fell-dw-pica.html",
-      "url": "/fonts/im-fell-dw-pica.html",
-      "canonical": "https://bpozz.com/fonts/im-fell-dw-pica.html"
+      "url": "/fonts/im-fell-dw-pica",
+      "canonical": "https://bpozz.com/fonts/im-fell-dw-pica"
     },
     {
       "file": "fonts/im-fell-english.html",
-      "url": "/fonts/im-fell-english.html",
-      "canonical": "https://bpozz.com/fonts/im-fell-english.html"
+      "url": "/fonts/im-fell-english",
+      "canonical": "https://bpozz.com/fonts/im-fell-english"
     },
     {
       "file": "fonts/indie-flower.html",
-      "url": "/fonts/indie-flower.html",
-      "canonical": "https://bpozz.com/fonts/indie-flower.html"
+      "url": "/fonts/indie-flower",
+      "canonical": "https://bpozz.com/fonts/indie-flower"
     },
     {
       "file": "fonts/inria-sans.html",
-      "url": "/fonts/inria-sans.html",
-      "canonical": "https://bpozz.com/fonts/inria-sans.html"
+      "url": "/fonts/inria-sans",
+      "canonical": "https://bpozz.com/fonts/inria-sans"
     },
     {
       "file": "fonts/inria-serif.html",
-      "url": "/fonts/inria-serif.html",
-      "canonical": "https://bpozz.com/fonts/inria-serif.html"
+      "url": "/fonts/inria-serif",
+      "canonical": "https://bpozz.com/fonts/inria-serif"
     },
     {
       "file": "fonts/instrument-serif.html",
-      "url": "/fonts/instrument-serif.html",
-      "canonical": "https://bpozz.com/fonts/instrument-serif.html"
+      "url": "/fonts/instrument-serif",
+      "canonical": "https://bpozz.com/fonts/instrument-serif"
     },
     {
       "file": "fonts/iosevka-charon-mono.html",
-      "url": "/fonts/iosevka-charon-mono.html",
-      "canonical": "https://bpozz.com/fonts/iosevka-charon-mono.html"
+      "url": "/fonts/iosevka-charon-mono",
+      "canonical": "https://bpozz.com/fonts/iosevka-charon-mono"
     },
     {
       "file": "fonts/istok-web.html",
-      "url": "/fonts/istok-web.html",
-      "canonical": "https://bpozz.com/fonts/istok-web.html"
+      "url": "/fonts/istok-web",
+      "canonical": "https://bpozz.com/fonts/istok-web"
     },
     {
       "file": "fonts/italiana.html",
-      "url": "/fonts/italiana.html",
-      "canonical": "https://bpozz.com/fonts/italiana.html"
+      "url": "/fonts/italiana",
+      "canonical": "https://bpozz.com/fonts/italiana"
     },
     {
       "file": "fonts/italianno.html",
-      "url": "/fonts/italianno.html",
-      "canonical": "https://bpozz.com/fonts/italianno.html"
+      "url": "/fonts/italianno",
+      "canonical": "https://bpozz.com/fonts/italianno"
     },
     {
       "file": "fonts/jersey-25.html",
-      "url": "/fonts/jersey-25.html",
-      "canonical": "https://bpozz.com/fonts/jersey-25.html"
+      "url": "/fonts/jersey-25",
+      "canonical": "https://bpozz.com/fonts/jersey-25"
     },
     {
       "file": "fonts/judson.html",
-      "url": "/fonts/judson.html",
-      "canonical": "https://bpozz.com/fonts/judson.html"
+      "url": "/fonts/judson",
+      "canonical": "https://bpozz.com/fonts/judson"
     },
     {
       "file": "fonts/julius-sans-one.html",
-      "url": "/fonts/julius-sans-one.html",
-      "canonical": "https://bpozz.com/fonts/julius-sans-one.html"
+      "url": "/fonts/julius-sans-one",
+      "canonical": "https://bpozz.com/fonts/julius-sans-one"
     },
     {
       "file": "fonts/kalam.html",
-      "url": "/fonts/kalam.html",
-      "canonical": "https://bpozz.com/fonts/kalam.html"
+      "url": "/fonts/kalam",
+      "canonical": "https://bpozz.com/fonts/kalam"
     },
     {
       "file": "fonts/kaushan-script.html",
-      "url": "/fonts/kaushan-script.html",
-      "canonical": "https://bpozz.com/fonts/kaushan-script.html"
+      "url": "/fonts/kaushan-script",
+      "canonical": "https://bpozz.com/fonts/kaushan-script"
     },
     {
       "file": "fonts/kristi.html",
-      "url": "/fonts/kristi.html",
-      "canonical": "https://bpozz.com/fonts/kristi.html"
+      "url": "/fonts/kristi",
+      "canonical": "https://bpozz.com/fonts/kristi"
     },
     {
       "file": "fonts/krona-one.html",
-      "url": "/fonts/krona-one.html",
-      "canonical": "https://bpozz.com/fonts/krona-one.html"
+      "url": "/fonts/krona-one",
+      "canonical": "https://bpozz.com/fonts/krona-one"
     },
     {
       "file": "fonts/la-belle-aurore.html",
-      "url": "/fonts/la-belle-aurore.html",
-      "canonical": "https://bpozz.com/fonts/la-belle-aurore.html"
+      "url": "/fonts/la-belle-aurore",
+      "canonical": "https://bpozz.com/fonts/la-belle-aurore"
     },
     {
       "file": "fonts/lato.html",
-      "url": "/fonts/lato.html",
-      "canonical": "https://bpozz.com/fonts/lato.html"
+      "url": "/fonts/lato",
+      "canonical": "https://bpozz.com/fonts/lato"
     },
     {
       "file": "fonts/leckerli-one.html",
-      "url": "/fonts/leckerli-one.html",
-      "canonical": "https://bpozz.com/fonts/leckerli-one.html"
+      "url": "/fonts/leckerli-one",
+      "canonical": "https://bpozz.com/fonts/leckerli-one"
     },
     {
       "file": "fonts/ledger.html",
-      "url": "/fonts/ledger.html",
-      "canonical": "https://bpozz.com/fonts/ledger.html"
+      "url": "/fonts/ledger",
+      "canonical": "https://bpozz.com/fonts/ledger"
     },
     {
       "file": "fonts/lekton.html",
-      "url": "/fonts/lekton.html",
-      "canonical": "https://bpozz.com/fonts/lekton.html"
+      "url": "/fonts/lekton",
+      "canonical": "https://bpozz.com/fonts/lekton"
     },
     {
       "file": "fonts/libertinus-mono.html",
-      "url": "/fonts/libertinus-mono.html",
-      "canonical": "https://bpozz.com/fonts/libertinus-mono.html"
+      "url": "/fonts/libertinus-mono",
+      "canonical": "https://bpozz.com/fonts/libertinus-mono"
     },
     {
       "file": "fonts/libertinus-serif.html",
-      "url": "/fonts/libertinus-serif.html",
-      "canonical": "https://bpozz.com/fonts/libertinus-serif.html"
+      "url": "/fonts/libertinus-serif",
+      "canonical": "https://bpozz.com/fonts/libertinus-serif"
     },
     {
       "file": "fonts/libre-caslon-display.html",
-      "url": "/fonts/libre-caslon-display.html",
-      "canonical": "https://bpozz.com/fonts/libre-caslon-display.html"
+      "url": "/fonts/libre-caslon-display",
+      "canonical": "https://bpozz.com/fonts/libre-caslon-display"
     },
     {
       "file": "fonts/lilita-one.html",
-      "url": "/fonts/lilita-one.html",
-      "canonical": "https://bpozz.com/fonts/lilita-one.html"
+      "url": "/fonts/lilita-one",
+      "canonical": "https://bpozz.com/fonts/lilita-one"
     },
     {
       "file": "fonts/limelight.html",
-      "url": "/fonts/limelight.html",
-      "canonical": "https://bpozz.com/fonts/limelight.html"
+      "url": "/fonts/limelight",
+      "canonical": "https://bpozz.com/fonts/limelight"
     },
     {
       "file": "fonts/linden-hill.html",
-      "url": "/fonts/linden-hill.html",
-      "canonical": "https://bpozz.com/fonts/linden-hill.html"
+      "url": "/fonts/linden-hill",
+      "canonical": "https://bpozz.com/fonts/linden-hill"
     },
     {
       "file": "fonts/livvic.html",
-      "url": "/fonts/livvic.html",
-      "canonical": "https://bpozz.com/fonts/livvic.html"
+      "url": "/fonts/livvic",
+      "canonical": "https://bpozz.com/fonts/livvic"
     },
     {
       "file": "fonts/lobster.html",
-      "url": "/fonts/lobster.html",
-      "canonical": "https://bpozz.com/fonts/lobster.html"
+      "url": "/fonts/lobster",
+      "canonical": "https://bpozz.com/fonts/lobster"
     },
     {
       "file": "fonts/londrina-solid.html",
-      "url": "/fonts/londrina-solid.html",
-      "canonical": "https://bpozz.com/fonts/londrina-solid.html"
+      "url": "/fonts/londrina-solid",
+      "canonical": "https://bpozz.com/fonts/londrina-solid"
     },
     {
       "file": "fonts/lusitana.html",
-      "url": "/fonts/lusitana.html",
-      "canonical": "https://bpozz.com/fonts/lusitana.html"
+      "url": "/fonts/lusitana",
+      "canonical": "https://bpozz.com/fonts/lusitana"
     },
     {
       "file": "fonts/lustria.html",
-      "url": "/fonts/lustria.html",
-      "canonical": "https://bpozz.com/fonts/lustria.html"
+      "url": "/fonts/lustria",
+      "canonical": "https://bpozz.com/fonts/lustria"
     },
     {
       "file": "fonts/major-mono-display.html",
-      "url": "/fonts/major-mono-display.html",
-      "canonical": "https://bpozz.com/fonts/major-mono-display.html"
+      "url": "/fonts/major-mono-display",
+      "canonical": "https://bpozz.com/fonts/major-mono-display"
     },
     {
       "file": "fonts/mansalva.html",
-      "url": "/fonts/mansalva.html",
-      "canonical": "https://bpozz.com/fonts/mansalva.html"
+      "url": "/fonts/mansalva",
+      "canonical": "https://bpozz.com/fonts/mansalva"
     },
     {
       "file": "fonts/marcellus.html",
-      "url": "/fonts/marcellus.html",
-      "canonical": "https://bpozz.com/fonts/marcellus.html"
+      "url": "/fonts/marcellus",
+      "canonical": "https://bpozz.com/fonts/marcellus"
     },
     {
       "file": "fonts/marck-script.html",
-      "url": "/fonts/marck-script.html",
-      "canonical": "https://bpozz.com/fonts/marck-script.html"
+      "url": "/fonts/marck-script",
+      "canonical": "https://bpozz.com/fonts/marck-script"
     },
     {
       "file": "fonts/mate.html",
-      "url": "/fonts/mate.html",
-      "canonical": "https://bpozz.com/fonts/mate.html"
+      "url": "/fonts/mate",
+      "canonical": "https://bpozz.com/fonts/mate"
     },
     {
       "file": "fonts/meow-script.html",
-      "url": "/fonts/meow-script.html",
-      "canonical": "https://bpozz.com/fonts/meow-script.html"
+      "url": "/fonts/meow-script",
+      "canonical": "https://bpozz.com/fonts/meow-script"
     },
     {
       "file": "fonts/michroma.html",
-      "url": "/fonts/michroma.html",
-      "canonical": "https://bpozz.com/fonts/michroma.html"
+      "url": "/fonts/michroma",
+      "canonical": "https://bpozz.com/fonts/michroma"
     },
     {
       "file": "fonts/monofett.html",
-      "url": "/fonts/monofett.html",
-      "canonical": "https://bpozz.com/fonts/monofett.html"
+      "url": "/fonts/monofett",
+      "canonical": "https://bpozz.com/fonts/monofett"
     },
     {
       "file": "fonts/monoton.html",
-      "url": "/fonts/monoton.html",
-      "canonical": "https://bpozz.com/fonts/monoton.html"
+      "url": "/fonts/monoton",
+      "canonical": "https://bpozz.com/fonts/monoton"
     },
     {
       "file": "fonts/monsieur-la-doulaise.html",
-      "url": "/fonts/monsieur-la-doulaise.html",
-      "canonical": "https://bpozz.com/fonts/monsieur-la-doulaise.html"
+      "url": "/fonts/monsieur-la-doulaise",
+      "canonical": "https://bpozz.com/fonts/monsieur-la-doulaise"
     },
     {
       "file": "fonts/montserrat-alternates.html",
-      "url": "/fonts/montserrat-alternates.html",
-      "canonical": "https://bpozz.com/fonts/montserrat-alternates.html"
+      "url": "/fonts/montserrat-alternates",
+      "canonical": "https://bpozz.com/fonts/montserrat-alternates"
     },
     {
       "file": "fonts/mr-dafoe.html",
-      "url": "/fonts/mr-dafoe.html",
-      "canonical": "https://bpozz.com/fonts/mr-dafoe.html"
+      "url": "/fonts/mr-dafoe",
+      "canonical": "https://bpozz.com/fonts/mr-dafoe"
     },
     {
       "file": "fonts/mrs-saint-delafield.html",
-      "url": "/fonts/mrs-saint-delafield.html",
-      "canonical": "https://bpozz.com/fonts/mrs-saint-delafield.html"
+      "url": "/fonts/mrs-saint-delafield",
+      "canonical": "https://bpozz.com/fonts/mrs-saint-delafield"
     },
     {
       "file": "fonts/ms-madi.html",
-      "url": "/fonts/ms-madi.html",
-      "canonical": "https://bpozz.com/fonts/ms-madi.html"
+      "url": "/fonts/ms-madi",
+      "canonical": "https://bpozz.com/fonts/ms-madi"
     },
     {
       "file": "fonts/neucha.html",
-      "url": "/fonts/neucha.html",
-      "canonical": "https://bpozz.com/fonts/neucha.html"
+      "url": "/fonts/neucha",
+      "canonical": "https://bpozz.com/fonts/neucha"
     },
     {
       "file": "fonts/news-cycle.html",
-      "url": "/fonts/news-cycle.html",
-      "canonical": "https://bpozz.com/fonts/news-cycle.html"
+      "url": "/fonts/news-cycle",
+      "canonical": "https://bpozz.com/fonts/news-cycle"
     },
     {
       "file": "fonts/niconne.html",
-      "url": "/fonts/niconne.html",
-      "canonical": "https://bpozz.com/fonts/niconne.html"
+      "url": "/fonts/niconne",
+      "canonical": "https://bpozz.com/fonts/niconne"
     },
     {
       "file": "fonts/nixie-one.html",
-      "url": "/fonts/nixie-one.html",
-      "canonical": "https://bpozz.com/fonts/nixie-one.html"
+      "url": "/fonts/nixie-one",
+      "canonical": "https://bpozz.com/fonts/nixie-one"
     },
     {
       "file": "fonts/nobile.html",
-      "url": "/fonts/nobile.html",
-      "canonical": "https://bpozz.com/fonts/nobile.html"
+      "url": "/fonts/nobile",
+      "canonical": "https://bpozz.com/fonts/nobile"
     },
     {
       "file": "fonts/norican.html",
-      "url": "/fonts/norican.html",
-      "canonical": "https://bpozz.com/fonts/norican.html"
+      "url": "/fonts/norican",
+      "canonical": "https://bpozz.com/fonts/norican"
     },
     {
       "file": "fonts/nothing-you-could-do.html",
-      "url": "/fonts/nothing-you-could-do.html",
-      "canonical": "https://bpozz.com/fonts/nothing-you-could-do.html"
+      "url": "/fonts/nothing-you-could-do",
+      "canonical": "https://bpozz.com/fonts/nothing-you-could-do"
     },
     {
       "file": "fonts/noticia-text.html",
-      "url": "/fonts/noticia-text.html",
-      "canonical": "https://bpozz.com/fonts/noticia-text.html"
+      "url": "/fonts/noticia-text",
+      "canonical": "https://bpozz.com/fonts/noticia-text"
     },
     {
       "file": "fonts/old-standard-tt.html",
-      "url": "/fonts/old-standard-tt.html",
-      "canonical": "https://bpozz.com/fonts/old-standard-tt.html"
+      "url": "/fonts/old-standard-tt",
+      "canonical": "https://bpozz.com/fonts/old-standard-tt"
     },
     {
       "file": "fonts/oleo-script.html",
-      "url": "/fonts/oleo-script.html",
-      "canonical": "https://bpozz.com/fonts/oleo-script.html"
+      "url": "/fonts/oleo-script",
+      "canonical": "https://bpozz.com/fonts/oleo-script"
     },
     {
       "file": "fonts/oooh-baby.html",
-      "url": "/fonts/oooh-baby.html",
-      "canonical": "https://bpozz.com/fonts/oooh-baby.html"
+      "url": "/fonts/oooh-baby",
+      "canonical": "https://bpozz.com/fonts/oooh-baby"
     },
     {
       "file": "fonts/oranienbaum.html",
-      "url": "/fonts/oranienbaum.html",
-      "canonical": "https://bpozz.com/fonts/oranienbaum.html"
+      "url": "/fonts/oranienbaum",
+      "canonical": "https://bpozz.com/fonts/oranienbaum"
     },
     {
       "file": "fonts/over-the-rainbow.html",
-      "url": "/fonts/over-the-rainbow.html",
-      "canonical": "https://bpozz.com/fonts/over-the-rainbow.html"
+      "url": "/fonts/over-the-rainbow",
+      "canonical": "https://bpozz.com/fonts/over-the-rainbow"
     },
     {
       "file": "fonts/overlock.html",
-      "url": "/fonts/overlock.html",
-      "canonical": "https://bpozz.com/fonts/overlock.html"
+      "url": "/fonts/overlock",
+      "canonical": "https://bpozz.com/fonts/overlock"
     },
     {
       "file": "fonts/ovo.html",
-      "url": "/fonts/ovo.html",
-      "canonical": "https://bpozz.com/fonts/ovo.html"
-    },
-    {
-      "file": "fonts/oxygen-mono.html",
-      "url": "/fonts/oxygen-mono.html",
-      "canonical": "https://bpozz.com/fonts/oxygen-mono.html"
+      "url": "/fonts/ovo",
+      "canonical": "https://bpozz.com/fonts/ovo"
     },
     {
       "file": "fonts/oxygen.html",
-      "url": "/fonts/oxygen.html",
-      "canonical": "https://bpozz.com/fonts/oxygen.html"
+      "url": "/fonts/oxygen",
+      "canonical": "https://bpozz.com/fonts/oxygen"
+    },
+    {
+      "file": "fonts/oxygen-mono.html",
+      "url": "/fonts/oxygen-mono",
+      "canonical": "https://bpozz.com/fonts/oxygen-mono"
     },
     {
       "file": "fonts/pacifico.html",
-      "url": "/fonts/pacifico.html",
-      "canonical": "https://bpozz.com/fonts/pacifico.html"
+      "url": "/fonts/pacifico",
+      "canonical": "https://bpozz.com/fonts/pacifico"
     },
     {
       "file": "fonts/pangolin.html",
-      "url": "/fonts/pangolin.html",
-      "canonical": "https://bpozz.com/fonts/pangolin.html"
+      "url": "/fonts/pangolin",
+      "canonical": "https://bpozz.com/fonts/pangolin"
     },
     {
       "file": "fonts/parisienne.html",
-      "url": "/fonts/parisienne.html",
-      "canonical": "https://bpozz.com/fonts/parisienne.html"
+      "url": "/fonts/parisienne",
+      "canonical": "https://bpozz.com/fonts/parisienne"
     },
     {
       "file": "fonts/passion-one.html",
-      "url": "/fonts/passion-one.html",
-      "canonical": "https://bpozz.com/fonts/passion-one.html"
+      "url": "/fonts/passion-one",
+      "canonical": "https://bpozz.com/fonts/passion-one"
     },
     {
       "file": "fonts/pathway-gothic-one.html",
-      "url": "/fonts/pathway-gothic-one.html",
-      "canonical": "https://bpozz.com/fonts/pathway-gothic-one.html"
+      "url": "/fonts/pathway-gothic-one",
+      "canonical": "https://bpozz.com/fonts/pathway-gothic-one"
     },
     {
       "file": "fonts/patrick-hand.html",
-      "url": "/fonts/patrick-hand.html",
-      "canonical": "https://bpozz.com/fonts/patrick-hand.html"
+      "url": "/fonts/patrick-hand",
+      "canonical": "https://bpozz.com/fonts/patrick-hand"
     },
     {
       "file": "fonts/patua-one.html",
-      "url": "/fonts/patua-one.html",
-      "canonical": "https://bpozz.com/fonts/patua-one.html"
+      "url": "/fonts/patua-one",
+      "canonical": "https://bpozz.com/fonts/patua-one"
     },
     {
       "file": "fonts/paytone-one.html",
-      "url": "/fonts/paytone-one.html",
-      "canonical": "https://bpozz.com/fonts/paytone-one.html"
+      "url": "/fonts/paytone-one",
+      "canonical": "https://bpozz.com/fonts/paytone-one"
     },
     {
       "file": "fonts/petit-formal-script.html",
-      "url": "/fonts/petit-formal-script.html",
-      "canonical": "https://bpozz.com/fonts/petit-formal-script.html"
+      "url": "/fonts/petit-formal-script",
+      "canonical": "https://bpozz.com/fonts/petit-formal-script"
     },
     {
       "file": "fonts/philosopher.html",
-      "url": "/fonts/philosopher.html",
-      "canonical": "https://bpozz.com/fonts/philosopher.html"
+      "url": "/fonts/philosopher",
+      "canonical": "https://bpozz.com/fonts/philosopher"
     },
     {
       "file": "fonts/pinyon-script.html",
-      "url": "/fonts/pinyon-script.html",
-      "canonical": "https://bpozz.com/fonts/pinyon-script.html"
+      "url": "/fonts/pinyon-script",
+      "canonical": "https://bpozz.com/fonts/pinyon-script"
     },
     {
       "file": "fonts/pirata-one.html",
-      "url": "/fonts/pirata-one.html",
-      "canonical": "https://bpozz.com/fonts/pirata-one.html"
+      "url": "/fonts/pirata-one",
+      "canonical": "https://bpozz.com/fonts/pirata-one"
     },
     {
       "file": "fonts/play.html",
-      "url": "/fonts/play.html",
-      "canonical": "https://bpozz.com/fonts/play.html"
+      "url": "/fonts/play",
+      "canonical": "https://bpozz.com/fonts/play"
     },
     {
       "file": "fonts/playball.html",
-      "url": "/fonts/playball.html",
-      "canonical": "https://bpozz.com/fonts/playball.html"
+      "url": "/fonts/playball",
+      "canonical": "https://bpozz.com/fonts/playball"
     },
     {
       "file": "fonts/poiret-one.html",
-      "url": "/fonts/poiret-one.html",
-      "canonical": "https://bpozz.com/fonts/poiret-one.html"
+      "url": "/fonts/poiret-one",
+      "canonical": "https://bpozz.com/fonts/poiret-one"
     },
     {
       "file": "fonts/poly.html",
-      "url": "/fonts/poly.html",
-      "canonical": "https://bpozz.com/fonts/poly.html"
+      "url": "/fonts/poly",
+      "canonical": "https://bpozz.com/fonts/poly"
     },
     {
       "file": "fonts/prata.html",
-      "url": "/fonts/prata.html",
-      "canonical": "https://bpozz.com/fonts/prata.html"
+      "url": "/fonts/prata",
+      "canonical": "https://bpozz.com/fonts/prata"
     },
     {
       "file": "fonts/press-start-2p.html",
-      "url": "/fonts/press-start-2p.html",
-      "canonical": "https://bpozz.com/fonts/press-start-2p.html"
+      "url": "/fonts/press-start-2p",
+      "canonical": "https://bpozz.com/fonts/press-start-2p"
     },
     {
       "file": "fonts/proza-libre.html",
-      "url": "/fonts/proza-libre.html",
-      "canonical": "https://bpozz.com/fonts/proza-libre.html"
+      "url": "/fonts/proza-libre",
+      "canonical": "https://bpozz.com/fonts/proza-libre"
     },
     {
       "file": "fonts/pt-mono.html",
-      "url": "/fonts/pt-mono.html",
-      "canonical": "https://bpozz.com/fonts/pt-mono.html"
+      "url": "/fonts/pt-mono",
+      "canonical": "https://bpozz.com/fonts/pt-mono"
     },
     {
       "file": "fonts/pt-sans.html",
-      "url": "/fonts/pt-sans.html",
-      "canonical": "https://bpozz.com/fonts/pt-sans.html"
+      "url": "/fonts/pt-sans",
+      "canonical": "https://bpozz.com/fonts/pt-sans"
     },
     {
       "file": "fonts/pt-serif.html",
-      "url": "/fonts/pt-serif.html",
-      "canonical": "https://bpozz.com/fonts/pt-serif.html"
+      "url": "/fonts/pt-serif",
+      "canonical": "https://bpozz.com/fonts/pt-serif"
     },
     {
       "file": "fonts/puritan.html",
-      "url": "/fonts/puritan.html",
-      "canonical": "https://bpozz.com/fonts/puritan.html"
+      "url": "/fonts/puritan",
+      "canonical": "https://bpozz.com/fonts/puritan"
     },
     {
       "file": "fonts/quando.html",
-      "url": "/fonts/quando.html",
-      "canonical": "https://bpozz.com/fonts/quando.html"
+      "url": "/fonts/quando",
+      "canonical": "https://bpozz.com/fonts/quando"
     },
     {
       "file": "fonts/quantico.html",
-      "url": "/fonts/quantico.html",
-      "canonical": "https://bpozz.com/fonts/quantico.html"
-    },
-    {
-      "file": "fonts/quattrocento-sans.html",
-      "url": "/fonts/quattrocento-sans.html",
-      "canonical": "https://bpozz.com/fonts/quattrocento-sans.html"
+      "url": "/fonts/quantico",
+      "canonical": "https://bpozz.com/fonts/quantico"
     },
     {
       "file": "fonts/quattrocento.html",
-      "url": "/fonts/quattrocento.html",
-      "canonical": "https://bpozz.com/fonts/quattrocento.html"
+      "url": "/fonts/quattrocento",
+      "canonical": "https://bpozz.com/fonts/quattrocento"
+    },
+    {
+      "file": "fonts/quattrocento-sans.html",
+      "url": "/fonts/quattrocento-sans",
+      "canonical": "https://bpozz.com/fonts/quattrocento-sans"
     },
     {
       "file": "fonts/questrial.html",
-      "url": "/fonts/questrial.html",
-      "canonical": "https://bpozz.com/fonts/questrial.html"
+      "url": "/fonts/questrial",
+      "canonical": "https://bpozz.com/fonts/questrial"
     },
     {
       "file": "fonts/qwitcher-grypen.html",
-      "url": "/fonts/qwitcher-grypen.html",
-      "canonical": "https://bpozz.com/fonts/qwitcher-grypen.html"
+      "url": "/fonts/qwitcher-grypen",
+      "canonical": "https://bpozz.com/fonts/qwitcher-grypen"
     },
     {
       "file": "fonts/racing-sans-one.html",
-      "url": "/fonts/racing-sans-one.html",
-      "canonical": "https://bpozz.com/fonts/racing-sans-one.html"
+      "url": "/fonts/racing-sans-one",
+      "canonical": "https://bpozz.com/fonts/racing-sans-one"
     },
     {
       "file": "fonts/radley.html",
-      "url": "/fonts/radley.html",
-      "canonical": "https://bpozz.com/fonts/radley.html"
+      "url": "/fonts/radley",
+      "canonical": "https://bpozz.com/fonts/radley"
     },
     {
       "file": "fonts/rambla.html",
-      "url": "/fonts/rambla.html",
-      "canonical": "https://bpozz.com/fonts/rambla.html"
+      "url": "/fonts/rambla",
+      "canonical": "https://bpozz.com/fonts/rambla"
     },
     {
       "file": "fonts/rammetto-one.html",
-      "url": "/fonts/rammetto-one.html",
-      "canonical": "https://bpozz.com/fonts/rammetto-one.html"
+      "url": "/fonts/rammetto-one",
+      "canonical": "https://bpozz.com/fonts/rammetto-one"
     },
     {
       "file": "fonts/righteous.html",
-      "url": "/fonts/righteous.html",
-      "canonical": "https://bpozz.com/fonts/righteous.html"
+      "url": "/fonts/righteous",
+      "canonical": "https://bpozz.com/fonts/righteous"
     },
     {
       "file": "fonts/ropa-sans.html",
-      "url": "/fonts/ropa-sans.html",
-      "canonical": "https://bpozz.com/fonts/ropa-sans.html"
+      "url": "/fonts/ropa-sans",
+      "canonical": "https://bpozz.com/fonts/ropa-sans"
     },
     {
       "file": "fonts/rowdies.html",
-      "url": "/fonts/rowdies.html",
-      "canonical": "https://bpozz.com/fonts/rowdies.html"
+      "url": "/fonts/rowdies",
+      "canonical": "https://bpozz.com/fonts/rowdies"
     },
     {
       "file": "fonts/rozha-one.html",
-      "url": "/fonts/rozha-one.html",
-      "canonical": "https://bpozz.com/fonts/rozha-one.html"
+      "url": "/fonts/rozha-one",
+      "canonical": "https://bpozz.com/fonts/rozha-one"
     },
     {
       "file": "fonts/rubik-mono-one.html",
-      "url": "/fonts/rubik-mono-one.html",
-      "canonical": "https://bpozz.com/fonts/rubik-mono-one.html"
+      "url": "/fonts/rubik-mono-one",
+      "canonical": "https://bpozz.com/fonts/rubik-mono-one"
     },
     {
       "file": "fonts/rufina.html",
-      "url": "/fonts/rufina.html",
-      "canonical": "https://bpozz.com/fonts/rufina.html"
+      "url": "/fonts/rufina",
+      "canonical": "https://bpozz.com/fonts/rufina"
     },
     {
       "file": "fonts/russo-one.html",
-      "url": "/fonts/russo-one.html",
-      "canonical": "https://bpozz.com/fonts/russo-one.html"
+      "url": "/fonts/russo-one",
+      "canonical": "https://bpozz.com/fonts/russo-one"
     },
     {
       "file": "fonts/rye.html",
-      "url": "/fonts/rye.html",
-      "canonical": "https://bpozz.com/fonts/rye.html"
+      "url": "/fonts/rye",
+      "canonical": "https://bpozz.com/fonts/rye"
     },
     {
       "file": "fonts/sacramento.html",
-      "url": "/fonts/sacramento.html",
-      "canonical": "https://bpozz.com/fonts/sacramento.html"
+      "url": "/fonts/sacramento",
+      "canonical": "https://bpozz.com/fonts/sacramento"
     },
     {
       "file": "fonts/saira-stencil-one.html",
-      "url": "/fonts/saira-stencil-one.html",
-      "canonical": "https://bpozz.com/fonts/saira-stencil-one.html"
+      "url": "/fonts/saira-stencil-one",
+      "canonical": "https://bpozz.com/fonts/saira-stencil-one"
     },
     {
       "file": "fonts/sanchez.html",
-      "url": "/fonts/sanchez.html",
-      "canonical": "https://bpozz.com/fonts/sanchez.html"
+      "url": "/fonts/sanchez",
+      "canonical": "https://bpozz.com/fonts/sanchez"
     },
     {
       "file": "fonts/sansita.html",
-      "url": "/fonts/sansita.html",
-      "canonical": "https://bpozz.com/fonts/sansita.html"
+      "url": "/fonts/sansita",
+      "canonical": "https://bpozz.com/fonts/sansita"
     },
     {
       "file": "fonts/shadows-into-light.html",
-      "url": "/fonts/shadows-into-light.html",
-      "canonical": "https://bpozz.com/fonts/shadows-into-light.html"
+      "url": "/fonts/shadows-into-light",
+      "canonical": "https://bpozz.com/fonts/shadows-into-light"
     },
     {
       "file": "fonts/shanti.html",
-      "url": "/fonts/shanti.html",
-      "canonical": "https://bpozz.com/fonts/shanti.html"
+      "url": "/fonts/shanti",
+      "canonical": "https://bpozz.com/fonts/shanti"
     },
     {
       "file": "fonts/share-tech-mono.html",
-      "url": "/fonts/share-tech-mono.html",
-      "canonical": "https://bpozz.com/fonts/share-tech-mono.html"
+      "url": "/fonts/share-tech-mono",
+      "canonical": "https://bpozz.com/fonts/share-tech-mono"
     },
     {
       "file": "fonts/short-stack.html",
-      "url": "/fonts/short-stack.html",
-      "canonical": "https://bpozz.com/fonts/short-stack.html"
+      "url": "/fonts/short-stack",
+      "canonical": "https://bpozz.com/fonts/short-stack"
     },
     {
       "file": "fonts/shrikhand.html",
-      "url": "/fonts/shrikhand.html",
-      "canonical": "https://bpozz.com/fonts/shrikhand.html"
+      "url": "/fonts/shrikhand",
+      "canonical": "https://bpozz.com/fonts/shrikhand"
     },
     {
       "file": "fonts/silkscreen.html",
-      "url": "/fonts/silkscreen.html",
-      "canonical": "https://bpozz.com/fonts/silkscreen.html"
+      "url": "/fonts/silkscreen",
+      "canonical": "https://bpozz.com/fonts/silkscreen"
     },
     {
       "file": "fonts/sintony.html",
-      "url": "/fonts/sintony.html",
-      "canonical": "https://bpozz.com/fonts/sintony.html"
+      "url": "/fonts/sintony",
+      "canonical": "https://bpozz.com/fonts/sintony"
     },
     {
       "file": "fonts/six-caps.html",
-      "url": "/fonts/six-caps.html",
-      "canonical": "https://bpozz.com/fonts/six-caps.html"
+      "url": "/fonts/six-caps",
+      "canonical": "https://bpozz.com/fonts/six-caps"
     },
     {
       "file": "fonts/skranji.html",
-      "url": "/fonts/skranji.html",
-      "canonical": "https://bpozz.com/fonts/skranji.html"
+      "url": "/fonts/skranji",
+      "canonical": "https://bpozz.com/fonts/skranji"
     },
     {
       "file": "fonts/sofia.html",
-      "url": "/fonts/sofia.html",
-      "canonical": "https://bpozz.com/fonts/sofia.html"
+      "url": "/fonts/sofia",
+      "canonical": "https://bpozz.com/fonts/sofia"
     },
     {
       "file": "fonts/solway.html",
-      "url": "/fonts/solway.html",
-      "canonical": "https://bpozz.com/fonts/solway.html"
+      "url": "/fonts/solway",
+      "canonical": "https://bpozz.com/fonts/solway"
     },
     {
       "file": "fonts/sorts-mill-goudy.html",
-      "url": "/fonts/sorts-mill-goudy.html",
-      "canonical": "https://bpozz.com/fonts/sorts-mill-goudy.html"
+      "url": "/fonts/sorts-mill-goudy",
+      "canonical": "https://bpozz.com/fonts/sorts-mill-goudy"
     },
     {
       "file": "fonts/space-mono.html",
-      "url": "/fonts/space-mono.html",
-      "canonical": "https://bpozz.com/fonts/space-mono.html"
+      "url": "/fonts/space-mono",
+      "canonical": "https://bpozz.com/fonts/space-mono"
     },
     {
       "file": "fonts/special-gothic-expanded-one.html",
-      "url": "/fonts/special-gothic-expanded-one.html",
-      "canonical": "https://bpozz.com/fonts/special-gothic-expanded-one.html"
+      "url": "/fonts/special-gothic-expanded-one",
+      "canonical": "https://bpozz.com/fonts/special-gothic-expanded-one"
     },
     {
       "file": "fonts/spinnaker.html",
-      "url": "/fonts/spinnaker.html",
-      "canonical": "https://bpozz.com/fonts/spinnaker.html"
+      "url": "/fonts/spinnaker",
+      "canonical": "https://bpozz.com/fonts/spinnaker"
     },
     {
       "file": "fonts/squada-one.html",
-      "url": "/fonts/squada-one.html",
-      "canonical": "https://bpozz.com/fonts/squada-one.html"
+      "url": "/fonts/squada-one",
+      "canonical": "https://bpozz.com/fonts/squada-one"
     },
     {
       "file": "fonts/staatliches.html",
-      "url": "/fonts/staatliches.html",
-      "canonical": "https://bpozz.com/fonts/staatliches.html"
+      "url": "/fonts/staatliches",
+      "canonical": "https://bpozz.com/fonts/staatliches"
     },
     {
       "file": "fonts/stardos-stencil.html",
-      "url": "/fonts/stardos-stencil.html",
-      "canonical": "https://bpozz.com/fonts/stardos-stencil.html"
+      "url": "/fonts/stardos-stencil",
+      "canonical": "https://bpozz.com/fonts/stardos-stencil"
     },
     {
       "file": "fonts/style-script.html",
-      "url": "/fonts/style-script.html",
-      "canonical": "https://bpozz.com/fonts/style-script.html"
+      "url": "/fonts/style-script",
+      "canonical": "https://bpozz.com/fonts/style-script"
     },
     {
       "file": "fonts/sue-ellen-francisco.html",
-      "url": "/fonts/sue-ellen-francisco.html",
-      "canonical": "https://bpozz.com/fonts/sue-ellen-francisco.html"
+      "url": "/fonts/sue-ellen-francisco",
+      "canonical": "https://bpozz.com/fonts/sue-ellen-francisco"
     },
     {
       "file": "fonts/syne-mono.html",
-      "url": "/fonts/syne-mono.html",
-      "canonical": "https://bpozz.com/fonts/syne-mono.html"
+      "url": "/fonts/syne-mono",
+      "canonical": "https://bpozz.com/fonts/syne-mono"
     },
     {
       "file": "fonts/tangerine.html",
-      "url": "/fonts/tangerine.html",
-      "canonical": "https://bpozz.com/fonts/tangerine.html"
+      "url": "/fonts/tangerine",
+      "canonical": "https://bpozz.com/fonts/tangerine"
     },
     {
       "file": "fonts/tenor-sans.html",
-      "url": "/fonts/tenor-sans.html",
-      "canonical": "https://bpozz.com/fonts/tenor-sans.html"
+      "url": "/fonts/tenor-sans",
+      "canonical": "https://bpozz.com/fonts/tenor-sans"
     },
     {
       "file": "fonts/text-me-one.html",
-      "url": "/fonts/text-me-one.html",
-      "canonical": "https://bpozz.com/fonts/text-me-one.html"
+      "url": "/fonts/text-me-one",
+      "canonical": "https://bpozz.com/fonts/text-me-one"
     },
     {
       "file": "fonts/titan-one.html",
-      "url": "/fonts/titan-one.html",
-      "canonical": "https://bpozz.com/fonts/titan-one.html"
+      "url": "/fonts/titan-one",
+      "canonical": "https://bpozz.com/fonts/titan-one"
     },
     {
       "file": "fonts/titillium-web.html",
-      "url": "/fonts/titillium-web.html",
-      "canonical": "https://bpozz.com/fonts/titillium-web.html"
+      "url": "/fonts/titillium-web",
+      "canonical": "https://bpozz.com/fonts/titillium-web"
     },
     {
       "file": "fonts/tomorrow.html",
-      "url": "/fonts/tomorrow.html",
-      "canonical": "https://bpozz.com/fonts/tomorrow.html"
+      "url": "/fonts/tomorrow",
+      "canonical": "https://bpozz.com/fonts/tomorrow"
     },
     {
       "file": "fonts/trocchi.html",
-      "url": "/fonts/trocchi.html",
-      "canonical": "https://bpozz.com/fonts/trocchi.html"
+      "url": "/fonts/trocchi",
+      "canonical": "https://bpozz.com/fonts/trocchi"
     },
     {
       "file": "fonts/uncial-antiqua.html",
-      "url": "/fonts/uncial-antiqua.html",
-      "canonical": "https://bpozz.com/fonts/uncial-antiqua.html"
+      "url": "/fonts/uncial-antiqua",
+      "canonical": "https://bpozz.com/fonts/uncial-antiqua"
     },
     {
       "file": "fonts/unica-one.html",
-      "url": "/fonts/unica-one.html",
-      "canonical": "https://bpozz.com/fonts/unica-one.html"
+      "url": "/fonts/unica-one",
+      "canonical": "https://bpozz.com/fonts/unica-one"
     },
     {
       "file": "fonts/unifrakturmaguntia.html",
-      "url": "/fonts/unifrakturmaguntia.html",
-      "canonical": "https://bpozz.com/fonts/unifrakturmaguntia.html"
+      "url": "/fonts/unifrakturmaguntia",
+      "canonical": "https://bpozz.com/fonts/unifrakturmaguntia"
     },
     {
       "file": "fonts/unna.html",
-      "url": "/fonts/unna.html",
-      "canonical": "https://bpozz.com/fonts/unna.html"
+      "url": "/fonts/unna",
+      "canonical": "https://bpozz.com/fonts/unna"
     },
     {
       "file": "fonts/varela-round.html",
-      "url": "/fonts/varela-round.html",
-      "canonical": "https://bpozz.com/fonts/varela-round.html"
+      "url": "/fonts/varela-round",
+      "canonical": "https://bpozz.com/fonts/varela-round"
     },
     {
       "file": "fonts/vast-shadow.html",
-      "url": "/fonts/vast-shadow.html",
-      "canonical": "https://bpozz.com/fonts/vast-shadow.html"
+      "url": "/fonts/vast-shadow",
+      "canonical": "https://bpozz.com/fonts/vast-shadow"
     },
     {
       "file": "fonts/vidaloka.html",
-      "url": "/fonts/vidaloka.html",
-      "canonical": "https://bpozz.com/fonts/vidaloka.html"
+      "url": "/fonts/vidaloka",
+      "canonical": "https://bpozz.com/fonts/vidaloka"
     },
     {
       "file": "fonts/viga.html",
-      "url": "/fonts/viga.html",
-      "canonical": "https://bpozz.com/fonts/viga.html"
+      "url": "/fonts/viga",
+      "canonical": "https://bpozz.com/fonts/viga"
     },
     {
       "file": "fonts/volkhov.html",
-      "url": "/fonts/volkhov.html",
-      "canonical": "https://bpozz.com/fonts/volkhov.html"
+      "url": "/fonts/volkhov",
+      "canonical": "https://bpozz.com/fonts/volkhov"
     },
     {
       "file": "fonts/vt323.html",
-      "url": "/fonts/vt323.html",
-      "canonical": "https://bpozz.com/fonts/vt323.html"
+      "url": "/fonts/vt323",
+      "canonical": "https://bpozz.com/fonts/vt323"
     },
     {
       "file": "fonts/vujahday-script.html",
-      "url": "/fonts/vujahday-script.html",
-      "canonical": "https://bpozz.com/fonts/vujahday-script.html"
+      "url": "/fonts/vujahday-script",
+      "canonical": "https://bpozz.com/fonts/vujahday-script"
     },
     {
       "file": "fonts/xanh-mono.html",
-      "url": "/fonts/xanh-mono.html",
-      "canonical": "https://bpozz.com/fonts/xanh-mono.html"
+      "url": "/fonts/xanh-mono",
+      "canonical": "https://bpozz.com/fonts/xanh-mono"
     },
     {
       "file": "fonts/yeseva-one.html",
-      "url": "/fonts/yeseva-one.html",
-      "canonical": "https://bpozz.com/fonts/yeseva-one.html"
+      "url": "/fonts/yeseva-one",
+      "canonical": "https://bpozz.com/fonts/yeseva-one"
     },
     {
       "file": "fonts/yesteryear.html",
-      "url": "/fonts/yesteryear.html",
-      "canonical": "https://bpozz.com/fonts/yesteryear.html"
+      "url": "/fonts/yesteryear",
+      "canonical": "https://bpozz.com/fonts/yesteryear"
     },
     {
       "file": "fonts/young-serif.html",
-      "url": "/fonts/young-serif.html",
-      "canonical": "https://bpozz.com/fonts/young-serif.html"
+      "url": "/fonts/young-serif",
+      "canonical": "https://bpozz.com/fonts/young-serif"
     },
     {
       "file": "fonts/zeyada.html",
-      "url": "/fonts/zeyada.html",
-      "canonical": "https://bpozz.com/fonts/zeyada.html"
+      "url": "/fonts/zeyada",
+      "canonical": "https://bpozz.com/fonts/zeyada"
     },
     {
       "file": "fonts/zilla-slab.html",
-      "url": "/fonts/zilla-slab.html",
-      "canonical": "https://bpozz.com/fonts/zilla-slab.html"
+      "url": "/fonts/zilla-slab",
+      "canonical": "https://bpozz.com/fonts/zilla-slab"
     },
     {
       "file": "guide/accessibility-structural-model.html",
@@ -1722,23 +1722,23 @@
     },
     {
       "file": "icons/3d-essentials.html",
-      "url": "/icons/3d-essentials.html",
-      "canonical": "https://bpozz.com/icons/3d-essentials.html"
+      "url": "/icons/3d-essentials",
+      "canonical": "https://bpozz.com/icons/3d-essentials"
     },
     {
       "file": "icons/duotone-essentials.html",
-      "url": "/icons/duotone-essentials.html",
-      "canonical": "https://bpozz.com/icons/duotone-essentials.html"
+      "url": "/icons/duotone-essentials",
+      "canonical": "https://bpozz.com/icons/duotone-essentials"
     },
     {
       "file": "icons/outline-essentials.html",
-      "url": "/icons/outline-essentials.html",
-      "canonical": "https://bpozz.com/icons/outline-essentials.html"
+      "url": "/icons/outline-essentials",
+      "canonical": "https://bpozz.com/icons/outline-essentials"
     },
     {
       "file": "icons/solid-essentials.html",
-      "url": "/icons/solid-essentials.html",
-      "canonical": "https://bpozz.com/icons/solid-essentials.html"
+      "url": "/icons/solid-essentials",
+      "canonical": "https://bpozz.com/icons/solid-essentials"
     },
     {
       "file": "image-picker/index.html",
@@ -1752,23 +1752,23 @@
     },
     {
       "file": "privacy.html",
-      "url": "/privacy.html",
-      "canonical": "https://bpozz.com/privacy.html"
+      "url": "/privacy",
+      "canonical": "https://bpozz.com/privacy"
     },
     {
       "file": "roadmap.html",
-      "url": "/roadmap.html",
-      "canonical": "https://bpozz.com/roadmap.html"
+      "url": "/roadmap",
+      "canonical": "https://bpozz.com/roadmap"
     },
     {
       "file": "search.html",
-      "url": "/search.html",
+      "url": "/search",
       "canonical": "https://bpozz.com/search"
     },
     {
       "file": "terms.html",
-      "url": "/terms.html",
-      "canonical": "https://bpozz.com/terms.html"
+      "url": "/terms",
+      "canonical": "https://bpozz.com/terms"
     }
   ],
   "dataEndpoints": [

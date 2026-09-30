@@ -917,7 +917,7 @@ test("an exact or partial palette id says it matched the palette ID", async () =
 
 test("a guide names the guide fields it matched", async () => {
   const { matches } = await search("contrast");
-  assert.strictEqual(matches["/guide/color-contrast-systems.html"], "Matched in title · description");
+  assert.strictEqual(matches["/guide/color-contrast-systems"], "Matched in title · description");
 });
 
 test("the matched part of a quoted value is highlighted like the title", async () => {

@@ -4,7 +4,7 @@
     "type": "guide",
     "title": "Whitespace as a UI Component, Not a Leftover",
     "slug": "whitespace-as-ui-component",
-    "url": "/guide/whitespace-as-ui-component.html",
+    "url": "/guide/whitespace-as-ui-component",
     "description": "The foundational UI/UX principle every other design decision builds on: treat space as a deliberate, systematic tool for grouping, hierarchy, and meaning — not whatever's left over after everything else is placed.",
     "categories": [
       "spacing"
@@ -19,7 +19,7 @@
     "type": "guide",
     "title": "Padding and Margin Are Different Jobs, Not Interchangeable Values",
     "slug": "padding-margin-different-jobs",
-    "url": "/guide/padding-margin-different-jobs.html",
+    "url": "/guide/padding-margin-different-jobs",
     "description": "Padding as internal breathing room vs. margin as separation, and the token-naming split that keeps the two from getting swapped.",
     "categories": [
       "spacing"
@@ -34,7 +34,7 @@
     "type": "guide",
     "title": "Color Contrast Is Math, Not Taste",
     "slug": "color-contrast-systems",
-    "url": "/guide/color-contrast-systems.html",
+    "url": "/guide/color-contrast-systems",
     "description": "The one part of color theory that isn't a matter of opinion: measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
     "categories": [
       "color-theory"
@@ -49,7 +49,7 @@
     "type": "guide",
     "title": "A Color Palette Is a Token System, Not a Row of Swatches",
     "slug": "color-palette-token-system",
-    "url": "/guide/color-palette-token-system.html",
+    "url": "/guide/color-palette-token-system",
     "description": "Why HSL's lightness value lies about perceived brightness, how to build a perceptually even OKLCH tonal ramp, the primitive/semantic/component tiers that give each step a role, and how light and dark themes should remap aliases instead of duplicating the palette.",
     "categories": [
       "color-theory"
@@ -64,7 +64,7 @@
     "type": "guide",
     "title": "Font Size Is a Formula, Not a Feeling",
     "slug": "type-scale-systems",
-    "url": "/guide/type-scale-systems.html",
+    "url": "/guide/type-scale-systems",
     "description": "The math that replaces font-size guesswork: modular scale ratios, the line-height and measure numbers that actually govern readability, and the exact clamp() formula for type that resizes itself without breakpoints.",
     "categories": [
       "typography"
@@ -79,7 +79,7 @@
     "type": "guide",
     "title": "Auto Layout Is a Constraint System, Not a Convenience Toggle",
     "slug": "auto-layout-constraint-model",
-    "url": "/guide/auto-layout-constraint-model.html",
+    "url": "/guide/auto-layout-constraint-model",
     "description": "The mental model behind Figma's most misunderstood feature: how Fixed, Hug, and Fill actually resolve against each other, why nested frames break in predictable ways, and the exact property mapping developers need for CSS Flexbox handoff.",
     "categories": [
       "figma"
@@ -94,7 +94,7 @@
     "type": "guide",
     "title": "Accessibility Is a Structural Decision, Not a Final Pass",
     "slug": "accessibility-structural-model",
-    "url": "/guide/accessibility-structural-model.html",
+    "url": "/guide/accessibility-structural-model",
     "description": "How the accessibility tree actually gets built from markup, how a control's accessible name is computed, ARIA's real rules, focus management, keyboard patterns for custom widgets, and what automated testing quietly misses.",
     "categories": [
       "accessibility"
@@ -109,7 +109,7 @@
     "type": "guide",
     "title": "Design Tokens Are a Naming System, Not a Style Guide",
     "slug": "design-tokens-naming-system",
-    "url": "/guide/design-tokens-naming-system.html",
+    "url": "/guide/design-tokens-naming-system",
     "description": "The part of a design system that actually decides whether it survives a rebrand: primitive, semantic, and component token tiers, the aliasing chain between them, and the naming rules that keep tokens from drifting back into hardcoded values.",
     "categories": [
       "systems"
@@ -124,7 +124,7 @@
     "type": "guide",
     "title": "Responsive Layout Is a Contract, Not a Breakpoint List",
     "slug": "responsive-layout-contract",
-    "url": "/guide/responsive-layout-contract.html",
+    "url": "/guide/responsive-layout-contract",
     "description": "A spec-level guide to responsive layout: content-out breakpoints, fluid grids, the clamp() sizing formula, container queries, and the overflow traps that break real devices no toolbar preview catches.",
     "categories": [
       "web"
@@ -139,7 +139,7 @@
     "type": "guide",
     "title": "Motion Timing Is a Physics Model, Not a Preset",
     "slug": "motion-timing-model",
-    "url": "/guide/motion-timing-model.html",
+    "url": "/guide/motion-timing-model",
     "description": "The math and physics that actually govern believable motion: distance-based duration bands, how to read a cubic-bezier curve's control points, spring physics as an alternative to fixed-duration easing, and why reduced motion isn't the same as no motion.",
     "categories": [
       "motion"
@@ -154,7 +154,7 @@
     "type": "guide",
     "title": "Dark Mode Is a Second Palette, Not an Inverted Filter",
     "slug": "dark-mode-second-palette",
-    "url": "/guide/dark-mode-second-palette.html",
+    "url": "/guide/dark-mode-second-palette",
     "description": "Elevation through lightness instead of shadow, desaturating hues so they don't vibrate on black, and re-deriving contrast ratios from scratch.",
     "categories": [
       "color-theory"
@@ -169,7 +169,7 @@
     "type": "guide",
     "title": "Font Pairing Is a Hierarchy Decision, Not a Personality Match",
     "slug": "font-pairing-hierarchy-decision",
-    "url": "/guide/font-pairing-hierarchy-decision.html",
+    "url": "/guide/font-pairing-hierarchy-decision",
     "description": "Pairing by contrast and function, x-height matching, and why a superfamily solves more problems than a \"creative\" pairing.",
     "categories": [
       "typography"
@@ -184,7 +184,7 @@
     "type": "guide",
     "title": "Line Length Is a Reading Constraint, Not a Layout Afterthought",
     "slug": "line-length-reading-constraint",
-    "url": "/guide/line-length-reading-constraint.html",
+    "url": "/guide/line-length-reading-constraint",
     "description": "The 45-75 character measure, how line-height must scale with line length, and the CSS that keeps both in sync at any viewport.",
     "categories": [
       "typography"
@@ -199,7 +199,7 @@
     "type": "guide",
     "title": "Grid Systems Are a Rhythm, Not a Ruler",
     "slug": "grid-systems-rhythm",
-    "url": "/guide/grid-systems-rhythm.html",
+    "url": "/guide/grid-systems-rhythm",
     "description": "8pt spacing grids, column/gutter ratios, and how vertical rhythm keeps unrelated sections from feeling arbitrary.",
     "categories": [
       "spacing"
@@ -214,7 +214,7 @@
     "type": "guide",
     "title": "Components and Variants Are a Contract, Not a Copy-Paste Shortcut",
     "slug": "components-variants-contract",
-    "url": "/guide/components-variants-contract.html",
+    "url": "/guide/components-variants-contract",
     "description": "Component properties, boolean and instance-swap props, nested override inheritance, and where variant sets break under real content.",
     "categories": [
       "figma"
@@ -229,7 +229,7 @@
     "type": "guide",
     "title": "Figma Variables Are a Data Layer, Not Just Color Styles",
     "slug": "figma-variables-data-layer",
-    "url": "/guide/figma-variables-data-layer.html",
+    "url": "/guide/figma-variables-data-layer",
     "description": "Modes for theming, scoping rules, the aliasing chain from primitive to semantic variable, and syncing with code-side tokens.",
     "categories": [
       "figma"
@@ -244,7 +244,7 @@
     "type": "guide",
     "title": "Figma-to-Code Handoff Is a Translation, Not a Screenshot",
     "slug": "figma-to-code-handoff",
-    "url": "/guide/figma-to-code-handoff.html",
+    "url": "/guide/figma-to-code-handoff",
     "description": "How Dev Mode maps Auto Layout to Flexbox/Grid, what still needs manual judgment, and annotation habits that prevent drift.",
     "categories": [
       "figma"
@@ -259,7 +259,7 @@
     "type": "guide",
     "title": "Thumb Zones Are a Layout Constraint, Not a Nice-to-Have",
     "slug": "thumb-zones-layout-constraint",
-    "url": "/guide/thumb-zones-layout-constraint.html",
+    "url": "/guide/thumb-zones-layout-constraint",
     "description": "Reachability math for today's screen sizes, why primary actions sit low and destructive ones sit far, before color even enters the decision.",
     "categories": [
       "mobile"
@@ -274,7 +274,7 @@
     "type": "guide",
     "title": "Migrating From XD Is a Rebuild, Not a File Import",
     "slug": "migrating-from-xd-rebuild",
-    "url": "/guide/migrating-from-xd-rebuild.html",
+    "url": "/guide/migrating-from-xd-rebuild",
     "description": "What survives an XD-to-Figma migration (artboards, assets) vs. what must be rebuilt (prototyping logic, master components) — a practical checklist.",
     "categories": [
       "adobe-xd"
@@ -289,7 +289,7 @@
     "type": "guide",
     "title": "iOS and Android Are Different Systems, Not One Design Reused Twice",
     "slug": "ios-android-different-systems",
-    "url": "/guide/ios-android-different-systems.html",
+    "url": "/guide/ios-android-different-systems",
     "description": "Where HIG and Material genuinely diverge: navigation, back behavior, type defaults, and which components need two designs, not one resized.",
     "categories": [
       "mobile"
@@ -304,7 +304,7 @@
     "type": "guide",
     "title": "CSS Grid Is a Two-Dimensional System, Not Flexbox With Extra Steps",
     "slug": "css-grid-two-dimensional-system",
-    "url": "/guide/css-grid-two-dimensional-system.html",
+    "url": "/guide/css-grid-two-dimensional-system",
     "description": "Explicit vs. implicit tracks, named grid-template-areas, and the subgrid behavior that lets nested layouts inherit a parent's rhythm.",
     "categories": [
       "web"
@@ -319,7 +319,7 @@
     "type": "guide",
     "title": "Mobile Breakpoints Are Device Categories, Not Arbitrary Pixels",
     "slug": "mobile-breakpoints-device-categories",
-    "url": "/guide/mobile-breakpoints-device-categories.html",
+    "url": "/guide/mobile-breakpoints-device-categories",
     "description": "Safe-area insets for notches, fluid vs. fixed mobile layout, and why guessing pixel widths breaks on half the phones on the market.",
     "categories": [
       "mobile"

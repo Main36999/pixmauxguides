@@ -98,11 +98,11 @@
           <h3>What "documented like blueprints" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
-          <p>Every guide on this site is written first and monetized second. We don't accept payment to feature a tool, and guide content itself is never sponsored. Where the site does carry advertising, it's kept clearly separate from the guides themselves and labeled as an advertisement — see our <a href="privacy.html">Privacy Policy</a> for the specifics of how that works.</p>
+          <p>Every guide on this site is written first and monetized second. We don't accept payment to feature a tool, and guide content itself is never sponsored. Where the site does carry advertising, it's kept clearly separate from the guides themselves and labeled as an advertisement — see our <a href="/privacy">Privacy Policy</a> for the specifics of how that works.</p>
           <h3>Who this is for</h3>
           <p>Designers moving from visual intuition toward a more systematic practice, and developers who need to understand the reasoning behind a spec, not just the pixel values in it. Guides are labeled beginner, intermediate, or advanced so you can find your level quickly.</p>
           <h3>Get in touch</h3>
-          <p>Found an error, have a topic you'd like covered, or just want to say hello? Visit our <a href="contact.html">Contact page</a> — we read every message.</p>
+          <p>Found an error, have a topic you'd like covered, or just want to say hello? Visit our <a href="/contact">Contact page</a> — we read every message.</p>
         `;
       },
     },
@@ -113,7 +113,7 @@
         return `
           <p>This Privacy Policy explains what information BPOZZ ("BPOZZ," "we," "us") collects, how it's used, and the choices available to you. By using this site, you agree to the practices described here.</p>
           <h3>Information we collect</h3>
-          <p>We collect two kinds of information. First, information you provide directly — for example, your name, email address, and message when you use the <a href="contact.html">contact form</a>. Second, information collected automatically as you browse, such as approximate location derived from IP address, browser and device type, pages viewed, and referring site, typically gathered through standard analytics and advertising cookies.</p>
+          <p>We collect two kinds of information. First, information you provide directly — for example, your name, email address, and message when you use the <a href="/contact">contact form</a>. Second, information collected automatically as you browse, such as approximate location derived from IP address, browser and device type, pages viewed, and referring site, typically gathered through standard analytics and advertising cookies.</p>
           <h3>Cookies and advertising (Google AdSense)</h3>
           <p>This site uses, or may use, Google AdSense to serve advertising. Google and its advertising partners use cookies — including the DoubleClick DART cookie — to serve ads based on a visitor's prior visits to this website and other websites across the internet. This allows Google and its partners to serve ads that are more relevant to you based on your browsing activity.</p>
           <ul>
@@ -129,11 +129,11 @@
           <h3>Children's privacy</h3>
           <p>This site is not directed at children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will remove it.</p>
           <h3>Your choices and rights</h3>
-          <p>Depending on your location, you may have the right to request access to, correction of, or deletion of personal information we hold about you, submitted for example through our contact form. To make such a request, use the <a href="contact.html">contact form</a> and describe your request; we will respond within a reasonable time.</p>
+          <p>Depending on your location, you may have the right to request access to, correction of, or deletion of personal information we hold about you, submitted for example through our contact form. To make such a request, use the <a href="/contact">contact form</a> and describe your request; we will respond within a reasonable time.</p>
           <h3>Changes to this policy</h3>
           <p>We may update this Privacy Policy from time to time. Material changes will be reflected by updating the effective date at the top of this page.</p>
           <h3>Contact</h3>
-          <p>Questions about this policy can be sent through our <a href="contact.html">Contact page</a>.</p>
+          <p>Questions about this policy can be sent through our <a href="/contact">Contact page</a>.</p>
         `;
       },
     },
@@ -158,7 +158,7 @@
           <h3>Changes to these terms</h3>
           <p>We may revise these terms from time to time. Continued use of the site after a revision constitutes acceptance of the updated terms.</p>
           <h3>Contact</h3>
-          <p>Questions about these terms can be sent through our <a href="contact.html">Contact page</a>.</p>
+          <p>Questions about these terms can be sent through our <a href="/contact">Contact page</a>.</p>
         `;
       },
     },
@@ -358,7 +358,7 @@
     // or shared index.html#roadmap link there instead of landing on a
     // dead fragment now that the section itself is gone.
     if (hash === "#roadmap") {
-      location.replace("roadmap.html");
+      location.replace("/roadmap");
       return;
     }
     var guideMatch = hash.match(/^#\/guide\/([\w-]+)$/);

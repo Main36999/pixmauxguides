@@ -8,7 +8,7 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/about.html</loc>
+    <loc>https://bpozz.com/about</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -20,25 +20,25 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/contact.html</loc>
+    <loc>https://bpozz.com/contact</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/roadmap.html</loc>
+    <loc>https://bpozz.com/roadmap</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/privacy.html</loc>
+    <loc>https://bpozz.com/privacy</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/terms.html</loc>
+    <loc>https://bpozz.com/terms</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -277,1801 +277,1801 @@
   </url>
   <!-- Individual Font Pages -->
   <url>
-    <loc>https://bpozz.com/fonts/abeezee.html</loc>
+    <loc>https://bpozz.com/fonts/abeezee</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/abel.html</loc>
+    <loc>https://bpozz.com/fonts/abel</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/abhaya-libre.html</loc>
+    <loc>https://bpozz.com/fonts/abhaya-libre</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/aboreto.html</loc>
+    <loc>https://bpozz.com/fonts/aboreto</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/abril-fatface.html</loc>
+    <loc>https://bpozz.com/fonts/abril-fatface</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/acme.html</loc>
+    <loc>https://bpozz.com/fonts/acme</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/actor.html</loc>
+    <loc>https://bpozz.com/fonts/actor</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/adamina.html</loc>
+    <loc>https://bpozz.com/fonts/adamina</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/alata.html</loc>
+    <loc>https://bpozz.com/fonts/alata</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/aldrich.html</loc>
+    <loc>https://bpozz.com/fonts/aldrich</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/alegreya-sans.html</loc>
+    <loc>https://bpozz.com/fonts/alegreya-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/alex-brush.html</loc>
+    <loc>https://bpozz.com/fonts/alex-brush</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/alfa-slab-one.html</loc>
+    <loc>https://bpozz.com/fonts/alfa-slab-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/alice.html</loc>
+    <loc>https://bpozz.com/fonts/alice</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/alike.html</loc>
+    <loc>https://bpozz.com/fonts/alike</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/allison.html</loc>
+    <loc>https://bpozz.com/fonts/allison</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/allura.html</loc>
+    <loc>https://bpozz.com/fonts/allura</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/almendra.html</loc>
+    <loc>https://bpozz.com/fonts/almendra</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/amatic-sc.html</loc>
+    <loc>https://bpozz.com/fonts/amatic-sc</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/andika.html</loc>
+    <loc>https://bpozz.com/fonts/andika</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/annie-use-your-telescope.html</loc>
+    <loc>https://bpozz.com/fonts/annie-use-your-telescope</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/anonymous-pro.html</loc>
+    <loc>https://bpozz.com/fonts/anonymous-pro</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/antic-didone.html</loc>
+    <loc>https://bpozz.com/fonts/antic-didone</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/antic-slab.html</loc>
+    <loc>https://bpozz.com/fonts/antic-slab</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/anton.html</loc>
+    <loc>https://bpozz.com/fonts/anton</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/arapey.html</loc>
+    <loc>https://bpozz.com/fonts/arapey</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/arbutus-slab.html</loc>
+    <loc>https://bpozz.com/fonts/arbutus-slab</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/architects-daughter.html</loc>
+    <loc>https://bpozz.com/fonts/architects-daughter</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/archivo-black.html</loc>
+    <loc>https://bpozz.com/fonts/archivo-black</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/arizonia.html</loc>
+    <loc>https://bpozz.com/fonts/arizonia</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/armata.html</loc>
+    <loc>https://bpozz.com/fonts/armata</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/arsenal.html</loc>
+    <loc>https://bpozz.com/fonts/arsenal</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/arvo.html</loc>
+    <loc>https://bpozz.com/fonts/arvo</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/asap-condensed.html</loc>
+    <loc>https://bpozz.com/fonts/asap-condensed</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/asul.html</loc>
+    <loc>https://bpozz.com/fonts/asul</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/atkinson-hyperlegible.html</loc>
+    <loc>https://bpozz.com/fonts/atkinson-hyperlegible</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/audiowide.html</loc>
+    <loc>https://bpozz.com/fonts/audiowide</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/averia-serif-libre.html</loc>
+    <loc>https://bpozz.com/fonts/averia-serif-libre</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/b612.html</loc>
+    <loc>https://bpozz.com/fonts/b612</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/b612-mono.html</loc>
+    <loc>https://bpozz.com/fonts/b612-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bad-script.html</loc>
+    <loc>https://bpozz.com/fonts/bad-script</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/balsamiq-sans.html</loc>
+    <loc>https://bpozz.com/fonts/balsamiq-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/balthazar.html</loc>
+    <loc>https://bpozz.com/fonts/balthazar</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bangers.html</loc>
+    <loc>https://bpozz.com/fonts/bangers</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/barlow.html</loc>
+    <loc>https://bpozz.com/fonts/barlow</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/barlow-condensed.html</loc>
+    <loc>https://bpozz.com/fonts/barlow-condensed</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/basic.html</loc>
+    <loc>https://bpozz.com/fonts/basic</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/be-vietnam-pro.html</loc>
+    <loc>https://bpozz.com/fonts/be-vietnam-pro</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bebas-neue.html</loc>
+    <loc>https://bpozz.com/fonts/bebas-neue</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/belanosima.html</loc>
+    <loc>https://bpozz.com/fonts/belanosima</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bellefair.html</loc>
+    <loc>https://bpozz.com/fonts/bellefair</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/belleza.html</loc>
+    <loc>https://bpozz.com/fonts/belleza</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/benchnine.html</loc>
+    <loc>https://bpozz.com/fonts/benchnine</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bentham.html</loc>
+    <loc>https://bpozz.com/fonts/bentham</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/berkshire-swash.html</loc>
+    <loc>https://bpozz.com/fonts/berkshire-swash</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bevan.html</loc>
+    <loc>https://bpozz.com/fonts/bevan</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/birthstone.html</loc>
+    <loc>https://bpozz.com/fonts/birthstone</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/black-ops-one.html</loc>
+    <loc>https://bpozz.com/fonts/black-ops-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/blinker.html</loc>
+    <loc>https://bpozz.com/fonts/blinker</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/boogaloo.html</loc>
+    <loc>https://bpozz.com/fonts/boogaloo</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bowlby-one.html</loc>
+    <loc>https://bpozz.com/fonts/bowlby-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/brawler.html</loc>
+    <loc>https://bpozz.com/fonts/brawler</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bree-serif.html</loc>
+    <loc>https://bpozz.com/fonts/bree-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/bungee.html</loc>
+    <loc>https://bpozz.com/fonts/bungee</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cabin-sketch.html</loc>
+    <loc>https://bpozz.com/fonts/cabin-sketch</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/caladea.html</loc>
+    <loc>https://bpozz.com/fonts/caladea</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/calistoga.html</loc>
+    <loc>https://bpozz.com/fonts/calistoga</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/candal.html</loc>
+    <loc>https://bpozz.com/fonts/candal</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cantarell.html</loc>
+    <loc>https://bpozz.com/fonts/cantarell</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cantata-one.html</loc>
+    <loc>https://bpozz.com/fonts/cantata-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/caprasimo.html</loc>
+    <loc>https://bpozz.com/fonts/caprasimo</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cardo.html</loc>
+    <loc>https://bpozz.com/fonts/cardo</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/carter-one.html</loc>
+    <loc>https://bpozz.com/fonts/carter-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/caudex.html</loc>
+    <loc>https://bpozz.com/fonts/caudex</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/caveat-brush.html</loc>
+    <loc>https://bpozz.com/fonts/caveat-brush</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cedarville-cursive.html</loc>
+    <loc>https://bpozz.com/fonts/cedarville-cursive</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/changa-one.html</loc>
+    <loc>https://bpozz.com/fonts/changa-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/chango.html</loc>
+    <loc>https://bpozz.com/fonts/chango</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/charis-sil.html</loc>
+    <loc>https://bpozz.com/fonts/charis-sil</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/chelsea-market.html</loc>
+    <loc>https://bpozz.com/fonts/chelsea-market</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cinzel-decorative.html</loc>
+    <loc>https://bpozz.com/fonts/cinzel-decorative</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/comic-neue.html</loc>
+    <loc>https://bpozz.com/fonts/comic-neue</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/comic-relief.html</loc>
+    <loc>https://bpozz.com/fonts/comic-relief</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/concert-one.html</loc>
+    <loc>https://bpozz.com/fonts/concert-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cookie.html</loc>
+    <loc>https://bpozz.com/fonts/cookie</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/copse.html</loc>
+    <loc>https://bpozz.com/fonts/copse</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/corben.html</loc>
+    <loc>https://bpozz.com/fonts/corben</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/corinthia.html</loc>
+    <loc>https://bpozz.com/fonts/corinthia</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/courgette.html</loc>
+    <loc>https://bpozz.com/fonts/courgette</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/courier-prime.html</loc>
+    <loc>https://bpozz.com/fonts/courier-prime</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cousine.html</loc>
+    <loc>https://bpozz.com/fonts/cousine</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/coustard.html</loc>
+    <loc>https://bpozz.com/fonts/coustard</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/covered-by-your-grace.html</loc>
+    <loc>https://bpozz.com/fonts/covered-by-your-grace</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/creepster.html</loc>
+    <loc>https://bpozz.com/fonts/creepster</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/crete-round.html</loc>
+    <loc>https://bpozz.com/fonts/crete-round</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/crimson-text.html</loc>
+    <loc>https://bpozz.com/fonts/crimson-text</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/cutive-mono.html</loc>
+    <loc>https://bpozz.com/fonts/cutive-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/damion.html</loc>
+    <loc>https://bpozz.com/fonts/damion</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/dawning-of-a-new-day.html</loc>
+    <loc>https://bpozz.com/fonts/dawning-of-a-new-day</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/days-one.html</loc>
+    <loc>https://bpozz.com/fonts/days-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/delicious-handrawn.html</loc>
+    <loc>https://bpozz.com/fonts/delicious-handrawn</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/delius.html</loc>
+    <loc>https://bpozz.com/fonts/delius</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/didact-gothic.html</loc>
+    <loc>https://bpozz.com/fonts/didact-gothic</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/dm-mono.html</loc>
+    <loc>https://bpozz.com/fonts/dm-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/dm-serif-display.html</loc>
+    <loc>https://bpozz.com/fonts/dm-serif-display</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/doppio-one.html</loc>
+    <loc>https://bpozz.com/fonts/doppio-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/eater.html</loc>
+    <loc>https://bpozz.com/fonts/eater</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/economica.html</loc>
+    <loc>https://bpozz.com/fonts/economica</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/electrolize.html</loc>
+    <loc>https://bpozz.com/fonts/electrolize</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/encode-sans-expanded.html</loc>
+    <loc>https://bpozz.com/fonts/encode-sans-expanded</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/enriqueta.html</loc>
+    <loc>https://bpozz.com/fonts/enriqueta</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fanwood-text.html</loc>
+    <loc>https://bpozz.com/fonts/fanwood-text</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fauna-one.html</loc>
+    <loc>https://bpozz.com/fonts/fauna-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fenix.html</loc>
+    <loc>https://bpozz.com/fonts/fenix</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fira-mono.html</loc>
+    <loc>https://bpozz.com/fonts/fira-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fira-sans.html</loc>
+    <loc>https://bpozz.com/fonts/fira-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fjalla-one.html</loc>
+    <loc>https://bpozz.com/fonts/fjalla-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fondamento.html</loc>
+    <loc>https://bpozz.com/fonts/fondamento</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/forum.html</loc>
+    <loc>https://bpozz.com/fonts/forum</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fragment-mono.html</loc>
+    <loc>https://bpozz.com/fonts/fragment-mono</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/francois-one.html</loc>
+    <loc>https://bpozz.com/fonts/francois-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fredericka-the-great.html</loc>
+    <loc>https://bpozz.com/fonts/fredericka-the-great</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/fugaz-one.html</loc>
+    <loc>https://bpozz.com/fonts/fugaz-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gabriela.html</loc>
+    <loc>https://bpozz.com/fonts/gabriela</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gentium-book-plus.html</loc>
+    <loc>https://bpozz.com/fonts/gentium-book-plus</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/germania-one.html</loc>
+    <loc>https://bpozz.com/fonts/germania-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gilda-display.html</loc>
+    <loc>https://bpozz.com/fonts/gilda-display</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/glegoo.html</loc>
+    <loc>https://bpozz.com/fonts/glegoo</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gloock.html</loc>
+    <loc>https://bpozz.com/fonts/gloock</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gloria-hallelujah.html</loc>
+    <loc>https://bpozz.com/fonts/gloria-hallelujah</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gochi-hand.html</loc>
+    <loc>https://bpozz.com/fonts/gochi-hand</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/goudy-bookletter-1911.html</loc>
+    <loc>https://bpozz.com/fonts/goudy-bookletter-1911</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/graduate.html</loc>
+    <loc>https://bpozz.com/fonts/graduate</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/grand-hotel.html</loc>
+    <loc>https://bpozz.com/fonts/grand-hotel</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gravitas-one.html</loc>
+    <loc>https://bpozz.com/fonts/gravitas-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/great-vibes.html</loc>
+    <loc>https://bpozz.com/fonts/great-vibes</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gruppo.html</loc>
+    <loc>https://bpozz.com/fonts/gruppo</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/gudea.html</loc>
+    <loc>https://bpozz.com/fonts/gudea</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/hammersmith-one.html</loc>
+    <loc>https://bpozz.com/fonts/hammersmith-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/handlee.html</loc>
+    <loc>https://bpozz.com/fonts/handlee</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/herr-von-muellerhoff.html</loc>
+    <loc>https://bpozz.com/fonts/herr-von-muellerhoff</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/hind.html</loc>
+    <loc>https://bpozz.com/fonts/hind</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/hurricane.html</loc>
+    <loc>https://bpozz.com/fonts/hurricane</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ibm-plex-mono.html</loc>
+    <loc>https://bpozz.com/fonts/ibm-plex-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ibm-plex-sans-condensed.html</loc>
+    <loc>https://bpozz.com/fonts/ibm-plex-sans-condensed</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ibm-plex-serif.html</loc>
+    <loc>https://bpozz.com/fonts/ibm-plex-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/im-fell-dw-pica.html</loc>
+    <loc>https://bpozz.com/fonts/im-fell-dw-pica</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/im-fell-english.html</loc>
+    <loc>https://bpozz.com/fonts/im-fell-english</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/indie-flower.html</loc>
+    <loc>https://bpozz.com/fonts/indie-flower</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/inria-sans.html</loc>
+    <loc>https://bpozz.com/fonts/inria-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/inria-serif.html</loc>
+    <loc>https://bpozz.com/fonts/inria-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/instrument-serif.html</loc>
+    <loc>https://bpozz.com/fonts/instrument-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/iosevka-charon-mono.html</loc>
+    <loc>https://bpozz.com/fonts/iosevka-charon-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/istok-web.html</loc>
+    <loc>https://bpozz.com/fonts/istok-web</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/italiana.html</loc>
+    <loc>https://bpozz.com/fonts/italiana</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/italianno.html</loc>
+    <loc>https://bpozz.com/fonts/italianno</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/jersey-25.html</loc>
+    <loc>https://bpozz.com/fonts/jersey-25</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/judson.html</loc>
+    <loc>https://bpozz.com/fonts/judson</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/julius-sans-one.html</loc>
+    <loc>https://bpozz.com/fonts/julius-sans-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/kalam.html</loc>
+    <loc>https://bpozz.com/fonts/kalam</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/kaushan-script.html</loc>
+    <loc>https://bpozz.com/fonts/kaushan-script</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/kristi.html</loc>
+    <loc>https://bpozz.com/fonts/kristi</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/krona-one.html</loc>
+    <loc>https://bpozz.com/fonts/krona-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/la-belle-aurore.html</loc>
+    <loc>https://bpozz.com/fonts/la-belle-aurore</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/lato.html</loc>
+    <loc>https://bpozz.com/fonts/lato</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/leckerli-one.html</loc>
+    <loc>https://bpozz.com/fonts/leckerli-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ledger.html</loc>
+    <loc>https://bpozz.com/fonts/ledger</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/lekton.html</loc>
+    <loc>https://bpozz.com/fonts/lekton</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/libertinus-mono.html</loc>
+    <loc>https://bpozz.com/fonts/libertinus-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/libertinus-serif.html</loc>
+    <loc>https://bpozz.com/fonts/libertinus-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/libre-caslon-display.html</loc>
+    <loc>https://bpozz.com/fonts/libre-caslon-display</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/lilita-one.html</loc>
+    <loc>https://bpozz.com/fonts/lilita-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/limelight.html</loc>
+    <loc>https://bpozz.com/fonts/limelight</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/linden-hill.html</loc>
+    <loc>https://bpozz.com/fonts/linden-hill</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/livvic.html</loc>
+    <loc>https://bpozz.com/fonts/livvic</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/lobster.html</loc>
+    <loc>https://bpozz.com/fonts/lobster</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/londrina-solid.html</loc>
+    <loc>https://bpozz.com/fonts/londrina-solid</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/lusitana.html</loc>
+    <loc>https://bpozz.com/fonts/lusitana</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/lustria.html</loc>
+    <loc>https://bpozz.com/fonts/lustria</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/major-mono-display.html</loc>
+    <loc>https://bpozz.com/fonts/major-mono-display</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/mansalva.html</loc>
+    <loc>https://bpozz.com/fonts/mansalva</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/marcellus.html</loc>
+    <loc>https://bpozz.com/fonts/marcellus</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/marck-script.html</loc>
+    <loc>https://bpozz.com/fonts/marck-script</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/mate.html</loc>
+    <loc>https://bpozz.com/fonts/mate</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/meow-script.html</loc>
+    <loc>https://bpozz.com/fonts/meow-script</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/michroma.html</loc>
+    <loc>https://bpozz.com/fonts/michroma</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/monofett.html</loc>
+    <loc>https://bpozz.com/fonts/monofett</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/monoton.html</loc>
+    <loc>https://bpozz.com/fonts/monoton</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/monsieur-la-doulaise.html</loc>
+    <loc>https://bpozz.com/fonts/monsieur-la-doulaise</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/montserrat-alternates.html</loc>
+    <loc>https://bpozz.com/fonts/montserrat-alternates</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/mr-dafoe.html</loc>
+    <loc>https://bpozz.com/fonts/mr-dafoe</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/mrs-saint-delafield.html</loc>
+    <loc>https://bpozz.com/fonts/mrs-saint-delafield</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ms-madi.html</loc>
+    <loc>https://bpozz.com/fonts/ms-madi</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/neucha.html</loc>
+    <loc>https://bpozz.com/fonts/neucha</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/news-cycle.html</loc>
+    <loc>https://bpozz.com/fonts/news-cycle</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/niconne.html</loc>
+    <loc>https://bpozz.com/fonts/niconne</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/nixie-one.html</loc>
+    <loc>https://bpozz.com/fonts/nixie-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/nobile.html</loc>
+    <loc>https://bpozz.com/fonts/nobile</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/norican.html</loc>
+    <loc>https://bpozz.com/fonts/norican</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/nothing-you-could-do.html</loc>
+    <loc>https://bpozz.com/fonts/nothing-you-could-do</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/noticia-text.html</loc>
+    <loc>https://bpozz.com/fonts/noticia-text</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/old-standard-tt.html</loc>
+    <loc>https://bpozz.com/fonts/old-standard-tt</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/oleo-script.html</loc>
+    <loc>https://bpozz.com/fonts/oleo-script</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/oooh-baby.html</loc>
+    <loc>https://bpozz.com/fonts/oooh-baby</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/oranienbaum.html</loc>
+    <loc>https://bpozz.com/fonts/oranienbaum</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/over-the-rainbow.html</loc>
+    <loc>https://bpozz.com/fonts/over-the-rainbow</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/overlock.html</loc>
+    <loc>https://bpozz.com/fonts/overlock</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ovo.html</loc>
+    <loc>https://bpozz.com/fonts/ovo</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/oxygen.html</loc>
+    <loc>https://bpozz.com/fonts/oxygen</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/oxygen-mono.html</loc>
+    <loc>https://bpozz.com/fonts/oxygen-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pacifico.html</loc>
+    <loc>https://bpozz.com/fonts/pacifico</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pangolin.html</loc>
+    <loc>https://bpozz.com/fonts/pangolin</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/parisienne.html</loc>
+    <loc>https://bpozz.com/fonts/parisienne</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/passion-one.html</loc>
+    <loc>https://bpozz.com/fonts/passion-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pathway-gothic-one.html</loc>
+    <loc>https://bpozz.com/fonts/pathway-gothic-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/patrick-hand.html</loc>
+    <loc>https://bpozz.com/fonts/patrick-hand</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/patua-one.html</loc>
+    <loc>https://bpozz.com/fonts/patua-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/paytone-one.html</loc>
+    <loc>https://bpozz.com/fonts/paytone-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/petit-formal-script.html</loc>
+    <loc>https://bpozz.com/fonts/petit-formal-script</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/philosopher.html</loc>
+    <loc>https://bpozz.com/fonts/philosopher</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pinyon-script.html</loc>
+    <loc>https://bpozz.com/fonts/pinyon-script</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pirata-one.html</loc>
+    <loc>https://bpozz.com/fonts/pirata-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/play.html</loc>
+    <loc>https://bpozz.com/fonts/play</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/playball.html</loc>
+    <loc>https://bpozz.com/fonts/playball</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/poiret-one.html</loc>
+    <loc>https://bpozz.com/fonts/poiret-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/poly.html</loc>
+    <loc>https://bpozz.com/fonts/poly</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/prata.html</loc>
+    <loc>https://bpozz.com/fonts/prata</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/press-start-2p.html</loc>
+    <loc>https://bpozz.com/fonts/press-start-2p</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/proza-libre.html</loc>
+    <loc>https://bpozz.com/fonts/proza-libre</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pt-mono.html</loc>
+    <loc>https://bpozz.com/fonts/pt-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pt-sans.html</loc>
+    <loc>https://bpozz.com/fonts/pt-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/pt-serif.html</loc>
+    <loc>https://bpozz.com/fonts/pt-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/puritan.html</loc>
+    <loc>https://bpozz.com/fonts/puritan</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/quando.html</loc>
+    <loc>https://bpozz.com/fonts/quando</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/quantico.html</loc>
+    <loc>https://bpozz.com/fonts/quantico</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/quattrocento.html</loc>
+    <loc>https://bpozz.com/fonts/quattrocento</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/quattrocento-sans.html</loc>
+    <loc>https://bpozz.com/fonts/quattrocento-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/questrial.html</loc>
+    <loc>https://bpozz.com/fonts/questrial</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/qwitcher-grypen.html</loc>
+    <loc>https://bpozz.com/fonts/qwitcher-grypen</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/racing-sans-one.html</loc>
+    <loc>https://bpozz.com/fonts/racing-sans-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/radley.html</loc>
+    <loc>https://bpozz.com/fonts/radley</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rambla.html</loc>
+    <loc>https://bpozz.com/fonts/rambla</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rammetto-one.html</loc>
+    <loc>https://bpozz.com/fonts/rammetto-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/righteous.html</loc>
+    <loc>https://bpozz.com/fonts/righteous</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/ropa-sans.html</loc>
+    <loc>https://bpozz.com/fonts/ropa-sans</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rowdies.html</loc>
+    <loc>https://bpozz.com/fonts/rowdies</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rozha-one.html</loc>
+    <loc>https://bpozz.com/fonts/rozha-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rubik-mono-one.html</loc>
+    <loc>https://bpozz.com/fonts/rubik-mono-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rufina.html</loc>
+    <loc>https://bpozz.com/fonts/rufina</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/russo-one.html</loc>
+    <loc>https://bpozz.com/fonts/russo-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/rye.html</loc>
+    <loc>https://bpozz.com/fonts/rye</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sacramento.html</loc>
+    <loc>https://bpozz.com/fonts/sacramento</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/saira-stencil-one.html</loc>
+    <loc>https://bpozz.com/fonts/saira-stencil-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sanchez.html</loc>
+    <loc>https://bpozz.com/fonts/sanchez</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sansita.html</loc>
+    <loc>https://bpozz.com/fonts/sansita</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/shadows-into-light.html</loc>
+    <loc>https://bpozz.com/fonts/shadows-into-light</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/shanti.html</loc>
+    <loc>https://bpozz.com/fonts/shanti</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/share-tech-mono.html</loc>
+    <loc>https://bpozz.com/fonts/share-tech-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/short-stack.html</loc>
+    <loc>https://bpozz.com/fonts/short-stack</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/shrikhand.html</loc>
+    <loc>https://bpozz.com/fonts/shrikhand</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/silkscreen.html</loc>
+    <loc>https://bpozz.com/fonts/silkscreen</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sintony.html</loc>
+    <loc>https://bpozz.com/fonts/sintony</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/six-caps.html</loc>
+    <loc>https://bpozz.com/fonts/six-caps</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/skranji.html</loc>
+    <loc>https://bpozz.com/fonts/skranji</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sofia.html</loc>
+    <loc>https://bpozz.com/fonts/sofia</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/solway.html</loc>
+    <loc>https://bpozz.com/fonts/solway</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sorts-mill-goudy.html</loc>
+    <loc>https://bpozz.com/fonts/sorts-mill-goudy</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/space-mono.html</loc>
+    <loc>https://bpozz.com/fonts/space-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/special-gothic-expanded-one.html</loc>
+    <loc>https://bpozz.com/fonts/special-gothic-expanded-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/spinnaker.html</loc>
+    <loc>https://bpozz.com/fonts/spinnaker</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/squada-one.html</loc>
+    <loc>https://bpozz.com/fonts/squada-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/staatliches.html</loc>
+    <loc>https://bpozz.com/fonts/staatliches</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/stardos-stencil.html</loc>
+    <loc>https://bpozz.com/fonts/stardos-stencil</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/style-script.html</loc>
+    <loc>https://bpozz.com/fonts/style-script</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/sue-ellen-francisco.html</loc>
+    <loc>https://bpozz.com/fonts/sue-ellen-francisco</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/syne-mono.html</loc>
+    <loc>https://bpozz.com/fonts/syne-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/tangerine.html</loc>
+    <loc>https://bpozz.com/fonts/tangerine</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/tenor-sans.html</loc>
+    <loc>https://bpozz.com/fonts/tenor-sans</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/text-me-one.html</loc>
+    <loc>https://bpozz.com/fonts/text-me-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/titan-one.html</loc>
+    <loc>https://bpozz.com/fonts/titan-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/titillium-web.html</loc>
+    <loc>https://bpozz.com/fonts/titillium-web</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/tomorrow.html</loc>
+    <loc>https://bpozz.com/fonts/tomorrow</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/trocchi.html</loc>
+    <loc>https://bpozz.com/fonts/trocchi</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/uncial-antiqua.html</loc>
+    <loc>https://bpozz.com/fonts/uncial-antiqua</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/unica-one.html</loc>
+    <loc>https://bpozz.com/fonts/unica-one</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/unifrakturmaguntia.html</loc>
+    <loc>https://bpozz.com/fonts/unifrakturmaguntia</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/unna.html</loc>
+    <loc>https://bpozz.com/fonts/unna</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/varela-round.html</loc>
+    <loc>https://bpozz.com/fonts/varela-round</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/vast-shadow.html</loc>
+    <loc>https://bpozz.com/fonts/vast-shadow</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/vidaloka.html</loc>
+    <loc>https://bpozz.com/fonts/vidaloka</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/viga.html</loc>
+    <loc>https://bpozz.com/fonts/viga</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/volkhov.html</loc>
+    <loc>https://bpozz.com/fonts/volkhov</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/vt323.html</loc>
+    <loc>https://bpozz.com/fonts/vt323</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/vujahday-script.html</loc>
+    <loc>https://bpozz.com/fonts/vujahday-script</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/xanh-mono.html</loc>
+    <loc>https://bpozz.com/fonts/xanh-mono</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/yeseva-one.html</loc>
+    <loc>https://bpozz.com/fonts/yeseva-one</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/yesteryear.html</loc>
+    <loc>https://bpozz.com/fonts/yesteryear</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/young-serif.html</loc>
+    <loc>https://bpozz.com/fonts/young-serif</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/zeyada.html</loc>
+    <loc>https://bpozz.com/fonts/zeyada</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bpozz.com/fonts/zilla-slab.html</loc>
+    <loc>https://bpozz.com/fonts/zilla-slab</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

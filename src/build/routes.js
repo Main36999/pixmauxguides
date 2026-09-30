@@ -7,18 +7,20 @@
  * build-home.js, sitemap.xml and _redirects, and the only way to enumerate
  * it was to walk the built output after the fact.
  *
- * URL SHAPE — transcribed from the deployed site, not chosen:
+ * URL SHAPE:
  *
  *   index.html               -> /
- *   <name>.html   (root)     -> /<name>.html        (keeps its extension)
- *   <dir>/index.html         -> /<dir>
- *   guide|category/<slug>.html -> /<dir>/<slug>     (extensionless)
+ *   <name>.html   (root)     -> /<name>             (extensionless)
+ *   <dir>/index.html         -> /<dir>/
+ *   <dir>/<slug>.html        -> /<dir>/<slug>       (extensionless)
  *
- * Root-level pages keep .html and the sectioned directories drop it.
- * That asymmetry is pre-existing and load-bearing — every canonical tag,
- * internal link and sitemap entry already assumes it — so it is encoded
- * here rather than tidied. Normalizing the two into one rule is a URL
- * change and belongs to a later, separately approved phase.
+ * PRETTY URL MIGRATION: root pages, /fonts/<id> and /icons/<pack> used to
+ * keep their .html while guide and category pages dropped it. Netlify's
+ * Pretty URLs serves every page at its extensionless URL and rewrites
+ * <a href> links to that form on deploy, so the canonical, og:url, sitemap
+ * and JSON-LD now use it too. The .html form still answers 200 and
+ * canonicalizes here; there is no redirect. 404.html is the one page that
+ * keeps its .html: Netlify serves it by that file name, and it is not linked.
  *
  * PHASE 4 — TOKEN REMOVAL
  *
@@ -56,12 +58,21 @@ const STATIC_ROOT_PAGES = [
 ];
 
 /**
- * Root pages published at an extensionless URL. The rest of the root keeps
- * its .html (see URL SHAPE above); these are NEW pages whose URL was chosen
- * extensionless from the start, so no existing URL changes. Netlify serves
- * /<name> from <name>.html. scripts/qa/snapshot.js mirrors this set.
+ * Root pages published at an extensionless URL. Netlify serves /<name> from
+ * <name>.html. hoysomrach and account were extensionless from the start; the
+ * rest joined in the Pretty URL migration (see URL SHAPE above).
+ * scripts/qa/snapshot.js mirrors this set.
  */
-const EXTENSIONLESS_ROOT_PAGES = new Set(["hoysomrach.html", "account.html"]);
+const EXTENSIONLESS_ROOT_PAGES = new Set([
+  "hoysomrach.html",
+  "account.html",
+  "about.html",
+  "contact.html",
+  "privacy.html",
+  "roadmap.html",
+  "search.html",
+  "terms.html",
+]);
 
 /**
  * Section landing pages served from <dir>/index.html.
@@ -102,8 +113,11 @@ const SECTION_INDEX_PAGES = [
  * PHASE 4: "tokens" is gone from this set with the feature. Its removal is
  * deliberate and is what stops /tokens/<slug> from resolving — those URLs
  * now return 410 via public/_redirects.
+ *
+ * PRETTY URL MIGRATION: "fonts" and "icons" joined, so /fonts/<id> and
+ * /icons/<pack> are linked and canonicalized extensionless like guides.
  */
-const EXTENSIONLESS_DIRS = new Set(["guide", "category"]);
+const EXTENSIONLESS_DIRS = new Set(["guide", "category", "fonts", "icons"]);
 
 /** file path (repo-relative, posix) -> public URL */
 function urlFor(file) {
@@ -140,9 +154,8 @@ function route(file, type) {
  * builder writes them into the staging root before the header and footer run,
  * and `render` publishes them like any other route.
  *
- * URL shape: /fonts/ for the listing and /fonts/<id>.html for each family.
- * `fonts` is deliberately NOT in EXTENSIONLESS_DIRS, so urlFor() keeps the
- * .html the way root pages (about.html, roadmap.html) keep theirs.
+ * URL shape: /fonts/ for the listing and /fonts/<id> for each family, served
+ * from fonts/<id>.html (`fonts` is in EXTENSIONLESS_DIRS).
  */
 const FONTS_DIR = "fonts";
 
@@ -154,9 +167,9 @@ function fontRoutes(fonts) {
 
 /**
  * ICON PACKS — the second generated route group, the same shape as fonts:
- * /icons/ for the library and /icons/<pack>.html for each pack, written from
- * src/data/ by src/build/icons.js. `icons` is not in EXTENSIONLESS_DIRS
- * either, so pack pages keep .html exactly as font pages do.
+ * /icons/ for the library and /icons/<pack> for each pack, written from
+ * src/data/ by src/build/icons.js to icons/<pack>.html. `icons` is in
+ * EXTENSIONLESS_DIRS, so pack pages drop .html exactly as font pages do.
  *
  * There is deliberately no route per ICON. An icon's detail view is a dialog
  * on the page that lists it, so the page count grows with packs, not with the

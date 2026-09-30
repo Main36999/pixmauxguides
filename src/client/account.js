@@ -287,7 +287,7 @@
       };
     }
     if (kind === "font") {
-      return { name: id, detail: "", colors: [], href: "/fonts/" + id + ".html" };
+      return { name: id, detail: "", colors: [], href: "/fonts/" + id };
     }
     if (kind === "image_palette") {
       var hexes = id.split("-").map(function (part) {

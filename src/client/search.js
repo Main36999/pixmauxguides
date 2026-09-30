@@ -998,7 +998,7 @@
         type: "guide",
         title: "Color Contrast Is Math, Not Taste",
         slug: "color-contrast-systems",
-        url: "/guide/color-contrast-systems.html",
+        url: "/guide/color-contrast-systems",
         description:
           "Measurable contrast ratios, semantic color tokens, and the exact WCAG numbers a palette either passes or fails.",
         categories: ["color-theory"],

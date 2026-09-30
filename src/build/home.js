@@ -359,7 +359,7 @@ const HOME_TOOLS = [
   },
   {
     title: "Learning Roadmap",
-    url: "/roadmap.html",
+    url: "/roadmap",
     tone: "orange",
     cta: "Start the roadmap",
     desc: (m) => {
@@ -369,7 +369,7 @@ const HOME_TOOLS = [
   },
   {
     title: "Search",
-    url: "/search.html",
+    url: "/search",
     tone: "green",
     cta: "Search BPOZZ",
     desc: () => "Find any guide or color palette on the site by name or topic.",
@@ -400,7 +400,7 @@ const HOME_ICONS = {
 /** The one resource card that is not a guide topic. */
 const HOME_ABOUT = {
   title: "About BPOZZ",
-  url: "/about.html",
+  url: "/about",
   desc: "Why BPOZZ exists, and what documenting design like a blueprint actually means.",
 };
 

@@ -209,11 +209,11 @@ test("every committed SVG passes the paste-safety check and every PNG is square 
 // routes
 // ---------------------------------------------------------------------
 
-test("the icon routes are /icons/ plus one /icons/<pack>.html per pack, all generated", () => {
+test("the icon routes are /icons/ plus one /icons/<pack> per pack, all generated", () => {
   const table = routes.build(model).filter((r) => r.file.startsWith("icons/"));
   assert.deepStrictEqual(
     table.map((r) => r.url).sort(),
-    ["/icons/"].concat(model.iconPacks.map((p) => `/icons/${p.id}.html`)).sort(),
+    ["/icons/"].concat(model.iconPacks.map((p) => `/icons/${p.id}`)).sort(),
   );
   table.forEach((r) => assert.strictEqual(r.generated, true, r.url));
 });
@@ -402,7 +402,7 @@ test("every URL an icon page references under /icons/ is published", () => {
     });
   walk(ICON_DIR, "");
   out.packages.forEach((p) => published.add(`/${p.file}`));
-  out.pages.forEach((p) => published.add(`/${p.file.replace(/index\.html$/, "")}`));
+  out.pages.forEach((p) => published.add(`/${p.file.replace(/index\.html$/, "").replace(/\.html$/, "")}`));
 
   const missing = [];
   out.pages.forEach((page) => {
@@ -439,7 +439,7 @@ test("the listing opens with the Icon Packs title and subtitle, then every pack"
   const html = pageByFile.get("icons/index.html");
   assert.ok(html.includes(`<h1>${icons.TITLE}</h1>`));
   assert.ok(html.includes(`<p>${icons.SUBTITLE}</p>`));
-  model.iconPacks.forEach((p) => assert.ok(html.includes(`href="/icons/${p.id}.html"`), p.id));
+  model.iconPacks.forEach((p) => assert.ok(html.includes(`href="/icons/${p.id}"`), p.id));
   config.icons.styles.forEach((s) =>
     assert.ok(html.includes(`data-filter="style" data-value="${s.slug}"`), s.slug),
   );

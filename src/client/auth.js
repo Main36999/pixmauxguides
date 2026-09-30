@@ -169,8 +169,8 @@
     '<p class="auth__switch"><span data-auth-switch-text></span> ' +
     '<button type="button" class="auth__link" data-auth-switch></button></p>' +
     '<p class="auth__legal">By continuing, you agree to our ' +
-    '<a href="/terms.html">Terms of Service</a> and ' +
-    '<a href="/privacy.html">Privacy Policy</a>.</p>' +
+    '<a href="/terms">Terms of Service</a> and ' +
+    '<a href="/privacy">Privacy Policy</a>.</p>' +
     "</div>" +
     "</div>" +
     VISUAL;

@@ -73,12 +73,12 @@ test("resource cards skip the pinned topics", () => {
   assert.strictEqual(hrefs[0], "/fonts/", "Free Fonts opens the section");
   assert.deepStrictEqual(
     hrefs,
-    ["/fonts/", "/icons/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about.html"],
+    ["/fonts/", "/icons/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about"],
   );
   assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Free Fonts</a></h3>'));
   // Icon Packs is ONE card in the same card system, straight after Free Fonts — not a card per pack.
   assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/icons/">Icon Packs</a></h3><p class="resource-card__desc">Browse outline, solid, duotone, and 3D icon packs for web and mobile app design.</p></li>'));
-  assert.ok(!/\/icons\/[a-z0-9-]+\.html/.test(html), "no per-pack cards on Home");
+  assert.ok(!/\/icons\/[a-z0-9-]+(\.html)?"/.test(html), "no per-pack cards on Home");
   hrefs.forEach((href) => assert.ok(knownUrls.has(href), href));
 });
 
@@ -99,7 +99,7 @@ test("explore strip: real routes, one focusable list per row, identical loop cop
   assert.strictEqual(rows.length, 2);
   const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);
   const expected = [
-    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/icons/", "/guides/", "/roadmap.html", "/search.html"],
+    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/icons/", "/guides/", "/roadmap", "/search"],
     ["/category/typography", "/category/color-theory", "/category/web", "/category/mobile",
       "/category/systems", "/category/accessibility", "/category/motion", "/category/figma"],
   ];
