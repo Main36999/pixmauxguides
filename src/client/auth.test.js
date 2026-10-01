@@ -234,6 +234,7 @@ function dialogSkeleton(doc, dialog) {
   input.select = () => {};
   add(form, "p", { id: "auth-email-error", class: "auth__error", hidden: "" });
   add(form, "button", { type: "submit", class: "btn btn-primary auth__submit" });
+  add(body, "div", { class: "auth__challenge", "data-auth-challenge": "", hidden: "" });
   const sent = add(body, "div", { class: "auth__step", "data-step": "sent", hidden: "" });
   add(sent, "button", { class: "auth__btn", "data-auth-retry": "" });
   add(body, "span", { "data-auth-switch-text": "" });
@@ -296,8 +297,12 @@ const USER = {
  * `sessionEvents` gives the page CustomEvent and document.dispatchEvent and
  * records every event dispatched. Without it the page has neither, as every
  * other test here runs — which is what proves the guard in announceSession.
+ *
+ * `setup(ctx, doc)` runs just before auth.js does, for the Turnstile tests
+ * to add what a real page has and this stub doesn't (window.turnstile,
+ * document.head).
  */
-function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false, accountPage = false, sessionEvents = false } = {}) {
+function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { signed_out: true }), emailStart = () => json(200, { sent: true }), search = "", hash = "", toast = null, hang = false, accountPage = false, sessionEvents = false, setup = null } = {}) {
   const doc = makeDocument();
   installDialog(doc);
   buildHeader(doc);
@@ -370,6 +375,7 @@ function page({ sessions = [json(200, SIGNED_OUT)], signout = () => json(200, { 
     };
   }
   ctx.window = ctx;
+  if (setup) setup(ctx, doc);
   vm.runInNewContext(SOURCE, ctx);
 
   const q = (s) => doc.querySelector(s);
@@ -888,6 +894,195 @@ test("email flow touches no browser storage", async () => {
   const p = page({ sessions: [json(200, EMAIL_ON)] });
   await submitEmail(p, "dee@example.test");
   assert.deepStrictEqual(p.storageTouches, []);
+});
+
+// ---------------------------------------------------------------------
+// Turnstile on the email request (docs/CLOUDFLARE-SECURITY.md)
+// ---------------------------------------------------------------------
+
+// Invented values: no real sitekey or Cloudflare test credential.
+const SITE_KEY = "sitekey-FAKE-0000000000";
+const TURNSTILE_ON = { ...EMAIL_ON, turnstile: { siteKey: SITE_KEY } };
+const TURNSTILE_URL = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+// A stand-in for Cloudflare's widget API. `answer(options, n)` decides what
+// the nth rendered widget does — call options.callback with a token, call
+// options["error-callback"] — or, when null, the widget never answers.
+function fakeTurnstile(answer) {
+  const widget = { renders: [], removed: [] };
+  widget.api = {
+    render(box, options) {
+      const id = "widget-" + (widget.renders.length + 1);
+      widget.renders.push({ box, options, id, hiddenAtRender: box.hidden });
+      if (answer) setTimeout(() => answer(options, widget.renders.length), 0);
+      return id;
+    },
+    remove(id) {
+      widget.removed.push(id);
+    },
+  };
+  return widget;
+}
+
+const withTurnstile = (widget) => (ctx) => (ctx.turnstile = widget.api);
+const withHead = (_ctx, doc) => (doc.head = doc.documentElement.appendChild(doc.createElement("head")));
+
+test("Turnstile on: a widget is rendered with the public sitekey, its token is sent, the widget is removed", async () => {
+  const widget = fakeTurnstile((options) => options.callback("token-FAKE-1"));
+  const p = page({ sessions: [json(200, TURNSTILE_ON)], setup: withTurnstile(widget) });
+  await submitEmail(p, "dee@example.test");
+
+  assert.strictEqual(widget.renders.length, 1);
+  const { box, options, id, hiddenAtRender } = widget.renders[0];
+  assert.strictEqual(box, p.q("[data-auth-challenge]"));
+  assert.strictEqual(hiddenAtRender, false, "the container is shown while the challenge runs");
+  assert.strictEqual(options.sitekey, SITE_KEY);
+  assert.strictEqual(options.action, "email-start");
+  assert.strictEqual(options.appearance, "interaction-only");
+  assert.strictEqual(options.retry, "never");
+  assert.strictEqual(options["response-field"], false);
+
+  const posts = emailPosts(p);
+  assert.strictEqual(posts.length, 1);
+  assert.deepStrictEqual(JSON.parse(posts[0].body), {
+    email: "dee@example.test",
+    intent: "signin",
+    returnTo: "/guides/",
+    turnstileToken: "token-FAKE-1",
+  });
+  assert.deepStrictEqual(widget.removed, [id]);
+  assert.strictEqual(box.hidden, true);
+  assert.strictEqual(p.q("[data-step='sent']").hidden, false);
+  assert.strictEqual(p.doc.querySelectorAll("script").length, 0, "the API was already loaded: no script added");
+  assert.deepStrictEqual(p.storageTouches, []);
+});
+
+test("Turnstile on: every attempt gets a new widget and a new token (tokens are single use)", async () => {
+  const widget = fakeTurnstile((options, n) => options.callback("token-FAKE-" + n));
+  let attempt = 0;
+  const p = page({
+    sessions: [json(200, TURNSTILE_ON)],
+    setup: withTurnstile(widget),
+    emailStart: () => (++attempt === 1 ? json(403, { error: "challenge_failed" }) : json(200, { sent: true })),
+  });
+  await submitEmail(p, "dee@example.test");
+  assert.strictEqual(p.q("#auth-email-error").textContent, "Something went wrong. Please try again.");
+  assert.strictEqual(p.q(".auth__submit").disabled, false, "button re-enabled");
+
+  fire(p.doc, p.q("form[data-step='email']"), "submit");
+  await settle(8);
+  const tokens = emailPosts(p).map((post) => JSON.parse(post.body).turnstileToken);
+  assert.deepStrictEqual(tokens, ["token-FAKE-1", "token-FAKE-2"]);
+  assert.deepStrictEqual(widget.removed, ["widget-1", "widget-2"]);
+  assert.strictEqual(p.q("[data-step='sent']").hidden, false);
+});
+
+test("Turnstile on: a failed challenge sends nothing and shows the form's existing error", async () => {
+  for (const name of ["error-callback", "timeout-callback", "unsupported-callback"]) {
+    const widget = fakeTurnstile((options) => options[name]("110200"));
+    const p = page({ sessions: [json(200, TURNSTILE_ON)], setup: withTurnstile(widget) });
+    await submitEmail(p, "dee@example.test");
+    assert.deepStrictEqual(emailPosts(p), [], name);
+    assert.strictEqual(p.q("#auth-email-error").textContent, "Something went wrong. Please try again.");
+    assert.strictEqual(p.q(".auth__submit").disabled, false, "button re-enabled");
+    assert.deepStrictEqual(widget.removed, ["widget-1"]);
+    assert.strictEqual(p.q("[data-auth-challenge]").hidden, true);
+    assert.strictEqual(p.q("[data-step='sent']").hidden, true);
+  }
+});
+
+test("Turnstile on: leaving the email step or closing the dialog abandons the request", async () => {
+  for (const leave of ["back", "close"]) {
+    const widget = fakeTurnstile(null); // the challenge is still running
+    const p = page({ sessions: [json(200, TURNSTILE_ON)], setup: withTurnstile(widget) });
+    const dialog = await submitEmail(p, "dee@example.test");
+    assert.strictEqual(widget.renders.length, 1);
+    assert.deepStrictEqual(widget.removed, []);
+
+    if (leave === "back") fire(p.doc, p.q("[data-auth-back]"), "click");
+    else fire(p.doc, dialog, "cancel");
+    await settle(8);
+    assert.deepStrictEqual(widget.removed, ["widget-1"], leave);
+    assert.strictEqual(p.q("[data-auth-challenge]").hidden, true);
+
+    // A late answer from the abandoned widget sends nothing.
+    widget.renders[0].options.callback("token-FAKE-late");
+    await settle(8);
+    assert.deepStrictEqual(emailPosts(p), [], leave);
+  }
+});
+
+test("Turnstile on: Cloudflare's script is added only on submit, from Cloudflare's own URL, exempt from Cookiebot blocking", async () => {
+  const widget = fakeTurnstile((options) => options.callback("token-FAKE-1"));
+  const p = page({ sessions: [json(200, TURNSTILE_ON)], setup: withHead });
+  await settle();
+  fire(p.doc, p.q(".header-auth [data-auth-open='signin']"), "click");
+  fire(p.doc, p.q("[data-auth-email]"), "click");
+  assert.strictEqual(p.doc.querySelectorAll("script").length, 0, "nothing loaded until the form is submitted");
+
+  p.q("#auth-email").value = "dee@example.test";
+  fire(p.doc, p.q("form[data-step='email']"), "submit");
+  await settle(8);
+  const scripts = p.doc.querySelectorAll("script");
+  assert.strictEqual(scripts.length, 1);
+  const [script] = scripts;
+  assert.strictEqual(script.parentNode, p.doc.head);
+  assert.strictEqual(script.src, TURNSTILE_URL);
+  assert.strictEqual(script.getAttribute("data-cookieconsent"), "ignore");
+  assert.deepStrictEqual(emailPosts(p), [], "nothing is sent while the script loads");
+  assert.strictEqual(p.q(".auth__submit").disabled, true);
+
+  p.ctx.turnstile = widget.api;
+  script.onload();
+  await settle(8);
+  assert.strictEqual(JSON.parse(emailPosts(p)[0].body).turnstileToken, "token-FAKE-1");
+  assert.strictEqual(p.doc.querySelectorAll("script").length, 1);
+});
+
+test("Turnstile on: a blocked or failed script sends nothing, and the next attempt asks for it again", async () => {
+  const p = page({ sessions: [json(200, TURNSTILE_ON)], setup: withHead });
+  await submitEmail(p, "dee@example.test");
+  let [script] = p.doc.querySelectorAll("script");
+  script.onerror();
+  await settle(8);
+  assert.deepStrictEqual(emailPosts(p), []);
+  assert.strictEqual(p.q("#auth-email-error").textContent, "Something went wrong. Please try again.");
+  assert.strictEqual(p.q(".auth__submit").disabled, false, "button re-enabled");
+  assert.strictEqual(p.doc.querySelectorAll("script").length, 0, "the failed script is removed");
+
+  // Loaded, but it did not define the API (a blocker's stub, say).
+  fire(p.doc, p.q("form[data-step='email']"), "submit");
+  await settle(8);
+  [script] = p.doc.querySelectorAll("script");
+  assert.ok(script, "requested again");
+  script.onload();
+  await settle(8);
+  assert.deepStrictEqual(emailPosts(p), []);
+  assert.strictEqual(p.doc.querySelectorAll("script").length, 0);
+});
+
+test("Turnstile off: no widget, no script, no token — whatever the page has loaded", async () => {
+  const offAnswers = [EMAIL_ON, { ...EMAIL_ON, turnstile: null }, { ...EMAIL_ON, turnstile: {} }, { ...EMAIL_ON, turnstile: { siteKey: 42 } }, { ...EMAIL_ON, turnstile: { siteKey: "" } }];
+  for (const answer of offAnswers) {
+    const widget = fakeTurnstile((options) => options.callback("token-FAKE-1"));
+    const p = page({
+      sessions: [json(200, answer)],
+      setup: (ctx, doc) => (withHead(ctx, doc), withTurnstile(widget)(ctx)),
+    });
+    await submitEmail(p, "dee@example.test");
+    assert.strictEqual(widget.renders.length, 0);
+    assert.strictEqual(p.doc.querySelectorAll("script").length, 0);
+    assert.deepStrictEqual(JSON.parse(emailPosts(p)[0].body), { email: "dee@example.test", intent: "signin", returnTo: "/guides/" });
+  }
+});
+
+test("Turnstile: the only third-party script auth.js can add is Cloudflare's, and it holds no key", () => {
+  const urls = SOURCE.match(/https?:\/\/[^\s"'`)]+/g) || [];
+  assert.deepStrictEqual([...new Set(urls)], [TURNSTILE_URL]);
+  assert.strictEqual((SOURCE.match(/createElement\("script"\)/g) || []).length, 1);
+  // The sitekey arrives from /api/auth/session; nothing key-shaped is baked in.
+  assert.doesNotMatch(SOURCE, /0x4[A-Za-z0-9_-]{18,}/);
+  assert.doesNotMatch(SOURCE, /secret[_-]?key|siteverify/i);
 });
 
 // ---------------------------------------------------------------------

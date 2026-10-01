@@ -23,6 +23,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 import {
+  HSTS,
   emailEnabledInSupabase,
   emailFlagEnabled,
   logProblem,
@@ -30,6 +31,7 @@ import {
   safeReturnTo,
   supabaseCall,
 } from "./auth.mjs";
+import { looksLikeTurnstileToken } from "./turnstile.mjs";
 
 export const START_PATH = "/api/auth/email/start";
 export const VERIFY_PATH = "/api/auth/email/verify";
@@ -42,6 +44,9 @@ export const VERIFY_PATH = "/api/auth/email/verify";
 export const EMAIL_TTL_SECONDS = 60 * 60;
 
 export const MAX_BODY_BYTES = 2048;
+// The start request's limit while the Turnstile check is on: the same 2 KB
+// plus room for one token (2,048 characters at most).
+export const MAX_START_BODY_BYTES_WITH_TOKEN = 4096;
 export const MAX_EMAIL_LENGTH = 254;
 
 // Supabase Auth: token_hash = hex(SHA-224(email + otp)) — exactly 56
@@ -93,14 +98,21 @@ export function looksLikeEmail(value) {
 
 /**
  * Reads and validates the start request's JSON body.
- *   { ok: true, email, returnTo } or { ok: false }
+ *   { ok: true, email, returnTo, turnstileToken } or { ok: false }
  * The email is trimmed but otherwise sent to Supabase as typed.
+ *
+ * `turnstile` is true while the Turnstile check is on (turnstile.mjs). Only
+ * then is `turnstileToken` read: a well-formed token, or null when it is
+ * missing or malformed — the caller refuses that separately, so a failed
+ * challenge is never reported as a bad email address. With the check off
+ * the field is ignored and the 2 KB limit is unchanged.
  */
-export async function readStartBody(request) {
+export async function readStartBody(request, { turnstile = false } = {}) {
+  const maxBytes = turnstile ? MAX_START_BODY_BYTES_WITH_TOKEN : MAX_BODY_BYTES;
   const type = (request.headers.get("content-type") || "").toLowerCase();
   if (!/^application\/json\s*(;|$)/.test(type)) return { ok: false };
   const declared = Number(request.headers.get("content-length"));
-  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return { ok: false };
+  if (Number.isFinite(declared) && declared > maxBytes) return { ok: false };
 
   let text;
   try {
@@ -108,7 +120,7 @@ export async function readStartBody(request) {
   } catch {
     return { ok: false };
   }
-  if (Buffer.byteLength(text, "utf8") > MAX_BODY_BYTES) return { ok: false };
+  if (Buffer.byteLength(text, "utf8") > maxBytes) return { ok: false };
 
   let body;
   try {
@@ -124,7 +136,9 @@ export async function readStartBody(request) {
   // the same way for both (as with Google). Anything else is a bad request.
   if (body.intent !== undefined && !INTENTS.includes(body.intent)) return { ok: false };
   if (body.returnTo !== undefined && typeof body.returnTo !== "string") return { ok: false };
-  return { ok: true, email, returnTo: safeReturnTo(body.returnTo) };
+  const turnstileToken =
+    turnstile && looksLikeTurnstileToken(body.turnstileToken) ? body.turnstileToken : null;
+  return { ok: true, email, returnTo: safeReturnTo(body.returnTo), turnstileToken };
 }
 
 /**
@@ -241,6 +255,7 @@ export const PAGE_HEADERS = Object.freeze({
   "X-Frame-Options": "DENY",
   "Referrer-Policy": "same-origin",
   "Cache-Control": "no-store",
+  "Strict-Transport-Security": HSTS,
   "X-Content-Type-Options": "nosniff",
   "X-Robots-Tag": "noindex, nofollow",
 });

@@ -368,7 +368,6 @@ test("safeReturnTo keeps internal paths and rejects everything else", () => {
     "/account": "/account",
     "/guides/?q=color#top": "/guides/?q=color#top",
     "/guide/whitespace-as-ui-component": "/guide/whitespace-as-ui-component",
-    "/a/../b": "/b",
   };
   for (const [input, expected] of Object.entries(allowed)) {
     assert.equal(safeReturnTo(input), expected, input);
@@ -386,12 +385,185 @@ test("safeReturnTo keeps internal paths and rejects everything else", () => {
     "/tab\there",
     "/api/auth/session",
     "/api",
+    "/a/../b",
     "/" + "a".repeat(2048),
   ];
   for (const input of rejected) {
     assert.equal(safeReturnTo(input), "/", JSON.stringify(input));
   }
   assert.equal(safeReturnTo("//evil.example", "/guides/"), "/guides/");
+});
+
+test("safeReturnTo: dot segments are refused outright, never resolved into another path", () => {
+  const literal = [
+    "/.",
+    "/..",
+    "/./",
+    "/../",
+    "/./account",
+    "/../account",
+    "/a/./b",
+    "/a/../b",
+    "/a/b/../../c",
+    "/guides/.",
+    "/guides/..",
+    "/guides/./",
+    "/guides/../fonts/",
+    "/guides/../fonts/?q=serif#top",
+    "/..?x=1",
+    "/.#top",
+  ];
+  // "%2e" is a dot to every URL parser, in either case and in any mix.
+  const encoded = [
+    "/%2e",
+    "/%2E",
+    "/%2e%2e",
+    "/%2E%2E",
+    "/%2e/account",
+    "/%2e%2e/account",
+    "/.%2e/account",
+    "/%2e./account",
+    "/%2E%2e/account",
+    "/guides/%2e/x",
+    "/guides/%2e%2e/fonts/",
+    "/guides/%2e",
+    "/guides/%2E%2E",
+  ];
+  // The same again under more layers of encoding, within the decode limit.
+  const layered = [
+    "/%252e/account",
+    "/%252e%252e/account",
+    "/%252E%252E/account",
+    "/guides/%252e/x",
+    "/%25252e%25252e/account",
+    "/guides/%25252e%25252e",
+  ];
+  for (const input of [...literal, ...encoded, ...layered]) {
+    assert.equal(safeReturnTo(input), "/", input);
+    assert.equal(safeReturnTo(input, null), null, input);
+  }
+
+  // A dot is only a dot segment when it is the whole segment, and only the
+  // path is judged: these are ordinary paths and stay exactly as given.
+  const kept = [
+    "/.well-known/security.txt",
+    "/guide/v1.2",
+    "/guide/v1.2/",
+    "/a/.../b",
+    "/..foo",
+    "/foo../bar",
+    "/file.html",
+    "/search?s=../x",
+    "/guides/?next=/./a/../b",
+    "/guides/#/../x",
+    "/search?s=%2e%2e%2f",
+  ];
+  for (const input of kept) {
+    assert.equal(safeReturnTo(input, null), input, input);
+  }
+});
+
+test("safeReturnTo: no path normalises or decodes into a scheme-relative URL", () => {
+  // Left to the URL parser, each of these resolves to "//evil.example" —
+  // another host when sent as a Location.
+  const dotSegments = [
+    "/.//evil.example",
+    "/..//evil.example",
+    "/a/..//evil.example",
+    "/%2e//evil.example",
+    "/%2E%2E//evil.example",
+    "/a/b/../..//evil.example",
+    "/././/evil.example",
+    "/.//evil.example/path?x=1#y",
+  ];
+  // The same thing behind one or more layers of percent-encoding, which a
+  // server or proxy that decodes before redirecting would undo.
+  const encoded = [
+    "/%2F%2Fevil.example",
+    "/%2f/evil.example",
+    "/%252F%252Fevil.example",
+    "/%25252F%25252Fevil.example",
+    "/%5Cevil.example",
+    "/%5c%5cevil.example",
+    "/%255Cevil.example",
+    "/%252e%252e//evil.example",
+    "/%252e%252e/%252e%252e/evil.example",
+    "/ok%0d%0aSet-Cookie:%20x=1",
+    "/tab%09here",
+    "/nul%00",
+  ];
+  // Not decodable, or nested too deep to be a real path.
+  const malformed = [
+    "/%",
+    "/%zz",
+    "/%ff",
+    "/%c0%af%c0%afevil.example",
+    "/%" + "25".repeat(8) + "41",
+  ];
+  // /api stays out of reach however it is spelled.
+  const api = ["/%61pi/auth/session", "/API/auth/session", "/%2561pi", "/x/../api/auth/signout"];
+  // Never a path at all.
+  const notPaths = [
+    "http://evil.example/",
+    "HTTPS://evil.example/",
+    "data:text/html,x",
+    "vbscript:x",
+    " /account",
+    "\t//evil.example",
+    "/\t/evil.example",
+    "?next=/account",
+    "#top",
+    "evil.example",
+    "@evil.example",
+    null,
+    42,
+    ["/account"],
+    { toString: () => "/account" },
+  ];
+  for (const input of [...dotSegments, ...encoded, ...malformed, ...api, ...notPaths]) {
+    assert.equal(safeReturnTo(input), "/", JSON.stringify(input));
+    assert.equal(safeReturnTo(input, null), null, JSON.stringify(input));
+  }
+});
+
+test("safeReturnTo: real pages keep their path, query string and fragment", () => {
+  const kept = {
+    "/guides/?x=//evil.example": "/guides/?x=//evil.example",
+    "/search?s=a%2F%2Fb&back=%5C": "/search?s=a%2F%2Fb&back=%5C",
+    "/search?s=https://evil.example/": "/search?s=https://evil.example/",
+    "/fonts/?q=sans%20serif": "/fonts/?q=sans%20serif",
+    "/palettes/#p012": "/palettes/#p012",
+    "/roadmap": "/roadmap",
+    "/category/color-theory": "/category/color-theory",
+    "/image-picker/": "/image-picker/",
+    "/apiary": "/apiary",
+    "/guide/a%20b": "/guide/a%20b",
+  };
+  for (const [input, expected] of Object.entries(kept)) {
+    assert.equal(safeReturnTo(input), expected, input);
+  }
+});
+
+test("safeReturnTo: an accepted path is returned unchanged the second time", () => {
+  // openTransaction() and openEmailTransaction() re-check the stored path
+  // with exactly this comparison; a path that failed it could never finish
+  // a sign-in.
+  const inputs = [
+    "/",
+    "/account",
+    "/guides/?q=color#top",
+    "/guides/?x=//evil.example",
+    "/search?s=a%2F%2Fb&back=%5C",
+    "/guide/a b",
+    "/fonts/?q=sans serif#x y",
+    "/.well-known/security.txt",
+  ];
+  for (const input of inputs) {
+    const once = safeReturnTo(input, null);
+    assert.notEqual(once, null, input);
+    assert.equal(safeReturnTo(once, null), once, input);
+    assert.ok(once.startsWith("/") && !once.startsWith("//"), input);
+  }
 });
 
 // ---------------------------------------------------------------------

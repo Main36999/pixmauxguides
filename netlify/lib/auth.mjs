@@ -40,10 +40,21 @@ export const EMAIL_COOKIE = "__Host-bpozz_email";
 /** Refresh cookie lifetime: 30 days, restarted by every refresh. */
 export const REFRESH_MAX_AGE = 30 * 24 * 60 * 60;
 
+/**
+ * The site's HSTS policy, word for word as public/_headers sends it on
+ * every static response. Netlify applies _headers to static files only, and
+ * on a function response adds its own shorter default (one year, no
+ * includeSubDomains). A browser keeps whichever policy it saw last, so
+ * without this every /api call would replace the static pages' policy with
+ * the weaker one. A test keeps the two strings identical.
+ */
+export const HSTS = "max-age=63072000; includeSubDomains; preload";
+
 /** Headers on every /api/auth/* response: never cached, never sniffed. */
 export const AUTH_HEADERS = Object.freeze({
   "Cache-Control": "no-store",
   "Content-Type": "application/json; charset=utf-8",
+  "Strict-Transport-Security": HSTS,
   "X-Content-Type-Options": "nosniff",
 });
 
@@ -77,6 +88,7 @@ export function redirect(location, cookies) {
       Location: location,
       "Cache-Control": "no-store",
       "Referrer-Policy": "no-referrer",
+      "Strict-Transport-Security": HSTS,
       "X-Content-Type-Options": "nosniff",
     }),
     cookies,
@@ -534,18 +546,72 @@ export function publicUser(user) {
   };
 }
 
+// How many layers of percent-encoding isLocalPath() will peel. A real BPOZZ
+// path has none; anything still changing after this many is refused.
+const MAX_DECODE_ROUNDS = 5;
+const DOT_SEGMENT = /(^|\/)\.{1,2}(\/|$)/;
+
+/**
+ * Is `pathname` a path on this site and nothing else, however many times it
+ * is percent-decoded on the way to a browser or a server?
+ *
+ * Refused: the path itself, and every decoding of it, that starts with
+ * "//", holds a backslash (browsers read "\" as "/") or a control
+ * character, holds a dot segment ("." or ".." as a whole segment, anywhere),
+ * leads into /api, or cannot be decoded at all.
+ *
+ * safeReturnTo() asks this twice: about the path exactly as it was given,
+ * so a dot segment — literal or encoded ("%2e", "%252e", …) — is refused
+ * rather than resolved; and about the path the URL parser produced, which
+ * is what is actually returned.
+ */
+function isLocalPath(pathname) {
+  let path = pathname;
+  for (let round = 0; round < MAX_DECODE_ROUNDS; round += 1) {
+    if (path[0] !== "/" || path[1] === "/") return false;
+    if (/[\u0000-\u001f\u007f\\]/.test(path)) return false;
+    if (DOT_SEGMENT.test(path)) return false;
+    const lower = path.toLowerCase();
+    if (lower === "/api" || lower.startsWith("/api/")) return false;
+    let decoded;
+    try {
+      decoded = decodeURIComponent(path);
+    } catch {
+      return false;
+    }
+    if (decoded === path) return true;
+    path = decoded;
+  }
+  return false;
+}
+
 /**
  * Where to send someone after sign-in: an internal, relative path, or the
  * fallback.
  *
  * Rejects anything that could leave bpozz.com: absolute URLs, scheme-
- * relative "//host", "/\host" (browsers treat "\" as "/"), control
- * characters, and paths into /api/ itself.
+ * relative "//host" — written plainly or percent-encoded ("/%2F%2Fhost") —
+ * "/\host" (browsers treat "\" as "/"), control characters, malformed
+ * percent-encoding, and paths into /api/ itself.
+ *
+ * Dot segments are refused outright, never resolved: "/a/../b" is not
+ * turned into "/b", and "/.//host" never gets the chance to become
+ * "//host". That holds for "/./", "/../", a leading or trailing "/." or
+ * "/..", and the same written as "%2e" under any number of encodings up to
+ * the decode limit. No page on this site has such a path.
+ *
+ * Only the path is judged this way: a query string or fragment cannot
+ * change where a relative URL points, so they are kept as given.
+ *
+ * What it returns is stable: safeReturnTo(result) === result. The signed
+ * sign-in cookies rely on that when they re-check a stored path.
  */
 export function safeReturnTo(value, fallback = "/") {
   if (typeof value !== "string" || !value || value.length > 2048) return fallback;
   if (value[0] !== "/" || value[1] === "/" || value[1] === "\\") return fallback;
   if (/[\u0000-\u001f\u007f\\]/.test(value)) return fallback;
+  // The path as given, before the URL parser resolves any dot segment in it.
+  if (!isLocalPath(value.split(/[?#]/, 1)[0])) return fallback;
   const base = "https://return-to.invalid";
   let url;
   try {
@@ -554,6 +620,6 @@ export function safeReturnTo(value, fallback = "/") {
     return fallback;
   }
   if (url.origin !== base) return fallback;
-  if (url.pathname === "/api" || url.pathname.startsWith("/api/")) return fallback;
+  if (!isLocalPath(url.pathname)) return fallback;
   return url.pathname + url.search + url.hash;
 }

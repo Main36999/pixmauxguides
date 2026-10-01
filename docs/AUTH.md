@@ -13,6 +13,31 @@
 - **No passwords.** BPOZZ has no password sign-in, password reset, profile
   management or marketing email.
 
+> **Phase 2A security changes are NOT deployed (as of 2026-10-01).**
+> This document describes the current code. The Phase 2A security changes
+> in it are implemented and built locally (the local build and QA pass),
+> but they have **not** been pushed or deployed. Until a deploy, production
+> does **not** have them:
+>
+> - **HSTS on API responses** — production `/api/*` responses do not yet
+>   carry the `Strict-Transport-Security` value the functions set in the
+>   current code;
+> - **Turnstile CSP allowance** — the CSP production serves does not yet
+>   allow `https://challenges.cloudflare.com`;
+> - **`safeReturnTo()`** — production still uses the previously deployed
+>   behaviour, not the stricter validation described here;
+> - **Turnstile** — the code is not deployed, and nothing in this document
+>   says it is configured or active in production.
+>
+> The stronger behaviour described for these takes effect only after
+> deployment. Six places below are marked *Phase 2A — not deployed*: the
+> HSTS paragraph, the confirmation-page header list, and the Redirects,
+> Responses, Bot abuse and CSP rows of the Security baseline. Every other
+> mention of Turnstile below (the email flow, the response tables, the
+> session answer, the environment variables) describes the same undeployed
+> code, and none of it does anything unless a Turnstile variable is set.
+> Details and rollout: [CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md).
+
 | phase | scope | state |
 |---|---|---|
 | UI | header Sign in / Sign up, full-screen dialog | done |
@@ -49,9 +74,13 @@ Browser ──> bpozz.com/api/auth/*  ──> Netlify Functions ──> Supabase
   token (a code, bound by `state` + PKCE).
 - **Netlify Functions are the only server code.** The static site, the
   build and `dist/` are unchanged; functions deploy alongside it.
-- **Same origin.** The existing CSP (`connect-src 'self'`,
-  `form-action 'self'`) needs no change, cookies are first-party, and no
-  CORS headers are sent.
+- **Same origin.** Every auth request the browser makes is same-origin
+  (`connect-src 'self'`, `form-action 'self'`), cookies are first-party, and
+  no CORS headers are sent. The one third-party resource is Cloudflare
+  Turnstile's script and widget on the email form, loaded only while that
+  check is on — see [CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md).
+- **Not behind Cloudflare.** bpozz.com is served directly by Netlify;
+  Turnstile is used on its own, without Cloudflare's proxy.
 
 ## Files
 
@@ -66,7 +95,8 @@ Browser ──> bpozz.com/api/auth/*  ──> Netlify Functions ──> Supabase
 | `netlify/lib/auth.mjs` | config, cookies, Supabase Auth REST calls (incl. `/verify`), provider detection, the `AUTH_EMAIL_ENABLED` switch, safe user shape, `safeReturnTo` |
 | `netlify/lib/oauth.mjs` | Google sign-in transaction: state, PKCE, signed transaction cookie, authorize URL. **Not touched by Phase 4A** |
 | `netlify/lib/email.mjs` | email sign-in: request validation, Supabase `/otp`, the signed email cookie, the confirmation page |
-| `netlify/lib/auth.test.mjs`, `google.test.mjs`, `email.test.mjs` | tests (in `lib/`, because every file in `functions/` deploys as a function) |
+| `netlify/lib/turnstile.mjs` | Cloudflare Turnstile for `POST /api/auth/email/start`: the two-variable switch, token shape, Siteverify. Off unless both variables are set — [CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md) |
+| `netlify/lib/auth.test.mjs`, `google.test.mjs`, `email.test.mjs`, `turnstile.test.mjs` | tests (in `lib/`, because every file in `functions/` deploys as a function) |
 | `src/client/auth.js` | the dialog and header — browser half of the contract. After every session answer it draws from (not the header's 1.5 s placeholder) it fires `bpozz:session` on `document`, `{ authenticated }` only, for `src/client/saved.js` |
 
 No dependencies. The Supabase Auth REST endpoints below are called with
@@ -92,6 +122,12 @@ a custom path Netlify serves the function **only** at that path, not at
 Every response carries `Cache-Control: no-store` and
 `X-Content-Type-Options: nosniff`. Redirects also carry
 `Referrer-Policy: no-referrer`.
+
+*Phase 2A — not deployed:* in the current code every response also carries
+the same `Strict-Transport-Security` value as the static pages
+(`public/_headers` does not apply to function responses, so the functions
+send it themselves). Production does not have this yet: the API responses
+observed in production on 2026-10-01 carried `max-age=31536000`.
 
 ### Google sign-in — the implemented flow
 
@@ -159,6 +195,8 @@ production against the real Supabase project (2026-09-26).
              {"email", "intent", "returnTo"}
    BPOZZ     Origin must equal AUTH_ORIGIN exactly; JSON, ≤ 2 KB,
              email ≤ 254 chars; returnTo through safeReturnTo()
+             while Turnstile is on: the body also carries turnstileToken
+             (limit 4 KB), verified with Cloudflare's Siteverify first
              POST {SUPABASE_URL}/auth/v1/otp  {email, create_user: true}
              (anon key only; no redirect_to)
              Set-Cookie __Host-bpozz_email = HMAC-signed {v, returnTo,
@@ -203,11 +241,12 @@ in an existing user and creates a new one the same way.
 | status | body | when |
 |---|---|---|
 | 200 | `{ "sent": true }` + email cookie | Supabase sent the link — **or** refused in a way that would reveal whether the address has an account (422 `otp_disabled` / `signup_disabled`, 403, 404). Identical body, headers and cookie either way |
-| 400 | `{ "error": "invalid_request" }` | not `application/json`, over 2 KB, not an object, email missing / malformed / over 254 chars, unknown `intent`, non-string `returnTo`; or Supabase 400 (address rejected) |
+| 400 | `{ "error": "invalid_request" }` | not `application/json`, body over the limit (2 KB; 4 KB while Turnstile is on, to make room for the token), not an object, email missing / malformed / over 254 chars, unknown `intent`, non-string `returnTo`; or Supabase 400 (address rejected) |
 | 403 | `{ "error": "forbidden" }` | `Origin` missing or not exactly `AUTH_ORIGIN` |
+| 403 | `{ "error": "challenge_failed" }` | Turnstile on, and `turnstileToken` is missing, malformed, or refused by Cloudflare (wrong, expired, already used, or solved for another hostname or action). Nothing is sent to Supabase |
 | 405 | `{ "error": "method_not_allowed" }` + `Allow: POST` | not POST |
 | 429 | `{ "error": "rate_limited" }` | Supabase's per-address / project email limit (Netlify's own limit also answers 429) |
-| 503 | `{ "error": "auth_unavailable" }` | `AUTH_EMAIL_ENABLED` not `"true"`, configuration invalid, Email disabled in Supabase, Supabase down / 5xx / rejecting the key, or 400 `email_address_not_authorized` (Supabase's built-in mailer: custom SMTP not set up) |
+| 503 | `{ "error": "auth_unavailable" }` | `AUTH_EMAIL_ENABLED` not `"true"`, configuration invalid, Email disabled in Supabase, Supabase down / 5xx / rejecting the key, or 400 `email_address_not_authorized` (Supabase's built-in mailer: custom SMTP not set up); Turnstile half-configured, or Siteverify unreachable or rejecting the secret (the check fails closed) |
 
 With the flag off, the function answers 503 before reading the body and
 makes **no** Supabase request.
@@ -234,9 +273,15 @@ Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; form-act
 X-Frame-Options: DENY
 Referrer-Policy: same-origin
 Cache-Control: no-store
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 X-Content-Type-Options: nosniff
 X-Robots-Tag: noindex, nofollow
 ```
+
+*Phase 2A — not deployed:* this is the list the current code sends. The
+`Strict-Transport-Security` line is the Phase 2A addition; the previously
+deployed code, which production still runs, sets the other six and not
+that one.
 
 **Why `Referrer-Policy: same-origin` and not `no-referrer`.** Under
 `no-referrer`, browsers send `Origin: null` with the page's form POST
@@ -248,9 +293,11 @@ the POST carries `Referrer-Policy: no-referrer`, so the landing page's
 
 Rate limits: Netlify code-based rules in each function's `config` —
 `start` 5 per 60 s, `verify` 20 per 60 s, both `aggregateBy: ["ip",
-"domain"]` (all plans; Free/Starter/Personal allow 2 code-based rules per
-project, exactly these two). Supabase's email and verification limits stay
-the authority behind them.
+"domain"]`. Free/Starter/Personal plans allow 2 code-based rules per
+project; the project now declares 4 (these two and the two Saved
+functions), and whether all four are enforced is **not verified** — see
+[CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md#rate-limit-strategy).
+Supabase's email and verification limits stay the authority behind them.
 
 ### `GET /api/auth/session`
 
@@ -285,6 +332,9 @@ before (one `/settings` fetch serves both).
 
 - `providers` is **required by the existing frontend**: `src/client/auth.js`
   treats a response without it, or any non-200, as "auth not deployed".
+- While Turnstile is on and `providers.email` is true, a 200 also carries
+  `"turnstile": { "siteKey": "…" }` — the widget's **public** sitekey, never
+  the secret. Half-configured Turnstile makes `providers.email` false.
 - `user` never carries access/refresh/provider tokens, `app_metadata`,
   identities or provider IDs. Until `public.profiles` exists,
   `display_name` and `avatar_url` come from Supabase `user_metadata`; that
@@ -379,6 +429,8 @@ git-ignored for local use.
 | `AUTH_COOKIE_SECRET` | **server-only secret** | Google, email | ≥32 characters of randomness; signs the Google and email in-flight cookies (separate MAC contexts). Never signs a session. Rotating it only invalidates sign-ins in flight |
 | `AUTH_EMAIL_ENABLED` | switch · not secret | email | email sign-in is on only when this is exactly `true` — **`true` in production** (Functions scope). Unset / anything else: `providers.email` is false, `/email/start` answers 503 and no email request is made. Changing it takes effect after a redeploy |
 | `SUPABASE_SERVICE_ROLE_KEY` | **server-only secret** · Supabase configuration | later only | bypasses Row Level Security. **Read by no code** — Google and email both use the anon key; not needed yet |
+| `TURNSTILE_SITE_KEY` | public · sent to browsers | email | the Turnstile widget's sitekey, published by `/api/auth/session`. Set together with the secret or not at all — [CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md#turnstile) |
+| `TURNSTILE_SECRET_KEY` | **server-only secret** | email | sent only to Cloudflare's Siteverify by `auth-email-start.mjs`. The check is off unless both variables exist. Whether either variable is set in production is not recorded here: it has to be verified in the Netlify dashboard, or on a deployed `/api/auth/session` answer (which carries `turnstile.siteKey` only while the check is on) |
 
 Example — **placeholders only**:
 
@@ -395,12 +447,16 @@ Generate `AUTH_COOKIE_SECRET` with
 
 ### 4. Browser
 
-Nothing. The browser receives no key, secret, client ID or token; it
-only ever holds the four HttpOnly cookies above.
+Nothing to configure. The browser receives no secret, client ID or session
+token; it only ever holds the four HttpOnly cookies above. While Turnstile
+is on it also receives the widget's public sitekey (in the session answer)
+and passes a single-use Turnstile token back with the email request —
+neither is a credential.
 
 **Never** in the browser or Netlify: Google's client secret (Supabase only).
 **Never** in the browser: `SUPABASE_SERVICE_ROLE_KEY`, `AUTH_COOKIE_SECRET`,
-SMTP credentials, the PKCE verifier, `state`, or any session token.
+`TURNSTILE_SECRET_KEY`, SMTP credentials, the PKCE verifier, `state`, or any
+session token.
 
 **Least privilege.** Every server-side Supabase call (`/settings`, `/token`,
 `/otp`, `/verify`) uses the anon key, plus the user's own access token where
@@ -540,12 +596,13 @@ keeps identities in `auth.identities`, keyed by Google's stable `sub`.
 | Rate limits | Netlify code-based rules on both email functions; Supabase's email and verification limits behind them | function `config` + tests |
 | Confirmation page | no script, no external asset, no analytics; own CSP, `X-Frame-Options: DENY`, `Referrer-Policy: same-origin`, `no-store`, `noindex`; every embedded value escaped | `confirmationPage()`, `PAGE_HEADERS` + tests |
 | Cookies | `__Host-`, HttpOnly, Secure, SameSite=Lax, Path=/, no Domain | `setCookie()` / `clearCookie()` + tests |
-| Redirects | internal relative paths only; never `/api/*`; no token, code or state after the callback | `safeReturnTo()`, `withAuthError()` + tests |
-| Responses | `Cache-Control: no-store`; redirects `Referrer-Policy: no-referrer` | `json()` / `redirect()` + tests |
+| Redirects | internal relative paths only. Dot segments are rejected outright, never resolved: `/./`, `/../`, a leading or trailing `/.` or `/..` (so `/a/../b` is refused, not turned into `/b`), and the same written as `%2e` in either case or any mix, also under repeated encoding. Also refused: a path that is, or percent-decodes to, `//host`, a backslash or a control character; malformed percent-encoding; `/api/*` in any spelling. Only the path is judged — query strings and fragments are kept. No token, code or state after the callback. Details: [CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md#safereturnto-fix-2026-10-01). *Phase 2A — not deployed: this is the current code; production still runs the previously deployed `safeReturnTo()`, which resolved dot segments instead of refusing them* | `safeReturnTo()`, `withAuthError()` + tests |
+| Responses | `Cache-Control: no-store`; redirects `Referrer-Policy: no-referrer`; the static pages' `Strict-Transport-Security` (*Phase 2A — not deployed: current code only; production API responses do not carry it yet*) | `json()` / `redirect()` + tests |
+| Bot abuse | `email/start` requires a Cloudflare Turnstile token verified server-side (hostname and action checked; fails closed) — **while both `TURNSTILE_*` variables are set; off otherwise**. *Phase 2A — not deployed: this code is not in production, and whether the variables are set there is not recorded here* | `turnstile.mjs`, `auth-email-start.mjs` + tests |
 | Errors | generic codes (`auth_unavailable`, `invalid_request`, `rate_limited`, `auth_error=cancelled/failed/expired/unavailable/link`); no stacks, paths, keys or upstream text | tests |
 | Logging | fixed messages only — never tokens, token hashes, codes, state, verifier, cookies, email addresses or keys (Supabase's machine `error_code`, `[a-z0-9_]` only, may appear) | `logProblem()` + tests |
 | CSRF | sign-out requires a same-site `Origin`; both email POSTs require `Origin` exactly `AUTH_ORIGIN`; SameSite=Lax cookies; OAuth callback bound to the browser by the signed cookie + `state` + PKCE; email verify bound to the requesting browser by the signed email cookie | tests |
-| CSP | no new origin: every email request is same-origin (`connect-src 'self'`, `form-action 'self'`); `public/_headers` unchanged | — |
+| CSP | enforced. Every auth request is same-origin (`connect-src 'self'`, `form-action 'self'`); the only origin added for auth is `https://challenges.cloudflare.com` in `script-src` and `frame-src`, for Turnstile (*Phase 2A — not deployed: that origin is in the local `public/_headers`, built locally but not pushed or deployed; the CSP production serves today does not include it*) | `public/_headers` + test |
 
 ## Still to do
 
@@ -555,5 +612,9 @@ keeps identities in `auth.identities`, keyed by Google's stable `sub`.
    declaration as **Necessary** in the Cookiebot manager. Its scanner never
    signs in, so it has not found them; they are server-set HttpOnly cookies,
    so Cookiebot's blocking cannot affect them either way.
-3. Move the site CSP from `Report-Only` to enforced.
+3. ~~Move the site CSP from `Report-Only` to enforced.~~ Done: production
+   sends an enforced `Content-Security-Policy` (observed 2026-10-01).
 4. Profiles and self-service account deletion (later, if ever needed).
+5. Turnstile: create the widget, set both variables, verify in production —
+   [CLOUDFLARE-SECURITY.md](CLOUDFLARE-SECURITY.md#rollout-order).
+6. Confirm which Netlify rate-limit rules the plan actually enforces.

@@ -22,6 +22,13 @@
  *   3. otherwise signed out, and any stale session cookies cleared
  * A Supabase outage is a 503, never a sign-out: cookies are kept.
  *
+ * While the Turnstile check on the email request is on (netlify/lib/
+ * turnstile.mjs) and email sign-in is offered, a 200 also carries
+ * `turnstile: { siteKey }` — the PUBLIC sitekey the dialog renders the
+ * widget with; never the secret. Half-configured Turnstile turns
+ * providers.email off, so the dialog never starts a flow the server would
+ * refuse. With Turnstile off the response is exactly as above.
+ *
  * Every response is Cache-Control: no-store. Uses the anon key only.
  */
 
@@ -41,6 +48,7 @@ import {
   sessionCookies,
   supabaseConfig,
 } from "../lib/auth.mjs";
+import { turnstileConfig } from "../lib/turnstile.mjs";
 
 // A custom path makes this the function's only public URL — Netlify no
 // longer serves it at /.netlify/functions/auth-session.
@@ -63,11 +71,16 @@ export default async function authSession(request) {
     return json(503, UNAVAILABLE);
   }
 
-  const providers = await currentProviders(settings);
+  const challenge = turnstileConfig();
+  const configured = await currentProviders(settings);
+  const providers =
+    challenge.state === "invalid" ? { ...configured, email: false } : configured;
+  const turnstile =
+    challenge.state === "on" && providers.email ? { turnstile: { siteKey: challenge.siteKey } } : {};
   const signedIn = (user, cookies) =>
-    json(200, { authenticated: true, user: publicUser(user), providers }, undefined, cookies);
+    json(200, { authenticated: true, user: publicUser(user), providers, ...turnstile }, undefined, cookies);
   const signedOut = (cookies) =>
-    json(200, { authenticated: false, user: null, providers }, undefined, cookies);
+    json(200, { authenticated: false, user: null, providers, ...turnstile }, undefined, cookies);
 
   const cookies = parseCookies(request.headers.get("cookie"));
   const access = cookies[SESSION_COOKIE];

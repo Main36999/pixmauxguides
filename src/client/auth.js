@@ -33,9 +33,14 @@
  *                                   handled entirely server-side
  *   POST /api/auth/email/start      ask the backend to email a sign-in link
  *
- * No client ID, secret or token ever passes through this file. Until the
- * backend exists the probe finds nothing, and the dialog says plainly that
- * sign-in is not available yet — it never pretends a sign-in succeeded.
+ * No client ID, secret or session token ever passes through this file. Until
+ * the backend exists the probe finds nothing, and the dialog says plainly
+ * that sign-in is not available yet — it never pretends a sign-in succeeded.
+ *
+ * The one value it does carry is a Cloudflare Turnstile token, and only
+ * while the backend's check is on (see TURNSTILE below): a single-use proof
+ * that a challenge was solved, which the backend verifies with Cloudflare
+ * before it sends any email. It is not a credential and signs nobody in.
  *
  * HEADER AUTH STATE
  *
@@ -163,6 +168,7 @@
     '<p class="auth__error" id="auth-email-error" hidden></p>' +
     '<button type="submit" class="btn btn-primary auth__submit">Continue</button>' +
     "</form>" +
+    '<div class="auth__challenge" data-auth-challenge hidden></div>' +
     '<div class="auth__step" data-step="sent" hidden>' +
     '<button type="button" class="auth__btn" data-auth-retry>Use a different email</button>' +
     "</div>" +
@@ -207,6 +213,7 @@
     els.input = $("#auth-email");
     els.error = $("#auth-email-error");
     els.submit = $(".auth__submit");
+    els.challenge = $("[data-auth-challenge]");
     els.switchText = $("[data-auth-switch-text]");
     els.switchBtn = $("[data-auth-switch]");
 
@@ -264,6 +271,8 @@
 
   function showStep(next) {
     var from = step;
+    // A Turnstile challenge belongs to the email step it was started from.
+    if (cancelChallenge) cancelChallenge();
     step = next;
     Array.prototype.forEach.call(
       dialog.querySelectorAll("[data-step]"),
@@ -374,6 +383,126 @@
     });
   }
 
+  // ---------- TURNSTILE ----------
+  // The email request is the one thing here a script could abuse: every
+  // accepted POST makes the backend send an email. While the backend's
+  // Turnstile check is on, GET /api/auth/session carries the widget's public
+  // sitekey as `turnstile.siteKey`, and the POST must carry a token from
+  // Cloudflare's widget. The backend verifies that token with Cloudflare
+  // before it sends anything; this file only fetches it and decides nothing.
+  // Without `turnstile` in the session answer none of this runs.
+  //
+  // Cloudflare's script is loaded from its own URL (it may not be copied or
+  // proxied) and only when someone actually submits the email form, so a
+  // page view never contacts Cloudflare. The widget is drawn only if
+  // Cloudflare wants an interaction ("interaction-only"); otherwise the
+  // dialog looks exactly as it does without the check. A fresh widget is
+  // rendered per attempt and removed afterwards: tokens are single use.
+  var TURNSTILE_SRC =
+    "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+  var TURNSTILE_ACTION = "email-start"; // the backend accepts only this one
+  var TURNSTILE_TIMEOUT_MS = 120000;
+  var turnstileLoading = null; // Promise of window.turnstile, while loading
+  var cancelChallenge = null; // ends the challenge in flight, if there is one
+
+  function loadTurnstile() {
+    if (window.turnstile) return Promise.resolve(window.turnstile);
+    if (turnstileLoading) return turnstileLoading;
+    turnstileLoading = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      function failed() {
+        // Forgotten, so the next attempt asks for the script again.
+        turnstileLoading = null;
+        if (script.parentNode) script.parentNode.removeChild(script);
+        reject(new Error("turnstile"));
+      }
+      script.src = TURNSTILE_SRC;
+      script.async = true;
+      // A security check sign-in can't work without, not a tracker: exempt
+      // from Cookiebot's automatic blocking, like the consent defaults.
+      script.setAttribute("data-cookieconsent", "ignore");
+      script.onload = function () {
+        if (window.turnstile) resolve(window.turnstile);
+        else failed();
+      };
+      script.onerror = failed;
+      (document.head || document.documentElement).appendChild(script);
+    });
+    return turnstileLoading;
+  }
+
+  // Resolves to a token, or rejects when the script can't load, the
+  // challenge errors or times out, or the email step is left meanwhile.
+  function challengeToken(siteKey) {
+    return loadTurnstile().then(function (turnstile) {
+      return new Promise(function (resolve, reject) {
+        var box = els.challenge;
+        var id = null;
+        var timer = null;
+        var settled = false;
+
+        function remove() {
+          if (id === null) return;
+          try {
+            turnstile.remove(id);
+          } catch (e) {
+            // Already gone.
+          }
+          id = null;
+        }
+        function end(settle, value) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          cancelChallenge = null;
+          remove();
+          box.hidden = true;
+          box.style.marginTop = "";
+          settle(value);
+        }
+        function fail() {
+          end(reject, new Error("turnstile"));
+        }
+
+        if (!box || step !== "email") {
+          reject(new Error("turnstile"));
+          return;
+        }
+        cancelChallenge = fail;
+        timer = setTimeout(fail, TURNSTILE_TIMEOUT_MS);
+        box.hidden = false;
+        try {
+          id = turnstile.render(box, {
+            sitekey: siteKey,
+            action: TURNSTILE_ACTION,
+            appearance: "interaction-only",
+            retry: "never",
+            "refresh-expired": "never",
+            "response-field": false,
+            callback: function (token) {
+              end(resolve, token);
+            },
+            "error-callback": function () {
+              fail();
+              return true; // handled here: shown as the form's own error
+            },
+            "timeout-callback": fail,
+            "unsupported-callback": fail,
+            // Only when Cloudflare asks for a click does the widget take
+            // up room; give it the form's spacing for that long.
+            "before-interactive-callback": function () {
+              box.style.marginTop = "16px";
+            },
+          });
+        } catch (e) {
+          fail();
+        }
+        // The answer can arrive before render() has returned its id.
+        if (settled) remove();
+      });
+    });
+  }
+
   var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function startEmail() {
@@ -399,23 +528,32 @@
       .then(function (data) {
         if (!data || !data.providers.email) return "unavailable";
         if (data.authenticated === true) return "signed-in";
-        return fetch(API + "/email/start", {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
+        var siteKey = data.turnstile && data.turnstile.siteKey;
+        var challenge =
+          typeof siteKey === "string" && siteKey
+            ? challengeToken(siteKey)
+            : Promise.resolve(null);
+        return challenge.then(function (token) {
+          var payload = {
             email: email,
             intent: mode,
             returnTo: returnTo(),
-          }),
-        }).then(function (res) {
-          if (res.ok) return "sent";
-          if (res.status === 400 || res.status === 422) return "invalid";
-          if (res.status === 429) return "limited";
-          return "failed";
+          };
+          if (token) payload.turnstileToken = token;
+          return fetch(API + "/email/start", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(payload),
+          }).then(function (res) {
+            if (res.ok) return "sent";
+            if (res.status === 400 || res.status === 422) return "invalid";
+            if (res.status === 429) return "limited";
+            return "failed";
+          });
         });
       })
       .catch(function () {
@@ -530,6 +668,9 @@
       clearTimeout(closeTimer);
       closeTimer = null;
     }
+    // Closing the dialog abandons an email request still waiting on its
+    // Turnstile challenge: no email is sent for a dialog nobody is looking at.
+    if (cancelChallenge) cancelChallenge();
     dialog.classList.remove("is-open");
     unlockScroll();
     // Back to whatever opened the dialog. A trigger inside the mobile panel
