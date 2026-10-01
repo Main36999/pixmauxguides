@@ -1139,6 +1139,10 @@ function attachGuideStructuredData(pages, guides, categories, config) {
     });
 
     return Object.assign({}, page, {
+      // The categories.json record already resolved above, attached by
+      // reference (no copy). src/build/guide-template.js renders the
+      // visible breadcrumb from it.
+      category,
       structuredData: structuredData.scriptsHtml(objects, GUIDE_LD_INDENT),
     });
   });

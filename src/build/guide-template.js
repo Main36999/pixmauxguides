@@ -124,6 +124,7 @@
 "use strict";
 
 const head = require("./head.js");
+const { escapeHtml } = require("../shared/html.js");
 
 // ---------------------------------------------------------------------
 // the frame — the shared bands from src/build/head.js, plus this page
@@ -180,6 +181,33 @@ const MAIN_OPEN = `    <main class="wrap" id="guide-content" tabindex="-1">
       <div class="guide-layout">
         <div class="guide-primary">
 `;
+
+/**
+ * The visible trail above the hero: Guides / category, two links.
+ *
+ * Frame, not content. It is the one band built from data rather than
+ * lifted from a committed page, so it is the one place this module
+ * escapes: a category name may carry an "&". The argument is the
+ * guide's categories.json record, attached to the page record by
+ * src/build/content.js. The link uses its slug, the text its name.
+ * The "/" between the two links is drawn by guide-article.css, as on
+ * the font pages. pageHtml() emits nothing for a record that has no
+ * category, which is what lets the template's own fixture render.
+ */
+function breadcrumbHtml(category) {
+  const href = "/category/" + escapeHtml(category.slug);
+  const name = escapeHtml(category.name);
+  return [
+    '          <nav class="guide-breadcrumb" aria-label="Breadcrumb">',
+    "            <ol>",
+    '              <li><a href="/guides/">Guides</a></li>',
+    '              <li><a href="' + href + '">' + name + "</a></li>",
+    "            </ol>",
+    "          </nav>",
+    "",
+    "",
+  ].join("\n");
+}
 
 /**
  * The related-guides rail. Always emitted EMPTY: /app.js fills it from
@@ -336,6 +364,7 @@ function pageHtml(page, partials) {
     head.headerRegion(partials.header) +
     "\n\n" +
     MAIN_OPEN +
+    (page.category ? breadcrumbHtml(page.category) : "") +
     c.hero +
     c.toc +
     c.article +

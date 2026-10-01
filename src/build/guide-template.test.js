@@ -47,6 +47,7 @@ const template = require("./guide-template.js");
 const guides = require("./guides.js");
 const header = require("./header.js");
 const footer = require("./footer.js");
+const { escapeHtml } = require("../shared/html.js");
 
 const model = content.load(config);
 const pages = model.guidePages;
@@ -167,6 +168,69 @@ test("the structure is one template, not 22", () => {
         html.includes(band),
         `guide/${page.id}.html does not carry the shared ${JSON.stringify(band.slice(0, 40))}… band`,
       ),
+    );
+  });
+});
+
+test("each guide links Guides and its category above the hero", () => {
+  // Expected values come from guides.json and categories.json, not
+  // from page.category, so a page attached to the wrong category
+  // fails here instead of agreeing with itself.
+  const guideById = new Map(model.guides.map((g) => [g.id, g]));
+  const categoryBySlug = new Map(
+    model.categories.map((c) => [c.slug, c]),
+  );
+  const navOpen = '<nav class="guide-breadcrumb"';
+  const guidesLink = '<a href="/guides/">Guides</a>';
+
+  pages.forEach((page) => {
+    const file = "guide/" + page.id + ".html";
+
+    const guide = guideById.get(page.id);
+    assert.ok(guide, file + ": no record in guides.json");
+    const category = categoryBySlug.get(guide.category);
+    assert.ok(
+      category,
+      file + ": categories.json has no slug " + guide.category,
+    );
+
+    const categoryOpen = '<a href="/category/' + category.slug + '">';
+    const categoryLink =
+      categoryOpen + escapeHtml(category.name) + "</a>";
+
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    const at = html.indexOf(navOpen);
+    assert.ok(at !== -1, file + ": no breadcrumb");
+    assert.strictEqual(
+      html.split(navOpen).length - 1,
+      1,
+      file + ": more than one breadcrumb",
+    );
+
+    const hero = html.indexOf('class="guide-hero"');
+    assert.ok(hero !== -1, file + ": no hero");
+    assert.ok(at < hero, file + ": breadcrumb is not before the hero");
+
+    const end = html.indexOf("</nav>", at);
+    assert.ok(end !== -1 && end < hero, file + ": nav is not closed");
+    const trail = html.slice(at, end);
+
+    const first = trail.indexOf(guidesLink);
+    assert.ok(first !== -1, file + ": no Guides link to /guides/");
+    assert.ok(
+      trail.indexOf(categoryOpen) !== -1,
+      file + ": no link to /category/" + category.slug,
+    );
+    const second = trail.indexOf(categoryLink);
+    assert.ok(
+      second !== -1,
+      file + ": category link text is not " + category.name,
+    );
+    assert.ok(first < second, file + ": Guides is not the first link");
+    assert.strictEqual(
+      trail.split("<a ").length - 1,
+      2,
+      file + ": breadcrumb does not have exactly two links",
     );
   });
 });
