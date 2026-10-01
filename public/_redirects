@@ -16,6 +16,13 @@
 # subtly wrong. Pretty URLs is Netlify's own tested implementation of
 # exactly this behavior, so it doesn't have that risk.
 
+# /favicon.ico -> the site icon. Browsers and crawlers ask for this path
+# by default when they have no <link rel="icon"> to read (a directly
+# opened image or XML URL, some link previewers). There is no .ico file,
+# so it used to fall through to the HTML 404 page. Status 200 makes this
+# a rewrite, not a redirect: the PNG is served at /favicon.ico itself.
+/favicon.ico    /assets/favicon.png    200
+
 # ── Colour Tokens: removed (Phase 4) ─────────────────────────────
 # The Colour Tokens feature was deleted. Every URL it served returns
 # 410 Gone. NONE of them redirects to /palettes.

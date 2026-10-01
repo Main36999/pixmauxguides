@@ -284,7 +284,6 @@ function categoryJsonLd(input) {
     },
     breadcrumb: breadcrumbList(origin, [
       HOME_CRUMB,
-      { name: "Categories" },
       { name: label, path: `/category/${slug}` },
     ]),
   });
