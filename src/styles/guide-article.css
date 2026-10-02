@@ -150,6 +150,53 @@
 }
 
 /* --------------------------------------------------------------------------
+   2b. Learning Roadmap context — between the hero and the table of contents,
+   on guides that are on the roadmap: the label on a row of its own, then the
+   stage and position with the link to /roadmap beside them. The label takes
+   the full row so that, from tablet width up, the strip is the same two rows
+   on every guide however long its stage title is; on narrower screens the
+   link, and then the stage text, wrap as they need to. The same bordered
+   card as .guide-toc directly below it, with that box's label colour and
+   link treatment.
+   -------------------------------------------------------------------------- */
+.guide-roadmap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  margin: 0 0 16px;
+  padding: 14px 24px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--card);
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+.guide-roadmap__label {
+  flex-basis: 100%;
+  color: var(--action);
+}
+.guide-roadmap__position {
+  margin: 0;
+  color: var(--text-muted);
+}
+.guide-roadmap__link {
+  margin-left: auto;
+  color: var(--text);
+  text-decoration: none;
+}
+.guide-roadmap__link:hover,
+.guide-roadmap__link:focus-visible {
+  color: var(--action);
+  text-decoration: underline;
+}
+@media (max-width: 560px) {
+  .guide-roadmap__link {
+    margin-left: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
    3. Table of contents
    -------------------------------------------------------------------------- */
 .guide-toc {

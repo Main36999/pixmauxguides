@@ -47,6 +47,7 @@ const template = require("./guide-template.js");
 const guides = require("./guides.js");
 const header = require("./header.js");
 const footer = require("./footer.js");
+const home = require("./home.js");
 const { escapeHtml } = require("../shared/html.js");
 
 const model = content.load(config);
@@ -231,6 +232,203 @@ test("each guide links Guides and its category above the hero", () => {
       trail.split("<a ").length - 1,
       2,
       file + ": breadcrumb does not have exactly two links",
+    );
+  });
+});
+
+// ---------------------------------------------------------------------
+// the Learning Roadmap connection
+// ---------------------------------------------------------------------
+
+/**
+ * The roadmap as roadmap.html itself lists it: the guide ids in the order
+ * their links appear in the markup src/build/home.js writes into that page,
+ * each with the stage it sits under. Read off the rendered list rather than
+ * off src/build/roadmap.js's helper, so a guide page that disagrees with
+ * the roadmap page fails here instead of agreeing with itself.
+ */
+function roadmapAsRendered() {
+  const stagesHtml = home.buildRoadmap(model.guides).stagesHtml;
+  const stages = stagesHtml.split('<li class="roadmap-stage"').slice(1);
+  const order = [];
+  stages.forEach((stageHtml, i) => {
+    const title = stageHtml.match(
+      /<h2 class="roadmap-stage-title">([^<]*)<\/h2>/,
+    )[1];
+    const links = stageHtml.match(/href="\/guide\/[^"]+"/g) || [];
+    links.forEach((link) => {
+      order.push({
+        id: link.slice('href="/guide/'.length, -1),
+        stageNumber: i + 1,
+        stageTitleHtml: title,
+      });
+    });
+  });
+  return { order, stageCount: stages.length };
+}
+
+const CONTEXT_OPEN = '<nav class="guide-roadmap"';
+const ORDER_OPEN = '<nav class="guide-footer-nav"';
+
+test("a roadmap guide states its stage and position between the hero and the contents", () => {
+  const { order, stageCount } = roadmapAsRendered();
+  assert.ok(order.length > 0, "roadmap.html lists no guides");
+
+  order.forEach((entry, i) => {
+    const file = "guide/" + entry.id + ".html";
+    const page = pages.find((p) => p.id === entry.id);
+    assert.ok(page, file + ": on the roadmap but has no page record");
+
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    assert.strictEqual(
+      html.split(CONTEXT_OPEN).length - 1,
+      1,
+      file + ": expected exactly one roadmap context block",
+    );
+
+    const at = html.indexOf(CONTEXT_OPEN);
+    const end = html.indexOf("</nav>", at);
+    const block = html.slice(at, end);
+    assert.ok(
+      html.indexOf('class="guide-hero"') < at,
+      file + ": roadmap context is not after the hero",
+    );
+    assert.ok(
+      end < html.indexOf('class="guide-toc"'),
+      file + ": roadmap context is not before the table of contents",
+    );
+
+    // The position is the guide's place in the list roadmap.html shows,
+    // 1..N — never guides.json's fractional roadmapStep sort key.
+    const place =
+      "Stage " +
+      entry.stageNumber +
+      " of " +
+      stageCount +
+      " · " +
+      entry.stageTitleHtml +
+      " · Guide " +
+      (i + 1) +
+      " of " +
+      order.length;
+    assert.ok(
+      block.includes(">" + place + "</p>"),
+      file + ": roadmap context does not read " + JSON.stringify(place),
+    );
+    assert.ok(
+      block.includes('<a class="guide-roadmap__link" href="/roadmap">'),
+      file + ": roadmap context has no link to /roadmap",
+    );
+    assert.strictEqual(
+      block.split("<a ").length - 1,
+      1,
+      file + ": roadmap context does not have exactly one link",
+    );
+  });
+});
+
+test("previous and next follow the order roadmap.html lists the guides in", () => {
+  const { order } = roadmapAsRendered();
+  const titleById = new Map(model.guides.map((g) => [g.id, g.title]));
+
+  order.forEach((entry, i) => {
+    const file = "guide/" + entry.id + ".html";
+    const page = pages.find((p) => p.id === entry.id);
+    const html = template.pageHtml(page, { header: "", footer: "" });
+
+    assert.strictEqual(
+      html.split(ORDER_OPEN).length - 1,
+      1,
+      file + ": expected exactly one previous/next block",
+    );
+    const at = html.indexOf(ORDER_OPEN);
+    const block = html.slice(at, html.indexOf("</nav>", at));
+    assert.ok(
+      html.indexOf("</article>") < at,
+      file + ": previous/next is not after the article",
+    );
+    assert.ok(
+      at < html.indexOf('id="guide-rail"'),
+      file + ": previous/next is not before the related-guides rail",
+    );
+
+    // The direction is stated in words for assistive technology
+    // ("Previous: " / "Next: ", visually hidden) and the arrow, which says
+    // the same thing to the eye, is hidden from it — so a link's accessible
+    // name is "Previous: <title>", not an arrow's name and a title.
+    const prev = order[i - 1];
+    const next = order[i + 1];
+    const expected = [];
+    if (prev) {
+      expected.push(
+        '<a class="prev" href="/guide/' +
+          prev.id +
+          '"><span aria-hidden="true">← </span>' +
+          '<span class="sr-only">Previous: </span>' +
+          escapeHtml(titleById.get(prev.id)) +
+          "</a>",
+      );
+    }
+    if (next) {
+      expected.push(
+        '<a class="next" href="/guide/' +
+          next.id +
+          '"><span class="sr-only">Next: </span>' +
+          escapeHtml(titleById.get(next.id)) +
+          '<span aria-hidden="true"> →</span></a>',
+      );
+    }
+    expected.forEach((link) =>
+      assert.ok(block.includes(link), file + ": missing " + link),
+    );
+    // No arrow may sit outside an aria-hidden span, where it would be read
+    // out as part of the link's name.
+    const spoken = block.replace(/<span aria-hidden="true">[^<]*<\/span>/g, "");
+    assert.ok(
+      !/[←→]/.test(spoken),
+      file + ": an arrow is exposed to assistive technology",
+    );
+    // The first guide has no previous and the last has no next: the count
+    // is what proves the missing link was left out, not pointed elsewhere.
+    assert.strictEqual(
+      block.split("<a ").length - 1,
+      expected.length,
+      file + ": previous/next does not have exactly " + expected.length + " link(s)",
+    );
+  });
+
+  const first = pages.find((p) => p.id === order[0].id);
+  const last = pages.find((p) => p.id === order[order.length - 1].id);
+  assert.ok(
+    !template.pageHtml(first, { header: "", footer: "" }).includes('class="prev"'),
+    "the first roadmap guide has a previous link",
+  );
+  assert.ok(
+    !template.pageHtml(last, { header: "", footer: "" }).includes('class="next"'),
+    "the last roadmap guide has a next link",
+  );
+});
+
+test("a guide that is not on the roadmap carries no roadmap context", () => {
+  const onRoadmap = new Set(roadmapAsRendered().order.map((e) => e.id));
+  const off = pages.filter((p) => !onRoadmap.has(p.id));
+
+  // Expected from guides.json, so the two sets are checked against each other.
+  const unplaced = model.guides
+    .filter((g) => typeof g.roadmapStage !== "number")
+    .map((g) => g.id)
+    .sort();
+  assert.deepStrictEqual(off.map((p) => p.id).sort(), unplaced);
+
+  off.forEach((page) => {
+    const file = "guide/" + page.id + ".html";
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    assert.strictEqual(page.roadmap, null, file + ": has a roadmap record");
+    assert.ok(!html.includes(CONTEXT_OPEN), file + ": has a roadmap context");
+    assert.ok(!html.includes(ORDER_OPEN), file + ": has previous/next links");
+    assert.ok(
+      !html.includes('href="/roadmap"'),
+      file + ": links the roadmap from outside the header and footer",
     );
   });
 });

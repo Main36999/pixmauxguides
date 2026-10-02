@@ -210,6 +210,83 @@ function breadcrumbHtml(category) {
 }
 
 /**
+ * The guide's place on the Learning Roadmap, between the hero and the
+ * table of contents: its stage, its position, and a link to /roadmap.
+ *
+ * Frame, not content, and built from data like the breadcrumb above. The
+ * argument is the page record's `roadmap`, derived from guides.json's
+ * roadmapStage / roadmapStep by src/build/roadmap.js and attached by
+ * src/build/content.js. `position` is the guide's place in the roadmap's
+ * own order, never the `roadmapStep` sort key. A stage title may carry
+ * an "&", so it is escaped. pageHtml() emits nothing for a guide that is
+ * not on the roadmap.
+ */
+function roadmapContextHtml(roadmap) {
+  const place =
+    "Stage " +
+    roadmap.stageNumber +
+    " of " +
+    roadmap.stageCount +
+    " · " +
+    escapeHtml(roadmap.stageTitle) +
+    " · Guide " +
+    roadmap.position +
+    " of " +
+    roadmap.total;
+  return [
+    '          <nav class="guide-roadmap" aria-label="Learning Roadmap">',
+    '            <span class="section-label mono guide-roadmap__label">/ learning_roadmap</span>',
+    '            <p class="guide-roadmap__position">' + place + "</p>",
+    '            <a class="guide-roadmap__link" href="/roadmap">View the roadmap</a>',
+    "          </nav>",
+    "",
+    "",
+  ].join("\n");
+}
+
+/**
+ * Previous / next in roadmap order, after the article and above the
+ * related-guides rail. The markup is the .guide-footer-nav component
+ * guide-article.css has always carried for exactly this.
+ *
+ * The same `roadmap` record as above. The first roadmap guide has no
+ * `prev` and the last has no `next`; the missing link is left out, not
+ * pointed somewhere else.
+ *
+ * Each link says which way it goes in words: "Previous: " or "Next: " in
+ * a .sr-only span, read by assistive technology and not drawn. The arrow
+ * is the drawn half of the same statement and is aria-hidden, so a link's
+ * accessible name is "Previous: <title>" rather than an arrow character's
+ * name followed by the title.
+ */
+function roadmapNavHtml(roadmap) {
+  const lines = [
+    '          <nav class="guide-footer-nav" aria-label="Learning Roadmap order">',
+  ];
+  if (roadmap.prev) {
+    lines.push(
+      '            <a class="prev" href="/guide/' +
+        escapeHtml(roadmap.prev.id) +
+        '"><span aria-hidden="true">← </span>' +
+        '<span class="sr-only">Previous: </span>' +
+        escapeHtml(roadmap.prev.title) +
+        "</a>",
+    );
+  }
+  if (roadmap.next) {
+    lines.push(
+      '            <a class="next" href="/guide/' +
+        escapeHtml(roadmap.next.id) +
+        '"><span class="sr-only">Next: </span>' +
+        escapeHtml(roadmap.next.title) +
+        '<span aria-hidden="true"> →</span></a>',
+    );
+  }
+  lines.push("          </nav>");
+  return "\n\n" + lines.join("\n");
+}
+
+/**
  * The related-guides rail. Always emitted EMPTY: /app.js fills it from
  * guides.json at runtime, and _TEMPLATE.html's own instruction is "always
  * leave empty — do not hand-write related links here". Two spellings of the
@@ -366,8 +443,10 @@ function pageHtml(page, partials) {
     MAIN_OPEN +
     (page.category ? breadcrumbHtml(page.category) : "") +
     c.hero +
+    (page.roadmap ? roadmapContextHtml(page.roadmap) : "") +
     c.toc +
     c.article +
+    (page.roadmap ? roadmapNavHtml(page.roadmap) : "") +
     "\n" +
     " ".repeat(f.primaryCloseIndent) +
     "</div>\n" +

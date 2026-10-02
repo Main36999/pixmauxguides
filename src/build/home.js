@@ -155,6 +155,7 @@ const path = require("path");
 const { escapeHtml } = require("../shared/html.js");
 const BpozzCard = require("../shared/card.js");
 const content = require("./content.js");
+const { ROADMAP_STAGES, groupRoadmap } = require("./roadmap.js");
 
 /** The three pages this module patches, relative to the staging root. */
 const INDEX_PAGE = "index.html";
@@ -181,33 +182,10 @@ const LEVEL_LABEL = BpozzCard.LEVEL_LABEL;
 // within a stage). A guide with no `roadmapStage` is simply left off the
 // roadmap — that's the mechanism for keeping a brand-new guide off the
 // suggested path until you've decided where it belongs.
-
-const ROADMAP_STAGES = [
-  {
-    id: 1,
-    title: "Foundations",
-    blurb:
-      "Start here. The three principles every later guide assumes you already know: how space, contrast, and line length carry meaning before color or type styling enters the picture.",
-  },
-  {
-    id: 2,
-    title: "Typography & Color Systems",
-    blurb:
-      "Turn one-off choices into systems — a type scale that resizes itself, a color palette built from tokens instead of swatches, and a dark theme that's re-derived rather than inverted.",
-  },
-  {
-    id: 3,
-    title: "Layout, Structure & Accessibility",
-    blurb:
-      "Make an interface hold together everywhere it's used: Figma's constraint model, a responsive layout that's a contract rather than a breakpoint list, and the accessibility tree underneath it all.",
-  },
-  {
-    id: 4,
-    title: "Systems & Motion",
-    blurb:
-      "The advanced layer teams reach for once the basics are solid: Figma's own data layer for theming, naming conventions that survive a rebrand, and motion timing with real physics behind it.",
-  },
-];
+//
+// The stage list (ROADMAP_STAGES) and that ordering (groupRoadmap) live in
+// src/build/roadmap.js, moved there unchanged so the guide pages can read the
+// same order; both are re-exported below under the names they always had.
 
 function roadmapStepHtml(g) {
   const ariaLabel = escapeHtml(`Mark "${g.title}" as read`);
@@ -253,29 +231,6 @@ function formatRoadmapTime(totalMinutes) {
   if (h === 0) return `~${m}m`;
   if (m === 0) return `~${h}h`;
   return `~${h}h ${m}m`;
-}
-
-/**
- * The roadmap's grouping/ordering, shared by buildRoadmap() (roadmap.html)
- * and the homepage's Learning Roadmap card (its guide and stage counts), so
- * both read guides in exactly one order. Guides with a numeric `roadmapStage`
- * are sorted by `roadmapStep`, grouped by stage, and the stages are kept in
- * ROADMAP_STAGES order.
- */
-function groupRoadmap(guides) {
-  const roadmapGuides = guides
-    .filter((g) => typeof g.roadmapStage === "number")
-    .slice()
-    .sort((a, b) => (a.roadmapStep || 0) - (b.roadmapStep || 0));
-
-  const byStage = new Map();
-  roadmapGuides.forEach((g) => {
-    if (!byStage.has(g.roadmapStage)) byStage.set(g.roadmapStage, []);
-    byStage.get(g.roadmapStage).push(g);
-  });
-
-  const stagesUsed = ROADMAP_STAGES.filter((s) => byStage.has(s.id));
-  return { roadmapGuides, byStage, stagesUsed };
 }
 
 /**

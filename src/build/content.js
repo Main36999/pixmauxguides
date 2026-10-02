@@ -70,6 +70,7 @@ const path = require("path");
 
 const guideTemplate = require("./guide-template.js");
 const structuredData = require("./structured-data.js");
+const roadmap = require("./roadmap.js");
 const fontEditorialSchema = require("./font-editorial.js");
 const fontMetrics = require("./font-metrics.js");
 
@@ -1114,6 +1115,7 @@ function metaDescriptionOf(headMeta, label) {
 function attachGuideStructuredData(pages, guides, categories, config) {
   const guideById = new Map(guides.map((g) => [g.id, g]));
   const categoryBySlug = new Map(categories.map((c) => [c.slug, c]));
+  const roadmapPositions = roadmap.roadmapPositions(guides);
 
   return pages.map(function (page) {
     const guide = guideById.get(page.id);
@@ -1143,6 +1145,11 @@ function attachGuideStructuredData(pages, guides, categories, config) {
       // reference (no copy). src/build/guide-template.js renders the
       // visible breadcrumb from it.
       category,
+      // The guide's place on the Learning Roadmap, derived from guides.json's
+      // roadmapStage / roadmapStep by src/build/roadmap.js. null for a guide
+      // that is not on the roadmap, which is what keeps the template from
+      // rendering a stage or a previous/next link for it.
+      roadmap: roadmapPositions.get(page.id) || null,
       structuredData: structuredData.scriptsHtml(objects, GUIDE_LD_INDENT),
     });
   });
