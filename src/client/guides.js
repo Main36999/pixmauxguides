@@ -296,7 +296,8 @@
   // saved.js's controls, like the guide page's bookmark below (see
   // initGuideSave), so saved.js paints it, saves or removes on click, opens
   // sign-in when signed out and announces the outcome. Nothing in this
-  // bundle handles its click.
+  // bundle handles its click. It is the bookmark alone, with no visible
+  // text: its name is its aria-label, its state aria-pressed.
   //
   // It is drawn here, not in the shared cardHtml() (src/shared/card.js):
   // the build uses that renderer too, and the home, category and
@@ -328,7 +329,7 @@
             (name ? ' data-save-name="' + escapeHtml(name) + '"' : "") +
             ' aria-pressed="false" aria-label="Save ' +
             (name ? escapeHtml(name) : "this guide") +
-            '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span data-save-label="">Save</span></button>',
+            '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>',
         );
       },
     );

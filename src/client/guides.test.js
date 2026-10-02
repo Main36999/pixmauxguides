@@ -810,7 +810,8 @@ function loadGrid({ launched = true, withSaved = true, session = SIGNED_IN, serv
     lists: () => calls.filter((c) => c.method === "GET"),
     saves: () => doc.querySelectorAll(".card-save-btn"),
     save: (i) => drawn[i].article.querySelector(".card-save-btn"),
-    label: (i) => drawn[i].article.querySelector(".card-save-btn span").textContent,
+    // What a sighted visitor can read on the button: nothing, it is an icon.
+    text: (i) => drawn[i].article.querySelector(".card-save-btn").textContent,
     // What render() does on a filter change: new cards in place of the old,
     // then drawCardSaves().
     rerender: (next) => {
@@ -841,7 +842,7 @@ test("cards, dormant (LAUNCHED false): no Save button; the grid exactly as befor
   }
 });
 
-test("cards, launched: every /guides card ends in one Save button — kind, id, name, 'Save <title>' — beside its link, and one list request paints them all", async () => {
+test("cards, launched: every /guides card ends in one Save button — kind, id, name, 'Save <title>', the bookmark alone with no visible text — beside its link, and one list request paints them all", async () => {
   const plain = loadGrid({ withSaved: false, block: "" });
   const g = loadGrid({ server: fakeServer({ saved: [["guide", CARDS[1][0]], ["color", "c001"]] }) });
   await settle(10);
@@ -872,11 +873,15 @@ test("cards, launched: every /guides card ends in one Save button — kind, id, 
     const icon = save.querySelector("svg");
     assert.strictEqual(icon.getAttribute("aria-hidden"), "true");
     assert.strictEqual(icon.getAttribute("focusable"), "false");
-    assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG", "SPAN"]);
-    assert.strictEqual(save.querySelector("span").hasAttribute("data-save-label"), true, "saved.js writes Save / Saved here");
+    assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG"], "the bookmark, and nothing else");
+    assert.strictEqual(icon.querySelectorAll("path").length, 1, "the bookmark's one path");
+    assert.strictEqual(save.querySelector("[data-save-label]"), null, "nowhere for saved.js to write Save / Saved");
+    assert.strictEqual(g.text(i), "", "no visible text, saved or not: the name is aria-label");
+    assert.ok(save.getAttribute("aria-label").trim().length > 0, "an accessible name");
     assert.strictEqual(save.getAttribute("aria-pressed"), i === 1 ? "true" : "false", "the account's guide");
-    assert.strictEqual(g.label(i), i === 1 ? "Saved" : "Save");
   });
+  assert.ok(!g.markup().includes("data-save-label"), "no label is drawn");
+  assert.ok(!/>\s*Saved?\s*</.test(g.markup()), "no Save / Saved text is drawn");
   assert.deepStrictEqual(g.lists().map((c) => c.url), ["/api/saved?kind=guide"]);
   assert.deepStrictEqual(g.writes(), []);
   assert.deepStrictEqual(g.errors, []);
@@ -901,7 +906,8 @@ test("cards, launched and signed in: a Save click saves that guide and never fol
   await settle(10);
   assert.deepStrictEqual(g.writes().map((c) => [c.method, c.url, c.body]), [["POST", "/api/saved", { kind: "guide", id }]]);
   assert.strictEqual(save.getAttribute("aria-pressed"), "true");
-  assert.strictEqual(g.label(0), "Saved");
+  assert.strictEqual(g.text(0), "", "saved: still no visible text");
+  assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG"], "saved: still the bookmark alone");
   assert.strictEqual(save.getAttribute("aria-label"), `Save ${title}`, "a toggle keeps its name");
   assert.deepStrictEqual([g.save(1), g.save(2)].map((b) => b.getAttribute("aria-pressed")), ["false", "false"], "only that card");
   assert.deepStrictEqual(g.server.rows, [{ kind: "guide", id }]);
@@ -915,7 +921,8 @@ test("cards, launched and signed in: a Save click saves that guide and never fol
     ["DELETE", `/api/saved?kind=guide&id=${id}`],
   ]);
   assert.strictEqual(save.getAttribute("aria-pressed"), "false");
-  assert.strictEqual(g.label(0), "Save");
+  assert.strictEqual(g.text(0), "", "removed: still no visible text");
+  assert.strictEqual(save.getAttribute("aria-label"), `Save ${title}`, "the name is as it was");
   assert.deepStrictEqual(g.server.rows, []);
   assert.deepStrictEqual(g.toasts, []);
   assert.strictEqual(g.lists().length, 1);
@@ -946,7 +953,7 @@ test("cards, launched: drawing again adds nothing to a card that has its Save; t
   assert.ok(!first.includes(g.save(0)), "new cards, new buttons");
   assert.deepStrictEqual([g.save(0), g.save(1)].map((b) => b.getAttribute("data-save-id")), [CARDS[2][0], CARDS[0][0]]);
   assert.deepStrictEqual([g.save(0), g.save(1)].map((b) => b.getAttribute("aria-pressed")), ["true", "false"], "painted from what is known");
-  assert.deepStrictEqual([g.label(0), g.label(1)], ["Saved", "Save"]);
+  assert.deepStrictEqual([g.text(0), g.text(1)], ["", ""], "redrawn: still no visible text");
   await settle(10);
   assert.strictEqual(g.lists().length, 1, "the list is read once, however often the grid is redrawn");
 
@@ -1008,7 +1015,8 @@ test("cards, launched: a title reaches data-save-name and aria-label escaped, ea
     "aria-pressed",
     "aria-label",
   ]);
-  assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG", "SPAN"], "no markup from the title");
+  assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG"], "no markup from the title");
+  assert.strictEqual(save.textContent, "", "and no visible text from it");
   const escaped = "Say &quot;hi&quot; &lt;b&gt;Bold&lt;/b&gt; &amp; It&#39;s";
   assert.ok(g.markup().includes(`data-save-name="${escaped}"`));
   assert.ok(g.markup().includes(`aria-label="Save ${escaped}"`));

@@ -3013,14 +3013,17 @@ body > .site-footer {
   display: none;
 }
 
-/* Save — a pill over the thumbnail's top-right corner, drawn by /app.js
-   (src/client/guides.js, drawCardSaves) only once account Saved is launched
-   (docs/SAVED.md), so nothing here matches before then. It is positioned
-   against .content-card, out of the flow, so drawing it never resizes the
-   card or moves its content, and it sits above .card-link's stretched
-   ::after, so it takes its own clicks instead of following the link. The
-   pill is the toolbar chip's (.guides-filter); the bookmark and its saved
-   state are the ones the guide page, /palettes and /colors use. */
+/* Save — a round bookmark button over the thumbnail's top-right corner,
+   drawn by /app.js (src/client/guides.js, drawCardSaves) only once account
+   Saved is launched (docs/SAVED.md), so nothing here matches before then.
+   It is positioned against .content-card, out of the flow, so drawing it
+   never resizes the card or moves its content, and it sits above
+   .card-link's stretched ::after, so it takes its own clicks instead of
+   following the link. Icon only: 40px across with a 20px bookmark, so it
+   holds its own against the thumbnail without a text label; its name is
+   its aria-label. The surface is the toolbar chip's (.guides-filter); the
+   bookmark and its saved state are the ones the guide page, /palettes and
+   /colors use. */
 .guides-page .guides-grid .card-save-btn {
   appearance: none;
   position: absolute;
@@ -3029,17 +3032,14 @@ body > .site-footer {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  min-height: 32px;
-  padding: 0 12px 0 9px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: 1px solid var(--guides-line);
   border-radius: 999px;
   background: #fff;
   color: var(--text);
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1;
   cursor: pointer;
   transition:
     opacity 0.15s var(--guides-ease),
@@ -3047,8 +3047,8 @@ body > .site-footer {
     color 0.15s var(--guides-ease);
 }
 .guides-page .guides-grid .card-save-btn svg {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   flex: none;
   transition: fill 0.15s var(--guides-ease);
 }
@@ -3059,7 +3059,7 @@ body > .site-footer {
 .guides-page .guides-grid .card-save-btn[aria-pressed="true"] svg {
   fill: currentColor;
 }
-/* The pill's own opacity is the reveal below, so a running request dims
+/* The button's own opacity is the reveal below, so a running request dims
    what is inside it instead. */
 .guides-page .guides-grid .card-save-btn[aria-busy="true"] {
   cursor: progress;
@@ -3067,10 +3067,10 @@ body > .site-footer {
 .guides-page .guides-grid .card-save-btn[aria-busy="true"] > * {
   opacity: 0.55;
 }
-/* With a mouse the pill waits for its card: hidden until the card is
-   hovered or holds keyboard focus (the card's link, or the pill itself).
+/* With a mouse the button waits for its card: hidden until the card is
+   hovered or holds keyboard focus (the card's link, or the button itself).
    Keyboard focus is :focus-visible, not :focus-within: the focus a mouse
-   click leaves on the pill must not keep it shown once the pointer has
+   click leaves on the button must not keep it shown once the pointer has
    left the card. The two reveals are separate rules so the hover one never
    depends on :has(). Hidden by opacity alone, so it stays in the tab order.
    Everywhere else — touch — nothing can hover, so it is simply shown. */
