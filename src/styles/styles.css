@@ -1904,6 +1904,7 @@ html[data-auth] .mobile-menu__auth {
   color: var(--text-muted);
 }
 .roadmap-reset {
+  position: relative;
   border: 1px solid var(--grid-line);
   background: transparent;
   color: var(--text-muted);
@@ -1912,9 +1913,32 @@ html[data-auth] .mobile-menu__auth {
   border-radius: 2px;
   flex-shrink: 0;
 }
+/* The button keeps its small box; this is its 44px touch target. */
+.roadmap-reset::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+}
 .roadmap-reset:hover {
   color: var(--action);
   border-color: var(--action);
+}
+/* Continue — a link to the Next up guide, under the progress summary. The
+   site's primary button (.btn .btn-primary), allowed to wrap: a guide's
+   title can run to three lines on a phone. app.js hides it once every
+   guide is read; .btn's own display would otherwise outrank [hidden]. */
+.roadmap-continue {
+  max-width: 100%;
+  min-height: 44px;
+  margin-top: 16px;
+  line-height: 1.35;
+}
+.roadmap-continue[hidden] {
+  display: none;
 }
 
 /* stage track — a single dashed spine runs behind every stage card and
@@ -1948,6 +1972,19 @@ html[data-auth] .mobile-menu__auth {
   border: 1px solid var(--grid-line);
   border-radius: 2px;
   padding: 22px 22px 22px 0;
+}
+/* The stretch of the spine that leaves a completed stage is drawn solid, in
+   the action blue, over the dashed line: the path behind the reader is
+   filled in, the path ahead is still dashed. It covers exactly the gap to
+   the next stage (.roadmap-track's 28px), at the spine's own x — the stage's
+   1px border is why it is 39px here and 40px on the track. */
+.roadmap-stage.is-complete:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 39px;
+  height: 28px;
+  border-left: 2px solid var(--action);
 }
 .roadmap-stage-marker {
   flex-shrink: 0;
@@ -1999,6 +2036,12 @@ html[data-auth] .mobile-menu__auth {
   font-size: 13px;
   color: var(--text-muted);
 }
+/* app.js writes "4 of 4 read · Complete" here: the words are the state, the
+   weight only backs them up. */
+.roadmap-stage.is-complete .roadmap-stage-count {
+  color: var(--text);
+  font-weight: 600;
+}
 .roadmap-stage-blurb {
   font-size: 13.5px;
   line-height: 1.6;
@@ -2015,11 +2058,15 @@ html[data-auth] .mobile-menu__auth {
   padding: 0;
   list-style: none;
 }
+/* 44px touch targets. A row is 12 + 20 + 12 = 44px for a one-line title.
+   The checkbox's label and the guide's link are each at least 44px tall
+   and reach 12px into that padding through negative margins, so neither
+   takes more room in the row than the 20px box and the text themselves. */
 .roadmap-step {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 0;
+  padding: 12px 0;
   border-top: 1px solid var(--grid-line);
 }
 .roadmap-step:first-child {
@@ -2028,8 +2075,13 @@ html[data-auth] .mobile-menu__auth {
 }
 .roadmap-step-check {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   position: relative;
+  width: 44px;
+  height: 44px;
+  margin: -12px;
   cursor: pointer;
 }
 .roadmap-step-check input {
@@ -2083,6 +2135,9 @@ html[data-auth] .mobile-menu__auth {
   gap: 6px 16px;
   flex-grow: 1;
   min-width: 0;
+  min-height: 44px;
+  padding: 12px 0;
+  margin: -12px 0;
   text-decoration: none;
   color: var(--text);
 }
@@ -2105,6 +2160,22 @@ html[data-auth] .mobile-menu__auth {
   font-size: 12.5px;
   color: var(--text-muted);
 }
+/* The step's state, in words: "Read", "Next up", or nothing for a guide
+   still ahead. It leads the meta line ("Next up · Beginner · 11 min read")
+   and is inside the link, so it is part of the link's name. Empty, it
+   takes no room and draws no separator. */
+.roadmap-step-state {
+  font-weight: 600;
+  color: var(--text);
+}
+.roadmap-step-state:not(:empty)::after {
+  content: " · ";
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.roadmap-step.is-next .roadmap-step-state {
+  color: var(--action);
+}
 
 @media (max-width: 720px) {
   .roadmap-head {
@@ -2112,6 +2183,9 @@ html[data-auth] .mobile-menu__auth {
   }
   .roadmap-stage {
     padding-right: 16px;
+  }
+  .roadmap-stage.is-complete:not(:last-child)::after {
+    left: 27px;
   }
   .roadmap-stage-marker {
     width: 56px;

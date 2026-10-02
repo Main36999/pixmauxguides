@@ -743,3 +743,131 @@
     transform: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   13. Learning Roadmap progress — on guides that are on the roadmap, /app.js
+   (src/client/roadmap.js) draws a completion block above the previous/next
+   links and a "Read" marker in the roadmap strip (2b). Neither is in the
+   page's HTML, so nothing here matches without that script, and the two
+   guides that are off the roadmap have no strip and no previous/next links
+   at all.
+
+   The state is always words: "Read", and a button that says what pressing
+   it does ("Mark as read" / "Mark as unread"). Colour and weight only back
+   them up.
+
+   This section also gives the roadmap's own links on these pages — the
+   strip's link and previous/next — a 44px touch target.
+   -------------------------------------------------------------------------- */
+
+/* "Read" in the strip: at the right of the label's row, which is empty
+   there at every width. Out of flow, so showing it never moves the strip's
+   text or the contents below it. */
+.guide-roadmap {
+  position: relative;
+}
+.guide-roadmap__state {
+  position: absolute;
+  top: 14px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
+}
+.guide-roadmap__state[hidden],
+.guide-complete__state[hidden] {
+  display: none;
+}
+.guide-roadmap__state svg,
+.guide-complete__state svg {
+  flex-shrink: 0;
+  width: 11px;
+  height: 9px;
+  fill: none;
+  stroke: var(--action);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* The strip's link keeps its line of text; this is its 44px touch target. */
+.guide-roadmap__link {
+  position: relative;
+}
+.guide-roadmap__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+}
+
+/* The completion block: the button, then "Read" once the guide is marked.
+   The button leads so that it stays where it is when "Read" appears: beside
+   it on a wide screen, on the row under it once the button is full width. */
+.guide-complete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 44px;
+}
+.guide-complete__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+}
+.guide-complete__btn {
+  justify-content: center;
+  min-height: 44px;
+}
+/* Read: the button steps back to an outline (drawn as a shadow, so it stays
+   the size it was) and the next guide below becomes the stronger action. */
+.guide-complete.is-read .guide-complete__btn {
+  background: transparent;
+  color: var(--text-muted);
+  box-shadow: inset 0 0 0 1px var(--grid-line);
+}
+@media (hover: hover) and (pointer: fine) {
+  .guide-complete.is-read .guide-complete__btn:hover {
+    color: var(--action);
+    box-shadow: inset 0 0 0 1px var(--action);
+  }
+}
+.guide-complete + .guide-footer-nav {
+  margin-top: 24px;
+}
+.guide-complete.is-read + .guide-footer-nav .next {
+  color: var(--action);
+  font-weight: 700;
+}
+
+/* Previous / next: each link is at least 44px tall and reaches 13px above
+   and below its text through negative margins, so the row is no taller than
+   before. The row gap is those two 13px, so two links stacked on a narrow
+   screen (or wrapped onto two rows) meet and never overlap. */
+.guide-footer-nav {
+  row-gap: 26px;
+}
+.guide-footer-nav a {
+  min-height: 44px;
+  padding: 13px 0;
+  margin-top: -13px;
+  margin-bottom: -13px;
+}
+
+@media (max-width: 560px) {
+  .guide-complete__btn {
+    width: 100%;
+  }
+}

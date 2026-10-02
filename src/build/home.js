@@ -187,23 +187,41 @@ const LEVEL_LABEL = BpozzCard.LEVEL_LABEL;
 // src/build/roadmap.js, moved there unchanged so the guide pages can read the
 // same order; both are re-exported below under the names they always had.
 
-function roadmapStepHtml(g) {
+// THE STATES. app.js (src/client/roadmap.js) marks each step Read, Next up or
+// neither, from what the reader has checked off. The page is written here as
+// it stands with nothing read, which is also all a reader without JavaScript
+// can ever see: the first guide is Next up (`isNext`), and every other step's
+// .roadmap-step-state is empty. The state sits inside the link, ahead of the
+// meta line, so it is part of the link's name; styles.css draws the " · "
+// after it only when it has text.
+function roadmapStepHtml(g, isNext) {
   const ariaLabel = escapeHtml(`Mark "${g.title}" as read`);
   return (
-    `<li class="roadmap-step">` +
+    `<li class="roadmap-step${isNext ? " is-next" : ""}">` +
     `<label class="roadmap-step-check">` +
     `<input type="checkbox" class="roadmap-step-checkbox" data-roadmap-id="${escapeHtml(g.id)}" aria-label="${ariaLabel}">` +
     `<span class="roadmap-step-box" aria-hidden="true"><svg viewBox="0 0 12 10"><path d="M1 5.2L4.4 8.6L11 1.4"/></svg></span>` +
     `</label>` +
-    `<a class="roadmap-step-link" href="/guide/${g.id}">` +
+    `<a class="roadmap-step-link" href="/guide/${g.id}"${isNext ? ' aria-current="step"' : ""}>` +
     `<span class="roadmap-step-title">${escapeHtml(g.title)}</span>` +
-    `<span class="roadmap-step-meta">${LEVEL_LABEL[g.level]} · ${g.readTime} min read</span>` +
+    `<span class="roadmap-step-meta"><span class="roadmap-step-state">${isNext ? "Next up" : ""}</span>${LEVEL_LABEL[g.level]} · ${g.readTime} min read</span>` +
     `</a>` +
     `</li>`
   );
 }
 
-function roadmapStageHtml(stage, guides) {
+/**
+ * The Continue link above the stages: the first guide on the roadmap, which
+ * is where a reader with nothing read continues from. app.js repoints it at
+ * the Next up guide and hides it once every guide is read. Empty for a
+ * roadmap with no guides.
+ */
+function roadmapContinueHtml(first) {
+  if (!first) return "";
+  return `<a class="btn btn-primary roadmap-continue" id="roadmap-continue" href="/guide/${first.id}">Continue: ${escapeHtml(first.title)}</a>`;
+}
+
+function roadmapStageHtml(stage, guides, isFirstStage) {
   const num = String(stage.id).padStart(2, "0");
   return (
     `<li class="roadmap-stage" data-stage="${stage.id}">` +
@@ -219,7 +237,7 @@ function roadmapStageHtml(stage, guides) {
     `<span class="roadmap-stage-count">${guides.length} guide${guides.length === 1 ? "" : "s"}</span>` +
     `</div>` +
     `<p class="roadmap-stage-blurb">${escapeHtml(stage.blurb)}</p>` +
-    `<ul class="roadmap-steps">${guides.map(roadmapStepHtml).join("")}</ul>` +
+    `<ul class="roadmap-steps">${guides.map((g, i) => roadmapStepHtml(g, isFirstStage && i === 0)).join("")}</ul>` +
     `</div>` +
     `</li>`
   );
@@ -235,14 +253,19 @@ function formatRoadmapTime(totalMinutes) {
 
 /**
  * Builds every piece roadmap.html's #roadmap section needs: the stage-by-stage
- * markup, plus the small stats (stage count / guide count / total reading
- * time) shown above it.
+ * markup, the Continue link, plus the small stats (stage count / guide count /
+ * total reading time) shown above it.
  */
 function buildRoadmap(guides) {
   const { roadmapGuides, byStage, stagesUsed } = groupRoadmap(guides);
   const stagesHtml = stagesUsed
-    .map((s) => roadmapStageHtml(s, byStage.get(s.id)))
+    .map((s, i) => roadmapStageHtml(s, byStage.get(s.id), i === 0))
     .join("");
+
+  // The first guide the page lists: the first stage shown, its first guide.
+  // Read off the same grouping as the list, so the link and the step marked
+  // Next up are one guide.
+  const first = stagesUsed.length ? byStage.get(stagesUsed[0].id)[0] : null;
 
   const totalMinutes = roadmapGuides.reduce(
     (sum, g) => sum + (g.readTime || 0),
@@ -251,6 +274,7 @@ function buildRoadmap(guides) {
 
   return {
     stagesHtml,
+    continueHtml: roadmapContinueHtml(first),
     stageCount: stagesUsed.length,
     guideCount: roadmapGuides.length,
     totalTimeLabel: formatRoadmapTime(totalMinutes),
@@ -681,6 +705,13 @@ function buildRoadmapHtml(file, guides) {
     "<!--ROADMAP_STAGES_START-->",
     "<!--ROADMAP_STAGES_END-->",
     roadmap.stagesHtml,
+    label,
+  );
+  html = replaceBetween(
+    html,
+    "<!--ROADMAP_CONTINUE_START-->",
+    "<!--ROADMAP_CONTINUE_END-->",
+    roadmap.continueHtml,
     label,
   );
   html = replaceBetween(

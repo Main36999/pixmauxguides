@@ -21,6 +21,7 @@ const config = require("../../site.config.js");
 const content = require("./content.js");
 const routes = require("./routes.js");
 const home = require("./home.js");
+const { escapeHtml } = require("../shared/html.js");
 
 const model = content.load(config);
 const knownUrls = new Set(routes.build(model).map((r) => r.url));
@@ -127,6 +128,86 @@ test("a resource-types.json home block is refused, not silently ignored", () => 
     () => home.assertNoHomeBlocks([{ type: "guide", home: { order: 0, limit: 8, sort: "roadmap" } }]),
     /set "home": null/,
   );
+});
+
+// ---- learning roadmap: roadmap.html as it stands with nothing read ----
+//
+// app.js (src/client/roadmap.js) marks each step Read, Next up or neither
+// from what the reader has checked off. The build writes the page in the
+// state that script paints for a reader with nothing read, so the page is
+// right before the script runs and for a reader without it — and every link
+// on it is a real link either way.
+
+const roadmap = home.buildRoadmap(model.guides);
+const roadmapSteps = roadmap.stagesHtml.split('<li class="roadmap-step').slice(1);
+const roadmapSource = fs.readFileSync(path.join(config.paths.root, "roadmap.html"), "utf8");
+
+test("roadmap steps: every guide is a real link, and only the first is Next up", () => {
+  const { roadmapGuides } = home.groupRoadmap(model.guides);
+  assert.strictEqual(roadmapSteps.length, roadmapGuides.length);
+  assert.strictEqual(roadmapSteps.length, 20);
+
+  const ids = roadmapSteps.map((step, i) => {
+    const link = /<a class="roadmap-step-link" href="\/guide\/([^"]+)"( aria-current="step")?>/.exec(step);
+    assert.ok(link, `step ${i + 1} has no link to its guide`);
+    assert.ok(knownUrls.has("/guide/" + link[1]), `/guide/${link[1]} is not a built route`);
+    // The checkbox stores the id the link goes to.
+    assert.ok(step.includes(`data-roadmap-id="${link[1]}"`), `step ${i + 1}: checkbox and link disagree`);
+
+    const state = /<span class="roadmap-step-meta"><span class="roadmap-step-state">([^<]*)<\/span>([^<]+)<\/span><\/a><\/li>/.exec(step);
+    assert.ok(state, `step ${i + 1} has no state inside its link's meta line`);
+    assert.match(state[2], /^(Beginner|Intermediate|Advanced) · \d+ min read$/);
+
+    const first = i === 0;
+    assert.strictEqual(step.startsWith(first ? ' is-next">' : '">'), true, `step ${i + 1}: is-next`);
+    assert.strictEqual(link[2] !== undefined, first, `step ${i + 1}: aria-current`);
+    assert.strictEqual(state[1], first ? "Next up" : "", `step ${i + 1}: state text`);
+    return link[1];
+  });
+  assert.strictEqual(new Set(ids).size, ids.length);
+  assert.strictEqual((roadmap.stagesHtml.match(/aria-current=/g) || []).length, 1);
+  assert.strictEqual((roadmap.stagesHtml.match(/is-next/g) || []).length, 1);
+  // No state is written as Read: that is the reader's, not the build's.
+  assert.ok(!roadmap.stagesHtml.includes("is-complete"));
+  assert.ok(!/roadmap-step-state">Read</.test(roadmap.stagesHtml));
+});
+
+test("roadmap Continue: a real link to the first guide listed, worded Continue", () => {
+  const first = /<a class="roadmap-step-link" href="(\/guide\/([^"]+))"/.exec(roadmap.stagesHtml);
+  const title = model.guides.find((g) => g.id === first[2]).title;
+  assert.strictEqual(
+    roadmap.continueHtml,
+    `<a class="btn btn-primary roadmap-continue" id="roadmap-continue" href="${first[1]}">Continue: ${escapeHtml(title)}</a>`,
+  );
+  assert.ok(knownUrls.has(first[1]));
+  assert.strictEqual(home.buildRoadmap([]).continueHtml, "", "no guides, no link");
+  assert.strictEqual(home.buildRoadmap([]).stagesHtml, "");
+});
+
+test("roadmap.html: the Continue slot, one empty status region, the progress hooks", () => {
+  const filled = home.replaceBetween(
+    roadmapSource,
+    "<!--ROADMAP_CONTINUE_START-->",
+    "<!--ROADMAP_CONTINUE_END-->",
+    roadmap.continueHtml,
+    "roadmap.html",
+  );
+  assert.strictEqual(filled.split('id="roadmap-continue"').length - 1, 1);
+  // The committed page already holds the link the build writes.
+  assert.strictEqual(filled, roadmapSource, "roadmap.html's Continue link is not the build's");
+
+  assert.strictEqual(roadmapSource.split('<p class="sr-only" id="roadmap-status" role="status"></p>').length - 1, 1);
+  assert.strictEqual(roadmapSource.split('role="status"').length - 1, 2, "the status line and the toast");
+  for (const id of ["roadmap-progress-fill", "roadmap-progress-label", "roadmap-reset", "roadmap-continue", "roadmap-status"]) {
+    assert.strictEqual(roadmapSource.split(`id="${id}"`).length - 1, 1, id);
+  }
+  // Continue and the status line sit inside the progress block, above the stages.
+  const progress = roadmapSource.indexOf('id="roadmap-progress"');
+  const track = roadmapSource.indexOf('<ol class="roadmap-track">');
+  for (const id of ["roadmap-continue", "roadmap-status"]) {
+    const at = roadmapSource.indexOf(`id="${id}"`);
+    assert.ok(progress < at && at < track, id + " is not in the progress block");
+  }
 });
 
 // ---- tool card tones: heading ink must pass WCAG AA on both grounds ----

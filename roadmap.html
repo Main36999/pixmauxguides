@@ -314,6 +314,13 @@
               Reset progress
             </button>
           </div>
+          <!-- Continue: written by the build as the first guide on the
+               roadmap (src/build/home.js); app.js repoints it at the Next up
+               guide and hides it once every guide is read. -->
+          <!--ROADMAP_CONTINUE_START--><a class="btn btn-primary roadmap-continue" id="roadmap-continue" href="/guide/whitespace-as-ui-component">Continue: Whitespace as a UI Component, Not a Leftover</a><!--ROADMAP_CONTINUE_END-->
+          <!-- Says what a check or uncheck just did, once, to assistive
+               technology. Empty until then. -->
+          <p class="sr-only" id="roadmap-status" role="status"></p>
         </div>
 
         <ol class="roadmap-track">
