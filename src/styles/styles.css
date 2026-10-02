@@ -3013,17 +3013,18 @@ body > .site-footer {
   display: none;
 }
 
-/* Save — a round bookmark button over the thumbnail's top-right corner,
+/* Save — a bookmark button over the thumbnail's top-right corner,
    drawn by /app.js (src/client/guides.js, drawCardSaves) only once account
    Saved is launched (docs/SAVED.md), so nothing here matches before then.
    It is positioned against .content-card, out of the flow, so drawing it
    never resizes the card or moves its content, and it sits above
    .card-link's stretched ::after, so it takes its own clicks instead of
-   following the link. Icon only: 40px across with a 20px bookmark, so it
-   holds its own against the thumbnail without a text label; its name is
-   its aria-label. The surface is the toolbar chip's (.guides-filter); the
-   bookmark and its saved state are the ones the guide page, /palettes and
-   /colors use. */
+   following the link. Icon only: a 40px square with a 20px bookmark and
+   the thumbnail's own corner radius (--guides-radius), so it holds its own
+   against the thumbnail without a text label; its name is its aria-label.
+   The fill and hairline border are the toolbar chip's (.guides-filter);
+   the bookmark and its saved state are the ones the guide page, /palettes
+   and /colors use. */
 .guides-page .guides-grid .card-save-btn {
   appearance: none;
   position: absolute;
@@ -3037,7 +3038,7 @@ body > .site-footer {
   height: 40px;
   padding: 0;
   border: 1px solid var(--guides-line);
-  border-radius: 999px;
+  border-radius: var(--guides-radius);
   background: #fff;
   color: var(--text);
   cursor: pointer;
