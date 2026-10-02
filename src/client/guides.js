@@ -7,7 +7,8 @@
  * handles, cardHtml and showToast.
  *
  * Surfaces: guides/index.html (#grid-root and its toolbar — category chips,
- * search and the Level filter — guarded by hasGuideGrid) and every /guide/
+ * search and the Level filter — guarded by hasGuideGrid — and each card's
+ * Save once account Saved is launched — see drawCardSaves) and every /guide/
  * page (#guide-rail, and the hero's Save once account Saved is launched —
  * see initGuideSave).
  *
@@ -132,6 +133,7 @@
     var filtered = getFiltered();
     var cards = filtered.map(cardHtml);
     gridRoot.innerHTML = cards.join("");
+    drawCardSaves();
 
     // The /fonts/ count line: the plain total when nothing is filtered out,
     // "Showing N of total" otherwise.
@@ -282,6 +284,56 @@
         showToast("Filters reset.");
         if (guideSearch) guideSearch.focus();
       });
+
+    // The build-time cards get their Save now; render() draws it again on
+    // the cards it replaces them with.
+    drawCardSaves();
+  }
+
+  // ---------- Save on the /guides cards (account Saved) ----------
+  // Once account Saved is launched (docs/SAVED.md), every card in the
+  // /guides grid carries a Save button over its thumbnail's corner: one of
+  // saved.js's controls, like the guide page's bookmark below (see
+  // initGuideSave), so saved.js paints it, saves or removes on click, opens
+  // sign-in when signed out and announces the outcome. Nothing in this
+  // bundle handles its click.
+  //
+  // It is drawn here, not in the shared cardHtml() (src/shared/card.js):
+  // the build uses that renderer too, and the home, category and
+  // related-guides cards stay without Save. The id comes from the card's
+  // own link (/guide/<id>) and the name from its title, so the build-time
+  // cards are covered before guides.json arrives, and if it never does.
+  // The button is the link's sibling, above its stretched ::after
+  // (styles.css), so a Save click never follows the link. While Saved is
+  // dormant, off /guides, or for an id Saved wouldn't accept, nothing is
+  // drawn.
+  function drawCardSaves() {
+    var saved = window.BpozzSaved;
+    if (!hasGuideGrid || !saved || saved.active !== true) return;
+    Array.prototype.forEach.call(
+      gridRoot.querySelectorAll(".content-card"),
+      function (card) {
+        var link = card.querySelector(".card-link");
+        if (!link || card.querySelector(".card-save-btn")) return;
+        var match = /^\/guide\/([^/?#]+)$/.exec(
+          link.getAttribute("href") || "",
+        );
+        if (!match || !saved.isValidItem("guide", match[1])) return;
+        var name = link.textContent.replace(/\s+/g, " ").trim();
+        card.insertAdjacentHTML(
+          "beforeend",
+          '<button type="button" class="card-save-btn" data-save-kind="guide" data-save-id="' +
+            match[1] +
+            '"' +
+            (name ? ' data-save-name="' + escapeHtml(name) + '"' : "") +
+            ' aria-pressed="false" aria-label="Save ' +
+            (name ? escapeHtml(name) : "this guide") +
+            '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span data-save-label="">Save</span></button>',
+        );
+      },
+    );
+    // The buttons just drawn are saved.js's from here.
+    saved.sync(gridRoot);
   }
 
   // ---------- Save on a guide page (account Saved) ----------

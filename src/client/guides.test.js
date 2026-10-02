@@ -22,6 +22,9 @@
  * the table of contents, the article's anchors, the rail — and those stay
  * separate from Save throughout.
  *
+ * The last section covers Save on the /guides cards: drawCardSaves, lifted
+ * and run the same way, on a small copy of the /guides grid.
+ *
  * All account data below is invented.
  */
 
@@ -707,4 +710,324 @@ test("build: /app.js runs html.js and saved.js before the fragments, core.js bef
   assert.ok(fragments.indexOf("src/client/core.js") !== -1);
   assert.ok(fragments.indexOf("src/client/core.js") < fragments.indexOf("src/client/guides.js"));
   assert.ok(!build.PUBLISH_FILES.some((f) => f.from === "src/client/guides.js"), "a fragment, never published on its own");
+});
+
+// ---------------------------------------------------------------------
+// Save on the /guides cards: drawCardSaves
+// ---------------------------------------------------------------------
+
+// drawCardSaves, exactly as it ships, after core.js's two lines it depends
+// on. It is run once, as guides.js runs it at boot, and handed to the test
+// so it can be run again, as render() does after replacing the cards.
+const CARDS_START = GUIDES_JS.indexOf("  function drawCardSaves() {");
+const CARDS_END = GUIDES_JS.indexOf("\n  }\n", CARDS_START) + "\n  }\n".length;
+assert.ok(CARDS_START !== -1 && CARDS_END > CARDS_START, "could not find drawCardSaves() in guides.js");
+const GRID_LINES = ['var gridRoot = document.getElementById("grid-root");', "var hasGuideGrid = !!gridRoot;"];
+for (const line of GRID_LINES) assert.ok(CORE_JS.includes(line), `core.js no longer has: ${line}`);
+const DRAW_CARD_SAVES =
+  GRID_LINES.join("\n  ") + "\n" + GUIDES_JS.slice(CARDS_START, CARDS_END) + "  drawCardSaves();\n  window.drawCardSaves = drawCardSaves;";
+
+const CARDS = [
+  [ID, NAME],
+  ["whitespace-as-ui-component", "Whitespace as a UI Component, Not a Leftover"],
+  ["padding-margin-different-jobs", "Padding and Margin Are Different Jobs, Not Interchangeable Values"],
+];
+const CARD_LINKS = CARDS.map(([id, title]) => [`/guide/${id}`, title]);
+
+/** One card as cardHtml() draws it; href null leaves the link out. */
+function addCard(doc, grid, [href, title], seen) {
+  const article = el(doc, grid, "article", { class: "content-card" });
+  el(doc, article, "div", { class: "card-thumb" });
+  const body = el(doc, article, "div", { class: "card-body" });
+  const link = href === null ? null : el(doc, el(doc, body, "h3", { class: "card-title" }), "a", { class: "card-link", href }, title);
+  el(doc, body, "p", { class: "card-meta" }, META);
+  allowAppend(doc, article, seen);
+  return { article, link };
+}
+
+/**
+ * Loads saved.js (unless withSaved is false), then drawCardSaves, into a
+ * fresh /guides page.
+ *
+ *   cards      [href, title] per card (href null: a card with no link)
+ *   grid       false: the cards sit in a grid that isn't #grid-root, as on
+ *              the home and category pages
+ *   the rest   as load() above
+ */
+function loadGrid({ launched = true, withSaved = true, session = SIGNED_IN, server = fakeServer(), cards = CARD_LINKS, grid = true, block = DRAW_CARD_SAVES } = {}) {
+  const doc = makeDocument();
+  doc.body.setAttribute("class", "guides-page");
+  const main = el(doc, doc.body, "main", { class: "wrap guides-main", id: "guides-content" });
+  const root = el(doc, main, "div", grid ? { class: "grid guides-grid", id: "grid-root" } : { class: "grid" });
+  el(doc, doc.body, "div", { class: "toast", id: "toast", role: "status", "aria-live": "polite" });
+  const seen = [];
+  let drawn = cards.map((c) => addCard(doc, root, c, seen));
+
+  const calls = [];
+  const toasts = [];
+  const opened = [];
+  const errors = [];
+  const ctx = {
+    console: { log: () => {}, warn: () => {}, error: (...args) => errors.push(args) },
+    Promise,
+    URLSearchParams,
+    setTimeout,
+    clearTimeout,
+    document: doc,
+    location: { hash: "", search: "", pathname: "/guides/" },
+    fetch: (url, init = {}) => {
+      const method = init.method || "GET";
+      const body = init.body === undefined ? undefined : JSON.parse(init.body);
+      calls.push({ url, method, body });
+      return Promise.resolve().then(() => server.handler(method, url, body));
+    },
+    addEventListener: () => {},
+    bpozzShowToast: (text) => toasts.push(text),
+    BpozzAuth: {
+      getSession: () => Promise.resolve(session),
+      refreshSession: () => Promise.resolve(session),
+      open: (mode, trigger) => opened.push([mode, trigger]),
+    },
+  };
+  ctx.window = ctx;
+
+  vm.runInNewContext(HTML_JS, ctx);
+  if (withSaved) vm.runInNewContext(savedWith(launched), ctx);
+  vm.runInNewContext(fragment(block), ctx);
+
+  return {
+    doc,
+    ctx,
+    root,
+    server,
+    calls,
+    toasts,
+    opened,
+    errors,
+    cards: () => drawn,
+    markup: () => seen.join(""),
+    writes: () => calls.filter((c) => c.method !== "GET"),
+    lists: () => calls.filter((c) => c.method === "GET"),
+    saves: () => doc.querySelectorAll(".card-save-btn"),
+    save: (i) => drawn[i].article.querySelector(".card-save-btn"),
+    label: (i) => drawn[i].article.querySelector(".card-save-btn span").textContent,
+    // What render() does on a filter change: new cards in place of the old,
+    // then drawCardSaves().
+    rerender: (next) => {
+      root.children.slice().forEach((c) => root.removeChild(c));
+      drawn = next.map((c) => addCard(doc, root, c, seen));
+      ctx.drawCardSaves();
+    },
+    savedStatus: () => {
+      const region = doc.querySelector("[data-saved-status]");
+      return region ? region.textContent : null;
+    },
+  };
+}
+
+test("cards, dormant (LAUNCHED false): no Save button; the grid exactly as before; no account request", async () => {
+  const before = shape(loadGrid({ withSaved: false, block: "" }).doc.body);
+  for (const withSaved of [true, false]) {
+    const g = loadGrid({ launched: false, withSaved });
+    await settle(10);
+    assert.deepStrictEqual(shape(g.doc.body), before, "the page is untouched");
+    assert.deepStrictEqual(g.saves(), []);
+    assert.deepStrictEqual(g.doc.querySelectorAll("[data-save-kind]"), []);
+    assert.strictEqual(g.markup(), "", "nothing drawn");
+    assert.deepStrictEqual(g.calls, [], "no account request");
+    assert.deepStrictEqual(g.opened, []);
+    assert.deepStrictEqual(g.toasts, []);
+    assert.deepStrictEqual(g.errors, []);
+  }
+});
+
+test("cards, launched: every /guides card ends in one Save button — kind, id, name, 'Save <title>' — beside its link, and one list request paints them all", async () => {
+  const plain = loadGrid({ withSaved: false, block: "" });
+  const g = loadGrid({ server: fakeServer({ saved: [["guide", CARDS[1][0]], ["color", "c001"]] }) });
+  await settle(10);
+  assert.strictEqual(g.saves().length, CARDS.length, "one per card");
+  g.cards().forEach(({ article, link }, i) => {
+    const [id, title] = CARDS[i];
+    const save = g.save(i);
+    assert.deepStrictEqual(
+      [
+        save.tagName,
+        save.getAttribute("type"),
+        save.getAttribute("class"),
+        save.getAttribute("data-save-kind"),
+        save.getAttribute("data-save-id"),
+        save.getAttribute("data-save-name"),
+        save.getAttribute("aria-label"),
+      ],
+      ["BUTTON", "button", "card-save-btn", "guide", id, title, `Save ${title}`],
+    );
+    assert.strictEqual(save.parentNode, article, "a child of the card");
+    assert.strictEqual(article.children[article.children.length - 1], save, "at its end, after the link");
+    assert.strictEqual(link.contains(save), false, "not inside the link");
+    assert.deepStrictEqual(
+      article.children.slice(0, -1).map(shape),
+      plain.cards()[i].article.children.map(shape),
+      "the rest of the card is as cardHtml() drew it",
+    );
+    const icon = save.querySelector("svg");
+    assert.strictEqual(icon.getAttribute("aria-hidden"), "true");
+    assert.strictEqual(icon.getAttribute("focusable"), "false");
+    assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG", "SPAN"]);
+    assert.strictEqual(save.querySelector("span").hasAttribute("data-save-label"), true, "saved.js writes Save / Saved here");
+    assert.strictEqual(save.getAttribute("aria-pressed"), i === 1 ? "true" : "false", "the account's guide");
+    assert.strictEqual(g.label(i), i === 1 ? "Saved" : "Save");
+  });
+  assert.deepStrictEqual(g.lists().map((c) => c.url), ["/api/saved?kind=guide"]);
+  assert.deepStrictEqual(g.writes(), []);
+  assert.deepStrictEqual(g.errors, []);
+});
+
+test("cards, launched and signed in: a Save click saves that guide and never follows the card's link; a second removes it; the link is still followed", async () => {
+  const g = loadGrid();
+  await settle(10);
+  const [id, title] = CARDS[0];
+  const { link } = g.cards()[0];
+  const save = g.save(0);
+
+  const follow = fire(g.doc, link, "click");
+  assert.strictEqual(follow.defaultPrevented, false, "the card's link is left to the browser");
+  await settle(10);
+  assert.deepStrictEqual(g.writes(), [], "following a card saves nothing");
+  assert.deepStrictEqual(g.opened, []);
+
+  // On the icon, as a pointer usually lands.
+  const evt = fire(g.doc, save.querySelector("path"), "click");
+  assert.strictEqual(evt.defaultPrevented, true, "the Save's own click is saved.js's");
+  await settle(10);
+  assert.deepStrictEqual(g.writes().map((c) => [c.method, c.url, c.body]), [["POST", "/api/saved", { kind: "guide", id }]]);
+  assert.strictEqual(save.getAttribute("aria-pressed"), "true");
+  assert.strictEqual(g.label(0), "Saved");
+  assert.strictEqual(save.getAttribute("aria-label"), `Save ${title}`, "a toggle keeps its name");
+  assert.deepStrictEqual([g.save(1), g.save(2)].map((b) => b.getAttribute("aria-pressed")), ["false", "false"], "only that card");
+  assert.deepStrictEqual(g.server.rows, [{ kind: "guide", id }]);
+  await wait(80);
+  assert.strictEqual(g.savedStatus(), `${title} saved to your account`);
+
+  fire(g.doc, save, "click");
+  await settle(10);
+  assert.deepStrictEqual(g.writes().map((c) => [c.method, c.url]), [
+    ["POST", "/api/saved"],
+    ["DELETE", `/api/saved?kind=guide&id=${id}`],
+  ]);
+  assert.strictEqual(save.getAttribute("aria-pressed"), "false");
+  assert.strictEqual(g.label(0), "Save");
+  assert.deepStrictEqual(g.server.rows, []);
+  assert.deepStrictEqual(g.toasts, []);
+  assert.strictEqual(g.lists().length, 1);
+});
+
+test("cards, launched and signed out: the Save is drawn and opens the sign-in dialog — no request", async () => {
+  const g = loadGrid({ session: SIGNED_OUT });
+  await settle(10);
+  assert.strictEqual(g.saves().length, CARDS.length, "drawn for signed-out visitors too");
+  const save = g.save(2);
+  fire(g.doc, save, "click");
+  await settle(10);
+  assert.deepStrictEqual(g.opened.map(([mode, trigger]) => [mode, trigger === save]), [["signin", true]]);
+  assert.deepStrictEqual(g.calls, []);
+  assert.strictEqual(save.getAttribute("aria-pressed"), "false");
+});
+
+test("cards, launched: drawing again adds nothing to a card that has its Save; the cards render() puts in their place get theirs, painted at once and without asking again", async () => {
+  const g = loadGrid({ server: fakeServer({ saved: [["guide", CARDS[2][0]]] }) });
+  await settle(10);
+  const first = g.saves();
+  g.ctx.drawCardSaves();
+  assert.deepStrictEqual(g.saves(), first, "the same buttons: one per card");
+
+  // A filter leaving two cards, the saved one among them.
+  g.rerender([CARD_LINKS[2], CARD_LINKS[0]]);
+  assert.strictEqual(g.saves().length, 2);
+  assert.ok(!first.includes(g.save(0)), "new cards, new buttons");
+  assert.deepStrictEqual([g.save(0), g.save(1)].map((b) => b.getAttribute("data-save-id")), [CARDS[2][0], CARDS[0][0]]);
+  assert.deepStrictEqual([g.save(0), g.save(1)].map((b) => b.getAttribute("aria-pressed")), ["true", "false"], "painted from what is known");
+  assert.deepStrictEqual([g.label(0), g.label(1)], ["Saved", "Save"]);
+  await settle(10);
+  assert.strictEqual(g.lists().length, 1, "the list is read once, however often the grid is redrawn");
+
+  // No match at all: an empty grid, and nothing to draw.
+  g.rerender([]);
+  assert.deepStrictEqual(g.saves(), []);
+  assert.deepStrictEqual(g.errors, []);
+});
+
+test("cards, launched: odd cards — no link, a link that isn't a guide's, an id Saved wouldn't accept — get no Save; a grid that isn't /guides' gets none at all", async () => {
+  const odd = [
+    [null, "No link"],
+    ["/palettes/", "Color Palettes"],
+    ["/guide/", "No id"],
+    ["/guide/Color_Contrast", "Not a slug"],
+    ["/guide/color-contrast-systems/extra", "Deeper"],
+    ["/guide/color-contrast-systems?x=1", "With a query"],
+    [`/guide/${"a".repeat(101)}`, "Too long"],
+    ['/guide/x"><img src=x>', "Markup"],
+  ];
+  const plain = loadGrid({ withSaved: false, block: "", cards: [...odd, CARD_LINKS[0]] });
+  const g = loadGrid({ cards: [...odd, CARD_LINKS[0]] });
+  await settle(10);
+  assert.strictEqual(g.saves().length, 1, "only the real guide card");
+  assert.strictEqual(g.save(odd.length).getAttribute("data-save-id"), ID);
+  odd.forEach(([href], i) => {
+    assert.deepStrictEqual(shape(g.cards()[i].article), shape(plain.cards()[i].article), `${href}: card untouched`);
+  });
+  assert.deepStrictEqual(g.errors, []);
+
+  // The home, category and related-guides grids are not #grid-root.
+  const elsewhere = loadGrid({ grid: false });
+  await settle(10);
+  assert.deepStrictEqual(elsewhere.saves(), []);
+  assert.strictEqual(elsewhere.markup(), "");
+  assert.deepStrictEqual(elsewhere.calls, []);
+  assert.deepStrictEqual(elsewhere.errors, []);
+
+  // A title with no text only drops the name.
+  const untitled = loadGrid({ cards: [[`/guide/${ID}`, "  \n "]] });
+  await settle(10);
+  assert.strictEqual(untitled.save(0).hasAttribute("data-save-name"), false);
+  assert.strictEqual(untitled.save(0).getAttribute("aria-label"), "Save this guide");
+});
+
+test("cards, launched: a title reaches data-save-name and aria-label escaped, each as one attribute, and never as markup", async () => {
+  const tricky = `Say "hi" <b>Bold</b> & It's`;
+  const g = loadGrid({ cards: [[`/guide/${ID}`, `\n  ${tricky}\n`]] });
+  await settle(10);
+  const save = g.save(0);
+  assert.strictEqual(save.getAttribute("data-save-name"), tricky);
+  assert.strictEqual(save.getAttribute("aria-label"), `Save ${tricky}`);
+  assert.deepStrictEqual(parsedAttrs.get(save), [
+    "type",
+    "class",
+    "data-save-kind",
+    "data-save-id",
+    "data-save-name",
+    "aria-pressed",
+    "aria-label",
+  ]);
+  assert.deepStrictEqual(save.children.map((c) => c.tagName), ["SVG", "SPAN"], "no markup from the title");
+  const escaped = "Say &quot;hi&quot; &lt;b&gt;Bold&lt;/b&gt; &amp; It&#39;s";
+  assert.ok(g.markup().includes(`data-save-name="${escaped}"`));
+  assert.ok(g.markup().includes(`aria-label="Save ${escaped}"`));
+});
+
+test("cards: guides.js draws the Save at boot and after every render(); the shared card renderer and the /guides page itself carry none", () => {
+  assert.ok(GUIDES_JS.includes('gridRoot.innerHTML = cards.join("");\n    drawCardSaves();'), "render() redraws it on the cards it replaces");
+  assert.strictEqual(GUIDES_JS.split("drawCardSaves();").length - 1, 2, "render() and the boot call, nothing else");
+  const bootBlock = GUIDES_JS.slice(GUIDES_JS.indexOf("  if (hasGuideGrid) {"), CARDS_START);
+  assert.ok(bootBlock.includes("\n    drawCardSaves();\n  }\n"), "the boot call is inside the /guides-only block");
+  assert.ok(!fs.readFileSync(path.join(ROOT, "src", "shared", "card.js"), "utf8").includes("card-save-btn"));
+
+  // Every build-time card on /guides has the link drawCardSaves reads.
+  const guides = JSON.parse(fs.readFileSync(path.join(ROOT, "guides.json"), "utf8"));
+  const page = fs.readFileSync(path.join(ROOT, "guides", "index.html"), "utf8");
+  assert.strictEqual(page.split('id="grid-root"').length - 1, 1);
+  const grid = page.slice(page.indexOf("<!--GUIDES_GRID_START-->"), page.indexOf("<!--GUIDES_GRID_END-->"));
+  const ids = [...grid.matchAll(/<a class="card-link" href="\/guide\/([^"/?#]+)">/g)].map((m) => m[1]);
+  assert.deepStrictEqual(ids.slice().sort(), guides.map((g) => g.id).sort());
+  assert.strictEqual(grid.split('class="content-card"').length - 1, guides.length, "one card each");
+  assert.ok(!page.includes("card-save-btn"), "no Save in the page itself");
 });

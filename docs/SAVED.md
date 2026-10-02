@@ -106,8 +106,8 @@ re-issues the cookies — and retries once.
 | `src/client/palettes.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the Like's independence (`npm test`) |
 | `src/client/colors.js` | the `/colors` script; draws a Save button beside each colour's name once launched — see [Save on Colors](#save-on-colors) |
 | `src/client/colors.test.js` | its Save tests, dormant and launched, with the real `saved.js`, including the copy's independence (`npm test`) |
-| `src/client/guides.js` | an `/app.js` fragment; on every `/guide/` page, adds a Save button to the hero once launched — see [Save on Guides](#save-on-guides) |
-| `src/client/guides.test.js` | its Save tests, dormant and launched, with the real `saved.js`, plus checks on every guide page and on `/app.js`'s order (`npm test`) |
+| `src/client/guides.js` | an `/app.js` fragment; once launched, adds a Save button to the hero on every `/guide/` page and to each card on `/guides` — see [Save on Guides](#save-on-guides) |
+| `src/client/guides.test.js` | its Save tests, dormant and launched, with the real `saved.js`, for the guide pages and for the `/guides` cards, plus checks on every guide page, on `/guides`' build-time cards and on `/app.js`'s order (`npm test`) |
 | `src/client/saved-integration.test.js` | the wiring across pages: the Save kinds drawn (font, palette, color, guide), auth and Saved loaded before each page's script, `saved.js` as the one Save click handler, and the one launch switch (`npm test`) |
 
 ## API
@@ -319,11 +319,32 @@ Once active:
 | requests | the page's one `GET /api/saved?kind=guide`, from `saved.js`, once the session is known; `guides.js` makes none |
 | styles | `.guide-save-btn` in `guide-article.css`: the bookmark and states of `/palettes` and `/colors`, a 16 px icon in a 24 px target whose negative block margins keep the meta line's height, so drawing it never moves the title; hover only on a fine pointer. Nothing matches it while dormant |
 
-Guide cards — on `/guides`, the home page, the `/category/` pages and the
-related-guides rail — get no Save: they come from the shared card renderer,
-`src/shared/card.js`, which the build uses too, and M6 leaves it alone. A
-guide page has no Like or favourite. The account's saved guides are listed on
-`/account`, linked back to `/guide/<id>`.
+A guide page has no Like or favourite. The account's saved guides are listed
+on `/account`, linked back to `/guide/<id>`.
+
+### The `/guides` cards
+
+The cards on `/guides` (`guides/index.html`, unchanged) also get a Save, from
+`drawCardSaves` in the same fragment. Styles are in `src/styles/styles.css`,
+scoped to `.guides-page .guides-grid`.
+
+**Dormant with the module.** While `window.BpozzSaved.active` is false,
+`drawCardSaves` returns at once: no button, every card exactly as before, and
+nothing asks the API.
+
+Once active:
+
+| part | behaviour |
+|---|---|
+| button | each `.content-card` in `#grid-root` ends in a `button.card-save-btn` — a bookmark and a `[data-save-label]` reading Save / Saved — with `data-save-kind="guide"`, `data-save-id` (from the card's own link, `/guide/<id>`), `data-save-name` (the card's title, whitespace collapsed; left out when empty), `aria-label="Save <title>"` ("Save this guide" without a title) and `aria-pressed`. A card without that link, or with an id `isValidItem` refuses, gets none. It is drawn on the build-time cards when `/app.js` runs, and again after every `render()`, which replaces the cards; each time `drawCardSaves` hands the grid to `saved.js` with `sync(gridRoot)` |
+| clicks | `saved.js` paints, saves, removes, announces and, signed out, opens sign-in. The button is the card link's sibling, above the link's stretched `::after`, so a Save click is not a click on the link; the rest of the card still follows it |
+| requests | the page's one `GET /api/saved?kind=guide`, from `saved.js`, once the session is known; redrawing the grid asks nothing more |
+| styles | `.card-save-btn` in `styles.css`: a pill at the thumbnail's top-right corner, positioned against `.content-card` and out of the flow, so it never resizes the card. On a fine pointer that can hover it is hidden (`opacity: 0`, still in the tab order) until its card is hovered or holds keyboard focus (`.content-card:has(:focus-visible)`: the card's link or the pill itself), so the focus a mouse click leaves on the pill does not keep it shown after the pointer leaves; elsewhere it is always shown. The action blue and a filled bookmark when saved; its contents dimmed while `aria-busy`. Nothing matches it while dormant |
+
+Guide cards elsewhere — the home page, the `/category/` pages and the
+related-guides rail — get no Save. They come from the shared card renderer,
+`src/shared/card.js`, which the build uses too and which carries no Save
+markup; `drawCardSaves` only looks in `/guides`' `#grid-root`.
 
 ## Supabase requests
 

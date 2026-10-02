@@ -3013,6 +3013,83 @@ body > .site-footer {
   display: none;
 }
 
+/* Save — a pill over the thumbnail's top-right corner, drawn by /app.js
+   (src/client/guides.js, drawCardSaves) only once account Saved is launched
+   (docs/SAVED.md), so nothing here matches before then. It is positioned
+   against .content-card, out of the flow, so drawing it never resizes the
+   card or moves its content, and it sits above .card-link's stretched
+   ::after, so it takes its own clicks instead of following the link. The
+   pill is the toolbar chip's (.guides-filter); the bookmark and its saved
+   state are the ones the guide page, /palettes and /colors use. */
+.guides-page .guides-grid .card-save-btn {
+  appearance: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 0 12px 0 9px;
+  border: 1px solid var(--guides-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    opacity 0.15s var(--guides-ease),
+    border-color 0.15s var(--guides-ease),
+    color 0.15s var(--guides-ease);
+}
+.guides-page .guides-grid .card-save-btn svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  transition: fill 0.15s var(--guides-ease);
+}
+/* Saved: filled in the action blue, hovered or not. */
+.guides-page .guides-grid .card-save-btn[aria-pressed="true"] {
+  color: var(--action);
+}
+.guides-page .guides-grid .card-save-btn[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+/* The pill's own opacity is the reveal below, so a running request dims
+   what is inside it instead. */
+.guides-page .guides-grid .card-save-btn[aria-busy="true"] {
+  cursor: progress;
+}
+.guides-page .guides-grid .card-save-btn[aria-busy="true"] > * {
+  opacity: 0.55;
+}
+/* With a mouse the pill waits for its card: hidden until the card is
+   hovered or holds keyboard focus (the card's link, or the pill itself).
+   Keyboard focus is :focus-visible, not :focus-within: the focus a mouse
+   click leaves on the pill must not keep it shown once the pointer has
+   left the card. The two reveals are separate rules so the hover one never
+   depends on :has(). Hidden by opacity alone, so it stays in the tab order.
+   Everywhere else — touch — nothing can hover, so it is simply shown. */
+@media (hover: hover) and (pointer: fine) {
+  .guides-page .guides-grid .card-save-btn {
+    opacity: 0;
+  }
+  .guides-page .guides-grid .content-card:hover .card-save-btn {
+    opacity: 1;
+  }
+  .guides-page .guides-grid .content-card:has(:focus-visible) .card-save-btn {
+    opacity: 1;
+  }
+  .guides-page .guides-grid .card-save-btn:hover {
+    border-color: var(--guides-line-strong);
+    color: var(--action);
+  }
+}
+
 /* The /fonts/ empty state (no box, centred, muted), keeping the guide
    grid's query echo and reset button. Shown/hidden by [data-visible]. */
 .guides-page .guides-empty {
