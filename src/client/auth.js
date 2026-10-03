@@ -75,16 +75,16 @@
   var COPY = {
     signin: {
       title: "Hello!",
-      lede: "Sign in to continue with BPOZZ.",
+      lede: "Sign in to continue with bpozz.",
       emailTitle: "Welcome back",
       emailLede: "Enter your email to continue.",
-      switchText: "New to BPOZZ?",
+      switchText: "New to bpozz?",
       switchAction: "Create an account",
       switchTo: "signup",
     },
     signup: {
       title: "Create your account",
-      lede: "Join BPOZZ to save your work and preferences.",
+      lede: "Join bpozz to save your work and preferences.",
       emailTitle: "Create your account",
       emailLede: "Enter your email to get started.",
       switchText: "Already have an account?",
@@ -94,7 +94,7 @@
   };
 
   var UNAVAILABLE =
-    "Sign-in isn’t available yet — accounts are coming soon. Everything on BPOZZ still works without one.";
+    "Sign-in isn’t available yet — accounts are coming soon. Everything on bpozz still works without one.";
 
   var GOOGLE_ICON =
     '<svg class="auth__icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +

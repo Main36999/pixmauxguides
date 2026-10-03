@@ -349,7 +349,7 @@ test("every font page carries title, description, canonical, Open Graph and vali
   });
   model.fonts.forEach((f) => {
     const html = pageByFile.get(`fonts/${f.id}.html`);
-    assert.ok(html.includes(`<title>${f.name.replace(/&/g, "&amp;")} Font — Free Download | BPOZZ</title>`), f.id);
+    assert.ok(html.includes(`<title>${f.name.replace(/&/g, "&amp;")} Font — Free Download | bpozz</title>`), f.id);
   });
 });
 

@@ -358,7 +358,7 @@ function metaBands({ title, description, canonical, ogImage }) {
     social: `    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:site_name" content="BPOZZ" />
+    <meta property="og:site_name" content="bpozz" />
     <meta property="og:title" content="${t}" />
     <meta property="og:description" content="${d}" />
     <meta property="og:image" content="${ogImage}" />
@@ -446,7 +446,7 @@ function listingHtml(model, ctx, partials) {
     `copy the SVG code or download SVG and PNG files.`;
 
   const headMarkup = pageHead(ctx, {
-    title: `${TITLE} — BPOZZ`,
+    title: `${TITLE} — bpozz`,
     description,
     urlPath: `/${ICONS_DIR}/`,
   });
@@ -505,7 +505,7 @@ function packHtml(pack, icons, zips, ctx, partials) {
     .join(" · ");
 
   const headMarkup = pageHead(ctx, {
-    title: `${pack.name} — ${styleLabel} Icon Pack | BPOZZ`,
+    title: `${pack.name} — ${styleLabel} Icon Pack | bpozz`,
     description: pack.description,
     urlPath: packUrl(pack),
   });

@@ -83,11 +83,12 @@
   // and is populated once that fetch resolves.
   var GUIDES = [];
 
-  // Static site pages. These now also exist as standalone, crawlable
-  // files (about.html, contact.html, privacy.html, terms.html) that
-  // are the canonical, linked-to versions for SEO purposes. This
-  // in-app copy is kept only so old #/about, #/contact, #/privacy,
-  // #/terms hash links still resolve to something inside the SPA.
+  // Static site pages. About and Contact also exist as standalone,
+  // crawlable files (about.html, contact.html) that are the canonical,
+  // linked-to versions for SEO purposes. This in-app copy is kept only
+  // so old #/about and #/contact hash links still resolve to something
+  // inside the SPA. The Privacy Policy and Terms of Service have no
+  // in-app copy: privacy.html and terms.html are the only versions.
   var PAGES = {
     about: {
       title: "About BPOZZ",
@@ -103,62 +104,6 @@
           <p>Designers moving from visual intuition toward a more systematic practice, and developers who need to understand the reasoning behind a spec, not just the pixel values in it. Guides are labeled beginner, intermediate, or advanced so you can find your level quickly.</p>
           <h3>Get in touch</h3>
           <p>Found an error, have a topic you'd like covered, or just want to say hello? Visit our <a href="/contact">Contact page</a> — we read every message.</p>
-        `;
-      },
-    },
-    privacy: {
-      title: "Privacy Policy",
-      updated: "Effective date: August 4, 2026",
-      render: function () {
-        return `
-          <p>This Privacy Policy explains what information BPOZZ ("BPOZZ," "we," "us") collects, how it's used, and the choices available to you. By using this site, you agree to the practices described here.</p>
-          <h3>Information we collect</h3>
-          <p>We collect two kinds of information. First, information you provide directly — for example, your name, email address, and message when you use the <a href="/contact">contact form</a>. Second, information collected automatically as you browse, such as approximate location derived from IP address, browser and device type, pages viewed, and referring site, typically gathered through standard analytics and advertising cookies.</p>
-          <h3>Cookies and advertising (Google AdSense)</h3>
-          <p>This site uses, or may use, Google AdSense to serve advertising. Google and its advertising partners use cookies — including the DoubleClick DART cookie — to serve ads based on a visitor's prior visits to this website and other websites across the internet. This allows Google and its partners to serve ads that are more relevant to you based on your browsing activity.</p>
-          <ul>
-            <li>You can opt out of personalized advertising by visiting Google's Ads Settings.</li>
-            <li>You can opt out of some third-party vendors' use of cookies for personalized advertising by visiting the Digital Advertising Alliance's consumer opt-out page at aboutads.info.</li>
-            <li>Third-party vendors, including Google, may show our ads on sites across the internet using cookies previously set on your browser.</li>
-          </ul>
-          <p>We also use functional cookies to remember basic preferences, such as filter or search state during a session. These do not personally identify you.</p>
-          <h3>How we use information</h3>
-          <p>We use collected information to respond to inquiries submitted through the contact form, to understand which guides are useful so we can prioritize future writing, to maintain site security, and to serve advertising, including personalized advertising where cookies allow it.</p>
-          <h3>Third-party links</h3>
-          <p>Guides may link to third-party tools, articles, or resources. We are not responsible for the privacy practices or content of external sites, and linking to a resource is not an endorsement of its privacy practices.</p>
-          <h3>Children's privacy</h3>
-          <p>This site is not directed at children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will remove it.</p>
-          <h3>Your choices and rights</h3>
-          <p>Depending on your location, you may have the right to request access to, correction of, or deletion of personal information we hold about you, submitted for example through our contact form. To make such a request, use the <a href="/contact">contact form</a> and describe your request; we will respond within a reasonable time.</p>
-          <h3>Changes to this policy</h3>
-          <p>We may update this Privacy Policy from time to time. Material changes will be reflected by updating the effective date at the top of this page.</p>
-          <h3>Contact</h3>
-          <p>Questions about this policy can be sent through our <a href="/contact">Contact page</a>.</p>
-        `;
-      },
-    },
-    terms: {
-      title: "Terms of Service",
-      updated: "Effective date: August 4, 2026",
-      render: function () {
-        return `
-          <p>These Terms of Service govern your use of BPOZZ. By accessing or using this site, you agree to be bound by these terms. If you don't agree, please don't use the site.</p>
-          <h3>Use of the site</h3>
-          <p>You're welcome to browse and read guides for personal or internal professional reference. You may not scrape, republish, or redistribute substantial portions of our guide content without prior written permission.</p>
-          <h3>Content ownership</h3>
-          <p>All original guide text, structure, and illustrations on this site are the property of BPOZZ unless otherwise noted. References to third-party tools, such as Figma or Adobe XD, are used descriptively and belong to their respective owners; BPOZZ is not affiliated with or endorsed by those companies.</p>
-          <h3>Advertising and third-party content</h3>
-          <p>This site may display advertising, including ads served through Google AdSense. Where it does, ads are clearly labeled as advertising and are not editorial content. We do not control, and are not responsible for, the content of third-party advertisements, or the products and services they promote.</p>
-          <h3>No professional advice</h3>
-          <p>Guides are educational in nature and reflect general practices at the time of writing. They are not a substitute for professional judgment on any specific project, and we make no guarantee that following a guide will produce a particular result.</p>
-          <h3>Disclaimer of warranties</h3>
-          <p>This site and its content are provided "as is," without warranties of any kind, express or implied, including but not limited to accuracy, completeness, or fitness for a particular purpose.</p>
-          <h3>Limitation of liability</h3>
-          <p>To the fullest extent permitted by law, BPOZZ is not liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this site.</p>
-          <h3>Changes to these terms</h3>
-          <p>We may revise these terms from time to time. Continued use of the site after a revision constitutes acceptance of the updated terms.</p>
-          <h3>Contact</h3>
-          <p>Questions about these terms can be sent through our <a href="/contact">Contact page</a>.</p>
         `;
       },
     },
@@ -229,7 +174,7 @@
   //     loading/empty/error states and reset all check this.
   //   isHomePage — is this the homepage (index.html, the only page with
   //     #home-view)? Only the homepage's legacy hash routes
-  //     (#/guide/<id>, #/about|contact|privacy|terms, #roadmap) check
+  //     (#/guide/<id>, #/about|contact, #roadmap) check
   //     this, so they keep working now that the homepage has no grid,
   //     and never fire on /guides.
   // Guide pages (/guide/*.html), search, palettes, roadmap and the
@@ -370,7 +315,7 @@
       location.replace(exists ? "/guide/" + id : "/guides/");
       return;
     }
-    var pageMatch = hash.match(/^#\/(about|contact|privacy|terms)$/);
+    var pageMatch = hash.match(/^#\/(about|contact)$/);
     if (pageMatch) {
       renderLegalRoute(pageMatch[1]);
       return;

@@ -872,7 +872,7 @@
         headingEl.textContent = "Search";
         dekEl.textContent =
           "Use the search box above to find a guide or palette by title, topic, tag, or category.";
-        document.title = "Search — BPOZZ";
+        document.title = "Search — bpozz";
         countEl.textContent = "";
         gridEl.innerHTML = "";
         emptyEl.removeAttribute("data-visible");
@@ -880,7 +880,7 @@
         return;
       }
 
-      document.title = 'Search results for "' + query + '" — BPOZZ';
+      document.title = 'Search results for "' + query + '" — bpozz';
       headingEl.textContent = 'Search results for "' + query + '"';
       dekEl.textContent =
         "Showing guides and palettes whose title, description, tags, or category match your search.";

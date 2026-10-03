@@ -160,7 +160,7 @@
         "reason": "Calm text around a loud script. Fira Sans is an open, upright sans built to stay legible on uneven screens, so it carries paragraphs and interface copy while Lobster supplies the personality in headlines."
       }
     ],
-    "notes": "Rather than compromise letters to force every connection, Lobster ships many versions of each letter and many letter-pair ligatures, and the browser picks the best fit automatically. Its glyph set is among the largest in the BPOZZ library, and the effect depends on ligatures staying on, which letter-spacing can switch off.",
+    "notes": "Rather than compromise letters to force every connection, Lobster ships many versions of each letter and many letter-pair ligatures, and the browser picks the best fit automatically. Its glyph set is among the largest in the bpozz library, and the effect depends on ligatures staying on, which letter-spacing can switch off.",
     "relatedGuides": ["type-scale-systems"],
     "evidence": [
       { "for": "bestFor:display-headings", "basis": "bpozz-data", "detail": "category: display; single weight." },
@@ -240,7 +240,7 @@
         "reason": "A signature on one line and a neutral sans for everything else. Kept to a name or a sign-off, the script's flourishes read as a personal mark instead of competing with running text."
       }
     ],
-    "notes": "Part of Sudtipos' digital revival of the Charles Bluemlein script collection, whose alphabets were assembled from collected signatures rather than drawn as complete type designs. Measured against its capitals, the lowercase ranks among the three smallest in the BPOZZ library, so capitals dominate every word: set it large and keep it to names and short phrases.",
+    "notes": "Part of Sudtipos' digital revival of the Charles Bluemlein script collection, whose alphabets were assembled from collected signatures rather than drawn as complete type designs. Measured against its capitals, the lowercase ranks among the three smallest in the bpozz library, so capitals dominate every word: set it large and keep it to names and short phrases.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:signature-lettering", "basis": "upstream-description", "detail": "Bluemlein scripts built 'by collecting different signatures and then building complete alphabets from them'." },
@@ -520,7 +520,7 @@
     "avoidFor": ["cyrillic-greek"],
     "characteristics": ["high-contrast", "stylistic-sets"],
     "pairings": [],
-    "notes": "No other family in the BPOZZ library covers Sinhala, so a partner face would leave Sinhala text with nothing to switch to; the five weights carry the hierarchy instead, lighter for body text and heavier for headlines. The compact Da forms sit behind a stylistic set, so they appear only once a font-feature-settings rule asks for them.",
+    "notes": "No other family in the bpozz library covers Sinhala, so a partner face would leave Sinhala text with nothing to switch to; the five weights carry the hierarchy instead, lighter for body text and heavier for headlines. The compact Da forms sit behind a stylistic set, so they appear only once a font-feature-settings rule asks for them.",
     "relatedGuides": ["line-length-reading-constraint"],
     "evidence": [
       { "for": "bestFor:sinhala-text", "basis": "upstream-description", "detail": "'clean and precise rendering for Sinhala, Pali and Sanskrit texts'; Sinhala verified in the font file." },
@@ -1434,7 +1434,7 @@
         "reason": "A delicate high-contrast serif for the headline and a low-contrast grotesk for the reading: the difference in stroke contrast does the separating, and Barlow's nine weights cover every level beneath the display line."
       }
     ],
-    "notes": "Colophon shaped it for super-sized poster settings and made a separate DM Serif Text for smaller point sizes. That companion is not in the BPOZZ library, so text below headline size needs a different face rather than this Display cut.",
+    "notes": "Colophon shaped it for super-sized poster settings and made a separate DM Serif Text for smaller point sizes. That companion is not in the bpozz library, so text below headline size needs a different face rather than this Display cut.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'the design has been shaped for use in super-sized poster settings'." },
@@ -1512,7 +1512,7 @@
     "avoidFor": [],
     "characteristics": ["humanist-details", "large-glyph-set", "stylistic-sets", "case-sensitive-forms"],
     "pairings": [],
-    "notes": "It ships real small capitals and old-style figures as OpenType features, so a literary page can switch them on with font-variant-caps and font-variant-numeric instead of loading the separate Alegreya Sans SC family, which is not in the BPOZZ library.",
+    "notes": "It ships real small capitals and old-style figures as OpenType features, so a literary page can switch them on with font-variant-caps and font-variant-numeric instead of loading the separate Alegreya Sans SC family, which is not in the bpozz library.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:literary-settings", "basis": "upstream-description", "detail": "'This gives a pleasant feeling to readers of long texts'; 'a \"super family\", originally intended for literature'." },
@@ -1656,7 +1656,7 @@
     "avoidFor": ["non-latin-scripts", "bold-italic-emphasis"],
     "characteristics": ["text-face", "case-sensitive-forms"],
     "pairings": [],
-    "notes": "Alike ships a single Regular, so running text set in it has no designed bold or italic to emphasise with. The titling companion its designers made, Alike Angular, is not in the BPOZZ library; headings need a second family.",
+    "notes": "Alike ships a single Regular, so running text set in it has no designed bold or italic to emphasise with. The titling companion its designers made, Alike Angular, is not in the bpozz library; headings need a second family.",
     "relatedGuides": ["font-pairing-hierarchy-decision"],
     "evidence": [
       { "for": "bestFor:literary-settings", "basis": "upstream-description", "detail": "'Alike is a text typeface'; 'the contrast is low for a pleasant reading experience'." },
@@ -1787,7 +1787,7 @@
     "avoidFor": ["small-text", "long-body-text", "extended-latin-languages"],
     "characteristics": ["signature-script", "small-x-height", "narrow"],
     "pairings": [],
-    "notes": "Its capitals stand about as tall as the font size itself, the tallest in the BPOZZ library, while its lowercase is the library's shortest measured against them. A name set in it is carried almost entirely by its initials.",
+    "notes": "Its capitals stand about as tall as the font size itself, the tallest in the bpozz library, while its lowercase is the library's shortest measured against them. A name set in it is carried almost entirely by its initials.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:signature-lettering", "basis": "upstream-description", "detail": "Bluemlein scripts assembled 'by collecting different signatures and then building complete alphabets from them'." },
@@ -1848,7 +1848,7 @@
     "avoidFor": ["extended-latin-languages", "non-latin-scripts"],
     "characteristics": ["narrow", "large-x-height"],
     "pairings": [],
-    "notes": "Upstream calls Economica a very condensed type, yet its files declare a normal width in OS/2, which is why BPOZZ does not tag it Condensed. Its narrowness shows in the measured letter widths instead: the lowercase is among the narrowest tenth of the library.",
+    "notes": "Upstream calls Economica a very condensed type, yet its files declare a normal width in OS/2, which is why bpozz does not tag it Condensed. Its narrowness shows in the measured letter widths instead: the lowercase is among the narrowest tenth of the library.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
@@ -1889,7 +1889,7 @@
     "avoidFor": ["small-text", "long-body-text", "extended-latin-languages"],
     "characteristics": ["signature-script", "small-x-height", "narrow"],
     "pairings": [],
-    "notes": "Measured against the em, this lowercase is one of the three shortest in the BPOZZ library and one of the ten narrowest, so lowercase runs take very little room. Its capitals, near three-quarters of the font size, set the scale of any word they start.",
+    "notes": "Measured against the em, this lowercase is one of the three shortest in the bpozz library and one of the ten narrowest, so lowercase runs take very little room. Its capitals, near three-quarters of the font size, set the scale of any word they start.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:signature-lettering", "basis": "upstream-description", "detail": "Bluemlein scripts assembled 'by collecting different signatures and then building complete alphabets from them'." },
@@ -1999,7 +1999,7 @@
     "avoidFor": ["small-text", "bold-italic-emphasis", "non-latin-scripts"],
     "characteristics": ["monospaced", "historical-revival", "alternate-zero", "discretionary-ligatures"],
     "pairings": [],
-    "notes": "VT323's outlines were autotraced from images that imitate a CRT beam smearing each pixel sideways, and BPOZZ's measurement finds no coarse pixel grid in them, unlike Press Start 2P or Silkscreen.",
+    "notes": "VT323's outlines were autotraced from images that imitate a CRT beam smearing each pixel sideways, and bpozz's measurement finds no coarse pixel grid in them, unlike Press Start 2P or Silkscreen.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: default figures share one advance (measured rule)." },
@@ -2192,7 +2192,7 @@
     "avoidFor": ["bold-italic-emphasis", "non-latin-scripts"],
     "characteristics": ["handwritten", "large-glyph-set"],
     "pairings": [],
-    "notes": "Upstream says its ligatures, small caps and old-style numbers come only with the downloaded version, but the files BPOZZ serves carry them too: font-variant-caps: small-caps and font-variant-numeric: oldstyle-nums reach them on the web.",
+    "notes": "Upstream says its ligatures, small caps and old-style numbers come only with the downloaded version, but the files bpozz serves carry them too: font-variant-caps: small-caps and font-variant-numeric: oldstyle-nums reach them on the web.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:handwritten-accents", "basis": "upstream-description", "detail": "'Patrick Hand is a font based on the designer's own handwriting'; 'a useful handwriting effect to your texts'." },
@@ -2311,7 +2311,7 @@
     "avoidFor": ["non-latin-scripts"],
     "characteristics": ["text-face", "oldstyle-figures"],
     "pairings": [],
-    "notes": "Standard ligatures are the only OpenType feature in these files: no small capitals, lining figures or alternates. Upstream puts those looks in separate Small Cap and Display families, which the BPOZZ library does not carry.",
+    "notes": "Standard ligatures are the only OpenType feature in these files: no small capitals, lining figures or alternates. Upstream puts those looks in separate Small Cap and Display families, which the bpozz library does not carry.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:literary-settings", "basis": "upstream-description", "detail": "'It is intended to be used in long texts, especially young children's literature'." },
@@ -2329,7 +2329,7 @@
     "avoidFor": ["many-weight-hierarchies"],
     "characteristics": ["text-face", "large-x-height", "case-sensitive-forms", "historical-forms", "discretionary-ligatures", "stylistic-sets"],
     "pairings": [],
-    "notes": "Upstream describes narrow proportions for economical setting; measured, the lowercase is narrower than most of the library but outside its narrowest 15%, so BPOZZ does not tag it Narrow. Its files also carry their own small capitals, through smcp and c2sc.",
+    "notes": "Upstream describes narrow proportions for economical setting; measured, the lowercase is narrower than most of the library but outside its narrowest 15%, so bpozz does not tag it Narrow. Its files also carry their own small capitals, through smcp and c2sc.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:cyrillic-text", "basis": "upstream-description", "detail": "Winner of the Ukrainian type design competition 'Mystetsky Arsenal'; Cyrillic verified in the font file." },
@@ -2539,7 +2539,7 @@
     "avoidFor": ["bold-italic-emphasis"],
     "characteristics": ["case-sensitive-forms", "discretionary-ligatures", "stylistic-alternates"],
     "pairings": [],
-    "notes": "Gabriela's design was later extended to Devanagari and published under another name, Kurale, which is not in the BPOZZ library: Hindi text beside Gabriela needs a different family.",
+    "notes": "Gabriela's design was later extended to Devanagari and published under another name, Kurale, which is not in the bpozz library: Hindi text beside Gabriela needs a different family.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:cyrillic-text", "basis": "upstream-description", "detail": "'Gabriela is a Latin and Cyrillic serif typeface'; Cyrillic verified in the font file." },
@@ -2627,7 +2627,7 @@
     "avoidFor": ["long-body-text", "bold-italic-emphasis"],
     "characteristics": ["handwritten", "oldstyle-figures", "small-x-height", "narrow", "stylistic-sets", "large-glyph-set"],
     "pairings": [],
-    "notes": "Bad Script's lowercase is not short: against the em it is taller than most of the library's. It measures small only beside capitals that reach nearly the full font size, among the tallest in the BPOZZ library.",
+    "notes": "Bad Script's lowercase is not short: against the em it is taller than most of the library's. It measures small only beside capitals that reach nearly the full font size, among the tallest in the bpozz library.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:handwritten-accents", "basis": "upstream-description", "detail": "'made using a tablet to imitate casual and neat handwriting'; 'Designed to resemble the designer's own handwriting'." },
@@ -2818,7 +2818,7 @@
     "avoidFor": ["long-prose", "bold-italic-emphasis", "non-latin-scripts"],
     "characteristics": ["wide-lowercase", "case-sensitive-forms", "discretionary-ligatures", "stylistic-sets"],
     "pairings": [],
-    "notes": "Expanded is in the name, and the lowercase measures among the widest five percent of the library, but the file's OS/2 header records a normal width: BPOZZ's Expanded tag follows that declared class, so the profile lists Wide lowercase instead.",
+    "notes": "Expanded is in the name, and the lowercase measures among the widest five percent of the library, but the file's OS/2 header records a normal width: bpozz's Expanded tag follows that declared class, so the profile lists Wide lowercase instead.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:tabular-data", "basis": "font-file", "detail": "Tabular figures: GSUB tnum (measured rule)." },
@@ -3090,7 +3090,7 @@
     "avoidFor": ["small-text", "long-body-text"],
     "characteristics": ["connected-script", "small-x-height", "narrow", "stylistic-sets", "discretionary-ligatures", "large-glyph-set"],
     "pairings": [],
-    "notes": "Upstream speaks of three weights, but the family BPOZZ serves has two, Regular and Bold, and no italic. Its capitals and lowercase are both among the very shortest in the library against the em, so it needs a far larger size than its neighbours.",
+    "notes": "Upstream speaks of three weights, but the family bpozz serves has two, Regular and Bold, and no italic. Its capitals and lowercase are both among the very shortest in the library against the em, so it needs a far larger size than its neighbours.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },
@@ -3352,7 +3352,7 @@
     "avoidFor": ["long-body-text", "non-latin-scripts"],
     "characteristics": ["large-x-height", "discretionary-ligatures"],
     "pairings": [],
-    "notes": "Upstream mentions a headline weight with a taller x-height, tighter spacing and narrower letters, but the family BPOZZ serves has only the eight text weights. They run from Thin to Black with no Medium step, and none has an italic.",
+    "notes": "Upstream mentions a headline weight with a taller x-height, tighter spacing and narrower letters, but the family bpozz serves has only the eight text weights. They run from Thin to Black with no Medium step, and none has an italic.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:weight-hierarchies", "basis": "bpozz-data", "detail": "variants: 100, 200, 300, 400, 600, 700, 800 and 900 (eight weights); no italic." },
@@ -3544,7 +3544,7 @@
     "avoidFor": ["small-text", "long-body-text", "bold-italic-emphasis"],
     "characteristics": ["handwritten", "small-x-height", "narrow", "large-glyph-set"],
     "pairings": [],
-    "notes": "Upstream describes OpenType features that vary each letter by its place in a word, but the Caveat Brush file BPOZZ serves has no contextual alternates and no positional forms, so the same letter always renders with the same shape.",
+    "notes": "Upstream describes OpenType features that vary each letter by its place in a word, but the Caveat Brush file bpozz serves has no contextual alternates and no positional forms, so the same letter always renders with the same shape.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:handwritten-accents", "basis": "upstream-description", "detail": "'It is designed for short annotations'." },
@@ -3771,7 +3771,7 @@
     "avoidFor": ["long-body-text", "bold-italic-emphasis", "extended-latin-languages"],
     "characteristics": ["large-x-height", "wide-lowercase"],
     "pairings": [],
-    "notes": "Upstream points to Numans as the lighter companion in the same spirit, but BPOZZ does not carry it, so the text beside a Days One headline has to come from an unrelated family. Choose that family on x-height first: Days One's lowercase is tall for its capitals, and a partner with a short one will look a size smaller.",
+    "notes": "Upstream points to Numans as the lighter companion in the same spirit, but bpozz does not carry it, so the text beside a Days One headline has to come from an unrelated family. Choose that family on x-height first: Days One's lowercase is tall for its capitals, and a partner with a short one will look a size smaller.",
     "relatedGuides": ["font-pairing-hierarchy-decision"],
     "evidence": [
       { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Letterforms are wide, and the strokes are thick. This makes Days One good for headlines'." },
@@ -3815,7 +3815,7 @@
     "avoidFor": ["many-weight-hierarchies", "bold-italic-emphasis", "non-latin-scripts"],
     "characteristics": ["grotesque", "narrow", "large-x-height"],
     "pairings": [],
-    "notes": "Upstream presents this book weight as 'the first of many', but the family BPOZZ serves is still that single 400 style with no italic, so bold or italic inside a Pathway Gothic heading is the browser's synthesis, not a drawn style. The fractions added in the 2023 update are in the file under the frac feature.",
+    "notes": "Upstream presents this book weight as 'the first of many', but the family bpozz serves is still that single 400 style with no italic, so bold or italic inside a Pathway Gothic heading is the browser's synthesis, not a drawn style. The fractions added in the 2023 update are in the file under the frac feature.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:narrow-spaces", "basis": "font-file", "detail": "Mean lowercase advance in the library's narrowest 15% (measured rule)." },
@@ -3984,7 +3984,7 @@
     "avoidFor": ["long-body-text", "bold-italic-emphasis", "extended-latin-languages"],
     "characteristics": ["display-face", "small-caps", "narrow"],
     "pairings": [],
-    "notes": "Upstream calls Six Caps highly condensed, but the file's OS/2 width class reads Normal: the narrowness is drawn into the letters, which measure among the narrowest in the library, rather than declared as a condensed width. That is why BPOZZ lists it as Narrow, not Condensed.",
+    "notes": "Upstream calls Six Caps highly condensed, but the file's OS/2 width class reads Normal: the narrowness is drawn into the letters, which measure among the narrowest in the library, rather than declared as a condensed width. That is why bpozz lists it as Narrow, not Condensed.",
     "relatedGuides": ["type-scale-systems"],
     "evidence": [
       { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Six Caps is a highly condensed and tight display font'." },
@@ -4023,7 +4023,7 @@
     "avoidFor": ["long-body-text", "bold-italic-emphasis"],
     "characteristics": ["unicase", "large-glyph-set"],
     "pairings": [],
-    "notes": "Unica One puts lowercase shapes, not smaller capitals, on its lowercase keys and stands them at full cap height, so mixed-case typing changes letterforms without changing the line's height. The letters are not drawn narrow: the OS/2 width class reads Normal and the mean lowercase advance sits mid-library, so BPOZZ does not call it Condensed.",
+    "notes": "Unica One puts lowercase shapes, not smaller capitals, on its lowercase keys and stands them at full cap height, so mixed-case typing changes letterforms without changing the line's height. The letters are not drawn narrow: the OS/2 width class reads Normal and the mean lowercase advance sits mid-library, so bpozz does not call it Condensed.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:display-headings", "basis": "upstream-description", "detail": "'Good performance for composing headlines and short texts'." },
@@ -4064,7 +4064,7 @@
     "avoidFor": ["long-body-text", "bold-italic-emphasis", "non-latin-scripts"],
     "characteristics": ["all-caps", "display-face"],
     "pairings": [],
-    "notes": "BPOZZ files Monofett under Monospace, yet its printable ASCII characters do not share one advance, so code, ASCII tables or anything that depends on character columns will drift out of line. Treat it as a proportional display face for titles and badges, and set fixed-width material in a true monospace.",
+    "notes": "bpozz files Monofett under Monospace, yet its printable ASCII characters do not share one advance, so code, ASCII tables or anything that depends on character columns will drift out of line. Treat it as a proportional display face for titles and badges, and set fixed-width material in a true monospace.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:all-caps-titles", "basis": "font-file", "detail": "a–z drawn as capitals (measured rule)." },
@@ -4085,7 +4085,7 @@
     "avoidFor": [],
     "characteristics": ["small-x-height", "oldstyle-figures"],
     "pairings": [],
-    "notes": "Berkshire Swash's capitals are among the tallest in the BPOZZ library, while its default digits are old-style and follow the lowercase instead. In an all-caps title a year or a number therefore sits visibly lower and smaller than the letters around it, so check any figures set beside capitals.",
+    "notes": "Berkshire Swash's capitals are among the tallest in the bpozz library, while its default digits are old-style and follow the lowercase instead. In an all-caps title a year or a number therefore sits visibly lower and smaller than the letters around it, so check any figures set beside capitals.",
     "relatedGuides": [],
     "evidence": [
       { "for": "bestFor:names-short-phrases", "basis": "font-file", "detail": "x-height/cap-height ratio in the library's bottom quarter (measured rule)." },

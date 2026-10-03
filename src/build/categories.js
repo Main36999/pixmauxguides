@@ -443,7 +443,7 @@ function pageHtml(
   // Guides-only archive — it also carries the related_palettes
   // rail below — so the title names the category and
   // the site, nothing else. The <h1> below was already neutral.
-  const title = `${cat.label} — BPOZZ`;
+  const title = `${cat.label} — bpozz`;
   const description = meta.dek;
   // PHASE 4 STEP 7: `origin` instead of four hard-coded "https://bpozz.com"
   // literals. site.config.js's first field is the canonical origin and is
@@ -511,7 +511,7 @@ function pageHtml(
     social: `    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:site_name" content="BPOZZ" />
+    <meta property="og:site_name" content="bpozz" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:image" content="${escapeHtml(ogImage)}" />

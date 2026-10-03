@@ -403,7 +403,7 @@ function metaBands({ title, description, canonical, ogImage }) {
     social: `    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:site_name" content="BPOZZ" />
+    <meta property="og:site_name" content="bpozz" />
     <meta property="og:title" content="${t}" />
     <meta property="og:description" content="${d}" />
     <meta property="og:image" content="${ogImage}" />
@@ -430,7 +430,7 @@ function listingHtml(fonts, ctx, partials) {
   const labels = categoryLabels(config);
   const count = fonts.length;
 
-  const title = "Free Fonts — BPOZZ";
+  const title = "Free Fonts — bpozz";
   const description =
     `Browse ${count} free, open-source fonts by category. Preview each font ` +
     `with your own text and download TTF files licensed under the SIL Open ` +
@@ -531,7 +531,7 @@ ${head.skipLinkHtml("fonts-content", "Skip to content")}
       <p class="fonts-note">
         Every font here comes from <a href="https://fonts.google.com/">Google Fonts</a> and is distributed under the
         <a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a>.
-        Each download includes the family's license file. “Newest” orders by the date a family was added to Google Fonts; “Featured” is BPOZZ's own mixed-style order.
+        Each download includes the family's license file. “Newest” orders by the date a family was added to Google Fonts; “Featured” is bpozz's own mixed-style order.
       </p>
     </main>
 
@@ -662,9 +662,9 @@ function editorialHtml(rec, byId, guidesById) {
   if (typeof rec.notes === "string" && rec.notes.trim()) {
     parts.push(`
           <section class="font-editorial__block" aria-labelledby="font-note-title">
-            <h2 class="font-section-title" id="font-note-title">BPOZZ Design Note</h2>
+            <h2 class="font-section-title" id="font-note-title">bpozz Design Note</h2>
             <p class="font-note">${escapeHtml(rec.notes)}</p>
-            <p class="font-note__by">BPOZZ editorial guidance for designers.</p>
+            <p class="font-note__by">bpozz editorial guidance for designers.</p>
           </section>`);
   }
 
@@ -702,7 +702,7 @@ function detailHtml(font, fonts, pkg, ctx, partials) {
   const styleCount = `${variants.length} style${variants.length === 1 ? "" : "s"}`;
   const name = escapeHtml(font.name);
 
-  const title = `${font.name} Font — Free Download | BPOZZ`;
+  const title = `${font.name} Font — Free Download | bpozz`;
   // The family's own description, so no two detail pages share one.
   const description = font.description;
   const canonical = origin + pageUrl(font);

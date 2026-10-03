@@ -85,7 +85,7 @@
     imagePalette: "Image Picker palette",
     importTitle: "Saved in this browser",
     importLede:
-      "Before accounts, BPOZZ kept these in this browser only. Add them to your account to have them wherever you sign in.",
+      "Before accounts, bpozz kept these in this browser only. Add them to your account to have them wherever you sign in.",
     importFontsNote: "Fonts you add move from this browser’s list to your account.",
     importLikesNote: "Your palette likes stay as they are.",
     importAdd: "Add to my account",

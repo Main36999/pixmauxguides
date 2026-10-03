@@ -350,7 +350,7 @@ const HOME_TOOLS = [
     title: "Search",
     url: "/search",
     tone: "green",
-    cta: "Search BPOZZ",
+    cta: "Search bpozz",
     desc: () => "Find any guide or color palette on the site by name or topic.",
   },
 ];
@@ -378,9 +378,9 @@ const HOME_ICONS = {
 
 /** The one resource card that is not a guide topic. */
 const HOME_ABOUT = {
-  title: "About BPOZZ",
+  title: "About bpozz",
   url: "/about",
-  desc: "BPOZZ is an independent platform for practical design tools, resources, and insights.",
+  desc: "bpozz is an independent platform for practical design tools, resources, and insights.",
 };
 
 /**

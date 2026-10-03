@@ -215,7 +215,7 @@ test("the Privacy Policy discloses every service the site uses", () => {
 
 test("the Privacy Policy does not claim ads are currently served", () => {
   const text = privacyText();
-  assert.ok(text.includes("BPOZZ does not currently display advertising"));
+  assert.ok(text.includes("bpozz does not currently display advertising"));
   assert.ok(!text.includes("uses, or may use"));
   assert.ok(!/DoubleClick/.test(text));
 });

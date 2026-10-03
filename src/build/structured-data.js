@@ -65,7 +65,7 @@
 const CONTEXT = "https://schema.org";
 
 /** Publisher identity. One statement, used by every node that needs it. */
-const ORGANIZATION_NAME = "BPOZZ";
+const ORGANIZATION_NAME = "bpozz";
 const ORGANIZATION_LOGO = "/assets/logo.png";
 
 /** The site's content language. Every page is English; none declares otherwise. */

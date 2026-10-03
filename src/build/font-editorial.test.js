@@ -263,7 +263,7 @@ test("an explicit empty pairing list is valid when the record has a note, and re
   const edited = fonts.build({ config, model: Object.assign({}, model, { fontEditorial: Object.assign({}, model.fontEditorial, { b612: data.b612 }) }) });
   const html = page(edited, "b612");
   assert.ok(!html.includes("font-pairings-title") && !html.includes('class="font-pairing"'));
-  assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'));
+  assert.ok(html.includes('id="font-note-title">bpozz Design Note</h2>'));
 });
 
 test("every related guide states the guide section that makes it relevant", () => {
@@ -395,7 +395,7 @@ function sections(html) {
   return {
     profile: html.includes('id="font-profile-title">Typography profile</h2>'),
     pairings: html.includes('id="font-pairings-title">Pairs well with</h2>'),
-    note: html.includes('id="font-note-title">BPOZZ Design Note</h2>'),
+    note: html.includes('id="font-note-title">bpozz Design Note</h2>'),
     guides: html.includes('id="font-guides-title">Related UI/UX guides</h2>'),
   };
 }
@@ -496,7 +496,7 @@ test("a note renders as BPOZZ Design Note, attributed to BPOZZ, not the type des
   withNote.forEach((id) => {
     const html = page(withLayer, id);
     assert.ok(html.includes(`<p class="font-note">${require("../shared/html.js").escapeHtml(raw[id].notes)}</p>`), id);
-    assert.ok(html.includes('<p class="font-note__by">BPOZZ editorial guidance for designers.</p>'), id);
+    assert.ok(html.includes('<p class="font-note__by">bpozz editorial guidance for designers.</p>'), id);
     assert.ok(!html.includes("Designer note"), `${id} still says "Designer note"`);
   });
 });
@@ -512,7 +512,7 @@ test("a record without a note renders no note heading, container or placeholder"
     }),
   });
   without.map((id) => page(withLayer, id)).concat(page(edited, "b612")).forEach((html) => {
-    ["font-note-title", 'class="font-note"', "font-note__by", "BPOZZ Design Note", "Designer note"].forEach((needle) =>
+    ["font-note-title", 'class="font-note"', "font-note__by", "bpozz Design Note", "Designer note"].forEach((needle) =>
       assert.ok(!html.includes(needle), needle),
     );
     const layer = html.slice(html.indexOf('<div class="font-editorial">'), html.indexOf('<div class="font-panel font-panel--info">'));
@@ -838,7 +838,7 @@ test("the 30 approved records are pinned: any edit to Batch 1 or Batch 2 fails h
   const approved = Object.keys(raw).slice(0, 30).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "a067bcd885ff7c0cfba265295a4a95fb58266b14c24d7a7adc808898ed35da84",
+    "8661cde497c952894fafc2c45e74dd203d5b06a0c842696b6dffb85c58377f04",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(30, 50), BATCH3, "Batch 3 follows Batch 2, in declaration order");
 });
@@ -961,7 +961,7 @@ test("the 50 approved records are pinned: any edit to Batches 1–3 fails here",
   const approved = Object.keys(raw).slice(0, 50).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "30e80b536257c815d1dfe5a91bb0592458b5b985fd76d53850d54307bce56212",
+    "2fe845e6e9d947ee7006b31d6ed01c6ac39034b966c690663f887f0c9c023eb5",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(50, 70), BATCH4, "Batch 4 follows Batch 3, in declaration order");
 });
@@ -1013,8 +1013,8 @@ test("Batch 4: bounds, and script claims rest on verified coverage", () => {
 test("Batch 4 notes that name a missing companion or style are true of the library", () => {
   const ids = new Set(model.fonts.map((f) => f.id));
   ["dm-serif-text", "alegreya-sans-sc"].forEach((id) => assert.ok(!ids.has(id), id));
-  assert.match(raw["dm-serif-display"].notes, /not in the BPOZZ library/);
-  assert.match(raw["alegreya-sans"].notes, /not in the BPOZZ library/);
+  assert.match(raw["dm-serif-display"].notes, /not in the bpozz library/);
+  assert.match(raw["alegreya-sans"].notes, /not in the bpozz library/);
   // Fira Mono has no italic; Fira Sans has one for every weight
   const styles = (id) => model.fonts.find((f) => f.id === id).variants;
   assert.ok(styles("fira-mono").every((v) => v.style === "normal"));
@@ -1206,7 +1206,7 @@ test("the 70 approved records are pinned: any edit to Batches 1–4 fails here",
   const approved = Object.keys(raw).slice(0, 70).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "aff7269321a891278c52eb50fbb49219cf141861a1fb7e8b1ca1e11833d6f030",
+    "8c851862e22d7e6d1e016be9c2df8c93618129bdf47bde953c481b55642409aa",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(70, 74), BATCH5, "Batch 5 follows Batch 4, in declaration order");
 });
@@ -1286,7 +1286,7 @@ test("the 74 approved records are pinned: any edit to Batches 1–5 fails here",
   const approved = Object.keys(raw).slice(0, 74).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "9f661d2fcd4267eea243676dd1ab3113cbe6f2da14f9d19a62bb4992c568f80a",
+    "6ef04f24040ebf749ec45e410cee3ff8c3ace93747f438f7bcd0440e8c49179b",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(74, 94), BATCH6, "Batch 6 follows Batch 5, in declaration order");
 });
@@ -1358,7 +1358,7 @@ test("the 94 approved records are pinned: any edit to Batches 1–6 fails here",
   const approved = Object.keys(raw).slice(0, 94).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "b7cb59dd9d451a4c27943d88abc931e78b91956db21c1867f26f244432b0fe48",
+    "8b1fb2bf6d312fb82d1f4a6568764960babc0f9e72863354e8a03aa5adcedc8f",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(94, 114), BATCH7, "Batch 7 follows Batch 6, in declaration order");
 });
@@ -1423,7 +1423,7 @@ test("the 114 approved records are pinned: any edit to Batches 1–7 fails here"
   const approved = Object.keys(raw).slice(0, 114).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "14c81c31bf5551c5c226a37693d57682b2e4af423598a88877aa730418063f3e",
+    "3dc6bdd5162345cdc2720773366cfddaea997e943809f10d0f76c489cf79f924",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(114, 134), BATCH7B, "Batch 7B follows Batch 7, in declaration order");
 });
@@ -1485,7 +1485,7 @@ test("the 134 approved records are pinned: any edit to Batches 1–7B fails here
   const approved = Object.keys(raw).slice(0, 134).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "f2bb092ff30626d9df3b10fe09566a45090b32ff7c18b75b734a357b2007c78b",
+    "684a35d4421b50637a59c9f6bc9e9fd03dbf863027108a98353c4fd822bd96f0",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(134, 150), BATCH7C, "Batch 7C follows Batch 7B, in declaration order");
 });
@@ -1544,7 +1544,7 @@ test("the 150 approved records are pinned: any edit to Batches 1–7C fails here
   const approved = Object.keys(raw).slice(0, 150).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "ab584bee0b4420e14c611b647cfa92d4ce330119edd80019ec6aabd860ca064a",
+    "933e2c6f17bc6961378e90d7786f6c792481327b849e9bb6ae62cade39fdc9ba",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(150, 170), BATCH8, "Batch 8 follows Batch 7C, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(150, 170), BATCH8, "site.config declares Batch 8 in the same order");
@@ -1638,7 +1638,7 @@ test("the 170 approved records are pinned: any edit to Batches 1–8 fails here"
   const approved = Object.keys(raw).slice(0, 170).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "b15946f56e3bc0f4f0ee67fe1d2dbf74de86e4009cc26ea2e49f315c8f34ddf9",
+    "80e150ea29c7c2ee54ed8d50cb87ba2238e3435f539a2570324ed800196a4463",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(170, 182), BATCH9, "Batch 9 follows Batch 8, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(170, 182), BATCH9, "site.config declares Batch 9 in the same order");
@@ -1731,7 +1731,7 @@ test("the 182 approved records are pinned: any edit to Batches 1–9 fails here"
   const approved = Object.keys(raw).slice(0, 182).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "4974b5b6123b2be1d308fc420e5c37b2a49b526d8b1724c5b45918e2e68e596f",
+    "43d554208786c4073308d786ba7e186a513602b8bd3d8d3233c148c03e8d0921",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(182, 184), BATCH10, "Batch 10 follows Batch 9, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(182, 184), BATCH10, "site.config declares Batch 10 in the same order");
@@ -1921,7 +1921,7 @@ test("the 184 approved records are pinned: any edit to Batches 1–10 fails here
   const approved = Object.keys(raw).slice(0, 184).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "05e7851bebc5772d89981ef8e5f45a8628f6b35ce0913fc93bb0e58615e10d72",
+    "35a9e9936a63063916664ebb43bf72b37d8ef203980a0c970db37f69395fa63f",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(184, 185), BATCH11, "Batch 11 follows Batch 10, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(184, 185), BATCH11, "site.config declares Batch 11 in the same order");
@@ -1980,7 +1980,7 @@ test("the 185 approved records are pinned: any edit to Batches 1–11 fails here
   const approved = Object.keys(raw).slice(0, 185).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "eabf12c156a2bf638ad1fc1bb38a379391a6dc211d4fc152006e5cbd384fed6b",
+    "44c9cb0f31c263f02aedb07c79ef783ceb40c0a12414af937a84f81b16a349ca",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(185, 189), BATCH12, "Batch 12 follows Batch 11, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(185, 189), BATCH12, "site.config declares Batch 12 in the same order");
@@ -2060,7 +2060,7 @@ test("Batch 12 pages show the new terms and notes", () => {
   Object.entries(expect).forEach(([id, labels]) => {
     const html = page(withLayer, id);
     labels.forEach((l) => assert.ok(html.includes(`>${l}<`), `${id}: ${l}`));
-    assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
+    assert.ok(html.includes('id="font-note-title">bpozz Design Note</h2>'), id);
   });
   assert.doesNotMatch(page(withLayer, "oooh-baby"), />Narrow</);
   // (Zeyada was held here until Batch 13 found upstream evidence for Handwritten and a distinct note;
@@ -2079,7 +2079,7 @@ test("the 189 approved records are pinned: any edit to Batches 1–12 fails here
   const approved = Object.keys(raw).slice(0, 189).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "a61e33479f50d5b59f893b4cc3ca42d8cfd216be218cb5177cc7c0cbabd54801",
+    "1902f6ca6c89b0261e9227670dbdae0af933a8e6d81964d627f303b907382c76",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(189, 192), BATCH13, "Batch 13 follows Batch 12, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(189, 192), BATCH13, "site.config declares Batch 13 in the same order");
@@ -2142,7 +2142,7 @@ test("Batch 13 pages show the new terms and notes; the held families stay out", 
   Object.entries(expect).forEach(([id, labels]) => {
     const html = page(withLayer, id);
     labels.forEach((l) => assert.ok(html.includes(`>${l}<`), `${id}: ${l}`));
-    assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
+    assert.ok(html.includes('id="font-note-title">bpozz Design Note</h2>'), id);
     assert.doesNotMatch(html, />Connected script</, id);
   });
   // Handwritten alone, but no use sentence upstream: one Best for term each
@@ -2163,7 +2163,7 @@ test("the 192 approved records are pinned: any edit to Batches 1–13 fails here
   const approved = Object.keys(raw).slice(0, 192).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "f959ed9e54fbb8fa5aa4e99720216b8803cfe56786e24af375f6c53e5e8a31c0",
+    "d679886595318f8dec10b17025775f6ff17b8600018126655df0d84be1264930",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(192, 193), BATCH14, "Batch 14 follows Batch 13, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(192, 193), BATCH14, "site.config declares Batch 14 in the same order");
@@ -2204,7 +2204,7 @@ test("Batch 14 page shows the measured terms and the note", () => {
   const html = page(withLayer, "dawning-of-a-new-day");
   ["Small x-height", "Narrow", "Names and short phrases", "Words in narrow spaces", "Small text sizes"].forEach((l) =>
     assert.ok(html.includes(`>${l}<`), l));
-  assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'));
+  assert.ok(html.includes('id="font-note-title">bpozz Design Note</h2>'));
   assert.doesNotMatch(html, />Handwritten</);
 });
 
@@ -2256,7 +2256,7 @@ test("the 193 approved records are pinned: any edit to Batches 1–14 fails here
   const approved = Object.keys(raw).slice(0, 193).map((k) => [k, raw[k]]);
   assert.strictEqual(
     crypto.createHash("sha256").update(JSON.stringify(approved)).digest("hex"),
-    "28504e9aab8107ea5f653f0721ed847fc16c8d2d95100d98879f587122b05fb7",
+    "1f566c3a129ea491f4f434250130c3e1d273287687d6ff2086f0f4c1d1687d2d",
   );
   assert.deepStrictEqual(Object.keys(raw).slice(193), BATCH16, "Batch 16 follows Batch 14, in declaration order");
   assert.deepStrictEqual(PROTOTYPE.slice(193), BATCH16, "site.config declares Batch 16 in the same order");
@@ -2366,7 +2366,7 @@ test("Batch 16 pages show the new terms and notes", () => {
   Object.entries(expect).forEach(([id, labels]) => {
     const html = page(withLayer, id);
     labels.forEach((l) => assert.ok(html.includes(`>${l}<`), `${id}: ${l}`));
-    assert.ok(html.includes('id="font-note-title">BPOZZ Design Note</h2>'), id);
+    assert.ok(html.includes('id="font-note-title">bpozz Design Note</h2>'), id);
   });
   assert.doesNotMatch(page(withLayer, "nobile"), />Latin Extended languages</);
   assert.doesNotMatch(page(withLayer, "vast-shadow"), />Slab serif</);

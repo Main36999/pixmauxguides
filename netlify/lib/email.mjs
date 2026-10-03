@@ -284,7 +284,7 @@ export function confirmationPage(tokenHash, returnTo) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Sign in to BPOZZ</title>
+<title>Sign in to bpozz</title>
 <style>
 :root{color-scheme:light dark;--bg:#fafaf9;--fg:#18181b;--muted:#52525b;--line:#e4e4e7;--btn:#18181b;--btn-fg:#fafafa}
 @media (prefers-color-scheme:dark){:root{--bg:#0f0f10;--fg:#f4f4f5;--muted:#a1a1aa;--line:#27272a;--btn:#f4f4f5;--btn-fg:#18181b}}
@@ -301,8 +301,8 @@ a{display:inline-block;margin-top:16px;color:var(--muted)}
 </head>
 <body>
 <main>
-<p class="brand">BPOZZ</p>
-<h1>Sign in to BPOZZ</h1>
+<p class="brand">bpozz</p>
+<h1>Sign in to bpozz</h1>
 <p>Continue to finish signing in with your email link.</p>
 <form method="post" action="${VERIFY_PATH}">
 <input type="hidden" name="token_hash" value="${token}">
