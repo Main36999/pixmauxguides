@@ -380,7 +380,7 @@ const HOME_ICONS = {
 const HOME_ABOUT = {
   title: "About bpozz",
   url: "/about",
-  desc: "bpozz is an independent platform for practical design tools, resources, and insights.",
+  desc: "bpozz is an independent design resource platform for UI/UX designers and developers — practical guides, tools, and curated design resources for building better interfaces.",
 };
 
 /**

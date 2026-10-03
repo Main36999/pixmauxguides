@@ -91,12 +91,12 @@
   // in-app copy: privacy.html and terms.html are the only versions.
   var PAGES = {
     about: {
-      title: "About BPOZZ",
+      title: "About bpozz",
       updated: null,
       render: function () {
         return `
-          <p>BPOZZ is a small, independent design intelligence library — guides and color palettes, written the way an engineering spec is written: precise, testable, and stripped of filler. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
-          <h3>What "documented like blueprints" means</h3>
+          <p>bpozz is an independent design resource platform for UI/UX designers and developers — practical guides, tools, and curated design resources for building better interfaces. Our guides are written like engineering specs: precise, practical, and built to be applied. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
+          <h3>What "written like engineering specs" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
           <p>Every guide on this site is written first and monetized second. We don't accept payment to feature a tool, and guide content itself is never sponsored. Where the site does carry advertising, it's kept clearly separate from the guides themselves and labeled as an advertisement — see our <a href="/privacy">Privacy Policy</a> for the specifics of how that works.</p>

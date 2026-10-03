@@ -231,6 +231,13 @@
   -webkit-line-clamp: 3;
   line-clamp: 3;
 }
+/* The About card states what bpozz is: show its sentence in full.
+   It is always the last resource card (src/build/home.test.js). */
+.resource-grid > .resource-card:last-child .resource-card__desc {
+  display: block;
+  -webkit-line-clamp: none;
+  line-clamp: none;
+}
 
 /* ---------- tablet ---------- */
 
