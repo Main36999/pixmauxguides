@@ -95,7 +95,7 @@ test("Home has no standalone Icon Packs section: one resources heading, Icon Pac
 test("explore strip: real routes, one focusable list per row, identical loop copies", () => {
   const nav = /<nav class="explore[^"]*"[^>]*>([\s\S]*?)<\/nav>/.exec(indexSource);
   assert.ok(nav, "index.html has the explore strip");
-  assert.match(nav[0], /aria-label="Explore bpozz"/);
+  assert.match(nav[0], /aria-label="Explore bpozz!"/);
   const rows = [...nav[1].matchAll(/<div class="explore__row [^"]*">([\s\S]*?)<\/div>/g)].map((m) => m[1]);
   assert.strictEqual(rows.length, 2);
   const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);

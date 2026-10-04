@@ -91,11 +91,11 @@
   // in-app copy: privacy.html and terms.html are the only versions.
   var PAGES = {
     about: {
-      title: "About bpozz",
+      title: "About bpozz!",
       updated: null,
       render: function () {
         return `
-          <p>bpozz is an independent design resource platform for UI/UX designers and developers — practical guides, tools, and curated design resources for building better interfaces. Our guides are written like engineering specs: precise, practical, and built to be applied. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
+          <p>bpozz! is an independent platform for practical design tools, resources, guides, and insights for people who design and build digital products. Our guides are written like engineering specs: precise, practical, and built to be applied. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
           <h3>What "written like engineering specs" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
