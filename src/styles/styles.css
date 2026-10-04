@@ -1143,10 +1143,15 @@ html[data-auth] .mobile-menu__auth {
   }
 }
 .hero .tagline {
-  color: var(--text-muted);
+  /* white on the auth visual, with the headline's soft shadow. 19px
+     bold is WCAG large text (3:1): the moving field dips below the
+     4.5:1 that 16px regular text would need. */
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
   max-width: 560px;
   margin: 0 auto 28px;
-  font-size: 16px;
+  font-size: 19px;
+  font-weight: 700;
   line-height: 1.6;
 }
 
