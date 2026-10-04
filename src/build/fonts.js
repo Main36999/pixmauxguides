@@ -488,7 +488,7 @@ ${head.skipLinkHtml("fonts-content", "Skip to content")}
 
     <main class="wrap fonts-main" id="fonts-content" tabindex="-1">
       <div class="fonts-hero">
-        <h1>Fonts</h1>
+        <h1>Free Fonts</h1>
         <p>Browse ${count} free fonts for your projects. Every family is open source, licensed under the SIL Open Font License 1.1, and ready to download.</p>
       </div>
 
