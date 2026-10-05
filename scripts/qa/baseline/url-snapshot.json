@@ -5,9 +5,9 @@
     "pages": 352,
     "dataEndpoints": 5,
     "siteFiles": 4,
-    "assets": 2056,
+    "assets": 2057,
     "code": 17,
-    "total": 2434
+    "total": 2435
   },
   "pages": [
     {
@@ -1797,6 +1797,7 @@
     "/assets/Typography.webp",
     "/assets/apple-touch-icon.png",
     "/assets/bpozz logo Brand-01.png",
+    "/assets/bpozz logo Brand-01.svg",
     "/assets/bpozz logo tab-01.png",
     "/assets/bpozz logo-01.png",
     "/assets/bpozz logo.png",
