@@ -12,6 +12,19 @@
   --radius: 3px;
   --sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+  /* Shared values the section stylesheets (fonts, icons, colors,
+     palettes, image picker, /guides) each restated. Same values, one
+     place; their page-scoped aliases (--font-line etc.) point here. */
+  --ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --line: #e7e9ee;
+  --line-strong: #cfd4dd;
+  --surface-muted: #f1f2f5;
+  --text-secondary: #3d4556;
+  --text-placeholder: #6b7485;
+  --ink-hover: #262626;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+
   /* Page-intro type scale, shared by .category-hero, .roadmap-head,
      .ip-head, .palettes-hero and .colors-hero so every page opens with
      the same editorial hierarchy: a large title, a clear gap, a large
@@ -2917,10 +2930,10 @@ body > .site-footer {
    .card-thumb keeps its own 4:3 ratio at every width (the font card's
    phone-width switch to 16:9 is deliberately not copied). */
 .guides-page {
-  --guides-radius: 8px;
-  --guides-line: #e7e9ee;
-  --guides-line-strong: #cfd4dd;
-  --guides-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --guides-radius: var(--radius-md);
+  --guides-line: var(--line);
+  --guides-line-strong: var(--line-strong);
+  --guides-ease: var(--ease);
 }
 .guides-page .guides-main {
   max-width: 1160px;
@@ -3016,7 +3029,7 @@ body > .site-footer {
   min-width: 0;
 }
 .guides-field input::placeholder {
-  color: #6b7485;
+  color: var(--text-placeholder);
 }
 .guides-field input:hover,
 .guides-field select:hover {

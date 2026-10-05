@@ -6,12 +6,12 @@
    libraries read as one system. */
 
 .icons-page {
-  --icons-radius: 8px;
-  --icons-line: #e7e9ee;
-  --icons-line-strong: #cfd4dd;
+  --icons-radius: var(--radius-md);
+  --icons-line: var(--line);
+  --icons-line-strong: var(--line-strong);
   --icons-ink: #000;
   --icons-tint: #f5f6f8;
-  --icons-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --icons-ease: var(--ease);
 }
 
 .icons-main {
@@ -214,7 +214,7 @@
   font-size: 15px;
 }
 .icons-search input::placeholder {
-  color: #6b7485;
+  color: var(--text-placeholder);
 }
 .icons-search input:hover {
   border-color: var(--icons-line-strong);
@@ -263,7 +263,7 @@
   color: #fff;
 }
 .icons-btn--primary:hover {
-  background: #262626;
+  background: var(--ink-hover);
 }
 /* Copy feedback is carried by the label text ("✓ Copied" / "Copy failed"),
    and announced through #icons-status; the border only reinforces it. */
@@ -271,7 +271,7 @@
   border-color: var(--icons-ink);
 }
 .icons-btn--primary[data-state="copied"] {
-  background: #262626;
+  background: var(--ink-hover);
 }
 
 /* ---------- the icon grid: a dense tile browser ----------
@@ -324,7 +324,7 @@
   aspect-ratio: 1 / 1;
 }
 .icon-card__preview:active {
-  background: #f1f2f5;
+  background: var(--surface-muted);
 }
 
 /* The name, revealed with the actions. The tile's accessible name already
@@ -404,14 +404,14 @@
   border: 0;
   border-radius: 6px;
   background: #fff;
-  color: #3d4556;
+  color: var(--text-secondary);
   list-style: none;
   text-decoration: none;
   cursor: pointer;
 }
 .icon-tile-btn:hover,
 .icon-download[open] > .icon-tile-btn {
-  background: #f1f2f5;
+  background: var(--surface-muted);
   color: var(--icons-ink);
 }
 .icon-tile-btn:active {
@@ -514,7 +514,7 @@
 }
 .icon-download__item:hover,
 .icon-download__item:focus-visible {
-  background: #f1f2f5;
+  background: var(--surface-muted);
 }
 .icon-download__item:focus-visible {
   outline-offset: -2px;
@@ -675,11 +675,11 @@
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: #3d4556;
+  color: var(--text-secondary);
   cursor: pointer;
 }
 .icon-dialog__close:hover {
-  background: #f1f2f5;
+  background: var(--surface-muted);
   color: var(--icons-ink);
 }
 .icon-dialog__close .icons-glyph {
@@ -733,7 +733,7 @@
 .icon-dialog__meta dd {
   margin: 0;
   font-size: 14px;
-  color: #3d4556;
+  color: var(--text-secondary);
 }
 .icon-dialog__meta a {
   color: var(--icons-ink);
@@ -748,7 +748,7 @@
   border: 1px solid var(--icons-line);
   border-radius: 999px;
   font-size: 12.5px;
-  color: #3d4556;
+  color: var(--text-secondary);
 }
 
 .icon-dialog__actions {

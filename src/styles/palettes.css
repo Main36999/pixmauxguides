@@ -37,8 +37,8 @@
   /* Softer corner than the global 3px --radius, scoped to this page so
      the color plates read as tactile swatches rather than table cells.
      styles.css's :root is not touched. */
-  --palette-radius: 10px;
-  --palette-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --palette-radius: var(--radius-lg);
+  --palette-ease: var(--ease);
 }
 
 /* Tighten the top of the page: .guides-main ships 44px of padding-top

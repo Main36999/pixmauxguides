@@ -34,8 +34,8 @@
  */
 
 .colors-page {
-  --color-radius: 10px;
-  --color-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --color-radius: var(--radius-lg);
+  --color-ease: var(--ease);
 }
 
 /* .guides-main ships 44px of padding-top for the guide grid, which stacks

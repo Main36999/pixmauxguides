@@ -46,7 +46,7 @@
   --ip-surface: #f5f5f5;
   --ip-control: #e7e7e7;
   --ip-control-hover: #dcdcdc;
-  --ip-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --ip-ease: var(--ease);
 }
 
 /* .guides-main ships 44px of padding-top for the site's editorial hero,

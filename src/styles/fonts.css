@@ -5,11 +5,11 @@
    /colors and /palettes. */
 
 .fonts-page {
-  --font-radius: 8px;
-  --font-line: #e7e9ee;
-  --font-line-strong: #cfd4dd;
+  --font-radius: var(--radius-md);
+  --font-line: var(--line);
+  --font-line-strong: var(--line-strong);
   --font-ink: #000;
-  --font-ease: cubic-bezier(0.2, 0.6, 0.3, 1);
+  --font-ease: var(--ease);
 }
 
 .fonts-main {
@@ -118,7 +118,7 @@
   min-width: 0;
 }
 .fonts-field input::placeholder {
-  color: #6b7485;
+  color: var(--text-placeholder);
 }
 .fonts-field input:hover,
 .fonts-field select:hover {
@@ -300,7 +300,7 @@
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: #3d4556;
+  color: var(--text-secondary);
   cursor: pointer;
   transition:
     background-color 0.15s var(--font-ease),
@@ -308,7 +308,7 @@
 }
 .font-icon-btn:hover,
 .font-icon-btn[aria-expanded="true"] {
-  background: #f1f2f5;
+  background: var(--surface-muted);
   color: var(--font-ink);
 }
 
@@ -361,7 +361,7 @@
 }
 .font-menu__item:hover,
 .font-menu__item:focus-visible {
-  background: #f1f2f5;
+  background: var(--surface-muted);
 }
 .font-menu__item:focus-visible {
   outline-offset: -2px;
@@ -526,7 +526,7 @@
   color: #fff;
 }
 .font-action--primary:hover {
-  background: #262626;
+  background: var(--ink-hover);
 }
 .font-action--icon {
   width: 44px;
@@ -563,7 +563,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
-  color: #3d4556;
+  color: var(--text-secondary);
 }
 .font-info__list dd a {
   color: var(--font-ink);
@@ -753,7 +753,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
-  color: #3d4556;
+  color: var(--text-secondary);
 }
 .font-profile__plain {
   margin: 0;
@@ -826,7 +826,7 @@
 .font-pairing__reason {
   font-size: 14px;
   line-height: 1.55;
-  color: #3d4556;
+  color: var(--text-secondary);
 }
 
 .font-note {
