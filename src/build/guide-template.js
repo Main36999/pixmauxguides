@@ -200,7 +200,7 @@ function breadcrumbHtml(category) {
   return [
     '          <nav class="guide-breadcrumb" aria-label="Breadcrumb">',
     "            <ol>",
-    '              <li><a href="/guides/">Guides</a></li>',
+    '              <li><a href="/guides/">UI/UX Guides</a></li>',
     '              <li><a href="' + href + '">' + name + "</a></li>",
     "            </ol>",
     "          </nav>",

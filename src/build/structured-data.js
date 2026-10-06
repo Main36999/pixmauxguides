@@ -73,7 +73,7 @@ const IN_LANGUAGE = "en";
 
 /** Fixed breadcrumb rungs above a guide. Both are real, routed URLs. */
 const HOME_CRUMB = { name: "Home", path: "/" };
-const GUIDES_CRUMB = { name: "Guides", path: "/guides/" };
+const GUIDES_CRUMB = { name: "UI/UX Guides", path: "/guides/" };
 
 // ---------------------------------------------------------------------
 // URLs

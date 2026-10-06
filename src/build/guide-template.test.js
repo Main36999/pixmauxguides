@@ -182,7 +182,7 @@ test("each guide links Guides and its category above the hero", () => {
     model.categories.map((c) => [c.slug, c]),
   );
   const navOpen = '<nav class="guide-breadcrumb"';
-  const guidesLink = '<a href="/guides/">Guides</a>';
+  const guidesLink = '<a href="/guides/">UI/UX Guides</a>';
 
   pages.forEach((page) => {
     const file = "guide/" + page.id + ".html";

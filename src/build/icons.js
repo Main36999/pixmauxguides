@@ -512,7 +512,7 @@ function packHtml(pack, icons, zips, ctx, partials) {
 
   const main = `      <nav class="icons-breadcrumb" aria-label="Breadcrumb">
         <ol>
-          <li><a href="/${ICONS_DIR}/">${TITLE}</a></li>
+          <li><a href="/${ICONS_DIR}/">Icons</a></li>
           <li><span aria-current="page">${name}</span></li>
         </ol>
       </nav>
