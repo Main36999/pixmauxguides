@@ -234,8 +234,8 @@
     );
   }
 
-  // Shared media layer for both the content-card thumbnail and the
-  // article hero image. The blueprint-style SVG icon is always
+  // Media layer for the content-card thumbnail plate (.card-thumb),
+  // wherever it is drawn. The blueprint-style SVG icon is always
   // rendered first as a base layer; if a `thumbnail` image is set,
   // it's layered on top and covers the icon once it loads. If that
   // image file hasn't been added yet (or fails to load for any
@@ -251,8 +251,8 @@
     // width/height are the thumbnails' intrinsic size (every file in
     // thumbnail_image_webp/ is 1448x1086, 4:3 — card.test.js checks it).
     // They only give the browser an aspect ratio up front: the displayed
-    // size still comes from CSS (.card-thumb img / .article-hero img are
-    // absolutely positioned at 100% x 100% of a fixed-ratio box).
+    // size still comes from CSS (.card-thumb img is absolutely
+    // positioned at 100% x 100% of a fixed-ratio box).
     var img =
       '<img src="' +
       escapeHtml(g.thumbnail) +
@@ -276,9 +276,11 @@
   // The card's title is a real heading, so its LEVEL depends on what the
   // grid hangs off on the page that draws it, and that differs by caller:
   //
-  //   home / guides / search   the grid sits under an <h2> section heading
-  //                            ("/ featured_guides", "/ all_guides"), so the
-  //                            card title is correctly an h3.
+  //   /guides                  the grid sits under an <h2> section heading
+  //                            (the visually hidden "All guides"), so the
+  //                            card title is correctly an h3. The related-
+  //                            guides rail on guide pages keeps the same
+  //                            default.
   //   category pages           there is no section heading between the page
   //                            <h1> and the grid, so an h3 skipped a level
   //                            (WCAG 1.3.1) and h2 is correct.

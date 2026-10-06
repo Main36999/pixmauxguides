@@ -534,10 +534,10 @@
       var c = contrasts(hex);
       return c.onBlack >= c.onWhite ? "rgba(255,255,255,0.72)" : "rgba(0,0,0,0.45)";
     }
-    // NOTE: intentionally rgba(0,0,0,…) rather than colors.js's
-    // rgba(15,42,82,…) — that triplet is #0F2A52 (--ink) decomposed to RGB,
-    // and this page's UI is not allowed to use --ink or an equivalent
-    // hardcoded navy anywhere, including inside an inline custom property.
+    // NOTE: intentionally neutral rgba(0,0,0,…), the same black colors.js's
+    // ring now uses: this page's UI is not allowed to use the old navy
+    // #0F2A52, or its rgba(15,42,82,…) triplet, anywhere, including inside
+    // an inline custom property.
     function ringColorFor(hex) {
       return contrasts(hex).onWhite < 1.25
         ? "rgba(0,0,0,0.18)"

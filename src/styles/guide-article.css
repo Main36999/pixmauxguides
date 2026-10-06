@@ -73,10 +73,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Hero (eyebrow + title + dek + optional figure)
-   Figure reuses the exact blueprint-grid look of .article-hero /
-   .card-thumb elsewhere on the site, so a diagram inside a guide reads
-   as the same "spec sheet" object as a content-card thumbnail.
+   2. Hero (eyebrow + title + dek)
    -------------------------------------------------------------------------- */
 .guide-hero {
   padding: 28px 0 32px;
@@ -110,28 +107,6 @@
   color: var(--text-muted);
   max-width: 62ch;
   margin: 0;
-}
-.guide-hero__figure {
-  position: relative;
-  aspect-ratio: 20 / 9;
-  margin-top: 28px;
-  border: 1px solid var(--grid-line);
-  border-radius: var(--radius);
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 18px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.guide-hero__figure svg {
-  width: 46%;
-  height: auto;
-  color: var(--action);
-  overflow: visible;
 }
 
 /* --------------------------------------------------------------------------
@@ -196,8 +171,8 @@
    type, e.g.:
    <span class="section-label mono guide-toc__label">/ on_this_page</span>
    The color override here (rather than on the shared .section-label)
-   keeps this blue accent scoped to guide pages — the home page's own
-   "/ ALL_GUIDES" label stays plain black, matching its template. */
+   keeps this blue accent to this label — the .section-label eyebrows on
+   the category and Learning Roadmap pages stay plain black. */
 .guide-toc__label {
   display: block;
   margin-bottom: 12px;
@@ -504,8 +479,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   9. Diagram — dark-frame technical illustration, for mid-article figures
-   (as opposed to .guide-hero__figure, which is the lead image up top).
+   9. Diagram — dark-frame technical illustration, for mid-article figures.
    These are hand-authored, multi-color inline SVGs (accent lines, state
    comparisons, etc.) with colors baked into the markup on purpose — the
    goal here is only to give them a consistent frame, not to repaint each
