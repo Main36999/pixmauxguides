@@ -36,8 +36,9 @@
 .palettes-page {
   /* Softer corner than the global 3px --radius, scoped to this page so
      the color plates read as tactile swatches rather than table cells.
-     styles.css's :root is not touched. */
-  --palette-radius: var(--radius-lg);
+     10px sits between the medium and large radius roles in styles.css;
+     kept as is until the component pass (Problem #8, 8B). */
+  --palette-radius: 10px;
   --palette-ease: var(--ease);
 }
 
@@ -223,7 +224,7 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(15, 42, 82, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 @media (max-width: 719px) {
   .palette-card__bars {
@@ -332,7 +333,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  background: var(--sw-veil, rgba(15, 42, 82, 0.34));
+  background: var(--sw-veil, rgba(0, 0, 0, 0.34));
   color: var(--sw-label);
   font-family: var(--sans);
   font-size: 11px;

@@ -32,28 +32,13 @@
    -------------------------------------------------------------------------- */
 :root {
   --guide-info: var(--action);
-  --guide-info-bg: rgba(37, 99, 235, 0.08);
+  --guide-info-bg: var(--action-tint);
   --guide-success: #1f9d55;
   --guide-success-bg: #e5f6ec;
   --guide-warning: #b5790f;
   --guide-warning-bg: #fbf1de;
-  --guide-danger: #c0392b; /* matches .form-error — already the site's error red */
+  --guide-danger: var(--danger); /* the site's error red, as .form-error */
   --guide-danger-bg: #fbe9e7;
-
-  /* Neutral aliases. Introduced when this stylesheet was shared with
-     non-Guide UI that consumed these semantic colors for WCAG warnings.
-     That consumer has since been removed, but the aliases stay: same
-     values, non-Guide names, available to any future non-Guide use. The
-     --guide-* originals stay so the existing article rules keep
-     working. */
-  --ui-info: var(--guide-info);
-  --ui-info-bg: var(--guide-info-bg);
-  --ui-success: var(--guide-success);
-  --ui-success-bg: var(--guide-success-bg);
-  --ui-warning: var(--guide-warning);
-  --ui-warning-bg: var(--guide-warning-bg);
-  --ui-danger: var(--guide-danger);
-  --ui-danger-bg: var(--guide-danger-bg);
 }
 
 /* Breadcrumb above the hero: Guides / category. The same

@@ -55,7 +55,7 @@ const NAME = { c001: "Rosewood", c005: "Oxblood", c151: "Nightshade" };
 const OXBLOOD_CARD =
   '<article class="color-card" data-id="c005" data-category="Red">' +
   '<button type="button" class="color-card__plate" data-hex="#3C1B26" ' +
-  'style="--color-hex:#3C1B26;--color-label:#FFFFFF;--color-veil:rgba(0,0,0,0.45);--color-ring:rgba(15,42,82,0.06)" ' +
+  'style="--color-hex:#3C1B26;--color-label:#FFFFFF;--color-veil:rgba(0,0,0,0.45);--color-ring:rgba(0,0,0,0.06)" ' +
   'aria-label="Copy #3C1B26, Oxblood">' +
   '<span class="color-card__hex" aria-hidden="true">3C1B26</span>' +
   '<span class="color-card__copied" aria-hidden="true">' +

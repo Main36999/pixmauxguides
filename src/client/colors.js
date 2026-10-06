@@ -177,11 +177,13 @@
    * it a #FDFDFF card has no visible edge on white. Returned as a colour, and
    * transparent for everything else, so the ring is always painted and only
    * sometimes visible — no layout difference between the two cases.
+   * Neutral black, as the label and veil above and the Image Picker's ring:
+   * a tinted ring would tint the swatch it frames.
    */
   function ringColorFor(hex) {
     return contrasts(hex).onWhite < 1.25
-      ? "rgba(15,42,82,0.16)"
-      : "rgba(15,42,82,0.06)";
+      ? "rgba(0,0,0,0.16)"
+      : "rgba(0,0,0,0.06)";
   }
 
   // ---- shared screen-reader announcement ---------------------------------

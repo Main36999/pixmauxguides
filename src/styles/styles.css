@@ -1,11 +1,14 @@
 :root {
   --action: #2563eb;
   --action-hover: #1d4ed8;
+  /* Retired accent. Nothing visible paints with it any more; only the
+     thumbnail fallback artwork and a few unrendered legacy rules still
+     name it (Problem #8, Phase 8B). */
   --cyan: #22a6c4;
   --paper: #ffffff;
-  --card: #ffffff;
-  --grid-line: #dbe6f7;
-  --grid-line-dark: rgba(255, 255, 255, 0.06);
+  --card: var(--paper);
+  /* Legacy name for --line-tint, the blue-tinted hairline (below). */
+  --grid-line: var(--line-tint);
   --text: #000000;
   --text-muted: #5c6b85;
   --header-bg: #101010;
@@ -22,8 +25,27 @@
   --text-secondary: #3d4556;
   --text-placeholder: #6b7485;
   --ink-hover: #262626;
+
+  /* System roles (Problem #8, Phase 8A), at today's values: adding them
+     changes nothing on screen. Existing components move onto them in the
+     component pass (8B).
+     Radius roles: small, medium, large, pill. --radius (3px, above) is the
+     older sharp tier and stays as it is until that pass. */
+  --radius-sm: 4px;
   --radius-md: 8px;
-  --radius-lg: 10px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  /* --line is the default component border. --line-tint is the older
+     blue-tinted hairline, still drawn by most rules in this file under its
+     legacy name, --grid-line. */
+  --line-tint: #dbe6f7;
+  --text-on-dark: #cdd6e8;
+  --danger: #c0392b;
+  --action-tint: rgba(37, 99, 235, 0.08);
+  /* Shadow ink for floating layers (menus, dialogs, the toast): the slate
+     the font menu, icon menu and icon dialog already cast. Each surface
+     keeps its own offset, blur and alpha: rgba(var(--shadow-rgb), 0.18). */
+  --shadow-rgb: 15, 23, 42;
 
   /* Page-intro type scale, shared by .category-hero, .roadmap-head,
      .ip-head, .palettes-hero and .colors-hero so every page opens with
@@ -425,7 +447,7 @@ ul {
 .site-nav a {
   flex: 0 0 auto;
   text-decoration: none;
-  color: #cdd6e8;
+  color: var(--text-on-dark);
   white-space: nowrap;
   padding: 4px 0;
   border-bottom: 2px solid transparent;
@@ -438,12 +460,11 @@ ul {
   color: #fff;
   border-bottom-color: var(--action);
 }
-/* Split out of the rule above and left exactly as it was: the mobile
-   panel is shared by both header variants, so its active state stays
-   outside this main-header-only change. */
+/* The mobile panel, shared by both header variants: its active link takes
+   the same action blue as the main header nav (it was the retired cyan). */
 .mobile-menu__nav a[aria-current="page"] {
   color: #fff;
-  border-bottom-color: var(--cyan);
+  border-bottom-color: var(--action);
 }
 .version-pill {
   font-size: 11px;
@@ -665,21 +686,17 @@ ul {
   width: 18px;
   height: 18px;
 }
+/* var(--action) on the border, #fff on the icon, in both headers: the icon
+   stays #fff rather than turning blue so its contrast on --header-bg
+   doesn't drop on hover, and the blue border still clears WCAG 1.4.11's
+   3:1 non-text minimum (3.7:1). The inner header's button used to hover
+   in the retired cyan. */
 .menu-toggle:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
+  border-color: var(--action);
+  color: #fff;
 }
-/* Last place var(--cyan) still painted inside the MAIN HEADER: the
-   hamburger's hover state (visible at <=640px, where the button is the
-   header's only remaining control). Same substitution the nav links
-   got — var(--action) on the border, #fff on the icon — so the main
-   header hovers on one accent throughout instead of blue links and a
-   cyan button. The icon stays #fff rather than turning blue so its
-   contrast on --header-bg doesn't drop on hover, and the blue border
-   still clears WCAG 1.4.11's 3:1 non-text minimum (3.7:1).
-   Scoped to .site-header--home on purpose: the same button in the
-   inner-page header (.header-top) is out of this change's scope and
-   keeps its existing cyan hover. */
+/* The home header's copy of the rule above, from before the inner header
+   matched it. Identical now; left for the Phase 8B cleanup. */
 .site-header--home .menu-toggle:hover {
   border-color: var(--action);
   color: #fff;
@@ -724,7 +741,7 @@ body:has(#mobile-menu:not([hidden])) {
 .mobile-menu__nav a,
 .mobile-account__nav a {
   text-decoration: none;
-  color: #cdd6e8;
+  color: var(--text-on-dark);
   font-weight: 600;
   font-size: 18px;
   padding: 14px 2px;
@@ -847,7 +864,7 @@ html[data-auth] .mobile-menu__auth {
   color: var(--text);
   border: 1px solid var(--grid-line);
   border-radius: var(--radius);
-  box-shadow: 0 12px 28px rgba(15, 42, 82, 0.18);
+  box-shadow: 0 12px 28px rgba(var(--shadow-rgb), 0.18);
 }
 .account__title {
   padding: 8px 10px 6px;
@@ -895,7 +912,7 @@ html[data-auth] .mobile-menu__auth {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .mobile-account__title {
-  color: #cdd6e8;
+  color: var(--text-on-dark);
   font-size: 13px;
   font-weight: 600;
 }
@@ -929,7 +946,7 @@ html[data-auth] .mobile-menu__auth {
   font-weight: 600;
 }
 .mobile-account__email {
-  color: #cdd6e8;
+  color: var(--text-on-dark);
   font-size: 14px;
 }
 @media (max-width: 640px) {
@@ -1613,7 +1630,7 @@ html[data-auth] .mobile-menu__auth {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--action);
-  background: rgba(37, 99, 235, 0.08);
+  background: var(--action-tint);
   border: 1px solid rgba(37, 99, 235, 0.22);
   padding: 4px 8px;
   border-radius: 2px;
@@ -1889,7 +1906,7 @@ html[data-auth] .mobile-menu__auth {
   color: var(--text);
 }
 .roadmap-summary .dot {
-  color: var(--cyan);
+  color: var(--action);
 }
 
 /* progress bar + reset control */
@@ -1905,7 +1922,7 @@ html[data-auth] .mobile-menu__auth {
 .roadmap-progress-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, var(--action), var(--cyan));
+  background: var(--action);
   border-radius: 3px;
   transition: width 0.25s ease;
 }
@@ -2343,7 +2360,7 @@ body > .site-footer {
   font-size: 13.5px;
   padding: 12px 18px;
   border-radius: 3px;
-  box-shadow: 0 12px 28px rgba(15, 42, 82, 0.3);
+  box-shadow: 0 12px 28px rgba(var(--shadow-rgb), 0.3);
   opacity: 0;
   pointer-events: none;
   transition:
@@ -2817,7 +2834,7 @@ body > .site-footer {
 .form-row select {
   appearance: none;
   padding-right: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231D5FD6' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232563eb' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 2px center;
   background-size: 11px 7px;
@@ -2846,7 +2863,7 @@ body > .site-footer {
 }
 .form-error {
   font-size: 13px;
-  color: #c0392b;
+  color: var(--danger);
   min-height: 14px;
 }
 /* Scoped to .contact-form so the bigger scale here doesn't affect
@@ -3467,11 +3484,11 @@ html.auth-open {
   outline: 2px solid transparent;
 }
 .auth__input[aria-invalid="true"] {
-  border-color: #c0392b;
+  border-color: var(--danger);
 }
 .auth__error {
   font-size: 13px;
-  color: #c0392b;
+  color: var(--danger);
 }
 .auth__error[hidden] {
   display: none;

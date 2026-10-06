@@ -34,7 +34,9 @@
  */
 
 .colors-page {
-  --color-radius: var(--radius-lg);
+  /* The plate radius: 10px, between the medium and large radius roles in
+     styles.css. Kept as is until the component pass (Problem #8, 8B). */
+  --color-radius: 10px;
   --color-ease: var(--ease);
 }
 
@@ -185,13 +187,13 @@
   flex: none;
   background: var(--dot, #ccc);
   /* The hairline is what keeps the White dot visible on the gray pill. */
-  box-shadow: inset 0 0 0 1px rgba(15, 42, 82, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
 }
 /* On the blue active fill a Blue or Violet dot would vanish; a white ring
    keeps every dot legible there. */
 .colors-filter[aria-pressed="true"] .colors-filter__dot {
   box-shadow:
-    inset 0 0 0 1px rgba(15, 42, 82, 0.18),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.18),
     0 0 0 2px #fff;
 }
 
@@ -275,7 +277,7 @@
      stronger one for near-whites, which would otherwise have no visible edge
      against the page. Always painted, so the two cases have identical
      geometry. */
-  box-shadow: inset 0 0 0 1px var(--color-ring, rgba(15, 42, 82, 0.06));
+  box-shadow: inset 0 0 0 1px var(--color-ring, rgba(0, 0, 0, 0.06));
   transition: transform 0.18s var(--color-ease);
 }
 
@@ -336,7 +338,7 @@
   justify-content: center;
   gap: 8px;
   border-radius: inherit;
-  background: var(--color-veil, rgba(15, 42, 82, 0.45));
+  background: var(--color-veil, rgba(0, 0, 0, 0.45));
   color: var(--color-label);
   font-family: var(--sans);
   font-size: 14px;
