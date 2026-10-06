@@ -202,8 +202,12 @@ const HEAD_ANALYTICS = `    <!-- Google tag (gtag.js) -->
 // band 3 — theme, icons, fonts, stylesheets
 // ---------------------------------------------------------------------
 
-/** Theme colour and both icons. Byte-identical on all 41 pages. */
-const THEME_AND_ICONS = `    <meta name="theme-color" content="#0F2A52" />
+/**
+ * Theme colour and both icons. Byte-identical on all 41 pages. The theme
+ * colour is --header-bg (src/styles/styles.css), the sticky header bar
+ * that sits directly under the browser UI.
+ */
+const THEME_AND_ICONS = `    <meta name="theme-color" content="#101010" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 `;
