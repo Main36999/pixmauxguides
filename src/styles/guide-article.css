@@ -496,11 +496,26 @@
   border: 1px solid var(--header-bg);
   border-radius: var(--radius);
   padding: 18px 18px 14px;
+  color: #e8edf4;
 }
 .guide-diagram__frame svg {
   display: block;
   width: 100%;
   height: auto;
+}
+/* Diagrams drawn in currentColor, and the card motif classes
+   they borrow from styles.css (.thumb-*), take the frame's
+   light ink above. Their accents use the dark-frame sky blue
+   instead of the retired --cyan. */
+.guide-diagram__frame .thumb-dim-line,
+.guide-diagram__frame .thumb-dim-tick,
+.guide-diagram__frame .thumb-handle,
+.guide-diagram__frame .thumb-handle-dot {
+  stroke: #7fb3e0;
+}
+.guide-diagram__frame .thumb-dim-label {
+  fill: #7fb3e0;
+  stroke: none;
 }
 .guide-diagram figcaption {
   font-family: var(--sans);
@@ -517,6 +532,7 @@
 .guide-diagram--light .guide-diagram__frame {
   background: var(--card);
   border: 1px solid var(--grid-line);
+  color: var(--text);
 }
 .guide-diagram--light .guide-diagram__frame svg {
   width: auto;
