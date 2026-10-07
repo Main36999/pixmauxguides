@@ -1,0 +1,22 @@
+# Netlify build configuration, copied from the site's dashboard settings
+# (Base directory "/", Build command, Publish directory, Functions
+# directory) and from the production deploy log's Node version.
+#
+# These values override the dashboard once committed, so they must stay
+# literal copies of what Netlify already uses. `base` is omitted on
+# purpose: Netlify's default base directory is the repository root.
+#
+# Headers and redirects stay in public/_headers and public/_redirects,
+# which the build publishes into dist/. Function routes and rate limits
+# stay in each function's own `config` export. Environment variables and
+# secrets stay in the Netlify dashboard.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24.21.0"
+
+[functions]
+  directory = "netlify/functions"
