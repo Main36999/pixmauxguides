@@ -285,9 +285,12 @@
          instead of through image-ratio parity. object-fit stays `contain`,
          untouched.
 
-         Only the corner radius is tuned: the reference reads ~4px, not
-         the 10px .card-thumb carries elsewhere. */
-      .search-page .card-thumb {
+         A Guide result keeps the site's one guide thumbnail edge (8px
+         and a hairline, from styles.css). Only the palette plate is
+         tuned: the reference reads ~4px, and its colour bars take no
+         hairline. */
+      .search-page .card-thumb--bars {
+        border: 0;
         border-radius: 4px;
       }
       /* Reference: ~15px from image to title, title ~15.5px/700, meta

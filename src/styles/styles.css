@@ -1541,11 +1541,16 @@ html[data-auth] .mobile-menu__auth {
   white-space: nowrap;
 }
 
-/* ---------- content-card thumbnail plate ---------- */
+/* ---------- content-card thumbnail plate ----------
+   One edge for every guide thumbnail (/guides, the category pages, the
+   related-guides rail and /search): the --radius-md corner and a faint
+   hairline, the font card's preview plate edge. Boxes are border-box, so
+   the hairline sits inside the 4:3 plate and the card keeps its size. */
 .card-thumb {
   position: relative;
   aspect-ratio: 4 / 3;
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
   background-color: #e5e5e7;
   display: flex;
   align-items: center;
@@ -2895,15 +2900,10 @@ body > .site-footer {
   }
 }
 
-/* The listing's cards take the .font-card__preview plate edge — its radius
-   (--guides-radius, transcribed from --font-radius) and its hairline border
-   — and show the title alone. The meta line stays in the shared cardHtml()
+/* The listing's cards show the title alone; their thumbnail edge is the
+   shared .card-thumb one. The meta line stays in the shared cardHtml()
    markup for the homepage, category, search and related-guides grids, which
    do not carry body.guides-page. */
-.guides-page .guides-grid .card-thumb {
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: var(--guides-radius);
-}
 .guides-page .guides-grid .card-meta {
   display: none;
 }
