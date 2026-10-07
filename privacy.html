@@ -224,7 +224,7 @@
       <main class="page-view-body" id="main" tabindex="-1">
         <div class="legal-content">
           <h1 class="legal-title">Privacy Policy</h1>
-          <p class="legal-updated mono">Effective date: September 30, 2026</p>
+          <p class="legal-updated mono">Effective date: October 8, 2026</p>
           <p>
             This Privacy Policy explains what information bpozz ("bpozz," "we,"
             "us") collects, how it's used, and the choices available to you. By
@@ -355,7 +355,17 @@
               any website host, Netlify's servers receive the technical
               information your browser sends with each request, such as your IP
               address, browser details and the address of the page requested,
-              in order to deliver the site to you.
+              in order to deliver the site to you. If a script on a page fails,
+              your browser also sends us a short error report through a Netlify
+              function: the error's type and message, the script file, line and
+              column, a shortened list of the code locations involved, the
+              page's path (without any query string) and the type of browser.
+              It contains no cookies, account or contact details, form contents
+              or browser-storage contents, and personal data that appears in an
+              error message is removed where we can detect it. We use these
+              reports only to find and fix errors. They are kept only for the
+              limited period Netlify retains its function logs, and then
+              deleted automatically.
             </li>
             <li>
               <strong>Contact form (Formspree).</strong> Messages sent through
@@ -391,8 +401,9 @@
           <p>
             We use collected information to respond to inquiries submitted
             through the contact form, to understand which guides are useful so
-            we can prioritize future writing, to count palette likes, and to
-            maintain site security. If we introduce advertising in the future,
+            we can prioritize future writing, to count palette likes, to
+            maintain site security, and to find and fix errors in the site. If
+            we introduce advertising in the future,
             we will also use it to serve ads, including personalized ads only
             where your consent choices allow it. If you have an account, we use
             your account information only to sign you in, keep you signed in and
@@ -486,6 +497,7 @@
   </div>
 </footer><!--FOOTER_END-->
 
+    <script src="/error-beacon.js"></script>
     <!-- Mobile menu toggle (kept in sync with app.js's "Mobile menu toggle" block —
          this page loads no other script, so the wiring lives here too). -->
     <script>

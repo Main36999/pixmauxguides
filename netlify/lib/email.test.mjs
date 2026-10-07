@@ -226,6 +226,7 @@ test("every function's config is literal-only source, so Netlify can read its ro
     "auth-google-start.mjs": "/api/auth/google/start",
     "auth-session.mjs": "/api/auth/session",
     "auth-signout.mjs": "/api/auth/signout",
+    "client-error.mjs": "/api/client-error",
     "saved-import.mjs": "/api/saved/import",
     "saved.mjs": "/api/saved",
   };

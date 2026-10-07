@@ -160,8 +160,9 @@ test("every page with Save controls loads auth and Saved before its own script",
   // Every guide page: /app.js, which carries guides.js.
   for (const page of GUIDE_PAGES) assert.deepStrictEqual(siteScriptsOf(read(page)), ["/app.js"], page);
 
-  // /account: no /app.js, so auth.js and saved.js on their own, first.
-  assert.deepStrictEqual(siteScriptsOf(read("account.html")), ["/auth.js", "/saved.js", "/account.js"]);
+  // /account: no /app.js, so auth.js and saved.js on their own, after only
+  // the error beacon.
+  assert.deepStrictEqual(siteScriptsOf(read("account.html")), ["/error-beacon.js", "/auth.js", "/saved.js", "/account.js"]);
   assert.deepStrictEqual(published("src/client/auth.js"), ["auth.js"]);
   assert.deepStrictEqual(published("src/client/saved.js"), ["saved.js"]);
 });

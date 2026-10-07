@@ -3,9 +3,9 @@
   "phase": "phase4-step10",
   "count": 352,
   "files": {
-    "404.html": "2c613b66a909e45a0abeee22bf7710fe",
-    "about.html": "a5505272528cc1ec6c705a05c289243d",
-    "account.html": "b4f4b75976450dd092b8f26939019d99",
+    "404.html": "1016797f4081cda62c9ddbd3f4fb0688",
+    "about.html": "30deb71ab755dc28bcb6e95acbd35d49",
+    "account.html": "cb7574eb1a0d857680b55b1876da4905",
     "category/accessibility.html": "f2f85cd890e02a9bb631577fba127dc6",
     "category/adobe-xd.html": "16305c9157655a09dec4a14ab29c64da",
     "category/color-theory.html": "8f51207366f47d5a51e7c55b4c633286",
@@ -17,7 +17,7 @@
     "category/typography.html": "339f0f9760e763f6f4d67ad7cf5e0e47",
     "category/web.html": "389c836c47a5fa0a00d3cad2990e30b4",
     "colors/index.html": "d9e01d0df80497b31bfac2de9098961d",
-    "contact.html": "c9e9cde8c859ea15fb265c2ce987b771",
+    "contact.html": "7a378b822afbdecfa4361ae20b0d7192",
     "fonts/abeezee.html": "13bfb24508e96c3ae572155f6f0b56a9",
     "fonts/abel.html": "c41437feb178db774e6916cad3159a30",
     "fonts/abhaya-libre.html": "bbb4d0b06b9b90d06958757f39f2ae18",
@@ -342,7 +342,7 @@
     "guide/type-scale-systems.html": "43a86443c9b5daee7bd71c399999ee10",
     "guide/whitespace-as-ui-component.html": "36bbf9934f4e69c4c497162282dfdda9",
     "guides/index.html": "cb8c8ca0acf7ed3a2cee7d057f86b69b",
-    "hoysomrach.html": "39500ecdd3c3d8b96e9ef1e06006d6c9",
+    "hoysomrach.html": "3f8c3104e9e3aff0733b7e71181d26cc",
     "icons/3d-essentials.html": "90e276bef90106034226f9f5b252685d",
     "icons/duotone-essentials.html": "1d21524331602b037a0c91ac6f429483",
     "icons/index.html": "f1f1c0972d98dba0db1f435fab2dab70",
@@ -351,10 +351,10 @@
     "image-picker/index.html": "6620ba100a5f07631e7da3ef92c8fe73",
     "index.html": "7d084a16026b9c97792350b9879e930d",
     "palettes/index.html": "4d838f0d03444069104bc9cfabfae412",
-    "privacy.html": "953afb2010e5b3ac4814375e12b9418b",
+    "privacy.html": "41e3502ba495106de93b407a3a5cb0e5",
     "roadmap.html": "f63e5f30cf324a98a421eba2657512e1",
     "search.html": "1df7f2ceed2462bdc541c4c2af16f18e",
-    "terms.html": "f2e391222dc79e86ba1f431fb232264e"
+    "terms.html": "ad998252415690b865cbe12c97735b36"
   },
   "status": "RECORDED by an explicit BPOZZ_WRITE_BASELINE=1 run — the diff is the review, not this field"
 }

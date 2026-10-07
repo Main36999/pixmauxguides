@@ -971,7 +971,7 @@ test("account.html: the three sections keep their ids and classes; Saved keeps i
 
 test("account.html: /auth.js, /saved.js, /account.js last, in that order; markers and auth hooks once each", () => {
   const scripts = [...PAGE.matchAll(/<script\b([^>]*)>/g)].map((m) => m[1]).filter((attrs) => /\ssrc="\//.test(attrs));
-  assert.deepStrictEqual(scripts, [' src="/auth.js"', ' src="/saved.js"', ' src="/account.js"']);
+  assert.deepStrictEqual(scripts, [' src="/error-beacon.js"', ' src="/auth.js"', ' src="/saved.js"', ' src="/account.js"']);
   const tail = PAGE.slice(PAGE.indexOf("<!--FOOTER_END-->"));
   assert.ok(/<script src="\/auth.js"><\/script>\s*<script src="\/saved.js"><\/script>\s*<script src="\/account.js"><\/script>\s*<\/body>/.test(tail));
   for (const marker of ["<!--HEADER_START-->", "<!--HEADER_END-->", "<!--FOOTER_START-->", "<!--FOOTER_END-->"]) {
@@ -989,5 +989,5 @@ test("build: /account.js is published on its own and is not part of /app.js", ()
     build.PUBLISH_FILES.filter((f) => f.from === "src/client/account.js").map((f) => ({ ...f })),
     [{ from: "src/client/account.js", to: "account.js" }],
   );
-  assert.deepStrictEqual(build.APP_BUNDLE.modules, ["src/shared/html.js", "src/shared/card.js", "src/client/auth.js", "src/client/saved.js"]);
+  assert.deepStrictEqual(build.APP_BUNDLE.modules, ["src/client/error-beacon.js", "src/shared/html.js", "src/shared/card.js", "src/client/auth.js", "src/client/saved.js"]);
 });

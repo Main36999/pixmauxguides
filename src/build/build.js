@@ -191,6 +191,16 @@ const PUBLISH_FILES = [
   { from: "src/styles/guide-article.css", to: "guide-article.css" },
 
   /**
+   * ERROR BEACON — reports this site's own uncaught script errors to
+   * /api/client-error. It is also bundled into /app.js, as the first of
+   * APP_BUNDLE.modules; this standalone copy is for the seven pages that do
+   * not load app.js (404, about, account, contact, hoysomrach, privacy,
+   * terms), ahead of their first site script. The module guards itself, so a
+   * page loading both copies runs it once.
+   */
+  { from: "src/client/error-beacon.js", to: "error-beacon.js" },
+
+  /**
    * AUTH — the header's Sign in / Sign up dialog. It is also bundled into
    * /app.js (APP_BUNDLE.modules); this standalone copy is for the five
    * hand-authored pages that carry the header but not app.js (about,
@@ -335,7 +345,13 @@ const PUBLISH_FILES = [
  */
 const APP_BUNDLE = {
   to: "app.js",
-  modules: ["src/shared/html.js", "src/shared/card.js", "src/client/auth.js", "src/client/saved.js"],
+  modules: [
+    "src/client/error-beacon.js",
+    "src/shared/html.js",
+    "src/shared/card.js",
+    "src/client/auth.js",
+    "src/client/saved.js",
+  ],
   fragments: [
     "src/client/core.js",
     "src/client/guides.js",
