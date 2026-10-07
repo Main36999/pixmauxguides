@@ -332,6 +332,23 @@ test("the listing renders one card per font, each linking to its page", () => {
   );
 });
 
+test("every Font Save control draws the site's Save bookmark, never a heart", () => {
+  const BOOKMARK =
+    '<svg class="font-icon font-icon--bookmark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+  let controls = 0;
+  out.pages.forEach(({ file, html }) => {
+    assert.ok(!html.includes("font-icon--heart") && !html.includes("M12 20.3"), `${file} still draws the heart`);
+    const saves = [...html.matchAll(/<button [^>]*data-font-fav="[^"]+"[^>]*>(.*?)<\/button>/g)];
+    saves.forEach((m) => assert.ok(m[1].startsWith(BOOKMARK), `${file}: a Save button without the bookmark`));
+    controls += saves.length;
+  });
+  assert.ok(controls > model.fonts.length, "every card and every detail page has a Save control");
+  const chip = pageByFile.get("fonts/index.html").match(/<button [^>]*data-category="saved"[^>]*>(.*?)<\/button>/);
+  assert.ok(chip, "the listing has its Saved filter chip");
+  assert.strictEqual(chip[1], `${BOOKMARK}<span>Saved</span>`, "the Saved chip is the bookmark and its label");
+});
+
 test("every font page carries title, description, canonical, Open Graph and valid JSON-LD", () => {
   out.pages.forEach((page) => {
     const html = page.html;

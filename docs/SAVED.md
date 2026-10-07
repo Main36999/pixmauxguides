@@ -221,7 +221,7 @@ Once active:
 
 ## Save on Fonts
 
-The heart on every `/fonts/` card and the Save button on each
+The Save bookmark on every `/fonts/` card and the Save button on each
 `/fonts/<id>.html` page (both rendered by `src/build/fonts.js`, unchanged) are
 handled by `src/client/fonts.js`, which runs after `/app.js`.
 

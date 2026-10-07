@@ -413,7 +413,7 @@
       emptyHint.textContent = "";
       emptyHint.appendChild(
         document.createTextNode(
-          "Select the heart on a font to keep it here. Fonts saved in this browser before accounts can be added from ",
+          "Select Save on a font to keep it here. Fonts saved in this browser before accounts can be added from ",
         ),
       );
       var link = document.createElement("a");
@@ -471,7 +471,7 @@
           : "They'll appear here as soon as they do.";
       } else if (state.category === "saved" && !terms.length) {
         emptyTitle.textContent = "You haven't saved any fonts yet.";
-        emptyHint.textContent = "Select the heart on a font to keep it here.";
+        emptyHint.textContent = "Select Save on a font to keep it here.";
         if (account) pointToImport();
       } else {
         emptyTitle.textContent = "No fonts match your search.";

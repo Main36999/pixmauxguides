@@ -311,7 +311,7 @@ test("dormant: ?category=saved lists this browser's favorites; its empty state a
   assert.deepStrictEqual(p.visible(), []);
   assert.strictEqual(p.empty.hidden, false);
   assert.strictEqual(p.title.textContent, "You haven't saved any fonts yet.");
-  assert.strictEqual(p.hint.textContent, "Select the heart on a font to keep it here.");
+  assert.strictEqual(p.hint.textContent, "Select Save on a font to keep it here.");
   assert.deepStrictEqual(p.calls, []);
 });
 
@@ -474,7 +474,7 @@ test("launched Saved view, signed in, none saved: old browser favorites aren't s
   assert.strictEqual(p.title.textContent, "You haven't saved any fonts yet.");
   assert.strictEqual(
     p.hint.textContent,
-    "Select the heart on a font to keep it here. Fonts saved in this browser before accounts can be added from Your Account.",
+    "Select Save on a font to keep it here. Fonts saved in this browser before accounts can be added from Your Account.",
   );
   assert.strictEqual(p.hint.querySelector("a").getAttribute("href"), "/account#saved");
   assert.deepStrictEqual(p.writes(), [], "nothing imported from here");
@@ -485,9 +485,9 @@ test("launched Saved view, signed in, none saved: old browser favorites aren't s
     storage: { [FONTS_KEY]: JSON.stringify(["abel"]), [MARKER_KEY]: JSON.stringify({ v: 1, dismissed: true }) },
   });
   await settle(10);
-  assert.strictEqual(dismissed.hint.textContent, "Select the heart on a font to keep it here.", "no pointer once the offer was dismissed");
+  assert.strictEqual(dismissed.hint.textContent, "Select Save on a font to keep it here.", "no pointer once the offer was dismissed");
 
   const nothingOld = load({ search: "?category=saved" });
   await settle(10);
-  assert.strictEqual(nothingOld.hint.textContent, "Select the heart on a font to keep it here.");
+  assert.strictEqual(nothingOld.hint.textContent, "Select Save on a font to keep it here.");
 });

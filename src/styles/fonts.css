@@ -273,7 +273,7 @@
   gap: 2px;
 }
 
-/* ---------- icon buttons, heart, menu ---------- */
+/* ---------- icon buttons, save, menu ---------- */
 
 .font-icon {
   width: 20px;
@@ -312,14 +312,15 @@
   color: var(--font-ink);
 }
 
-/* Saved: a filled heart. aria-pressed is the state; the fill mirrors it. */
+/* Saved: a filled bookmark in the action blue, as Save is everywhere
+   else on the site. aria-pressed is the state; the fill mirrors it. */
 [data-font-fav][aria-pressed="true"] {
-  color: #c8103e;
+  color: var(--action);
 }
-[data-font-fav][aria-pressed="true"] .font-icon--heart {
+[data-font-fav][aria-pressed="true"] .font-icon--bookmark {
   fill: currentColor;
 }
-.fonts-filter[aria-pressed="true"] .font-icon--heart {
+.fonts-filter[aria-pressed="true"] .font-icon--bookmark {
   fill: currentColor;
 }
 

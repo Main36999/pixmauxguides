@@ -317,9 +317,9 @@ function packageEntries(font, fontDir) {
 // shared markup
 // ---------------------------------------------------------------------
 
-const ICON_HEART =
-  '<svg class="font-icon font-icon--heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
-  '<path d="M12 20.3 4.6 13.1a4.8 4.8 0 0 1 0-6.9 4.9 4.9 0 0 1 6.9 0l.5.5.5-.5a4.9 4.9 0 0 1 6.9 0 4.8 4.8 0 0 1 0 6.9Z"/></svg>';
+const ICON_SAVE =
+  '<svg class="font-icon font-icon--bookmark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+  '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 const ICON_MORE =
   '<svg class="font-icon font-icon--dots" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
   '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>';
@@ -364,7 +364,7 @@ function cardHtml(font, labels, titleTag) {
     `<div class="font-card__bar">` +
     `<${titleTag} class="font-card__name"><a href="${url}">${name}</a></${titleTag}>` +
     `<div class="font-card__actions">` +
-    `<button type="button" class="font-icon-btn" data-font-fav="${font.id}" aria-pressed="false" aria-label="Save ${name}">${ICON_HEART}</button>` +
+    `<button type="button" class="font-icon-btn" data-font-fav="${font.id}" aria-pressed="false" aria-label="Save ${name}">${ICON_SAVE}</button>` +
     `<div class="font-menu">` +
     `<button type="button" class="font-icon-btn" data-font-menu aria-haspopup="true" aria-expanded="false" aria-controls="${menuId}" aria-label="More options for ${name}">${ICON_MORE}</button>` +
     `<div class="font-menu__list" id="${menuId}" role="menu" hidden>` +
@@ -475,7 +475,7 @@ function listingHtml(fonts, ctx, partials) {
       ),
     )
     .concat([
-      `<button type="button" class="fonts-filter fonts-filter--saved" data-category="saved" aria-pressed="false">${ICON_HEART}<span>Saved</span></button>`,
+      `<button type="button" class="fonts-filter fonts-filter--saved" data-category="saved" aria-pressed="false">${ICON_SAVE}<span>Saved</span></button>`,
     ])
     .join("\n          ");
 
@@ -830,7 +830,7 @@ ${head.skipLinkHtml("font-content", "Skip to content")}
 
         <div class="font-panel font-panel--actions">
           <div class="font-actions">
-            <button type="button" class="font-action" data-font-fav="${font.id}" data-font-fav-label aria-pressed="false">${ICON_HEART}<span>Save</span></button>
+            <button type="button" class="font-action" data-font-fav="${font.id}" data-font-fav-label aria-pressed="false">${ICON_SAVE}<span>Save</span></button>
             <a class="font-action font-action--primary" href="${fileUrl(font, pkg.file)}" download="${pkg.file}">${ICON_DOWNLOAD}<span>Download</span></a>
             <div class="font-menu">
               <button type="button" class="font-action font-action--icon" data-font-menu aria-haspopup="true" aria-expanded="false" aria-controls="font-menu-detail" aria-label="More options for ${name}">${ICON_MORE}</button>
