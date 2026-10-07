@@ -257,13 +257,16 @@
 .icons-btn[hidden] {
   display: none;
 }
+/* Blue is the action colour; black is kept for selected chips. The hover
+   border is restated so .icons-btn:hover does not paint it black. */
 .icons-btn--primary {
-  background: var(--icons-ink);
-  border-color: var(--icons-ink);
+  background: var(--action);
+  border-color: var(--action);
   color: #fff;
 }
 .icons-btn--primary:hover {
-  background: var(--ink-hover);
+  background: var(--action-hover);
+  border-color: var(--action-hover);
 }
 /* Copy feedback is carried by the label text ("✓ Copied" / "Copy failed"),
    and announced through #icons-status; the border only reinforces it. */
@@ -271,7 +274,8 @@
   border-color: var(--icons-ink);
 }
 .icons-btn--primary[data-state="copied"] {
-  background: var(--ink-hover);
+  background: var(--action-hover);
+  border-color: var(--action-hover);
 }
 
 /* ---------- the icon grid: a dense tile browser ----------

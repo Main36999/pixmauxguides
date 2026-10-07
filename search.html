@@ -104,8 +104,9 @@
       /* ---------- type filter chips ----------
          Retuned to the reference: a single rounded segmented control —
          hairline outer capsule, pill segments inside, the active segment
-         filled solid with the brand colour and white text. (The reference
-         fills its active segment red; BPOZZ uses #2563eb.)
+         filled solid black with white text. (The reference fills its
+         active segment red; BPOZZ marks selected states black and keeps
+         blue for actions.)
 
          The class names (.search-type-tabs/.search-type-tab) are kept
          exactly as they were so the filter JavaScript is untouched — only
@@ -141,12 +142,12 @@
           background 0.15s ease;
       }
       .search-page .search-type-tab:hover {
-        color: var(--action);
-        background: rgba(37, 99, 235, 0.06);
+        color: var(--text);
+        background: var(--surface-muted);
       }
       .search-page .search-type-tab[aria-pressed="true"] {
         color: #ffffff;
-        background: var(--action);
+        background: #000000;
         border-color: transparent;
       }
 

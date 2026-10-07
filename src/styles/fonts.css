@@ -519,14 +519,17 @@
 .font-action:hover {
   border-color: var(--font-ink);
 }
+/* Blue is the action colour; black is kept for selected chips. The hover
+   border is restated so .font-action:hover does not paint it black. */
 .font-action--primary {
   flex: 1;
-  background: var(--font-ink);
-  border-color: var(--font-ink);
+  background: var(--action);
+  border-color: var(--action);
   color: #fff;
 }
 .font-action--primary:hover {
-  background: var(--ink-hover);
+  background: var(--action-hover);
+  border-color: var(--action-hover);
 }
 .font-action--icon {
   width: 44px;

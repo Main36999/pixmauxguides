@@ -166,15 +166,16 @@
 }
 
 /* The selected chip is marked by FILL and TEXT WEIGHT CONTRAST, not by hue:
-   solid --action background, white label. A viewer who cannot distinguish
-   the chip colours still sees which one is inverted — and aria-pressed
+   solid black background, white label (site-wide, black = selected and
+   blue = action). A viewer who cannot distinguish the chip colours still
+   sees which one is inverted — and aria-pressed
    carries the same fact to assistive tech, so the state is never
    colour-only. Declared after :hover so an active chip stays inverted
    while hovered. */
 .colors-filter[aria-pressed="true"],
 .colors-filter[aria-pressed="true"]:hover {
-  background: var(--action);
-  border-color: var(--action);
+  background: #000;
+  border-color: #000;
   color: #fff;
 }
 
@@ -189,8 +190,8 @@
   /* The hairline is what keeps the White dot visible on the gray pill. */
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
 }
-/* On the blue active fill a Blue or Violet dot would vanish; a white ring
-   keeps every dot legible there. */
+/* On the black active fill a Black or dark Gray dot would vanish; a white
+   ring keeps every dot legible there. */
 .colors-filter[aria-pressed="true"] .colors-filter__dot {
   box-shadow:
     inset 0 0 0 1px rgba(0, 0, 0, 0.18),
