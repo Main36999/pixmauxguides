@@ -13,9 +13,10 @@
  * rectangle.
  *
  * Reuses only the site-wide primitives from styles.css (--action /
- * --action-hover / --paper / --card / --radius / --sans / --grid-line /
- * --text / --text-muted, .wrap, .sr-only, .toast). It defines no new
- * site-level token and overrides nothing in :root.
+ * --action-hover / --paper / --card / --radius / --radius-lg / --sans /
+ * --grid-line / --line / --shadow-rgb / --text / --text-muted, .wrap,
+ * .sr-only, .toast). It defines no new site-level token and overrides
+ * nothing in :root.
  *
  * TWO RULES THIS FILE IS HELD TO, BEYOND THE USUAL SCOPING ONE:
  *
@@ -24,7 +25,8 @@
  *      get tabular-nums for alignment instead of a mono face switch.
  *   2. NO --ink AND NO HARDCODED EQUIVALENT OF #0F2A52. Every accent here
  *      is var(--action) / var(--action-hover); every shadow/scrim is a
- *      neutral rgba(0,0,0,…) or rgba(255,255,255,…), never
+ *      neutral rgba(0,0,0,…) or rgba(255,255,255,…), or the site's slate
+ *      rgba(var(--shadow-rgb),…) (15,23,42), never
  *      rgba(15,42,82,…) — that triplet is #0F2A52 decomposed to RGB, which
  *      is exactly the "hardcoded equivalent" this page may not use. (See
  *      src/client/image-picker.js's ringColorFor() for the matching note.)
@@ -548,21 +550,25 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(var(--shadow-rgb), 0.45);
 }
 .ip-modal-backdrop[hidden] {
   display: none;
 }
 
+/* The site's dialog recipe, shared with the icon dialog: 12px corners, a
+   --line border, one slate shadow and the slate backdrop above. Padding is
+   18px less the new 1px border, so the content box keeps its size. */
 .ip-modal {
   width: 100%;
   max-width: 420px;
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   background: var(--card);
-  border-radius: 14px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 40px rgba(var(--shadow-rgb), 0.14);
+  padding: 17px;
 }
 
 .ip-modal__head {

@@ -347,7 +347,7 @@
   width: 100%;
   padding: 9px 10px;
   border: 0;
-  border-radius: 5px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--font-ink);
   font-family: var(--sans);
