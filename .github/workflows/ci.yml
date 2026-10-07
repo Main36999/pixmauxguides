@@ -1,0 +1,53 @@
+# CI: runs the existing BPOZZ verification gates on every push to main
+# and every pull request into main.
+#
+# This workflow only verifies. It never approves output
+# (BPOZZ_APPROVE_OUTPUT), never writes a baseline (BPOZZ_WRITE_BASELINE)
+# and never deploys; Netlify still builds and deploys on its own.
+#
+# There is no install step: package.json has no dependencies and the repo
+# has no lockfile, so `npm test` and `npm run qa` run on Node alone.
+
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Superseded pull request runs are cancelled. Pushes to main are not,
+  # so every commit on main keeps its own result.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  verify:
+    name: npm test + npm run qa
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          # The Node release that records approved-output.json locally.
+          # Bump it together with the local runtime.
+          node-version: 24.19.0
+          package-manager-cache: false
+
+      - name: npm test
+        run: npm test
+
+      - name: npm run qa
+        run: npm run qa
