@@ -918,6 +918,14 @@ html[data-auth] .mobile-menu__auth {
   .site-header--inner .input {
     padding-inline: 0.25em;
   }
+  /* The Clear button is invisible while the field is empty, but
+     visibility: hidden still held its 29px slot and the 4px gap, which
+     clipped the placeholder "Search bpozz…" to "Search bpoz" at 375px.
+     Out of the row only while the placeholder shows; it comes back, in
+     the same place, as soon as there is text to clear. */
+  .site-header--inner .input:placeholder-shown ~ .reset {
+    display: none;
+  }
   .site-nav {
     display: none;
   }

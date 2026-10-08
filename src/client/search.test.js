@@ -165,6 +165,7 @@ async function search(query, { extra = "", rawSearch, scores = false } = {}) {
       ),
       grid,
       heading: els["search-heading"].textContent,
+      dek: els["search-dek"].textContent,
       count: els["search-results-count"].textContent,
       // The role=status line is always in the accessibility tree; sr-only
       // only takes it off the screen.
@@ -316,7 +317,7 @@ test("zero results are announced through the role=status count line", async () =
   // The empty-state panel is not a live region; the count line is. It used to
   // be blanked on zero results, so a screen reader heard nothing at all.
   const { count } = await search("zzqxnomatchzz");
-  assert.strictEqual(count, '0 Results for "zzqxnomatchzz"');
+  assert.strictEqual(count, '0 Results for "zzqxnomatchzz" in guides and palettes');
   const html = fs.readFileSync(path.join(config.paths.root, "search.html"), "utf8");
   assert.match(html, /<p[^>]*id="search-results-count"[^>]*role="status"[^>]*aria-live="polite"/);
   assert.match(html, /<form[^>]*role="search"/);
@@ -329,6 +330,94 @@ test("an empty query renders no results and no count", async () => {
   const { ids, count } = await search("");
   assert.deepStrictEqual(ids, []);
   assert.strictEqual(count, "");
+});
+
+// ---------------------------------------------------------------------
+// search scope: the wording names exactly what the index holds
+// ---------------------------------------------------------------------
+
+// Fonts, icon packs and the colour library are not in content-index.json
+// (F9, F10). The search boxes say "Search bpozz"; /search states the scope —
+// its intro line, the zero-results count and the no-results panel all name
+// guides and (color) palettes. If the index gains a type, the first test
+// below fails: update search.html and SCOPE_DEK / countLabel() in search.js
+// with it.
+const SEARCH_LABEL = "Search bpozz";
+const SCOPE_DEK = "Search currently includes guides and color palettes.";
+
+test("the search index holds every guide and every palette, and nothing else", () => {
+  assert.deepStrictEqual([...new Set(INDEX.map((r) => r.type))].sort(), ["guide", "palette"]);
+  assert.deepStrictEqual(
+    INDEX.filter((r) => r.type === "guide").map((r) => r.slug),
+    model.guides.map((g) => g.id),
+  );
+});
+
+for (const [file, inputId] of [
+  ["partials/header.html", "header-search-input"],
+  ["index.html", "hero-search-input"],
+]) {
+  test(`${file}: the global search box is labelled "${SEARCH_LABEL}"`, () => {
+    const html = fs.readFileSync(path.join(config.paths.root, file), "utf8");
+    const forms = html.match(/<form[^>]*role="search"[\s\S]*?<\/form>/g) || [];
+    assert.strictEqual(forms.length, 1, "one global search form");
+    const form = forms[0];
+    assert.match(form, /action="\/search"/);
+    assert.match(form, /method="get"/);
+
+    const label = new RegExp(`<label for="${inputId}"[^>]*>\\s*([^<]*?)\\s*</label`).exec(form);
+    assert.ok(label, "the input has a <label>");
+    assert.strictEqual(label[1], SEARCH_LABEL, "the input's accessible name");
+
+    const submit = /<button\s[^>]*type="submit"[^>]*>/.exec(form);
+    assert.ok(submit, "the form has a submit button");
+    assert.strictEqual(/aria-label="([^"]*)"/.exec(submit[0])[1], SEARCH_LABEL, "the submit button's name");
+
+    const input = new RegExp(`<input\\s[^>]*id="${inputId}"[^>]*>`).exec(form);
+    assert.ok(input, "the search input");
+    assert.match(input[0], /type="search"/);
+    assert.match(input[0], /name="s"/);
+    // The visible hint starts with the accessible name, so what a sighted
+    // user reads and what a screen reader says are the same words.
+    assert.strictEqual(/placeholder="([^"]*)"/.exec(input[0])[1], SEARCH_LABEL + "…");
+  });
+}
+
+test("the /search intro line states the scope, with or without a query", async () => {
+  const html = fs.readFileSync(path.join(config.paths.root, "search.html"), "utf8");
+  const dek = /<p class="category-hero__dek" id="search-dek">([\s\S]*?)<\/p>/.exec(html);
+  assert.ok(dek, "search.html has the intro line");
+  assert.strictEqual(dek[1].replace(/\s+/g, " ").trim(), SCOPE_DEK, "the no-JS markup");
+  for (const q of ["", "gold", "zzqxnomatchzz"]) {
+    assert.strictEqual((await search(q)).dek, SCOPE_DEK, `query "${q}"`);
+  }
+});
+
+test("no results: the panel and the status line both say what was searched", async () => {
+  const s = await search("zzqxnomatchzz");
+  const html = fs.readFileSync(path.join(config.paths.root, "search.html"), "utf8");
+  const panel = /<p id="search-empty-message">([\s\S]*?)<\/p>/.exec(html);
+  assert.ok(panel, "search.html has the no-results message");
+  // The message as a reader sees it: the page writes the quoted query into
+  // the <strong>.
+  const shown = panel[1]
+    .replace('<strong id="search-empty-query"></strong>', s.emptyQuery)
+    .replace(/\s+/g, " ")
+    .trim();
+  assert.strictEqual(shown, 'No guides or palettes match "zzqxnomatchzz".');
+  assert.doesNotMatch(html, /No results found/, "the old unscoped wording is gone");
+  assert.ok(s.noResultsMessageShown);
+  assert.strictEqual(s.count, '0 Results for "zzqxnomatchzz" in guides and palettes', "the role=status line");
+  assert.ok(!s.countVisuallyHidden, "the status line stays on screen");
+});
+
+test("only a zero count names the scope: result counts are unchanged", async () => {
+  for (const extra of ["", "&type=palette"]) {
+    const s = await search("gold", { extra });
+    assert.ok(s.hrefs.length > 0, `fixture assumption: "gold" has results (${extra})`);
+    assert.match(s.count, new RegExp(`^${s.hrefs.length} Results? for "gold"`));
+    assert.doesNotMatch(s.count, /in guides and palettes/);
+  }
 });
 
 // ---------------------------------------------------------------------
@@ -606,7 +695,7 @@ test("a guide title that repeats a word itself still matches exactly when typed 
 test("no results anywhere: the no-results message, tips and no clear button", async () => {
   const s = await search("zzqxnomatchzz", { extra: "&type=palette" });
   assert.ok(s.empty);
-  assert.strictEqual(s.count, '0 Results for "zzqxnomatchzz"');
+  assert.strictEqual(s.count, '0 Results for "zzqxnomatchzz" in guides and palettes');
   assert.strictEqual(s.emptyQuery, '"zzqxnomatchzz"');
   assert.ok(s.noResultsMessageShown);
   assert.strictEqual(s.filteredMessage, null);
@@ -699,7 +788,7 @@ for (const q of [".", ",", "·", "(", ")", "&"]) {
     const s = await search(q);
     assert.deepStrictEqual(s.hrefs, []);
     assert.ok(s.empty);
-    assert.strictEqual(s.count, `0 Results for "${q}"`);
+    assert.strictEqual(s.count, `0 Results for "${q}" in guides and palettes`);
   });
 }
 

@@ -108,6 +108,9 @@
       palette: "Palette",
     };
     var TYPE_VALUES = ["all", "guide", "palette"];
+    // The intro line under the heading, with or without a query: what the
+    // index covers. search.html carries the same sentence for no-JS visits.
+    var SCOPE_DEK = "Search currently includes guides and color palettes.";
 
     // Relevance weights — bpozz-global-search-spec-v2.md §12. Each is what
     // one query term earns for a WHOLE-WORD hit in that field (see MATCH for
@@ -807,6 +810,11 @@
     function countLabel(results) {
       var n = results.length;
       var base = n + " Result" + (n === 1 ? "" : "s") + ' for "' + query + '"';
+      // Zero here means nothing in the index matched at all (a query the
+      // filters emptied gets filteredEmptyLabel() instead). This line is the
+      // page's role="status" region, so it names what was searched: the
+      // site's other libraries (fonts, icons, colors) are not in the index.
+      if (!n) return base + " in guides and palettes";
       if (typeFilter !== "all") return base;
       var counts = { guide: 0, palette: 0 };
       results.forEach(function (r) {
@@ -870,8 +878,7 @@
 
       if (!query) {
         headingEl.textContent = "Search";
-        dekEl.textContent =
-          "Use the search box above to find a guide or palette by title, topic, tag, or category.";
+        dekEl.textContent = SCOPE_DEK;
         document.title = "Search — bpozz";
         countEl.textContent = "";
         gridEl.innerHTML = "";
@@ -882,8 +889,7 @@
 
       document.title = 'Search results for "' + query + '" — bpozz';
       headingEl.textContent = 'Search results for "' + query + '"';
-      dekEl.textContent =
-        "Showing guides and palettes whose title, description, tags, or category match your search.";
+      dekEl.textContent = SCOPE_DEK;
 
       if (!dataLoaded) {
         filtersEl.hidden = true;
