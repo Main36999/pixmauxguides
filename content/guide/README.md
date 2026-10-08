@@ -87,6 +87,22 @@ build, and `src/build/guide-template.test.js` will fail, because it diffs the
 rendered page against the committed one byte for byte. Edit the content file
 or the template instead.
 
+## Related resources
+
+`src/data/guide-resources.json` lists, per guide id, the bpozz tools and
+libraries that put the guide into practice: one to three entries, each naming
+a resource type from `resource-types.json` (its landing page) or one font
+family (`/fonts/<id>`), with a short label and a note saying why it is there.
+The template renders them as a block after previous/next and before the
+related-guides rail; a guide with no entry gets no block. The list is curated
+by hand, not matched by keyword — add an entry only where the guide's own text
+connects to the destination. `/fonts/` lists, in reverse, the guides that link
+it, from the same file.
+
+The build fails on an unknown guide, type or font, a repeated destination, or
+an href that is not a published route. The committed `guide/*.html` copies
+change with it like any other template output (see above).
+
 ## Adding a guide
 
 1. `content/guide/<slug>.html` — the six slots. Copy an existing file.

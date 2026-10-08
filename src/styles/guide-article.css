@@ -846,3 +846,52 @@
     width: 100%;
   }
 }
+
+/* --------------------------------------------------------------------------
+   14. Related resources — on guides with an entry in
+   src/data/guide-resources.json, the bpozz tools and libraries that put the
+   guide into practice. Built into the page by src/build/guide-template.js,
+   after previous/next and before the related-guides rail, so the completion
+   block (13) still follows the article directly. The same bordered card and
+   blue label as the table of contents (3), and its link treatment: the text
+   colour until hovered or focused.
+   -------------------------------------------------------------------------- */
+.guide-resources {
+  margin-top: 44px;
+  padding: 20px 24px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.guide-resources__label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--action);
+}
+.guide-resources__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.guide-resources__link {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  text-decoration: none;
+}
+.guide-resources__link:hover,
+.guide-resources__link:focus-visible {
+  color: var(--action);
+  text-decoration: underline;
+}
+.guide-resources__note {
+  margin: 4px 0 0;
+  max-width: 68ch;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}

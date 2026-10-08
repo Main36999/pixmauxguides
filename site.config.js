@@ -121,6 +121,15 @@ module.exports = {
        * location the Phase 2 note above names as the target for all of them.
        */
       guidePages: path.join(ROOT, "content", "guide"),
+
+      /**
+       * GUIDE RESOURCES (Issue #10) — the bpozz tools and libraries a guide
+       * puts into practice, curated per guide id. A build input; never
+       * published. Validated in src/build/content.js, rendered on the guide
+       * page by src/build/guide-template.js and, in reverse, on /fonts/ by
+       * src/build/fonts.js.
+       */
+      guideResources: path.join(ROOT, "src", "data", "guide-resources.json"),
     },
 
     src: path.join(ROOT, "src"),

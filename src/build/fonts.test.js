@@ -332,6 +332,38 @@ test("the listing renders one card per font, each linking to its page", () => {
   );
 });
 
+test("the listing links back, once each, to the guides that link the font library", () => {
+  const html = pageByFile.get("fonts/index.html");
+  const expected = Object.keys(model.guideResources).filter((id) =>
+    model.guideResources[id].some((r) => r.href === "/fonts/"),
+  );
+  assert.ok(expected.length > 0, "no guide links /fonts/ — nothing to link back to");
+  assert.deepStrictEqual(fonts.learnGuides(model).map((g) => g.id), expected);
+
+  const at = html.indexOf('<section class="tool-notes" aria-labelledby="fonts-learn">');
+  assert.ok(at !== -1, "the listing has no learning notes");
+  assert.ok(html.indexOf('id="font-grid"') < at, "the notes come before the grid");
+  assert.ok(at < html.indexOf("</main>"), "the notes are outside <main>");
+  assert.ok(html.includes('<h2 id="fonts-learn">'), "the notes have no heading for aria-labelledby");
+
+  const guideLinks = [...html.matchAll(/href="\/guide\/([^"]+)"/g)].map((m) => m[1]);
+  assert.deepStrictEqual(guideLinks, expected, "guide links on /fonts/ are not exactly the expected ones, once each");
+  expected.forEach((id) => {
+    const g = model.guides.find((x) => x.id === id);
+    assert.ok(html.includes(`<a href="/guide/${id}">${g.title}</a>`), `${id} is not linked by its title`);
+  });
+});
+
+test("the listing draws no learning notes when no guide links the font library", () => {
+  // One family with no editorial record keeps this a one-ZIP build.
+  const one = model.fonts.filter((f) => !model.fontEditorial[f.id]).slice(0, 1);
+  const bare = Object.assign({}, model, { guideResources: {}, fonts: one });
+  const html = fonts.build({ config, model: bare }).pages[0].html;
+  assert.ok(html.includes(`data-font-id="${one[0].id}"`), "not the listing");
+  assert.ok(!html.includes("fonts-learn"));
+  assert.ok(!html.includes('href="/guide/'));
+});
+
 test("every Font Save control draws the site's Save bookmark, never a heart", () => {
   const BOOKMARK =
     '<svg class="font-icon font-icon--bookmark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +

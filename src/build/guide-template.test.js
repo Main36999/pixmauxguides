@@ -48,6 +48,8 @@ const guides = require("./guides.js");
 const header = require("./header.js");
 const footer = require("./footer.js");
 const home = require("./home.js");
+const routes = require("./routes.js");
+const fonts = require("./fonts.js");
 const { escapeHtml } = require("../shared/html.js");
 
 const model = content.load(config);
@@ -430,6 +432,184 @@ test("a guide that is not on the roadmap carries no roadmap context", () => {
       !html.includes('href="/roadmap"'),
       file + ": links the roadmap from outside the header and footer",
     );
+  });
+});
+
+// ---------------------------------------------------------------------
+// related resources (Issue #10)
+// ---------------------------------------------------------------------
+
+const RESOURCES_OPEN = '<aside class="guide-resources"';
+
+test("a guide with related resources lists them after previous/next and before the rail", () => {
+  const withResources = pages.filter((p) => p.resources).map((p) => p.id);
+  assert.deepStrictEqual(
+    withResources.sort(),
+    Object.keys(model.guideResources).sort(),
+    "the pages carrying resources are not the guides guide-resources.json names",
+  );
+
+  pages.forEach((page) => {
+    const file = "guide/" + page.id + ".html";
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    if (!page.resources) {
+      assert.ok(!html.includes(RESOURCES_OPEN), file + ": has a resources block");
+      return;
+    }
+
+    assert.strictEqual(
+      html.split(RESOURCES_OPEN).length - 1,
+      1,
+      file + ": expected exactly one resources block",
+    );
+    const at = html.indexOf(RESOURCES_OPEN);
+    const block = html.slice(at, html.indexOf("</aside>", at));
+    // After previous/next where there is one, else after the article — so
+    // the completion block roadmap.js draws before previous/next still
+    // follows the article directly.
+    const after = page.roadmap
+      ? html.indexOf("</nav>", html.indexOf(ORDER_OPEN))
+      : html.indexOf("</article>");
+    assert.ok(after !== -1 && after < at, file + ": resources come too early");
+    assert.ok(
+      at < html.indexOf('id="guide-rail"'),
+      file + ": resources are not before the related-guides rail",
+    );
+    assert.ok(
+      block.includes('aria-label="Related resources"'),
+      file + ": resources block has no accessible name",
+    );
+
+    page.resources.forEach((r) => {
+      assert.ok(
+        block.includes(
+          '<a class="guide-resources__link" href="' +
+            r.href +
+            '">' +
+            escapeHtml(r.label) +
+            "</a>",
+        ),
+        file + ": no link to " + r.href,
+      );
+      assert.ok(
+        block.includes('<p class="guide-resources__note">' + escapeHtml(r.note) + "</p>"),
+        file + ": no note for " + r.href,
+      );
+      // A contextual link the article already makes is not repeated here.
+      assert.ok(
+        !page.content.article.includes('href="' + r.href + '"'),
+        file + ": the article already links " + r.href,
+      );
+    });
+    assert.strictEqual(
+      block.split("<a ").length - 1,
+      page.resources.length,
+      file + ": resources block has links beyond its entries",
+    );
+  });
+});
+
+test("every related resource is a published route that links back to the guide", () => {
+  const routeTable = routes.build(model);
+  const byUrl = new Map(routeTable.map((r) => [r.url, r]));
+  guides.assertResourcesRouted(pages, routeTable);
+
+  const listingLinks = new Set(fonts.learnGuides(model).map((g) => g.id));
+  Object.entries(model.guideResources).forEach(([id, list]) => {
+    list.forEach((r) => {
+      const where = id + " -> " + r.href;
+      const route = byUrl.get(r.href);
+      assert.ok(route, where + ": not a route");
+
+      if (r.font) {
+        // A family page links guides through its evidence-backed editorial
+        // record (src/data/font-editorial.json), and only there.
+        const editorial = model.fontEditorial[r.font];
+        assert.ok(
+          editorial && editorial.relatedGuides.includes(id),
+          where + ": the family page does not list the guide",
+        );
+      } else if (route.generated) {
+        // /fonts/ — the one generated destination — lists it from the same
+        // data (src/build/fonts.js learnGuides).
+        assert.strictEqual(r.href, "/fonts/", where + ": no back-link check");
+        assert.ok(listingLinks.has(id), where + ": /fonts/ does not list the guide");
+      } else {
+        const page = fs.readFileSync(path.join(config.paths.root, route.file), "utf8");
+        assert.ok(
+          page.includes('href="/guide/' + id + '"'),
+          where + ": " + route.file + " does not link the guide",
+        );
+      }
+    });
+  });
+});
+
+test("a related resource that is not a route fails the build", () => {
+  assert.throws(
+    () =>
+      guides.assertResourcesRouted(
+        [{ id: "fixture", resources: [{ href: "/not-a-page/" }] }],
+        routes.build(model),
+      ),
+    /guide "fixture" links \/not-a-page\//,
+  );
+});
+
+test("guide-resources.json rejects anything but a curated, resolvable entry", () => {
+  const deps = {
+    guides: model.guides,
+    fonts: model.fonts,
+    resourceTypes: model.resourceTypes,
+  };
+  const ok = { type: "palette", label: "Browse Color Palettes", note: "x".repeat(60) };
+  const check = (raw) => content.validateGuideResources(raw, deps, "fixture");
+
+  assert.deepStrictEqual(check({ "color-contrast-systems": [ok] }), {
+    "color-contrast-systems": [
+      { type: "palette", font: null, href: "/palettes/", label: ok.label, note: ok.note },
+    ],
+  });
+  assert.strictEqual(
+    check({ "font-pairing-hierarchy-decision": [{ font: "pt-sans", label: "PT Sans", note: ok.note }] })[
+      "font-pairing-hierarchy-decision"
+    ][0].href,
+    "/fonts/pt-sans",
+  );
+
+  const broken = {
+    "an unknown guide": [{ "not-a-guide": [ok] }, /not a guide in guides\.json/],
+    "an empty list": [{ "color-contrast-systems": [] }, /1–3 entries/],
+    "more than three entries": [
+      {
+        "color-contrast-systems": ["palette", "color", "font", "image-picker"].map((type) =>
+          Object.assign({}, ok, { type }),
+        ),
+      },
+      /1–3 entries/,
+    ],
+    "an unknown type": [{ "color-contrast-systems": [Object.assign({}, ok, { type: "tokens" })] }, /not a resource type/],
+    "a guide as a resource": [{ "color-contrast-systems": [Object.assign({}, ok, { type: "guide" })] }, /not a resource type/],
+    "an unknown font": [
+      { "color-contrast-systems": [{ font: "not-a-font", label: "Nope", note: ok.note }] },
+      /not a family in fonts\.json/,
+    ],
+    "both type and font": [
+      { "color-contrast-systems": [Object.assign({}, ok, { font: "pt-sans" })] },
+      /exactly one of "type" or "font"/,
+    ],
+    "neither type nor font": [
+      { "color-contrast-systems": [{ label: ok.label, note: ok.note }] },
+      /exactly one of "type" or "font"/,
+    ],
+    "the same destination twice": [{ "color-contrast-systems": [ok, ok] }, /a second time/],
+    "an unknown field": [{ "color-contrast-systems": [Object.assign({}, ok, { url: "/x" })] }, /unknown field "url"/],
+    "a short note": [{ "color-contrast-systems": [Object.assign({}, ok, { note: "Too short." })] }, /note must be 40–200/],
+    "an empty label": [{ "color-contrast-systems": [Object.assign({}, ok, { label: "" })] }, /label must be non-empty/],
+    "an array instead of an object": [[ok], /object keyed by guide id/],
+  };
+  Object.entries(broken).forEach(([what, [raw, pattern]]) => {
+    assert.throws(() => check(raw), pattern, `accepted ${what}`);
   });
 });
 

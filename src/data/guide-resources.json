@@ -1,0 +1,50 @@
+{
+  "font-pairing-hierarchy-decision": [
+    {
+      "type": "font",
+      "label": "Browse Free Fonts",
+      "note": "Every family page sets each style it ships in your own text, at body and display sizes — the weight check from section 6."
+    },
+    {
+      "font": "pt-sans",
+      "label": "PT Sans",
+      "note": "The sans half of the PT superfamily named in section 5. Its page suggests PT Serif for body text."
+    },
+    {
+      "font": "pt-serif",
+      "label": "PT Serif",
+      "note": "The serif half of the same superfamily. Its page pairs it with PT Sans for UI text and PT Mono as the monospace."
+    }
+  ],
+  "type-scale-systems": [
+    {
+      "type": "font",
+      "label": "Browse Free Fonts",
+      "note": "Filter by Sans Serif, Serif, Display or Monospace to find the body, heading and code faces section 7 describes."
+    }
+  ],
+  "color-contrast-systems": [
+    {
+      "type": "palette",
+      "label": "Browse Color Palettes",
+      "note": "Ready-made four-color palettes for practicing the section 9 audit: check each text-and-background pairing against 4.5:1."
+    },
+    {
+      "type": "color",
+      "label": "Open the Color Library",
+      "note": "When a pairing fails, look through the other shades in that color's family for a lighter or darker neighbor, then check it again."
+    }
+  ],
+  "color-palette-token-system": [
+    {
+      "type": "image-picker",
+      "label": "Try the Image Picker",
+      "note": "Pull starting colors from a photo and copy them as CSS custom properties — raw values for the primitive tier in section 4."
+    },
+    {
+      "type": "palette",
+      "label": "Browse Color Palettes",
+      "note": "Four named colors to start from. Section 3 shows how to turn each hue into a tonal ramp."
+    }
+  ]
+}

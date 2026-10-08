@@ -424,6 +424,46 @@ function metaBands({ title, description, canonical, ogImage }) {
 // the listing page
 // ---------------------------------------------------------------------
 
+/**
+ * ISSUE #10 — the guides that link the font library, for the listing to
+ * link back. Derived from src/data/guide-resources.json rather than listed
+ * here, so each relationship is written once and shown in both directions.
+ * File order; a guide that links only a single family page is not one of
+ * them.
+ */
+function learnGuides(model) {
+  const resources = model.guideResources || {};
+  const byId = new Map(model.guides.map((g) => [g.id, g]));
+  const listing = `/${FONTS_DIR}/`;
+  return Object.keys(resources)
+    .filter((id) => resources[id].some((r) => r.href === listing))
+    .map((id) => byId.get(id));
+}
+
+/** The listing's closing notes: the guides above, or "" when there are none. */
+function learnHtml(guides) {
+  if (!guides.length) return "";
+  const items = guides
+    .map(
+      (g) => `
+          <li>
+            <a href="/guide/${g.id}">${escapeHtml(g.title)}</a>
+          </li>`,
+    )
+    .join("");
+  return `
+      <section class="tool-notes" aria-labelledby="fonts-learn">
+        <h2 id="fonts-learn">Choosing fonts for an interface</h2>
+        <p>
+          A family that looks right in a specimen still has to hold up at your
+          sizes and next to your other faces. These guides go further:
+        </p>
+        <ul>${items}
+        </ul>
+      </section>
+`;
+}
+
 function listingHtml(fonts, ctx, partials) {
   const { config } = ctx;
   const origin = config.origin;
@@ -533,7 +573,7 @@ ${head.skipLinkHtml("fonts-content", "Skip to content")}
         <a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a>.
         Each download includes the family's license file. “Newest” orders by the date a family was added to Google Fonts; “Featured” is bpozz's own mixed-style order.
       </p>
-    </main>
+${learnHtml(learnGuides(ctx.model))}    </main>
 
     ${head.footerRegion(partials.footer)}
 
@@ -973,6 +1013,7 @@ function render(ctx) {
 module.exports = {
   render,
   build,
+  learnGuides,
   zipStore,
   crc32,
   packageEntries,

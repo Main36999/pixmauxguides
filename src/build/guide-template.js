@@ -287,6 +287,45 @@ function roadmapNavHtml(roadmap) {
 }
 
 /**
+ * The bpozz tools and libraries that put this guide into practice (Issue
+ * #10), after previous/next and before the related-guides rail.
+ *
+ * Frame, not content, and built from data like the roadmap bands above. The
+ * argument is the page record's `resources`: curated per guide in
+ * src/data/guide-resources.json, validated and resolved to hrefs by
+ * src/build/content.js, and checked against the route table by
+ * src/build/guides.js. pageHtml() emits nothing for a guide with no entry.
+ *
+ * It follows previous/next rather than the article because the roadmap's
+ * completion block (src/client/roadmap.js) is drawn directly before
+ * .guide-footer-nav, and is meant to come straight after the article. Each
+ * link names its destination; the note under it says why it is here.
+ */
+function resourcesHtml(resources) {
+  const lines = [
+    '          <aside class="guide-resources" aria-label="Related resources">',
+    '            <span class="section-label mono guide-resources__label">/ related_resources</span>',
+    '            <ul class="guide-resources__list">',
+  ];
+  resources.forEach((r) => {
+    lines.push(
+      "              <li>",
+      '                <a class="guide-resources__link" href="' +
+        escapeHtml(r.href) +
+        '">' +
+        escapeHtml(r.label) +
+        "</a>",
+      '                <p class="guide-resources__note">' +
+        escapeHtml(r.note) +
+        "</p>",
+      "              </li>",
+    );
+  });
+  lines.push("            </ul>", "          </aside>");
+  return "\n\n" + lines.join("\n");
+}
+
+/**
  * The related-guides rail. Always emitted EMPTY: /app.js fills it from
  * guides.json at runtime, and _TEMPLATE.html's own instruction is "always
  * leave empty — do not hand-write related links here". Two spellings of the
@@ -447,6 +486,7 @@ function pageHtml(page, partials) {
     c.toc +
     c.article +
     (page.roadmap ? roadmapNavHtml(page.roadmap) : "") +
+    (page.resources ? resourcesHtml(page.resources) : "") +
     "\n" +
     " ".repeat(f.primaryCloseIndent) +
     "</div>\n" +
@@ -462,6 +502,7 @@ function pageHtml(page, partials) {
 
 module.exports = {
   pageHtml,
+  resourcesHtml,
   HEAD_OPTIONS,
   parseContent,
   serializeContent,

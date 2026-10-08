@@ -146,6 +146,33 @@ function assertMarkersAgree() {
 }
 
 /**
+ * ISSUE #10 — every related-resource link must be a page this build
+ * publishes. src/build/content.js resolved each href from resource-types.json
+ * or fonts.json; this checks the result against the route table itself, so a
+ * landingUrl that drifts from the route it names fails the build instead of
+ * shipping a link to a redirect or a 404.
+ */
+function assertResourcesRouted(pages, routeTable) {
+  if (!Array.isArray(routeTable)) {
+    throw new Error(
+      "ctx.routes is not an array — the guide builder runs after `load`, " +
+        "which builds the route table.",
+    );
+  }
+  const urls = new Set(routeTable.map((r) => r.url));
+  pages.forEach((page) =>
+    (page.resources || []).forEach((r) => {
+      if (!urls.has(r.href)) {
+        throw new Error(
+          `guide-resources.json: guide "${page.id}" links ${r.href}, which ` +
+            `is not a route the build publishes`,
+        );
+      }
+    }),
+  );
+}
+
+/**
  * Writes one page per record in ctx.model.guidePages, into the staging root,
  * from scratch.
  *
@@ -170,6 +197,7 @@ function render(ctx) {
   }
 
   assertMarkersAgree();
+  assertResourcesRouted(pages, ctx.routes);
 
   const partials = {
     header: fs.readFileSync(path.join(root, HEADER_PARTIAL), "utf8").trim(),
@@ -192,6 +220,7 @@ function render(ctx) {
 module.exports = {
   render,
   assertMarkersAgree,
+  assertResourcesRouted,
   HEADER_PARTIAL,
   FOOTER_PARTIAL,
   GUIDE_DIR,

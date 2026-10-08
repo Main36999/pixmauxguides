@@ -73,6 +73,7 @@ const structuredData = require("./structured-data.js");
 const roadmap = require("./roadmap.js");
 const fontEditorialSchema = require("./font-editorial.js");
 const fontMetrics = require("./font-metrics.js");
+const routes = require("./routes.js");
 
 /** content/guide/'s index of page records. */
 const GUIDE_PAGES_INDEX = "pages.json";
@@ -796,6 +797,113 @@ function validateResourceTypes(registry, label) {
   return registry;
 }
 
+/**
+ * src/data/guide-resources.json — the bpozz tools and libraries a guide puts
+ * into practice (Issue #10), keyed by guide id. Curated, not matched by
+ * keyword: a guide with no entry gets no block, and an entry names either a
+ * resource type (its landingUrl from resource-types.json) or one font family
+ * (its /fonts/<id> page). Nothing else can be linked from here, so a typo
+ * fails the build instead of shipping a dead link.
+ *
+ * Returns { <guide id>: [{ type, font, href, label, note }] }, in file order.
+ * Exactly one of `type` and `font` is set; the other is null.
+ * Whether each href is a route the build publishes is src/build/guides.js's
+ * check, made against the route table itself.
+ */
+const GUIDE_RESOURCE_FIELDS = ["type", "font", "label", "note"];
+const GUIDE_RESOURCE_LIMITS = {
+  perGuide: [1, 3],
+  label: [2, 40],
+  note: [40, 200],
+};
+
+function validateGuideResources(raw, { guides, fonts, resourceTypes }, label) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    throw new Error(`${label} must be an object keyed by guide id`);
+  }
+  const guideIds = new Set(guides.map((g) => g.id));
+  const fontIds = new Set(fonts.map((f) => f.id));
+  // Guides reach other guides through the rail and previous/next, not here.
+  const landing = new Map(
+    resourceTypes
+      .filter((t) => t.type !== "guide")
+      .map((t) => [t.type, t.landingUrl]),
+  );
+  const text = (value, [min, max], where) => {
+    if (typeof value !== "string" || value.trim() !== value || !value) {
+      throw new Error(`${where} must be non-empty text with no outer spaces`);
+    }
+    if (value.length < min || value.length > max) {
+      throw new Error(
+        `${where} must be ${min}–${max} characters, is ${value.length}`,
+      );
+    }
+  };
+
+  const out = {};
+  Object.keys(raw).forEach((id) => {
+    const at = `${label}["${id}"]`;
+    if (!guideIds.has(id)) {
+      throw new Error(`${at}: "${id}" is not a guide in guides.json`);
+    }
+    const list = raw[id];
+    const [min, max] = GUIDE_RESOURCE_LIMITS.perGuide;
+    if (!Array.isArray(list) || list.length < min || list.length > max) {
+      throw new Error(`${at} must be an array of ${min}–${max} entries`);
+    }
+
+    const hrefs = new Set();
+    out[id] = list.map((entry, i) => {
+      const where = `${at}[${i}]`;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+        throw new Error(`${where} is not an object`);
+      }
+      Object.keys(entry).forEach((k) => {
+        if (!GUIDE_RESOURCE_FIELDS.includes(k)) {
+          throw new Error(`${where} has an unknown field "${k}"`);
+        }
+      });
+      if ((entry.type === undefined) === (entry.font === undefined)) {
+        throw new Error(`${where} needs exactly one of "type" or "font"`);
+      }
+
+      let href;
+      if (entry.type !== undefined) {
+        if (!landing.has(entry.type)) {
+          throw new Error(
+            `${where}.type "${entry.type}" is not a resource type in ` +
+              `resource-types.json (other than "guide")`,
+          );
+        }
+        href = landing.get(entry.type);
+      } else {
+        if (!fontIds.has(entry.font)) {
+          throw new Error(
+            `${where}.font "${entry.font}" is not a family in fonts.json`,
+          );
+        }
+        href = routes.urlFor(`${routes.FONTS_DIR}/${entry.font}.html`);
+      }
+      if (hrefs.has(href)) {
+        throw new Error(`${where} links ${href} a second time`);
+      }
+      hrefs.add(href);
+
+      text(entry.label, GUIDE_RESOURCE_LIMITS.label, `${where}.label`);
+      text(entry.note, GUIDE_RESOURCE_LIMITS.note, `${where}.note`);
+
+      return {
+        type: entry.type !== undefined ? entry.type : null,
+        font: entry.font !== undefined ? entry.font : null,
+        href,
+        label: entry.label,
+        note: entry.note,
+      };
+    });
+  });
+  return out;
+}
+
 // ---------------------------------------------------------------------
 // content-index record vocabulary (Phase 4 Step 6)
 // ---------------------------------------------------------------------
@@ -1427,17 +1535,28 @@ function load(config) {
     JSON.parse(fs.readFileSync(src.resourceTypes, "utf8")),
     "resource-types.json",
   );
+  const guideResources = validateGuideResources(
+    JSON.parse(fs.readFileSync(src.guideResources, "utf8")),
+    { guides, fonts, resourceTypes },
+    "guide-resources.json",
+  );
 
   const annotated = annotatePaletteMeta(rawPalettes, paletteMeta);
 
   // PHASE 4 STEP 7: the pages are loaded first and then given their
   // structured data, because composing it needs categories.json as well —
   // a guide's breadcrumb trail and articleSection are named by its category.
+  //
+  // ISSUE #10: each page also carries its related resources, or null for a
+  // guide with no entry — which is what keeps the template from rendering
+  // the block for it.
   const guidePages = attachGuideStructuredData(
     loadGuidePages(src.guidePages, guides, config.origin),
     guides,
     categories,
     config,
+  ).map((page) =>
+    Object.assign(page, { resources: guideResources[page.id] || null }),
   );
 
   return {
@@ -1485,6 +1604,13 @@ function load(config) {
     icons: iconLibrary.icons,
     categories,
     resourceTypes,
+    /**
+     * GUIDE RESOURCES (Issue #10): { guide id → resolved entries }, from
+     * validateGuideResources. Each guide page already carries its own list
+     * as `resources`; this whole map is for the reverse direction —
+     * src/build/fonts.js lists, on /fonts/, the guides that link it.
+     */
+    guideResources,
     warnings: annotated.warnings.slice(),
   };
 }
@@ -1529,6 +1655,7 @@ module.exports = {
   validateColors,
   validateFonts,
   validateIcons,
+  validateGuideResources,
 
   // content-index record vocabulary, re-exported by the render modules that
   // used to declare their own copies
