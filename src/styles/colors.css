@@ -140,7 +140,7 @@
   gap: 10px;
   min-height: 42px;
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-chip-bg);
   color: var(--text);
   font-family: var(--sans);
@@ -174,8 +174,8 @@
    while hovered. */
 .colors-filter[aria-pressed="true"],
 .colors-filter[aria-pressed="true"]:hover {
-  background: #000;
-  border-color: #000;
+  background: var(--text);
+  border-color: var(--text);
   color: #fff;
 }
 

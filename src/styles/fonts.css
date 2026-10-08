@@ -8,7 +8,7 @@
   --font-radius: var(--radius-md);
   --font-line: var(--line);
   --font-line-strong: var(--line-strong);
-  --font-ink: #000;
+  --font-ink: var(--text);
   --font-ease: var(--ease);
 }
 
@@ -64,7 +64,7 @@
   min-height: 36px;
   padding: 7px 14px;
   border: 1px solid var(--font-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #fff;
   color: var(--font-ink);
   font-family: var(--sans);
@@ -129,7 +129,7 @@
   left: 11px;
   width: 17px;
   height: 17px;
-  color: #6b7485;
+  color: var(--text-placeholder);
   pointer-events: none;
 }
 .fonts-field--search input {
@@ -337,7 +337,7 @@
   border: 1px solid var(--font-line);
   border-radius: var(--font-radius);
   background: #fff;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 6px 20px rgba(var(--shadow-rgb), 0.08);
 }
 .font-menu__list[hidden] {
   display: none;
@@ -614,7 +614,7 @@
   min-height: 34px;
   padding: 6px 13px;
   border: 1px solid var(--font-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #fff;
   color: var(--font-ink);
   font-family: var(--sans);
@@ -779,7 +779,7 @@
 .font-chip {
   padding: 3px 10px;
   border: 1px solid var(--font-line-strong);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 13px;
   line-height: 1.4;
   color: var(--font-ink);

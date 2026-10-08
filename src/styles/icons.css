@@ -9,7 +9,7 @@
   --icons-radius: var(--radius-md);
   --icons-line: var(--line);
   --icons-line-strong: var(--line-strong);
-  --icons-ink: #000;
+  --icons-ink: var(--text);
   --icons-tint: #f5f6f8;
   --icons-ease: var(--ease);
 }
@@ -152,7 +152,7 @@
   min-height: 36px;
   padding: 7px 14px;
   border: 1px solid var(--icons-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #fff;
   color: var(--icons-ink);
   font-family: var(--sans);
@@ -198,7 +198,7 @@
   left: 14px;
   width: 18px;
   height: 18px;
-  color: #6b7485;
+  color: var(--text-placeholder);
   pointer-events: none;
 }
 .icons-search input {
@@ -495,7 +495,7 @@
   border: 1px solid var(--icons-line);
   border-radius: var(--icons-radius);
   background: #fff;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 6px 20px rgba(var(--shadow-rgb), 0.08);
 }
 /* Set by src/client/icons.js when right-aligning would leave the viewport. */
 .icon-download__list--start {
@@ -652,7 +652,7 @@
   border-radius: 12px;
   background: #fff;
   color: var(--icons-ink);
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+  box-shadow: 0 16px 40px rgba(var(--shadow-rgb), 0.14);
   overflow: auto;
 }
 .icon-dialog::backdrop {
@@ -750,7 +750,7 @@
 .icon-tags li {
   padding: 3px 9px;
   border: 1px solid var(--icons-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 12.5px;
   color: var(--text-secondary);
 }

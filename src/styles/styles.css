@@ -23,7 +23,6 @@
   --surface-muted: #f1f2f5;
   --text-secondary: #3d4556;
   --text-placeholder: #6b7485;
-  --ink-hover: #262626;
 
   /* System roles (Problem #8, Phase 8A), at today's values: adding them
      changes nothing on screen. Existing components move onto them in the
@@ -1137,7 +1136,7 @@ html[data-auth] .mobile-menu__auth {
   margin: 0 auto 22px;
   background: var(--card);
   border: 1px solid var(--grid-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 6px 6px 6px 24px;
   transition: border-color 0.15s ease;
 }
@@ -1266,7 +1265,7 @@ html[data-auth] .mobile-menu__auth {
   gap: 8px;
   padding: 10px 18px;
   border: 1px solid var(--grid-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--card);
   color: var(--text);
   font-size: 15px;
@@ -2788,7 +2787,7 @@ body > .site-footer {
   min-height: 36px;
   padding: 7px 14px;
   border: 1px solid var(--guides-line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #fff;
   color: var(--text);
   font-family: var(--sans);
@@ -2849,7 +2848,7 @@ body > .site-footer {
   width: 17px;
   height: 17px;
   fill: none;
-  stroke: #6b7485;
+  stroke: var(--text-placeholder);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
