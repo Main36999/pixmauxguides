@@ -185,17 +185,15 @@
     var dekEl = document.getElementById("search-dek");
     var countEl = document.getElementById("search-results-count");
     var emptyEl = document.getElementById("search-empty-state");
-    var emptyQueryEl = document.getElementById("search-empty-query");
     var emptyMessageEl = document.getElementById("search-empty-message");
-    var emptyTipsEl = emptyEl.querySelector(".search-empty-tips");
-    var emptyBrowseEl = emptyEl.querySelector("a.btn");
+    var emptyActionsEl = emptyEl.querySelector(".search-empty-actions");
 
     // The empty state's second form: the query DOES match something, just
     // nothing the active type/category filter lets through. Its own message
     // and a button that clears the filters take the place of the
-    // no-results message, the spelling tips and "Browse all guides" — all
-    // three would be wrong there. Built here rather than in search.html so
-    // the page markup is unchanged; the classes are the empty state's own.
+    // no-results line and its two browse links, which would both be wrong
+    // there. Built here rather than in search.html so the page markup is
+    // unchanged; the classes are the empty state's own.
     var filteredMessageEl = document.createElement("p");
     emptyEl.insertBefore(filteredMessageEl, emptyMessageEl.nextSibling);
     var clearFiltersEl = document.createElement("button");
@@ -209,7 +207,7 @@
     function showEmptyStateFor(filtered) {
       filteredMessageEl.style.display = filtered ? "" : "none";
       clearFiltersEl.style.display = filtered ? "" : "none";
-      [emptyMessageEl, emptyTipsEl, emptyBrowseEl].forEach(function (el) {
+      [emptyMessageEl, emptyActionsEl].forEach(function (el) {
         if (el) el.style.display = filtered ? "none" : "";
       });
     }
@@ -217,10 +215,6 @@
     var filtersEl = document.getElementById("search-filters");
     var typeTabsEl = document.getElementById("search-type-tabs");
     var categorySelectEl = document.getElementById("search-category-select");
-
-    function escapeRegExp(str) {
-      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
 
     // ---------- query normalization (spec §10) ----------
     // 1. trim  2. collapse repeated whitespace  3. lowercase for
@@ -312,10 +306,6 @@
     // handoff left for Phase 3 to decide.
     function categoryName(slug) {
       return CATEGORY_NAME_BY_SLUG[slug] || slug;
-    }
-
-    function categoryLabelsFor(record) {
-      return record.categories.map(categoryName);
     }
 
     // Matches a query term against both a category's display name
@@ -534,47 +524,6 @@
       });
     }
 
-    // The card's explanation line: [{ field, values }] in a fixed order,
-    // most visible first. `field` is the wording the card shows. A field
-    // listed without values is one the card already shows (the title, a
-    // guide's category line) or one too long to quote (a description).
-    function matchReasons(record, why) {
-      var reasons = [];
-      function add(field, values) {
-        reasons.push({ field: field, values: values || [] });
-      }
-      if (why.title) add("title");
-      if (why.colorNames.length) add("color name", why.colorNames);
-      // A matched tag that is one of the record's styles (recipe provenance)
-      // is named as a style. Any other tag — the legacy colour-derived
-      // labels such as Cool or Dark — keeps the older "theme" wording.
-      var styles = (record.styles || []).map(function (s) {
-        return String(s).toLowerCase();
-      });
-      var styleTags = [];
-      var otherTags = [];
-      why.tags.forEach(function (t) {
-        (styles.indexOf(String(t).toLowerCase()) !== -1 ? styleTags : otherTags).push(
-          t.charAt(0).toUpperCase() + t.slice(1),
-        );
-      });
-      if (styleTags.length) add("style", styleTags);
-      if (otherTags.length) add("theme", otherTags);
-      if (why.hex.length)
-        add(
-          "HEX",
-          why.hex.map(function (h) {
-            return h.toUpperCase();
-          }),
-        );
-      if (why.slug) add(record.type === "palette" ? "palette ID" : "URL", [record.slug]);
-      if (why.category) add("category");
-      if (why.keywords.length) add("keyword", why.keywords);
-      if (why.description) add("description");
-      if (why.text) add("text");
-      return reasons;
-    }
-
     function passesFilters(record) {
       if (typeFilter !== "all" && record.type !== typeFilter) return false;
       if (
@@ -620,76 +569,28 @@
       });
     }
 
-    // ---------- rendering ----------
-    // Wraps every matched query term in <mark>. Nothing user-supplied
-    // ever lands in innerHTML unescaped (spec §10, rule 6): matching runs
-    // on the RAW text and each piece is escaped on its own. Matching the
-    // already-escaped text instead let a term like "amp" or "quot" land
-    // inside an entity ("&<mark>amp</mark>;").
-    function highlightTerms(text) {
-      var raw = String(text == null ? "" : text);
-      var rawTerms = terms.map(escapeRegExp).filter(Boolean);
-      if (!rawTerms.length) return escapeHtml(raw);
-      // Longest term first so a term that's a substring of another
-      // doesn't shadow the longer match.
-      rawTerms.sort(function (a, b) {
-        return b.length - a.length;
-      });
-      var re = new RegExp("(" + rawTerms.join("|") + ")", "gi");
-      // split() with a capture group puts the matches at odd indexes.
-      return raw
-        .split(re)
-        .map(function (part, i) {
-          return i % 2 ? "<mark>" + escapeHtml(part) + "</mark>" : escapeHtml(part);
-        })
-        .join("");
-    }
-
-    // Palettes have no description in the index (palettes-meta.json
-    // has no description text of its own), so their card shows a
-    // short tag summary instead ("Cool · Night ·
-    // Dark") rather than an empty line. Spec §15: "Do not force every
-    // result to use Guide-specific metadata... Only display fields
-    // that make sense for that type."
-    function snippetFor(record) {
-      if (record.description) return record.description;
-      if (record.tags && record.tags.length) {
-        return record.tags
-          .map(function (t) {
-            return t.charAt(0).toUpperCase() + t.slice(1);
-          })
-          .join(" · ");
-      }
-      return "";
-    }
-
-    // ---------- result cards (Plan 1) ----------
-    // Results render through the site's shared resource card instead
-    // of the flat text rows this page used before. The markup below is
-    // the same .content-card / .card-thumb / .card-body / .card-title /
-    // .card-link / .card-meta / .badge structure src/build/home.js emits
-    // for the homepage's mixed-resource sections and
-    // src/build/categories.js emits for the category rails, so a result
-    // tile is indistinguishable from the same resource shown anywhere
-    // else. No shared class is redefined — this only composes them.
+    // ---------- result cards ----------
+    // Each result is drawn with its own section's native card, so a
+    // result looks the same here as on its own page:
+    //   Guide     the /guides card, from the shared renderer (cardHtml()
+    //             in src/shared/card.js, bound by core.js), given the
+    //             guide's own guides.json record, the object /guides
+    //             renders from.
+    //   Palette   the /palettes card's markup and classes (palettes.css),
+    //             with decorative colour strips and one link to
+    //             /palettes#<id> in place of the copy, like and save
+    //             buttons, which only work on /palettes.
+    // Every piece of record text is escaped with escapeHtml() before it
+    // reaches innerHTML, and nothing from the query is written into a
+    // card at all.
     //
     // Nothing here touches matching, scoring, filtering or URL state:
     // runSearch() still returns exactly the same records in exactly the
     // same order, and this only changes how each one is drawn.
 
-    // One muted line per card, picked per type — the index simply
-    // doesn't carry the same fields for both:
-    //   Guide            its category label(s) ("Color Theory")
-    //   Palette          snippetFor()'s tag summary ("Cool · Night ·
-    //                    Dark"), the same string src/build/categories.js's
-    //                    tagsMetaFor() and src/build/home.js already show
-    // No author line: BPOZZ has no author data and none is invented.
-    function cardMetaFor(record) {
-      if (record.type === "guide") {
-        return categoryLabelsFor(record).join(" · ");
-      }
-      return snippetFor(record);
-    }
+    // guides.json records by id, filled when the data loads (see
+    // applyLoadedData). Left empty if guides.json could not be loaded.
+    var GUIDE_BY_ID = {};
 
     // Only well-formed 6-digit hex reaches an inline style attribute.
     // Same rule as src/build/home.js's HEX_RE/validatedColors(), but this
@@ -702,28 +603,6 @@
       return record.colors.filter(function (hex) {
         return typeof hex === "string" && HEX_RE.test(hex);
       });
-    }
-
-    // Palette thumbnail plate: the record's own colors as stacked
-    // bars. The modifier class already exists in styles.css and is
-    // used by the homepage resource sections — nothing new is styled
-    // for it here.
-    // aria-hidden because the colors are decoration; the title and
-    // badge carry the meaning.
-    function colorThumbHtml(record, modifier) {
-      var colors = validatedColors(record);
-      if (!colors.length) return "";
-      return (
-        '<div class="card-thumb ' +
-        modifier +
-        '" aria-hidden="true">' +
-        colors
-          .map(function (hex) {
-            return '<span style="background-color:' + hex + '"></span>';
-          })
-          .join("") +
-        "</div>"
-      );
     }
 
     // Guide thumbnail plate: drawn by the shared renderer from
@@ -751,60 +630,121 @@
       });
     }
 
-    function thumbFor(record) {
-      if (record.type === "palette") {
-        return colorThumbHtml(record, "card-thumb--bars");
+    // The guides.json record cardHtml() needs for this result, or null.
+    // cardHtml() prints the category, the level and "N min read" (hidden
+    // by the /guides grid, but still in the markup), so a record is used
+    // only when all three are ones it can print; anything else would put
+    // "undefined" into the card.
+    function guideRecordFor(record) {
+      var own = Object.prototype.hasOwnProperty;
+      var guide = own.call(GUIDE_BY_ID, record.slug) ? GUIDE_BY_ID[record.slug] : null;
+      if (
+        guide &&
+        own.call(CATEGORIES, guide.category) &&
+        own.call(BpozzCard.LEVEL_LABEL, guide.level) &&
+        typeof guide.readTime === "number" &&
+        isFinite(guide.readTime)
+      ) {
+        return guide;
       }
-      if (record.type === "guide") return guideThumbHtml(record);
-      return "";
+      return null;
     }
 
-    // The title is an h2: this grid hangs straight off the page h1 with no
-    // section heading between them, so an h3 skipped a level (WCAG 1.3.1) —
-    // the same reasoning src/shared/card.js gives for category pages.
-    // "Matched in color name: Azure · theme: Night" — why this result is
-    // here, from the evidence scoreRecord() scored it on. Plain text in the
-    // card, after the title (no live region: the count line already
-    // announces the search), with each quoted value's matched part in the
-    // same <mark> the title uses. Every value is escaped by highlightTerms().
-    function matchLineHtml(record, why) {
-      var reasons = matchReasons(record, why);
-      if (!reasons.length) return "";
-      return (
-        '<p class="card-match"><span class="card-match__label">Matched in</span> ' +
-        reasons
-          .map(function (reason) {
-            return (
-              escapeHtml(reason.field) +
-              (reason.values.length ? ": " + reason.values.map(highlightTerms).join(", ") : "")
-            );
-          })
-          .join(" · ") +
-        "</p>"
-      );
-    }
-
-    function resultCardHtml(result) {
-      var record = result.record;
-      var meta = cardMetaFor(record);
+    // The /guides card. Its title is an h3, under the Guides group's h2.
+    // Without a usable guides.json record (the file failed to load, or no
+    // longer has this guide) the card is built from the index record:
+    // the same thumbnail, title and link, without the meta line, which
+    // the /guides grid hides anyway.
+    function guideCardHtml(record) {
+      var guide = guideRecordFor(record);
+      if (guide) return cardHtml(guide);
       return (
         '<article class="content-card">' +
-        thumbFor(record) +
-        '<div class="card-body">' +
-        '<span class="badge">' +
-        escapeHtml(TYPE_LABELS[record.type] || record.type) +
-        "</span>" +
-        '<h2 class="card-title"><a class="card-link" href="' +
+        guideThumbHtml(record) +
+        '<div class="card-body"><h3 class="card-title"><a class="card-link" href="' +
         escapeHtml(record.url) +
         '">' +
-        // Kept from the previous UI: matched terms stay wrapped in
-        // <mark> so it's still obvious why a result matched.
-        highlightTerms(record.title) +
-        "</a></h2>" +
-        matchLineHtml(record, result.why) +
-        (meta ? '<p class="card-meta">' + escapeHtml(meta) + "</p>" : "") +
-        "</div></article>"
+        escapeHtml(record.title) +
+        "</a></h3></div></article>"
       );
+    }
+
+    // The /palettes card (src/client/palettes.js cardHtml()), read-only:
+    // the palette's colours as decorative strips, in order, then its colour
+    // names joined the way /palettes shows them, as the card's one link.
+    // The link's ::after (styles.css .card-link) covers the whole card.
+    // A palette with a curated title (palettes-meta.json) carries it ahead
+    // of the names, so a search for that title shows why the palette is
+    // here; every other palette is titled by its names in the index, so it
+    // has none to show.
+    function paletteCardHtml(record) {
+      // Joined with the same middle-dot separator /palettes and the index
+      // use, so a palette titled by its names reads exactly as its title.
+      var names = (Array.isArray(record.colorNames) ? record.colorNames : []).join(" · ");
+      var curated = !!record.title && record.title !== names;
+      var swatches = validatedColors(record)
+        .map(function (hex) {
+          return '<span class="palette-swatch" style="--sw-hex:' + hex + '"></span>';
+        })
+        .join("");
+      var text =
+        (curated ? '<span class="palette-card__title">' + escapeHtml(record.title) + "</span>" : "") +
+        (curated && names ? " · " : "") +
+        escapeHtml(names);
+      if (!curated && !names) text = escapeHtml(record.title || record.slug);
+      return (
+        '<article class="palette-card" data-id="' +
+        escapeHtml(record.slug) +
+        '"><div class="palette-card__bars" aria-hidden="true">' +
+        swatches +
+        '</div><div class="palette-card__foot"><span class="palette-card__names">' +
+        '<a class="card-link" href="' +
+        escapeHtml(record.url) +
+        '">' +
+        text +
+        "</a></span></div></article>"
+      );
+    }
+
+    // ---------- grouped results ----------
+    // One section per type that has results, Guides first: an h2 with the
+    // count, then that type's own grid (the /guides grid, the /palettes
+    // grid). Each section is runSearch()'s ranked list filtered to its
+    // type, and Array#filter keeps order, so results stay in relevance
+    // order within their group. A type with no results gets no section.
+    var GROUPS = [
+      { type: "guide", label: "Guides", gridClass: "grid guides-grid", card: guideCardHtml },
+      { type: "palette", label: "Palettes", gridClass: "palettes-grid", card: paletteCardHtml },
+    ];
+
+    function resultsHtml(results) {
+      return GROUPS.map(function (group) {
+        var records = results
+          .filter(function (result) {
+            return result.record.type === group.type;
+          })
+          .map(function (result) {
+            return result.record;
+          });
+        if (!records.length) return "";
+        return (
+          '<section class="search-group">' +
+          '<h2 class="search-group__title">' +
+          group.label +
+          ' <span class="search-group__count">' +
+          records.length +
+          "</span></h2>" +
+          '<div class="' +
+          group.gridClass +
+          '">' +
+          records
+            .map(function (record) {
+              return group.card(record);
+            })
+            .join("") +
+          "</div></section>"
+        );
+      }).join("");
     }
 
     function countLabel(results) {
@@ -873,7 +813,9 @@
           input.value = query;
         });
 
-      // Only the filtered empty state hides the count line (see below).
+      // The count line is visually hidden whenever the page itself shows
+      // what it says (see below); while loading, and on an error, it stays
+      // on screen.
       countEl.classList.remove("sr-only");
 
       if (!query) {
@@ -905,28 +847,33 @@
 
       if (results.length === 0) {
         // The count line is the page's role="status" region, so "0 Results
-        // for …" is what tells a screen reader the search came back empty —
+        // for ..." is what tells a screen reader the search came back empty;
         // the empty-state panel below is not announced. When a filter is
-        // what emptied it, both say so instead.
+        // what emptied it, both say so instead. Either way the page shows
+        // the same thing itself (the h1, or the panel's sentence), so the
+        // count line keeps announcing but, visually hidden (the site's
+        // .sr-only), is not a second visible copy.
         var filtered = typeFilter !== "all" || categoryFilter !== "all";
         var unfiltered = filtered ? runSearch(true) : [];
         gridEl.innerHTML = "";
         if (unfiltered.length) {
           countEl.textContent = filteredEmptyLabel(unfiltered);
           filteredMessageEl.textContent = countEl.textContent;
-          // The panel shows this sentence; the count line keeps announcing
-          // it but, visually hidden (the site's .sr-only), is not a second
-          // visible copy of it.
-          countEl.classList.add("sr-only");
         } else {
           countEl.textContent = countLabel(results);
-          emptyQueryEl.textContent = '"' + query + '"';
+          // Nothing matches anywhere: the page's one heading says so.
+          // textContent, so the query is shown as text, never parsed.
+          headingEl.textContent = '0 results for "' + query + '"';
         }
+        countEl.classList.add("sr-only");
         showEmptyStateFor(unfiltered.length > 0);
         emptyEl.setAttribute("data-visible", "true");
       } else {
         countEl.textContent = countLabel(results);
-        gridEl.innerHTML = results.map(resultCardHtml).join("");
+        // Each group's heading shows its count, so the count line keeps
+        // announcing the total but is not shown a second time.
+        countEl.classList.add("sr-only");
+        gridEl.innerHTML = resultsHtml(results);
         emptyEl.removeAttribute("data-visible");
       }
     }
@@ -1041,8 +988,13 @@
       });
     }
 
-    function applyLoadedData(indexData, categoriesData) {
+    function applyLoadedData(indexData, categoriesData, guidesData) {
       INDEX_RECORDS = Array.isArray(indexData) ? indexData : SAMPLE_INDEX;
+      if (Array.isArray(guidesData)) {
+        guidesData.forEach(function (guide) {
+          if (guide && typeof guide.id === "string") GUIDE_BY_ID[guide.id] = guide;
+        });
+      }
       var categories = Array.isArray(categoriesData)
         ? categoriesData
         : SAMPLE_CATEGORIES;
@@ -1064,9 +1016,20 @@
       render();
     }
 
-    Promise.all([loadJson("/content-index.json"), loadJson("/categories.json")])
+    Promise.all([
+      loadJson("/content-index.json"),
+      loadJson("/categories.json"),
+      // The guide records the native /guides card is drawn from: the index
+      // does not carry a guide's level or read time. Requested once, here;
+      // if it fails, guide results fall back to the index's own fields
+      // (see guideCardHtml) rather than taking the whole search down.
+      loadJson("/guides.json").catch(function (err) {
+        console.error("Couldn't load guides.json; guide results use the search index only:", err);
+        return null;
+      }),
+    ])
       .then(function (results) {
-        applyLoadedData(results[0], results[1]);
+        applyLoadedData(results[0], results[1], results[2]);
       })
       .catch(function (err) {
         // The sample set is for file:// previews only. On the live site a
@@ -1084,6 +1047,7 @@
         filtersEl.hidden = true;
         gridEl.innerHTML = "";
         emptyEl.removeAttribute("data-visible");
+        countEl.classList.remove("sr-only");
         countEl.textContent = query
           ? "Search is unavailable right now — please refresh and try again."
           : "";

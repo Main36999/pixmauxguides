@@ -67,39 +67,20 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/palettes/palettes.css" />
 
-    <!-- Small, page-specific rule only — everything else (.wrap,
-         .guides-main, .grid, .guide-card, .empty-state, .btn, ...) comes
-         from styles.css and is already shared with the homepage and the
-         /category/ pages, so search results look identical to guides
-         found any other way on the site. Move this into styles.css
-         alongside the other card rules if you'd rather keep every style
-         in one file. -->
+    <!-- Page-specific rules only. The result cards are the site's own:
+         guide results are the /guides card (styles.css) and palette
+         results are the /palettes card (palettes.css, loaded above), so
+         a result looks the same here as on its own page. -->
     <style>
-      /* ---------- Plan 1: Search results UI ----------
-         Search results now render through the site's existing resource
-         card system — .grid / .content-card / .card-thumb / .card-body /
-         .card-title / .card-link / .card-meta / .badge — exactly as the
-         homepage, /guides, /palettes and the /category/ pages
-         already do, so a result looks identical to the same resource
-         found anywhere else on the site.
-
-         Those classes are REUSED, never redefined: none of them is
-         restyled here or in styles.css. Everything below is either
-         search-only markup (the filter chips) or a scoped tweak, and
-         every selector is namespaced under .search-page (on <body>)
-         so nothing here can reach another page.
-
-         The old flat result-row presentation (.search-result-list /
-         -row / -link / -title / -meta / -desc) is gone — the grid
-         replaces it. ---------- */
-
-      .search-page mark {
-        background: rgba(37, 99, 235, 0.16);
-        color: inherit;
-        border-radius: 2px;
-        padding: 0 1px;
-      }
+      /* ---------- Search results UI ----------
+         Results are grouped by type, Guides first, and each group uses
+         its own native card: the /guides card in the /guides grid
+         (styles.css) and the /palettes card in the /palettes grid
+         (palettes.css). Those classes are REUSED, never redefined here;
+         every selector below is namespaced under .search-page (on
+         <body>) so nothing here can reach another page. ---------- */
 
       /* ---------- type filter chips ----------
          Retuned to the reference: a single rounded segmented control —
@@ -191,43 +172,30 @@
         outline: 2px solid var(--action);
         outline-offset: 2px;
       }
-      /* .card-link::after already covers the whole tile, so ring THAT
-         rather than the title text — the focus indicator then matches the
-         click target the user would actually activate. */
-      .search-page .grid .card-link:focus-visible {
-        outline: none;
-      }
-      .search-page .grid .card-link:focus-visible::after {
-        outline: 2px solid var(--action);
-        outline-offset: 3px;
-        border-radius: 6px;
-      }
 
       /* ===================================================================
-         SEARCH VISUAL REDESIGN — appearance only
+         SEARCH PAGE LAYOUT - appearance only
          ===================================================================
-         Nothing below changes what search returns, how filters behave, the
-         DOM the renderer produces, or any URL. It re-proportions the page:
-         centred results header, denser centred grid, image-first cards.
+         Nothing below changes what search returns, how filters behave or
+         any URL. It sets the frame: the /guides column, a centred intro,
+         the controls, the result groups and the empty state.
 
          Every selector stays under .search-page, so the homepage, /guides,
-         /palettes and the /category/ pages keep the shared
-         .grid / .content-card / .card-thumb / .badge / .section-head /
-         .category-hero definitions exactly as they are.
+         /palettes and the /category/ pages keep the shared definitions
+         exactly as they are.
          =================================================================== */
 
-      /* Page frame. Reference: ~77px from the header down to the heading,
-         generous bottom. BPOZZ's inherited .guides-main rhythm was
-         44/32/88 (article-like at the top, then too tight below the
-         header). */
+      /* Page frame: the 1160px column and 24px sides /guides uses, so
+         the guide grid below has the same column widths as on /guides. */
       .search-page .guides-main {
-        padding: 68px 32px 88px;
+        max-width: 1160px;
+        padding: 68px 24px 88px;
       }
 
-      /* Centred results header. Reference heading is ~36px bold, centred,
-         and is the first element on the page. */
+      /* Centred intro: the heading, then the one-line scope disclosure,
+         then the controls one intro gap below. */
       .search-page .category-hero {
-        padding: 0 0 18px;
+        padding: 0 0 var(--intro-title-gap);
         text-align: center;
       }
       .search-page .category-hero__title {
@@ -242,17 +210,16 @@
         margin: 0 auto;
       }
 
-      /* Result header stacks and centres: count directly under the
-         heading (small, muted, secondary), then the filter capsule.
-         Reference leaves ~120px between the filter and the first row of
-         cards; BPOZZ carries an extra dek + count line above, so this
-         sits a little tighter at 88px to keep total header height close. */
+      /* Controls stack and centre: the status line (visually hidden while
+         the page shows the counts itself), then the filter capsule. The
+         space below them is the site's standard section spacing
+         (styles.css .section-head), so results and the empty state start
+         close to the controls. */
       .search-page .section-head {
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 14px;
-        margin-bottom: 88px;
         padding-bottom: 0;
         border-bottom: none;
       }
@@ -264,89 +231,87 @@
         gap: 12px;
       }
 
-      /* Grid. Explicit column counts, not auto-fit: desktop is always
-         exactly 5 across, and cards get narrower as the viewport shrinks
-         rather than the row dropping to 4. minmax(0, 1fr) (not plain 1fr)
-         stops a long unbroken title from forcing a track wider than its
-         share and pushing the row into overflow.
-
-         Reference measured 5 across with a ~20px column gap, which is what
-         the base rule reproduces at ~1900px (~331px cards). */
-      .search-page .grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 40px 20px;
+      /* ---------- result groups ----------
+         search.js writes one section per type that has matches, Guides
+         first: an h2 with the count, then that type's native grid
+         (.grid.guides-grid as on /guides, .palettes-grid as on
+         /palettes). The grids and cards come from styles.css and
+         palettes.css; only the headings and the gap between the two
+         sections are set here. */
+      .search-page .search-group + .search-group {
+        margin-top: var(--intro-space-bottom);
+      }
+      .search-page .search-group__title {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        margin: 0 0 var(--intro-title-gap);
+        font-size: var(--intro-dek);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text);
+      }
+      .search-page .search-group__count {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
       }
 
-      /* Card. Thumbnail RATIO IS NOT OVERRIDDEN HERE — Search inherits
-         .card-thumb's global `aspect-ratio: 4 / 3` from styles.css, the
-         same plate the homepage, /guides, /palettes and the
-         /category/ pages use. The reference's own thumbnail is 3:2, but
-         BPOZZ's product standard is 4:3, so the reference is matched
-         through card width, spacing, typography, filters and composition
-         instead of through image-ratio parity. object-fit stays `contain`,
-         untouched.
-
-         A Guide result keeps the site's one guide thumbnail edge (8px
-         and a hairline, from styles.css). Only the palette plate is
-         tuned: the reference reads ~4px, and its colour bars take no
-         hairline. */
-      .search-page .card-thumb--bars {
-        border: 0;
-        border-radius: 4px;
+      /* ---------- palette results ----------
+         The /palettes card as it is, with three differences on this page
+         only: no entrance animation, because every tab or category change
+         redraws the grid; the colour names start at the left, as there is
+         no heart beside them here; and a curated palette's title leads
+         the names. The whole card is one link (.card-link, styles.css). */
+      .search-page .palette-card {
+        animation: none;
       }
-      /* Reference: ~15px from image to title, title ~15.5px/700, meta
-         ~12px muted ~4px below it. */
-      .search-page .card-body {
-        gap: 4px;
-        padding: 15px 1px 0;
+      .search-page .palette-card__names {
+        text-align: left;
+        padding-left: 0;
       }
-      /* The badge is a flex child of the column .card-body, so it would
-         stretch the full card width and compete with the image. The
-         reference card has no badge at all, so BPOZZ's stays but hugs its
-         label and sits quietly above the title. */
-      .search-page .card-body .badge {
-        align-self: flex-start;
-        font-size: 9.5px;
-        letter-spacing: 0.06em;
-        padding: 3px 6px;
-      }
-      .search-page .card-title {
-        font-size: 15.5px;
-        line-height: 1.35;
-      }
-      .search-page .card-meta {
-        font-size: 12px;
+      .search-page .palette-card__title {
+        color: var(--text);
+        font-weight: 600;
       }
 
+      /* ---------- empty state ----------
+         One compact card under the controls: muted fill, the large
+         radius, no border. With no results anywhere the h1 already says
+         "0 results for ...", so the card holds one line and two ways on;
+         when a filter hides every match it holds that message and the
+         Clear filters button search.js adds. */
       .search-page .empty-state {
-        padding: 48px 20px;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 28px 24px;
+        border: 0;
+        border-radius: var(--radius-lg);
+        background: var(--surface-muted);
       }
-
-      /* Tablet: 3 across. */
-      @media (max-width: 1024px) {
-        .search-page .grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
+      .search-page .search-empty-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 12px 20px;
       }
-
-      /* Mobile: 2 across, held all the way down to 320px — the existing
-         responsive design never drops search results to a single column. */
-      @media (max-width: 700px) {
-        .search-page .grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 28px 14px;
-        }
+      .search-page .search-empty-link {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        text-underline-offset: 3px;
+      }
+      .search-page .search-empty-link:hover {
+        color: var(--action);
       }
 
       @media (max-width: 640px) {
         .search-page .guides-main {
-          padding: 36px 18px 56px;
-        }
-        .search-page .category-hero {
-          padding: 0 0 14px;
+          padding: 36px 24px 56px;
         }
         .search-page .section-head {
-          margin-bottom: 44px;
           gap: 12px;
         }
         .search-page .section-head__meta {
@@ -355,9 +320,6 @@
       }
 
       @media (max-width: 420px) {
-        .search-page .grid {
-          gap: 22px 10px;
-        }
         /* Keeps all four segments on a single row inside the capsule at
            320px — wrapping would break the pill shape. */
         .search-page .search-type-tab {
@@ -368,16 +330,6 @@
           font-size: 12.5px;
           padding: 0 30px 0 14px;
         }
-      }
-
-      .search-empty-tips {
-        text-align: left;
-        max-width: 300px;
-        margin: 0 auto 22px;
-        padding-left: 20px;
-        color: var(--text-muted);
-        font-size: 13.5px;
-        line-height: 1.7;
       }
     </style>
   </head>
@@ -562,23 +514,19 @@
         </div>
       </div>
 
-      <!-- The site-wide resource grid, same element and class the
-           homepage, /guides, /palettes and the /category/ pages use
-           (5 columns, stepping to 3 at 960px and 2 at 640px — see
-           .grid in styles.css). Cards are written into it by
-           resultCardHtml() below. -->
-      <div class="grid" id="search-grid-root"></div>
+      <!-- Filled by search.js: one section per type that has results,
+           Guides first, each an h2 with its count above that type's own
+           native grid (the /guides grid, then the /palettes grid). -->
+      <div class="search-results" id="search-grid-root"></div>
 
       <div class="empty-state" id="search-empty-state">
         <p id="search-empty-message">
-          No guides or palettes match <strong id="search-empty-query"></strong>.
+          Try another keyword or browse the libraries.
         </p>
-        <ul class="search-empty-tips">
-          <li>Try a broader keyword</li>
-          <li>Use fewer words</li>
-          <li>Check the spelling</li>
-        </ul>
-        <a href="/guides/" class="btn btn-primary">Browse all guides</a>
+        <div class="search-empty-actions">
+          <a href="/guides/" class="btn btn-primary">Browse guides</a>
+          <a href="/palettes/" class="search-empty-link">Browse palettes</a>
+        </div>
       </div>
     </main>
 

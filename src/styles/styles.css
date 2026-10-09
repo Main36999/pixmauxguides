@@ -566,7 +566,7 @@ ul {
   color: var(--text);
 }
 .site-header--inner .input::placeholder {
-  color: #8b8ba7;
+  color: #717190;
 }
 .site-header--inner .input:focus,
 .site-header--inner .input:focus-visible {
@@ -1143,13 +1143,24 @@ html[data-auth] .mobile-menu__auth {
   max-width: 620px;
   margin: 0 auto 22px;
   background: var(--card);
-  border: 1px solid var(--grid-line);
+  /* Transparent rather than removed: the 1px stays in the box, so nothing
+     moves, and forced-colors mode still draws it as the field's edge. */
+  border: 1px solid transparent;
   border-radius: var(--radius-pill);
   padding: 6px 6px 6px 24px;
   transition: border-color 0.15s ease;
 }
+/* Focus: the border turns blue and two rings follow it, blue against the
+   white pill and white against the hero's colour field, so one of them
+   always contrasts with what it sits on. Forced-colors mode drops
+   box-shadow and paints the transparent outline instead. */
 .hero-search:focus-within {
   border-color: var(--action);
+  box-shadow:
+    0 0 0 2px var(--action),
+    0 0 0 4px var(--paper);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 .hero-search input {
   flex: 1 1 auto;
@@ -1684,25 +1695,6 @@ html[data-auth] .mobile-menu__auth {
   font-size: 12.5px;
   line-height: 1.4;
   color: var(--text-muted);
-}
-/* /search only: the result card's match explanation ("Matched in color
-   name: Azure"), written by src/client/search.js. The search page's own
-   .card-meta size and muted colour, so it reads as card metadata rather
-   than a new block; a long colour name or HEX wraps instead of widening a
-   2-up mobile card. */
-.search-page .card-match {
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--text-muted);
-  overflow-wrap: anywhere;
-}
-.search-page .card-match__label {
-  font-weight: 600;
-}
-/* The muted colour on the search page's <mark> tint is 4.3:1, under AA
-   for 12px text; the matched part takes the full text colour instead. */
-.search-page .card-match mark {
-  color: var(--text);
 }
 
 /* ---------- category pages (/category/<slug>.html) ----------
@@ -2885,33 +2877,41 @@ body > .site-footer {
   margin-bottom: 16px;
 }
 
-.guides-page .guides-grid {
+/* /search lays out its guide results with this same grid (search.html), so
+   their columns and gaps match /guides at every width. */
+.guides-page .guides-grid,
+.search-page .guides-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px 20px;
 }
 @media (max-width: 1023px) {
-  .guides-page .guides-grid {
+  .guides-page .guides-grid,
+  .search-page .guides-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (max-width: 767px) {
-  .guides-page .guides-grid {
+  .guides-page .guides-grid,
+  .search-page .guides-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px 14px;
   }
 }
 @media (max-width: 479px) {
-  .guides-page .guides-grid {
+  .guides-page .guides-grid,
+  .search-page .guides-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 22px;
   }
 }
 
 /* The listing's cards show the title alone; their thumbnail edge is the
-   shared .card-thumb one. The meta line stays in the shared cardHtml()
-   markup for the homepage, category, search and related-guides grids, which
-   do not carry body.guides-page. */
-.guides-page .guides-grid .card-meta {
+   shared .card-thumb one. /search's guide results are the same cards and
+   hide the line the same way. The meta line stays in the shared cardHtml()
+   markup for the homepage, category and related-guides grids, which carry
+   neither body class. */
+.guides-page .guides-grid .card-meta,
+.search-page .guides-grid .card-meta {
   display: none;
 }
 
