@@ -277,6 +277,27 @@
         font-weight: 600;
       }
 
+      /* ---------- wide screens: more columns, native card sizes ----------
+         The results use the full frame, so on wide screens each grid adds
+         columns instead of stretching its cards: guide cards stay near
+         the /guides size (~230-270px) and palette cards near the /palettes
+         size (~290-340px). Below 1280px the native breakpoints apply. */
+      @media (min-width: 1280px) {
+        .search-page .guides-grid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 1536px) {
+        .search-page .guides-grid {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 1600px) {
+        .search-page .palettes-grid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+
       /* ---------- empty state ----------
          One compact card under the controls: muted fill, the large
          radius, no border. With no results anywhere the h1 already says
