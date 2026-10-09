@@ -34,22 +34,27 @@
         autocomplete="off"
         class="input"
       />
-      <button type="reset" class="reset" aria-label="Clear search">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <line x1="5" y1="5" x2="19" y2="19" />
-          <line x1="19" y1="5" x2="5" y2="19" />
-        </svg>
-      </button>
     </form>
+    <!-- Focus ring for keyboard users only. A text field matches
+         :focus-visible on click too, so CSS can't tell the two apart: a press
+         inside the form above marks it data-pointer-focus until focus leaves
+         it, and styles.css draws the ring only on unmarked forms. Inline, so
+         it runs on every page, including those that load no app.js.
+         index.html has the same script after the hero form; search.test.js
+         keeps the two identical. -->
+    <script data-cookieconsent="ignore">
+      (function (form) {
+        if (!form) return;
+        form.addEventListener("pointerdown", function () {
+          form.setAttribute("data-pointer-focus", "");
+        });
+        form.addEventListener("focusout", function (e) {
+          if (!form.contains(e.relatedTarget)) {
+            form.removeAttribute("data-pointer-focus");
+          }
+        });
+      })(document.currentScript.previousElementSibling);
+    </script>
 
     <div class="header-auth">
       <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>

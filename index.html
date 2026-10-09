@@ -262,6 +262,22 @@
                 </svg>
               </button>
             </form>
+            <!-- Focus ring for keyboard users only: same script as the one
+                 after the header search form in partials/header.html
+                 (search.test.js keeps the two identical). -->
+            <script data-cookieconsent="ignore">
+              (function (form) {
+                if (!form) return;
+                form.addEventListener("pointerdown", function () {
+                  form.setAttribute("data-pointer-focus", "");
+                });
+                form.addEventListener("focusout", function (e) {
+                  if (!form.contains(e.relatedTarget)) {
+                    form.removeAttribute("data-pointer-focus");
+                  }
+                });
+              })(document.currentScript.previousElementSibling);
+            </script>
           </div>
 
           <!--

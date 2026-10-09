@@ -497,6 +497,86 @@ for (const [file, inputId] of [
   });
 }
 
+// The search boxes' focus ring is for keyboard users only. A text field
+// matches :focus-visible on click too, so an inline script right after each
+// global search form marks it data-pointer-focus on a press, and styles.css
+// draws the ring only on unmarked forms. Inline rather than in app.js, so it
+// also runs on the pages that load no app.js.
+function pointerFocusScript(file) {
+  const html = fs.readFileSync(path.join(config.paths.root, file), "utf8");
+  const form = /<form[^>]*role="search"[\s\S]*?<\/form>/.exec(html);
+  assert.ok(form, `${file}: the global search form`);
+  const after = html.slice(form.index + form[0].length);
+  const script = /^\s*(?:<!--[\s\S]*?-->\s*)?<script data-cookieconsent="ignore">([\s\S]*?)<\/script>/.exec(after);
+  assert.ok(script, `${file}: the pointer-focus script directly follows the search form`);
+  return script[1]
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join("\n");
+}
+
+test("partials/header.html and index.html carry the same pointer-focus script after their search form", () => {
+  const header = pointerFocusScript("partials/header.html");
+  const hero = pointerFocusScript("index.html");
+  assert.strictEqual(hero, header);
+  assert.match(header, /document\.currentScript\.previousElementSibling/);
+});
+
+test("the pointer-focus script marks its form on a press and clears the mark once focus leaves the form", () => {
+  const code = pointerFocusScript("partials/header.html");
+  const inside = {};
+  const listeners = {};
+  const attrs = new Map();
+  const form = {
+    addEventListener: (type, fn) => (listeners[type] = fn),
+    setAttribute: (name, value) => attrs.set(name, value),
+    removeAttribute: (name) => attrs.delete(name),
+    contains: (node) => node === inside,
+  };
+  vm.runInNewContext(code, { document: { currentScript: { previousElementSibling: form } } });
+  assert.deepStrictEqual(Object.keys(listeners).sort(), ["focusout", "pointerdown"]);
+
+  listeners.pointerdown({});
+  assert.strictEqual(attrs.get("data-pointer-focus"), "");
+  listeners.focusout({ relatedTarget: inside });
+  assert.ok(attrs.has("data-pointer-focus"), "focus moving within the form keeps the mark");
+  listeners.focusout({ relatedTarget: null });
+  assert.ok(!attrs.has("data-pointer-focus"), "focus leaving the form clears the mark");
+
+  assert.doesNotThrow(() =>
+    vm.runInNewContext(code, { document: { currentScript: { previousElementSibling: null } } }),
+  );
+});
+
+test("search focus styles: no ring on a pressed form, a visible non-blue ring for keyboard focus", () => {
+  const css = fs
+    .readFileSync(path.join(config.paths.root, "src", "styles", "styles.css"), "utf8")
+    .replace(/\/\*[\s\S]*?\*\//g, "");
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({
+    selectors: m[1].split(",").map((s) => s.trim()),
+    body: m[2],
+  }));
+  const BLUE = /--action|#2563eb|37,\s*99,\s*235/i;
+
+  for (const form of [".site-header--inner .form", ".hero-search"]) {
+    const ringRules = rules.filter((r) => r.selectors.some((s) => s.startsWith(form + ":focus")));
+    assert.ok(ringRules.length > 0, `${form}: has a focus rule`);
+    for (const rule of ringRules) {
+      for (const s of rule.selectors.filter((sel) => sel.startsWith(form + ":focus"))) {
+        assert.ok(s.includes(":not([data-pointer-focus])"), `${s}: skipped on a pressed form`);
+      }
+      assert.match(rule.body, /box-shadow:\s*0 0 0 [1-9]/, `${form}: keyboard focus draws a ring`);
+      assert.ok(!BLUE.test(rule.body), `${form}: the ring is not blue`);
+      assert.ok(!/border-color/.test(rule.body), `${form}: the border is left as it is`);
+    }
+  }
+  for (const input of [".site-header--inner .input:focus", ".hero-search input:focus"]) {
+    const rule = rules.find((r) => r.selectors.includes(input));
+    assert.ok(rule && /outline:\s*none/.test(rule.body), `${input}: the input draws no outline of its own`);
+  }
+});
+
 test("the /search intro line states the scope, with or without a query", async () => {
   const html = fs.readFileSync(path.join(config.paths.root, "search.html"), "utf8");
   const dek = /<p class="category-hero__dek" id="search-dek">([\s\S]*?)<\/p>/.exec(html);

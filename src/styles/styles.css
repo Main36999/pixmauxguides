@@ -486,6 +486,12 @@ ul {
 .header-search input::placeholder {
   color: #8a93a6;
 }
+/* No clear (×) button in either search form: hide the one WebKit/Blink
+   draws inside type="search". Escape still clears the field. */
+.header-search input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
 /* ---------- inner-header search pill (Uiverse.io, @satyamchaudharydev) ----------
    Restyles #header-search-input's form (.header-search.header-search--full,
    now also carrying a "form" class) into the rounded white pill from the
@@ -533,11 +539,14 @@ ul {
    the rounded white pill — the browser-default look this header does not
    want. Instead the input's own outline is cancelled on every focus, and
    the form draws a soft light halo that follows the pill's radius while
-   the field is focused (:focus-within). Same rule for click and keyboard,
-   because a text field matches :focus-visible on click anyway (above); the
-   halo is ~3.8:1 against the dark header bar, so keyboard focus stays
-   plainly visible. The transparent outline is for forced-colors mode,
-   which drops box-shadow but paints outlines in the system colour. */
+   the field is focused (:focus-within). A text field matches :focus-visible
+   on click anyway (above), so the inline script after the form in
+   partials/header.html marks it data-pointer-focus when it is pressed,
+   and the halo skips marked forms: keyboard focus only
+   (with no JS it shows on every focus). The halo is ~3.8:1 against the
+   dark header bar, so keyboard focus stays plainly visible. The
+   transparent outline is for forced-colors mode, which drops box-shadow
+   but paints outlines in the system colour. */
 .site-header--inner .form {
   --width-of-input: 200px;
   --height-of-input: 40px;
@@ -572,17 +581,9 @@ ul {
 .site-header--inner .input:focus-visible {
   outline: none;
 }
-.site-header--inner .form:focus-within {
+.site-header--inner .form:focus-within:not([data-pointer-focus]) {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
   outline: 2px solid transparent;
-}
-.site-header--inner .reset {
-  opacity: 0;
-  visibility: hidden;
-}
-.site-header--inner .input:not(:placeholder-shown) ~ .reset {
-  opacity: 1;
-  visibility: visible;
 }
 .site-header--inner .form svg {
   width: 17px;
@@ -918,14 +919,6 @@ html[data-auth] .mobile-menu__auth {
   .site-header--inner .input {
     padding-inline: 0.25em;
   }
-  /* The Clear button is invisible while the field is empty, but
-     visibility: hidden still held its 29px slot and the 4px gap, which
-     clipped the placeholder "Search bpozz…" to "Search bpoz" at 375px.
-     Out of the row only while the placeholder shows; it comes back, in
-     the same place, as soon as there is text to clear. */
-  .site-header--inner .input:placeholder-shown ~ .reset {
-    display: none;
-  }
   .site-nav {
     display: none;
   }
@@ -1150,14 +1143,16 @@ html[data-auth] .mobile-menu__auth {
   padding: 6px 6px 6px 24px;
   transition: border-color 0.15s ease;
 }
-/* Focus: the border turns blue and two rings follow it, blue against the
-   white pill and white against the hero's colour field, so one of them
-   always contrasts with what it sits on. Forced-colors mode drops
-   box-shadow and paints the transparent outline instead. */
-.hero-search:focus-within {
-  border-color: var(--action);
+/* Keyboard focus: the border stays as it is and two neutral rings follow
+   the pill, dark against the white pill and white against the hero's
+   colour field, so one of them always contrasts with what it sits on.
+   No ring when the form was pressed (data-pointer-focus, set by the
+   inline script after the hero form in index.html). Forced-colors mode
+   drops box-shadow and paints the
+   transparent outline instead. */
+.hero-search:focus-within:not([data-pointer-focus]) {
   box-shadow:
-    0 0 0 2px var(--action),
+    0 0 0 2px var(--header-bg),
     0 0 0 4px var(--paper);
   outline: 2px solid transparent;
   outline-offset: 2px;
