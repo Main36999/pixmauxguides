@@ -185,10 +185,11 @@
          exactly as they are.
          =================================================================== */
 
-      /* Page frame: the 1160px column and 24px sides /guides uses, so
-         the guide grid below has the same column widths as on /guides. */
+      /* Page frame: the shared .guides-main column (up to 1800px wide,
+         styles.css, as /palettes uses) with 24px sides, so the result
+         grids use the available width. The intro and controls stay
+         centred by their own rules below. */
       .search-page .guides-main {
-        max-width: 1160px;
         padding: 68px 24px 88px;
       }
 
