@@ -1,0 +1,62 @@
+[
+  {
+    "rule": "h1-title-mismatch",
+    "pageType": "font",
+    "reason": "SEO title template '<Font> Font - Free Download | bpozz' (src/build/fonts.js:745); the H1 is the family name by design."
+  },
+  {
+    "rule": "description-length",
+    "pageType": "font",
+    "reason": "The meta description is the family's own on-page description, unique per page by design (src/build/fonts.js:746-747; src/build/fonts.test.js:512)."
+  },
+  {
+    "rule": "h1-title-mismatch",
+    "url": "/",
+    "reason": "Homepage H1 is the hero statement; the title carries the brand definition (owner decisions, commits 3703c12 and 09f4c53)."
+  },
+  {
+    "rule": "h1-title-mismatch",
+    "url": "/about",
+    "reason": "H1 'About bpozz'; the title adds the positioning line (owner decision, commit 3703c12)."
+  },
+  {
+    "rule": "h1-title-mismatch",
+    "url": "/hoysomrach",
+    "reason": "Founder personal page; the 'Hello!' H1 is intentional (owner-reviewed /hoysomrach page)."
+  },
+  {
+    "rule": "description-duplicate",
+    "url": "/",
+    "reason": "Homepage and About share the canonical positioning description on purpose (commit 09f4c53, 'Unify homepage and About positioning metadata')."
+  },
+  {
+    "rule": "description-duplicate",
+    "url": "/about",
+    "reason": "Homepage and About share the canonical positioning description on purpose (commit 09f4c53, 'Unify homepage and About positioning metadata')."
+  },
+  {
+    "rule": "title-length",
+    "pageType": "category",
+    "reason": "Short category names with the brand suffix, e.g. 'Typography - bpozz'. The 30-60 range is an advisory heuristic."
+  },
+  {
+    "rule": "title-length",
+    "pageType": "section",
+    "reason": "Short section names with the brand suffix; the /guides/ title is the deliberate SEO title (commit ceacbd1). The 30-60 range is an advisory heuristic."
+  },
+  {
+    "rule": "title-length",
+    "url": "/contact",
+    "reason": "Contact page; a short, literal title is appropriate. The 30-60 range is an advisory heuristic."
+  },
+  {
+    "rule": "title-length",
+    "url": "/privacy",
+    "reason": "Legal page; a short, literal title is appropriate. The 30-60 range is an advisory heuristic."
+  },
+  {
+    "rule": "title-length",
+    "url": "/terms",
+    "reason": "Legal page; a short, literal title is appropriate. The 30-60 range is an advisory heuristic."
+  }
+]
