@@ -581,7 +581,9 @@
       var intro = document.getElementById("colors-intro");
       if (intro && colors.length) {
         intro.textContent =
-          "Browse our library of " + colors.length + " color names.";
+          "Browse " +
+          colors.length +
+          " named colors. Filter by family, then click any color to copy its HEX value.";
       }
     })
     .catch(function (err) {

@@ -1014,7 +1014,7 @@
           copyAndToast(buildCssVariables(hexes), "Copied palette as CSS variables");
           return;
         case "code":
-          copyAndToast(buildCodeSnippet(hexes), "Copied palette as code");
+          copyAndToast(buildCodeSnippet(hexes), "Copied palette as JSON");
           return;
         case "tailwind":
           copyAndToast(buildTailwindSnippet(hexes), "Copied Tailwind color config");
@@ -1032,7 +1032,7 @@
               // User cancelled the native share sheet — not an error.
             });
           } else {
-            toast("Sharing isn't supported in this browser — try Copy CSS or Code instead.");
+            toast("Sharing isn't supported in this browser — try CSS or Code instead.");
           }
           return;
         case "x":

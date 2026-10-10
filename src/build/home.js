@@ -326,7 +326,7 @@ const HOME_TOOLS = [
     tone: "lavender",
     cta: "Open the picker",
     desc: () =>
-      "Pull a usable palette out of any photo. It runs in your browser; your image is never uploaded.",
+      "Extract a color palette from an image and copy its HEX values. Your image never leaves your browser.",
   },
   {
     title: "UI/UX Guides",

@@ -32,7 +32,7 @@
     <title>Image Picker — bpozz</title>
     <meta
       name="description"
-      content="Upload an image and extract a color palette from it, right in your browser. No uploads, no accounts — everything runs on your device."
+      content="Extract a color palette from a JPG, PNG or WebP image and copy or export its HEX values. The image is processed in your browser and never uploaded."
     />
     <link rel="canonical" href="https://bpozz.com/image-picker/" />
 
@@ -58,7 +58,7 @@
     <meta property="og:title" content="Image Picker — bpozz" />
     <meta
       property="og:description"
-      content="Upload an image and extract a color palette from it, right in your browser. No uploads, no accounts — everything runs on your device."
+      content="Extract a color palette from a JPG, PNG or WebP image and copy or export its HEX values. The image is processed in your browser and never uploaded."
     />
     <meta property="og:image" content="https://bpozz.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -69,7 +69,7 @@
     <meta name="twitter:title" content="Image Picker — bpozz" />
     <meta
       name="twitter:description"
-      content="Upload an image and extract a color palette from it, right in your browser. No uploads, no accounts — everything runs on your device."
+      content="Extract a color palette from a JPG, PNG or WebP image and copy or export its HEX values. The image is processed in your browser and never uploaded."
     />
     <meta name="twitter:image" content="https://bpozz.com/og-image.png" />
 
@@ -90,7 +90,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Image Picker",
-        "description": "Upload an image and extract a color palette from it, right in your browser. No uploads, no accounts — everything runs on your device.",
+        "description": "Extract a color palette from a JPG, PNG or WebP image and copy or export its HEX values. The image is processed in your browser and never uploaded.",
         "url": "https://bpozz.com/image-picker/",
         "isPartOf": {
           "@type": "WebSite",
@@ -243,13 +243,13 @@
     <main class="wrap guides-main ip-main" id="image-picker-content" tabindex="-1">
       <div class="ip-head">
         <h1>Image Picker</h1>
-        <p class="ip-head__subtitle">Extract beautiful palettes from your photos.</p>
+        <p class="ip-head__subtitle">Extract a color palette from an image, then copy or export its HEX values.</p>
       </div>
 
       <div class="image-picker" id="image-picker-app">
         <aside class="ip-panel" aria-label="Palette controls">
           <div class="ip-panel__section">
-            <h2 class="ip-panel__label" id="ip-picked-label">Picked palettes</h2>
+            <h2 class="ip-panel__label" id="ip-picked-label">Palette variation</h2>
             <div class="ip-variation">
               <label class="ip-variation__label sr-only" for="ip-variation-slider"
                 >Palette variation</label
@@ -353,7 +353,7 @@
                  (positioned in % of the stage) land on the image itself,
                  not on the card's padding around it. -->
             <div class="ip-canvas-stage">
-              <canvas id="ip-canvas" class="ip-canvas" role="img" aria-label="Your image. Click a spot to sample its color into the nearest swatch." hidden></canvas>
+              <canvas id="ip-canvas" class="ip-canvas" role="img" aria-label="Source image. Click a spot to sample its color into the nearest swatch." hidden></canvas>
               <div class="ip-points" id="ip-points" aria-hidden="true"></div>
 
               <span class="ip-canvas-tip" id="ip-canvas-tip" hidden>
@@ -366,8 +366,8 @@
       <section class="tool-notes" aria-labelledby="ip-about">
         <h2 id="ip-about">How the Image Picker works</h2>
         <p>
-          The Image Picker turns a photo into a small, usable palette. A sample
-          photo is loaded when the page opens; choose Browse image to use your
+          The Image Picker extracts a palette of 3 to 8 colors from an image. A
+          sample photo is loaded when the page opens; choose Browse image to use your
           own JPG, PNG or WebP file, up to 25 MB.
         </p>
         <p>
