@@ -20,9 +20,12 @@
  *
  * A path no file serves is looked up in _redirects. Netlify applies an
  * unforced rule only when no file matches, and a forced ("!") rule first;
- * both orders are honoured. Only exact-path rules are understood. A rule with
- * a placeholder, splat or query condition is reported by parseRedirects as
- * unsupported, and the checker fails closed on it rather than guess.
+ * both orders are honoured. Among the rules that match one path, the first in
+ * the file wins. Two shapes are understood: exact paths, and a 410 rule whose
+ * `from` is a literal prefix ending in "/*" ("/icons/*" matches everything
+ * under /icons/, never /icons itself). Any other placeholder, splat or query
+ * condition is reported by parseRedirects as unsupported, and the checker
+ * fails closed on it rather than guess.
  *
  * Pure. Same input, same output.
  */
@@ -47,12 +50,17 @@ const STATUS = {
 
 const REDIRECT_CODES = new Set([301, 302, 303, 307, 308]);
 
+/** "/a/b/*": one or more literal, non-empty segments, then a final "*". */
+const PREFIX_SPLAT = /^(\/(?:[^*:?/]+\/)+)\*$/;
+
 /**
  * Parses a Netlify _redirects file. Returns the exact-path rules by `from`,
- * and every rule this module cannot evaluate exactly.
+ * the 410 prefix rules in file order, and every rule this module cannot
+ * evaluate exactly.
  */
 function parseRedirects(text) {
   const rules = new Map();
+  const prefixes = [];
   const unsupported = [];
   String(text || "")
     .split(/\r?\n/)
@@ -68,13 +76,22 @@ function parseRedirects(text) {
       const [from, to, statusField = "301"] = fields;
       const force = statusField.endsWith("!");
       const status = Number(statusField.replace(/!$/, ""));
+      const splat = PREFIX_SPLAT.exec(from);
+      // Only a 410 is evaluated: its target is never followed. `to` must
+      // still be literal, so a rule written for :splat substitution is
+      // reported rather than guessed at. Any other status falls through to
+      // unsupported.
+      if (splat && fields.length <= 3 && status === 410 && !/[*:]/.test(to)) {
+        prefixes.push({ from, prefix: splat[1], to, status, force, line: index + 1 });
+        return;
+      }
       if (fields.length > 3 || /[*:]/.test(from) || from.includes("?") || !from.startsWith("/") || !Number.isInteger(status)) {
         unsupported.push({ ...where, reason: "not an exact-path rule this checker can evaluate" });
         return;
       }
       if (!rules.has(from)) rules.set(from, { from, to, status, force, line: index + 1 });
     });
-  return { rules, unsupported };
+  return { rules, prefixes, unsupported };
 }
 
 /**
@@ -102,31 +119,10 @@ function pathSegments(pathname) {
 }
 
 /**
- * Resolves a site path to the file that serves it.
- *   { status, file?, location?, rule? }
+ * The published file that answers decoded `segs`, a 301 for a directory
+ * without its slash, or null.
  */
-function resolvePath(pathname, inventory, redirects, depth = 0) {
-  const segs = pathSegments(pathname);
-  if (!segs) return { status: STATUS.invalid };
-
-  const decodedPath = "/" + segs.join("/");
-  const rule = redirects.rules.get(pathname) || redirects.rules.get(decodedPath);
-
-  const applyRule = () => {
-    if (REDIRECT_CODES.has(rule.status)) return { status: STATUS.redirect, location: rule.to, rule: rule.line };
-    if (rule.status === 410) return { status: STATUS.gone, rule: rule.line };
-    if (rule.status === 200) {
-      if (depth > 0) return { status: STATUS.broken, rule: rule.line };
-      const target = resolvePath(rule.to.split(/[?#]/)[0], inventory, redirects, depth + 1);
-      return target.status === STATUS.ok
-        ? { status: STATUS.rewrite, file: target.file, rule: rule.line }
-        : { status: STATUS.broken, rule: rule.line };
-    }
-    return { status: STATUS.broken, rule: rule.line };
-  };
-
-  if (rule && rule.force) return applyRule();
-
+function servedFile(segs, inventory, decodedPath) {
   const last = segs[segs.length - 1];
   const rel = segs.join("/");
   if (last === "") {
@@ -139,8 +135,45 @@ function resolvePath(pathname, inventory, redirects, depth = 0) {
     if (inventory.has(rel)) return { status: STATUS.ok, file: rel };
     if (inventory.has(rel + "/index.html")) return { status: STATUS.redirect, location: decodedPath + "/" };
   }
+  return null;
+}
 
-  if (rule) return applyRule();
+/**
+ * Resolves a site path to the file that serves it.
+ *   { status, file?, location?, rule? }
+ *
+ * A path can match one exact rule and one prefix rule; they are tried in
+ * file order. A served file shadows unforced rules, so then only the first
+ * forced match applies.
+ */
+function resolvePath(pathname, inventory, redirects, depth = 0) {
+  const segs = pathSegments(pathname);
+  if (!segs) return { status: STATUS.invalid };
+
+  const decodedPath = "/" + segs.join("/");
+  const exact = redirects.rules.get(pathname) || redirects.rules.get(decodedPath);
+  const prefix = redirects.prefixes.find((r) => pathname.startsWith(r.prefix) || decodedPath.startsWith(r.prefix));
+  const matches = [exact, prefix].filter(Boolean).sort((a, b) => a.line - b.line);
+
+  const applyRule = (rule) => {
+    if (REDIRECT_CODES.has(rule.status)) return { status: STATUS.redirect, location: rule.to, rule: rule.line };
+    if (rule.status === 410) return { status: STATUS.gone, rule: rule.line };
+    if (rule.status === 200) {
+      if (depth > 0) return { status: STATUS.broken, rule: rule.line };
+      const target = resolvePath(rule.to.split(/[?#]/)[0], inventory, redirects, depth + 1);
+      return target.status === STATUS.ok
+        ? { status: STATUS.rewrite, file: target.file, rule: rule.line }
+        : { status: STATUS.broken, rule: rule.line };
+    }
+    return { status: STATUS.broken, rule: rule.line };
+  };
+
+  const served = servedFile(segs, inventory, decodedPath);
+  if (served) {
+    const forced = matches.find((r) => r.force);
+    return forced ? applyRule(forced) : served;
+  }
+  if (matches.length) return applyRule(matches[0]);
   return { status: STATUS.broken };
 }
 

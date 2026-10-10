@@ -143,3 +143,61 @@ test("pathSegments refuses dot, dot-dot and separator segments after decoding", 
   assert.strictEqual(pathSegments("/a/%2E%2E/b"), null);
   assert.strictEqual(pathSegments("/a/%2f/b"), null);
 });
+
+// ---- 410 prefix splats (dist/_redirects "/icons/*  /  410") ----------------
+
+const splatSite = (redirects, files = ["index.html", "about.html"]) => ({
+  origin: site.origin,
+  hosts: site.hosts,
+  inventory: new Set(files),
+  redirects: parseRedirects(redirects),
+});
+
+test("_redirects: only a literal-prefix splat answering 410 is supported; every other splat stays unsupported", () => {
+  const { rules, prefixes, unsupported } = parseRedirects(
+    [
+      "/icons/*  /  410",
+      "/a/b/*  /  410!",
+      "/old/*  /new  301",
+      "/r/*  /x  200",
+      "/m/*/x  /  410",
+      "/*  /  410",
+      "/s/*  /:splat  410",
+      "/d//*  /  410",
+      "/e/*  /  410  extra",
+      "/p/:x/*  /  410",
+      "/q/*  /  gone",
+    ].join("\n"),
+  );
+  assert.strictEqual(rules.size, 0);
+  assert.deepStrictEqual(prefixes.map((p) => [p.prefix, p.status, p.force, p.line]), [["/icons/", 410, false, 1], ["/a/b/", 410, true, 2]]);
+  assert.deepStrictEqual(unsupported.map((u) => u.line), [3, 4, 5, 6, 7, 8, 9, 10, 11]);
+});
+
+test("a 410 splat answers Gone below its prefix, never for the bare prefix or a lookalike path", () => {
+  const s = splatSite("/icons/*  /  410\n", ["index.html", "about.html", "icons-guide.html"]);
+  const gone = classifyHref("/icons/solid-essentials/svg/a.svg", "/about", s);
+  assert.strictEqual(gone.status, STATUS.gone);
+  assert.strictEqual(gone.rule, 1);
+  assert.strictEqual(classifyHref("/icons/", "/about", s).status, STATUS.gone);
+  assert.strictEqual(classifyHref("https://bpozz.com/icons/x.png", "/about", s).status, STATUS.gone);
+  assert.strictEqual(classifyHref("/icons", "/about", s).status, STATUS.broken);
+  assert.strictEqual(classifyHref("/icons-guide", "/about", s).file, "icons-guide.html");
+});
+
+test("exact and splat rules: the first matching rule in the file wins", () => {
+  const s = splatSite("/keep/a  /about  301\n/keep/*  /  410\n/keep/b  /about  301\n");
+  const a = classifyHref("/keep/a", "/about", s);
+  assert.deepStrictEqual([a.status, a.rule], [STATUS.redirect, 1]);
+  const b = classifyHref("/keep/b", "/about", s);
+  assert.deepStrictEqual([b.status, b.rule], [STATUS.gone, 2]);
+  assert.strictEqual(classifyHref("/keep/c", "/about", s).status, STATUS.gone);
+});
+
+test("a published file shadows an unforced splat; a forced splat still applies", () => {
+  const s = splatSite("/old/*  /  410\n/gone/*  /  410!\n", ["index.html", "about.html", "old/page.html", "gone/page.html"]);
+  assert.strictEqual(classifyHref("/old/page", "/about", s).file, "old/page.html");
+  assert.strictEqual(classifyHref("/old/missing", "/about", s).status, STATUS.gone);
+  const forced = classifyHref("/gone/page", "/about", s);
+  assert.deepStrictEqual([forced.status, forced.rule], [STATUS.gone, 2]);
+});
