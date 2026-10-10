@@ -1,0 +1,11 @@
+{
+  "name": "bpozz-typescript-toolchain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev-only TypeScript type checker for scripts/seo. Installed by hand with --ignore-scripts; never installed by Netlify or CI, and not a production dependency.",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "6.0.3"
+  }
+}
