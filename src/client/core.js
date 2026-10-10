@@ -99,7 +99,7 @@
           <h3>What "written like engineering specs" means</h3>
           <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
           <h3>No affiliate links, no sponsored placement</h3>
-          <p>Every guide on this site is written first and monetized second. We don't accept payment to feature a tool, and guide content itself is never sponsored. Where the site does carry advertising, it's kept clearly separate from the guides themselves and labeled as an advertisement — see our <a href="/privacy">Privacy Policy</a> for the specifics of how that works.</p>
+          <p>We don't accept payment to feature a tool, and the content itself is never sponsored. bpozz does not currently display advertising. If that changes, ads will be kept separate from editorial content and clearly labeled as advertising. See our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a> for details.</p>
           <h3>Who this is for</h3>
           <p>Designers moving from visual intuition toward a more systematic practice, and developers who need to understand the reasoning behind a spec, not just the pixel values in it. Guides are labeled beginner, intermediate, or advanced so you can find your level quickly.</p>
           <h3>Get in touch</h3>
