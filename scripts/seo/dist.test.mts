@@ -1,8 +1,8 @@
 /**
- * scripts/seo/dist.test.js — evidence that lib/html.js reads the REAL
+ * scripts/seo/dist.test.mts — evidence that lib/html.mts reads the REAL
  * published pages correctly, before any finding is trusted.
  *
- *     node --test scripts/seo/dist.test.js
+ *     node --test scripts/seo/dist.test.mts
  *
  * For every dist/**.html it compares the scanner's facts with a second,
  * independent extraction: regexes run over the page after comments, <script>,
@@ -13,19 +13,17 @@
  * Read-only. Skipped when dist/ does not exist.
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
+import fs from "node:fs";
+import path from "node:path";
 
-const test = require("node:test");
-const assert = require("node:assert");
-const fs = require("fs");
-const path = require("path");
-
-const config = require("./config.js");
-const { extract, decodeEntities, collapse } = require("./lib/html.js");
+import config from "./config.mts";
+import { extract, decodeEntities, collapse } from "./lib/html.mts";
 
 const DIST = config.paths.dist;
 
-function htmlFiles(dir, prefix = "") {
+function htmlFiles(dir: string, prefix = ""): string[] {
   return fs
     .readdirSync(dir, { withFileTypes: true })
     .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
@@ -37,10 +35,10 @@ function htmlFiles(dir, prefix = "") {
     });
 }
 
-const strip = (html, tags) =>
+const strip = (html: string, tags: readonly string[]): string =>
   tags.reduce((acc, tag) => acc.replace(new RegExp(`<${tag}\\b[\\s\\S]*?<\\/${tag}\\s*>`, "gi"), ""), html.replace(/<!--[\s\S]*?-->/g, ""));
 
-const attr = (tag, name) => {
+const attr = (tag: string, name: string): string | undefined => {
   const m = new RegExp(`\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i").exec(tag);
   return m ? (m[1] ?? m[2] ?? m[3]) : undefined;
 };
@@ -48,12 +46,12 @@ const attr = (tag, name) => {
 test("the scanner agrees with an independent extraction on every published page", { skip: !fs.existsSync(DIST) && "dist/ does not exist" }, () => {
   const files = htmlFiles(DIST);
   assert.ok(files.length > 0, "dist/ has no HTML");
-  const problems = [];
+  const problems: string[] = [];
 
   files.forEach((file) => {
     const raw = fs.readFileSync(path.join(DIST, ...file.split("/")), "utf8");
     const facts = extract(raw);
-    const say = (what) => problems.push(`dist/${file}: ${what}`);
+    const say = (what: string): number => problems.push(`dist/${file}: ${what}`);
 
     if (facts.anomalies.length) say(`anomalies ${JSON.stringify(facts.anomalies)}`);
 

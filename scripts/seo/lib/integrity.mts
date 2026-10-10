@@ -1,5 +1,5 @@
 /**
- * scripts/seo/lib/integrity.js — compares the dist/ inventory with the
+ * scripts/seo/lib/integrity.mts — compares the dist/ inventory with the
  * approved output manifest.
  *
  * The checker reports on dist/ only when every file in it is byte-identical
@@ -11,9 +11,10 @@
  * Pure: takes { path: sha256 } maps.
  */
 
-"use strict";
+import { isRecord } from "./guards.mts";
+import type { FileHashes, ManifestDiff } from "../types.mts";
 
-function compareManifest(actual, approved) {
+export function compareManifest(actual: FileHashes, approved: FileHashes): ManifestDiff {
   const added = Object.keys(actual).filter((f) => !Object.prototype.hasOwnProperty.call(approved, f)).sort();
   const removed = Object.keys(approved).filter((f) => !Object.prototype.hasOwnProperty.call(actual, f)).sort();
   const changed = Object.keys(actual)
@@ -28,11 +29,11 @@ function compareManifest(actual, approved) {
  * scripts/qa/approved-output.json does declare both (src/build/build.js,
  * verify stage).
  */
-function validateManifest(manifest) {
-  if (!manifest || typeof manifest !== "object" || Array.isArray(manifest)) return ["the manifest is not a JSON object"];
-  const problems = [];
+export function validateManifest(manifest: unknown): string[] {
+  if (!isRecord(manifest) || Array.isArray(manifest)) return ["the manifest is not a JSON object"];
+  const problems: string[] = [];
   const files = manifest.files;
-  const hasFiles = files && typeof files === "object" && !Array.isArray(files);
+  const hasFiles = isRecord(files) && !Array.isArray(files);
   if (!hasFiles) problems.push('the manifest has no "files" map');
   if (manifest.algorithm !== undefined && manifest.algorithm !== "sha256") {
     problems.push(`the manifest declares algorithm "${manifest.algorithm}"; this checker compares sha256`);
@@ -42,5 +43,3 @@ function validateManifest(manifest) {
   }
   return problems;
 }
-
-module.exports = { compareManifest, validateManifest };

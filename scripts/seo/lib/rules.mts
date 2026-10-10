@@ -1,5 +1,5 @@
 /**
- * scripts/seo/lib/rules.js — turns extracted pages into findings.
+ * scripts/seo/lib/rules.mts — turns extracted pages into findings.
  *
  * SEVERITIES (B1 is advisory: none of them fails anything)
  *
@@ -16,7 +16,7 @@
  * page presents itself in search. Its links, images and headings are still
  * checked.
  *
- * Length and word-count limits are heuristics from config.js, not Google
+ * Length and word-count limits are heuristics from config.mts, not Google
  * requirements.
  *
  * WHAT THIS DOES NOT CHECK, ON PURPOSE
@@ -29,13 +29,27 @@
  * Pure: no fs.
  */
 
-"use strict";
+import { classifyHref, LINK_KIND, STATUS } from "./links.mts";
+import { isRecord } from "./guards.mts";
+import type {
+  EvaluatedPage,
+  ExceptionEntry,
+  ExceptionUsage,
+  Finding,
+  LinkSite,
+  LinkStats,
+  PageInput,
+  PageType,
+  RawFinding,
+  RuleId,
+  RuleSpec,
+  SeoConfig,
+  Severity,
+} from "../types.mts";
 
-const { classifyHref, LINK_KIND, STATUS } = require("./links.js");
+export const SEVERITY = { error: "error", warning: "warning", info: "info" } as const satisfies Record<Severity, Severity>;
 
-const SEVERITY = { error: "error", warning: "warning", info: "info" };
-
-const RULES = {
+export const RULES = {
   "title-missing": { severity: SEVERITY.error, indexableOnly: true },
   "description-missing": { severity: SEVERITY.error, indexableOnly: true },
   "link-broken": { severity: SEVERITY.error },
@@ -52,18 +66,21 @@ const RULES = {
   "guide-word-count": { severity: SEVERITY.warning },
   "link-redirect": { severity: SEVERITY.info },
   "link-fragment-missing": { severity: SEVERITY.info },
-};
+} as const satisfies Record<RuleId, RuleSpec>;
+
+/** RULES looked up by an arbitrary key, the way `RULES[e.rule]` did for exceptions.json input. */
+const RULE_LOOKUP: Readonly<Record<string, unknown>> = RULES;
 
 /**
  * The duplicate rules, and the word each one's message uses. A duplicate
  * finding's message states how many pages share the text, so it is built in
  * one place and rebuilt whenever exceptions change that number.
  */
-const DUPLICATE_LABEL = { "title-duplicate": "title", "description-duplicate": "description" };
-const duplicateMessage = (rule, count) => `${count} indexable pages share one ${DUPLICATE_LABEL[rule]}.`;
+const DUPLICATE_LABEL: Partial<Record<RuleId, string>> = { "title-duplicate": "title", "description-duplicate": "description" };
+const duplicateMessage = (rule: RuleId, count: number): string => `${count} indexable pages share one ${DUPLICATE_LABEL[rule]}.`;
 
 /** Page type from its dist/ path, for reporting and the guide-only rule. */
-function pageType(file) {
+export function pageType(file: string): PageType {
   if (file.startsWith("guide/")) return "guide";
   if (file.startsWith("category/")) return "category";
   if (file.startsWith("fonts/")) return file === "fonts/index.html" ? "section" : "font";
@@ -73,7 +90,7 @@ function pageType(file) {
 }
 
 /** noindex (or "none") anywhere in any robots meta makes a page non-indexable. */
-function isIndexable(robots) {
+export function isIndexable(robots: readonly string[]): boolean {
   return !robots.some((content) =>
     content
       .split(",")
@@ -82,7 +99,7 @@ function isIndexable(robots) {
   );
 }
 
-const comparable = (text, suffix) =>
+const comparable = (text: string, suffix: RegExp): string =>
   text
     .replace(suffix, "")
     .toLowerCase()
@@ -95,13 +112,13 @@ const comparable = (text, suffix) =>
  *
  *   pages   [{ file, url, facts }] — facts from html.extract()
  *   site    { origin, hosts, inventory, redirects }
- *   config  scripts/seo/config.js
+ *   config  scripts/seo/config.mts
  *
  * Returns { findings, linkStats } before exceptions and grouping.
  */
-function evaluate(pages, site, config) {
-  const findings = [];
-  const add = (rule, page, message, evidence, line) =>
+export function evaluate(pages: PageInput[], site: LinkSite, config: SeoConfig): { findings: RawFinding[]; linkStats: LinkStats } {
+  const findings: RawFinding[] = [];
+  const add = (rule: RuleId, page: EvaluatedPage, message: string, evidence?: string, line?: number): number =>
     findings.push({
       rule,
       severity: RULES[rule].severity,
@@ -110,7 +127,7 @@ function evaluate(pages, site, config) {
       pages: [{ url: page.url, file: page.file, type: page.type, ...(line ? { line } : {}) }],
     });
 
-  const linkStats = {
+  const linkStats: LinkStats = {
     internalOk: 0,
     rewrite: 0,
     redirect: 0,
@@ -123,16 +140,20 @@ function evaluate(pages, site, config) {
     hashRoute: 0,
   };
 
+  /** Classifies every page in place, as the rules below and check-seo.mts read it. */
+  function classifyPages(list: PageInput[]): asserts list is EvaluatedPage[] {
+    list.forEach((p) => {
+      p.type = pageType(p.file);
+      p.indexable = isIndexable(p.facts.robots);
+      p.idSet = new Set(p.facts.ids);
+    });
+  }
+  classifyPages(pages);
   const byFile = new Map(pages.map((p) => [p.file, p]));
-  pages.forEach((p) => {
-    p.type = pageType(p.file);
-    p.indexable = isIndexable(p.facts.robots);
-    p.idSet = new Set(p.facts.ids);
-  });
 
   const { thresholds, titleSuffix } = config;
-  const titleGroups = new Map();
-  const descriptionGroups = new Map();
+  const titleGroups = new Map<string, EvaluatedPage[]>();
+  const descriptionGroups = new Map<string, EvaluatedPage[]>();
 
   pages.forEach((p) => {
     const f = p.facts;
@@ -145,7 +166,7 @@ function evaluate(pages, site, config) {
       if (!title) add("title-missing", p, "No document <title>, or it is empty.");
       else {
         if (!titleGroups.has(title)) titleGroups.set(title, []);
-        titleGroups.get(title).push(p);
+        titleGroups.get(title)!.push(p);
         if (title.length < thresholds.title.min || title.length > thresholds.title.max) {
           add(
             "title-length",
@@ -160,7 +181,7 @@ function evaluate(pages, site, config) {
       if (!description) add("description-missing", p, 'No <meta name="description">, or its content is empty.');
       else {
         if (!descriptionGroups.has(description)) descriptionGroups.set(description, []);
-        descriptionGroups.get(description).push(p);
+        descriptionGroups.get(description)!.push(p);
         if (description.length < thresholds.description.min || description.length > thresholds.description.max) {
           add(
             "description-length",
@@ -270,7 +291,7 @@ function evaluate(pages, site, config) {
     });
   });
 
-  const duplicates = (groups, rule) => {
+  const duplicates = (groups: Map<string, EvaluatedPage[]>, rule: RuleId): void => {
     groups.forEach((group, text) => {
       if (group.length < 2) return;
       findings.push({
@@ -293,13 +314,14 @@ function evaluate(pages, site, config) {
  * exactly one scope: an exact `url`, or a `pageType`. There are no patterns,
  * so the file a reviewer reads is the exact set excused.
  */
-function validateExceptions(entries) {
+export function validateExceptions(entries: unknown): string[] {
   if (!Array.isArray(entries)) return ["exceptions.json must be a JSON array"];
-  const problems = [];
-  entries.forEach((e, i) => {
+  const list: readonly unknown[] = entries;
+  const problems: string[] = [];
+  list.forEach((e, i) => {
     const at = `exceptions.json[${i}]`;
-    if (!e || typeof e !== "object") return problems.push(`${at} is not an object`);
-    if (!RULES[e.rule]) problems.push(`${at}.rule "${e.rule}" is not a known rule`);
+    if (!isRecord(e)) return problems.push(`${at} is not an object`);
+    if (!RULE_LOOKUP[String(e.rule)]) problems.push(`${at}.rule "${e.rule}" is not a known rule`);
     if (typeof e.reason !== "string" || !e.reason.trim()) problems.push(`${at}.reason is required`);
     const scopes = ["url", "pageType"].filter((k) => e[k] !== undefined);
     if (scopes.length !== 1) problems.push(`${at} needs exactly one of "url" or "pageType"`);
@@ -319,9 +341,12 @@ function validateExceptions(entries) {
  * Returns the surviving findings and every exception with how many page
  * entries it excused, so an unused one is visible.
  */
-function applyExceptions(findings, entries) {
-  const usage = entries.map((e) => ({ ...e, excused: 0 }));
-  const survivors = [];
+export function applyExceptions(
+  findings: readonly RawFinding[],
+  entries: readonly ExceptionEntry[],
+): { findings: RawFinding[]; exceptions: ExceptionUsage[] } {
+  const usage: ExceptionUsage[] = entries.map((e) => ({ ...e, excused: 0 }));
+  const survivors: RawFinding[] = [];
   findings.forEach((f) => {
     const pages = f.pages.filter((pg) => {
       const hit = usage.find((e) => e.rule === f.rule && (e.url ? e.url === pg.url : e.pageType === pg.type));
@@ -342,14 +367,14 @@ function applyExceptions(findings, entries) {
  * at least `min` pages into one template-level finding. Duplicate groups are
  * already one finding each and are left alone.
  */
-function groupTemplates(findings, min) {
-  const buckets = new Map();
-  const out = [];
+export function groupTemplates(findings: readonly RawFinding[], min: number): Finding[] {
+  const buckets = new Map<string, RawFinding[]>();
+  const out: Finding[] = [];
   findings.forEach((f) => {
     if (f.pages.length !== 1) return out.push({ ...f, scope: "group" });
-    const key = `${f.rule}\u0000${f.message}\u0000${f.evidence}`;
+    const key = `${f.rule}\x00${f.message}\x00${f.evidence}`;
     if (!buckets.has(key)) buckets.set(key, []);
-    buckets.get(key).push(f);
+    buckets.get(key)!.push(f);
   });
   buckets.forEach((list) => {
     if (list.length >= min) {
@@ -360,14 +385,3 @@ function groupTemplates(findings, min) {
   });
   return out;
 }
-
-module.exports = {
-  evaluate,
-  validateExceptions,
-  applyExceptions,
-  groupTemplates,
-  pageType,
-  isIndexable,
-  RULES,
-  SEVERITY,
-};

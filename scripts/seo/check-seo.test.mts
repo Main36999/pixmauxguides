@@ -1,24 +1,36 @@
 /**
- * scripts/seo/check-seo.test.js — the integrity comparison, and static
+ * scripts/seo/check-seo.test.mts — the integrity comparison, and static
  * guarantees about what the checker's source can do.
  *
- *     node --test scripts/seo/check-seo.test.js
+ *     node --test scripts/seo/check-seo.test.mts
  *
  * The static tests read this directory's own source files. They do not run
  * the checker, read dist/ or write anything.
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
+import fs from "node:fs";
+import path from "node:path";
 
-const test = require("node:test");
-const assert = require("node:assert");
-const fs = require("fs");
-const path = require("path");
+import config from "./config.mts";
+import * as rules from "./lib/rules.mts";
+import { compareManifest, validateManifest } from "./lib/integrity.mts";
 
-const { compareManifest, validateManifest } = require("./lib/integrity.js");
-
-const src = (rel) => fs.readFileSync(path.join(__dirname, rel), "utf8");
-const LIBS = ["lib/html.js", "lib/links.js", "lib/rules.js", "lib/report.js", "lib/safe-paths.js", "lib/integrity.js", "config.js"];
+const src = (rel: string): string => fs.readFileSync(path.join(import.meta.dirname, rel), "utf8");
+const LIBS = [
+  "lib/html.mts",
+  "lib/links.mts",
+  "lib/rules.mts",
+  "lib/report.mts",
+  "lib/safe-paths.mts",
+  "lib/integrity.mts",
+  "lib/guards.mts",
+  "config.mts",
+  "types.mts",
+];
+/** A static import, dynamic import or require() of a module that reaches the disk, network or other processes. */
+const SIDE_EFFECT_MODULE = /(?:\brequire\(\s*|\bimport\(\s*|\bfrom\s*|\bimport\s+)["'](node:)?(fs|fs\/promises|child_process|net|http|https)["']/;
 
 test("integrity: identical maps pass", () => {
   assert.deepStrictEqual(compareManifest({ a: "1", b: "2" }, { b: "2", a: "1" }), { added: [], removed: [], changed: [], ok: true });
@@ -46,20 +58,19 @@ test("manifest: declared algorithm and count are checked when present", () => {
 });
 
 test("manifest: the real approved-output.json passes, read here without being changed", () => {
-  const config = require("./config.js");
-  const manifest = JSON.parse(fs.readFileSync(config.paths.approvedOutput, "utf8"));
+  const manifest: unknown = JSON.parse(fs.readFileSync(config.paths.approvedOutput, "utf8"));
   assert.deepStrictEqual(validateManifest(manifest), []);
 });
 
 test("only check-seo.js touches the filesystem: no lib module or config requires fs or child_process", () => {
   LIBS.forEach((file) => {
     const code = src(file);
-    assert.doesNotMatch(code, /require\(\s*["'](node:)?(fs|fs\/promises|child_process|net|http|https)["']\s*\)/, file);
+    assert.doesNotMatch(code, SIDE_EFFECT_MODULE, file);
   });
 });
 
 test("check-seo.js mutates the disk in exactly five calls, all through the output guards, and never deletes", () => {
-  const code = src("check-seo.js");
+  const code = src("check-seo.mts");
   const mutating = code.match(/\bfs\.(writeFile|appendFile|copyFile|rename|rm|rmdir|unlink|truncate|cp|symlink|link|mkdir|mkdtemp|chmod|utimes|createWriteStream)\w*\(/g) || [];
   assert.deepStrictEqual(mutating, ["fs.mkdirSync(", "fs.writeFileSync(", "fs.writeFileSync(", "fs.renameSync(", "fs.renameSync("]);
 
@@ -72,7 +83,7 @@ test("check-seo.js mutates the disk in exactly five calls, all through the outpu
 });
 
 test("check-seo.js renames report.md before report.json, then reads the pair back", () => {
-  const code = src("check-seo.js");
+  const code = src("check-seo.mts");
   const md = code.indexOf('fs.renameSync(safe.reportTarget(out, "report.md.tmp")');
   const json = code.indexOf('fs.renameSync(safe.reportTarget(out, "report.json.tmp")');
   const verify = code.indexOf("report.verifyPair(");
@@ -80,24 +91,23 @@ test("check-seo.js renames report.md before report.json, then reads the pair bac
 });
 
 test("check-seo.js never names approved-output.json, a baseline or dist/ as a write target", () => {
-  const code = src("check-seo.js");
+  const code = src("check-seo.mts");
   const writeArgs = (code.match(/fs\.(writeFileSync|mkdirSync|renameSync)\([^;]*;/g) || []).join("\n");
   assert.doesNotMatch(writeArgs, /approvedOutput|baseline|dist/);
 });
 
 test("every failure message warns that existing reports may be stale", () => {
-  const code = src("check-seo.js");
+  const code = src("check-seo.mts");
   assert.match(code, /from an EARLIER run and may be stale/);
 });
 
 test("check-seo.js takes no options, so nothing can redirect its output", () => {
-  const code = src("check-seo.js");
+  const code = src("check-seo.mts");
   assert.match(code, /process\.argv\.length > 2\) throw new Refusal/);
   assert.doesNotMatch(code, /process\.env\.\w+/);
 });
 
 test("exceptions.json starts empty and is valid", () => {
-  const rules = require("./lib/rules.js");
-  const entries = JSON.parse(src("exceptions.json"));
+  const entries: unknown = JSON.parse(src("exceptions.json"));
   assert.deepStrictEqual(rules.validateExceptions(entries), []);
 });

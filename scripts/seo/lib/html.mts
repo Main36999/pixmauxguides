@@ -1,5 +1,5 @@
 /**
- * scripts/seo/lib/html.js — a small, tolerant HTML scanner and the page facts
+ * scripts/seo/lib/html.mts — a small, tolerant HTML scanner and the page facts
  * the SEO checker needs from it.
  *
  * WHY NOT REGEXES OVER THE WHOLE PAGE
@@ -24,14 +24,14 @@
  * Pure: no fs. Same input, same output.
  */
 
-"use strict";
+import type { PageFacts, ScanAnomaly, Token } from "../types.mts";
 
 const RAW_TEXT = new Set(["script", "style", "textarea", "title"]);
 /** Elements whose subtree is foreign content: its <title> and headings are not the page's. */
 const FOREIGN = new Set(["svg", "math"]);
 const HEADING = /^h([1-6])$/;
 
-const NAMED_ENTITIES = {
+const NAMED_ENTITIES: Readonly<Record<string, string>> = {
   amp: "&",
   quot: '"',
   apos: "'",
@@ -55,8 +55,8 @@ const NAMED_ENTITIES = {
  * "&quot;" and is not decoded twice (the rule src/build/content.js:1155 keeps
  * by decoding &amp; last). Unknown named references are left as written.
  */
-function decodeEntities(text) {
-  return text.replace(/&(#\d+|#x[0-9a-f]+|[a-z][a-z0-9]*);/gi, (whole, ref) => {
+export function decodeEntities(text: string): string {
+  return text.replace(/&(#\d+|#x[0-9a-f]+|[a-z][a-z0-9]*);/gi, (whole: string, ref: string) => {
     if (ref[0] === "#") {
       const code = ref[1] === "x" || ref[1] === "X" ? parseInt(ref.slice(2), 16) : parseInt(ref.slice(1), 10);
       return Number.isInteger(code) && code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : whole;
@@ -66,10 +66,10 @@ function decodeEntities(text) {
   });
 }
 
-const collapse = (text) => text.replace(/\s+/g, " ").trim();
+export const collapse = (text: string): string => text.replace(/\s+/g, " ").trim();
 
 /** Offsets of every newline, so a token offset can be reported as a line. */
-function lineIndex(html) {
+function lineIndex(html: string): (offset: number) => number {
   const starts = [0];
   for (let i = 0; i < html.length; i += 1) if (html[i] === "\n") starts.push(i + 1);
   return (offset) => {
@@ -90,7 +90,7 @@ const ATTR_NAME = /[^\s"'>/=]+/y;
 const UNQUOTED = /[^\s>]+/y;
 const SPACE = /\s*/y;
 
-function matchAt(re, text, at) {
+function matchAt(re: RegExp, text: string, at: number): string | null {
   re.lastIndex = at;
   const m = re.exec(text);
   return m ? m[0] : null;
@@ -101,13 +101,13 @@ function matchAt(re, text, at) {
  * any anomalies; on an anomaly it stops, because everything after the point
  * it lost track is suspect.
  */
-function tokenize(html) {
-  const tokens = [];
-  const anomalies = [];
+export function tokenize(html: string): { tokens: Token[]; anomalies: ScanAnomaly[] } {
+  const tokens: Token[] = [];
+  const anomalies: ScanAnomaly[] = [];
   const len = html.length;
   let i = 0;
 
-  const text = (from, to) => {
+  const text = (from: number, to: number): void => {
     if (to > from) tokens.push({ type: "text", text: html.slice(from, to), at: from });
   };
 
@@ -168,14 +168,16 @@ function tokenize(html) {
     }
 
     // start tag
-    const rawName = matchAt(TAG_NAME, html, lt + 1);
+    // NAME_START matched html[lt + 1], so TAG_NAME matches there.
+    const rawName = matchAt(TAG_NAME, html, lt + 1)!;
     const name = rawName.toLowerCase();
-    const attrs = {};
+    const attrs: Record<string, string> = {};
     let j = lt + 1 + rawName.length;
     let closed = false;
     let selfClosing = false;
     while (j < len) {
-      j += matchAt(SPACE, html, j).length;
+      // SPACE is /\s*/y: it matches at every offset, possibly empty.
+      j += matchAt(SPACE, html, j)!.length;
       if (html[j] === ">") {
         j += 1;
         closed = true;
@@ -199,11 +201,11 @@ function tokenize(html) {
         continue;
       }
       j += attrName.length;
-      j += matchAt(SPACE, html, j).length;
+      j += matchAt(SPACE, html, j)!.length;
       let value = "";
       if (html[j] === "=") {
         j += 1;
-        j += matchAt(SPACE, html, j).length;
+        j += matchAt(SPACE, html, j)!.length;
         const quote = html[j];
         if (quote === '"' || quote === "'") {
           const close = html.indexOf(quote, j + 1);
@@ -246,6 +248,17 @@ function tokenize(html) {
   return { tokens, anomalies };
 }
 
+interface OpenTitle {
+  readonly line: number;
+  readonly inHead: boolean;
+}
+
+interface OpenHeading {
+  readonly level: number;
+  text: string;
+  readonly line: number;
+}
+
 /**
  * The facts one page contributes to the checker.
  *
@@ -260,11 +273,11 @@ function tokenize(html) {
  *   hasMain       whether the page has a <main>
  *   anomalies     [{ line, problem }] — see FAIL CLOSED above
  */
-function extract(html) {
+export function extract(html: string): PageFacts {
   const lineOf = lineIndex(html);
   const { tokens, anomalies: scanAnomalies } = tokenize(html);
 
-  const page = {
+  const page: PageFacts = {
     titles: [],
     descriptions: [],
     robots: [],
@@ -276,17 +289,19 @@ function extract(html) {
     hasMain: false,
     anomalies: scanAnomalies.map((a) => ({ line: lineOf(a.at), problem: a.problem })),
   };
-  const anomaly = (at, problem) => page.anomalies.push({ line: lineOf(at), problem });
+  const anomaly = (at: number, problem: string): number => page.anomalies.push({ line: lineOf(at), problem });
 
-  const ids = new Set();
+  const ids = new Set<string>();
   let foreignDepth = 0;
   let mainDepth = 0;
   let inHead = false;
-  let openTitle = null;
-  let openHeading = null;
+  // Widened on purpose: these are reassigned inside the forEach callback
+  // below, which TypeScript's narrowing of a `null` initializer cannot see.
+  let openTitle = null as OpenTitle | null;
+  let openHeading = null as OpenHeading | null;
   let sawHtmlEnd = false;
 
-  const closeHeading = () => {
+  const closeHeading = (): void => {
     if (!openHeading) return;
     page.headings.push({ level: openHeading.level, text: collapse(decodeEntities(openHeading.text)), line: openHeading.line });
     openHeading = null;
@@ -382,5 +397,3 @@ function extract(html) {
   page.ids = [...ids].sort();
   return page;
 }
-
-module.exports = { extract, tokenize, decodeEntities, collapse };

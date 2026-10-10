@@ -1,25 +1,31 @@
 /**
- * scripts/seo/lib/rules.test.js — what each rule reports, on which pages,
+ * scripts/seo/lib/rules.test.mts — what each rule reports, on which pages,
  * and how exceptions and template grouping change that.
  *
- *     node --test scripts/seo/lib/rules.test.js
+ *     node --test scripts/seo/lib/rules.test.mts
  *
- * Pages are built in memory with lib/html.js; nothing touches the disk.
+ * Pages are built in memory with lib/html.mts; nothing touches the disk.
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
 
-const test = require("node:test");
-const assert = require("node:assert");
-
-const config = require("../config.js");
-const { extract } = require("./html.js");
-const { parseRedirects } = require("./links.js");
-const rules = require("./rules.js");
+import config from "../config.mts";
+import { extract } from "./html.mts";
+import { parseRedirects } from "./links.mts";
+import * as rules from "./rules.mts";
+import type { LinkSite, PageInput, RawFinding } from "../types.mts";
 
 const LONG_DESC = "A description that is comfortably inside the advisory range of seventy to one hundred sixty characters.";
 
-function page(file, url, { title = "A Perfectly Reasonable Page Title — bpozz", description = LONG_DESC, robots, body = "<main><h1>A Perfectly Reasonable Page Title</h1></main>" } = {}) {
+interface PageOptions {
+  readonly title?: string | null;
+  readonly description?: string | null;
+  readonly robots?: string;
+  readonly body?: string;
+}
+
+function page(file: string, url: string, { title = "A Perfectly Reasonable Page Title — bpozz", description = LONG_DESC, robots, body = "<main><h1>A Perfectly Reasonable Page Title</h1></main>" }: PageOptions = {}): PageInput {
   const head = [
     title === null ? "" : `<title>${title}</title>`,
     description === null ? "" : `<meta name="description" content="${description}" />`,
@@ -28,12 +34,12 @@ function page(file, url, { title = "A Perfectly Reasonable Page Title — bpozz"
   return { file, url, facts: extract(`<!doctype html><html><head>${head}</head><body>${body}</body></html>`) };
 }
 
-function site(files, redirects = "") {
+function site(files: string[], redirects = ""): LinkSite {
   return { origin: config.origin, hosts: config.siteHosts, inventory: new Set(files), redirects: parseRedirects(redirects) };
 }
 
-const run = (pages, s = site(pages.map((p) => p.file))) => rules.evaluate(pages, s, config);
-const ruleIds = (findings) => findings.map((f) => f.rule).sort();
+const run = (pages: PageInput[], s = site(pages.map((p) => p.file))) => rules.evaluate(pages, s, config);
+const ruleIds = (findings: readonly RawFinding[]): string[] => findings.map((f) => f.rule).sort();
 
 test("a clean page has no findings", () => {
   assert.deepStrictEqual(run([page("about.html", "/about")]).findings, []);
@@ -81,7 +87,7 @@ test("length limits come from config and are warnings", () => {
   const short = run([page("a.html", "/a", { title: "Short", description: "Too short." , body: "<h1>Short</h1>" })]).findings;
   assert.deepStrictEqual(ruleIds(short), ["description-length", "title-length"]);
   assert.ok(short.every((f) => f.severity === "warning"));
-  assert.match(short.find((f) => f.rule === "title-length").message, /30–60/);
+  assert.match(short.find((f) => f.rule === "title-length")?.message ?? "", /30–60/);
 });
 
 test("h1 count and h1/title mismatch", () => {
@@ -181,7 +187,7 @@ test("duplicate groups are recounted after exceptions, and dropped below two pag
 
   // A page-scoped rule keeps its old behaviour: one page left is still a finding.
   const single = rules.applyExceptions(
-    [{ rule: "h1-count", severity: "warning", message: "m", evidence: "", pages: [{ url: "/a", type: "page" }, { url: "/b", type: "page" }] }],
+    [{ rule: "h1-count", severity: "warning", message: "m", evidence: "", pages: [{ url: "/a", file: "a.html", type: "page" }, { url: "/b", file: "b.html", type: "page" }] }],
     [{ rule: "h1-count", url: "/a", reason: "x" }],
   );
   assert.deepStrictEqual(single.findings[0].pages.map((p) => p.url), ["/b"]);
@@ -193,7 +199,7 @@ test("redirects: a chain lands (one hop followed), an external target lands, a h
   });
   const s = site(["about.html"], "/one /two 301\n/two /about 301\n/out https://example.com/ 301\n/to-gone /tokens 301\n/tokens / 410\n");
   const { findings, linkStats } = run([p], s);
-  const byRule = (r) => findings.filter((f) => f.rule === r).map((f) => f.evidence);
+  const byRule = (r: string): string[] => findings.filter((f) => f.rule === r).map((f) => f.evidence);
   assert.deepStrictEqual(byRule("link-redirect"), ['href="/one"', 'href="/out"']);
   assert.deepStrictEqual(byRule("link-broken"), ['href="/to-gone"']);
   assert.strictEqual(linkStats.redirect, 3);

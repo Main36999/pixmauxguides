@@ -1,19 +1,18 @@
 /**
- * scripts/seo/lib/links.test.js — every link shape the checker must tell
+ * scripts/seo/lib/links.test.mts — every link shape the checker must tell
  * apart: valid, broken, redirected, 410 Gone, fragments, hash routes,
  * external, non-HTTP, and attempts to climb out of dist/.
  *
- *     node --test scripts/seo/lib/links.test.js
+ *     node --test scripts/seo/lib/links.test.mts
  *
  * The inventory is an in-memory Set; nothing touches the disk.
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
 
-const test = require("node:test");
-const assert = require("node:assert");
-
-const { classifyHref, parseRedirects, pathSegments, LINK_KIND, STATUS } = require("./links.js");
+import { classifyHref, parseRedirects, pathSegments, LINK_KIND, STATUS } from "./links.mts";
+import type { Classification, LinkSite } from "../types.mts";
 
 const REDIRECTS = `
 # comment line
@@ -25,7 +24,7 @@ const REDIRECTS = `
 /missing-target /nowhere.png 200
 `;
 
-const site = {
+const site: LinkSite = {
   origin: "https://bpozz.com",
   hosts: ["bpozz.com", "www.bpozz.com"],
   inventory: new Set([
@@ -42,13 +41,13 @@ const site = {
   redirects: parseRedirects(REDIRECTS),
 };
 
-const at = (href, page = "/guide/type-scale-systems") => classifyHref(href, page, site);
+const at = (href: string, page = "/guide/type-scale-systems"): Classification => classifyHref(href, page, site);
 
 test("_redirects: exact rules parsed, comments skipped, forced flag kept", () => {
   const { rules, unsupported } = site.redirects;
   assert.deepStrictEqual(unsupported, []);
-  assert.strictEqual(rules.get("/guide/g6.html").status, 301);
-  assert.strictEqual(rules.get("/forced").force, true);
+  assert.strictEqual(rules.get("/guide/g6.html")?.status, 301);
+  assert.strictEqual(rules.get("/forced")?.force, true);
   assert.strictEqual(rules.size, 6);
 });
 
@@ -146,7 +145,7 @@ test("pathSegments refuses dot, dot-dot and separator segments after decoding", 
 
 // ---- 410 prefix splats (dist/_redirects "/icons/*  /  410") ----------------
 
-const splatSite = (redirects, files = ["index.html", "about.html"]) => ({
+const splatSite = (redirects: string, files = ["index.html", "about.html"]): LinkSite => ({
   origin: site.origin,
   hosts: site.hosts,
   inventory: new Set(files),

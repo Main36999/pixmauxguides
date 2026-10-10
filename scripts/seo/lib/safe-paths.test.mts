@@ -1,21 +1,19 @@
 /**
- * scripts/seo/lib/safe-paths.test.js — the read and write boundaries, as
+ * scripts/seo/lib/safe-paths.test.mts — the read and write boundaries, as
  * path computations on both Windows and posix path rules.
  *
- *     node --test scripts/seo/lib/safe-paths.test.js
+ *     node --test scripts/seo/lib/safe-paths.test.mts
  *
- * Nothing is read or written: these are the checks check-seo.js routes every
+ * Nothing is read or written: these are the checks check-seo.mts routes every
  * page read and both report writes through.
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
+import path from "node:path";
 
-const test = require("node:test");
-const assert = require("node:assert");
-const path = require("path");
-
-const config = require("../config.js");
-const safe = require("./safe-paths.js");
+import config from "../config.mts";
+import * as safe from "./safe-paths.mts";
 
 const WIN = { repo: "D:\\site", dist: "D:\\site\\dist", qa: "D:\\site\\.qa" };
 const POSIX = { repo: "/srv/site", dist: "/srv/site/dist", qa: "/srv/site/.qa" };

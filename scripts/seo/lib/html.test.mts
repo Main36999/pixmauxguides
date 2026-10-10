@@ -1,19 +1,17 @@
 /**
- * scripts/seo/lib/html.test.js — the scanner on malformed and edge-case HTML.
+ * scripts/seo/lib/html.test.mts — the scanner on malformed and edge-case HTML.
  *
- *     node --test scripts/seo/lib/html.test.js
+ *     node --test scripts/seo/lib/html.test.mts
  *
  * In-memory fixtures only; nothing is read from or written to disk.
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
 
-const test = require("node:test");
-const assert = require("node:assert");
+import { extract, decodeEntities } from "./html.mts";
 
-const { extract, decodeEntities } = require("./html.js");
-
-const doc = (head, body) => `<!doctype html>\n<html lang="en">\n<head>\n${head}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
+const doc = (head: string, body: string): string => `<!doctype html>\n<html lang="en">\n<head>\n${head}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
 
 test("title and description are read from <head>, across lines and quote styles", () => {
   const page = extract(

@@ -1,28 +1,27 @@
 /**
- * scripts/seo/lib/report.test.js — report.json and report.md are
+ * scripts/seo/lib/report.test.mts — report.json and report.md are
  * deterministic, and carry nothing machine-specific.
  *
- *     node --test scripts/seo/lib/report.test.js
+ *     node --test scripts/seo/lib/report.test.mts
  */
 
-"use strict";
+import test from "node:test";
+import assert from "node:assert";
 
-const test = require("node:test");
-const assert = require("node:assert");
+import config from "../config.mts";
+import * as report from "./report.mts";
+import type { Finding, LinkStats, ReportSource } from "../types.mts";
 
-const config = require("../config.js");
-const report = require("./report.js");
+const SOURCE: ReportSource = { approvedOutputSha256: "a".repeat(64), distFiles: 3, htmlPages: 2, indexablePages: 1 };
+const LINKS: LinkStats = { internalOk: 1, rewrite: 0, redirect: 0, gone: 0, broken: 1, invalid: 0, fragmentMissing: 0, external: 0, nonHttp: 0, hashRoute: 0 };
 
-const SOURCE = { approvedOutputSha256: "a".repeat(64), distFiles: 3, htmlPages: 2, indexablePages: 1 };
-const LINKS = { internalOk: 1, rewrite: 0, redirect: 0, gone: 0, broken: 1, invalid: 0, fragmentMissing: 0, external: 0, nonHttp: 0, hashRoute: 0 };
-
-const findings = () => [
+const findings = (): Finding[] => [
   { rule: "title-length", severity: "warning", scope: "page", message: "m", evidence: "e|pipe", pages: [{ url: "/b", file: "b.html", type: "page", line: 3 }] },
   { rule: "link-broken", severity: "error", scope: "page", message: "m", evidence: 'href="/x"', pages: [{ url: "/a", file: "a.html", type: "page", line: 9 }] },
   { rule: "title-duplicate", severity: "warning", scope: "group", message: "2 share", evidence: "T", pages: [{ url: "/z", file: "z.html", type: "page" }, { url: "/a", file: "a.html", type: "page" }] },
 ];
 
-const build = (list) => report.buildReport({ config, source: SOURCE, findings: list, linkStats: LINKS, exceptions: [] });
+const build = (list: Finding[]) => report.buildReport({ config, source: SOURCE, findings: list, linkStats: LINKS, exceptions: [] });
 
 test("findings are ordered by severity, then rule; pages inside a finding by URL", () => {
   const r = build(findings());
@@ -74,7 +73,7 @@ test("pair check: a report.md from another run is detected", () => {
   const earlier = report.buildReport({ config, source: { ...SOURCE, htmlPages: 1 }, findings: findings().slice(1), linkStats: LINKS, exceptions: [] });
   const result = report.verifyPair(report.stableStringify(current), report.renderMarkdown(earlier));
   assert.strictEqual(result.ok, false);
-  assert.match(result.reason, /different pair ids/);
+  assert.match(result.reason ?? "", /different pair ids/);
 });
 
 test("pair check: an edited, truncated or id-less report.json is detected", () => {
@@ -83,16 +82,16 @@ test("pair check: an edited, truncated or id-less report.json is detected", () =
   const markdown = report.renderMarkdown(r);
 
   const edited = report.verifyPair(json.replace('"htmlPages": 2', '"htmlPages": 3'), markdown);
-  assert.match(edited.reason, /does not match its own pairId/);
+  assert.match(edited.reason ?? "", /does not match its own pairId/);
 
   const truncated = report.verifyPair(json.slice(0, json.length / 2), markdown);
-  assert.match(truncated.reason, /does not parse/);
+  assert.match(truncated.reason ?? "", /does not parse/);
 
   const { pairId, ...noId } = r;
-  assert.match(report.verifyPair(report.stableStringify(noId), markdown).reason, /no pairId/);
+  assert.match(report.verifyPair(report.stableStringify(noId), markdown).reason ?? "", /no pairId/);
 
   const noLine = markdown.split("\n").filter((l) => !l.includes("report pair id:")).join("\n");
-  assert.match(report.verifyPair(json, noLine).reason, /no pair id line/);
+  assert.match(report.verifyPair(json, noLine).reason ?? "", /no pair id line/);
 });
 
 test("markdown escapes table pipes and states that the limits are advisory", () => {

@@ -1,5 +1,5 @@
 /**
- * scripts/seo/lib/report.js — findings to report.json and report.md text.
+ * scripts/seo/lib/report.mts — findings to report.json and report.md text.
  *
  * DETERMINISTIC BY CONSTRUCTION
  *
@@ -17,20 +17,21 @@
  * files on disk came from the same run — and whether report.json still hashes
  * to the id it claims.
  *
- * Pure: returns strings; check-seo.js writes them. (crypto is used for the
+ * Pure: returns strings; check-seo.mts writes them. (crypto is used for the
  * hash only; nothing here touches the filesystem.)
  */
 
-"use strict";
+import crypto from "node:crypto";
 
-const crypto = require("crypto");
+import { isRecord, messageOf } from "./guards.mts";
+import type { ExceptionUsage, Finding, LinkStats, PairCheck, Report, ReportBody, ReportSource, SeoConfig, Severity } from "../types.mts";
 
-const SEVERITY_ORDER = ["error", "warning", "info"];
+const SEVERITY_ORDER: readonly Severity[] = ["error", "warning", "info"];
 const PAIR_LABEL = "report pair id:";
 
-const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+const byText = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
 
-function sortFindings(findings) {
+export function sortFindings(findings: readonly Finding[]): Finding[] {
   return findings
     .map((f) => ({ ...f, pages: f.pages.slice().sort((a, b) => byText(a.url, b.url) || (a.line || 0) - (b.line || 0)) }))
     .sort(
@@ -45,13 +46,13 @@ function sortFindings(findings) {
 }
 
 /** JSON.stringify with every object's keys sorted, recursively. */
-function stableStringify(value) {
-  const sortKeys = (v) => {
+export function stableStringify(value: unknown): string {
+  const sortKeys = (v: unknown): unknown => {
     if (Array.isArray(v)) return v.map(sortKeys);
-    if (v && typeof v === "object") {
+    if (isRecord(v)) {
       return Object.keys(v)
         .sort()
-        .reduce((acc, k) => {
+        .reduce<Record<string, unknown>>((acc, k) => {
           acc[k] = sortKeys(v[k]);
           return acc;
         }, {});
@@ -62,7 +63,7 @@ function stableStringify(value) {
 }
 
 /** sha256 of the report data with any pairId removed. */
-function pairIdFor(data) {
+export function pairIdFor(data: Readonly<Record<string, unknown>>): string {
   const { pairId, ...rest } = data;
   return crypto.createHash("sha256").update(stableStringify(rest)).digest("hex");
 }
@@ -76,14 +77,14 @@ function pairIdFor(data) {
  * own content (edited or partially written), or when report.md does not
  * state that same id on its pair line.
  */
-function verifyPair(jsonText, markdownText) {
-  let data;
+export function verifyPair(jsonText: string, markdownText: string): PairCheck {
+  let data: unknown;
   try {
     data = JSON.parse(jsonText);
   } catch (err) {
-    return { ok: false, reason: `report.json does not parse: ${err.message}` };
+    return { ok: false, reason: `report.json does not parse: ${messageOf(err)}` };
   }
-  if (!data || typeof data.pairId !== "string") return { ok: false, reason: "report.json has no pairId" };
+  if (!isRecord(data) || typeof data.pairId !== "string") return { ok: false, reason: "report.json has no pairId" };
   const expected = pairIdFor(data);
   if (data.pairId !== expected) return { ok: false, reason: "report.json content does not match its own pairId" };
   const line = String(markdownText)
@@ -102,12 +103,24 @@ function verifyPair(jsonText, markdownText) {
  *   linkStats   from rules.evaluate()
  *   exceptions  every exceptions.json entry with its `excused` count
  */
-function buildReport({ config, source, findings, linkStats, exceptions }) {
+export function buildReport({
+  config,
+  source,
+  findings,
+  linkStats,
+  exceptions,
+}: {
+  readonly config: SeoConfig;
+  readonly source: ReportSource;
+  readonly findings: readonly Finding[];
+  readonly linkStats: LinkStats;
+  readonly exceptions: readonly ExceptionUsage[];
+}): Report {
   const sorted = sortFindings(findings);
 
-  const bySeverity = { error: 0, warning: 0, info: 0 };
-  const byRule = {};
-  const byRuleAndType = {};
+  const bySeverity: Record<Severity, number> = { error: 0, warning: 0, info: 0 };
+  const byRule: Record<string, number> = {};
+  const byRuleAndType: Record<string, Record<string, number>> = {};
   sorted.forEach((f) => {
     bySeverity[f.severity] += f.pages.length;
     byRule[f.rule] = (byRule[f.rule] || 0) + f.pages.length;
@@ -117,7 +130,7 @@ function buildReport({ config, source, findings, linkStats, exceptions }) {
     });
   });
 
-  const data = {
+  const data: ReportBody = {
     schemaVersion: config.schemaVersion,
     tool: config.tool,
     advisory:
@@ -137,16 +150,16 @@ function buildReport({ config, source, findings, linkStats, exceptions }) {
     },
     exceptions: exceptions
       .map((e) => ({ ...e }))
-      .sort((a, b) => byText(a.rule, b.rule) || byText(a.url || a.pageType, b.url || b.pageType)),
+      .sort((a, b) => byText(a.rule, b.rule) || byText(a.url || a.pageType || "", b.url || b.pageType || "")),
     findings: sorted,
   };
   return { ...data, pairId: pairIdFor(data) };
 }
 
-const md = (text) => String(text).replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
+const md = (text: unknown): string => String(text).replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
 
-function renderMarkdown(report) {
-  const lines = [];
+export function renderMarkdown(report: Report): string {
+  const lines: string[] = [];
   const s = report.summary;
   lines.push("# bpozz SEO check (B1)", "", `> ${report.advisory}`, "");
   lines.push(
@@ -174,7 +187,7 @@ function renderMarkdown(report) {
   }
 
   lines.push("### Internal links", "", "| Outcome | Count |", "|---|---|");
-  Object.keys(s.links)
+  (Object.keys(s.links) as (keyof LinkStats)[])
     .sort()
     .forEach((k) => lines.push(`| ${k} | ${s.links[k]} |`));
   lines.push("");
@@ -193,7 +206,7 @@ function renderMarkdown(report) {
     const list = report.findings.filter((f) => f.severity === sev);
     lines.push(`## ${sev[0].toUpperCase()}${sev.slice(1)}s (${list.length} findings)`, "");
     if (!list.length) lines.push("None.", "");
-    let rule = null;
+    let rule: string | null = null;
     list.forEach((f) => {
       if (f.rule !== rule) {
         rule = f.rule;
@@ -209,5 +222,3 @@ function renderMarkdown(report) {
 
   return lines.join("\n").replace(/\n{3,}/g, "\n\n").trimEnd() + "\n";
 }
-
-module.exports = { buildReport, renderMarkdown, stableStringify, sortFindings, pairIdFor, verifyPair };

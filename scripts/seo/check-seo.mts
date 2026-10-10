@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * scripts/seo/check-seo.js — B1 SEO checker. Local, advisory, zero
- * dependencies.
+ * scripts/seo/check-seo.mts — B1 SEO checker. Local, advisory, zero
+ * dependencies. TypeScript that Node 24 runs directly by stripping types.
  *
  * Run it under Node's permission model, one --allow-fs-read per path:
  *
@@ -14,7 +14,7 @@
  *       --allow-fs-read="<repo>\package.json"
  *       --allow-fs-read="<repo>\.qa\seo"
  *       --allow-fs-write="<repo>\.qa\seo"
- *       scripts/seo/check-seo.js
+ *       scripts/seo/check-seo.mts
  *
  * WHAT IT DOES
  *
@@ -22,12 +22,12 @@
  *                 and count), walks dist/ (refusing symlinks and junctions),
  *                 hashes every file and compares the set with the manifest.
  *                 Any added, removed or changed file stops the run.
- *   2. parse      reads every dist/**.html through lib/html.js. Any page the
+ *   2. parse      reads every dist/**.html through lib/html.mts. Any page the
  *                 scanner could not read with confidence stops the run.
- *   3. rules      lib/rules.js, then exceptions.json, then template grouping.
+ *   3. rules      lib/rules.mts, then exceptions.json, then template grouping.
  *   4. report     writes report.json.tmp and report.md.tmp in .qa/seo/, renames
  *                 each into place, then reads both back and checks they carry
- *                 the same pair id (lib/report.js). These four names in
+ *                 the same pair id (lib/report.mts). These four names in
  *                 .qa/seo/ are the only files this program can write.
  *
  * REPORT PAIRS ARE NOT ATOMIC
@@ -54,42 +54,45 @@
  *      .tmp files or a mismatched pair may be left in .qa/seo/
  */
 
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import { createRequire } from "node:module";
 
-const fs = require("fs");
-const path = require("path");
-const crypto = require("crypto");
+import config from "./config.mts";
+import * as html from "./lib/html.mts";
+import * as links from "./lib/links.mts";
+import * as rules from "./lib/rules.mts";
+import * as report from "./lib/report.mts";
+import * as safe from "./lib/safe-paths.mts";
+import { compareManifest, validateManifest } from "./lib/integrity.mts";
+import { isRecord, messageOf } from "./lib/guards.mts";
+import type { ExceptionEntry, Manifest, PageInput, Routes } from "./types.mts";
 
-const config = require("./config.js");
-const routes = require("../../src/build/routes.js");
-const html = require("./lib/html.js");
-const links = require("./lib/links.js");
-const rules = require("./lib/rules.js");
-const report = require("./lib/report.js");
-const safe = require("./lib/safe-paths.js");
-const { compareManifest, validateManifest } = require("./lib/integrity.js");
+const require = createRequire(import.meta.url);
+const routes: Routes = require("../../src/build/routes.js");
 
 const { repo, dist, approvedOutput, qa, out, exceptions: exceptionsFile } = config.paths;
 
-class Refusal extends Error {}
+export class Refusal extends Error {}
 
-const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
-const rel = (p) => path.relative(repo, p).split(path.sep).join("/");
+const sha256 = (buf: crypto.BinaryLike): string => crypto.createHash("sha256").update(buf).digest("hex");
+const rel = (p: string): string => path.relative(repo, p).split(path.sep).join("/");
 
 /**
  * dist/ as { posixPath: sha256 }, in sorted order. Every read goes through
  * safe.resolveInside. A symlink or junction anywhere fails the run: following
  * one could read outside dist/.
  */
-function hashDist() {
+function hashDist(): Record<string, string> {
   if (!fs.existsSync(dist)) throw new Refusal("dist/ does not exist. Nothing to check.");
   const real = fs.realpathSync.native(dist);
   if (!safe.isWithin(dist, real) || !safe.isWithin(real, dist)) {
     throw new Refusal(`dist/ resolves elsewhere (${real}); refusing to follow it.`);
   }
 
-  const files = {};
-  const walk = (posixDir) => {
+  const files: Record<string, string> = {};
+  const walk = (posixDir: string): void => {
     const abs = posixDir ? safe.resolveInside(dist, posixDir) : dist;
     fs.readdirSync(abs, { withFileTypes: true })
       .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
@@ -105,19 +108,20 @@ function hashDist() {
   return files;
 }
 
-function checkIntegrity() {
+function checkIntegrity(): { inventory: Set<string>; manifestSha256: string } {
   const manifestBytes = fs.readFileSync(approvedOutput);
-  let manifest;
+  let manifest: unknown;
   try {
     manifest = JSON.parse(manifestBytes.toString("utf8"));
   } catch (err) {
-    throw new Refusal(`${rel(approvedOutput)} is not valid JSON: ${err.message}`);
+    throw new Refusal(`${rel(approvedOutput)} is not valid JSON: ${messageOf(err)}`);
   }
   const manifestProblems = validateManifest(manifest);
   if (manifestProblems.length) {
     throw new Refusal([`${rel(approvedOutput)} cannot be used:`, ""].concat(manifestProblems.map((p) => `  ${p}`)).join("\n"));
   }
-  const approved = manifest.files;
+  // validateManifest() found no problem, so this is a Manifest.
+  const approved = (manifest as Manifest).files;
 
   const actual = hashDist();
   const diff = compareManifest(actual, approved);
@@ -132,16 +136,17 @@ function checkIntegrity() {
   return { inventory: new Set(Object.keys(actual)), manifestSha256: sha256(manifestBytes) };
 }
 
-function loadExceptions() {
-  let entries;
+function loadExceptions(): ExceptionEntry[] {
+  let entries: unknown;
   try {
     entries = JSON.parse(fs.readFileSync(exceptionsFile, "utf8"));
   } catch (err) {
-    throw new Refusal(`${rel(exceptionsFile)} is not valid JSON: ${err.message}`);
+    throw new Refusal(`${rel(exceptionsFile)} is not valid JSON: ${messageOf(err)}`);
   }
   const problems = rules.validateExceptions(entries);
   if (problems.length) throw new Refusal(problems.join("\n"));
-  return entries;
+  // validateExceptions() found no problem, so these are ExceptionEntry values.
+  return entries as ExceptionEntry[];
 }
 
 /**
@@ -150,7 +155,7 @@ function loadExceptions() {
  * it. The renames are two operations, not one atomic swap; see REPORT PAIRS
  * ARE NOT ATOMIC above.
  */
-function writeReports(json, markdown) {
+function writeReports(json: string, markdown: string): string {
   safe.assertOutputDir(out, { repo, qa, dist });
   fs.mkdirSync(out, { recursive: true });
 
@@ -169,14 +174,14 @@ function writeReports(json, markdown) {
 }
 
 /** Leftovers from an interrupted run are named, then overwritten by this one. */
-function warnAboutLeftovers() {
+function warnAboutLeftovers(): void {
   safe.TEMP_FILES.forEach((name) => {
     const target = safe.reportTarget(out, name);
     if (fs.existsSync(target)) console.warn(`  ⚠ ${rel(target)} is left over from an interrupted run; this run overwrites it.`);
   });
 }
 
-function main() {
+export function main(): void {
   if (process.argv.length > 2) throw new Refusal("check-seo.js takes no arguments.");
 
   const { inventory, manifestSha256 } = checkIntegrity();
@@ -193,7 +198,7 @@ function main() {
     );
   }
 
-  const pages = [...inventory]
+  const pages: PageInput[] = [...inventory]
     .filter((f) => f.endsWith(".html"))
     .sort()
     .map((file) => ({
@@ -239,7 +244,7 @@ function main() {
   console.log(`  ${rel(safe.reportTarget(out, "report.md"))}`);
 }
 
-if (require.main === module) {
+if (import.meta.main) {
   try {
     main();
   } catch (err) {
@@ -247,7 +252,7 @@ if (require.main === module) {
     console.error("");
     console.error(refused ? "✗ SEO check refused — this run wrote nothing." : "✗ SEO check failed.");
     console.error("");
-    String(err && err.message ? err.message : err)
+    String(isRecord(err) && err.message ? err.message : err)
       .split("\n")
       .forEach((line) => console.error(`  ${line}`));
     console.error("");
@@ -257,5 +262,3 @@ if (require.main === module) {
     process.exitCode = refused ? 2 : 1;
   }
 }
-
-module.exports = { main, Refusal };

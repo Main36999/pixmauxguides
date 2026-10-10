@@ -1,5 +1,5 @@
 /**
- * scripts/seo/config.js — thresholds and fixed locations for the B1 SEO
+ * scripts/seo/config.mts — thresholds and fixed locations for the B1 SEO
  * checker.
  *
  * Every length and word-count limit here is a HEURISTIC. None of them is a
@@ -10,13 +10,15 @@
  * Plain data. No fs, no side effects.
  */
 
-"use strict";
+import path from "node:path";
+import { createRequire } from "node:module";
 
-const path = require("path");
+import type { SeoConfig, SiteConfig } from "./types.mts";
 
-const site = require("../../site.config.js");
+const require = createRequire(import.meta.url);
+const site: SiteConfig = require("../../site.config.js");
 
-module.exports = {
+const config: SeoConfig = {
   /** Report identity, written into report.json. Bump when the schema changes. */
   schemaVersion: 1,
   tool: "scripts/seo/check-seo.js (B1, advisory)",
@@ -28,7 +30,7 @@ module.exports = {
     approvedOutput: site.paths.approvedOutput,
     qa: site.paths.qa,
     out: path.join(site.paths.qa, "seo"),
-    exceptions: path.join(__dirname, "exceptions.json"),
+    exceptions: path.join(import.meta.dirname, "exceptions.json"),
   },
 
   /** Hosts whose absolute links are this site's own pages. */
@@ -59,3 +61,5 @@ module.exports = {
    */
   titleSuffix: /\s*[—–|-]\s*bpozz!?\s*$/i,
 };
+
+export default config;

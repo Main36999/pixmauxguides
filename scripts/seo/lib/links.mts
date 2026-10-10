@@ -1,5 +1,5 @@
 /**
- * scripts/seo/lib/links.js — classifies an <a href> against the published
+ * scripts/seo/lib/links.mts — classifies an <a href> against the published
  * file inventory and the published _redirects rules.
  *
  * NOTHING HERE TOUCHES THE FILESYSTEM. A link is resolved against `inventory`,
@@ -30,23 +30,23 @@
  * Pure. Same input, same output.
  */
 
-"use strict";
+import type { Classification, ExactRule, LinkSite, PrefixRule, RedirectRule, Redirects, Resolution, UnsupportedRule } from "../types.mts";
 
-const LINK_KIND = {
+export const LINK_KIND = {
   external: "external", // another host
   nonHttp: "non-http", // mailto:, tel:, javascript:, data: …
   hashRoute: "hash-route", // "#/privacy": a client-side route, not an element id
   internal: "internal",
-};
+} as const;
 
-const STATUS = {
+export const STATUS = {
   ok: "ok",
   redirect: "redirect", // 3xx: from _redirects, or a directory without its slash
   rewrite: "rewrite", // 200 rule in _redirects whose target exists
   gone: "gone", // 410
   broken: "broken", // no file and no rule, a 404 rule, or a rewrite to nothing
   invalid: "invalid", // undecodable, or a segment that would climb out of dist/
-};
+} as const;
 
 const REDIRECT_CODES = new Set([301, 302, 303, 307, 308]);
 
@@ -58,10 +58,10 @@ const PREFIX_SPLAT = /^(\/(?:[^*:?/]+\/)+)\*$/;
  * the 410 prefix rules in file order, and every rule this module cannot
  * evaluate exactly.
  */
-function parseRedirects(text) {
-  const rules = new Map();
-  const prefixes = [];
-  const unsupported = [];
+export function parseRedirects(text: string): Redirects {
+  const rules = new Map<string, ExactRule>();
+  const prefixes: PrefixRule[] = [];
+  const unsupported: UnsupportedRule[] = [];
   String(text || "")
     .split(/\r?\n/)
     .forEach((rawLine, index) => {
@@ -100,11 +100,11 @@ function parseRedirects(text) {
  * nested separator or a NUL — the shapes a traversal attempt takes once
  * percent-decoded.
  */
-function pathSegments(pathname) {
+export function pathSegments(pathname: string): string[] | null {
   const parts = pathname.split("/").slice(1);
-  const out = [];
+  const out: string[] = [];
   for (let k = 0; k < parts.length; k += 1) {
-    let seg;
+    let seg: string;
     try {
       seg = decodeURIComponent(parts[k]);
     } catch {
@@ -122,7 +122,7 @@ function pathSegments(pathname) {
  * The published file that answers decoded `segs`, a 301 for a directory
  * without its slash, or null.
  */
-function servedFile(segs, inventory, decodedPath) {
+function servedFile(segs: readonly string[], inventory: ReadonlySet<string>, decodedPath: string): Resolution | null {
   const last = segs[segs.length - 1];
   const rel = segs.join("/");
   if (last === "") {
@@ -146,16 +146,16 @@ function servedFile(segs, inventory, decodedPath) {
  * file order. A served file shadows unforced rules, so then only the first
  * forced match applies.
  */
-function resolvePath(pathname, inventory, redirects, depth = 0) {
+export function resolvePath(pathname: string, inventory: ReadonlySet<string>, redirects: Redirects, depth = 0): Resolution {
   const segs = pathSegments(pathname);
   if (!segs) return { status: STATUS.invalid };
 
   const decodedPath = "/" + segs.join("/");
   const exact = redirects.rules.get(pathname) || redirects.rules.get(decodedPath);
   const prefix = redirects.prefixes.find((r) => pathname.startsWith(r.prefix) || decodedPath.startsWith(r.prefix));
-  const matches = [exact, prefix].filter(Boolean).sort((a, b) => a.line - b.line);
+  const matches = [exact, prefix].filter((r): r is RedirectRule => Boolean(r)).sort((a, b) => a.line - b.line);
 
-  const applyRule = (rule) => {
+  const applyRule = (rule: RedirectRule): Resolution => {
     if (REDIRECT_CODES.has(rule.status)) return { status: STATUS.redirect, location: rule.to, rule: rule.line };
     if (rule.status === 410) return { status: STATUS.gone, rule: rule.line };
     if (rule.status === 200) {
@@ -186,7 +186,7 @@ function resolvePath(pathname, inventory, redirects, depth = 0) {
  * `fragment` is the decoded #id the link targets, or null; checking that the
  * id exists is the caller's job, because only the caller has every page's ids.
  */
-function classifyHref(href, pageUrl, site) {
+export function classifyHref(href: string, pageUrl: string, site: LinkSite): Classification {
   const raw = String(href).trim();
   const base = new URL(pageUrl, site.origin);
 
@@ -195,7 +195,7 @@ function classifyHref(href, pageUrl, site) {
   const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(raw);
   if (scheme && !/^https?$/i.test(scheme[1])) return { kind: LINK_KIND.nonHttp };
 
-  let url;
+  let url: URL;
   try {
     url = new URL(raw, base);
   } catch {
@@ -203,7 +203,7 @@ function classifyHref(href, pageUrl, site) {
   }
   if (!site.hosts.includes(url.hostname)) return { kind: LINK_KIND.external };
 
-  let fragment = null;
+  let fragment: string | null = null;
   if (url.hash && url.hash !== "#") {
     if (url.hash.startsWith("#/")) return { kind: LINK_KIND.hashRoute };
     try {
@@ -216,5 +216,3 @@ function classifyHref(href, pageUrl, site) {
   const resolved = resolvePath(url.pathname, site.inventory, site.redirects);
   return { kind: LINK_KIND.internal, path: url.pathname, fragment, ...resolved };
 }
-
-module.exports = { parseRedirects, resolvePath, classifyHref, pathSegments, LINK_KIND, STATUS };
