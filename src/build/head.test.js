@@ -54,7 +54,6 @@ const template = require("./guide-template.js");
 const categories = require("./categories.js");
 
 const fonts = require("./fonts.js");
-const icons = require("./icons.js");
 
 const model = content.load(config);
 const routeTable = routes.build(model);
@@ -66,10 +65,7 @@ const routeTable = routes.build(model);
  */
 function committedPages() {
   const generated = new Map(
-    fonts
-      .build({ config, model })
-      .pages.concat(icons.build({ config, model }).pages)
-      .map((p) => [p.file, p.html]),
+    fonts.build({ config, model }).pages.map((p) => [p.file, p.html]),
   );
   return routeTable.map((r) => ({
     file: r.file.split(path.sep).join("/"),

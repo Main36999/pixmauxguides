@@ -116,8 +116,11 @@ const SECTION_INDEX_PAGES = [
  *
  * PRETTY URL MIGRATION: "fonts" and "icons" joined, so /fonts/<id> and
  * /icons/<pack> are linked and canonicalized extensionless like guides.
+ *
+ * ICON PACKS REMOVED: "icons" left with the feature. Its old URLs return
+ * 410 via public/_redirects.
  */
-const EXTENSIONLESS_DIRS = new Set(["guide", "category", "fonts", "icons"]);
+const EXTENSIONLESS_DIRS = new Set(["guide", "category", "fonts"]);
 
 /** file path (repo-relative, posix) -> public URL */
 function urlFor(file) {
@@ -166,24 +169,6 @@ function fontRoutes(fonts) {
 }
 
 /**
- * ICON PACKS — the second generated route group, the same shape as fonts:
- * /icons/ for the library and /icons/<pack> for each pack, written from
- * src/data/ by src/build/icons.js to icons/<pack>.html. `icons` is in
- * EXTENSIONLESS_DIRS, so pack pages drop .html exactly as font pages do.
- *
- * There is deliberately no route per ICON. An icon's detail view is a dialog
- * on the page that lists it, so the page count grows with packs, not with the
- * thousands of icons those packs will hold.
- */
-const ICONS_DIR = "icons";
-
-function iconRoutes(packs) {
-  return [route(`${ICONS_DIR}/index.html`, "section")]
-    .concat(packs.map((p) => route(`${ICONS_DIR}/${p.id}.html`, "icon-pack")))
-    .map((r) => Object.assign(r, { generated: true }));
-}
-
-/**
  * Builds the full route table from a loaded content model.
  * Deterministic: generated routes follow their source array's order, and
  * the table as a whole is sorted by URL before it is returned.
@@ -196,8 +181,7 @@ function build(model) {
     .concat(
       model.categories.map((c) => route(`category/${c.slug}.html`, "category")),
     )
-    .concat(fontRoutes(model.fonts))
-    .concat(iconRoutes(model.iconPacks));
+    .concat(fontRoutes(model.fonts));
 
   routes.sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0));
 
@@ -221,5 +205,4 @@ module.exports = {
   canonicalFor,
   EXTENSIONLESS_DIRS,
   FONTS_DIR,
-  ICONS_DIR,
 };

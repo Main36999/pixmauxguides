@@ -2,6 +2,12 @@
 
 Internal record. Not published (`docs/` is not in `PUBLISH_DIRS`).
 
+> **Feature retired.** The standalone Icon Packs feature (`/icons/`) was
+> removed from bpozz after commit `542bfc7`. Its pages, data, SVG/PNG files
+> and build code were deleted, and its URLs now return 410 Gone (see
+> `public/_redirects`). This audit is kept as a historical record; the file
+> paths below are as they were before the removal and no longer exist.
+
 Audit date: 2026-09-26, base commit `820cecf`.
 
 ## Summary

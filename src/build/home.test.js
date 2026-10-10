@@ -68,26 +68,27 @@ test("resource cards skip the pinned topics", () => {
   );
 
   const { html, count } = home.resourceCardsHtml(topics, knownUrls);
-  assert.strictEqual(count, topics.length + 3, "topics plus Free Fonts, Icon Packs and About");
+  assert.strictEqual(count, topics.length + 2, "topics plus Free Fonts and About");
   const hrefs = [...html.matchAll(/<a class="resource-card__link" href="([^"]+)"/g)].map((m) => m[1]);
   assert.strictEqual(hrefs[hrefs.length - 1], home.HOME_ABOUT.url);
   assert.strictEqual(hrefs[0], "/fonts/", "Free Fonts opens the section");
   assert.deepStrictEqual(
     hrefs,
-    ["/fonts/", "/icons/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about"],
+    ["/fonts/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about"],
   );
   assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Free Fonts</a></h3>'));
-  // Icon Packs is ONE card in the same card system, straight after Free Fonts — not a card per pack.
-  assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/icons/">Icon Packs</a></h3><p class="resource-card__desc">Browse outline, solid, duotone, and 3D icon packs for web and mobile app design.</p></li>'));
-  assert.ok(!/\/icons\/[a-z0-9-]+(\.html)?"/.test(html), "no per-pack cards on Home");
+  // Icon Packs was retired: no resource card links /icons/.
+  assert.ok(!html.includes("/icons/"), "no Icon Packs card on Home");
   hrefs.forEach((href) => assert.ok(knownUrls.has(href), href));
 });
 
-test("Home has no standalone Icon Packs section: one resources heading, Icon Packs inside it", () => {
+test("Home has no Icon Packs link anywhere: the feature is retired", () => {
   assert.ok(!indexSource.includes("HOME_ICON_PACKS"), "the standalone section's markers are gone");
-  assert.ok(!/<h2[^>]*>\s*Icon Packs\s*<\/h2>/i.test(indexSource), "no Icon Packs heading");
+  assert.ok(!indexSource.includes("/icons/"), "no /icons/ link in index.html");
+  assert.ok(!/Icon Packs/.test(indexSource), "no Icon Packs label in index.html");
   assert.strictEqual((indexSource.match(/>More useful resources</g) || []).length, 1);
   assert.strictEqual(home.iconPacksHtml, undefined, "the per-pack renderer is gone");
+  assert.strictEqual(home.HOME_ICONS, undefined, "the Icon Packs card is gone");
 });
 
 // ---- hero explore strip: static markup in index.html ----
@@ -100,7 +101,7 @@ test("explore strip: real routes, one focusable list per row, identical loop cop
   assert.strictEqual(rows.length, 2);
   const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);
   const expected = [
-    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/icons/", "/guides/", "/roadmap", "/search"],
+    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/guides/", "/roadmap", "/search"],
     ["/category/typography", "/category/color-theory", "/category/web", "/category/mobile",
       "/category/systems", "/category/accessibility", "/category/motion", "/category/figma"],
   ];

@@ -184,21 +184,29 @@ test("the six kinds are exactly the saveable sections; roadmap is not one", () =
   assert.equal(isValidItem("roadmap_step", "type-scale-systems"), false);
 });
 
+// The Icon Packs feature and its catalog (src/data/icons.json) were removed.
+// The `icon` kind stays valid so saved rows are kept; these fixed ids, one
+// per former pack, use the documented pack--id shape.
+const ICON_IDS = [
+  "outline-essentials--arrow-left",
+  "solid-essentials--heart",
+  "duotone-essentials--bell",
+  "3d-essentials--star",
+];
+
 test("every id in the site's catalogs passes its kind's rule", () => {
   const read = (file) => JSON.parse(fs.readFileSync(path.join(REPO, file), "utf8"));
   const catalogs = {
     color: read("colors/colors-data.json").map((c) => c.id),
     palette: read("palettes/palettes-data.json").map((p) => p.id),
     font: read("src/data/fonts.json").map((f) => f.id),
-    icon: read("src/data/icons.json").map((i) => `${i.pack}--${i.id}`),
+    icon: ICON_IDS,
     guide: read("guides.json").map((g) => g.id),
   };
   for (const [kind, ids] of Object.entries(catalogs)) {
     assert.ok(ids.length > 0, `${kind}: empty catalog`);
     for (const id of ids) assert.ok(isValidItem(kind, id), `${kind} ${id}`);
   }
-  // Icon ids repeat across packs; the pack--id key does not.
-  assert.equal(new Set(catalogs.icon).size, catalogs.icon.length);
 });
 
 test("id rules accept the documented shapes and nothing else", () => {
@@ -262,7 +270,7 @@ test("the browser module's kinds, id rules and limits match this API's (src/clie
     ...read("colors/colors-data.json").map((c) => ["color", c.id]),
     ...read("palettes/palettes-data.json").map((p) => ["palette", p.id]),
     ...read("src/data/fonts.json").map((f) => ["font", f.id]),
-    ...read("src/data/icons.json").map((i) => ["icon", `${i.pack}--${i.id}`]),
+    ...ICON_IDS.map((id) => ["icon", id]),
     ...read("guides.json").map((g) => ["guide", g.id]),
     ["image_palette", "1e193b-322a57-5438e6"],
     ["image_palette", Array(8).fill("abcdef").join("-")],

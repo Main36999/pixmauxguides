@@ -183,3 +183,46 @@
 /tokens-detail.js                  /   410
 /tokens-create.js                  /   410
 /tokens-collection.js              /   410
+
+# ── Icon Packs: removed ──────────────────────────────────────────
+# The standalone Icon Packs feature (/icons/) was deleted. Every URL it
+# served returns 410 Gone, for the reasons given for the Colour Tokens
+# block above. NONE of them redirects to another page.
+#
+# The pages and the feature's own code and download files are listed
+# one by one, so the retired set stays auditable. The /icons/* rule
+# after them covers the 185 SVG/PNG files under /icons/<pack>/svg/ and
+# /icons/<pack>/png/. It needs the slash, so it cannot catch a path such
+# as /icons-something. Netlify uses the first rule that matches, so the
+# explicit rules come first.
+#
+# /icons also answers /icons/: Netlify matches a rule with or without the
+# trailing slash (checked live on /tokens/, which returns 410). Netlify's
+# redirect docs don't say whether /icons/* matches the bare /icons, so
+# /icons has its own rule. Re-check every one of these after deploy.
+
+# 1. Pages: the library and one page per pack, extensionless and .html.
+/icons                                              /   410
+/icons/index.html                                   /   410
+/icons/3d-essentials                                /   410
+/icons/3d-essentials.html                           /   410
+/icons/duotone-essentials                           /   410
+/icons/duotone-essentials.html                      /   410
+/icons/outline-essentials                           /   410
+/icons/outline-essentials.html                      /   410
+/icons/solid-essentials                             /   410
+/icons/solid-essentials.html                        /   410
+
+# 2. The feature's stylesheet, script and pack ZIPs.
+/icons/icons.css                                    /   410
+/icons/icons.js                                     /   410
+/icons/3d-essentials/3DEssentials-PNG.zip           /   410
+/icons/duotone-essentials/DuotoneEssentials-PNG.zip /   410
+/icons/duotone-essentials/DuotoneEssentials-SVG.zip /   410
+/icons/outline-essentials/OutlineEssentials-PNG.zip /   410
+/icons/outline-essentials/OutlineEssentials-SVG.zip /   410
+/icons/solid-essentials/SolidEssentials-PNG.zip     /   410
+/icons/solid-essentials/SolidEssentials-SVG.zip     /   410
+
+# 3. Everything else under /icons/: the 185 SVG and PNG files.
+/icons/*                                            /   410

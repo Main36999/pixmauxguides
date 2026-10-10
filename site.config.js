@@ -91,21 +91,6 @@ module.exports = {
        */
       fontEditorial: path.join(ROOT, "src", "data", "font-editorial.json"),
 
-      /**
-       * ICON PACKS — two build inputs, the same shape as fonts.json: the
-       * packs (one record per pack, in display order) and the icons (one
-       * record per icon, naming the pack it belongs to and the asset files it
-       * ships). The asset files live beside them under `iconFiles`, one
-       * directory per pack, and are published verbatim at /icons/<pack>/.
-       *
-       * A pack's icon count is DERIVED from icons.json, never stored, so the
-       * two cannot disagree. The download ZIPs are generated from the asset
-       * files by src/build/icons.js at build time.
-       */
-      iconPacks: path.join(ROOT, "src", "data", "icon-packs.json"),
-      icons: path.join(ROOT, "src", "data", "icons.json"),
-      iconFiles: path.join(ROOT, "public", "icons"),
-
       categories: path.join(ROOT, "categories.json"),
       resourceTypes: path.join(ROOT, "resource-types.json"),
       /**
@@ -529,45 +514,6 @@ module.exports = {
   },
 
   /**
-   * ICON PACKS — the icon library contract. CONTRACT
-   *
-   * `styles` is the vocabulary AND the filter-row order. Every pack names one
-   * style and every icon inherits it. `vector` states what the style's assets
-   * ARE, and the loader enforces it per icon:
-   *
-   *   vector: true    the SVG is the source. `svg` is required; `png` is an
-   *                   optional raster rendered from it.
-   *   vector: false   the source is a raster (3D renders). `png` is required
-   *                   and `svg` is refused — the site never offers an SVG it
-   *                   would have to fake by wrapping a bitmap.
-   *
-   * `categories` is the vocabulary and filter order for icon categories.
-   * Every slug must have at least one icon, the same no-fake-chip rule the
-   * font categories follow.
-   *
-   * There is no `count` yet, unlike fonts and colors: the library is a
-   * Phase 1 sample that is expected to grow pack by pack. Pin one here when
-   * the real packs are imported.
-   */
-  icons: {
-    styles: [
-      { slug: "outline", label: "Outline", vector: true },
-      { slug: "solid", label: "Solid", vector: true },
-      { slug: "duotone", label: "Duotone", vector: true },
-      { slug: "3d", label: "3D", vector: false },
-    ],
-    categories: [
-      { slug: "arrows", label: "Arrows" },
-      { slug: "navigation", label: "Navigation" },
-      { slug: "interface", label: "Interface" },
-      { slug: "communication", label: "Communication" },
-      { slug: "media", label: "Media" },
-      { slug: "business", label: "Business" },
-      { slug: "social", label: "Social" },
-    ],
-  },
-
-  /**
    * CONTRACT — the Phase 4 candidate surface, after token removal.
    *
    * Was 84 / 142 / 82 before removal. The deltas are entirely token:
@@ -635,9 +581,16 @@ module.exports = {
    * extensionless, noindex:
    *   htmlPages    351 → 352  (+1: account.html)
    *   sitemapUrls  344 → 344  (unchanged: a personal page is not content)
+   *
+   * ICON PACKS — REMOVED. The library and its four pack pages are deleted;
+   * their URLs return 410 (public/_redirects):
+   *   htmlPages    352 → 347  (−5: icons/index.html and the four
+   *                            icons/<pack>.html pages)
+   *   sitemapUrls  344 → 344  (unchanged: the pages were noindex and never
+   *                            in the sitemap)
    */
   expected: {
-    htmlPages: 352,
+    htmlPages: 347,
     snapshotUrls: 89,
     sitemapUrls: 344,
   },

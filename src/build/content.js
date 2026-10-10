@@ -506,223 +506,6 @@ function validateFonts(fonts, label, config) {
 }
 
 /**
- * src/data/icon-packs.json + src/data/icons.json — the icon library, checked
- * against site.config.js's `icons` contract AND against the asset files on
- * disk under paths.content.iconFiles.
- *
- * As with fonts, the file checks are the point: every card, copy button and
- * download is generated from this data, so a record naming a missing file
- * would ship a broken preview or a 404. The per-file rules exist because the
- * SVG is not only displayed — Copy SVG puts its exact text into someone's
- * codebase:
- *
- *   - an SVG may use only plain shape elements, carry no script, event
- *     handler, style block, external reference or entity, and colour itself
- *     only with currentColor, so every icon inherits the text colour of
- *     wherever it is pasted;
- *   - a PNG must be a real, square, 8-bit RGBA PNG (transparent background
- *     possible), at least 256px.
- *
- * And the style decides the formats (site.config.js icons.styles[].vector):
- * a vector style requires an SVG, a raster style refuses one — the site never
- * offers an SVG it would have to fake.
- *
- * Returns { packs, icons } as NEW objects: each pack gains its derived
- * `iconCount`, each icon with a PNG gains `pngSize`. The raw files are not
- * modified.
- */
-const ICON_SVG_ELEMENTS = new Set([
-  "svg",
-  "g",
-  "path",
-  "circle",
-  "ellipse",
-  "rect",
-  "line",
-  "polyline",
-  "polygon",
-]);
-const ICON_SVG_FORBIDDEN = [
-  [/<!(DOCTYPE|ENTITY)/i, "a DOCTYPE or entity declaration"],
-  [/\son[a-z]+\s*=/i, "an event-handler attribute"],
-  [/\s(xlink:)?href\s*=/i, "a link or external reference"],
-  [/\sstyle\s*=/i, "an inline style attribute"],
-  [/url\s*\(/i, "a url() reference"],
-  [/javascript:/i, "a javascript: URL"],
-  [/#[0-9a-f]{3,8}\b/i, "a hard-coded colour (use currentColor)"],
-];
-const ICON_MIN_PNG = 256;
-
-function readPngHeader(buf) {
-  const signature = "89504e470d0a1a0a";
-  if (buf.length < 33 || buf.subarray(0, 8).toString("hex") !== signature) return null;
-  if (buf.toString("ascii", 12, 16) !== "IHDR") return null;
-  return {
-    width: buf.readUInt32BE(16),
-    height: buf.readUInt32BE(20),
-    bitDepth: buf[24],
-    colorType: buf[25],
-  };
-}
-
-function checkIconSvg(text, at) {
-  if (!/^<svg\s[^>]*\bxmlns="http:\/\/www\.w3\.org\/2000\/svg"[^>]*>[\s\S]*<\/svg>\n?$/.test(text)) {
-    throw new Error(`${at}: not a standalone <svg> document with the SVG namespace`);
-  }
-  if (!/^<svg\s[^>]*\bviewBox="[\d.\s-]+"/.test(text)) {
-    throw new Error(`${at}: the <svg> element has no numeric viewBox`);
-  }
-  for (const m of text.matchAll(/<\s*([A-Za-z][\w:-]*)/g)) {
-    if (!ICON_SVG_ELEMENTS.has(m[1])) {
-      throw new Error(`${at}: <${m[1]}> is not an allowed icon element`);
-    }
-  }
-  ICON_SVG_FORBIDDEN.forEach(function ([re, what]) {
-    if (re.test(text)) throw new Error(`${at} contains ${what}`);
-  });
-  for (const m of text.matchAll(/\s(fill|stroke|color)\s*=\s*"([^"]*)"/g)) {
-    if (m[2] !== "none" && m[2] !== "currentColor") {
-      throw new Error(`${at}: ${m[1]}="${m[2]}" — icons are coloured with currentColor only`);
-    }
-  }
-}
-
-function validateIcons(packs, icons, config) {
-  if (!Array.isArray(packs)) throw new Error("icon-packs.json did not contain an array");
-  if (!Array.isArray(icons)) throw new Error("icons.json did not contain an array");
-  const iconDir = config.paths.content.iconFiles;
-  const styles = new Map(config.icons.styles.map((s) => [s.slug, s]));
-  const categories = new Set(config.icons.categories.map((c) => c.slug));
-
-  const packById = new Map();
-  packs.forEach(function (pack, i) {
-    const at = `icon-packs.json[${i}]`;
-    if (!pack || typeof pack !== "object") throw new Error(`${at} is not an object`);
-    if (typeof pack.id !== "string" || !SLUG_RE.test(pack.id)) {
-      throw new Error(`${at}.id must be a lowercase slug`);
-    }
-    if (packById.has(pack.id)) throw new Error(`${at}: duplicate pack id "${pack.id}"`);
-    ["name", "description"].forEach(function (key) {
-      if (typeof pack[key] !== "string" || !pack[key].trim()) {
-        throw new Error(`${at} ("${pack.id}").${key} must be a non-empty string`);
-      }
-    });
-    if (!styles.has(pack.style)) {
-      throw new Error(
-        `${at} ("${pack.id}") has style ${JSON.stringify(pack.style)}, which ` +
-          `site.config.js's icons.styles does not list`,
-      );
-    }
-    if (!fs.existsSync(path.join(iconDir, pack.id))) {
-      throw new Error(`${at} ("${pack.id}"): public/icons/${pack.id}/ does not exist`);
-    }
-    packById.set(pack.id, pack);
-  });
-
-  const seen = new Set();
-  const counts = new Map();
-  const out = icons.map(function (icon, i) {
-    const where = `icons.json[${i}]`;
-    if (!icon || typeof icon !== "object") throw new Error(`${where} is not an object`);
-    if (typeof icon.id !== "string" || !SLUG_RE.test(icon.id)) {
-      throw new Error(`${where}.id must be a lowercase slug`);
-    }
-    const at = `${where} ("${icon.pack}/${icon.id}")`;
-    const pack = packById.get(icon.pack);
-    if (!pack) throw new Error(`${at} names pack ${JSON.stringify(icon.pack)}, which icon-packs.json does not list`);
-    const key = `${icon.pack}/${icon.id}`;
-    if (seen.has(key)) throw new Error(`${at}: duplicate icon id within its pack`);
-    seen.add(key);
-    if (typeof icon.name !== "string" || !icon.name.trim()) {
-      throw new Error(`${at}.name must be a non-empty string`);
-    }
-    if (icon.style !== pack.style) {
-      throw new Error(`${at} has style "${icon.style}" but its pack is "${pack.style}"`);
-    }
-    if (!categories.has(icon.category)) {
-      throw new Error(
-        `${at} has category ${JSON.stringify(icon.category)}, which ` +
-          `site.config.js's icons.categories does not list`,
-      );
-    }
-    if (!Array.isArray(icon.tags) || icon.tags.some((t) => typeof t !== "string" || !SLUG_RE.test(t))) {
-      throw new Error(`${at}.tags must be an array of lowercase slugs`);
-    }
-
-    const vector = styles.get(pack.style).vector;
-    if (vector && icon.svg === undefined) {
-      throw new Error(`${at}: "${pack.style}" is a vector style, so the icon must ship an svg`);
-    }
-    if (!vector && icon.svg !== undefined) {
-      throw new Error(
-        `${at}: "${pack.style}" is a raster style — an svg here could only be a ` +
-          `bitmap wrapped in SVG, which the site does not offer`,
-      );
-    }
-    if (!vector && icon.png === undefined) {
-      throw new Error(`${at}: "${pack.style}" is a raster style, so the icon must ship a png`);
-    }
-
-    const record = Object.assign({}, icon);
-    if (icon.svg !== undefined) {
-      if (icon.svg !== `svg/${icon.id}.svg`) {
-        throw new Error(`${at}.svg must be "svg/${icon.id}.svg"`);
-      }
-      const file = path.join(iconDir, icon.pack, icon.svg);
-      if (!fs.existsSync(file)) throw new Error(`${at}: ${icon.pack}/${icon.svg} does not exist`);
-      checkIconSvg(fs.readFileSync(file, "utf8"), `${at} ${icon.svg}`);
-    }
-    if (icon.png !== undefined) {
-      if (icon.png !== `png/${icon.id}.png`) {
-        throw new Error(`${at}.png must be "png/${icon.id}.png"`);
-      }
-      const file = path.join(iconDir, icon.pack, icon.png);
-      if (!fs.existsSync(file)) throw new Error(`${at}: ${icon.pack}/${icon.png} does not exist`);
-      const head = readPngHeader(fs.readFileSync(file));
-      if (!head) throw new Error(`${at}: ${icon.png} is not a PNG file`);
-      if (head.bitDepth !== 8 || head.colorType !== 6) {
-        throw new Error(`${at}: ${icon.png} must be 8-bit RGBA`);
-      }
-      if (head.width !== head.height || head.width < ICON_MIN_PNG) {
-        throw new Error(
-          `${at}: ${icon.png} is ${head.width}×${head.height}; icons must be square and at least ${ICON_MIN_PNG}px`,
-        );
-      }
-      record.pngSize = head.width;
-    }
-    counts.set(icon.pack, (counts.get(icon.pack) || 0) + 1);
-    return record;
-  });
-
-  const outPacks = packs.map(function (pack) {
-    const iconCount = counts.get(pack.id) || 0;
-    if (!iconCount) throw new Error(`icon pack "${pack.id}" has no icons in icons.json`);
-    return Object.assign({}, pack, { iconCount });
-  });
-
-  const usedStyles = new Set(packs.map((p) => p.style));
-  config.icons.styles.forEach(function (s) {
-    if (!usedStyles.has(s.slug)) {
-      throw new Error(
-        `site.config.js lists icon style "${s.slug}" but no pack has it — ` +
-          `the filter would be a fake style`,
-      );
-    }
-  });
-  const usedCategories = new Set(icons.map((x) => x.category));
-  config.icons.categories.forEach(function (c) {
-    if (!usedCategories.has(c.slug)) {
-      throw new Error(
-        `site.config.js lists icon category "${c.slug}" but icons.json has no ` +
-          `icon in it — the filter would be a fake category`,
-      );
-    }
-  });
-
-  return { packs: outPacks, icons: out };
-}
-
-/**
  * resource-types.json — the union of what src/build/home.js and
  * src/build/header.js each used to check, minus the two rules neither file
  * can answer from the registry alone:
@@ -1522,11 +1305,6 @@ function load(config) {
       label: "font-editorial.json",
     },
   );
-  const iconLibrary = validateIcons(
-    readJsonArray(src.iconPacks, "icon-packs.json"),
-    readJsonArray(src.icons, "icons.json"),
-    config,
-  );
   const categories = validateCategories(
     readJsonArray(src.categories, "categories.json"),
     "categories.json",
@@ -1594,14 +1372,6 @@ function load(config) {
      * Scripts row reads its verified coverage.
      */
     fontMeasurements,
-    /**
-     * ICON PACKS: validated against the contract and the files on disk.
-     * Feeds src/build/icons.js (/icons/ and every /icons/<pack>.html) and
-     * src/build/routes.js. Not part of content-index.json, for the same F9
-     * reason fonts are not.
-     */
-    iconPacks: iconLibrary.packs,
-    icons: iconLibrary.icons,
     categories,
     resourceTypes,
     /**
@@ -1654,7 +1424,6 @@ module.exports = {
   validateResourceTypes,
   validateColors,
   validateFonts,
-  validateIcons,
   validateGuideResources,
 
   // content-index record vocabulary, re-exported by the render modules that
@@ -1663,5 +1432,5 @@ module.exports = {
   tagsMetaFor,
 
   // exported for QA tooling and tests
-  _internals: { annotatePaletteMeta, buildPaletteRecords, buildSearchText, checkIconSvg },
+  _internals: { annotatePaletteMeta, buildPaletteRecords, buildSearchText },
 };

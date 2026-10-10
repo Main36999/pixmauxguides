@@ -290,7 +290,7 @@ function buildRoadmap(guides) {
 //   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
 //                             real, top-level destination
 //   HOME_RESOURCES_START/END  more useful resources — neutral title-and-text cards:
-//                             Free Fonts, Icon Packs, the guide topics not in
+//                             Free Fonts, the guide topics not in
 //                             RESOURCE_TOPICS_SKIPPED, plus About
 //
 // Every card is a real <a> (the title link, stretched over the card), every
@@ -363,17 +363,6 @@ const HOME_FONTS = {
   title: "Free Fonts",
   url: "/fonts/",
   desc: "Browse free fonts for personal and commercial design projects, with original font files and license information.",
-};
-
-/**
- * The icon library, as a resource card beside the font library: one card to
- * /icons/, not a card per pack. Its route is checked against the route table
- * like every other card, so it can only point at the page the build made.
- */
-const HOME_ICONS = {
-  title: "Icon Packs",
-  url: "/icons/",
-  desc: "Browse outline, solid, duotone, and 3D icon packs for web and mobile app design.",
 };
 
 /** The one resource card that is not a guide topic. */
@@ -475,7 +464,7 @@ function resourceCardHtml(card) {
 }
 
 function resourceCardsHtml(topics, knownUrls) {
-  const cards = [HOME_FONTS, HOME_ICONS]
+  const cards = [HOME_FONTS]
     .concat(
       topics.map(function (t) {
         return {
@@ -796,7 +785,6 @@ module.exports = {
   groupRoadmap,
   HOME_TOOLS,
   HOME_FONTS,
-  HOME_ICONS,
   HOME_ABOUT,
   toolCardsHtml,
   RESOURCE_TOPICS_SKIPPED,

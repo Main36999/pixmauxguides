@@ -233,8 +233,7 @@ test("the font routes are /fonts/ plus one /fonts/<id> per record", () => {
 });
 
 test("the builder produces exactly the pages the route table declares", () => {
-  // Scoped to fonts/: the icon library is a second generated route group,
-  // and src/build/icons.test.js makes the same assertion for icons/.
+  // Scoped to fonts/, the only generated route group.
   const declared = routes
     .build(model)
     .filter((r) => r.generated && r.file.startsWith("fonts/"))

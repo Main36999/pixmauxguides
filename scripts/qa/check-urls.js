@@ -192,6 +192,15 @@ const NO_CANONICAL_BY_DESIGN = new Set(["/404.html"]);
  * now the baseline: those URLs are not "removals to excuse", they simply do
  * not exist in what this gate compares against.
  *
+ * ICON PACKS REMOVED held 199 entries here while its URL change was under
+ * review — every one under /icons, taken straight from the baseline: 5 pages
+ * (/icons and one /icons/<pack> per pack), 192 assets (185 SVG/PNG files and
+ * 7 pack ZIPs) and 2 code files (/icons/icons.css, /icons/icons.js). Those
+ * URLs now return 410 (public/_redirects). The gate confirmed they were the
+ * only removals — 0 added, nothing else moved, every surviving canonical
+ * unchanged — so the baseline was re-recorded at 2237 URLs / 347 pages and
+ * the list empties again.
+ *
  * HOW TO USE THIS LIST
  *
  * A change that intends to move a URL enumerates it here — one entry per

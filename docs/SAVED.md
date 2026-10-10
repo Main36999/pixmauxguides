@@ -21,7 +21,7 @@
 |---|---|---|
 | 1 | `public.saved_items` (SQL below, run by the owner), `GET`/`POST`/`DELETE /api/saved`, `POST /api/saved/import`, tests | done: table created and verified; `SAVED_ENABLED` `"true"` in production |
 | 2 | M1 the browser module · M2 the account Saved area and the import of old browser saves · M3–M6 Save on Fonts, Palettes (beside the Like), Colors and guide article pages · M7 final integration and launch preparation | launched: M1, M2, M3 (Fonts), M4 (Palettes), M5 (Colors) and M6 (guide pages) done; M7 done (M7.1: the cross-page integration test, and `/account`'s empty-state hint no longer names Image Picker palettes; M7.2: the Saved tests set the launch switch both ways themselves; M7.3: the dormant build verified in production; M7.4: the privacy policy, `SAVED_ENABLED` in production, and `LAUNCHED = true`) |
-| later | Save on Icons | waits until the real icon packs replace the current sample set |
+| — | Save on Icons | dropped: the Icon Packs feature was retired; the `icon` kind stays valid and saved rows are kept |
 
 ## What is saved
 
@@ -34,13 +34,13 @@ One account-level list per signed-in user. A row holds its owner
 | `color` | `c001` … `c1200` | `colors/colors-data.json` `id` |
 | `palette` | `p001` … `p600` | `palettes/palettes-data.json` `id` |
 | `font` | slug, e.g. `abhaya-libre` | `src/data/fonts.json` `id` |
-| `icon` | `pack--id`, e.g. `outline-essentials--arrow-left` | `src/data/icons.json` (`id` alone repeats across packs) |
+| `icon` | `pack--id`, e.g. `outline-essentials--arrow-left` | the retired Icon Packs catalog, now removed (`id` alone repeated across packs) |
 | `guide` | slug | `guides.json` `id` |
 | `image_palette` | the colours in order, lowercase, no `#`, joined by `-`, 3–8 of them, e.g. `1e193b-322a57-5438e6` | the Image Picker's on-screen palette |
 
 The account Saved area (Phase 2) shows Colors, Palettes, Fonts, Image Picker
-palettes and UI/UX Guides. Icons are already a valid kind; they get Save
-buttons once the real icon packs replace the current sample set.
+palettes and UI/UX Guides. Icons stay a valid kind so existing rows are
+kept, but no page offers Save on them: the Icon Packs feature was retired.
 
 - **Learning Roadmap progress is not a saved item.** It stays in the browser
   (`point-roadmap-progress`, `src/client/roadmap.js`); `roadmap` is not a
@@ -211,7 +211,7 @@ Once active:
 
 | part | behaviour |
 |---|---|
-| list | `BpozzSaved.list()`, drawn newest first in five groups — Colors, Palettes, Fonts, Image Picker palettes, UI/UX Guides. Icon items are not drawn yet |
+| list | `BpozzSaved.list()`, drawn newest first in five groups — Colors, Palettes, Fonts, Image Picker palettes, UI/UX Guides. Icon items are not drawn (Icon Packs was retired) |
 | names | from `/colors/colors-data.json`, `/palettes/palettes-data.json` and `/guides.json`, each fetched only when the list holds that kind. Fonts have no published names file yet, so a font shows its id; an Image Picker palette is its own colours. Without a file an item shows its id; an id the file no longer has reads "No longer available" and is not linked |
 | links | colours `/colors/`, palettes `/palettes#<id>`, fonts `/fonts/<id>.html`, guides `/guide/<id>`; Image Picker palettes have no page |
 | states | loading, empty, the list, and a failed list with Try again. Signed out, nothing about the account stays on the page |

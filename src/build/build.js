@@ -111,7 +111,6 @@ const home = require("./home.js");
 const categories = require("./categories.js");
 const guides = require("./guides.js");
 const fonts = require("./fonts.js");
-const icons = require("./icons.js");
 const header = require("./header.js");
 const footer = require("./footer.js");
 
@@ -286,14 +285,8 @@ const PUBLISH_FILES = [
   { from: "src/styles/fonts.css", to: "fonts/fonts.css" },
   { from: "src/client/fonts.js", to: "fonts/fonts.js" },
 
-  /**
-   * ICON PACKS — the page-specific stylesheet and script for /icons/ and
-   * every /icons/<pack>.html, published beside the pages the way the font
-   * library publishes its own. Not added to APP_BUNDLE: only the icon pages
-   * run them.
-   */
-  { from: "src/styles/icons.css", to: "icons/icons.css" },
-  { from: "src/client/icons.js", to: "icons/icons.js" },
+  // ICON PACKS: retired. icons/icons.css and icons/icons.js are no longer
+  // published; their URLs return 410 (public/_redirects).
 
   // data endpoints the running site fetches
   { from: "guides.json", to: "guides.json" },
@@ -376,12 +369,6 @@ const PUBLISH_DIRS = [
    * are generated from these same files by src/build/fonts.js.
    */
   { from: "public/fonts", to: "fonts" },
-  /**
-   * ICON PACKS — every pack's SVG and PNG files, published verbatim at
-   * /icons/<pack>/svg/ and /icons/<pack>/png/. The pack ZIPs are not here:
-   * they are generated from these same files by src/build/icons.js.
-   */
-  { from: "public/icons", to: "icons" },
 ];
 
 // ---------------------------------------------------------------------
@@ -643,7 +630,7 @@ function data(ctx) {
 /**
  * The page builders, in the only order that produces correct output:
  *
- *     home → categories → guides → fonts → icons → header → footer
+ *     home → categories → guides → fonts → header → footer
  *
  * PHASE 4 STEP 3D: all of them are in-process now. This used to open with a
  * loop that spawned legacy builders from the staging root with execFileSync and
@@ -717,12 +704,6 @@ function render(ctx) {
   // relationship with the other writers.
   const fontsResult = fonts.render(ctx);
 
-  // ICON PACKS: /icons/ and every /icons/<pack>.html, plus each pack's ZIPs
-  // written straight to dist/. A writer exactly like fonts — it embeds the raw
-  // partials — so it sits beside it in the writers' half of the order, before
-  // the header and footer. It owns icons/ alone.
-  const iconsResult = icons.render(ctx);
-
   // PHASE 4 STEP 3B: the header, in-process and still third. It occupies the
   // same slot build-header.js held in RENDER_ORDER — after the page writers,
   // whose category and guide pages carry the raw partial and so need their
@@ -782,14 +763,11 @@ function render(ctx) {
   const fontsTally =
     `fonts: ${fontsResult.written.length} written, ` +
     `${fontsResult.packages} ZIP packages (${(fontsResult.packageBytes / 1048576).toFixed(1)} MB)`;
-  const iconsTally =
-    `icons: ${iconsResult.written.length} written, ` +
-    `${iconsResult.packages} ZIP packages (${Math.round(iconsResult.packageBytes / 1024)} KB)`;
 
   return (
-    `7 in-process builders in locked order, ` +
+    `6 in-process builders in locked order, ` +
     `${ctx.routes.length} pages published ` +
-    `(${homeTally}; ${categoriesTally}; ${guidesTally}; ${fontsTally}; ${iconsTally}; ` +
+    `(${homeTally}; ${categoriesTally}; ${guidesTally}; ${fontsTally}; ` +
     `${tally("header", headerResult)}; ${tally("footer", footerResult)})`
   );
 }

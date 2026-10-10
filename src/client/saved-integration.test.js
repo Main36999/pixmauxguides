@@ -108,8 +108,9 @@ test("the site draws Save controls for exactly font, palette, color and guide â€
     assert.ok(api.kinds.includes(kind), `${kind}: a Saved kind`);
     assert.ok(groups.includes(kind), `${kind}: an /account group`);
   }
-  // Kinds the API accepts that no page draws: icons wait for the real packs;
-  // Image Picker palettes are listed on /account if an account has any.
+  // Kinds the API accepts that no page draws: icons, kept valid for existing
+  // rows after Icon Packs was retired; Image Picker palettes are listed on
+  // /account if an account has any.
   assert.deepStrictEqual(Array.from(api.kinds).filter((k) => !SAVE_PAGES.some((p) => p.kind === k)).sort(), ["icon", "image_palette"]);
 });
 
