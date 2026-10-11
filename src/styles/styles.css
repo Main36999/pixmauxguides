@@ -357,15 +357,18 @@ ul {
 /* ---------- header search ----------
    The site's one search box, on every page: a plain GET to /search?s=…
    (search.js reads the query there). A pill in the muted surface colour
-   with a hairline edge; the magnifier after the field is the submit
-   button. The field's own outline is cancelled and the pill draws the
-   focus ring instead, for keyboard focus only (WCAG 2.4.7): a text field
-   matches :focus-visible on click too, so the inline script after the
-   form in partials/header.html marks the form data-pointer-focus while a
-   pointer press put focus there, and the ring skips marked forms (with no
-   JS it shows on every focus). The ring is white, then near-black, so it
-   reads against the pill and the bar alike; the transparent outline is
-   for forced-colors mode, which drops box-shadow. */
+   with a hairline edge; the submit button after the field is the filled
+   blue circle the homepage hero search used to carry (white magnifier,
+   --action, darker on hover; white on blue is 5.2:1), sized to sit
+   inside the 40px pill. The field's own outline is cancelled and the
+   pill draws the focus ring instead, for keyboard focus only (WCAG
+   2.4.7): a text field matches :focus-visible on click too, so the inline
+   script after the form in partials/header.html marks the form
+   data-pointer-focus while a pointer press put focus there, and the ring
+   skips marked forms (with no JS it shows on every focus). The ring is
+   white, then near-black, so it reads against the pill and the bar alike;
+   the transparent outline is for forced-colors mode, which drops
+   box-shadow. */
 .header-search {
   display: flex;
   align-items: center;
@@ -423,11 +426,11 @@ ul {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: transparent;
-  color: var(--text-muted);
+  background: var(--action);
+  color: #fff;
 }
 .header-search button:hover {
-  color: var(--text);
+  background: var(--action-hover);
 }
 .header-search svg {
   width: 17px;
