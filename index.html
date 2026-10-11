@@ -226,58 +226,8 @@
               Practical tools, resources, guides, and insights for people
               who design and build digital products.
             </p>
-            <form
-              class="header-search hero-search fade-up"
-              role="search"
-              action="/search"
-              method="get"
-            >
-              <label for="hero-search-input" class="sr-only"
-                >Search bpozz</label
-              >
-              <input
-                type="search"
-                id="hero-search-input"
-                name="s"
-                placeholder="Search bpozz…"
-                autocomplete="off"
-              />
-              <button
-                type="submit"
-                class="hero-search__submit"
-                aria-label="Search bpozz"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <line x1="21" y1="21" x2="16.2" y2="16.2" />
-                </svg>
-              </button>
-            </form>
-            <!-- Focus ring for keyboard users only: same script as the one
-                 after the header search form in partials/header.html
-                 (search.test.js keeps the two identical). -->
-            <script data-cookieconsent="ignore">
-              (function (form) {
-                if (!form) return;
-                form.addEventListener("pointerdown", function () {
-                  form.setAttribute("data-pointer-focus", "");
-                });
-                form.addEventListener("focusout", function (e) {
-                  if (!form.contains(e.relatedTarget)) {
-                    form.removeAttribute("data-pointer-focus");
-                  }
-                });
-              })(document.currentScript.previousElementSibling);
-            </script>
+            <!-- Search lives in the header, on every page; the hero no
+                 longer carries a second box. -->
           </div>
 
           <!--

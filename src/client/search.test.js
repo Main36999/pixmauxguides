@@ -467,10 +467,9 @@ test("the search index holds every guide and every palette, and nothing else", (
   );
 });
 
-for (const [file, inputId] of [
-  ["partials/header.html", "header-search-input"],
-  ["index.html", "hero-search-input"],
-]) {
+// The header partial carries the site's one search box, on every page; the
+// homepage hero had a second one until Issue #18 moved search into the header.
+for (const [file, inputId] of [["partials/header.html", "header-search-input"]]) {
   test(`${file}: the global search box is labelled "${SEARCH_LABEL}"`, () => {
     const html = fs.readFileSync(path.join(config.paths.root, file), "utf8");
     const forms = html.match(/<form[^>]*role="search"[\s\S]*?<\/form>/g) || [];
@@ -497,8 +496,8 @@ for (const [file, inputId] of [
   });
 }
 
-// The search boxes' focus ring is for keyboard users only. A text field
-// matches :focus-visible on click too, so an inline script right after each
+// The search box's focus ring is for keyboard users only. A text field
+// matches :focus-visible on click too, so an inline script right after the
 // global search form marks it data-pointer-focus on a press, and styles.css
 // draws the ring only on unmarked forms. Inline rather than in app.js, so it
 // also runs on the pages that load no app.js.
@@ -516,11 +515,16 @@ function pointerFocusScript(file) {
     .join("\n");
 }
 
-test("partials/header.html and index.html carry the same pointer-focus script after their search form", () => {
-  const header = pointerFocusScript("partials/header.html");
-  const hero = pointerFocusScript("index.html");
-  assert.strictEqual(hero, header);
-  assert.match(header, /document\.currentScript\.previousElementSibling/);
+test("index.html has no search box of its own: the header's is the homepage's only one", () => {
+  // Outside its HEADER markers (between them is an old copy of the header
+  // that the build replaces with partials/header.html).
+  const html = fs
+    .readFileSync(path.join(config.paths.root, "index.html"), "utf8")
+    .replace(/<!--HEADER_START-->[\s\S]*?<!--HEADER_END-->/, "");
+  assert.ok(!/<form[^>]*role="search"/.test(html), "no second search form");
+  assert.ok(!/hero-search/.test(html), "no hero search markup");
+  assert.ok(!/data-pointer-focus/.test(html), "no second pointer-focus script");
+  assert.match(pointerFocusScript("partials/header.html"), /document\.currentScript\.previousElementSibling/);
 });
 
 test("the pointer-focus script marks its form on a press and clears the mark once focus leaves the form", () => {
@@ -559,7 +563,7 @@ test("search focus styles: no ring on a pressed form, a visible non-blue ring fo
   }));
   const BLUE = /--action|#2563eb|37,\s*99,\s*235/i;
 
-  for (const form of [".site-header--inner .form", ".hero-search"]) {
+  for (const form of [".header-search"]) {
     const ringRules = rules.filter((r) => r.selectors.some((s) => s.startsWith(form + ":focus")));
     assert.ok(ringRules.length > 0, `${form}: has a focus rule`);
     for (const rule of ringRules) {
@@ -571,7 +575,7 @@ test("search focus styles: no ring on a pressed form, a visible non-blue ring fo
       assert.ok(!/border-color/.test(rule.body), `${form}: the border is left as it is`);
     }
   }
-  for (const input of [".site-header--inner .input:focus", ".hero-search input:focus"]) {
+  for (const input of [".header-search input:focus"]) {
     const rule = rules.find((r) => r.selectors.includes(input));
     assert.ok(rule && /outline:\s*none/.test(rule.body), `${input}: the input draws no outline of its own`);
   }

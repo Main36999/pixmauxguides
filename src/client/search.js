@@ -1,14 +1,14 @@
 /**
- * search.js — the header quick-search forms, and the /search results page.
+ * search.js — the header quick-search form, and the /search results page.
  * -----------------------------------------------------------------------
  * PHASE 3 bundle fragment — see the header of core.js for what that means.
  *
  * TWO CONCERNS, BOTH SEARCH
  *
- *   headerSearchForms   the handle on the header/hero search forms that
+ *   headerSearchForms   the handle on the header search form that
  *                       resetFilters() in guides.js uses to blank a stale
  *                       query. There is no submit handler and there never
- *                       was one — the forms are plain HTML GETs
+ *                       was one — the form is a plain HTML GET
  *                       (action="/search", method="get", input name="s"),
  *                       so submitting one is an ordinary navigation to
  *                       /search?s=... from any page, including that one.
@@ -68,9 +68,8 @@
  */
 
   // --- Header quick search ---
-  // Both the desktop header form and the homepage's hero search form
-  // share the ".header-search" class, so this covers either without
-  // duplicating logic. Each one is plain HTML (action="/search",
+  // The header's search form (".header-search", on every page — the
+  // homepage's hero no longer has its own) is plain HTML (action="/search",
   // method="get", input name="s") and needs no JS to work: submitting it
   // (Enter or the button) is a normal browser GET to /search?s=... from
   // any page, including that one — initSearchPage() below reads the query

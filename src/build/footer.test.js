@@ -109,6 +109,45 @@ test("render() writes the footer once, and a second run adds nothing", () => {
   }
 });
 
+// 404.html is a standalone page (Issue #18): no site header or footer, its
+// own top row instead. The builders leave its marker regions empty, and only
+// its regions.
+test("render() leaves a standalone page's footer region empty and fills every other page's", () => {
+  const stage = fs.mkdtempSync(path.join(os.tmpdir(), "bpozz-footer-"));
+  try {
+    const page = `<!doctype html><body>${footer.START_MARKER}old${footer.END_MARKER}</body>`;
+    const routes = [
+      { url: "/404", file: "404.html" },
+      { url: "/about", file: "about.html" },
+    ];
+    routes.forEach((r) => fs.writeFileSync(path.join(stage, r.file), page, "utf8"));
+    footer.render({ config: { paths: { root: ROOT, stage } }, routes });
+
+    const notFound = fs.readFileSync(path.join(stage, "404.html"), "utf8");
+    assert.ok(notFound.includes(footer.START_MARKER + footer.END_MARKER), "404.html: empty region");
+    assert.ok(!notFound.includes("<footer"), "404.html: no footer");
+    const about = fs.readFileSync(path.join(stage, "about.html"), "utf8");
+    assert.strictEqual(about.split("<footer").length - 1, 1, "about.html: the footer");
+  } finally {
+    fs.rmSync(stage, { recursive: true, force: true });
+  }
+});
+
+test("404.html: empty header and footer regions, its own top row linking home and to /contact", () => {
+  const header = require("./header.js");
+  assert.deepStrictEqual([...header.STANDALONE_PAGES], ["404.html"]);
+  const html = fs.readFileSync(path.join(ROOT, "404.html"), "utf8");
+  assert.ok(html.includes(header.START_MARKER + header.END_MARKER), "empty header region");
+  assert.ok(html.includes(footer.START_MARKER + footer.END_MARKER), "empty footer region");
+  assert.ok(!/class="site-header|class="site-footer/.test(html), "no site header or footer");
+  const top = /<header class="notfound-top">([\s\S]*?)<\/header>/.exec(html);
+  assert.ok(top, "the page's own top row");
+  assert.match(top[1], /<a href="\/" class="notfound-top__brand" aria-label="bpozz home"[^>]*>bpozz<\/a>/);
+  assert.match(top[1], /<a href="\/contact" class="notfound-top__contact">Contact Us<\/a>/);
+  // error-beacon.js reports this page as "/404" by finding main.notfound.
+  assert.match(html, /<main class="notfound"/);
+});
+
 // ---------------------------------------------------------------------
 // the click handler
 // ---------------------------------------------------------------------

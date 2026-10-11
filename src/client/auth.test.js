@@ -789,10 +789,43 @@ test("public API: getSession, refreshSession, signOut; Google entry point unchan
 
   // Sign-in still starts with a full-page navigation to /api/auth/google/start.
   assert.match(SOURCE, /API \+\s*"\/google\/start\?intent=" \+\s*encodeURIComponent\(mode\) \+\s*"&return_to=" \+\s*encodeURIComponent\(returnTo\(\)\)/);
-  for (const partial of ["header.html", "header-home.html"]) {
-    const text = fs.readFileSync(path.join(ROOT, "partials", partial), "utf8");
-    assert.strictEqual((text.match(/data-auth-open="signin"/g) || []).length, 2, partial);
-    assert.strictEqual((text.match(/data-auth-open="signup"/g) || []).length, 2, partial);
+  const header = fs.readFileSync(path.join(ROOT, "partials", "header.html"), "utf8");
+  assert.strictEqual((header.match(/data-auth-open="signin"/g) || []).length, 2, "header.html");
+  assert.strictEqual((header.match(/data-auth-open="signup"/g) || []).length, 2, "header.html");
+});
+
+// The mobile menu's open/close logic lives in one place: the inline script at
+// the end of partials/header.html, which every page gets. auth.js closes the
+// menu itself when the sign-in dialog opens, by setting the same three
+// attributes (#mobile-menu's hidden, the button's aria-expanded and
+// aria-label), so the header script has to keep using exactly those. And no
+// second copy may come back: two would both handle every click and undo each
+// other. (Committed pages carry an old copy of the header between their
+// HEADER markers, which the build replaces; only the rest of each file counts.)
+test("the mobile menu has one script, in the header partial, using the attributes auth.js mirrors", () => {
+  const header = fs.readFileSync(path.join(ROOT, "partials", "header.html"), "utf8");
+  const scripts = header.match(/<script\b[^>]*>[\s\S]*?<\/script>/g) || [];
+  const menuScripts = scripts.filter((s) => s.includes('getElementById("menu-toggle")'));
+  assert.strictEqual(menuScripts.length, 1, "one menu script in the header partial");
+  assert.match(menuScripts[0], /menu\.hidden = !open/);
+  assert.match(menuScripts[0], /setAttribute\("aria-expanded", String\(open\)\)/);
+  assert.match(menuScripts[0], /"Close menu" : "Open menu"/);
+  assert.match(SOURCE, /setAttribute\("aria-label", "Open menu"\)/, "auth.js resets the same label");
+  for (const rel of [
+    "src/client/core.js",
+    "index.html",
+    "404.html",
+    "about.html",
+    "account.html",
+    "contact.html",
+    "hoysomrach.html",
+    "privacy.html",
+    "terms.html",
+  ]) {
+    const text = fs
+      .readFileSync(path.join(ROOT, rel), "utf8")
+      .replace(/<!--HEADER_START-->[\s\S]*?<!--HEADER_END-->/, "");
+    assert.ok(!text.includes('getElementById("menu-toggle")'), `${rel}: no second menu script`);
   }
 });
 

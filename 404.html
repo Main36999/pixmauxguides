@@ -77,196 +77,25 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!--HEADER_START--><header class="site-header site-header--inner">
-  <div class="header-top">
-    <a href="index.html" class="brand" aria-label="bpozz! home">
-      <img class="brand-logo" src="/assets/bpozz-logo.svg" alt="" width="88" height="32" />
-    </a>
-
-    <form
-      class="header-search header-search--full form"
-      role="search"
-      action="/search"
-      method="get"
-    >
-      <label for="header-search-input" class="sr-only">Search BPOZZ</label>
-      <button type="submit" aria-label="Search BPOZZ">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-      <input
-        type="search"
-        id="header-search-input"
-        name="s"
-        placeholder="Search guides, palettes…"
-        autocomplete="off"
-        class="input"
-      />
-      <button type="reset" class="reset" aria-label="Clear search">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <line x1="5" y1="5" x2="19" y2="19" />
-          <line x1="19" y1="5" x2="5" y2="19" />
-        </svg>
-      </button>
-    </form>
-
-    <button
-      type="button"
-      class="menu-toggle"
-      id="menu-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Open menu"
-    >
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--open"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="4" y1="7" x2="20" y2="7" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="17" x2="20" y2="17" />
-      </svg>
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--close"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="5" y1="5" x2="19" y2="19" />
-        <line x1="19" y1="5" x2="5" y2="19" />
-      </svg>
-    </button>
-  </div>
-
-  <div class="header-bottom">
-    <nav class="site-nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/">All</a>
-      <a href="/colors/">Colors</a>
-      <a href="/palettes/">Color Palettes</a>
-      <a href="/image-picker/">Image Picker</a>
-      <a href="/guides/">UI/UX Guides</a>
-      <a href="/roadmap">Learning Roadmap</a>
-      <!--NAV_RESOURCES_END-->
-    </nav>
-  </div>
-
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav class="mobile-menu__nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/">All</a>
-      <a href="/colors/">Colors</a>
-      <a href="/palettes/">Color Palettes</a>
-      <a href="/image-picker/">Image Picker</a>
-      <a href="/guides/">UI/UX Guides</a>
-      <a href="/roadmap">Learning Roadmap</a>
-      <!--NAV_RESOURCES_END-->
-    </nav>
-  </div>
-</header><!--HEADER_END-->
+    <!-- A standalone page: the site header and footer stay out (the build
+         leaves both marker regions empty for 404.html; STANDALONE_PAGES in
+         src/build/header.js). Its own top row instead: the wordmark home
+         and a way to get in touch. -->
+    <!--HEADER_START--><!--HEADER_END-->
+    <header class="notfound-top">
+      <a href="/" class="notfound-top__brand" aria-label="bpozz home" translate="no">bpozz</a>
+      <a href="/contact" class="notfound-top__contact">Contact Us</a>
+    </header>
 
     <main class="notfound" id="main" tabindex="-1">
-      <!--
-        Background: the Home Hero's (the sign-in dialog's .auth__visual,
-        gradient field and grid), reused class for class. Static here:
-        .notfound__visual carries none of the hero's drift.
-      -->
-      <div class="auth__visual notfound__visual" aria-hidden="true">
-        <div class="auth__field"></div>
-        <div class="auth__grid"></div>
-      </div>
       <div class="notfound__copy">
         <p class="notfound__code">404</p>
         <h1 class="notfound__title">Page not found</h1>
       </div>
     </main>
-
-    <!--FOOTER_START--><footer class="site-footer">
-  <div class="wrap footer-inner">
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-    </nav>
-    <p class="footer-copyright">© 2026 BPOZZ. All Rights Reserved.</p>
-  </div>
-</footer><!--FOOTER_END-->
+    <!--FOOTER_START--><!--FOOTER_END-->
 
     <script src="/error-beacon.js"></script>
-    <!-- Mobile menu toggle (kept in sync with app.js's "Mobile menu toggle" block —
-         this page loads no other script, so the wiring lives here too). -->
-    <script>
-      (function () {
-        var toggle = document.getElementById("menu-toggle");
-        var menu = document.getElementById("mobile-menu");
-        if (!toggle || !menu) return;
-
-        function closeMenu() {
-          menu.hidden = true;
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.setAttribute("aria-label", "Open menu");
-        }
-
-        function openMenu() {
-          menu.hidden = false;
-          toggle.setAttribute("aria-expanded", "true");
-          toggle.setAttribute("aria-label", "Close menu");
-        }
-
-        toggle.addEventListener("click", function () {
-          if (menu.hidden) {
-            openMenu();
-          } else {
-            closeMenu();
-          }
-        });
-
-        menu.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", closeMenu);
-        });
-
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && !menu.hidden) {
-            closeMenu();
-            toggle.focus();
-          }
-        });
-      })();
-    </script>
     <script src="/auth.js"></script>
   </body>
 </html>

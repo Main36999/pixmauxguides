@@ -411,13 +411,11 @@ test("the detail pages make no licensing claim beyond the OFL's terms", () => {
 // integration: nav, sitemap, publication, client script
 // ---------------------------------------------------------------------
 
-test("Fonts is in the main header nav and both partials are in sync", () => {
+test("Fonts is in the main header nav and the header partial is in sync", () => {
   assert.ok(header.MAIN_HEADER_NAV.some((e) => e.label === "Fonts" && e.landingUrl === "/fonts/"));
   const links = header.navLinksHtml(header.MAIN_HEADER_NAV);
-  [header.PARTIAL, header.HOME_PARTIAL].forEach((rel) => {
-    const source = fs.readFileSync(path.join(config.paths.root, rel), "utf8");
-    assert.strictEqual(header.syncNavRegions(rel, source, links).changed, false, rel);
-  });
+  const source = fs.readFileSync(path.join(config.paths.root, header.PARTIAL), "utf8");
+  assert.strictEqual(header.syncNavRegions(header.PARTIAL, source, links).changed, false, header.PARTIAL);
   assert.ok(model.resourceTypes.some((t) => t.landingUrl === "/fonts/" && t.activePaths.includes("fonts/")));
 });
 

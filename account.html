@@ -106,19 +106,13 @@
         padding-top: 24px;
         border-top: 1px solid var(--grid-line);
       }
-      /* Clear of the sticky header — its 84px top row plus the 70px nav
-         row, and the top row alone at <=640px, where the nav row folds
-         away — whether a section is reached by its #link or a button is
-         given focus (after Sign out, focus moves to the page's Sign in). */
+      /* Clear of the sticky header (--header-h, its height at each width,
+         from styles.css) plus 24px, whether a section is reached by its
+         #link or a button is given focus (after Sign out, focus moves to
+         the page's Sign in). */
       .account-page__section,
       .account-page__actions .btn {
-        scroll-margin-top: 178px;
-      }
-      @media (max-width: 640px) {
-        .account-page__section,
-        .account-page__actions .btn {
-          scroll-margin-top: 108px;
-        }
+        scroll-margin-top: calc(var(--header-h) + 24px);
       }
       .account-page__actions {
         display: flex;
@@ -454,46 +448,6 @@
 </footer><!--FOOTER_END-->
 
     <script src="/error-beacon.js"></script>
-    <!-- Mobile menu toggle (kept in sync with app.js's "Mobile menu toggle" block —
-         this page loads no other script, so the wiring lives here too). -->
-    <script>
-      (function () {
-        var toggle = document.getElementById("menu-toggle");
-        var menu = document.getElementById("mobile-menu");
-        if (!toggle || !menu) return;
-
-        function closeMenu() {
-          menu.hidden = true;
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.setAttribute("aria-label", "Open menu");
-        }
-
-        function openMenu() {
-          menu.hidden = false;
-          toggle.setAttribute("aria-expanded", "true");
-          toggle.setAttribute("aria-label", "Close menu");
-        }
-
-        toggle.addEventListener("click", function () {
-          if (menu.hidden) {
-            openMenu();
-          } else {
-            closeMenu();
-          }
-        });
-
-        menu.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", closeMenu);
-        });
-
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && !menu.hidden) {
-            closeMenu();
-            toggle.focus();
-          }
-        });
-      })();
-    </script>
     <script src="/auth.js"></script>
     <script src="/saved.js"></script>
     <script src="/account.js"></script>

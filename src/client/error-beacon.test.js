@@ -431,9 +431,11 @@ test("the seven pages without /app.js load /error-beacon.js once, before any oth
     assert.strictEqual(site[0], "/error-beacon.js", file);
     assert.strictEqual(site.filter((src) => src === "/error-beacon.js").length, 1, file);
     assert.ok(!srcs.some((src) => /(^|\/)app\.js$/.test(src)), `${file}: loads no app.js`);
-    // Ahead of the page's own inline scripts after the footer, too.
+    // Ahead of the page's own scripts after the footer, too: the first thing
+    // after it. (The mobile menu's inline script that used to follow it now
+    // lives in the header partial.)
     const tail = html.slice(html.indexOf("<!--FOOTER_END-->"));
-    assert.ok(/^<!--FOOTER_END-->\s*<script src="\/error-beacon\.js"><\/script>\s*<!--/.test(tail), `${file}: first after the footer`);
+    assert.ok(/^<!--FOOTER_END-->\s*<script src="\/error-beacon\.js"><\/script>/.test(tail), `${file}: first after the footer`);
   }
   // Pages that load /app.js get the beacon inside it, not a second tag.
   for (const file of ["index.html", "roadmap.html", "search.html"]) {

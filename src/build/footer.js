@@ -58,6 +58,10 @@
 const fs = require("fs");
 const path = require("path");
 
+// Pages with no site header or footer (404.html): one list, kept with the
+// header's, and their FOOTER region is left empty.
+const { STANDALONE_PAGES } = require("./header.js");
+
 const PARTIAL = path.join("partials", "footer.html");
 
 const START_MARKER = "<!--FOOTER_START-->";
@@ -140,7 +144,7 @@ function render(ctx) {
       original,
       START_MARKER,
       END_MARKER,
-      footerFor(r.file, partial),
+      STANDALONE_PAGES.has(r.file) ? "" : footerFor(r.file, partial),
     );
 
     if (result === null) {

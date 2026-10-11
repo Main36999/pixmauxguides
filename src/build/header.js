@@ -20,27 +20,26 @@
  * The one check that stayed is the one only this module can make — that a
  * nav destination resolves to a page that exists. No markup changed.
  *
- * TWO HEADER VARIANTS: HOME VS. EVERY OTHER PAGE
+ * ONE HEADER ON EVERY PAGE (Issue #18)
  *
- *   index.html          partials/header-home.html — one row, logo + nav, no
- *                       search, because the home page's hero already carries
- *                       a large search box.
- *   every other page    partials/header.html — two rows, logo + a persistent
- *                       full-width search bar on top, nav underneath.
- *
- * Both variants share one #mobile-menu panel and #menu-toggle button, and
- * both go through the same per-page rewriting below. Only which partial is
- * loaded differs, selected by whether the page's route file is "index.html".
+ * Every page, index.html included, gets partials/header.html: the wordmark,
+ * the global search, the main nav and the account controls, with the
+ * #menu-toggle button and #mobile-menu panel for narrow screens. The home
+ * page used to have its own variant (partials/header-home.html, no search,
+ * because the hero carried one); the hero search is gone and so is that
+ * partial. index.html still goes through its own branch of headerFor()
+ * below, which is a no-op for the current partial.
  *
  * WHY THE HEADER IS PRE-RENDERED AT ALL
  *
  * Unchanged from the builder this replaces, and still load-bearing:
  *   1. the header must exist in the raw HTML for JS-disabled visitors and
  *      crawlers, not appear only after an async fetch resolves;
- *   2. /app.js queries #menu-toggle, #mobile-menu and .header-search
- *      synchronously as soon as it runs (a plain <script> at the end of
- *      <body>, not deferred). Injected later, those elements would not exist
- *      when it looks for them and the menu and search would silently die.
+ *   2. /app.js queries .header-search synchronously as soon as it runs (a
+ *      plain <script> at the end of <body>, not deferred), and the mobile
+ *      menu's script sits inside the header itself. Injected later, those
+ *      elements would not exist when they are looked for and the menu and
+ *      search would silently die.
  *
  * WHAT CHANGED, AND WHAT DID NOT
  *
@@ -70,7 +69,7 @@
  *      Dropping the write would have dropped the signal that kept the two
  *      committed partials in sync, so it is replaced by one: a partial whose
  *      generated region does not already match MAIN_HEADER_NAV is reported
- *      through ctx.warn. Both partials are in sync today and the warning is
+ *      through ctx.warn. The partial is in sync today and the warning is
  *      silent; the guards that throw — a partial with no region at all, or a
  *      START with no matching END — are unchanged.
  *
@@ -97,19 +96,15 @@
  *     reported, never half-written;
  *   - a page whose header is already correct is not rewritten at all.
  *
- * THE PARTIALS ARE NOT EQUALLY SHARED
+ * THE PARTIAL HAS OTHER READERS
  *
- * partials/header.html has a second reader: src/build/categories.js embeds it
- * verbatim into the pages it writes from scratch, inside the same marker
- * comments, so that this module can resync them afterwards. Both read it from
- * the repo root.
+ * partials/header.html is also read by src/build/categories.js (and, since
+ * Step 4, guides.js and fonts.js), which embed it verbatim into the pages
+ * they write from scratch, inside the same marker comments, so that this
+ * module can resync them afterwards. All of them read it from the repo root.
  *
- * partials/header-home.html has no second reader — index.html is the only
- * page that uses it, and this module is the only thing that reads it.
- *
- * Neither is a staged build input any more: header-home.html's entry left with
- * the builder in Step 3B, header.html's in Step 3C, and Step 3E removed the
- * staging table itself.
+ * It is not a staged build input any more: its entry left in Step 3C, and
+ * Step 3E removed the staging table itself.
  *
  * ORDER
  *
@@ -131,7 +126,14 @@ const path = require("path");
 const { escapeHtml } = require("../shared/html.js");
 
 const PARTIAL = path.join("partials", "header.html");
-const HOME_PARTIAL = path.join("partials", "header-home.html");
+
+/**
+ * Route files that carry no site header or footer: this module and
+ * src/build/footer.js write nothing into their marker regions, which stay
+ * in place, empty. 404.html is a standalone page with its own minimal top
+ * row (Issue #18).
+ */
+const STANDALONE_PAGES = new Set(["404.html"]);
 
 /**
  * PHASE 4 STEP 6: the RESOURCE_TYPES filename constant is gone with the fs
@@ -147,9 +149,9 @@ const NAV_START_MARKER = "<!--NAV_RESOURCES_START-->";
 const NAV_END_MARKER = "<!--NAV_RESOURCES_END-->";
 
 /**
- * Indentation of a nav link line inside the partials (both navs, both
- * partials), so the generated region reads like the hand-authored markup
- * around it.
+ * Indentation of a nav link line inside the partial, in both nav regions.
+ * The mobile panel's nav sits deeper than the desktop one, so its links are
+ * less indented than its markup; one value keeps both regions in sync.
  */
 const NAV_LINK_INDENT = "      ";
 
@@ -165,7 +167,7 @@ const ROOT_LINKS = [
 ];
 
 /**
- * MAIN HEADER nav — the list both partials' NAV_RESOURCES regions render.
+ * MAIN HEADER nav — the list the partial's two NAV_RESOURCES regions render.
  *
  * It is deliberately NOT the resource-type registry: it is a short,
  * browse-oriented set that names each destination the way a visitor looks for it
@@ -175,7 +177,7 @@ const ROOT_LINKS = [
  * why they are not renamed to match this list.
  *
  * "Explore" (-> /search) is deliberately absent: search is already reachable
- * from the inner header's own search field. /search itself is untouched; the
+ * from the header's own search field. /search itself is untouched; the
  * mobile menu no longer carries a separate Explore link either.
  *
  * Same { label, landingUrl } shape as a resource-types.json entry, so
@@ -472,7 +474,7 @@ function headerFor(file, partial) {
 /**
  * Syncs the header into every routed page in the staging root.
  *
- * Reads both partials from the repo root: they are template inputs, and
+ * Reads the partial from the repo root: it is a template input, and
  * staging exists only for the legacy builders that resolve their own
  * __dirname. Landing URLs resolve against the staging root, which is where
  * the pages themselves are.
@@ -488,7 +490,7 @@ function render(ctx) {
   const { root, stage } = ctx.config.paths;
 
   // activePaths drive the aria-current highlight; the link text comes from
-  // MAIN_HEADER_NAV, which both partials share so the two stay consistent.
+  // MAIN_HEADER_NAV, which both of the partial's nav regions share.
   const navEntries = loadNavEntries(ctx.model.resourceTypes, stage);
   const linksHtml = navLinksHtml(validateMainHeaderNav(stage));
 
@@ -504,7 +506,6 @@ function render(ctx) {
   };
 
   const partial = readPartial(PARTIAL);
-  const homePartial = readPartial(HOME_PARTIAL);
 
   let updated = 0;
   let unchanged = 0;
@@ -520,12 +521,11 @@ function render(ctx) {
     }
 
     const original = fs.readFileSync(file, "utf8");
-    // index.html is the only page that gets the no-search, single-row home
-    // header; every other page gets the two-row partial.
-    let headerHtml = headerFor(
-      r.file,
-      r.file === "index.html" ? homePartial : partial,
-    );
+    // Every page, index.html included, gets the same partial, except the
+    // standalone pages, whose region is left empty.
+    let headerHtml = STANDALONE_PAGES.has(r.file)
+      ? ""
+      : headerFor(r.file, partial);
     // Resource-type links (/guides, /palettes) are absolute root-relative,
     // so they need no depth rewriting — but they get the same "you are here"
     // highlight headerFor() gives roadmap.html, driven by each
@@ -576,7 +576,7 @@ module.exports = {
   loadNavEntries,
   validateMainHeaderNav,
   PARTIAL,
-  HOME_PARTIAL,
+  STANDALONE_PAGES,
   START_MARKER,
   END_MARKER,
   NAV_START_MARKER,

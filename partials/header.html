@@ -1,66 +1,5 @@
-<header class="site-header site-header--inner">
-  <div class="header-top">
-    <a href="/" class="brand" aria-label="bpozz home">
-      <img class="brand-logo" src="/assets/bpozz%20logo%20Brand-01.svg" alt="" width="88" height="32" />
-    </a>
-
-    <form
-      class="header-search header-search--full form"
-      role="search"
-      action="/search"
-      method="get"
-    >
-      <label for="header-search-input" class="sr-only">Search bpozz</label>
-      <button type="submit" aria-label="Search bpozz">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.2" y2="16.2" />
-        </svg>
-      </button>
-      <input
-        type="search"
-        id="header-search-input"
-        name="s"
-        placeholder="Search bpozz…"
-        autocomplete="off"
-        class="input"
-      />
-    </form>
-    <!-- Focus ring for keyboard users only. A text field matches
-         :focus-visible on click too, so CSS can't tell the two apart: a press
-         inside the form above marks it data-pointer-focus until focus leaves
-         it, and styles.css draws the ring only on unmarked forms. Inline, so
-         it runs on every page, including those that load no app.js.
-         index.html has the same script after the hero form; search.test.js
-         keeps the two identical. -->
-    <script data-cookieconsent="ignore">
-      (function (form) {
-        if (!form) return;
-        form.addEventListener("pointerdown", function () {
-          form.setAttribute("data-pointer-focus", "");
-        });
-        form.addEventListener("focusout", function (e) {
-          if (!form.contains(e.relatedTarget)) {
-            form.removeAttribute("data-pointer-focus");
-          }
-        });
-      })(document.currentScript.previousElementSibling);
-    </script>
-
-    <div class="header-auth">
-      <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
-      <button type="button" class="btn btn-primary" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
-    </div>
-
+<header class="site-header">
+  <div class="header-bar">
     <button
       type="button"
       class="menu-toggle"
@@ -99,9 +38,79 @@
         <line x1="19" y1="5" x2="5" y2="19" />
       </svg>
     </button>
-  </div>
 
-  <div class="header-bottom">
+    <!-- The mobile menu (640px and narrower). It follows the menu button in
+         the source, so the first Tab after opening it lands on its first
+         link. #mobile-menu is the dimmed backdrop; .mobile-nav-panel is the
+         white panel on it. Its behaviour is the script at the end of this
+         header. -->
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <div class="mobile-nav-panel">
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <!--NAV_RESOURCES_START-->
+      <a href="/">All</a>
+      <a href="/colors/">Colors</a>
+      <a href="/palettes/">Palettes</a>
+      <a href="/fonts/">Fonts</a>
+      <a href="/image-picker/">Image Picker</a>
+      <a href="/guides/">UI/UX Guides</a>
+      <a href="/roadmap">Learning Roadmap</a>
+      <!--NAV_RESOURCES_END-->
+        </nav>
+        <div class="mobile-menu__auth">
+          <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
+          <button type="button" class="btn btn-primary" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="/" class="brand" aria-label="bpozz home" translate="no">bpozz</a>
+
+    <form class="header-search" role="search" action="/search" method="get">
+      <label for="header-search-input" class="sr-only">Search bpozz</label>
+      <input
+        type="search"
+        id="header-search-input"
+        name="s"
+        placeholder="Search bpozz…"
+        autocomplete="off"
+      />
+      <button type="submit" aria-label="Search bpozz">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
+      </button>
+    </form>
+    <!-- Focus ring for keyboard users only. A text field matches
+         :focus-visible on click too, so CSS can't tell the two apart: a press
+         inside the form above marks it data-pointer-focus until focus leaves
+         it, and styles.css draws the ring only on unmarked forms. Inline, so
+         it runs on every page, including those that load no app.js.
+         search.test.js runs it. -->
+    <script data-cookieconsent="ignore">
+      (function (form) {
+        if (!form) return;
+        form.addEventListener("pointerdown", function () {
+          form.setAttribute("data-pointer-focus", "");
+        });
+        form.addEventListener("focusout", function (e) {
+          if (!form.contains(e.relatedTarget)) {
+            form.removeAttribute("data-pointer-focus");
+          }
+        });
+      })(document.currentScript.previousElementSibling);
+    </script>
+
     <nav class="site-nav" aria-label="Primary">
       <!--NAV_RESOURCES_START-->
       <a href="/">All</a>
@@ -113,23 +122,64 @@
       <a href="/roadmap">Learning Roadmap</a>
       <!--NAV_RESOURCES_END-->
     </nav>
-  </div>
 
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav class="mobile-menu__nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/">All</a>
-      <a href="/colors/">Colors</a>
-      <a href="/palettes/">Palettes</a>
-      <a href="/fonts/">Fonts</a>
-      <a href="/image-picker/">Image Picker</a>
-      <a href="/guides/">UI/UX Guides</a>
-      <a href="/roadmap">Learning Roadmap</a>
-      <!--NAV_RESOURCES_END-->
-    </nav>
-    <div class="mobile-menu__auth">
+    <div class="header-auth">
       <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
       <button type="button" class="btn btn-primary" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
     </div>
   </div>
+  <!-- The mobile menu's behaviour, on every page: the one copy (it used to be
+       repeated in core.js and inline on the seven pages that load no app.js).
+       It only ever sets the three attributes src/client/auth.js mirrors when
+       it closes the menu itself: #mobile-menu's hidden, and the button's
+       aria-expanded and aria-label.
+         - The button opens and closes the menu.
+         - Escape, a press on the backdrop, following a link, a hash change
+           and widening past 640px close it.
+         - Tabbing out of the header closes it, so focus never moves on to
+           the page behind the backdrop.
+         - Closing never strands focus: if it was inside the panel, which is
+           now hidden, it goes back to the menu button. -->
+  <script data-cookieconsent="ignore">
+    (function () {
+      var toggle = document.getElementById("menu-toggle");
+      var menu = document.getElementById("mobile-menu");
+      var header = toggle && toggle.closest(".site-header");
+      if (!toggle || !menu || !header) return;
+
+      function setOpen(open) {
+        menu.hidden = !open;
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      }
+
+      function close() {
+        if (menu.hidden) return;
+        var focusWasInside = menu.contains(document.activeElement);
+        setOpen(false);
+        if (focusWasInside) toggle.focus();
+      }
+
+      toggle.addEventListener("click", function () {
+        if (menu.hidden) setOpen(true);
+        else close();
+      });
+      menu.addEventListener("click", function (e) {
+        // #mobile-menu itself is the backdrop around the panel.
+        if (e.target === menu || e.target.closest("a")) close();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") close();
+      });
+      header.addEventListener("focusout", function (e) {
+        if (!menu.hidden && e.relatedTarget && !header.contains(e.relatedTarget)) {
+          setOpen(false);
+        }
+      });
+      window.addEventListener("hashchange", close);
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 640) close();
+      });
+    })();
+  </script>
 </header>

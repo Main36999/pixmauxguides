@@ -325,56 +325,8 @@
 
   window.addEventListener("hashchange", handleRoute);
 
-  // --- Mobile menu toggle ---
-  // Below 640px the header's nav links and search collapse behind this
-  // hamburger button into the #mobile-menu panel (see styles.css).
-  var menuToggle = document.getElementById("menu-toggle");
-  var mobileMenu = document.getElementById("mobile-menu");
-
-  // PHASE 4 STEP 9 (accessibility) — where focus goes when the panel shuts.
-  //
-  // Every caller below hides the panel while the user may be standing
-  // inside it. Measured with a real keyboard: open the menu, Tab to a link
-  // in it, press Escape — the panel goes `hidden` with focus still on that
-  // link, so focus collapses to <body> and the next Tab restarts from the
-  // top of the document. That is a WCAG 2.4.3 failure and the one thing
-  // Escape is supposed to get right.
-  //
-  // The fix is the disclosure pattern's: send focus back to the control
-  // that opened the panel. Deliberately guarded on focus actually being
-  // inside the panel, so the other three callers — a page-wide Escape with
-  // focus elsewhere, a hashchange, a resize past 640px — keep behaving
-  // exactly as they do now and never pull focus to the header.
-  // The link-click caller is covered by the same guard: activating a link
-  // in the panel navigates away, and focus is inside the panel then, but
-  // restoring it is harmless (the toggle is the header of the page being
-  // left) and keeps a same-page #hash link from dropping focus.
-  function closeMobileMenu() {
-    if (!mobileMenu || mobileMenu.hidden) return;
-    var focusWasInside =
-      document.activeElement && mobileMenu.contains(document.activeElement);
-    mobileMenu.hidden = true;
-    menuToggle.setAttribute("aria-expanded", "false");
-    if (focusWasInside) menuToggle.focus();
-  }
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener("click", function () {
-      var willOpen = mobileMenu.hidden;
-      mobileMenu.hidden = !willOpen;
-      menuToggle.setAttribute("aria-expanded", String(willOpen));
-    });
-    mobileMenu.addEventListener("click", function (e) {
-      if (e.target.closest("a")) closeMobileMenu();
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeMobileMenu();
-    });
-    window.addEventListener("hashchange", closeMobileMenu);
-    window.addEventListener("resize", function () {
-      if (window.innerWidth > 640) closeMobileMenu();
-    });
-  }
+  // The mobile menu is wired by the script at the end of the header itself
+  // (partials/header.html), on every page; it used to be repeated here.
 
   // ---------- homepage explore strip ----------
   // Its rows are overflow-hidden marquees; keyboard focus stops a row
