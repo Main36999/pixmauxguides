@@ -614,6 +614,126 @@ test("guide-resources.json rejects anything but a curated, resolvable entry", ()
 });
 
 // ---------------------------------------------------------------------
+// the byline (Issue #15)
+// ---------------------------------------------------------------------
+
+const BYLINE_OPEN = '<p class="guide-hero__byline">';
+
+test("every guide ends its hero with one byline, after the dek", () => {
+  pages.forEach((page) => {
+    const file = "guide/" + page.id + ".html";
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    assert.strictEqual(html.split(BYLINE_OPEN).length - 1, 1, file + ": one byline");
+    const hero = html.indexOf('class="guide-hero"');
+    const dek = html.indexOf('class="guide-hero__dek"', hero);
+    const at = html.indexOf(BYLINE_OPEN);
+    const close = html.indexOf("</section>", hero);
+    assert.ok(hero < dek && dek < at && at < close, file + ": byline is not between the dek and </section>");
+    const line = html.slice(html.lastIndexOf("\n", at) + 1, html.indexOf("\n", at));
+    assert.match(line, /^[ ]+<p class="guide-hero__byline">.*<\/p>$/, file + ": byline is not a line of its own");
+    assert.strictEqual(html.split('class="guide-hero__meta"').length - 1, 1, file + ": one meta line");
+  });
+});
+
+test("the byline names bpozz, links /about and prints the record's own date", () => {
+  const byUrl = new Map(routes.build(model).map((r) => [r.url, r]));
+  assert.ok(byUrl.get("/about"), "/about is not a published route");
+  pages.forEach((page) => {
+    const file = "guide/" + page.id + ".html";
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    const label = page.dateModified === page.datePublished ? "Published" : "Updated";
+    assert.ok(
+      html.includes(
+        BYLINE_OPEN +
+          'By <a href="/about">bpozz</a> · ' +
+          label +
+          ' <time datetime="' +
+          page.dateModified +
+          '">' +
+          template.displayDate(page.dateModified) +
+          "</time></p>",
+      ),
+      file + ": byline does not match its record",
+    );
+  });
+});
+
+test("every guide reads Published today: no record carries a later dateModified", () => {
+  pages.forEach((page) => {
+    assert.strictEqual(page.dateModified, page.datePublished, page.id);
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    assert.ok(html.includes("· Published <time"), page.id + ": not Published");
+    assert.ok(!html.includes("· Updated <time"), page.id + ": Updated");
+  });
+});
+
+test("the byline says Updated, with the later date, only when dateModified is later", () => {
+  const record = { id: "fixture", datePublished: "2026-08-06", dateModified: "2026-08-06" };
+  assert.strictEqual(
+    template.bylineHtml(record, "  "),
+    '  <p class="guide-hero__byline">By <a href="/about">bpozz</a> · Published <time datetime="2026-08-06">August 6, 2026</time></p>',
+  );
+  assert.strictEqual(
+    template.bylineHtml(Object.assign({}, record, { dateModified: "2026-10-01" }), ""),
+    '<p class="guide-hero__byline">By <a href="/about">bpozz</a> · Updated <time datetime="2026-10-01">October 1, 2026</time></p>',
+  );
+});
+
+test("displayDate prints Month D, YYYY from the string alone", () => {
+  assert.strictEqual(template.displayDate("2026-08-06"), "August 6, 2026");
+  assert.strictEqual(template.displayDate("2026-01-01"), "January 1, 2026");
+  assert.strictEqual(template.displayDate("2026-12-31"), "December 31, 2026");
+  ["2026-8-6", "2026-13-01", "2026-00-10", "August 6, 2026", "", undefined].forEach((bad) => {
+    assert.throws(() => template.displayDate(bad), /is not a YYYY-MM-DD date/, String(bad));
+  });
+});
+
+test("a hero whose </section> is missing, repeated or shares a line fails, loudly", () => {
+  const record = { id: "fixture", datePublished: "2026-08-06", dateModified: "2026-08-06" };
+  const good = '<section class="guide-hero">\n  <p class="guide-hero__dek">x</p>\n</section>\n';
+  assert.strictEqual(
+    template.heroWithByline(good, record),
+    '<section class="guide-hero">\n  <p class="guide-hero__dek">x</p>\n' +
+      '  <p class="guide-hero__byline">By <a href="/about">bpozz</a> · Published <time datetime="2026-08-06">August 6, 2026</time></p>\n' +
+      "</section>\n",
+  );
+  [
+    '<section class="guide-hero">\n  <p>x</p>\n',
+    '<section class="guide-hero">\n  <p>x</p>\n</section>\n</section>\n',
+    '<section class="guide-hero">\n  <p>x</p></section>\n',
+    "</section>\n",
+  ].forEach((bad) => {
+    assert.throws(() => template.heroWithByline(bad, record), /must close with one <\/section>/);
+  });
+});
+
+test("page dates must be real calendar days, with dateModified never earlier", () => {
+  const where = "pages.json[0]";
+  const ok = { datePublished: "2026-08-06", dateModified: "2026-08-06" };
+  content.checkPageDates(ok, where);
+  content.checkPageDates(Object.assign({}, ok, { dateModified: "2026-10-01" }), where);
+  content.checkPageDates({ datePublished: "2028-02-29", dateModified: "2028-02-29" }, where);
+  pages.forEach((page) => content.checkPageDates(page, page.id));
+  const broken = {
+    "a missing datePublished": [{ dateModified: "2026-08-06" }, /datePublished must be an ISO calendar date/],
+    "a missing dateModified": [{ datePublished: "2026-08-06" }, /dateModified must be an ISO calendar date/],
+    "a non-string date": [Object.assign({}, ok, { datePublished: 20260806 }), /datePublished must be an ISO/],
+    "a non-ISO date": [Object.assign({}, ok, { dateModified: "August 6, 2026" }), /dateModified must be an ISO/],
+    "February 30": [Object.assign({}, ok, { datePublished: "2026-02-30" }), /"2026-02-30" is not a real calendar date/],
+    "February 29 in a common year": [Object.assign({}, ok, { dateModified: "2026-02-29" }), /not a real calendar date/],
+    "month 13": [Object.assign({}, ok, { datePublished: "2026-13-01" }), /not a real calendar date/],
+    "day 00": [Object.assign({}, ok, { dateModified: "2026-08-00" }), /not a real calendar date/],
+    "a modified date before the published one": [
+      Object.assign({}, ok, { dateModified: "2026-08-05" }),
+      /dateModified "2026-08-05" is earlier than datePublished "2026-08-06"/,
+    ],
+  };
+  Object.entries(broken).forEach(([what, [record, pattern]]) => {
+    assert.throws(() => content.checkPageDates(record, where), pattern, `accepted ${what}`);
+  });
+});
+
+// ---------------------------------------------------------------------
 // the content file format
 // ---------------------------------------------------------------------
 

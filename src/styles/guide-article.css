@@ -108,6 +108,23 @@
   max-width: 62ch;
   margin: 0;
 }
+/* Byline at the foot of the hero: who publishes the guide and when. The
+   same quiet type as .guide-hero__meta above the title. The author link is
+   always underlined, so it is not told apart by colour alone. */
+.guide-hero__byline {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text-muted);
+  margin: 14px 0 0;
+}
+.guide-hero__byline a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.guide-hero__byline a:hover,
+.guide-hero__byline a:focus-visible {
+  color: var(--action);
+}
 
 /* --------------------------------------------------------------------------
    2b. Learning Roadmap context — between the hero and the table of contents,

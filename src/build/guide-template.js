@@ -124,6 +124,7 @@
 "use strict";
 
 const head = require("./head.js");
+const { ORGANIZATION_NAME } = require("./structured-data.js");
 const { escapeHtml } = require("../shared/html.js");
 
 // ---------------------------------------------------------------------
@@ -207,6 +208,92 @@ function breadcrumbHtml(category) {
     "",
     "",
   ].join("\n");
+}
+
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+/**
+ * "2026-08-06" -> "August 6, 2026", the form the legal pages print their
+ * dates in. Read off the string, never through a Date, so the printed day
+ * cannot move with the build machine's time zone. src/build/content.js has
+ * already checked that every page date is a real calendar date.
+ */
+function displayDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m || !MONTHS[Number(m[2]) - 1]) {
+    throw new Error(`guide-template: "${iso}" is not a YYYY-MM-DD date`);
+  }
+  return MONTHS[Number(m[2]) - 1] + " " + Number(m[3]) + ", " + m[1];
+}
+
+/**
+ * The byline at the foot of the hero: who publishes the guide, and when
+ * (Issue #15).
+ *
+ * Frame, not content, built from the page record like the breadcrumb. The
+ * name is ORGANIZATION_NAME, the same constant the TechArticle's `author`
+ * is built from, so the visible author and the structured-data author
+ * cannot disagree; it links to /about. The date is the record's own, never
+ * the build date: "Published" while dateModified equals datePublished, and
+ * "Updated" only once a meaningful editorial update has moved dateModified
+ * later (content.js rejects an earlier one).
+ *
+ * Its own class, not .guide-hero__meta: src/client/guides.js draws the Save
+ * button into the one meta line above the title.
+ */
+function bylineHtml(page, indent) {
+  const updated = page.dateModified !== page.datePublished;
+  const iso = updated ? page.dateModified : page.datePublished;
+  return (
+    indent +
+    '<p class="guide-hero__byline">By <a href="/about">' +
+    escapeHtml(ORGANIZATION_NAME) +
+    "</a> · " +
+    (updated ? "Updated" : "Published") +
+    ' <time datetime="' +
+    iso +
+    '">' +
+    displayDate(iso) +
+    "</time></p>"
+  );
+}
+
+/**
+ * The hero slot with the byline added as its last line, directly above
+ * </section>, indented like the line before it (the dek's closing </p> on
+ * every guide). The slot is verbatim content, so the one assumption made
+ * about it is checked: a hero whose </section> is missing, repeated or not
+ * on a line of its own is a build failure, not a byline in the wrong place.
+ */
+function heroWithByline(hero, page) {
+  const lines = hero.split("\n");
+  const at = lines.findIndex((line) => line.includes("</section>"));
+  if (
+    hero.split("</section>").length !== 2 ||
+    at < 1 ||
+    lines[at].trim() !== "</section>"
+  ) {
+    throw new Error(
+      `guide-template: the hero of "${page.id}" must close with one ` +
+        `</section> on a line of its own`,
+    );
+  }
+  const indent = /^[ \t]*/.exec(lines[at - 1])[0];
+  lines.splice(at, 0, bylineHtml(page, indent));
+  return lines.join("\n");
 }
 
 /**
@@ -481,7 +568,7 @@ function pageHtml(page, partials) {
     "\n\n" +
     MAIN_OPEN +
     (page.category ? breadcrumbHtml(page.category) : "") +
-    c.hero +
+    (page.datePublished ? heroWithByline(c.hero, page) : c.hero) +
     (page.roadmap ? roadmapContextHtml(page.roadmap) : "") +
     c.toc +
     c.article +
@@ -503,6 +590,9 @@ function pageHtml(page, partials) {
 module.exports = {
   pageHtml,
   resourcesHtml,
+  displayDate,
+  bylineHtml,
+  heroWithByline,
   HEAD_OPTIONS,
   parseContent,
   serializeContent,

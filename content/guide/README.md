@@ -58,6 +58,8 @@ string:
 | `id`                        | the guide's slug; must match a `guides.json` id and the filename |
 | `bodyClass`                 | the `<body>` class, or `null` for no class attribute            |
 | `toast`                     | whether the page carries the `#toast` container                 |
+| `datePublished`             | the day the guide was first published, `YYYY-MM-DD`             |
+| `dateModified`              | the day of its last meaningful editorial update, `YYYY-MM-DD`; equal to `datePublished` until there is one |
 | `format.headerMarkerIndented` | whether `<!--HEADER_START-->` is indented                     |
 | `format.railWrapped`        | whether the empty `#guide-rail` is wrapped over five lines      |
 | `format.primaryCloseIndent` | spaces before the `</div>` that closes `.guide-primary`         |
@@ -66,6 +68,15 @@ string:
 Every field is required on every record; there are no defaults, because a
 missing field would silently mean "the common case" for a page that is not the
 common case.
+
+**The byline.** The template turns the two dates into a line at the foot of
+the hero: `By bpozz · Published <date>` while the two dates are equal, and
+`By bpozz · Updated <date>` once `dateModified` is later. "bpozz" links to
+`/about` and is the same name the TechArticle's `author` carries. So
+`dateModified` moves only for a meaningful editorial update to the guide's
+content, never for a template, CSS or navigation change and never to the
+build date. The build fails on a date that is not a real calendar day and on
+a `dateModified` earlier than `datePublished`.
 
 **The four `format` fields are recorded drift, not design.** They exist
 because the 22 committed pages were hand-maintained and disagree with each

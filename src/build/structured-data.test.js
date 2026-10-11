@@ -238,6 +238,11 @@ test("every derived field still equals its source in the content model", () => {
       `${page.id}: datePublished`,
     );
     assert.strictEqual(
+      article.dateModified,
+      page.dateModified,
+      `${page.id}: dateModified`,
+    );
+    assert.strictEqual(
       article.mainEntityOfPage["@id"],
       `${config.origin}/guide/${guide.id}`,
       `${page.id}: mainEntityOfPage`,
@@ -321,4 +326,32 @@ test("named entities in a meta description are decoded, not passed through", () 
     ),
     "&quot;",
   );
+});
+
+// ---------------------------------------------------------------------
+// 4. the visible byline agrees with the TechArticle (Issue #15)
+// ---------------------------------------------------------------------
+
+test("the byline a reader sees states the TechArticle's own author and date", () => {
+  const template = require("./guide-template.js");
+  pages.forEach((page) => {
+    const article = blocksOf(page).find((b) => b["@type"] !== "BreadcrumbList");
+    const html = template.pageHtml(page, { header: "", footer: "" });
+    const m = /<p class="guide-hero__byline">By <a href="\/about">([^<]*)<\/a> · (Published|Updated) <time datetime="([^"]*)">/.exec(html);
+    assert.ok(m, `${page.id}: no byline`);
+    assert.deepStrictEqual(
+      article.author,
+      { "@type": "Organization", name: structuredData.ORGANIZATION_NAME },
+      `${page.id}: author is no longer the bpozz Organization`,
+    );
+    assert.strictEqual(m[1], article.author.name, `${page.id}: visible author`);
+    assert.strictEqual(m[1], article.publisher.name, `${page.id}: visible publisher`);
+    assert.strictEqual(m[3], article.dateModified, `${page.id}: visible date`);
+    assert.strictEqual(
+      m[2],
+      article.dateModified === article.datePublished ? "Published" : "Updated",
+      `${page.id}: label`,
+    );
+    assert.ok(!/"Person"/.test(page.structuredData), `${page.id}: a Person entity`);
+  });
 });

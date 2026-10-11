@@ -799,6 +799,43 @@ function annotatePaletteMeta(palettes, meta) {
 // ---------------------------------------------------------------------
 
 /**
+ * The two dates on a page record. They are published twice — in the
+ * TechArticle and, since Issue #15, in the byline every guide shows — so a
+ * wrong one is a visible claim, not just a quiet one. Each must be a
+ * "YYYY-MM-DD" string naming a day that exists (the pattern alone takes
+ * 2026-02-30), and dateModified may not be earlier than datePublished: it
+ * moves only for a meaningful editorial update, and src/build/guide-template.js
+ * prints "Updated" whenever the two differ. There is deliberately no check
+ * against today's date, which would make the build's result depend on when
+ * it runs.
+ */
+function checkPageDates(record, where) {
+  ["datePublished", "dateModified"].forEach(function (key) {
+    const value = record[key];
+    if (typeof value !== "string" || !ISO_DATE_RE.test(value)) {
+      throw new Error(
+        `${where}.${key} must be an ISO calendar date, "YYYY-MM-DD"`,
+      );
+    }
+    const [y, m, d] = value.split("-").map(Number);
+    const day = new Date(Date.UTC(y, m - 1, d));
+    if (
+      day.getUTCFullYear() !== y ||
+      day.getUTCMonth() !== m - 1 ||
+      day.getUTCDate() !== d
+    ) {
+      throw new Error(`${where}.${key} "${value}" is not a real calendar date`);
+    }
+  });
+  if (record.dateModified < record.datePublished) {
+    throw new Error(
+      `${where}.dateModified "${record.dateModified}" is earlier than ` +
+        `datePublished "${record.datePublished}"`,
+    );
+  }
+}
+
+/**
  * Loads content/guide/ into one record per guide page.
  *
  * WHY THIS IS HERE AND NOT IN THE BUILDER
@@ -856,13 +893,7 @@ function loadGuidePages(dir, guides, origin) {
     // the other page facts, and they are validated here rather than trusted:
     // a malformed date does not fail a build, it ships a page search engines
     // silently drop the Article from.
-    ["datePublished", "dateModified"].forEach(function (key) {
-      if (typeof record[key] !== "string" || !ISO_DATE_RE.test(record[key])) {
-        throw new Error(
-          `${where}.${key} must be an ISO calendar date, "YYYY-MM-DD"`,
-        );
-      }
-    });
+    checkPageDates(record, where);
     const f = record.format;
     if (!f || typeof f !== "object") {
       throw new Error(`${where}.format is missing`);
@@ -1412,6 +1443,7 @@ module.exports = {
   load,
   buildContentIndex,
   loadGuidePages,
+  checkPageDates,
   GUIDE_PAGES_INDEX,
 
   // Phase 4 Step 7 — guide structured data, composed once in load()
