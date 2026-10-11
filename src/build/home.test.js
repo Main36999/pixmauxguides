@@ -68,15 +68,15 @@ test("resource cards skip the pinned topics", () => {
   );
 
   const { html, count } = home.resourceCardsHtml(topics, knownUrls);
-  assert.strictEqual(count, topics.length + 2, "topics plus Free Fonts and About");
+  assert.strictEqual(count, topics.length + 2, "topics plus Fonts and About");
   const hrefs = [...html.matchAll(/<a class="resource-card__link" href="([^"]+)"/g)].map((m) => m[1]);
   assert.strictEqual(hrefs[hrefs.length - 1], home.HOME_ABOUT.url);
-  assert.strictEqual(hrefs[0], "/fonts/", "Free Fonts opens the section");
+  assert.strictEqual(hrefs[0], "/fonts/", "Fonts opens the section");
   assert.deepStrictEqual(
     hrefs,
     ["/fonts/", "/category/mobile", "/category/web", "/category/systems", "/category/motion", "/category/adobe-xd", "/about"],
   );
-  assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Free Fonts</a></h3>'));
+  assert.ok(html.includes('<li class="resource-card"><h3 class="resource-card__title"><a class="resource-card__link" href="/fonts/">Fonts</a></h3>'));
   // Icon Packs was retired: no resource card links /icons/.
   assert.ok(!html.includes("/icons/"), "no Icon Packs card on Home");
   hrefs.forEach((href) => assert.ok(knownUrls.has(href), href));

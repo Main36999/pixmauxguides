@@ -290,7 +290,7 @@ function buildRoadmap(guides) {
 //   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
 //                             real, top-level destination
 //   HOME_RESOURCES_START/END  more useful resources — neutral title-and-text cards:
-//                             Free Fonts, the guide topics not in
+//                             Fonts, the guide topics not in
 //                             RESOURCE_TOPICS_SKIPPED, plus About
 //
 // Every card is a real <a> (the title link, stretched over the card), every
@@ -360,7 +360,7 @@ const HOME_TOOLS = [
  * guide topics; About stays the closing card.
  */
 const HOME_FONTS = {
-  title: "Free Fonts",
+  title: "Fonts",
   url: "/fonts/",
   desc: "Browse free fonts for personal and commercial design projects, with original font files and license information.",
 };
