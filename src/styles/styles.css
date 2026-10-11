@@ -428,6 +428,28 @@ ul {
   width: 17px;
   height: 17px;
 }
+/* 1280px and wider (the one-row, 92px bar): a 48px pill up to 320px
+   wide, its 40px button 4px in from the top, bottom and right edge (1px
+   border + 3px padding), the magnifier scaled with it. The grid track
+   still narrows the pill when the row is tight: about 244px at a 1280px
+   window with a classic scrollbar. Narrower bars keep the 40px pill.
+   The query is the exact complement of (max-width: 1279px), so a
+   fractional width matches one or the other. */
+@media not all and (max-width: 1279px) {
+  .header-search {
+    max-width: 320px;
+    height: 48px;
+    padding-right: 3px;
+  }
+  .header-search button {
+    width: 40px;
+    height: 40px;
+  }
+  .header-search svg {
+    width: 20px;
+    height: 20px;
+  }
+}
 /* ---------- header widths ----------
    641-1279px: the two-row bar (see "header" above). The nav row's hairline
    spans the whole bar, not just the padded box; `safe` keeps the first
