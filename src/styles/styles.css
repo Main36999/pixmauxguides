@@ -207,7 +207,7 @@ ul {
    One header on every page, the homepage included: a white bar with the
    bpozz wordmark, the global search, the main nav and the account
    controls, in that order (partials/header.html).
-     - 1280px and wider: one 72px row.
+     - 1280px and wider: one 92px row.
      - 641-1279px: two rows on the same bar: wordmark, search and account
        on a 72px row, the nav centred on a 48px row under it.
      - 640px and narrower: the menu button, the wordmark and Sign in (or
@@ -220,15 +220,14 @@ ul {
    below that.
    --header-h is the bar's height in each band. The mobile panel, the
    homepage hero, the 404 page and the account page's scroll offsets are
-   all placed from it, so it has to stay equal to the grid rows below. The
-   hairline under the bar is a box-shadow, not a border, so it adds no
-   height.
+   all placed from it, so it has to stay equal to the grid rows below. No
+   rule or shadow is drawn under the bar.
    Header "desktop" queries are written `not all and (max-width: 640px)` —
    the exact complement of the mobile query — rather than
    `(min-width: 641px)`: fractional viewports (640.8px at 125% scaling)
    would otherwise match neither. */
 :root {
-  --header-h: 72px;
+  --header-h: 92px;
   --header-pad: 32px;
 }
 .site-header {
@@ -236,12 +235,11 @@ ul {
   top: 0;
   z-index: 40;
   background: var(--paper);
-  box-shadow: 0 1px 0 var(--line);
 }
 .header-bar {
   display: grid;
   grid-template-columns: auto minmax(240px, 1fr) auto auto;
-  grid-template-rows: 72px;
+  grid-template-rows: 92px;
   grid-template-areas: "brand search nav auth";
   align-items: center;
   column-gap: 20px;
@@ -326,15 +324,15 @@ ul {
   text-decoration: none;
 }
 /* ---------- header nav ----------
-   15px, 600. Resting links in the muted text colour (5.4:1 on white);
-   hover and the current page take the primary blue (5.2:1) with a 2px
-   rule under the link. */
+   15px, 700, in the wordmark's #101010 (--header-bg, 19:1 on white).
+   Hover eases to the muted text colour (5.4:1). The current page looks
+   the same as any other link; aria-current still marks it. */
 .site-nav {
   display: flex;
   align-items: center;
   gap: 24px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -345,19 +343,19 @@ ul {
   flex: 0 0 auto;
   padding: 4px 0;
   border-bottom: 2px solid transparent;
-  color: var(--text-muted);
+  color: var(--header-bg);
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.2s ease;
 }
-.site-nav a:hover,
-.site-nav a[aria-current="page"] {
-  color: var(--action);
-  border-bottom-color: var(--action);
+.site-nav a:hover {
+  color: var(--text-muted);
 }
 /* ---------- header search ----------
    The site's one search box, on every page: a plain GET to /search?s=…
    (search.js reads the query there). A pill in the muted surface colour
-   with a hairline edge; the submit button after the field is the filled
+   with no visible edge (the transparent border keeps its size, and shows
+   in forced-colors mode); the submit button after the field is the filled
    blue circle the homepage hero search used to carry (white magnifier,
    --action, darker on hover; white on blue is 5.2:1), sized to sit
    inside the 40px pill. The field's own outline is cancelled and the
@@ -365,10 +363,10 @@ ul {
    2.4.7): a text field matches :focus-visible on click too, so the inline
    script after the form in partials/header.html marks the form
    data-pointer-focus while a pointer press put focus there, and the ring
-   skips marked forms (with no JS it shows on every focus). The ring is
-   white, then near-black, so it reads against the pill and the bar alike;
-   the transparent outline is for forced-colors mode, which drops
-   box-shadow. */
+   skips marked forms (with no JS it shows on every focus). The ring is a
+   quiet neutral: 2px of the muted text colour around the pill (5.4:1
+   on the white bar); the transparent outline is for forced-colors mode,
+   which drops box-shadow. */
 .header-search {
   display: flex;
   align-items: center;
@@ -378,18 +376,12 @@ ul {
   min-width: 0;
   height: 40px;
   padding: 0 4px 0 16px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--surface-muted);
-  transition: border-color 0.15s ease;
-}
-.header-search:hover {
-  border-color: var(--text-muted);
 }
 .header-search:focus-within:not([data-pointer-focus]) {
-  box-shadow:
-    0 0 0 2px var(--paper),
-    0 0 0 4px var(--header-bg);
+  box-shadow: 0 0 0 2px var(--text-muted);
   outline: 2px solid transparent;
 }
 .header-search input {
@@ -546,10 +538,11 @@ body:has(#mobile-menu:not([hidden])) {
 .mobile-account__nav a {
   padding: 14px 2px;
   border-bottom: 1px solid var(--line);
-  color: var(--text);
+  color: var(--header-bg);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 .mobile-menu__nav a:last-child,
 .mobile-account__nav a:last-child {
@@ -559,11 +552,7 @@ body:has(#mobile-menu:not([hidden])) {
 .mobile-menu__nav a:active,
 .mobile-account__nav a:hover,
 .mobile-account__nav a:active {
-  color: var(--action);
-}
-.mobile-menu__nav a[aria-current="page"] {
-  color: var(--action);
-  border-bottom-color: var(--action);
+  color: var(--text-muted);
 }
 /* Sign in / Sign up in the panel: two full-width buttons under the links. */
 .mobile-menu__auth {
