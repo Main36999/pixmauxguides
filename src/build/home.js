@@ -369,7 +369,7 @@ const HOME_FONTS = {
 const HOME_ABOUT = {
   title: "About bpozz",
   url: "/about",
-  desc: "bpozz is an independent platform for practical design tools, resources, guides, and insights for people who design and build digital products.",
+  desc: "bpozz is a creative platform for graphic designers. Read what it offers and who is behind it.",
 };
 
 /**

@@ -1,8 +1,10 @@
 # bpozz
 
-bpozz is a UI/UX design resource and learning site: UI/UX design guides, a
-learning roadmap, free fonts, color palettes, a color library and an image
-palette extractor (Image Picker).
+bpozz — A Creative Platform for Graphic Designers.
+
+The site currently offers UI/UX design guides, a learning roadmap, free fonts,
+color palettes, a color library and an image palette extractor (Image
+Picker).
 
 Website: https://bpozz.com/
 
@@ -82,6 +84,7 @@ and `snapshot:baseline` refuses to run. See
 | `src/client/`, `src/shared/` | Browser JavaScript, with tests |
 | `src/styles/` | CSS |
 | `src/data/` | Font library, font license audit and editorial data, guide resources |
+| `src/brand/` | Editable source of the social preview image `public/og-image.png` (not published) |
 | `content/guide/` | Guide content ([README](content/guide/README.md)) |
 | `guide/` | Generated guide pages that are committed; edit `content/guide/` instead |
 | `*.html`, `guides/`, `palettes/`, `colors/`, `image-picker/` | Page sources (plus palette and color data); the build fills in shared regions such as the header and footer |

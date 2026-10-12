@@ -23,27 +23,42 @@ Each section says whether it is:
 
 Do not write `Bpozz`, `BPOZZ` or `bpozz!` as the brand name.
 
-## Focus (established)
+## Positioning (established)
 
-bpozz is about UI/UX design resources and learning. Its sections, by page
-title: UI/UX Design Guides, Learning Roadmap, Free Fonts, Color Palettes,
-Color Library and Image Picker.
+- Positioning: "A Creative Platform for Graphic Designers."
+- Full brand expression: "bpozz — A Creative Platform for Graphic Designers."
+- Where the line stands on its own (homepage headline, footer tagline,
+  social preview image), write it exactly as above. Inside a sentence, use
+  lowercase: "bpozz is a creative platform for graphic designers." In a page
+  title, drop the closing period.
+- Don't add it to every page title, button, navigation label or
+  description. Sections and content keep their own descriptive names.
+- It says who bpozz is for and where it is going, not which features exist.
+  Don't present designer profiles, project publishing, showcases, discovery
+  or contact links as available until they launch.
+- "UI/UX" describes the guides' subject, not bpozz as a whole.
+
+Approved by the owner on 2026-10-12 (Issue #29).
 
 ## Descriptions (in use)
 
-Current site copy. Quote it exactly; this document does not turn it into a
-formal tagline or mission statement.
+Current site copy. Quote it exactly.
 
-- Descriptor, used in the homepage and About meta descriptions, the
-  homepage structured data and the About intro: "bpozz is an independent
-  platform for practical design tools, resources, guides, and insights for
-  people who design and build digital products."
-- Homepage heading (H1) and the line in the site footer: "Design
-  intelligence for building better digital products."
-- Homepage and About title suffix: "Design Intelligence for Digital
-  Products".
-
-These lines were introduced in commit `179c8bd` (2026-10-04).
+- Homepage headline (H1) and site footer tagline: "A Creative Platform for
+  Graphic Designers."
+- Homepage supporting line: "Explore practical design guides, resources,
+  and tools to support your creative work."
+- Page titles: "bpozz — A Creative Platform for Graphic Designers" (homepage)
+  and "About bpozz — A Creative Platform for Graphic Designers" (About).
+- Descriptor, used in the homepage and About meta descriptions, the homepage
+  structured data and the web app manifest: "bpozz is a creative platform
+  for graphic designers. Explore practical design guides, resources, and
+  tools to support your creative work."
+- About intro: "bpozz is a creative platform for graphic designers. It offers
+  practical design guides, resources, and tools to support your creative
+  work."
+- Social preview image (`public/og-image.png`): "A Creative Platform for
+  Graphic Designers."
 
 ## Name versus logo (in use)
 
@@ -58,6 +73,13 @@ styling never changes how the name is written.
 - **Icons.** `assets/favicon.png` (favicon), `assets/apple-touch-icon.png`
   (touch icon and footer mark) and `assets/logo.png` (organization logo in
   structured data, `src/build/structured-data.js`).
+- **Social preview image.** `public/og-image.png` (1200 x 630), exported
+  from its editable source `src/brand/og-image.svg`, which is not
+  published. Its wordmark reuses the paths of
+  `assets/bpozz logo Brand-01.svg`. When its headline changes, update the
+  og:image:alt text that quotes it: `index.html`, `roadmap.html` and the
+  guide sources in `content/guide/` with their committed copies in
+  `guide/`.
 - **Older logo files.** The built header does not use
   `assets/bpozz-logo.svg` or the `assets/bpozz logo*` exports. Some
   committed page sources still contain the old `<img class="brand-logo">`
@@ -77,12 +99,18 @@ for example the environment variables `BPOZZ_APPROVE_OUTPUT` and
   commit `ad8bea0` (2026-10-05) replaced it with `bpozz`.
 - `BPOZZ` still appears in some older comments and historical documents.
   Historical documents keep their original wording; new text uses `bpozz`.
+- The positioning used from commit `179c8bd` (2026-10-04) until the Issue #29
+  brand positioning release: "Design intelligence for building better
+  digital products.", the title suffix "Design Intelligence for Digital
+  Products" and the descriptor "bpozz is an independent platform for
+  practical design tools, resources, guides, and insights for people who
+  design and build digital products."
 
 ## Not specified
 
 Nothing has been decided yet for:
 
-- a formal tagline, slogan or mission statement;
+- a mission statement, or any slogan beyond the positioning line;
 - brand colors, typography or design tokens beyond the header wordmark's
   current styling;
 - logo usage rules (clear space, minimum size, color or reversed

@@ -2,7 +2,7 @@
   "name": "bpozz",
   "version": "2.0.0",
   "private": true,
-  "description": "bpozz — UI/UX design resources and learning: design guides, a learning roadmap, free fonts, color palettes, a color library and an image palette extractor. Static pages from a zero-dependency Node build, plus Netlify Functions for sign-in, saved items and error reporting. No framework, no bundler, no CMS.",
+  "description": "bpozz — A Creative Platform for Graphic Designers. UI/UX design guides, a learning roadmap, free fonts, color palettes, a color library and an image palette extractor. Static pages from a zero-dependency Node build, plus Netlify Functions for sign-in, saved items and error reporting. No framework, no bundler, no CMS.",
   "license": "UNLICENSED",
   "engines": {
     "node": ">=18"
