@@ -1,0 +1,22 @@
+{
+  "name": "bpozz",
+  "short_name": "bpozz",
+  "description": "bpozz is an independent platform for practical design tools, resources, guides, and insights for people who design and build digital products.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#101010",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

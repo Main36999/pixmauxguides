@@ -203,13 +203,15 @@ const HEAD_ANALYTICS = `    <!-- Google tag (gtag.js) -->
 // ---------------------------------------------------------------------
 
 /**
- * Theme colour and both icons. Byte-identical on all 41 pages. The theme
- * colour is --header-bg (src/styles/styles.css), the sticky header bar
- * that sits directly under the browser UI.
+ * Theme colour, both icons and the web app manifest. Byte-identical on all
+ * 41 pages. The theme colour is --header-bg (src/styles/styles.css), the
+ * sticky header bar that sits directly under the browser UI. The manifest
+ * (public/manifest.webmanifest, Issue #22) repeats it as theme_color.
  */
 const THEME_AND_ICONS = `    <meta name="theme-color" content="#101010" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 `;
 
 /** The two preconnects and DM Sans. Byte-identical on all 41 pages. */

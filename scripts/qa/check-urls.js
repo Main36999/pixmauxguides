@@ -9,7 +9,8 @@
  *
  *   pages           file, public URL and declared <link rel="canonical">
  *   dataEndpoints   the JSON the running site fetches
- *   siteFiles       robots.txt, sitemap.xml, ads.txt, og-image.png
+ *   siteFiles       robots.txt, sitemap.xml, ads.txt, og-image.png,
+ *                   manifest.webmanifest
  *   assets          images
  *   code            every .js/.css the browser loads
  *
@@ -173,6 +174,13 @@ const CURRENT = path.join(config.paths.qa, "url-snapshot.json");
  * It adds no page. The gate confirmed it was the only addition — 0 removed,
  * nothing else moved, every surviving canonical unchanged — so the baseline
  * was re-recorded at 2433 URLs / 352 pages and the list empties again.
+ *
+ * /manifest.webmanifest (Issue #22) held one entry here while under review:
+ * the web app manifest every page links from its <head>, classified as a
+ * site file (SITE_FILES in snapshot.js). It adds no page. The gate confirmed
+ * it was the only addition — 0 removed, nothing else moved, every surviving
+ * canonical unchanged — so the baseline was re-recorded at 2238 URLs / 347
+ * pages and the list empties again.
  */
 const ALLOWED_ADDED = [];
 

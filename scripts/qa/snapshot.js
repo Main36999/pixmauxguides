@@ -120,7 +120,13 @@ const DATA_ENDPOINTS = [
   "/palettes/palettes-data.json",
 ];
 
-const SITE_FILES = ["/ads.txt", "/og-image.png", "/robots.txt", "/sitemap.xml"];
+const SITE_FILES = [
+  "/ads.txt",
+  "/manifest.webmanifest",
+  "/og-image.png",
+  "/robots.txt",
+  "/sitemap.xml",
+];
 
 /**
  * Deploy-time configuration: published into dist/ for the host to read, and

@@ -299,6 +299,15 @@ const PUBLISH_FILES = [
   { from: "public/robots.txt", to: "robots.txt" },
   { from: "public/ads.txt", to: "ads.txt" },
 
+  /**
+   * ISSUE #22 — the web app manifest, linked from every page by
+   * THEME_AND_ICONS in src/build/head.js. Its icons are the two existing site
+   * icons at their real sizes (64x64, 180x180): there is no 192 or 512 icon,
+   * and display is "browser", so this does not make the site installable.
+   * public/_headers sets its Content-Type.
+   */
+  { from: "public/manifest.webmanifest", to: "manifest.webmanifest" },
+
   // deployment config (Netlify)
   { from: "public/_headers", to: "_headers" },
   { from: "public/_redirects", to: "_redirects" },
