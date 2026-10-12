@@ -349,7 +349,8 @@ const APP_BUNDLE = {
     "src/client/core.js",
     "src/client/guides.js",
     "src/client/search.js",
-    "src/client/contact.js",
+    // ISSUE #19: src/client/contact.js is gone. It wired the in-app form
+    // core.js rendered at #/contact, which now redirects to /contact.
     "src/client/roadmap.js",
   ],
   wrapper: { open: '(function () {\n  "use strict";\n', close: "})();\n" },
@@ -537,13 +538,14 @@ function copy(ctx) {
   // that staged the builder SCRIPTS themselves. Every builder is a module
   // in this directory and takes its inputs from ctx or from the repo root.
 
-  // Stage every page the builders patch in place. Pages they write from
-  // scratch are staged too; they get overwritten, which is harmless and
-  // keeps the staging rule "every route has a file" simple.
+  // Stage every page the builders patch in place. The guide pages, which
+  // src/build/guides.js writes from scratch, are staged too; they get
+  // overwritten, which is harmless and keeps the staging rule "every route
+  // has a file" simple.
   //
-  // FONTS: routes marked `generated` have no committed file to stage — their
-  // builder writes them into the staging root from data (see
-  // src/build/routes.js). Every other route still must exist on disk.
+  // FONTS AND CATEGORIES: routes marked `generated` have no committed file
+  // to stage — their builder writes them into the staging root from data
+  // (see src/build/routes.js). Every other route still must exist on disk.
   let generated = 0;
   for (const r of ctx.routes) {
     if (r.generated) {
@@ -668,6 +670,10 @@ function render(ctx) {
   // Its two warnings used to go to console.warn, i.e. the child process's
   // stderr, which the old ⚠ scan never read — it read stdout. They are
   // reported here instead. Neither fires against the current data.
+  //
+  // ISSUE #19: a category with no guides is fatal now. Its route is
+  // `generated` (src/build/routes.js) and there is no committed page to fall
+  // back on, so it would otherwise fail later, less clearly, in the header.
   const categoriesResult = categories.render(ctx);
   categoriesResult.unknown.forEach((entry) =>
     ctx.warn(
@@ -675,13 +681,14 @@ function render(ctx) {
         `(guide "${entry.id}") — the guide appears in no category grid`,
     ),
   );
-  categoriesResult.skipped.forEach((slug) =>
-    ctx.warn(
-      `categories: "${slug}" has no guides — no page was written for it, so ` +
-        `the staged copy of the committed category/${slug}.html is what ` +
-        `publishes`,
-    ),
-  );
+  if (categoriesResult.skipped.length) {
+    throw new Error(
+      `categories: no guides in ${categoriesResult.skipped
+        .map((slug) => `"${slug}"`)
+        .join(", ")} — no page was written, but categories.json still ` +
+        `routes /category/<slug> for it. Add a guide or remove the category.`,
+    );
+  }
 
   // PHASE 4 STEP 4: the guide pages. The first builder ADDED to this sequence
   // rather than migrated into it — until this step the 22 guide/*.html pages

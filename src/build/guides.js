@@ -60,16 +60,16 @@
  *
  * WHAT THE COMMITTED guide/*.html FILES ARE NOW
  *
- * Generated output that happens to be committed — the same standing the
- * committed category/*.html pages have had since Step 3C. `copy` stages every
- * routed page from the repo root before `render` runs, so they are still
- * read; this module then overwrites every one of them in the staging root, and
- * the published page is this module's output, not the committed file. Keeping
- * them is what makes this step reviewable: guide-template.test.js renders each
- * page and diffs it against the committed file, so the migration is proved
- * against the artefact it migrated rather than against a snapshot of itself.
- * Deleting them means teaching `copy` not to stage a page a writer produces,
- * which changes a shared stage for all 41 routes — a separate step, with its
+ * Generated output that happens to be committed — the standing the committed
+ * category/*.html pages had from Step 3C until Issue #19 deleted them. `copy`
+ * stages every routed page from the repo root before `render` runs, so they
+ * are still read; this module then overwrites every one of them in the staging
+ * root, and the published page is this module's output, not the committed
+ * file. Keeping them is what makes this step reviewable: guide-template.test.js
+ * renders each page and diffs it against the committed file, so the migration
+ * is proved against the artefact it migrated rather than against a snapshot of
+ * itself. Deleting them means marking their routes `generated`, as the font
+ * and category routes are (src/build/routes.js) — a separate step, with its
  * own approval.
  */
 

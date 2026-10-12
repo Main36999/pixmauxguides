@@ -61,11 +61,16 @@ const routeTable = routes.build(model);
 /**
  * Every published page, keyed by its route file. Committed pages are read
  * from the repo root; routes marked `generated` have no committed file (see
- * src/build/routes.js), so their builder renders them in memory instead.
+ * src/build/routes.js), so their builder renders them in memory instead —
+ * the font pages, and since Issue #19 the category pages.
  */
 function committedPages() {
+  const { records: contentIndex } = content.buildContentIndex(model, config);
   const generated = new Map(
-    fonts.build({ config, model }).pages.map((p) => [p.file, p.html]),
+    fonts
+      .build({ config, model })
+      .pages.concat(categories.build({ config, model, contentIndex }).pages)
+      .map((p) => [p.file, p.html]),
   );
   return routeTable.map((r) => ({
     file: r.file.split(path.sep).join("/"),

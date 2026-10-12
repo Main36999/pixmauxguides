@@ -8,7 +8,7 @@
  *
  * THIS FILE IS A BUNDLE FRAGMENT, NOT A MODULE. It is one slice of an IIFE
  * body: the opening `(function () {` and the closing `})();` are emitted by
- * the bundler, and the five fragments share one function scope exactly as
+ * the bundler, and the fragments share one function scope exactly as
  * they did when they were one file. That is deliberate — it is what makes
  * the split provably behaviour-preserving rather than a rewrite. Fragments
  * are never published individually and are never loaded by a <script> tag.
@@ -20,9 +20,8 @@
  * everything after its first await is queued as a microtask, which cannot
  * run until the whole assembled bundle — every later fragment's listener
  * registration included — has finished executing. Function declarations
- * in later fragments (render, populateSelects, initRelatedGuides,
- * initContactForm) are hoisted to the shared IIFE scope, so they are
- * callable from here.
+ * in later fragments (render, populateSelects, initRelatedGuides) are
+ * hoisted to the shared IIFE scope, so they are callable from here.
  *
  * SHARED RENDERERS. escapeHtml() and the Guide card used to be defined in
  * this file, as one of three byte-identical copies (app.js, build-home.js,
@@ -34,14 +33,15 @@
  * to the renderer.
  *
  * WHAT LIVES HERE
- *   category labels, the shared-renderer wiring, GUIDES, PAGES, filter
- *   state, DOM handles, the toast, hash routing, the mobile menu, and the
- *   guides.json load + boot.
+ *   category labels, the shared-renderer wiring, GUIDES, filter state,
+ *   DOM handles, the toast, legacy hash redirects, the mobile menu, and
+ *   the guides.json load + boot.
  *
  * WHAT MOVED OUT
  *   guides.js    grid rendering, filtering, the related-guides rail
  *   search.js    the header quick-search forms
- *   contact.js   the in-app contact form
+ *   contact.js   the in-app contact form (deleted in Issue #19: #/contact
+ *                now redirects to /contact, which has its own form script)
  *   roadmap.js   roadmap progress checkboxes
  *   html.js      escapeHtml            (src/shared/, deduplicated)
  *   card.js      the Guide card + category metadata (src/shared/, ditto)
@@ -73,7 +73,8 @@
   // index.html. It's used for the card thumbnail on the guide list
   // below. If the file at that path doesn't exist yet, the card
   // automatically falls back to this category's blueprint-style SVG
-  // icon (see THUMBS above) — so the site never shows a broken image.
+  // icon (THUMBS in src/shared/card.js) — so the site never shows a broken
+  // image.
   // (The same fallback pattern is used for each guide's own hero
   // image too, but that markup now lives directly in each guide's
   // static page under /guide/ rather than being rendered here.)
@@ -82,75 +83,6 @@
   // loadGuides()) instead of being hardcoded here. GUIDES starts empty
   // and is populated once that fetch resolves.
   var GUIDES = [];
-
-  // Static site pages. About and Contact also exist as standalone,
-  // crawlable files (about.html, contact.html) that are the canonical,
-  // linked-to versions for SEO purposes. This in-app copy is kept only
-  // so old #/about and #/contact hash links still resolve to something
-  // inside the SPA. The Privacy Policy and Terms of Service have no
-  // in-app copy: privacy.html and terms.html are the only versions.
-  var PAGES = {
-    about: {
-      title: "About bpozz",
-      updated: null,
-      render: function () {
-        return `
-          <p>bpozz is an independent platform for practical design tools, resources, guides, and insights for people who design and build digital products. Our guides are written like engineering specs: precise, practical, and built to be applied. Every guide exists because it answers a question we've had to answer ourselves while building real interfaces.</p>
-          <h3>What "written like engineering specs" means</h3>
-          <p>Most design writing either stays abstract — principles with no numbers attached — or turns into a listicle of loosely related tips. We aim for something closer to a spec sheet: concrete ratios, concrete pixel values, and a stated reason for each one, so a guide can be applied directly instead of just admired.</p>
-          <h3>No affiliate links, no sponsored placement</h3>
-          <p>We don't accept payment to feature a tool, and the content itself is never sponsored. bpozz does not currently display advertising. If that changes, ads will be kept separate from editorial content and clearly labeled as advertising. See our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a> for details.</p>
-          <h3>Who this is for</h3>
-          <p>Designers moving from visual intuition toward a more systematic practice, and developers who need to understand the reasoning behind a spec, not just the pixel values in it. Guides are labeled beginner, intermediate, or advanced so you can find your level quickly.</p>
-          <h3>Get in touch</h3>
-          <p>Found an error, have a topic you'd like covered, or just want to say hello? Visit our <a href="/contact">Contact page</a> — we read every message.</p>
-        `;
-      },
-    },
-    contact: {
-      title: "Contact us",
-      updated: null,
-      render: function () {
-        return `
-          <p>Have a question about a guide, spotted an error, or want to suggest a topic? Send us a message and we'll get back to you.</p>
-          <div id="contact-form-wrap">
-            <form id="contact-form" class="contact-form" action="https://formspree.io/f/xljrealj" method="POST" novalidate>
-              <div class="form-row">
-                <label for="contact-name" class="sr-only">Name</label>
-                <input type="text" id="contact-name" name="name" autocomplete="name" placeholder="Your name" required />
-              </div>
-              <div class="form-row">
-                <label for="contact-email" class="sr-only">Email</label>
-                <input type="email" id="contact-email" name="email" autocomplete="email" placeholder="Your email" required />
-              </div>
-              <div class="form-row">
-                <label for="contact-subject" class="sr-only">Subject</label>
-                <input type="text" id="contact-subject" name="subject" autocomplete="off" placeholder="Subject" required />
-              </div>
-              <div class="form-row">
-                <label for="contact-topic" class="sr-only">Topic</label>
-                <select id="contact-topic" name="topic">
-                  <option value="general">General question</option>
-                  <option value="correction">Report a correction</option>
-                  <option value="suggestion">Suggest a guide topic</option>
-                  <option value="advertising">Advertising inquiry</option>
-                  <option value="privacy">Privacy / data request</option>
-                </select>
-              </div>
-              <div class="form-row">
-                <label for="contact-message" class="sr-only">Message</label>
-                <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
-              </div>
-              <div class="form-error" id="contact-form-error" role="alert"></div>
-              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px" aria-hidden="true" />
-              <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send message</button>
-            </form>
-            <p class="contact-alt">You can also reach us directly at <a href="mailto:hello@bpozz.com">hello@bpozz.com</a>. We typically respond within two business days.</p>
-          </div>
-        `;
-      },
-    },
-  };
 
   var state = { search: "", category: "all", level: "all" };
 
@@ -162,9 +94,6 @@
   var toast = document.getElementById("toast");
   var toastTimer = null;
   var homeView = document.getElementById("home-view");
-  var pageView = document.getElementById("page-view");
-  var pageViewBody = document.getElementById("page-view-body");
-  var DEFAULT_TITLE = document.title;
 
   // Two separate questions, two flags (Phase 6):
   //   hasGuideGrid — does this page carry the guide grid + filters
@@ -177,16 +106,17 @@
   //     (#/guide/<id>, #/about|contact, #roadmap) check
   //     this, so they keep working now that the homepage has no grid,
   //     and never fire on /guides.
-  // Guide pages (/guide/*.html), search, palettes, roadmap and the
-  // standalone about/contact/privacy/terms pages load this same app.js
-  // for the shared header search + mobile menu behavior and have neither.
+  // Guide pages (/guide/*.html), search, palettes and roadmap load this
+  // same app.js for the shared header search and have neither. The
+  // standalone about/contact/privacy/terms pages do not load app.js.
   var hasGuideGrid = !!gridRoot;
   var isHomePage = !!homeView;
 
   // --- Shared card-thumbnail renderer export ---------------------------
-  // search.html renders Guide result cards client-side and needs the very
-  // same category thumbnail the build-time grids draw (src/shared/card.js).
-  // Name and shape unchanged: search.html reads this global.
+  // The same category thumbnail the build-time grids draw
+  // (src/shared/card.js), as a global. search.js, which this was exported
+  // for, now takes thumbHtml from this bundle's shared scope instead; the
+  // global is kept, name and shape unchanged, for compatibility.
   //
   // This assignment runs while the IIFE body executes, before init()
   // at the bottom of this file, so the global is in place regardless of
@@ -219,70 +149,18 @@
     window.bpozzShowToast = showToast;
   }
 
-  /* ---------- page routing ----------
-     Each guide and static page lives at its own URL and is
-     rendered as a real page here, replacing the guide list —
-     there is no shared modal that every article is stuffed into. */
-
-  function showPage(html) {
-    if (!homeView || !pageView || !pageViewBody) return;
-    pageViewBody.innerHTML = html;
-    homeView.hidden = true;
-    pageView.hidden = false;
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    var heading = pageViewBody.querySelector("h2");
-    if (heading) {
-      heading.setAttribute("tabindex", "-1");
-      heading.focus();
-    } else {
-      pageView.focus();
-    }
-  }
-
-  function showHome() {
-    if (!homeView || !pageView) return;
-    if (pageView.hidden) return;
-    pageView.hidden = true;
-    pageViewBody.innerHTML = "";
-    homeView.hidden = false;
-    document.title = DEFAULT_TITLE;
-  }
-
-  function legalHtml(page) {
-    var updatedHtml = page.updated
-      ? '<p class="legal-updated mono">' + escapeHtml(page.updated) + "</p>"
-      : "";
-    return (
-      '<div class="legal-content">' +
-      "<h2>" +
-      escapeHtml(page.title) +
-      "</h2>" +
-      updatedHtml +
-      page.render() +
-      "</div>"
-    );
-  }
-
-  function renderLegalRoute(key) {
-    var page = PAGES[key];
-    if (!page) {
-      showHome();
-      return;
-    }
-    document.title = page.title + " — " + DEFAULT_TITLE;
-    showPage(legalHtml(page));
-    if (key === "contact") {
-      initContactForm();
-    }
-  }
+  // ---------- legacy hash routes ----------
+  // Every guide and static page lives at its own URL. The homepage used
+  // to render some of them in place from hash links; handleRoute() below
+  // now only redirects those old links to the real pages.
 
   // Guide ids that have since been renamed to a more descriptive slug
   // (e.g. "g6" -> "whitespace-as-ui-component"). Kept so an old
   // #/guide/<old-id> bookmark or shared link still resolves to
   // today's file instead of silently falling back to the guide list.
   // /guide/g6.html itself (the old crawlable URL, as opposed to this
-  // in-app hash route) redirects separately — see g6.html itself,
-  // plus _redirects/.htaccess for a real HTTP 301 where supported.
+  // in-app hash route) redirects separately, with a real HTTP 301 in
+  // public/_redirects (and public/_htaccess).
   var LEGACY_GUIDE_IDS = {
     g6: "whitespace-as-ui-component",
   };
@@ -315,12 +193,15 @@
       location.replace(exists ? "/guide/" + id : "/guides/");
       return;
     }
+    // About and Contact were rendered in place at #/about and #/contact,
+    // from a copy that had drifted from about.html and contact.html. An old
+    // link now goes to the real page, the same way #roadmap does (Issue
+    // #19). #/privacy and #/terms never redirected: they leave the homepage
+    // as it is.
     var pageMatch = hash.match(/^#\/(about|contact)$/);
     if (pageMatch) {
-      renderLegalRoute(pageMatch[1]);
-      return;
+      location.replace("/" + pageMatch[1]);
     }
-    showHome();
   }
 
   window.addEventListener("hashchange", handleRoute);
@@ -499,7 +380,7 @@
   function renderLoadError() {
     if (!hasGuideGrid) return;
     // guides/index.html ships with the guide grid pre-rendered at build
-    // time (see build-home.js) as a static fallback for crawlers, no-
+    // time (see src/build/home.js) as a static fallback for crawlers, no-
     // JS visitors, and this exact case. If that pre-rendered markup
     // is already sitting in the DOM, keep it visible instead of
     // wiping a working page just because the *live* refresh failed —

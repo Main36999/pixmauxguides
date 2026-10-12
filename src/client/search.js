@@ -42,12 +42,13 @@
  *   the inline script, which only ever existed on that one page, did.
  *
  *   BOOT ORDER. The inline script ran after all of /app.js; this runs in
- *   the middle of it, after core.js and guides.js and before contact.js
- *   and roadmap.js. Equivalent, and checked rather than assumed: it reads
- *   only the DOM (this bundle is loaded at the end of <body>, so the
- *   page is parsed) and core.js's renderers (assigned at the top of that
- *   fragment, well before this one runs). It depends on nothing from
- *   contact.js or roadmap.js, and neither depends on anything here.
+ *   the middle of it, after core.js and guides.js and before roadmap.js
+ *   (and, until Issue #19 deleted it, contact.js). Equivalent, and
+ *   checked rather than assumed: it reads only the DOM (this bundle is
+ *   loaded at the end of <body>, so the page is parsed) and core.js's
+ *   renderers (assigned at the top of that fragment, well before this one
+ *   runs). It depends on nothing from roadmap.js, and roadmap.js depends
+ *   on nothing here.
  *
  * TWO PRIVATE COPIES DROPPED (identical implementations, so identical
  * output — this is Phase 3's deduplication reaching the last file that

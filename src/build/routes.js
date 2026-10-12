@@ -149,8 +149,9 @@ function route(file, type) {
 /**
  * FONTS — the first route group whose pages have NO committed source file.
  *
- * Every other route is a page on disk at the repo root that `copy` stages
- * and a builder then patches or overwrites. The font pages are written from
+ * Every other route except the category pages (below) is a page on disk at
+ * the repo root that `copy` stages and a builder then patches or overwrites.
+ * The font pages are written from
  * src/data/fonts.json by src/build/fonts.js and nothing else, so committing
  * 51 stub files only for `copy` to stage them would be 51 files that exist to
  * be overwritten. `generated: true` tells `copy` not to stage them; the
@@ -169,6 +170,20 @@ function fontRoutes(fonts) {
 }
 
 /**
+ * CATEGORY PAGES — generated the same way. src/build/categories.js writes
+ * every /category/<slug> page from the content model, so the ten committed
+ * category/*.html files `copy` used to stage were only ever overwritten, and
+ * had drifted from what ships (Issue #19). They are gone. A category with no
+ * guides gets no page, and the build fails on its route rather than
+ * publishing a stale one.
+ */
+function categoryRoutes(categories) {
+  return categories
+    .map((c) => route(`category/${c.slug}.html`, "category"))
+    .map((r) => Object.assign(r, { generated: true }));
+}
+
+/**
  * Builds the full route table from a loaded content model.
  * Deterministic: generated routes follow their source array's order, and
  * the table as a whole is sorted by URL before it is returned.
@@ -178,9 +193,7 @@ function build(model) {
     .concat(STATIC_ROOT_PAGES.map((f) => route(f, "page")))
     .concat(SECTION_INDEX_PAGES.map((f) => route(f, "section")))
     .concat(model.guides.map((g) => route(`guide/${g.id}.html`, "guide")))
-    .concat(
-      model.categories.map((c) => route(`category/${c.slug}.html`, "category")),
-    )
+    .concat(categoryRoutes(model.categories))
     .concat(fontRoutes(model.fonts));
 
   routes.sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0));

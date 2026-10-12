@@ -95,6 +95,8 @@
  *      against the current data (all 10 categories carry at least one guide
  *      and no guide names a slug categories.json does not have), so the build
  *      log is unchanged today; what changes is that they would be seen.
+ *      (Issue #19 made the zero-guide case fatal in build.js; the unknown
+ *      slug is still a warning.)
  *
  * Everything the output depends on is unchanged and deliberately so:
  *
@@ -106,9 +108,11 @@
  *     before the rail;
  *   - categories are visited in categories.json order, via the same
  *     insertion-ordered key map;
- *   - a category with zero guides is skipped and no page is written for it,
- *     which leaves the staged copy of the committed page in place — the same
- *     outcome the builder produced;
+ *   - a category with zero guides is skipped and no page is written for it.
+ *     That used to leave the staged copy of the committed page in place, as
+ *     the builder did; since Issue #19 there is no committed page (the
+ *     routes are `generated`, see src/build/routes.js), and build.js fails
+ *     the build on a skipped category instead;
  *   - a guide naming a slug categories.json does not carry is dropped from
  *     every grid, not assigned to some fallback;
  *   - CATEGORY_CODE is still a literal map here and still fails loudly on a
@@ -370,7 +374,7 @@ function indexRecordCardHtml(record) {
 /**
  * One optional rail section. Returns "" (renders nothing) when there are no
  * matching records — same "don't leave an empty box" behaviour as the
- * zero-guide skip in render(), and as app.js's initRelatedGuides(), which
+ * zero-guide skip in build(), and as app.js's initRelatedGuides(), which
  * removes its rail <aside> entirely when there's nothing relevant to show.
  * Reuses .guide-rail/.guide-rail__label verbatim from styles.css's existing
  * /guide/ page rail — a generic "labeled divider + grid" component despite its
@@ -559,22 +563,21 @@ ${SKIP_LINK}
 // ---------------------------------------------------------------------
 
 /**
- * Writes one category page per category that has at least one guide, into the
- * staging root, from scratch.
+ * Every category page, in memory: one per category that has at least one
+ * guide. Takes guides, categories and the content index from ctx; reads the
+ * two partials from the repo root, the way header.js and footer.js do. Writes
+ * nothing. `render` writes it out, and the tests call it directly so they can
+ * check the pages without a build having run — the same split as
+ * src/build/fonts.js.
  *
- * Takes guides, categories and the content index from ctx; reads the two
- * partials from the repo root, the way header.js and footer.js do. Writes
- * nothing outside the staging root.
- *
- * Returns { written, skipped, unknown } for the caller to summarize and warn
- * on:
- *   written  slugs that got a page
- *   skipped  slugs with zero guides, whose page was NOT written
+ * Returns { pages, skipped, unknown }:
+ *   pages    [{ slug, file, html }] in categories.json order
+ *   skipped  slugs with zero guides, which get no page
  *   unknown  "<guide id>" / "<slug>" pairs naming a category that isn't in
  *            categories.json; those guides appear in no grid
  */
-function render(ctx) {
-  const { root, stage } = ctx.config.paths;
+function build(ctx) {
+  const { root } = ctx.config.paths;
 
   // PHASE 4 STEP 6: no Array.isArray(guides) guard here any more — `load`
   // validates guides.json once, for every builder, before dist/ exists.
@@ -609,9 +612,6 @@ function render(ctx) {
     .readFileSync(path.join(root, FOOTER_PARTIAL), "utf8")
     .trim();
 
-  const outDir = path.join(stage, CATEGORY_DIR);
-  fs.mkdirSync(outDir, { recursive: true });
-
   const unknown = [];
   const bySlug = new Map();
   for (const slug of Object.keys(CATEGORIES)) bySlug.set(slug, []);
@@ -623,7 +623,7 @@ function render(ctx) {
     bySlug.get(g.category).push(g);
   }
 
-  const written = [];
+  const pages = [];
   const skipped = [];
   for (const slug of Object.keys(CATEGORIES)) {
     const guidesInCategory = bySlug.get(slug);
@@ -643,14 +643,40 @@ function render(ctx) {
       cardHtml,
       ctx.config.origin,
     );
-    fs.writeFileSync(path.join(outDir, `${slug}.html`), html);
-    written.push(slug);
+    pages.push({ slug, file: `${CATEGORY_DIR}/${slug}.html`, html });
   }
 
-  return { written, skipped, unknown };
+  return { pages, skipped, unknown };
+}
+
+/**
+ * Writes every page `build` produces into the staging root, from scratch.
+ * Writes nothing outside the staging root.
+ *
+ * Returns { written, skipped, unknown } for the caller to summarize and warn
+ * on:
+ *   written  slugs that got a page
+ *   skipped  slugs with zero guides, whose page was NOT written
+ *   unknown  as `build` returns it
+ */
+function render(ctx) {
+  const { stage } = ctx.config.paths;
+  const out = build(ctx);
+
+  const outDir = path.join(stage, CATEGORY_DIR);
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const written = [];
+  out.pages.forEach(function (page) {
+    fs.writeFileSync(path.join(outDir, `${page.slug}.html`), page.html);
+    written.push(page.slug);
+  });
+
+  return { written, skipped: out.skipped, unknown: out.unknown };
 }
 
 module.exports = {
+  build,
   render,
   pageHtml,
   loadCategoryData,
