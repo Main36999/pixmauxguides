@@ -1,5 +1,16 @@
 # Website Audit Report
 
+> **Historical snapshot.** This report records the audit of commit
+> `1271da0` on 2026-09-23. It was committed with that audit's fixes in
+> `dc9c2b0` and has not been updated since. Its findings and evidence are
+> kept as written. Counts, architecture notes and "current state"
+> statements below describe the site as it was then, not as it is now: the
+> site has since added sign-in (Netlify Functions, see `docs/AUTH.md`), a
+> custom `404.html`, a CI workflow and a `netlify.toml`, among other
+> changes.
+>
+> For the current project, see `README.md` and the documents in `docs/`.
+
 Audit date: 2026-09-23 · Base commit `1271da0` (main) · Three passes: full audit → production verification → pre-commit review
 Nothing has been committed or pushed.
 
