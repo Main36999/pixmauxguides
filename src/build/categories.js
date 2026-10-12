@@ -15,7 +15,7 @@
  *
  * One standalone, crawlable archive page per category —
  * category/color-theory.html, category/typography.html, … — generated from
- * guides.json. Each is a resourceboy.com/fonts/-style listing: a short title
+ * guides.json. Each is a minimal archive listing: a short title
  * and one-line description, then the SAME .guides-main/.grid/.content-card
  * markup the homepage grid uses. Since Phase 3 that card comes from
  * src/shared/card.js, which build-home.js and the browser's /app.js bundle
@@ -27,7 +27,7 @@
  * carry data-jump-category and just re-filter the homepage grid in place via
  * app.js — a real navigation only on pages other than index.html, and never a
  * page of its own. That meant a category had no stable, linkable, indexable
- * URL. These pages give it one, modeled on resourceboy.com's own category
+ * URL. These pages give it one, as minimal category
  * archives (a plain breadcrumb, heading, and the same card grid — no separate
  * design system).
  *

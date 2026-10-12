@@ -295,7 +295,7 @@
     var categories = (options && options.categories) || {};
     var titleTag = (options && options.titleTag) === "h2" ? "h2" : "h3";
 
-    // Minimal, resourceboy.com-style card: plain thumbnail, a title, and
+    // Minimal card: plain thumbnail, a title, and
     // one small muted meta line ("category · level · read time"). The
     // title's .card-link stretches over the whole .content-card (see
     // styles.css), so the entire tile is one click target. `badgeHtml` is

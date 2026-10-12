@@ -70,8 +70,8 @@ body {
   margin: 0;
   padding: 0;
 }
-/* Flat, borderless backdrop site-wide — the "clean, minimalist,
-   resourceboy.com-style" treatment. This used to be homepage-only
+/* Flat, borderless backdrop site-wide — the "clean, minimalist"
+   treatment. This used to be homepage-only
    (body.page-home overrode a graph-paper grid + radial glow that every
    other template — guide, roadmap, legal — kept), which made the home
    page look like a different site from the rest. Every page now shares
@@ -1238,8 +1238,8 @@ html[data-auth] .mobile-menu__auth {
    leaving large empty gutters on either side while the guide cards
    themselves stayed cramped into 5 columns. A much wider (but still
    capped, so cards don't balloon on ultra-wide monitors) container
-   lets the grid actually fill the viewport the way resourceboy.com's
-   does, while staying centered like the rest of .wrap. */
+   lets the grid actually fill the viewport, while staying centered
+   like the rest of .wrap. */
 .guides-main {
   max-width: 1800px;
   padding: 44px 32px 88px;
@@ -1288,7 +1288,7 @@ html[data-auth] .mobile-menu__auth {
     flex: 0 0 150px;
   }
 }
-/* Fixed 5-column grid on desktop, matching resourceboy.com's card
+/* Fixed 5-column grid on desktop for the card
    layout, stepping down at narrower widths instead of auto-fill's
    variable column count (which was only landing on 4 at this
    container's max-width). */
@@ -1314,7 +1314,7 @@ html[data-auth] .mobile-menu__auth {
   }
 }
 
-/* Minimal, resourceboy.com-style card: no border/box/shadow — just a
+/* Minimal card: no border/box/shadow — just a
    plain rounded thumbnail with a title and a small muted meta line
    underneath. The whole tile is a single click target via .card-link's
    ::after (stretched over .content-card, which is the positioning
@@ -1494,7 +1494,7 @@ html[data-auth] .mobile-menu__auth {
 }
 
 /* ---------- category pages (/category/<slug>.html) ----------
-   Minimal per-category archive page, resourceboy.com-style: a short
+   Minimal per-category archive page: a short
    title + one-line description, then the exact same
    .guides-main/.grid/.content-card markup as the homepage grid (see
    build-categories.js) so a category page reads as a filtered slice
@@ -2359,8 +2359,8 @@ body > .site-footer {
 }
 
 /* ---------- about page: founder signature ----------
-   Modeled on the founder photo + name + title block at the end of
-   resourceboy.com/about — a small centered portrait with a name and
+   A founder photo + name + title block at the end of the About
+   page — a small centered portrait with a name and
    title underneath, set off from the copy above by a hairline rule. */
 .about-founder {
   display: flex;
@@ -2392,7 +2392,7 @@ body > .site-footer {
 }
 
 /* ---------- contact page ----------
-   Modeled on resourceboy.com/contact/: no visible field labels at
+   Minimal form: no visible field labels at
    all — placeholder text carries each field, labels are kept for
    screen readers only (.sr-only) — no boxed inputs, no fill, just a
    hairline rule under each field. Same "minimalism through spacing
