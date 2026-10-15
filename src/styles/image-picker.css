@@ -72,7 +72,7 @@
 .ip-head h1 {
   margin: 0;
   font-size: var(--intro-title-hero);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--text);

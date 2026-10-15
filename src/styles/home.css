@@ -38,7 +38,7 @@
   margin-bottom: 40px;
   font-size: 17px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.04em;
   text-align: center;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -159,7 +159,7 @@
 
 .tool-card__title {
   font-size: clamp(42px, 4vw, 54px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   overflow-wrap: break-word;
@@ -181,7 +181,7 @@
   padding-top: 32px;
   font-size: 13.5px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--card-ink);
 }
@@ -214,7 +214,7 @@
 }
 .resource-card__title {
   font-size: clamp(30px, 2.4vw, 36px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
   overflow-wrap: break-word;
@@ -289,7 +289,6 @@
   .home-eyebrow {
     margin-bottom: 24px;
     font-size: 14px;
-    letter-spacing: 0.18em;
   }
   .tool-grid,
   .resource-grid {

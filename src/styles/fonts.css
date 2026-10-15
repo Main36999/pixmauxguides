@@ -24,7 +24,7 @@
 }
 .fonts-hero h1 {
   font-size: var(--intro-title-hero);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--font-ink);
@@ -232,6 +232,15 @@
 .font-card__sample[data-custom] {
   font-size: clamp(20px, 1vw + 13px, 26px);
 }
+/* Text set in a library font shows that font as its designer drew it:
+   none of the site's own Mona Sans stylistic sets (--sans-features in
+   styles.css) reach it. */
+.font-card__sample,
+.font-detail__title,
+.font-specimen__text,
+.font-pairing__name {
+  font-feature-settings: normal;
+}
 
 @media (max-width: 479px) {
   .font-card__preview {
@@ -252,7 +261,7 @@
 .font-card__name {
   min-width: 0;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   color: var(--font-ink);
   overflow: hidden;
@@ -811,7 +820,7 @@
 .font-pairing__role {
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
