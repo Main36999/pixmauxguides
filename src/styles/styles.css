@@ -290,18 +290,23 @@ ul {
   color: var(--action);
 }
 /* ---------- header wordmark ----------
-   The brand is the word "bpozz" set in Damion (400), not an image: the
-   copy of the face the font library already publishes at /fonts/damion/
-   (SIL OFL 1.1). It is declared under its own family name so it never
-   mixes with the font library's own preview of Damion.
-   Measured in Chrome: at 38px the word's advance is 82px but its ink runs
-   to 88px (the final z reaches past its advance), 25px above the baseline
-   and 10px below. So the link is a fixed 2.4em box (91px at 38px), which
-   holds the ink whole and keeps the search beside it from moving when the
-   face arrives, and line-height 1.25 keeps the descenders inside the box.
+   The brand is the supplied SVG wordmark, assets/bpozz brand logo.svg:
+   "bpozz" in #101010 on transparent (19:1 on white), viewBox 0 0 1200 300
+   with no width or height of its own. Its ink spans about x 227-973 and
+   y 2.5-297.5, so close to a fifth of the artwork's width is empty on each
+   side. object-fit: cover fills the box's height and crops that empty
+   space, so the logo keeps the 91px slot (77px on mobile) the Damion text
+   wordmark held and the search beside it does not move. The ink comes out
+   about 87 x 34px (72 x 28.5px on mobile), the size of the old text's ink.
+   The width and height on the <img> reserve its box before the file
+   arrives. The link carries the accessible name ("bpozz home"); the image
+   is alt="".
+   The Damion face below is now only the 404 page's wordmark
+   (.notfound-top__brand): the copy of the face the font library already
+   publishes at /fonts/damion/ (SIL OFL 1.1), declared under its own family
+   name so it never mixes with the font library's own preview of Damion.
    font-display: block holds the word invisible for the moment before the
-   34 KB file loads rather than drawing it in a fallback of another width.
-   #101010 (--header-bg) on white is 19:1. */
+   34 KB file loads rather than drawing it in a fallback of another width. */
 @font-face {
   font-family: "Damion Wordmark";
   src: url("/fonts/damion/Damion-Regular.woff2") format("woff2");
@@ -312,16 +317,13 @@ ul {
 .brand {
   display: block;
   flex-shrink: 0;
-  width: 2.4em;
-  color: var(--header-bg);
-  font-family: "Damion Wordmark", var(--sans);
-  font-size: 38px;
-  font-weight: 400;
-  font-synthesis: none;
-  line-height: 1.25;
-  letter-spacing: 0;
-  white-space: nowrap;
   text-decoration: none;
+}
+.brand-logo {
+  display: block;
+  width: 91px;
+  height: 35px;
+  object-fit: cover;
 }
 /* ---------- header nav ----------
    15px, 700, in the wordmark's #101010 (--header-bg, 19:1 on white).
@@ -799,8 +801,9 @@ html[data-auth] .mobile-menu__auth {
     align-self: start;
     max-width: none;
   }
-  .brand {
-    font-size: 32px;
+  .brand-logo {
+    width: 77px;
+    height: 29px;
   }
   .site-nav {
     display: none;

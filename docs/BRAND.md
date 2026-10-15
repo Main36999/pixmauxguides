@@ -65,13 +65,16 @@ Current site copy. Quote it exactly.
 The name is text. The logo is a visual treatment of that text, and its
 styling never changes how the name is written.
 
-- **Header wordmark.** The HTML text `bpozz`, set in the Damion typeface
-  (SIL OFL 1.1) under its own font-face name, "Damion Wordmark". Its
-  accessible name is "bpozz home". See `partials/header.html` and the
-  "header wordmark" block in `src/styles/styles.css`. The script face,
-  size and colors are logo styling only.
-- **Icons.** `assets/favicon.png` (favicon), `assets/apple-touch-icon.png`
-  (touch icon and footer mark) and `assets/logo.png` (organization logo in
+- **Header wordmark.** The SVG `assets/bpozz brand logo.svg` ("bpozz" in
+  `#101010` on transparent), an `<img alt="">` inside the brand link,
+  whose accessible name is "bpozz home". See `partials/header.html` and
+  the "header wordmark" block in `src/styles/styles.css`. The 404 page
+  keeps its own text wordmark: the HTML text `bpozz` set in the Damion
+  typeface (SIL OFL 1.1) under its own font-face name, "Damion Wordmark".
+  The artwork, face, size and colors are logo styling only.
+- **Icons.** `assets/favicon.png` (favicon, a 64 x 64 downscale of
+  `assets/bpozz brand logo.png`), `assets/apple-touch-icon.png` (touch
+  icon and footer mark) and `assets/logo.png` (organization logo in
   structured data, `src/build/structured-data.js`).
 - **Social preview image.** `public/og-image.png` (1200 x 630), exported
   from its editable source `src/brand/og-image.svg`, which is not
