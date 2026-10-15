@@ -1,3 +1,26 @@
+/* ---------- site typeface ----------
+   Mona Sans (github/mona-sans v2.0.27, SIL OFL 1.1, Reserved Font Name
+   "Mona"), self-hosted from assets/fonts/mona-sans/ beside its OFL.txt.
+   The two files are the project's own variable WOFF2 web fonts, unmodified
+   (MonaSansVF[opsz,wght] and its italic, renamed only to drop the brackets):
+   weight 200-900 and an optical-size axis the browser sets from the font
+   size. The upright file is preloaded from every page's <head>
+   (src/build/head.js); the italic loads only where italic text appears.
+   swap shows the fallback stack in --sans until the file arrives. */
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/assets/fonts/mona-sans/MonaSansVF-opsz-wght.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/assets/fonts/mona-sans/MonaSansVF-Italic-opsz-wght.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
 :root {
   --action: #2563eb;
   --action-hover: #1d4ed8;
@@ -12,7 +35,7 @@
   --text-muted: #5c6b85;
   --header-bg: #101010;
   --radius: 3px;
-  --sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sans: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Shared values the section stylesheets (fonts, icons, colors,
      palettes, image picker, /guides) each restated. Same values, one
@@ -1258,7 +1281,7 @@ html[data-auth] .mobile-menu__auth {
   padding-bottom: 18px;
   border-bottom: 1px solid var(--grid-line);
 }
-/* Black everywhere, matching the home page's plain black, DM Sans body
+/* Black everywhere, matching the home page's plain black, Mona Sans body
    copy — used to be blue by default with a home-page-only override back
    to black; every page now gets the same black treatment directly. */
 .section-label {

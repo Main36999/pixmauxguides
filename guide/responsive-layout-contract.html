@@ -107,11 +107,12 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/assets/fonts/mona-sans/MonaSansVF-opsz-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/guide-article.css" />
@@ -520,7 +521,7 @@
                   two-column layout actually collides — landing between two of
                   the device ticks rather than on either of them.
                 </desc>
-                <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                <g font-family="'Mona Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
                   <text
                     x="60"
                     y="28"
@@ -812,7 +813,7 @@
                   below 400 pixels, a straight linear ramp between 400 and 1600
                   pixels, and a flat maximum segment above 1600 pixels.
                 </desc>
-                <g font-family="'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                <g font-family="'Mona Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif">
                   <!-- axes -->
                   <line
                     x1="60"

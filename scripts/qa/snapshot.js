@@ -289,11 +289,16 @@ function main() {
   // ICON PACKS: the icon SVGs and PNGs are already images by extension; the
   // one new file type is each pack's generated download ZIP, scoped to
   // icons/<pack>/ the same way the font rule is scoped to fonts/<id>/.
+  //
+  // SITE TYPEFACE: the UI font's WOFF2 files and its license
+  // (assets/fonts/mona-sans/), scoped to assets/fonts/<id>/ the same way,
+  // so a stray font or text file anywhere else in assets/ still fails.
   const assets = files
     .filter(
       (f) =>
         /\.(png|jpe?g|webp|svg|ico)$/i.test(f) ||
         /^fonts\/[a-z0-9-]+\/[^/]+\.(woff2|ttf|otf|zip|txt)$/.test(f) ||
+        /^assets\/fonts\/[a-z0-9-]+\/[^/]+\.(woff2|txt)$/.test(f) ||
         /^icons\/[a-z0-9-]+\/[^/]+\.zip$/.test(f),
     )
     .map((f) => "/" + f)

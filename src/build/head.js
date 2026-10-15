@@ -214,12 +214,18 @@ const THEME_AND_ICONS = `    <meta name="theme-color" content="#101010" />
     <link rel="manifest" href="/manifest.webmanifest" />
 `;
 
-/** The two preconnects and DM Sans. Byte-identical on all 41 pages. */
-const FONTS = `    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-      rel="stylesheet"
+/**
+ * The site typeface's preload: the upright Mona Sans file that the
+ * @font-face rules in src/styles/styles.css declare, fetched alongside the
+ * stylesheet rather than after it. Self-hosted, so no font request leaves
+ * bpozz. Byte-identical on all 41 pages.
+ */
+const FONTS = `    <link
+      rel="preload"
+      href="/assets/fonts/mona-sans/MonaSansVF-opsz-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 `;
 

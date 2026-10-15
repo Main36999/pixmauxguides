@@ -5,9 +5,9 @@
     "pages": 347,
     "dataEndpoints": 5,
     "siteFiles": 5,
-    "assets": 1867,
+    "assets": 1870,
     "code": 16,
-    "total": 2240
+    "total": 2243
   },
   "pages": [
     {
@@ -1781,6 +1781,9 @@
     "/assets/bpozz logo.png",
     "/assets/bpozz-logo.svg",
     "/assets/favicon.png",
+    "/assets/fonts/mona-sans/MonaSansVF-Italic-opsz-wght.woff2",
+    "/assets/fonts/mona-sans/MonaSansVF-opsz-wght.woff2",
+    "/assets/fonts/mona-sans/OFL.txt",
     "/assets/founder-somrach-hoy.jpg",
     "/assets/logo.png",
     "/fonts/abeezee/ABeeZee-Italic.ttf",

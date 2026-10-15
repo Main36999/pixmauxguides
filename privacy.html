@@ -90,11 +90,12 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/assets/fonts/mona-sans/MonaSansVF-opsz-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -225,7 +226,7 @@
       <main class="page-view-body" id="main" tabindex="-1">
         <div class="legal-content">
           <h1 class="legal-title">Privacy Policy</h1>
-          <p class="legal-updated mono">Effective date: October 8, 2026</p>
+          <p class="legal-updated mono">Effective date: October 15, 2026</p>
           <p>
             This Privacy Policy explains what information bpozz ("bpozz," "we,"
             "us") collects, how it's used, and the choices available to you. By
@@ -387,15 +388,10 @@
               may keep a small technical record in your browser's storage.
             </li>
             <li>
-              <strong>Web font (Google Fonts).</strong> The site's typeface, DM
-              Sans, is loaded from Google Fonts. To display it, your browser
-              requests the font files from Google's servers
-              (fonts.googleapis.com and fonts.gstatic.com), which means Google
-              receives your IP address and browser details as part of that
-              request. See the
-              <a href="https://developers.google.com/fonts/faq/privacy">Google
-              Fonts privacy FAQ</a>. The fonts offered for download in our font
-              library are served from bpozz, not from Google Fonts.
+              <strong>Web font.</strong> The site's typeface, Mona Sans, is
+              served from bpozz itself, so displaying it sends no request to
+              Google Fonts or any other font service. The fonts offered for
+              download in our font library are also served from bpozz.
             </li>
           </ul>
           <h2 class="legal-subheading">How we use information</h2>
