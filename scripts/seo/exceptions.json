@@ -20,11 +20,6 @@
     "reason": "H1 'About bpozz'; the title adds the positioning line (owner decision, commit 3703c12)."
   },
   {
-    "rule": "h1-title-mismatch",
-    "url": "/hoysomrach",
-    "reason": "Founder personal page; the 'Hello!' H1 is intentional (owner-reviewed /hoysomrach page)."
-  },
-  {
     "rule": "description-duplicate",
     "url": "/",
     "reason": "Homepage and About share the canonical positioning description on purpose (commit 09f4c53, 'Unify homepage and About positioning metadata')."

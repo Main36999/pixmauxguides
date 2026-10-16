@@ -239,13 +239,19 @@ const ROOT_LINKS = [
  * feature was retired. Its resource-types.json entry went with it, and the
  * old /icons/ URLs return 410 (public/_redirects). Same every-page blast
  * radius: one removed <a> per nav region.
+ *
+ * IMAGE PICKER — REMOVED
+ *
+ * The Image Picker entry sat between Fonts and UI/UX Guides until the page
+ * was removed. Its resource-types.json entry went with it, and the old
+ * /image-picker/ URLs return 410 (public/_redirects). Same every-page blast
+ * radius: one removed <a> per nav region.
  */
 const MAIN_HEADER_NAV = [
   { label: "All", landingUrl: "/" },
   { label: "Colors", landingUrl: "/colors/" },
   { label: "Palettes", landingUrl: "/palettes/" },
   { label: "Fonts", landingUrl: "/fonts/" },
-  { label: "Image Picker", landingUrl: "/image-picker/" },
   { label: "UI/UX Guides", landingUrl: "/guides/" },
   { label: "Learning Roadmap", landingUrl: "/roadmap" },
 ];

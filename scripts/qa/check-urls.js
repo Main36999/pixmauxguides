@@ -209,6 +209,16 @@ const NO_CANONICAL_BY_DESIGN = new Set(["/404.html"]);
  * unchanged — so the baseline was re-recorded at 2237 URLs / 347 pages and
  * the list empties again.
  *
+ * /hoysomrach AND IMAGE PICKER REMOVED held 5 entries here while their URL
+ * change was under review, taken straight from the baseline: 2 pages
+ * (/hoysomrach, /image-picker) and the Image Picker's 3 own files (its
+ * standby photo, stylesheet and script). Those URLs now return 410 with the
+ * not-found page (public/_redirects); src/build/removed-pages.test.js keeps
+ * them removed. /assets/founder-somrach-hoy.jpg was never listed: /about
+ * still uses it. The gate confirmed they were the only removals — 0 added,
+ * nothing else moved, every surviving canonical unchanged — so the baseline
+ * was re-recorded at 2238 URLs / 345 pages and the list empties again.
+ *
  * HOW TO USE THIS LIST
  *
  * A change that intends to move a URL enumerates it here — one entry per

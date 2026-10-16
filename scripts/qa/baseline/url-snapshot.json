@@ -2,12 +2,12 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 347,
+    "pages": 345,
     "dataEndpoints": 5,
     "siteFiles": 5,
-    "assets": 1870,
-    "code": 16,
-    "total": 2243
+    "assets": 1869,
+    "code": 14,
+    "total": 2238
   },
   "pages": [
     {
@@ -1709,16 +1709,6 @@
       "file": "guides/index.html",
       "url": "/guides",
       "canonical": "https://bpozz.com/guides/"
-    },
-    {
-      "file": "hoysomrach.html",
-      "url": "/hoysomrach",
-      "canonical": "https://bpozz.com/hoysomrach"
-    },
-    {
-      "file": "image-picker/index.html",
-      "url": "/image-picker",
-      "canonical": "https://bpozz.com/image-picker/"
     },
     {
       "file": "palettes/index.html",
@@ -3608,7 +3598,6 @@
     "/fonts/zilla-slab/ZillaSlab-SemiBoldItalic.ttf",
     "/fonts/zilla-slab/ZillaSlab-SemiBoldItalic.woff2",
     "/fonts/zilla-slab/ZillaSlab.zip",
-    "/image-picker/assets/standby.jpg",
     "/thumbnail_image_webp/A Color Palette Is a Token System, Not a Row of Swatches.webp",
     "/thumbnail_image_webp/Accessibility Is a Structural Decision, Not a Final Pass.webp",
     "/thumbnail_image_webp/Auto Layout Is a Constraint System, Not a Convenience Toggle.webp",
@@ -3643,8 +3632,6 @@
     "/fonts/fonts.js",
     "/guide-article.css",
     "/home.css",
-    "/image-picker/image-picker.css",
-    "/image-picker/image-picker.js",
     "/palettes/palettes.css",
     "/palettes/palettes.js",
     "/saved.js",

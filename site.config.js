@@ -588,11 +588,17 @@ module.exports = {
    *                            icons/<pack>.html pages)
    *   sitemapUrls  344 → 344  (unchanged: the pages were noindex and never
    *                            in the sitemap)
+   *
+   * /hoysomrach AND /image-picker — REMOVED. Both pages are deleted; their
+   * URLs return 410 (public/_redirects):
+   *   htmlPages    347 → 345  (−2: hoysomrach.html, image-picker/index.html)
+   *   sitemapUrls  344 → 342  (−2: https://bpozz.com/hoysomrach and
+   *                            https://bpozz.com/image-picker/)
    */
   expected: {
-    htmlPages: 347,
+    htmlPages: 345,
     snapshotUrls: 89,
-    sitemapUrls: 344,
+    sitemapUrls: 342,
   },
 
   /**

@@ -47,7 +47,8 @@ const STATIC_ROOT_PAGES = [
   "roadmap.html",
   "search.html",
   "terms.html",
-  "hoysomrach.html",
+  // /hoysomrach (hoysomrach.html) was removed; its URL returns 410 via
+  // public/_redirects.
   // The not-found page Netlify serves for any missing path. noindex, no
   // canonical, and not in sitemap.xml.
   "404.html",
@@ -59,12 +60,11 @@ const STATIC_ROOT_PAGES = [
 
 /**
  * Root pages published at an extensionless URL. Netlify serves /<name> from
- * <name>.html. hoysomrach and account were extensionless from the start; the
- * rest joined in the Pretty URL migration (see URL SHAPE above).
- * scripts/qa/snapshot.js mirrors this set.
+ * <name>.html. account was extensionless from the start (as was the removed
+ * hoysomrach); the rest joined in the Pretty URL migration (see URL SHAPE
+ * above). scripts/qa/snapshot.js mirrors this set.
  */
 const EXTENSIONLESS_ROOT_PAGES = new Set([
-  "hoysomrach.html",
   "account.html",
   "about.html",
   "contact.html",
@@ -99,12 +99,15 @@ const EXTENSIONLESS_ROOT_PAGES = new Set([
  * route addition alone touched no other page's output; a follow-up change
  * added it there once the page was live, at the cost this file's Step 10
  * note already describes — see that module's comment above the list.
+ *
+ * IMAGE PICKER REMOVED: the page and its own script, stylesheet and standby
+ * photo are deleted, taking the table back down by one. Its old URLs return
+ * 410 via public/_redirects.
  */
 const SECTION_INDEX_PAGES = [
   "guides/index.html",
   "palettes/index.html",
   "colors/index.html",
-  "image-picker/index.html",
 ];
 
 /**

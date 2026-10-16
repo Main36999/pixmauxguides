@@ -36,11 +36,13 @@ One account-level list per signed-in user. A row holds its owner
 | `font` | slug, e.g. `abhaya-libre` | `src/data/fonts.json` `id` |
 | `icon` | `pack--id`, e.g. `outline-essentials--arrow-left` | the retired Icon Packs catalog, now removed (`id` alone repeated across packs) |
 | `guide` | slug | `guides.json` `id` |
-| `image_palette` | the colours in order, lowercase, no `#`, joined by `-`, 3–8 of them, e.g. `1e193b-322a57-5438e6` | the Image Picker's on-screen palette |
+| `image_palette` | the colours in order, lowercase, no `#`, joined by `-`, 3–8 of them, e.g. `1e193b-322a57-5438e6` | the removed Image Picker's on-screen palette |
 
 The account Saved area (Phase 2) shows Colors, Palettes, Fonts, Image Picker
 palettes and UI/UX Guides. Icons stay a valid kind so existing rows are
 kept, but no page offers Save on them: the Icon Packs feature was retired.
+Image Picker palettes likewise stay a valid kind and are still listed, so
+existing rows are kept, but the Image Picker page itself was removed.
 
 - **Learning Roadmap progress is not a saved item.** It stays in the browser
   (`point-roadmap-progress`, `src/client/roadmap.js`); `roadmap` is not a

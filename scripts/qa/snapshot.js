@@ -163,7 +163,6 @@ function walk(dir, acc) {
  * .html.
  */
 const EXTENSIONLESS_ROOT_PAGES = new Set([
-  "hoysomrach.html",
   "account.html",
   "about.html",
   "contact.html",

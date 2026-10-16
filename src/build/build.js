@@ -192,19 +192,19 @@ const PUBLISH_FILES = [
   /**
    * ERROR BEACON — reports this site's own uncaught script errors to
    * /api/client-error. It is also bundled into /app.js, as the first of
-   * APP_BUNDLE.modules; this standalone copy is for the seven pages that do
-   * not load app.js (404, about, account, contact, hoysomrach, privacy,
-   * terms), ahead of their first site script. The module guards itself, so a
-   * page loading both copies runs it once.
+   * APP_BUNDLE.modules; this standalone copy is for the six pages that do
+   * not load app.js (404, about, account, contact, privacy, terms), ahead of
+   * their first site script. The module guards itself, so a page loading
+   * both copies runs it once.
    */
   { from: "src/client/error-beacon.js", to: "error-beacon.js" },
 
   /**
    * AUTH — the header's Sign in / Sign up dialog. It is also bundled into
-   * /app.js (APP_BUNDLE.modules); this standalone copy is for the five
+   * /app.js (APP_BUNDLE.modules); this standalone copy is for the four
    * hand-authored pages that carry the header but not app.js (about,
-   * contact, privacy, terms, hoysomrach). The module guards itself, so a
-   * page loading both copies runs it once.
+   * contact, privacy, terms). The module guards itself, so a page loading
+   * both copies runs it once.
    */
   { from: "src/client/auth.js", to: "auth.js" },
 
@@ -227,7 +227,7 @@ const PUBLISH_FILES = [
   /**
    * HOMEPAGE — the stylesheet for the tool and resource cards below the
    * hero, published beside index.html at the root. Same shape as
-   * colors.css and image-picker.css: styles only one page uses. The hero
+   * colors.css: styles only one page uses. The hero
    * itself is styled by styles.css, as it always was.
    */
   { from: "src/styles/home.css", to: "home.css" },
@@ -249,38 +249,14 @@ const PUBLISH_FILES = [
   { from: "src/client/colors.js", to: "colors/colors.js" },
   { from: "src/styles/colors.css", to: "colors/colors.css" },
 
-  /**
-   * IMAGE PICKER — same shape as the Color Library block above: a
-   * page-specific script and stylesheet, published beside the page they
-   * belong to. No JSON data file: the palette this page produces comes
-   * from whatever image is loaded (the standby photo below, or whatever
-   * the visitor browses to), extracted client-side.
-   *
-   * Not added to APP_BUNDLE for the same reason colors.js/palettes.js
-   * aren't: it is code only /image-picker runs, not every page on the
-   * site.
-   *
-   * standby.jpg is the one binary asset this feature owns: a local,
-   * royalty-free photograph (Unsplash License, via Picsum) fetched once
-   * at authoring time and committed here — never fetched from the
-   * network at runtime. It is what the page shows and extracts a palette
-   * from immediately on load, before any upload, so a visitor never sees
-   * an empty "no image" workspace. Kept under image-picker/assets/ rather
-   * than the site-wide assets/ directory so it stays obviously scoped to
-   * this one feature.
-   */
-  { from: "src/client/image-picker.js", to: "image-picker/image-picker.js" },
-  { from: "src/styles/image-picker.css", to: "image-picker/image-picker.css" },
-  {
-    from: "image-picker/assets/standby.jpg",
-    to: "image-picker/assets/standby.jpg",
-  },
+  // IMAGE PICKER: removed. image-picker/image-picker.js,
+  // image-picker/image-picker.css and image-picker/assets/standby.jpg are no
+  // longer published; their URLs return 410 (public/_redirects).
 
   /**
    * FONTS — the page-specific stylesheet and script for /fonts/ and every
-   * /fonts/<id>.html, published beside the pages the way /colors and
-   * /image-picker publish theirs. Not added to APP_BUNDLE: only the font
-   * pages run them.
+   * /fonts/<id>.html, published beside the pages the way /colors publishes
+   * its own. Not added to APP_BUNDLE: only the font pages run them.
    */
   { from: "src/styles/fonts.css", to: "fonts/fonts.css" },
   { from: "src/client/fonts.js", to: "fonts/fonts.js" },

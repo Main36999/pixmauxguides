@@ -101,7 +101,7 @@ test("explore strip: real routes, one focusable list per row, identical loop cop
   assert.strictEqual(rows.length, 2);
   const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);
   const expected = [
-    ["/colors/", "/palettes/", "/image-picker/", "/fonts/", "/guides/", "/roadmap", "/search"],
+    ["/colors/", "/palettes/", "/fonts/", "/guides/", "/roadmap", "/search"],
     ["/category/typography", "/category/color-theory", "/category/web", "/category/mobile",
       "/category/systems", "/category/accessibility", "/category/motion", "/category/figma"],
   ];

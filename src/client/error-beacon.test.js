@@ -27,7 +27,7 @@ const EMAIL = "dee@example.test";
 const QUERY = "?s=dee@example.test&code=0a1b2c3d4e5f6a7b8c9d0e1f2a3b";
 const FRAGMENT = "#private-fragment";
 const KEYS = ["v", "kind", "name", "message", "source", "line", "col", "stack", "page"];
-const PAGES_WITHOUT_APP = ["404.html", "about.html", "account.html", "contact.html", "hoysomrach.html", "privacy.html", "terms.html"];
+const PAGES_WITHOUT_APP = ["404.html", "about.html", "account.html", "contact.html", "privacy.html", "terms.html"];
 // Bidi formatting characters, built from code points on purpose.
 const BIDI_CODES = [0x200e, 0x200f, 0x202a, 0x202b, 0x202c, 0x202d, 0x202e, 0x2066, 0x2067, 0x2068, 0x2069];
 const BIDI = BIDI_CODES.map((code) => String.fromCharCode(code)).join("");
@@ -423,7 +423,7 @@ test("build: the first of /app.js's modules, and published on its own at /error-
   );
 });
 
-test("the seven pages without /app.js load /error-beacon.js once, before any other site script", () => {
+test("the six pages without /app.js load /error-beacon.js once, before any other site script", () => {
   for (const file of PAGES_WITHOUT_APP) {
     const html = fs.readFileSync(path.join(ROOT, file), "utf8");
     const srcs = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map((m) => m[1]);

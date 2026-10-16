@@ -818,7 +818,6 @@ test("the mobile menu has one script, in the header partial, using the attribute
     "about.html",
     "account.html",
     "contact.html",
-    "hoysomrach.html",
     "privacy.html",
     "terms.html",
   ]) {

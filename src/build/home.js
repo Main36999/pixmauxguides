@@ -321,14 +321,6 @@ const HOME_TOOLS = [
       `${m.palettes.length} palettes of four named colors each. Copy any HEX value and like the ones you want to keep.`,
   },
   {
-    title: "Image Picker",
-    url: "/image-picker/",
-    tone: "lavender",
-    cta: "Open the picker",
-    desc: () =>
-      "Extract a color palette from an image and copy its HEX values. Your image never leaves your browser.",
-  },
-  {
     title: "UI/UX Guides",
     url: "/guides/",
     tone: "pink",

@@ -24,14 +24,6 @@
     "home": null
   },
   {
-    "type": "image-picker",
-    "label": "Image Picker",
-    "landingUrl": "/image-picker/",
-    "nav": true,
-    "activePaths": ["image-picker/"],
-    "home": null
-  },
-  {
     "type": "font",
     "label": "Fonts",
     "landingUrl": "/fonts/",

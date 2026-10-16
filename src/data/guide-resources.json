@@ -37,11 +37,6 @@
   ],
   "color-palette-token-system": [
     {
-      "type": "image-picker",
-      "label": "Try the Image Picker",
-      "note": "Pull starting colors from a photo and copy them as CSS custom properties — raw values for the primitive tier in section 4."
-    },
-    {
       "type": "palette",
       "label": "Browse Color Palettes",
       "note": "Four named colors to start from. Section 3 shows how to turn each hue into a tonal ramp."
