@@ -16,8 +16,9 @@
  *                       (HOME_TOOLS_START/END) and the resource cards
  *                       (HOME_RESOURCES_START/END), from the content model —
  *                       colors, palettes, guides, categories — and the route
- *                       table. The hero (headline, search, explore
- *                       strip) is hand-authored and not touched here.
+ *                       table. The hero (headline, rotating supporting
+ *                       line, motion scene) is hand-authored and not
+ *                       touched here.
  *                       The old generated resource sections, driven by
  *                       resource-types.json's `home` blocks + the content
  *                       index, are gone; see assertNoHomeBlocks().
@@ -284,8 +285,8 @@ function buildRoadmap(guides) {
 // ---------------------------------------------------------------------
 // homepage: tool and resource cards (index.html, below the hero)
 // ---------------------------------------------------------------------
-// The hero (headline, search, explore strip) is static markup in
-// index.html. Everything below it is two card sections written here:
+// The hero (headline, rotating supporting line, motion scene) is static
+// markup in index.html. Everything below it is two card sections written here:
 //
 //   HOME_TOOLS_START/END      the BPOZZ tools — large pastel cards, one per
 //                             real, top-level destination
@@ -366,10 +367,9 @@ const HOME_ABOUT = {
 
 /**
  * Guide topics the resource cards leave out. They used to be read from the
- * hero's trending row, so the cards never repeated a hero link. The hero's
- * explore strip now links nearly every topic, and deriving the list from the
- * page would empty this section, so it is pinned to the five topics the old
- * row showed: the resource cards stay exactly as they were.
+ * hero's trending row, so the cards never repeated a hero link. The hero
+ * links no topics now, so the list is pinned to the five topics the old row
+ * showed: the resource cards stay exactly as they were.
  */
 const RESOURCE_TOPICS_SKIPPED = new Set([
   "color-theory",

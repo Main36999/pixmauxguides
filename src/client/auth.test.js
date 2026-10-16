@@ -170,12 +170,14 @@ function fire(doc, target, type, extra = {}) {
   return evt;
 }
 
-// The two header auth areas exactly as both partials render them.
+// The two header auth areas exactly as both partials render them: the bar
+// leads with the text Sign up, then the Sign in pill; the mobile panel keeps
+// Sign in, then Sign up.
 function buildHeader(doc) {
-  const area = (cls) => {
+  const area = (cls, buttons) => {
     const box = doc.createElement("div");
     box.className = cls;
-    for (const [mode, label, style] of [["signin", "Sign in", "btn-ghost"], ["signup", "Sign up", "btn-primary"]]) {
+    for (const [mode, label, style] of buttons) {
       const b = doc.createElement("button");
       b.type = "button";
       b.className = `btn ${style}`;
@@ -187,10 +189,10 @@ function buildHeader(doc) {
     return box;
   };
   const header = doc.body.appendChild(doc.createElement("header"));
-  header.appendChild(area("header-auth"));
+  header.appendChild(area("header-auth", [["signup", "Sign up", "header-auth__text"], ["signin", "Sign in", "header-auth__pill"]]));
   const menu = header.appendChild(doc.createElement("div"));
   menu.id = "mobile-menu";
-  menu.appendChild(area("mobile-menu__auth"));
+  menu.appendChild(area("mobile-menu__auth", [["signin", "Sign in", "btn-ghost"], ["signup", "Sign up", "btn-primary"]]));
 }
 
 // The parts of account.html that auth.js touches: the Profile box it draws
@@ -413,7 +415,7 @@ test("signed out: the existing Sign in / Sign up buttons, no account UI", async 
   const p = page();
   await settle();
   assert.strictEqual(p.state(), "signed-out");
-  assert.deepStrictEqual(p.desktopButtons().map((b) => [b.textContent, b.hidden]), [["Sign in", false], ["Sign up", false]]);
+  assert.deepStrictEqual(p.desktopButtons().map((b) => [b.textContent, b.hidden]), [["Sign up", false], ["Sign in", false]]);
   assert.deepStrictEqual(p.mobileButtons().map((b) => [b.textContent, b.hidden]), [["Sign in", false], ["Sign up", false]]);
   assert.strictEqual(p.desktopAccount(), null);
   assert.strictEqual(p.mobileAccount(), null);
@@ -521,7 +523,7 @@ test("sign out: POSTs /api/auth/signout, asks the server again, redraws signed o
   assert.strictEqual(p.desktopAccount(), null);
   assert.strictEqual(p.mobileAccount(), null);
   assert.ok(p.desktopButtons().every((b) => !b.hidden) && p.mobileButtons().every((b) => !b.hidden));
-  assert.strictEqual(p.doc.activeElement, p.desktopButtons()[0], "focus lands on Sign in");
+  assert.strictEqual(p.doc.activeElement, p.q(".header-auth [data-auth-open='signin']"), "focus lands on Sign in");
 });
 
 test("sign out from the mobile panel lands focus on the panel's Sign in", async () => {

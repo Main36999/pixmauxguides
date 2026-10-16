@@ -257,9 +257,9 @@ ul {
    1280px window with a classic scrollbar, and less than its 240px minimum
    below that. The nav is now 14px/600, 449px of text: about 36px less of
    the row than when 1280 was chosen.
-   --header-h is the bar's height in each band. The mobile panel, the
-   homepage hero, the 404 page and the account page's scroll offsets are
-   all placed from it, so it has to stay equal to the grid rows below. No
+   --header-h is the bar's height in each band. The mobile panel and the
+   account page's scroll offsets are placed from it, so it has to stay
+   equal to the grid rows below. No
    rule or shadow is drawn under the bar.
    Header "desktop" queries are written `not all and (max-width: 640px)` —
    the exact complement of the mobile query — rather than
@@ -299,25 +299,58 @@ ul {
   justify-self: end;
 }
 /* ---------- header auth actions ----------
-   Sign in / Sign up, right-aligned. Both reuse the site's existing button
-   classes: .btn-ghost for the quieter Sign in and .btn-primary (--action
-   blue) for Sign up. Only the padding is trimmed so the pair sits at the
-   search's 40px height rather than the 44px of a page-body CTA.
-   .btn-ghost is drawn for a dark surface (white text, white outline). On
-   the white header, bar and mobile panel alike, it takes the outline
-   button the account page already uses on white: --text on --paper with
-   a --text-muted edge (5.4:1), turning --action on hover. Every .btn-ghost
-   on the site sits in the header: the two Sign in buttons and the mobile
-   panel's Sign out (src/client/auth.js). */
+   Signed out, right-aligned: Sign up as a plain text action, then Sign in
+   as a filled pill in the wordmark's #101010 (--header-bg) with white text
+   (19:1). Both stand at the search's height in each band (48px from
+   1280px, 40px below), and the pair takes no more room than the two boxed
+   buttons it replaced, so the search and the nav keep theirs. Sign up
+   eases to the muted text colour on hover, as the nav links do; the pill
+   lightens a little. Keyboard focus draws the site's 2px ring in #101010
+   rather than blue, as the search draws its own neutral ring.
+   .btn-ghost is drawn for a dark surface (white text, white outline). In
+   the header's mobile panel it takes the outline button the account page
+   already uses on white: --text on --paper with a --text-muted edge
+   (5.4:1), turning --action on hover. Every .btn-ghost on the site sits in
+   that panel: its Sign in and its Sign out (src/client/auth.js). */
 .header-auth {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
 }
-.header-auth .btn {
-  padding: 9px 16px;
+.header-auth__text,
+.header-auth__pill {
+  justify-content: center;
+  height: 40px;
   white-space: nowrap;
+}
+.header-auth__text {
+  padding: 0 10px;
+  background: transparent;
+  color: var(--header-bg);
+}
+.header-auth__text:hover {
+  color: var(--text-muted);
+}
+.header-auth__pill {
+  padding: 0 20px;
+  border: 1px solid var(--header-bg);
+  border-radius: var(--radius-pill);
+  background: var(--header-bg);
+  color: #fff;
+}
+.header-auth__pill:hover {
+  background: color-mix(in srgb, var(--header-bg) 84%, #fff);
+}
+.header-auth__text:focus-visible,
+.header-auth__pill:focus-visible {
+  outline-color: var(--header-bg);
+}
+@media not all and (max-width: 1279px) {
+  .header-auth__text,
+  .header-auth__pill {
+    height: 48px;
+  }
 }
 .site-header .btn-ghost {
   background: var(--paper);
@@ -645,9 +678,10 @@ html[data-auth] .mobile-menu__auth {
 .mobile-menu__auth [hidden] {
   display: none !important;
 }
-/* Signed in, desktop: an account button in the style of the header's
-   outline button, disclosing a small panel with who is signed in and
-   Sign out. */
+/* Signed in, desktop: an account button in the header auth area's ink, a
+   #101010 outline (no blue, as with Sign up and Sign in), disclosing a
+   small panel with who is signed in and Sign out. Hover fills it with the
+   muted surface; keyboard focus draws the #101010 ring. */
 .account {
   position: relative;
 }
@@ -658,7 +692,7 @@ html[data-auth] .mobile-menu__auth {
   height: 38px;
   max-width: 240px;
   padding: 0 12px 0 4px;
-  border: 1px solid var(--text-muted);
+  border: 1px solid var(--header-bg);
   border-radius: var(--radius);
   background: var(--paper);
   color: var(--text);
@@ -666,8 +700,10 @@ html[data-auth] .mobile-menu__auth {
   font-weight: 600;
 }
 .account__toggle:hover {
-  border-color: var(--action);
-  color: var(--action);
+  background: var(--surface-muted);
+}
+.account__toggle:focus-visible {
+  outline-color: var(--header-bg);
 }
 .account__toggle::after {
   content: "";
@@ -869,365 +905,604 @@ html[data-auth] .mobile-menu__auth {
 }
 
 /* ---------- hero ----------
-   The backdrop is the sign-in dialog's visual (.auth__visual, further
-   down), reused class for class: gradient field and blueprint grid.
-   .hero__visual only turns that panel into a full-bleed background
-   layer — absolutely placed behind .hero-inner, clipped to the hero,
-   and kept visible below 900px, where the dialog folds its own copy
-   away. The field is centred and oversized, so a narrower hero crops
-   it rather than squeezing it.
+   White, like the header above it: the brand line and its supporting
+   line on the left, a motion scene on the right (959px and narrower, the
+   scene follows the copy at full width). The column, side padding and
+   left edge are those of the card sections under it (home.css); the
+   height is the content's, so the first cards show under it on a
+   desktop screen.
 
-   Height: the viewport less the header (--header-h, its height at each
-   width), so the header and hero together fill the first screen, with
-   the content centred vertically. svh, where supported, is the viewport
-   with the mobile browser bars shown, so the hero never runs under them.
-   It is a minimum: content taller than that (short landscape screens)
-   still grows the hero. */
+   The headline: Mona Sans 600 at -0.02em, always two lines, "A Creative
+   Platform / for Graphic Designers.". One size, 2.6vw + 22px, runs from
+   phones to wide screens (about 29px at 320px, 49px at 1024px, 59px at
+   1440px, 64px at most), so the layout change at 960px moves the copy
+   rather than resizing it. min() with 100cqi (the copy column is a size
+   container) keeps the column one measure wide, scrollbar or not; the
+   plain clamp before it is for browsers without container units.
+   The measure: Mona Sans's optical size draws small text a little wider,
+   so no one em measure fits every size. Measured, "A Creative Platform
+   for" stays wider and "for Graphic Designers." (one unbreakable unit,
+   &nbsp;) narrower than each band's measure: at 28-39px 10.11em / 9.97em
+   (measure 10.03em, phones), 39-47px 9.97em / 9.76em (9.86em, tablets),
+   44-64px 9.88em / 9.67em (9.75em, two columns). text-wrap: balance
+   picks the same break where it is supported. */
 .hero {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: calc(100vh - var(--header-h));
-  min-height: calc(100svh - var(--header-h));
-  padding: 88px 24px 72px;
-  text-align: center;
-  border-bottom: 1px solid var(--grid-line);
-}
-.hero__visual.auth__visual {
-  display: block;
-  position: absolute;
-  inset: 0;
-}
-/* Ambient drift, hero only (the sign-in dialog's field stays still). The
-   same colour field slowly wanders, turns and breathes: three independent
-   transform properties on three unrelated periods, each easing back and
-   forth (alternate), so the motion never visibly loops or jumps. The
-   field's 15% overhang and its blur keep every edge out of view. */
-.hero__visual .auth__field {
-  animation:
-    hero-drift 38s ease-in-out infinite alternate,
-    hero-turn 57s ease-in-out infinite alternate,
-    hero-breathe 46s ease-in-out infinite alternate;
-  will-change: translate, rotate, scale;
-}
-@keyframes hero-drift {
-  from {
-    translate: -2.5% 1.5%;
-  }
-  to {
-    translate: 2.5% -1.5%;
-  }
-}
-@keyframes hero-turn {
-  from {
-    rotate: -3deg;
-  }
-  to {
-    rotate: 3deg;
-  }
-}
-@keyframes hero-breathe {
-  from {
-    scale: 1;
-  }
-  to {
-    scale: 1.05;
-  }
-}
-/* static field, as before (animation: none, not the global near-zero
-   duration, which would flicker an infinite alternate loop) */
-@media (prefers-reduced-motion: reduce) {
-  .hero__visual .auth__field {
-    animation: none;
-  }
+  padding: clamp(40px, 5vw, 80px) 32px clamp(24px, 3vw, 40px);
 }
 .hero-inner {
-  position: relative;
-  /* a flex item with auto side margins would shrink to its content */
-  width: 100%;
-  max-width: 1160px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  column-gap: clamp(40px, 4vw, 64px);
+  max-width: 1320px;
   margin: 0 auto;
-}
-.fade-up {
-  animation: fadeUp 0.6s ease both;
-}
-.fade-up:nth-child(2) {
-  animation-delay: 0.06s;
-}
-.fade-up:nth-child(3) {
-  animation-delay: 0.12s;
-}
-.fade-up:nth-child(4) {
-  animation-delay: 0.18s;
-}
-.fade-up:nth-child(5) {
-  animation-delay: 0.24s;
-}
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 .hero-copy {
-  max-width: 1100px;
-  margin: 0 auto;
+  container-type: inline-size;
 }
 .hero h1 {
-  /* white on the auth visual, with the same soft shadow as its caption */
-  color: #fff;
-  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
-  font-size: clamp(24px, 3.4vw, 38px);
-  margin: 0 0 34px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.12;
-}
-/* Typing loop on the headline (core.js). The untyped remainder is still
-   laid out — just transparent, and without the shadow, which would
-   otherwise show — so the headline keeps its size and line breaks while
-   letters come and go. The cursor comes after all the text, pinned to
-   the headline's corner, and core.js moves it (transform) to the end of
-   the typed part. It reuses the sign-in panel's blink (auth-cursor),
-   solid while letters move and blinking at rest. */
-.hero-type {
-  position: relative;
-}
-.hero-type__rest {
-  color: transparent;
-  text-shadow: none;
-}
-.hero-type__cursor {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0.06em;
-  height: 0.9em;
-  border-radius: 1px;
-  background: currentColor;
-  box-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
-  animation: auth-cursor 1.1s ease-in-out infinite;
-}
-.hero h1.is-typing .hero-type__cursor {
-  animation: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-type__cursor {
-    display: none;
-  }
-}
-.hero .tagline {
-  /* white on the auth visual, with the headline's soft shadow. 19px
-     bold is WCAG large text (3:1): the moving field dips below the
-     4.5:1 that 16px regular text would need. */
-  color: #fff;
-  text-shadow: 0 1px 12px rgba(16, 16, 16, 0.35);
-  max-width: 560px;
-  /* No bottom margin: the explore strip's own top margin sets the gap
-     (search is in the header now, not between the two). */
-  margin: 0 auto;
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 1.6;
-}
-
-/* ---------- explore strip ----------
-   Sits right under the hero tagline: two rows of compact links that
-   drift in opposite directions (tools right-to-left, guide topics
-   left-to-right), so the hero shows the whole platform at a glance
-   instead of one guide category grid. The motion is pure CSS.
-
-   The loop: each row holds its list three times (see index.html). Every
-   copy animates by exactly its own width (-100%), and its right padding
-   equals the gap between items, so copy 2 lands where copy 1 started
-   and the restart is invisible. Three copies keep the row filled while
-   one copy is narrower than the strip.
-
-   Pausing: hover never touches the motion — the rows keep drifting
-   under the pointer. Keyboard focus stops a row and snaps the
-   real list back to its start, so a focused link is never parked
-   off-screen to the left, where an overflow-hidden row cannot scroll;
-   core.js then scrolls the row to keep each focused link in view. */
-.explore {
-  --explore-gap: 10px;
-  --explore-fade: 56px;
-  max-width: 1160px;
-  margin: 48px auto 0;
-}
-.explore__rows {
-  display: grid;
-  gap: 10px;
-}
-.explore__row {
-  display: flex;
-  overflow: hidden;
-  /* room for the 2px focus ring + 2px offset, which overflow would clip */
-  padding: 4px 0;
-  /* a link scrolled into view by keyboard focus stops clear of the fade */
-  scroll-padding-inline: var(--explore-fade);
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 var(--explore-fade),
-    #000 calc(100% - var(--explore-fade)),
-    transparent
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 var(--explore-fade),
-    #000 calc(100% - var(--explore-fade)),
-    transparent
-  );
-}
-.explore__list {
-  flex: 0 0 auto;
-  display: flex;
-  gap: var(--explore-gap);
-  padding-right: var(--explore-gap);
-  animation: explore-left 44s linear infinite;
-}
-.explore__row--topics .explore__list {
-  animation-name: explore-right;
-  animation-duration: 52s;
-}
-.explore__row:has(:focus-visible) .explore__list {
-  animation: none;
-}
-@keyframes explore-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-@keyframes explore-right {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-.explore-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  border: 1px solid var(--grid-line);
-  border-radius: var(--radius-pill);
-  background: var(--card);
+  max-width: 9.75em;
   color: var(--text);
-  font-size: 15px;
+  font-size: clamp(28px, 2.6vw + 22px, 64px);
+  font-size: min(clamp(28px, 2.6vw + 22px, 64px), 100cqi / 9.75);
   font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-decoration: none;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-wrap: balance;
 }
-.explore-item:hover {
+/* The supporting line: on the headline's measure, one step down, and
+   ending in the rotating phrase (core.js). The phrases share one grid
+   cell, so the line is laid out for the widest and nothing moves when
+   they change. The current one is --action blue; the next rises in from
+   below as the last leaves upward, clipped to the line. Without the
+   script, or under reduced motion, the first phrase stays: the sentence
+   as written. */
+.hero-lede {
+  max-width: 27em;
+  margin-top: clamp(16px, 1.2vw + 10px, 28px);
+  color: var(--text-secondary);
+  font-size: clamp(16px, 0.45vw + 14.5px, 21px);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.hero-rotator {
+  display: inline-grid;
+  clip-path: inset(0 -0.5em);
+}
+.hero-rotator__item {
+  grid-area: 1 / 1;
   color: var(--action);
-  border-color: var(--action);
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s var(--ease);
 }
-.explore-item__icon {
-  flex: 0 0 auto;
+.hero-rotator__item.is-current {
+  opacity: 1;
+  transform: none;
+}
+.hero-rotator__item.is-leaving {
+  transform: translateY(-100%);
+}
+
+/* ---------- hero scene ----------
+   A dark board in the wordmark's #101010 with the faint guides of a
+   12-column grid. On it, three design surfaces (a type specimen, a
+   palette, a page layout) gather on load, then live: they drift, the
+   specimen's weight breathes along the variable axis, the swatches
+   retune and the layout reflows. A selection frame and a pointer move to
+   the card the supporting line's phrase names (data-focus, set by
+   core.js); "all" selects the three together. All of it is decoration
+   (aria-hidden) except the pause button.
+   Size: the parts sit on a 4:3 stage measured in cqi (the stage is a size
+   container, 100cqi wide and 75cqi tall), so the composition scales as
+   one picture. The board around it is 3:2 in two columns, 16:10 on
+   tablets and 4:3 on phones; the stage sits centred on it.
+   Motion: the entrance runs once. The loops run only while .hero has
+   is-live (core.js) and freeze with is-paused (the button, or the hero
+   off screen or in a hidden tab). Under reduced motion none of it runs:
+   the board shows the finished composition, all three cards selected. */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 24px;
+  background-color: var(--header-bg);
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  isolation: isolate;
+}
+.hero-scene {
+  position: relative;
+  container-type: inline-size;
+  width: 88.889%;
+  aspect-ratio: 4 / 3;
+}
+.hero-scene__item {
+  position: absolute;
+}
+.hero-scene__item--type {
+  left: 8cqi;
+  top: 8cqi;
+  width: 36cqi;
+  height: 35cqi;
+}
+.hero-scene__item--color {
+  left: 50cqi;
+  top: 12cqi;
+  width: 42cqi;
+  height: 24cqi;
+}
+.hero-scene__item--layout {
+  left: 20cqi;
+  top: 47cqi;
+  width: 58cqi;
+  height: 21cqi;
+}
+.hero-scene__item--dot {
+  left: 83cqi;
+  top: 46cqi;
+  width: 9cqi;
+  height: 9cqi;
+}
+.hero-scene__item--chip {
+  left: 7cqi;
+  top: 48cqi;
+  width: 7cqi;
+  height: 7cqi;
+}
+.hero-card {
+  position: relative;
+  height: 100%;
+  border-radius: 2.4cqi;
+  background: var(--paper);
+  box-shadow: 0 1.6cqi 4cqi rgba(0, 0, 0, 0.35);
+}
+.hero-card__lines {
+  display: grid;
+  gap: 1.2cqi;
+}
+.hero-card__lines > span {
+  height: 1.2cqi;
+  border-radius: 1cqi;
+  background: var(--line);
+}
+.hero-card__lines > span:nth-child(1) {
+  width: 84%;
+}
+.hero-card__lines > span:nth-child(2) {
+  width: 62%;
+}
+.hero-card__lines > span:nth-child(3) {
+  width: 44%;
+}
+/* the type specimen: "Aa" in the site's own Mona Sans */
+.hero-card--type {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3cqi 3.2cqi 3.4cqi;
+}
+.hero-card__glyph {
+  color: var(--header-bg);
+  font-size: 15cqi;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+/* the palette: four swatches, as a library palette holds four colors,
+   in the homepage's own tones */
+.hero-card--color {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqi;
+  padding: 2.4cqi;
+}
+.hero-card__swatches {
+  display: flex;
+  flex: 1;
+  gap: 0.8cqi;
+}
+.hero-card__swatches > span {
+  flex: 1 1 0;
+  border-radius: 1.4cqi;
+}
+.hero-card__swatches > span:nth-child(1) {
+  background: var(--action);
+}
+.hero-card__swatches > span:nth-child(2) {
+  background: #4a2ca8;
+}
+.hero-card__swatches > span:nth-child(3) {
+  background: #fbdeeb;
+}
+.hero-card__swatches > span:nth-child(4) {
+  background: #fde5cc;
+}
+.hero-card--color .hero-card__lines > span:nth-child(1) {
+  width: 52%;
+}
+.hero-card--color .hero-card__lines > span:nth-child(2) {
+  width: 32%;
+}
+/* the page layout: a title bar over a row of three blocks */
+.hero-card--layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqi;
+  padding: 2.6cqi 3cqi 3cqi;
+}
+.hero-card__bar {
+  width: 30%;
+  height: 1.8cqi;
+  border-radius: 1cqi;
+  background: var(--header-bg);
+}
+.hero-card__blocks {
+  display: flex;
+  flex: 1;
+  gap: 1.4cqi;
+}
+.hero-card__blocks > span {
+  flex: 1 1 0;
+  border-radius: 1.2cqi;
+  background: var(--surface-muted);
+}
+.hero-card__blocks > span:nth-child(1) {
+  background: #dde6fd;
+}
+.hero-card__blocks > span:nth-child(2) {
+  background: var(--action);
+}
+.hero-scene__dot,
+.hero-scene__chip {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero-scene__dot {
+  border-radius: 50%;
+  background: var(--action);
+}
+.hero-scene__chip {
+  border-radius: 1.6cqi;
+  background: #fde5cc;
+  rotate: 12deg;
+}
+/* Selection: a design tool's frame with corner handles, in --action, one
+   per card. data-focus shows one, or "all" three at once. */
+.hero-card__select {
+  position: absolute;
+  inset: -1.4cqi;
+  border: 0.3cqi solid var(--action);
+  border-radius: 0.6cqi;
+  opacity: 0;
+  scale: 1.03;
+  transition:
+    opacity 0.35s ease,
+    scale 0.5s var(--ease);
+}
+.hero-card__select > span {
+  position: absolute;
+  width: 1.8cqi;
+  height: 1.8cqi;
+  border: 0.3cqi solid var(--action);
+  border-radius: 0.3cqi;
+  background: var(--paper);
+}
+.hero-card__select > span:nth-child(1) {
+  top: -1.05cqi;
+  left: -1.05cqi;
+}
+.hero-card__select > span:nth-child(2) {
+  top: -1.05cqi;
+  right: -1.05cqi;
+}
+.hero-card__select > span:nth-child(3) {
+  bottom: -1.05cqi;
+  left: -1.05cqi;
+}
+.hero-card__select > span:nth-child(4) {
+  bottom: -1.05cqi;
+  right: -1.05cqi;
+}
+.hero-scene[data-focus="all"] .hero-card__select,
+.hero-scene[data-focus="type"] .hero-scene__item--type .hero-card__select,
+.hero-scene[data-focus="color"] .hero-scene__item--color .hero-card__select,
+.hero-scene[data-focus="layout"] .hero-scene__item--layout .hero-card__select {
+  opacity: 1;
+  scale: 1;
+}
+/* The pointer: its tip on the selected card's corner handle, or, with
+   all three selected, in the open space right of the layout. It moves
+   by translate, which shifts no layout. */
+.hero-scene__item--cursor {
+  left: 0;
+  top: 0;
+  width: 4.6cqi;
+  translate: 87.9cqi 60.5cqi;
+  transition: translate 0.9s var(--ease);
+}
+.hero-scene[data-focus="type"] .hero-scene__item--cursor {
+  translate: 44.6cqi 43.7cqi;
+}
+.hero-scene[data-focus="color"] .hero-scene__item--cursor {
+  translate: 92.6cqi 36.7cqi;
+}
+.hero-scene[data-focus="layout"] .hero-scene__item--cursor {
+  translate: 78.6cqi 68.7cqi;
+}
+.hero-scene__item--cursor svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: var(--paper);
+  stroke: var(--header-bg);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0.4cqi 0.8cqi rgba(0, 0, 0, 0.4));
+}
+/* Pause: one white button on the board for all of the hero's motion
+   (WCAG 2.2.2). core.js unhides it when the motion can run and keeps
+   aria-pressed; the icon follows it. */
+.hero-motion-toggle {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--header-bg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.15s ease;
+}
+.hero-motion-toggle[hidden] {
+  display: none;
+}
+.hero-motion-toggle:hover {
+  background: var(--surface-muted);
+}
+.hero-motion-toggle svg {
   width: 18px;
   height: 18px;
-  color: var(--action);
 }
-/* Guide topics: lighter than the tools — no fill, a slash for a mark.
-   Unfilled, they sit straight on the hero's dark visual, so they are
-   drawn in white instead of the site's text colours. */
-.explore__row--topics .explore-item {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #fff;
-  font-weight: 500;
+.hero-motion-toggle__play,
+.hero-motion-toggle[aria-pressed="true"] .hero-motion-toggle__pause {
+  display: none;
 }
-.explore__row--topics .explore-item:hover {
-  color: #fff;
-  border-color: #fff;
+.hero-motion-toggle[aria-pressed="true"] .hero-motion-toggle__play {
+  display: block;
 }
-.explore-item__mark {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 400;
-}
-.explore-item:hover .explore-item__mark {
-  color: inherit;
-}
-/* Narrow screens: smaller items, and the rows run edge to edge (out
-   through .hero's 24px side padding) so links drift off the screen
-   edge, not an inner line. */
-@media (max-width: 900px) {
-  .explore {
-    --explore-fade: 24px;
-    margin-top: 36px;
+/* Motion, only for visitors who have not asked for less (the global
+   near-zero duration under reduced motion would flicker the loops). The
+   copy rises in and the surfaces gather from scattered positions, once;
+   the loops wait for core.js (is-live). */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * {
+    animation: hero-rise 0.7s var(--ease) both;
   }
-  .explore__rows {
-    margin: 0 -24px;
+  .hero-copy > .hero-lede {
+    animation-delay: 0.08s;
+  }
+  .hero-scene__item {
+    animation: hero-gather 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-scene__item--type {
+    --gather-x: -16cqi;
+    --gather-y: 10cqi;
+    --gather-turn: -8deg;
+    animation-delay: 0.15s;
+  }
+  .hero-scene__item--color {
+    --gather-x: 14cqi;
+    --gather-y: -10cqi;
+    --gather-turn: 6deg;
+    animation-delay: 0.25s;
+  }
+  .hero-scene__item--layout {
+    --gather-x: 4cqi;
+    --gather-y: 16cqi;
+    --gather-turn: -4deg;
+    animation-delay: 0.35s;
+  }
+  .hero-scene__item--chip {
+    --gather-x: -12cqi;
+    --gather-y: 10cqi;
+    --gather-turn: 40deg;
+    animation-delay: 0.45s;
+  }
+  .hero-scene__item--dot {
+    --gather-x: 12cqi;
+    --gather-y: 12cqi;
+    animation-delay: 0.5s;
+  }
+  .hero-scene__item--cursor {
+    --gather-x: 6cqi;
+    --gather-y: 6cqi;
+    animation-delay: 0.9s;
+  }
+  .hero.is-live .hero-card,
+  .hero.is-live .hero-scene__chip {
+    animation: hero-float 7s ease-in-out infinite alternate;
+  }
+  .hero.is-live .hero-scene__item--color .hero-card {
+    animation-duration: 8.5s;
+    animation-delay: -3s;
+  }
+  .hero.is-live .hero-scene__item--layout .hero-card {
+    animation-duration: 9.5s;
+    animation-delay: -5s;
+  }
+  .hero.is-live .hero-scene__chip {
+    animation-duration: 8s;
+    animation-delay: -2s;
+  }
+  .hero.is-live .hero-card__glyph {
+    animation: hero-weight 8s ease-in-out infinite;
+  }
+  /* one swatch, then one block, widens at a time, in order */
+  .hero.is-live .hero-card__swatches > span {
+    animation: hero-tune 10s ease-in-out infinite;
+  }
+  .hero.is-live .hero-card__swatches > span:nth-child(2) {
+    animation-delay: -7.5s;
+  }
+  .hero.is-live .hero-card__swatches > span:nth-child(3) {
+    animation-delay: -5s;
+  }
+  .hero.is-live .hero-card__swatches > span:nth-child(4) {
+    animation-delay: -2.5s;
+  }
+  .hero.is-live .hero-card__blocks > span {
+    animation: hero-reflow 12s ease-in-out infinite;
+  }
+  .hero.is-live .hero-card__blocks > span:nth-child(2) {
+    animation-delay: -8s;
+  }
+  .hero.is-live .hero-card__blocks > span:nth-child(3) {
+    animation-delay: -4s;
+  }
+  .hero.is-live .hero-scene__dot {
+    animation: hero-orbit 11s ease-in-out infinite;
+  }
+  /* outranks every loop rule above, the "> span" ones included */
+  .hero.is-live.is-paused .hero-scene__item * {
+    animation-play-state: paused;
   }
 }
-@media (max-width: 640px) {
-  .explore {
-    --explore-gap: 8px;
-    margin-top: 28px;
-  }
-  .explore__rows {
-    gap: 6px;
-  }
-  .explore-item {
-    gap: 6px;
-    padding: 7px 14px;
-    font-size: 14px;
-  }
-  .explore-item__icon {
-    width: 15px;
-    height: 15px;
-  }
-}
-/* Reduced motion: no drift. The copies go, and each row stays one
-   still line — centered when it fits, otherwise scrollable by swipe,
-   trackpad or keyboard focus (never wrapped, so the strip keeps its two
-   rows). On desktop the edge fade stays as the "more this way" cue, with
-   padding so the row's first item rests clear of it. (animation: none,
-   not the global near-zero duration, which would spin an infinite loop.) */
 @media (prefers-reduced-motion: reduce) {
-  /* two classes, to outrank .explore__row--topics .explore__list */
-  .explore__row .explore__list {
-    animation: none;
-    padding-right: 0;
-  }
-  .explore__list[aria-hidden="true"] {
+  .hero-motion-toggle {
     display: none;
-  }
-  .explore__row {
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-inline: var(--explore-fade);
-  }
-  .explore__row::-webkit-scrollbar {
-    display: none;
-  }
-  /* auto margins center a list that fits and drop to 0 when it
-     overflows, so no item is pushed out of scroll reach */
-  .explore__list:first-child {
-    margin-inline: auto;
   }
 }
-@media (prefers-reduced-motion: reduce) and (max-width: 900px) {
-  .explore__row {
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes hero-gather {
+  from {
+    opacity: 0;
+    transform: translate(var(--gather-x, 0), var(--gather-y, 0)) rotate(var(--gather-turn, 0deg)) scale(0.9);
+  }
+}
+@keyframes hero-float {
+  to {
+    translate: 0 -1.2cqi;
+  }
+}
+@keyframes hero-weight {
+  0%,
+  100% {
+    font-weight: 600;
+  }
+  35% {
+    font-weight: 300;
+  }
+  70% {
+    font-weight: 800;
+  }
+}
+@keyframes hero-tune {
+  0%,
+  40%,
+  100% {
+    flex-grow: 1;
+  }
+  20% {
+    flex-grow: 2.4;
+  }
+}
+@keyframes hero-reflow {
+  0%,
+  50%,
+  100% {
+    flex-grow: 1;
+  }
+  25% {
+    flex-grow: 2.2;
+  }
+}
+@keyframes hero-orbit {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  25% {
+    translate: 1.2cqi -1cqi;
+  }
+  50% {
+    translate: 0 -2cqi;
+  }
+  75% {
+    translate: -1.2cqi -1cqi;
+  }
+}
+/* 1024px and narrower: home.css's tablet side padding. */
+@media (max-width: 1024px) {
+  .hero {
     padding-inline: 24px;
-    -webkit-mask-image: none;
-    mask-image: none;
+  }
+}
+/* 959px and narrower: one column, the board under the copy, 16:10 with
+   the stage centred on it. */
+@media (max-width: 959px) {
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 40px;
+  }
+  .hero h1 {
+    max-width: 9.86em;
+    font-size: min(clamp(28px, 2.6vw + 22px, 64px), 100cqi / 9.86);
+  }
+  .hero-visual {
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+  }
+  .hero-scene {
+    width: 83.333%;
+  }
+}
+/* 640px and narrower: phone padding, a 4:3 board the stage fills, and a
+   pause button that shrinks with the board (33px at 320px, 40px from
+   about 430px), so it stays clear of the cards' selection handles. */
+@media (max-width: 640px) {
+  .hero {
+    padding: 28px 16px 16px;
+  }
+  .hero-inner {
+    row-gap: 28px;
+  }
+  .hero h1 {
+    max-width: 10.03em;
+    font-size: min(clamp(28px, 2.6vw + 22px, 64px), 100cqi / 10.03);
+  }
+  .hero-visual {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+  .hero-scene {
+    width: 100%;
+  }
+  .hero-motion-toggle {
+    left: clamp(8px, 2.5vw, 12px);
+    bottom: clamp(8px, 2.5vw, 12px);
+    width: clamp(32px, 6vw + 14px, 40px);
+    height: clamp(32px, 6vw + 14px, 40px);
   }
 }
 

@@ -207,100 +207,69 @@
 </header><!--HEADER_END-->
 
     <div id="home-view">
-      <section class="hero">
+      <section class="hero" aria-labelledby="hero-title">
         <!--
-          Background: the sign-in dialog's visual (.auth__visual and its
-          layers in styles.css, built in src/client/auth.js), reused class
-          for class — only .hero__visual is hero-specific. Just the
-          gradient field and the grid: the dialog's construction-line SVG
-          and caption are left out. Purely decorative.
+          The brand line, its supporting line and a motion scene. The last
+          phrase of the supporting line rotates (core.js). The first phrase
+          completes the sentence as written and is the only one assistive
+          technology reads; each phrase names the scene card it selects
+          (data-focus). The scene is decoration (aria-hidden): a type
+          specimen, a palette and a page layout that gather on a column
+          grid. Its one control, the pause button, stays hidden until
+          core.js can run the motion. home.test.js pins this structure.
         -->
-        <div class="auth__visual hero__visual" aria-hidden="true">
-          <div class="auth__field"></div>
-          <div class="auth__grid"></div>
-        </div>
         <div class="hero-inner">
           <div class="hero-copy">
-            <h1 class="fade-up">
+            <h1 id="hero-title">
               A Creative Platform for Graphic&nbsp;Designers.
             </h1>
-            <p class="tagline fade-up">
+            <p class="hero-lede">
               Explore practical design guides, resources, and tools to
-              support your creative work.
+              support your
+              <span class="hero-rotator">
+                <span class="hero-rotator__item is-current" data-focus="all">creative work.</span>
+                <span class="hero-rotator__item" data-focus="type" aria-hidden="true">typography.</span>
+                <span class="hero-rotator__item" data-focus="color" aria-hidden="true">color choices.</span>
+                <span class="hero-rotator__item" data-focus="layout" aria-hidden="true">layouts.</span>
+                <span class="hero-rotator__item" data-focus="all" aria-hidden="true">design ideas.</span>
+              </span>
             </p>
-            <!-- Search lives in the header, on every page; the hero no
-                 longer carries a second box. -->
           </div>
 
-          <!--
-            Explore strip: two marquee rows. Each row holds its list three
-            times — the first is the real one; the two copies only fill the
-            loop, so they are inert and aria-hidden (one set of tab stops, one
-            list per row for screen readers). Keep all three copies identical;
-            home.test.js checks they are and that every link is a real route.
-          -->
-          <nav class="explore fade-up" aria-label="Explore bpozz">
-            <div class="explore__rows">
-              <div class="explore__row explore__row--tools">
-                <ul class="explore__list" aria-label="Guides, tools and resources">
-                  <li><a class="explore-item" href="/colors/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5c3 3.6 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.5-6.4 5.5-10z" /></svg>Colors</a></li>
-                  <li><a class="explore-item" href="/palettes/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>Color Palettes</a></li>
-                  <li><a class="explore-item" href="/fonts/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20 9 4l6 16M5.3 14h7.4M18 8v12M16 11h4" /></svg>Fonts</a></li>
-                  <li><a class="explore-item" href="/guides/"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6.5v13" /></svg>UI/UX Guides</a></li>
-                  <li><a class="explore-item" href="/roadmap"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg>Learning Roadmap</a></li>
-                  <li><a class="explore-item" href="/search"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.8-4.8" /></svg>Search</a></li>
-                </ul>
-                <ul class="explore__list" aria-hidden="true" inert>
-                  <li><a class="explore-item" href="/colors/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5c3 3.6 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.5-6.4 5.5-10z" /></svg>Colors</a></li>
-                  <li><a class="explore-item" href="/palettes/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>Color Palettes</a></li>
-                  <li><a class="explore-item" href="/fonts/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20 9 4l6 16M5.3 14h7.4M18 8v12M16 11h4" /></svg>Fonts</a></li>
-                  <li><a class="explore-item" href="/guides/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6.5v13" /></svg>UI/UX Guides</a></li>
-                  <li><a class="explore-item" href="/roadmap" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg>Learning Roadmap</a></li>
-                  <li><a class="explore-item" href="/search" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.8-4.8" /></svg>Search</a></li>
-                </ul>
-                <ul class="explore__list" aria-hidden="true" inert>
-                  <li><a class="explore-item" href="/colors/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5c3 3.6 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.5-6.4 5.5-10z" /></svg>Colors</a></li>
-                  <li><a class="explore-item" href="/palettes/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>Color Palettes</a></li>
-                  <li><a class="explore-item" href="/fonts/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20 9 4l6 16M5.3 14h7.4M18 8v12M16 11h4" /></svg>Fonts</a></li>
-                  <li><a class="explore-item" href="/guides/" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6.5v13" /></svg>UI/UX Guides</a></li>
-                  <li><a class="explore-item" href="/roadmap" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg>Learning Roadmap</a></li>
-                  <li><a class="explore-item" href="/search" tabindex="-1"><svg class="explore-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.8-4.8" /></svg>Search</a></li>
-                </ul>
+          <div class="hero-visual">
+            <div class="hero-scene" data-focus="all" aria-hidden="true">
+              <div class="hero-scene__item hero-scene__item--type">
+                <div class="hero-card hero-card--type">
+                  <span class="hero-card__glyph">Aa</span>
+                  <span class="hero-card__lines"><span></span><span></span><span></span></span>
+                  <span class="hero-card__select"><span></span><span></span><span></span><span></span></span>
+                </div>
               </div>
-              <div class="explore__row explore__row--topics">
-                <ul class="explore__list" aria-label="Guide categories">
-                  <li><a class="explore-item" href="/category/typography"><span class="explore-item__mark" aria-hidden="true">/</span>Typography</a></li>
-                  <li><a class="explore-item" href="/category/color-theory"><span class="explore-item__mark" aria-hidden="true">/</span>Color Theory</a></li>
-                  <li><a class="explore-item" href="/category/web"><span class="explore-item__mark" aria-hidden="true">/</span>Web Layout</a></li>
-                  <li><a class="explore-item" href="/category/mobile"><span class="explore-item__mark" aria-hidden="true">/</span>Mobile App Design</a></li>
-                  <li><a class="explore-item" href="/category/systems"><span class="explore-item__mark" aria-hidden="true">/</span>Design Systems</a></li>
-                  <li><a class="explore-item" href="/category/accessibility"><span class="explore-item__mark" aria-hidden="true">/</span>Accessibility</a></li>
-                  <li><a class="explore-item" href="/category/motion"><span class="explore-item__mark" aria-hidden="true">/</span>Prototyping &amp; Motion</a></li>
-                  <li><a class="explore-item" href="/category/figma"><span class="explore-item__mark" aria-hidden="true">/</span>Figma Workflow</a></li>
-                </ul>
-                <ul class="explore__list" aria-hidden="true" inert>
-                  <li><a class="explore-item" href="/category/typography" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Typography</a></li>
-                  <li><a class="explore-item" href="/category/color-theory" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Color Theory</a></li>
-                  <li><a class="explore-item" href="/category/web" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Web Layout</a></li>
-                  <li><a class="explore-item" href="/category/mobile" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Mobile App Design</a></li>
-                  <li><a class="explore-item" href="/category/systems" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Design Systems</a></li>
-                  <li><a class="explore-item" href="/category/accessibility" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Accessibility</a></li>
-                  <li><a class="explore-item" href="/category/motion" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Prototyping &amp; Motion</a></li>
-                  <li><a class="explore-item" href="/category/figma" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Figma Workflow</a></li>
-                </ul>
-                <ul class="explore__list" aria-hidden="true" inert>
-                  <li><a class="explore-item" href="/category/typography" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Typography</a></li>
-                  <li><a class="explore-item" href="/category/color-theory" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Color Theory</a></li>
-                  <li><a class="explore-item" href="/category/web" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Web Layout</a></li>
-                  <li><a class="explore-item" href="/category/mobile" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Mobile App Design</a></li>
-                  <li><a class="explore-item" href="/category/systems" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Design Systems</a></li>
-                  <li><a class="explore-item" href="/category/accessibility" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Accessibility</a></li>
-                  <li><a class="explore-item" href="/category/motion" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Prototyping &amp; Motion</a></li>
-                  <li><a class="explore-item" href="/category/figma" tabindex="-1"><span class="explore-item__mark" aria-hidden="true">/</span>Figma Workflow</a></li>
-                </ul>
+              <div class="hero-scene__item hero-scene__item--color">
+                <div class="hero-card hero-card--color">
+                  <span class="hero-card__swatches"><span></span><span></span><span></span><span></span></span>
+                  <span class="hero-card__lines"><span></span><span></span></span>
+                  <span class="hero-card__select"><span></span><span></span><span></span><span></span></span>
+                </div>
+              </div>
+              <div class="hero-scene__item hero-scene__item--layout">
+                <div class="hero-card hero-card--layout">
+                  <span class="hero-card__bar"></span>
+                  <span class="hero-card__blocks"><span></span><span></span><span></span></span>
+                  <span class="hero-card__select"><span></span><span></span><span></span><span></span></span>
+                </div>
+              </div>
+              <div class="hero-scene__item hero-scene__item--dot"><span class="hero-scene__dot"></span></div>
+              <div class="hero-scene__item hero-scene__item--chip"><span class="hero-scene__chip"></span></div>
+              <div class="hero-scene__item hero-scene__item--cursor">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M3 2.5v17.2l4.7-4.6 3.1 7.1 3.3-1.4-3.1-7h6.6z" /></svg>
               </div>
             </div>
-          </nav>
+            <button type="button" class="hero-motion-toggle" aria-pressed="false" aria-label="Pause motion" hidden>
+              <svg class="hero-motion-toggle__pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+              <svg class="hero-motion-toggle__play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" /></svg>
+            </button>
+          </div>
         </div>
       </section>
 

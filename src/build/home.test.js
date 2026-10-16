@@ -5,8 +5,8 @@
  *
  * Pins what the homepage below the hero promises, against the real content
  * model: every card is a real link to a built route, the counts come from
- * the data, the resource cards skip the pinned topics, the hero explore
- * strip links only built routes without duplicate tab stops,
+ * the data, the resource cards skip the pinned topics, the hero holds the
+ * brand line as the one H1 and a supporting line that reads as written,
  * and each tool card's heading color is readable on its pastel ground.
  */
 
@@ -91,36 +91,77 @@ test("Home has no Icon Packs link anywhere: the feature is retired", () => {
   assert.strictEqual(home.HOME_ICONS, undefined, "the Icon Packs card is gone");
 });
 
-// ---- hero explore strip: static markup in index.html ----
+// ---- hero: static markup in index.html ----
 
-test("explore strip: real routes, one focusable list per row, identical loop copies", () => {
-  const nav = /<nav class="explore[^"]*"[^>]*>([\s\S]*?)<\/nav>/.exec(indexSource);
-  assert.ok(nav, "index.html has the explore strip");
-  assert.match(nav[0], /aria-label="Explore bpozz"/);
-  const rows = [...nav[1].matchAll(/<div class="explore__row [^"]*">([\s\S]*?)<\/div>/g)].map((m) => m[1]);
-  assert.strictEqual(rows.length, 2);
-  const hrefsOf = (list) => [...list.matchAll(/<a [^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  const expected = [
-    ["/colors/", "/palettes/", "/fonts/", "/guides/", "/roadmap", "/search"],
-    ["/category/typography", "/category/color-theory", "/category/web", "/category/mobile",
-      "/category/systems", "/category/accessibility", "/category/motion", "/category/figma"],
-  ];
-  rows.forEach((row, i) => {
-    const lists = [...row.matchAll(/<ul ([^>]*)>([\s\S]*?)<\/ul>/g)];
-    assert.strictEqual(lists.length, 3, "a real list plus two loop copies");
-    const [real, ...copies] = lists;
-    assert.match(real[1], /aria-label="[^"]+"/);
-    assert.doesNotMatch(real[2], /tabindex/);
-    assert.deepStrictEqual(hrefsOf(real[2]), expected[i]);
-    hrefsOf(real[2]).forEach((href) => assert.ok(knownUrls.has(href), `${href} is not a built route`));
-    copies.forEach((copy) => {
-      assert.match(copy[1], /aria-hidden="true"/);
-      assert.match(copy[1], /\binert\b/);
-      // Same markup as the real list, apart from each link leaving the tab order.
-      assert.strictEqual(copy[2].replace(/ tabindex="-1"/g, ""), real[2]);
-      assert.strictEqual((copy[2].match(/ tabindex="-1"/g) || []).length, expected[i].length);
-    });
-  });
+const heroMatch = /<section class="hero"[^>]*>([\s\S]*?)<\/section>/.exec(indexSource);
+
+test("hero: the brand line is the page's one H1, in plain text", () => {
+  assert.ok(heroMatch, "index.html has the hero");
+  assert.match(heroMatch[0], /^<section class="hero" aria-labelledby="hero-title">/);
+  const h1s = [...indexSource.matchAll(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/g)];
+  assert.strictEqual(h1s.length, 1, "one H1 on the homepage");
+  assert.strictEqual(h1s[0][1], ' id="hero-title"');
+  assert.ok(heroMatch[1].includes(h1s[0][0]), "the H1 is the hero's");
+  assert.strictEqual(h1s[0][2].trim(), "A Creative Platform for Graphic&nbsp;Designers.");
+  // No markup inside: the line stands as docs/BRAND.md writes it; the
+  // rotating phrase belongs to the supporting line.
+  assert.doesNotMatch(h1s[0][2], /</);
+});
+
+test("hero: the supporting line reads as written, and only its last phrase rotates", () => {
+  const lede = /<p class="hero-lede">([\s\S]*?)<\/p>/.exec(heroMatch[1]);
+  assert.ok(lede, "the hero has its supporting line");
+  // What assistive technology reads: everything but the aria-hidden phrases.
+  const read = lede[1]
+    .replace(/<span class="hero-rotator__item"[^>]*aria-hidden="true">[^<]*<\/span>/g, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  assert.strictEqual(read, "Explore practical design guides, resources, and tools to support your creative work.");
+
+  const phrases = [...lede[1].matchAll(
+    /<span class="hero-rotator__item( is-current)?" data-focus="([a-z]+)"( aria-hidden="true")?>([^<]+)<\/span>/g,
+  )].map((m) => [m[4], m[2], Boolean(m[1]), Boolean(m[3])]);
+  assert.deepStrictEqual(phrases, [
+    ["creative work.", "all", true, false],
+    ["typography.", "type", false, true],
+    ["color choices.", "color", false, true],
+    ["layouts.", "layout", false, true],
+    ["design ideas.", "all", false, true],
+  ]);
+  // Every card a phrase selects is in the scene, which starts on "all".
+  assert.match(heroMatch[1], /<div class="hero-scene" data-focus="all" aria-hidden="true">/);
+  phrases
+    .filter(([, focus]) => focus !== "all")
+    .forEach(([, focus]) => assert.ok(heroMatch[1].includes(`hero-scene__item--${focus}"`), focus));
+});
+
+test("hero: a decorative scene, one pause button, no links or search", () => {
+  const hero = heroMatch[1];
+  // The scene closes before the button, so the button is outside its
+  // aria-hidden subtree.
+  const sceneAt = hero.indexOf('<div class="hero-scene"');
+  const buttonAt = hero.indexOf("<button");
+  const scene = hero.slice(sceneAt, buttonAt);
+  assert.ok(sceneAt > 0 && buttonAt > sceneAt);
+  assert.strictEqual((scene.match(/<div\b/g) || []).length, (scene.match(/<\/div>/g) || []).length);
+  assert.doesNotMatch(scene, /<(a|button|input)\b|tabindex/);
+
+  const buttons = [...hero.matchAll(/<button\b([^>]*)>/g)].map((m) => m[1]);
+  assert.deepStrictEqual(buttons, [
+    ' type="button" class="hero-motion-toggle" aria-pressed="false" aria-label="Pause motion" hidden',
+  ]);
+  // The CTAs and topics are gone, and the site's one search box is in the header.
+  assert.doesNotMatch(hero, /<a\b|<form|<input|role="search"/);
+});
+
+test("hero: none of the previous hero's pieces are left", () => {
+  const css = fs.readFileSync(path.join(config.paths.root, "src/styles/styles.css"), "utf8");
+  const core = fs.readFileSync(path.join(config.paths.root, "src/client/core.js"), "utf8");
+  // the sign-in visual as a backdrop, its drift, the entrance and typing classes, the marquee
+  assert.doesNotMatch(heroMatch[0], /auth__|fade-up|hero-type|explore|tagline/);
+  assert.doesNotMatch(css, /\.hero__visual|@keyframes (hero-drift|hero-turn|hero-breathe|fadeUp)|\.fade-up|\.hero-type|\.explore/);
+  assert.doesNotMatch(core, /heroTyping|hero-type|\.explore/);
 });
 
 test("a resource-types.json home block is refused, not silently ignored", () => {
