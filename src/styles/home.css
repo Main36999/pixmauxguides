@@ -332,13 +332,14 @@
    illustration, a brand mark, a poster, a web page, a dashboard, a
    mobile app, motion, video editing, photo editing, a UX flow, 3D, a
    portfolio and a product card. Each scene is a full-bleed slide with
-   its own ground and ink (--hs-bg, --hs-ink), a numbered label, and its
+   its own ground and ink (--hs-bg, --hs-ink), a name label, and its
    artwork on a stage. All of it is decoration (aria-hidden).
    Size: the stage is 4:3 and a size container (100cqi wide, 75cqi
    tall), so each scene scales as one picture. It fills the board's
    height, centred (the board is 3:2, 16:10 or 4:3), and the slide's
    ground fills the rest. The artwork keeps clear of the top-left corner
-   (the label) and the bottom-left corner (the pause button).
+   (the label, which sizes itself to that corner) and the bottom-left
+   corner (the pause button).
    Sequence (core.js): the slide shown has is-active. The next one wipes
    in from the right over it while it eases aside underneath
    (is-leaving); the slide before that is hidden. The first slide shows
@@ -358,6 +359,9 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* the board's width (100cqi), for the label's size below; the stage is
+     its own container, so the artwork's cqi units are unchanged */
+  container-type: inline-size;
 }
 .hero-slide {
   position: absolute;
@@ -374,25 +378,29 @@
 .hero-slide.is-active {
   z-index: 1;
 }
-/* the scene's name, in its own colors reversed */
+/* the scene's name (the discipline alone, no number), in its own colors
+   reversed. Sized from the board's width like the artwork, and as large as
+   the clear corner allows: up to the pause button's 44px, and no further
+   than the artwork's top edge, which sits about 8% of the board's width
+   down. So it is full size on a wide board and smaller on a narrow one,
+   and never reaches the artwork. */
 .hero-slide__label {
   position: absolute;
   top: 16px;
   left: 16px;
   z-index: 1;
   display: flex;
-  gap: 6px;
-  padding: 7px 11px 7px 10px;
+  align-items: center;
+  box-sizing: border-box;
+  height: clamp(18px, 7.8cqi - 16px, 44px);
+  padding: 0 clamp(10px, 3.5cqi - 7px, 20px);
   border-radius: var(--radius-pill);
   background: var(--hs-ink);
   color: var(--hs-bg);
-  font-size: 12px;
+  font-size: clamp(12px, 3.28cqi - 6.7px, 16px);
   font-weight: 600;
   line-height: 1;
-}
-.hero-slide__label > span {
-  opacity: 0.6;
-  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .hero-slide__stage {
   position: absolute;
@@ -3371,8 +3379,8 @@
   .hero-slide__label {
     top: clamp(8px, 2.5vw, 12px);
     left: clamp(8px, 2.5vw, 12px);
-    gap: 5px;
-    padding: 6px 9px 6px 8px;
-    font-size: 11px;
+    height: clamp(18px, 8.9cqi - clamp(8px, 2.5vw, 12px), 40px);
+    padding: 0 clamp(8px, 2.8cqi, 12px);
+    font-size: clamp(11px, 3.6cqi, 14px);
   }
 }

@@ -146,14 +146,23 @@ test("hero: the board shows one scene at a time, each on its own ground", () => 
   const hero = heroMatch[1];
   assert.match(hero, /<div class="hero-scene" aria-hidden="true">/);
   const slides = [...hero.matchAll(
-    /<div class="hero-slide hero-slide--([a-z0-9]+)( is-active)?" data-focus="[a-z]+">\s*<span class="hero-slide__label"><span>(\d\d)<\/span>[^<]+<\/span>/g,
+    /<div class="hero-slide hero-slide--([a-z0-9]+)( is-active)?" data-focus="[a-z]+">\s*<span class="hero-slide__label">([^<]+)<\/span>/g,
   )];
   // A broad sequence, not a handful of cards, and every scene labelled.
   assert.ok(slides.length >= 12, `${slides.length} scenes`);
   assert.strictEqual((hero.match(/class="hero-slide /g) || []).length, slides.length);
   assert.strictEqual(new Set(slides.map((s) => s[1])).size, slides.length, "each scene is its own");
-  // Numbered in order; the first is the one shown without the script.
-  slides.forEach((s, i) => assert.strictEqual(Number(s[3]), i + 1, s[1]));
+  // Named by discipline alone, in order (no scene numbers: the label is the
+  // name and nothing else); the first is the one shown without the script.
+  assert.deepStrictEqual(
+    slides.map((s) => s[3]),
+    [
+      "Typography", "Color Palette", "Shapes &amp; Forms", "Layout &amp; Grid", "Vector Illustration",
+      "Logo &amp; Brand", "Poster Design", "Web Design", "Dashboard UI", "Mobile App", "Motion Design",
+      "Video Editing", "Photo Editing", "UX Flow", "3D Design", "Portfolio", "Ecommerce",
+    ],
+  );
+  slides.forEach((s) => assert.doesNotMatch(s[3], /^\d\d/, `${s[1]}'s label carries no scene number`));
   assert.deepStrictEqual(slides.map((s) => Boolean(s[2])), slides.map((_, i) => i === 0));
   // Each scene declares its own ground in home.css (homepage-only) and no
   // two share one: there is no single canvas behind them all.
@@ -191,6 +200,52 @@ test("hero: a decorative scene, one pause button, no links or search", () => {
   ]);
   // The CTAs and topics are gone, and the site's one search box is in the header.
   assert.doesNotMatch(hero, /<a\b|<form|<input|role="search"/);
+});
+
+test("hero: each scene holds for 6s, the wipe stays 0.9s, and the build finishes inside the hold", () => {
+  const core = fs.readFileSync(path.join(config.paths.root, "src/client/core.js"), "utf8");
+  const hold = /var HOLD_MS = (\d+);/.exec(core);
+  assert.ok(hold, "core.js declares HOLD_MS");
+  assert.strictEqual(Number(hold[1]), 6000);
+  const css = fs.readFileSync(path.join(config.paths.root, "src/styles/home.css"), "utf8");
+  assert.match(css, /animation: hero-wipe 0\.9s /, "the wipe is still 0.9s");
+  // The longest artwork build (an animation's delay + duration x iterations, in
+  // home.css) ends well before the hold does, so every scene rests finished.
+  const sec = (t) => parseFloat(t);
+  let longest = 0;
+  for (const m of css.matchAll(/animation:\s*([^;]+);/g)) {
+    for (const one of m[1].split(/,(?![^(]*\))/)) {
+      const t = [...one.matchAll(/(?<![\w.-])(\d*\.?\d+)s\b/g)].map((x) => sec(x[1]));
+      if (t.length < 1) continue;
+      const iter = /\s(\d+)(?:\s|$)/.exec(one.replace(/\([^)]*\)/g, ""));
+      const end = (t[1] || 0) + t[0] * (iter && !/s\b/.test(iter[0]) ? Number(iter[1]) : 1);
+      longest = Math.max(longest, end);
+    }
+  }
+  assert.ok(longest > 0 && longest <= 4.5, `longest build ends at ${longest}s`);
+  assert.ok(longest * 1000 + 1000 <= Number(hold[1]), `a second of rest after the longest build (${longest}s of 6s)`);
+});
+
+test("hero: the pause button hides until hover or keyboard focus, only where hover exists", () => {
+  const css = fs.readFileSync(path.join(config.paths.root, "src/styles/styles.css"), "utf8");
+  const at = css.indexOf("@media (hover: hover) {");
+  assert.ok(at > 0, "styles.css has the hover-gated rule");
+  const block = css.slice(at, css.indexOf("\n}\n", at));
+  assert.match(block, /\.hero-motion-toggle \{[^}]*opacity: 0;/, "transparent by default, with hover");
+  assert.match(block, /\.hero-visual:hover \.hero-motion-toggle,\s*\.hero-motion-toggle:focus-visible \{\s*opacity: 1;/, "shown on board hover and keyboard focus");
+  // Opacity only: still rendered and focusable. Nothing hides it outside hover.
+  const base = /\.hero-motion-toggle \{([^}]*)\}/.exec(css.slice(0, at))[1];
+  assert.doesNotMatch(base, /opacity|visibility|display: none/, "without hover it is always shown");
+  assert.doesNotMatch(block, /display: none|visibility|pointer-events|tabindex/);
+});
+
+test("hero: the scene label is the name alone, sized from the board, never a numbered chip", () => {
+  const css = fs.readFileSync(path.join(config.paths.root, "src/styles/home.css"), "utf8");
+  assert.doesNotMatch(css, /\.hero-slide__label > span/, "no number styling is left");
+  const rule = /\n\.hero-slide__label \{([^}]*)\}/.exec(css);
+  assert.ok(rule, "the base label rule");
+  assert.match(rule[1], /height: clamp\(18px, [^)]*cqi[^)]*44px\)/, "capped at the pause button's 44px, sized from the board");
+  assert.match(css, /\.hero-scene \{[^}]*container-type: inline-size;/, "the scene is the container the label sizes from");
 });
 
 test("hero: none of the previous hero's pieces are left", () => {

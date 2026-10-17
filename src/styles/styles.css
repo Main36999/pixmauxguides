@@ -1005,7 +1005,10 @@ html[data-auth] .mobile-menu__auth {
 }
 /* Pause: one white button on the board for all of the hero's motion
    (WCAG 2.2.2), over the scenes. core.js unhides it when the motion can
-   run and keeps aria-pressed; the icon follows it. */
+   run and keeps aria-pressed; the icon follows it. Where the pointer can
+   hover it stays out of the way until the pointer is over the board or
+   the button has keyboard focus (below); without hover (touch) it is
+   always shown. */
 .hero-motion-toggle {
   position: absolute;
   left: 16px;
@@ -1040,6 +1043,23 @@ html[data-auth] .mobile-menu__auth {
 }
 .hero-motion-toggle[aria-pressed="true"] .hero-motion-toggle__play {
   display: block;
+}
+/* Hover-capable devices: transparent until the pointer is anywhere over
+   the board, or the button has keyboard focus (:focus-visible, so a mouse
+   click does not keep it showing after the pointer leaves). Opacity only:
+   it stays in the tab order and the accessibility tree, takes no
+   different space, and shifts nothing. Touch (hover: none) is untouched. */
+@media (hover: hover) {
+  .hero-motion-toggle {
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      background-color 0.15s ease;
+  }
+  .hero-visual:hover .hero-motion-toggle,
+  .hero-motion-toggle:focus-visible {
+    opacity: 1;
+  }
 }
 /* Motion, only for visitors who have not asked for less (the global
    near-zero duration under reduced motion would flicker it): the copy

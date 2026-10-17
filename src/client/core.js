@@ -231,7 +231,7 @@
     var slides = scene ? scene.querySelectorAll(".hero-slide") : [];
     var items = hero ? hero.querySelectorAll(".hero-rotator__item") : [];
     if (!slides.length || !toggle || !items.length || !window.matchMedia) return;
-    var HOLD_MS = 4400;
+    var HOLD_MS = 6000;
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     var current = 0; // the slide shown
     var phrase = 0; // the phrase shown
