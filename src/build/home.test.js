@@ -129,11 +129,49 @@ test("hero: the supporting line reads as written, and only its last phrase rotat
     ["layouts.", "layout", false, true],
     ["design ideas.", "all", false, true],
   ]);
-  // Every card a phrase selects is in the scene, which starts on "all".
-  assert.match(heroMatch[1], /<div class="hero-scene" data-focus="all" aria-hidden="true">/);
+  // The phrase follows the board: every scene calls for a phrase the line
+  // has, and every phrase that names a subject has a scene that calls for it.
+  const focuses = new Set(phrases.map(([, focus]) => focus));
+  const slides = [...heroMatch[1].matchAll(
+    /<div class="hero-slide hero-slide--([a-z0-9]+)(?: is-active)?" data-focus="([a-z]+)">/g,
+  )];
+  assert.ok(slides.length > 0, "the board has its scenes");
+  slides.forEach(([, name, focus]) => assert.ok(focuses.has(focus), `${name} calls for "${focus}"`));
   phrases
     .filter(([, focus]) => focus !== "all")
-    .forEach(([, focus]) => assert.ok(heroMatch[1].includes(`hero-scene__item--${focus}"`), focus));
+    .forEach(([, focus]) => assert.ok(slides.some((s) => s[2] === focus), focus));
+});
+
+test("hero: the board shows one scene at a time, each on its own ground", () => {
+  const hero = heroMatch[1];
+  assert.match(hero, /<div class="hero-scene" aria-hidden="true">/);
+  const slides = [...hero.matchAll(
+    /<div class="hero-slide hero-slide--([a-z0-9]+)( is-active)?" data-focus="[a-z]+">\s*<span class="hero-slide__label"><span>(\d\d)<\/span>[^<]+<\/span>/g,
+  )];
+  // A broad sequence, not a handful of cards, and every scene labelled.
+  assert.ok(slides.length >= 12, `${slides.length} scenes`);
+  assert.strictEqual((hero.match(/class="hero-slide /g) || []).length, slides.length);
+  assert.strictEqual(new Set(slides.map((s) => s[1])).size, slides.length, "each scene is its own");
+  // Numbered in order; the first is the one shown without the script.
+  slides.forEach((s, i) => assert.strictEqual(Number(s[3]), i + 1, s[1]));
+  assert.deepStrictEqual(slides.map((s) => Boolean(s[2])), slides.map((_, i) => i === 0));
+  // Each scene declares its own ground in home.css (homepage-only) and no
+  // two share one: there is no single canvas behind them all.
+  const css = fs.readFileSync(path.join(config.paths.root, "src/styles/home.css"), "utf8");
+  assert.doesNotMatch(
+    fs.readFileSync(path.join(config.paths.root, "src/styles/styles.css"), "utf8"),
+    /\.hero-slide|\.hs-/,
+    "the scenes stay out of the site-wide stylesheet",
+  );
+  const grounds = slides.map(([, name]) => {
+    const rule = new RegExp(`\\.hero-slide--${name} \\{([^}]*)\\}`).exec(css);
+    assert.ok(rule, `.hero-slide--${name} has a rule`);
+    const ground = /--hs-bg: (#[0-9a-f]{3,6});/.exec(rule[1]);
+    assert.ok(ground, `.hero-slide--${name} sets its ground`);
+    return ground[1];
+  });
+  assert.strictEqual(new Set(grounds).size, grounds.length, "every ground is different");
+  assert.doesNotMatch(hero, /\sstyle="/);
 });
 
 test("hero: a decorative scene, one pause button, no links or search", () => {
@@ -162,6 +200,10 @@ test("hero: none of the previous hero's pieces are left", () => {
   assert.doesNotMatch(heroMatch[0], /auth__|fade-up|hero-type|explore|tagline/);
   assert.doesNotMatch(css, /\.hero__visual|@keyframes (hero-drift|hero-turn|hero-breathe|fadeUp)|\.fade-up|\.hero-type|\.explore/);
   assert.doesNotMatch(core, /heroTyping|hero-type|\.explore/);
+  // nor the three cards the scenes replaced, nor their loop switch
+  assert.doesNotMatch(heroMatch[0], /hero-card|hero-scene__/);
+  assert.doesNotMatch(css, /\.hero-card|\.hero-scene__|is-live/);
+  assert.doesNotMatch(core, /is-live/);
 });
 
 test("a resource-types.json home block is refused, not silently ignored", () => {

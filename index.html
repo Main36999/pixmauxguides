@@ -209,14 +209,19 @@
     <div id="home-view">
       <section class="hero" aria-labelledby="hero-title">
         <!--
-          The brand line, its supporting line and a motion scene. The last
-          phrase of the supporting line rotates (core.js). The first phrase
-          completes the sentence as written and is the only one assistive
-          technology reads; each phrase names the scene card it selects
-          (data-focus). The scene is decoration (aria-hidden): a type
-          specimen, a palette and a page layout that gather on a column
-          grid. Its one control, the pause button, stays hidden until
-          core.js can run the motion. home.test.js pins this structure.
+          The brand line, its supporting line and a board of design
+          scenes. The board shows one discipline at a time, each on its
+          own ground (core.js, styles.css): typography, a color palette,
+          shapes, a layout grid, vector illustration, a brand mark, a
+          poster, a web page, a dashboard, a mobile app, motion, video
+          editing, photo editing, a UX flow, 3D, a portfolio and a product
+          card. The last phrase of the supporting line follows the scenes:
+          each scene names the phrase it calls for (data-focus). The first
+          phrase completes the sentence as written and is the only one
+          assistive technology reads. The board is decoration
+          (aria-hidden) and starts on its first scene; its one control,
+          the pause button, stays hidden until core.js can run the motion.
+          home.test.js pins this structure.
         -->
         <div class="hero-inner">
           <div class="hero-copy">
@@ -237,32 +242,313 @@
           </div>
 
           <div class="hero-visual">
-            <div class="hero-scene" data-focus="all" aria-hidden="true">
-              <div class="hero-scene__item hero-scene__item--type">
-                <div class="hero-card hero-card--type">
-                  <span class="hero-card__glyph">Aa</span>
-                  <span class="hero-card__lines"><span></span><span></span><span></span></span>
-                  <span class="hero-card__select"><span></span><span></span><span></span><span></span></span>
+            <div class="hero-scene" aria-hidden="true">
+              <div class="hero-slide hero-slide--type is-active" data-focus="type">
+                <span class="hero-slide__label"><span>01</span>Typography</span>
+                <div class="hero-slide__stage">
+                  <p class="hs-type__specimen">Ag<span class="hs-type__cap"><span>Cap height</span></span><span class="hs-type__x"><span>x-height</span></span><span class="hs-type__base"><span>Baseline</span></span><span class="hs-type__desc"><span>Descender</span></span></p>
+                  <p class="hs-type__axis">Weight</p>
+                  <span class="hs-type__track"></span>
+                  <p class="hs-type__set">Aa Bb Cc Dd<br />Ee Ff Gg Hh<br />0123456789</p>
+                  <p class="hs-type__ladder"><span>Aa</span><span>Aa</span><span>Aa</span><span>Aa</span><span>Aa</span><span>Aa</span><span>Aa</span><span>Aa</span></p>
                 </div>
               </div>
-              <div class="hero-scene__item hero-scene__item--color">
-                <div class="hero-card hero-card--color">
-                  <span class="hero-card__swatches"><span></span><span></span><span></span><span></span></span>
-                  <span class="hero-card__lines"><span></span><span></span></span>
-                  <span class="hero-card__select"><span></span><span></span><span></span><span></span></span>
+              <div class="hero-slide hero-slide--color" data-focus="color">
+                <span class="hero-slide__label"><span>02</span>Color Palette</span>
+                <div class="hero-slide__stage">
+                  <span class="hs-color__chip"><b>Teal</b>#2A9D8F</span>
+                  <span class="hs-color__chip"><b>Sage</b>#8AB17D</span>
+                  <span class="hs-color__chip"><b>Saffron</b>#E9C46A</span>
+                  <span class="hs-color__chip"><b>Sandy</b>#F4A261</span>
+                  <span class="hs-color__chip"><b>Sienna</b>#E76F51</span>
+                  <span class="hs-color__rivet"></span>
+                  <p class="hs-color__name">Coastal Dusk &middot; 5 colors</p>
                 </div>
               </div>
-              <div class="hero-scene__item hero-scene__item--layout">
-                <div class="hero-card hero-card--layout">
-                  <span class="hero-card__bar"></span>
-                  <span class="hero-card__blocks"><span></span><span></span><span></span></span>
-                  <span class="hero-card__select"><span></span><span></span><span></span><span></span></span>
+              <div class="hero-slide hero-slide--shape" data-focus="all">
+                <span class="hero-slide__label"><span>03</span>Shapes &amp; Forms</span>
+                <div class="hero-slide__stage">
+                  <span class="hs-shape hs-shape--circle"></span>
+                  <span class="hs-shape hs-shape--square"></span>
+                  <span class="hs-shape hs-shape--quarter"></span>
+                  <span class="hs-shape hs-shape--arch"></span>
+                  <span class="hs-shape hs-shape--triangle"></span>
+                  <span class="hs-shape hs-shape--bar"></span>
+                  <span class="hs-shape hs-shape--dots"></span>
                 </div>
               </div>
-              <div class="hero-scene__item hero-scene__item--dot"><span class="hero-scene__dot"></span></div>
-              <div class="hero-scene__item hero-scene__item--chip"><span class="hero-scene__chip"></span></div>
-              <div class="hero-scene__item hero-scene__item--cursor">
-                <svg viewBox="0 0 24 24" focusable="false"><path d="M3 2.5v17.2l4.7-4.6 3.1 7.1 3.3-1.4-3.1-7h6.6z" /></svg>
+              <div class="hero-slide hero-slide--layout" data-focus="layout">
+                <span class="hero-slide__label"><span>04</span>Layout &amp; Grid</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-layout">
+                    <span class="hs-layout__cols"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+                    <span class="hs-layout__logo"></span>
+                    <span class="hs-layout__nav"></span>
+                    <span class="hs-layout__title"></span>
+                    <span class="hs-layout__image"></span>
+                    <span class="hs-layout__text"></span>
+                    <span class="hs-layout__card"></span>
+                    <span class="hs-layout__card"></span>
+                    <span class="hs-layout__card"></span>
+                    <span class="hs-layout__gap"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--vector" data-focus="all">
+                <span class="hero-slide__label"><span>05</span>Vector Illustration</span>
+                <div class="hero-slide__stage">
+                  <svg class="hs-vector" viewBox="0 0 400 300" focusable="false">
+                    <g class="hs-vector__tools">
+                      <rect x="12" y="76" width="30" height="132" rx="15" fill="#fff" stroke="#e1e5ec" />
+                      <path d="M23 89v15l4-3.6 2.6 5.8 2.4-1-2.6-5.8h5.4z" fill="#1d2433" />
+                      <rect x="17" y="114" width="20" height="20" rx="6" fill="#e3ebff" />
+                      <path d="M27 117l6 9-6 5-6-5zM27 124v6" fill="none" stroke="#2f6bff" stroke-width="1.6" stroke-linejoin="round" />
+                      <rect x="21" y="146" width="12" height="12" rx="2" fill="none" stroke="#1d2433" stroke-width="1.6" />
+                      <circle cx="27" cy="174" r="6.5" fill="none" stroke="#1d2433" stroke-width="1.6" />
+                      <path d="M21 190h12M27 190v10" fill="none" stroke="#1d2433" stroke-width="1.8" stroke-linecap="round" />
+                    </g>
+                    <circle class="hs-vector__sun" cx="300" cy="94" r="28" fill="#ffb627" />
+                    <path class="hs-vector__back" d="M78 232C118 232 140 118 200 118S282 232 322 232Z" fill="#1f7a5c" />
+                    <path class="hs-vector__front" d="M222 232C248 232 266 168 302 168S354 232 380 232Z" fill="#86cfa0" />
+                    <path class="hs-vector__ground" d="M64 232H388" pathLength="1" fill="none" stroke="#1d2433" stroke-width="2" stroke-linecap="round" />
+                    <g fill="none" stroke="#2f6bff" stroke-width="1.6">
+                      <path class="hs-vector__path" d="M78 232C118 232 140 118 200 118S282 232 322 232" pathLength="1" />
+                      <path class="hs-vector__handle" d="M140 118H260" />
+                      <circle class="hs-vector__knob" cx="140" cy="118" r="4" fill="#fff" />
+                      <circle class="hs-vector__knob" cx="260" cy="118" r="4" fill="#fff" />
+                      <rect class="hs-vector__anchor" x="73.5" y="227.5" width="9" height="9" fill="#fff" />
+                      <rect class="hs-vector__anchor" x="195.5" y="113.5" width="9" height="9" fill="#2f6bff" />
+                      <rect class="hs-vector__anchor" x="317.5" y="227.5" width="9" height="9" fill="#fff" />
+                    </g>
+                    <path class="hs-vector__pen" d="M266 124l14 4 5 15-4 4-15-5zM266 124l9 9" fill="#1d2433" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--logo" data-focus="all">
+                <span class="hero-slide__label"><span>06</span>Logo &amp; Brand</span>
+                <div class="hero-slide__stage">
+                  <svg class="hs-logo__mark" viewBox="0 0 200 200" focusable="false">
+                    <g class="hs-logo__guides" fill="none" stroke="currentColor" stroke-width="0.8">
+                      <rect x="14" y="14" width="172" height="172" pathLength="1" />
+                      <path d="M14 186L186 14" pathLength="1" />
+                      <g transform="rotate(45 100 100)">
+                        <circle cx="80" cy="100" r="56" pathLength="1" />
+                        <circle cx="120" cy="100" r="56" pathLength="1" />
+                      </g>
+                      <circle cx="148" cy="148" r="22" pathLength="1" />
+                    </g>
+                    <g transform="rotate(45 100 100)">
+                      <path class="hs-logo__leaf" d="M100 47.7A56 56 0 0 1 100 152.3A56 56 0 0 1 100 47.7Z" />
+                    </g>
+                    <path class="hs-logo__vein" d="M66 134L134 66" pathLength="1" />
+                    <circle class="hs-logo__seed" cx="148" cy="148" r="13" />
+                  </svg>
+                  <p class="hs-logo__word">fernway</p>
+                  <p class="hs-logo__tag">Botanical Studio</p>
+                  <p class="hs-logo__chips"><span>Forest</span><span>Cream</span><span>Gold</span></p>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--poster" data-focus="all">
+                <span class="hero-slide__label"><span>07</span>Poster Design</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-poster">
+                    <span class="hs-poster__meta"><span>Design Week</span><span>26.10&ndash;02.11</span></span>
+                    <span class="hs-poster__sun"></span>
+                    <span class="hs-poster__title">Form &amp;<br />Feeling</span>
+                    <span class="hs-poster__num">26</span>
+                    <span class="hs-poster__foot"></span>
+                  </div>
+                  <div class="hs-poster hs-poster--small">
+                    <span class="hs-poster__ring"></span>
+                    <span class="hs-poster__title">Talks</span>
+                  </div>
+                  <p class="hs-poster__caption"><b>Poster series</b>Screen print, 2026</p>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--web" data-focus="all">
+                <span class="hero-slide__label"><span>08</span>Web Design</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-web">
+                    <p class="hs-web__bar"><span></span><span>example.com</span></p>
+                    <div class="hs-web__view">
+                      <div class="hs-web__page">
+                        <p class="hs-web__nav"><b>Studio</b><span></span><span>Sign in</span></p>
+                        <p class="hs-web__title">Design that<br />feels alive.</p>
+                        <span class="hs-web__lede"></span>
+                        <span class="hs-web__cta">Get started</span>
+                        <span class="hs-web__art"></span>
+                        <span class="hs-web__features"><span></span><span></span><span></span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <svg class="hs-cursor hs-web__cursor" viewBox="0 0 24 24" focusable="false"><path d="M3 2.5v17.2l4.7-4.6 3.1 7.1 3.3-1.4-3.1-7h6.6z" /></svg>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--dash" data-focus="all">
+                <span class="hero-slide__label"><span>09</span>Dashboard UI</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-dash">
+                    <span class="hs-dash__side"><span></span><span></span><span></span><span></span><span></span></span>
+                    <p class="hs-dash__head">Overview<span>Last 30 days</span></p>
+                    <p class="hs-dash__kpi"><span>Revenue</span>$48.2k<b>+12%</b></p>
+                    <p class="hs-dash__kpi"><span>Active users</span>12,480<b>+8%</b></p>
+                    <p class="hs-dash__kpi"><span>Conversion</span>3.8%<b>+0.4</b></p>
+                    <div class="hs-dash__chart">
+                      <svg viewBox="0 0 160 100" focusable="false">
+                        <path class="hs-dash__area" d="M0 78C16 74 24 58 40 60S64 42 80 46 104 26 120 30 144 12 160 14V100H0Z" />
+                        <path class="hs-dash__line" d="M0 78C16 74 24 58 40 60S64 42 80 46 104 26 120 30 144 12 160 14" pathLength="1" />
+                        <path class="hs-dash__guide" d="M120 30V100" />
+                        <circle class="hs-dash__dot" cx="120" cy="30" r="4" />
+                      </svg>
+                    </div>
+                    <span class="hs-dash__bars"><span></span><span></span><span></span><span></span><span></span><span></span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--mobile" data-focus="all">
+                <span class="hero-slide__label"><span>10</span>Mobile App</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-phone">
+                    <div class="hs-phone__screen">
+                      <p class="hs-phone__hello">Good morning<b>Your trips</b></p>
+                      <p class="hs-phone__trip"><b>Kyoto</b>12&ndash;18 Oct</p>
+                      <span class="hs-phone__row"><span></span><span></span></span>
+                      <span class="hs-phone__item"></span>
+                      <span class="hs-phone__item"></span>
+                      <span class="hs-phone__tabs"><span></span><span></span><span></span><span></span></span>
+                    </div>
+                  </div>
+                  <p class="hs-phone__toast"><b>Flight booked</b>Gate 24 &middot; 08:40</p>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--motion" data-focus="all">
+                <span class="hero-slide__label"><span>11</span>Motion Design</span>
+                <div class="hero-slide__stage">
+                  <svg class="hs-motion__arc" viewBox="0 0 400 300" focusable="false">
+                    <path class="hs-motion__trail" d="M56 64Q88 64 120 194Q172 30 224 194Q260 110 296 194Q320 158 344 194" />
+                    <path class="hs-motion__floor" d="M40 208H372" />
+                    <circle cx="84.8" cy="90" r="14" />
+                    <circle cx="107.6" cy="148.4" r="14" />
+                    <circle cx="145.2" cy="133.6" r="14" />
+                    <circle cx="171.2" cy="112" r="14" />
+                    <circle cx="196.8" cy="132.4" r="14" />
+                    <circle cx="240" cy="163.2" r="14" />
+                    <circle cx="277.6" cy="162.8" r="14" />
+                  </svg>
+                  <span class="hs-motion__x"><span class="hs-motion__y"><span class="hs-motion__ball"></span></span></span>
+                  <span class="hs-motion__keys"><span></span><span></span><span></span><span></span></span>
+                  <span class="hs-motion__head"></span>
+                  <svg class="hs-motion__ease" viewBox="0 0 180 70" focusable="false">
+                    <text x="12" y="16">Ease in-out</text>
+                    <path class="hs-motion__grid" d="M12 60H168M12 26H168" />
+                    <path class="hs-motion__handles" d="M12 60H64M168 26H116" />
+                    <path class="hs-motion__curve" d="M12 60C64 60 116 26 168 26" pathLength="1" />
+                    <circle cx="64" cy="60" r="3.5" />
+                    <circle cx="116" cy="26" r="3.5" />
+                  </svg>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--video" data-focus="all">
+                <span class="hero-slide__label"><span>12</span>Video Editing</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-video__monitor"><span class="hs-video__shot"></span><span class="hs-video__shot"></span></div>
+                  <span class="hs-video__time"></span>
+                  <span class="hs-video__transport"><span></span><span></span><span></span></span>
+                  <div class="hs-video__timeline">
+                    <span class="hs-video__ruler"></span>
+                    <span class="hs-video__track"><b>V2</b><span class="hs-video__clip hs-video__clip--title">Title</span></span>
+                    <span class="hs-video__track"><b>V1</b><span class="hs-video__clip hs-video__clip--a"></span><span class="hs-video__clip hs-video__clip--b"></span></span>
+                    <span class="hs-video__track"><b>A1</b><span class="hs-video__wave"></span></span>
+                    <span class="hs-video__head"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--photo" data-focus="all">
+                <span class="hero-slide__label"><span>13</span>Photo Editing</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-photo">
+                    <span class="hs-photo__img"></span>
+                    <span class="hs-photo__img hs-photo__before"></span>
+                    <span class="hs-photo__split"></span>
+                    <span class="hs-photo__tag">Before</span>
+                    <span class="hs-photo__tag">After</span>
+                  </div>
+                  <div class="hs-photo__panel">
+                    <b>Adjust</b>
+                    <svg class="hs-photo__histo" viewBox="0 0 100 30" preserveAspectRatio="none" focusable="false">
+                      <path d="M0 30C8 28 12 14 20 16S30 26 38 20 50 4 60 8 76 24 86 18 96 22 100 26V30Z" />
+                      <path d="M0 30C10 29 16 20 26 22S40 12 50 14 64 26 74 20 90 6 100 12V30Z" />
+                    </svg>
+                    <span class="hs-photo__slider">Exposure</span>
+                    <span class="hs-photo__slider">Contrast</span>
+                    <span class="hs-photo__slider">Saturation</span>
+                    <span class="hs-photo__slider">Warmth</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--ux" data-focus="all">
+                <span class="hero-slide__label"><span>14</span>UX Flow</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-ux__screen"><b>Sign up</b><span class="hs-ux__field"></span><span class="hs-ux__field"></span><span class="hs-ux__btn"></span></div>
+                  <div class="hs-ux__screen"><b>Welcome</b><span class="hs-ux__img"></span><span class="hs-ux__lines"></span><span class="hs-ux__btn"></span></div>
+                  <div class="hs-ux__screen"><b>Home</b><span class="hs-ux__row"></span><span class="hs-ux__row"></span><span class="hs-ux__row"></span></div>
+                  <svg class="hs-ux__links" viewBox="0 0 400 300" focusable="false">
+                    <path d="M124 120H154" pathLength="1" />
+                    <path d="M244 120H274" pathLength="1" />
+                    <path d="M147 113l8 7-8 7" />
+                    <path d="M267 113l8 7-8 7" />
+                    <path class="hs-ux__loop" d="M320 192C320 244 80 244 80 196" />
+                    <path d="M73 203l7-8 7 8" />
+                  </svg>
+                  <p class="hs-ux__tag">Returning user</p>
+                  <p class="hs-ux__note">Fewer steps?</p>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--3d" data-focus="all">
+                <span class="hero-slide__label"><span>15</span>3D Design</span>
+                <div class="hero-slide__stage">
+                  <span class="hs-3d__floor"></span>
+                  <span class="hs-3d__shadow"></span>
+                  <span class="hs-3d__shadow hs-3d__shadow--ball"></span>
+                  <div class="hs-3d__view"><div class="hs-3d__cube"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+                  <span class="hs-3d__ball"></span>
+                  <svg class="hs-3d__gizmo" viewBox="0 0 40 40" focusable="false">
+                    <path d="M16 24L34 30" stroke="#ff6b6b" />
+                    <path d="M16 24V5" stroke="#5ee08a" />
+                    <path d="M16 24L4 33" stroke="#5aa8ff" />
+                  </svg>
+                  <p class="hs-3d__chip">Perspective &middot; Lit</p>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--folio" data-focus="all">
+                <span class="hero-slide__label"><span>16</span>Portfolio</span>
+                <div class="hero-slide__stage">
+                  <p class="hs-folio__head">Selected Work<span>Work &middot; About &middot; Contact</span></p>
+                  <span class="hs-folio__tile"></span>
+                  <span class="hs-folio__tile"></span>
+                  <span class="hs-folio__tile"></span>
+                  <span class="hs-folio__tile"></span>
+                  <span class="hs-folio__tile"></span>
+                  <span class="hs-folio__tile"></span>
+                  <p class="hs-folio__caption"><b>Brand identity</b>Case study, 2026</p>
+                  <svg class="hs-cursor hs-folio__cursor" viewBox="0 0 24 24" focusable="false"><path d="M3 2.5v17.2l4.7-4.6 3.1 7.1 3.3-1.4-3.1-7h6.6z" /></svg>
+                </div>
+              </div>
+              <div class="hero-slide hero-slide--shop" data-focus="all">
+                <span class="hero-slide__label"><span>17</span>Ecommerce</span>
+                <div class="hero-slide__stage">
+                  <div class="hs-shop__card">
+                    <span class="hs-shop__media">
+                      <svg class="hs-shop__vase" viewBox="0 0 60 80" focusable="false"><path d="M24 4H36V12C36 18 50 24 50 44C50 64 42 76 30 76C18 76 10 64 10 44C10 24 24 18 24 12Z" /><path class="hs-shop__shine" d="M18 34C16 40 16 50 18 56" /></svg>
+                      <span class="hs-shop__badge">New</span>
+                    </span>
+                    <p class="hs-shop__name">Ceramic Vase<span>Stoneware, 24 cm</span></p>
+                    <p class="hs-shop__rating">4.9</p>
+                    <p class="hs-shop__buy">$48<span class="hs-shop__swatches"><span></span><span></span><span></span></span></p>
+                    <span class="hs-shop__cta">Add to bag</span>
+                  </div>
+                  <span class="hs-shop__bag"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2" /></svg><b>1</b></span>
+                </div>
               </div>
             </div>
             <button type="button" class="hero-motion-toggle" aria-pressed="false" aria-label="Pause motion" hidden>

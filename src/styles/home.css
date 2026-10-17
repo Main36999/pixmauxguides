@@ -1,14 +1,16 @@
-/* home.css — the homepage below its hero, published beside index.html.
+/* home.css — the homepage's own styles, published beside index.html.
    ------------------------------------------------------------------------
-   Loaded after styles.css, and only by the homepage. The hero (headline,
-   search, explore strip) keeps its styles in styles.css;
-   this file styles only what src/build/home.js writes below it:
+   Loaded after styles.css, and only by the homepage. The hero's copy and
+   its board's frame keep their styles in styles.css; this file styles
+   what src/build/home.js writes below the hero and, at the end, the
+   scenes on the hero's board:
 
      .home            the white content area under the hero
      .home-section    one titled card section
      .home-eyebrow    a section's heading, set as a centered uppercase label
      .tool-card       a BPOZZ tool: large pastel card, one tone per tool
      .resource-card   a further resource: wide, neutral, title + text only
+     .hero-slide      one scene on the hero's board; hs-* is its artwork
 
    Every card is one real link: the title's <a> is stretched over the whole
    card, so the card is clickable without JavaScript and the link's name is
@@ -320,5 +322,3057 @@
   .resource-card__desc {
     margin-top: 10px;
     font-size: 17px;
+  }
+}
+
+/* ---------- hero board: the scenes ----------
+   On the board beside the hero copy (its frame, .hero-visual, is in
+   styles.css): a sequence of design scenes, one discipline at a time:
+   typography, a color palette, shapes, a layout grid, vector
+   illustration, a brand mark, a poster, a web page, a dashboard, a
+   mobile app, motion, video editing, photo editing, a UX flow, 3D, a
+   portfolio and a product card. Each scene is a full-bleed slide with
+   its own ground and ink (--hs-bg, --hs-ink), a numbered label, and its
+   artwork on a stage. All of it is decoration (aria-hidden).
+   Size: the stage is 4:3 and a size container (100cqi wide, 75cqi
+   tall), so each scene scales as one picture. It fills the board's
+   height, centred (the board is 3:2, 16:10 or 4:3), and the slide's
+   ground fills the rest. The artwork keeps clear of the top-left corner
+   (the label) and the bottom-left corner (the pause button).
+   Sequence (core.js): the slide shown has is-active. The next one wipes
+   in from the right over it while it eases aside underneath
+   (is-leaving); the slide before that is hidden. The first slide shows
+   without a wipe: .hero-scene gets has-moved at the first change.
+   Motion: a slide's artwork builds once, on its own timings, each time
+   the slide comes in; hidden slides carry no animations, so only the
+   one or two slides on view animate. is-paused (the button, or the hero
+   off screen or in a hidden tab) freezes the board, the wipe included.
+   Under reduced motion none of it runs: the first scene stands,
+   finished. The artwork's class names take a short hs- ("hero scene")
+   prefix to keep seventeen scenes' markup compact. */
+
+.hero-scene {
+  --hs-in: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --hs-spring: cubic-bezier(0.3, 1.4, 0.5, 1);
+  --hs-swap: cubic-bezier(0.65, 0, 0.35, 1);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  background: var(--hs-bg);
+  color: var(--hs-ink);
+}
+.hero-slide.is-active,
+.hero-slide.is-leaving {
+  visibility: visible;
+}
+.hero-slide.is-active {
+  z-index: 1;
+}
+/* the scene's name, in its own colors reversed */
+.hero-slide__label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+  padding: 7px 11px 7px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--hs-ink);
+  color: var(--hs-bg);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+.hero-slide__label > span {
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+.hero-slide__stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 88.889%;
+  aspect-ratio: 4 / 3;
+  translate: -50% -50%;
+  container-type: inline-size;
+}
+.hero-slide__stage > * {
+  position: absolute;
+}
+:where(.hero-slide) svg {
+  display: block;
+  overflow: visible;
+}
+/* SVG parts scale and pop from their own centre; parts placed by a
+   transform attribute keep its origin. */
+:where(.hero-slide svg :not([transform])) {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.hs-cursor {
+  width: 3.6cqi;
+  fill: #fff;
+  stroke: #111;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0.4cqi 0.6cqi rgba(0, 0, 0, 0.25));
+}
+
+/* 01 Typography: a specimen on warm paper. Its weight sweeps along the
+   variable axis (--hs-wght, registered so it interpolates), and the
+   slider and readout follow it. The guides sit on the face's own cap
+   height (cap), x-height (ex), baseline and descent, so they hold at
+   every weight. */
+@property --hs-wght {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 700;
+}
+.hero-slide--type {
+  --hs-bg: #f3eee4;
+  --hs-ink: #1a1612;
+  --hs-red: #d9452a;
+}
+.hero-slide--type .hero-slide__stage {
+  --hs-wght: 700;
+}
+.hs-type__specimen {
+  left: 6cqi;
+  right: 36cqi;
+  top: 11cqi;
+  font-size: 34cqi;
+  font-weight: var(--hs-wght, 700);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.hs-type__specimen > span {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: baseline;
+}
+.hs-type__specimen .hs-type__cap {
+  height: 0.72em;
+  height: 1cap;
+}
+.hs-type__specimen .hs-type__x {
+  height: 0.5em;
+  height: 1ex;
+}
+.hs-type__specimen .hs-type__desc {
+  vertical-align: text-bottom;
+}
+/* each guide: a hairline across the specimen at its marker's top */
+.hs-type__specimen > span::before {
+  content: "";
+  position: absolute;
+  left: -2cqi;
+  right: -2cqi;
+  height: 0.25cqi;
+  background: var(--hs-red);
+  transform-origin: left;
+}
+.hs-type__specimen > span > span {
+  position: absolute;
+  right: -2cqi;
+  translate: 0 -125%;
+  color: var(--hs-red);
+  font-size: 2.2cqi;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.hs-type__specimen .hs-type__desc > span {
+  translate: 0 35%;
+}
+.hs-type__axis {
+  left: 70cqi;
+  right: 6cqi;
+  top: 13cqi;
+  display: flex;
+  justify-content: space-between;
+  font-size: 2.4cqi;
+  font-weight: 600;
+  line-height: 1;
+}
+.hs-type__axis::after {
+  counter-reset: hs-wght var(--hs-wght);
+  content: counter(hs-wght);
+  color: var(--hs-red);
+  font-variant-numeric: tabular-nums;
+}
+.hs-type__track {
+  left: 70cqi;
+  right: 6cqi;
+  top: 19cqi;
+  height: 0.5cqi;
+  border-radius: var(--radius-pill);
+  background: rgba(26, 22, 18, 0.15);
+}
+.hs-type__track::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc((var(--hs-wght) - 200) / 700 * 100%);
+  width: 2.6cqi;
+  height: 2.6cqi;
+  margin: -1.3cqi;
+  border-radius: 50%;
+  background: var(--hs-ink);
+}
+.hs-type__set {
+  left: 70cqi;
+  top: 27cqi;
+  font-size: 3.5cqi;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.hs-type__ladder {
+  left: 16cqi;
+  right: 6cqi;
+  top: 56cqi;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2.6cqi;
+  border-top: 0.2cqi solid rgba(26, 22, 18, 0.2);
+  font-size: 4.6cqi;
+  line-height: 1;
+}
+.hs-type__ladder > span:nth-child(1) {
+  font-weight: 200;
+}
+.hs-type__ladder > span:nth-child(2) {
+  font-weight: 300;
+}
+.hs-type__ladder > span:nth-child(3) {
+  font-weight: 400;
+}
+.hs-type__ladder > span:nth-child(4) {
+  font-weight: 500;
+}
+.hs-type__ladder > span:nth-child(5) {
+  font-weight: 600;
+}
+.hs-type__ladder > span:nth-child(6) {
+  font-weight: 700;
+}
+.hs-type__ladder > span:nth-child(7) {
+  font-weight: 800;
+}
+.hs-type__ladder > span:nth-child(8) {
+  font-weight: 900;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-slide--type .hero-slide__stage {
+    animation: hs-weight 2.6s cubic-bezier(0.45, 0, 0.25, 1) 0.7s both;
+  }
+  .hs-type__specimen {
+    animation: hs-fade 0.6s ease 0.3s both;
+  }
+  .hs-type__specimen > span::before {
+    animation: hs-grow-x 0.7s var(--hs-in) 0.45s both;
+  }
+  .hs-type__specimen > span:nth-child(2)::before {
+    animation-delay: 0.55s;
+  }
+  .hs-type__specimen > span:nth-child(3)::before {
+    animation-delay: 0.65s;
+  }
+  .hs-type__specimen > span:nth-child(4)::before {
+    animation-delay: 0.75s;
+  }
+  .hs-type__specimen > span > span {
+    animation: hs-fade 0.5s ease 1s both;
+  }
+  .hs-type__axis,
+  .hs-type__track {
+    animation: hs-fade 0.5s ease 0.5s both;
+  }
+  .hs-type__set {
+    animation: hs-rise 0.6s var(--hs-in) 0.6s both;
+  }
+  .hs-type__ladder {
+    animation: hs-reveal 1s var(--hs-swap) 1.3s both;
+  }
+}
+@keyframes hs-weight {
+  0% {
+    --hs-wght: 200;
+  }
+  55% {
+    --hs-wght: 900;
+  }
+  100% {
+    --hs-wght: 700;
+  }
+}
+
+/* 02 Color Palette: a fan deck of five swatches on the palette's own
+   deepest tone, opening from its rivet. */
+.hero-slide--color {
+  --hs-bg: #264653;
+  --hs-ink: #f4ecdc;
+}
+.hs-color__chip {
+  left: 42cqi;
+  top: 13cqi;
+  width: 16cqi;
+  height: 48cqi;
+  padding: 1.6cqi 1.6cqi 0;
+  border-radius: 1.4cqi;
+  background: linear-gradient(var(--hs-chip) 74%, #fbf7ef 74%);
+  color: #fff;
+  font-size: 1.9cqi;
+  font-weight: 500;
+  line-height: 1.3;
+  box-shadow: 0 1cqi 2.6cqi rgba(8, 24, 30, 0.35);
+  transform-origin: 50% 88%;
+  rotate: var(--hs-turn);
+}
+.hs-color__chip b {
+  display: block;
+  font-size: 2.4cqi;
+  font-weight: 600;
+}
+.hs-color__chip:nth-child(1) {
+  --hs-chip: #2a9d8f;
+  --hs-turn: -32deg;
+}
+.hs-color__chip:nth-child(2) {
+  --hs-chip: #8ab17d;
+  --hs-turn: -16deg;
+  color: #1f3a30;
+}
+.hs-color__chip:nth-child(3) {
+  --hs-chip: #e9c46a;
+  --hs-turn: 0deg;
+  color: #3d2f10;
+}
+.hs-color__chip:nth-child(4) {
+  --hs-chip: #f4a261;
+  --hs-turn: 16deg;
+  color: #3e2412;
+}
+.hs-color__chip:nth-child(5) {
+  --hs-chip: #e76f51;
+  --hs-turn: 32deg;
+}
+.hs-color__rivet {
+  left: 48.8cqi;
+  top: 54cqi;
+  width: 2.4cqi;
+  height: 2.4cqi;
+  border-radius: 50%;
+  background: #264653;
+  box-shadow: 0 0 0 0.6cqi #fbf7ef;
+}
+.hs-color__name {
+  left: 0;
+  right: 0;
+  top: 65cqi;
+  text-align: center;
+  font-size: 2.2cqi;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-color__chip {
+    animation: hs-fan 1.5s var(--hs-in) 0.35s both;
+  }
+  .hs-color__chip:nth-child(2) {
+    animation-delay: 0.42s;
+  }
+  .hs-color__chip:nth-child(3) {
+    animation-delay: 0.49s;
+  }
+  .hs-color__chip:nth-child(4) {
+    animation-delay: 0.56s;
+  }
+  .hs-color__chip:nth-child(5) {
+    animation-delay: 0.63s;
+  }
+  .hs-color__rivet {
+    animation: hs-pop 0.4s var(--hs-spring) 0.5s both;
+  }
+  .hs-color__name {
+    animation: hs-rise 0.6s var(--hs-in) 1.4s both;
+  }
+}
+@keyframes hs-fan {
+  0% {
+    opacity: 0;
+    translate: 0 8cqi;
+    rotate: 0deg;
+  }
+  30% {
+    opacity: 1;
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+/* 03 Shapes & Forms: primary forms on cobalt. They gather from the
+   edges, then the square turns and rounds into a circle and back. */
+.hero-slide--shape {
+  --hs-bg: #2342b0;
+  --hs-ink: #f4ead5;
+}
+.hs-shape--circle {
+  left: 17cqi;
+  top: 12cqi;
+  width: 30cqi;
+  height: 30cqi;
+  border-radius: 50%;
+  background: #f4ead5;
+}
+.hs-shape--square {
+  left: 50cqi;
+  top: 10cqi;
+  width: 22cqi;
+  height: 22cqi;
+  background: #ea4a2f;
+}
+.hs-shape--quarter {
+  left: 74cqi;
+  top: 18cqi;
+  width: 13cqi;
+  height: 13cqi;
+  border-top-left-radius: 100%;
+  background: #121212;
+}
+.hs-shape--arch {
+  left: 19cqi;
+  top: 45cqi;
+  width: 26cqi;
+  height: 13cqi;
+  border-radius: 13cqi 13cqi 0 0;
+  background: #ea4a2f;
+}
+.hs-shape--triangle {
+  left: 48cqi;
+  top: 34cqi;
+  width: 30cqi;
+  height: 26cqi;
+  background: #f6bd1a;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.hs-shape--bar {
+  left: 81cqi;
+  top: 34cqi;
+  width: 2.4cqi;
+  height: 26cqi;
+  background: #f4ead5;
+}
+.hs-shape--dots {
+  left: 19cqi;
+  top: 61cqi;
+  width: 26cqi;
+  height: 3cqi;
+  background: radial-gradient(circle closest-side, #f4ead5 90%, transparent) 0 0 / 20% 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-shape {
+    animation: hs-gather 1s var(--hs-spring) both;
+  }
+  .hs-shape--circle {
+    --hs-fx: -20cqi;
+    --hs-fy: -6cqi;
+    animation-delay: 0.3s;
+  }
+  .hs-shape--square {
+    --hs-fx: 10cqi;
+    --hs-fy: -16cqi;
+    --hs-fr: 45deg;
+    animation:
+      hs-gather 1s var(--hs-spring) 0.4s both,
+      hs-morph 1.8s var(--hs-swap) 1.7s;
+  }
+  .hs-shape--quarter {
+    --hs-fx: 18cqi;
+    --hs-fr: -90deg;
+    animation-delay: 0.5s;
+  }
+  .hs-shape--arch {
+    --hs-fx: -18cqi;
+    --hs-fy: 10cqi;
+    animation-delay: 0.55s;
+  }
+  .hs-shape--triangle {
+    --hs-fx: 6cqi;
+    --hs-fy: 18cqi;
+    --hs-fr: -30deg;
+    animation-delay: 0.6s;
+  }
+  .hs-shape--bar {
+    --hs-fy: -24cqi;
+    animation-delay: 0.7s;
+  }
+  .hs-shape--dots {
+    --hs-fx: -24cqi;
+    animation-delay: 0.8s;
+  }
+}
+@keyframes hs-morph {
+  50% {
+    border-radius: 50%;
+    rotate: 90deg;
+  }
+  100% {
+    rotate: 180deg;
+  }
+}
+
+/* 04 Layout & Grid: a page on its artboard, over a 12-column grid. The
+   columns sweep in, the blocks snap onto them, and a redline marks the
+   gap between two rows. */
+.hero-slide--layout {
+  --hs-bg: #dde2ea;
+  --hs-ink: #1b2230;
+}
+.hs-layout {
+  left: 9cqi;
+  top: 10cqi;
+  width: 82cqi;
+  height: 58cqi;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 3cqi 13cqi 7cqi 14cqi;
+  gap: 3.4cqi 1.6cqi;
+  align-content: start;
+  padding: 4cqi;
+  border-radius: 1cqi;
+  background: #fff;
+  box-shadow: 0 1cqi 3cqi rgba(27, 34, 48, 0.12);
+}
+.hs-layout__cols {
+  position: absolute;
+  inset: 0 4cqi;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1.6cqi;
+}
+.hs-layout__cols > span {
+  background: rgba(255, 61, 110, 0.12);
+}
+.hs-layout__logo {
+  grid-area: 1 / 1 / 2 / 3;
+  border-radius: var(--radius-pill);
+  background: var(--hs-ink);
+}
+.hs-layout__nav {
+  grid-area: 1 / 7 / 2 / 13;
+  background: repeating-linear-gradient(90deg, #c4cad6 0 5cqi, transparent 5cqi 7cqi) left center / 100% 1cqi no-repeat;
+}
+.hs-layout__title {
+  grid-area: 2 / 1 / 3 / 8;
+  background:
+    linear-gradient(var(--hs-ink) 0 0) left top / 100% 4.4cqi no-repeat,
+    linear-gradient(var(--hs-ink) 0 0) left bottom / 68% 4.4cqi no-repeat;
+}
+.hs-layout__image {
+  grid-area: 2 / 8 / 4 / 13;
+  border-radius: 1cqi;
+  background:
+    radial-gradient(circle at 72% 34%, #ffd27a 0 4cqi, transparent 4.2cqi),
+    linear-gradient(transparent 64%, #e2522a 64%),
+    #ff6a3d;
+}
+.hs-layout__text {
+  grid-area: 3 / 1 / 4 / 6;
+  background: repeating-linear-gradient(#c4cad6 0 1cqi, transparent 1cqi 2.6cqi);
+}
+.hs-layout__card {
+  grid-row: 4;
+  border-radius: 1cqi;
+  background:
+    linear-gradient(#cdd3de 0 0) 1.8cqi 1.8cqi / 45% 1.2cqi no-repeat,
+    linear-gradient(#dfe3eb 0 0) 1.8cqi 4.4cqi / 65% 1cqi no-repeat,
+    #f0f2f6;
+}
+.hs-layout__card:nth-child(7) {
+  grid-column: 1 / 5;
+}
+.hs-layout__card:nth-child(8) {
+  grid-column: 5 / 9;
+}
+.hs-layout__card:nth-child(9) {
+  grid-column: 9 / 13;
+}
+/* the redline: an I-beam across the gap above the cards, and its value */
+.hs-layout__gap {
+  position: relative;
+  grid-area: 4 / 3 / 5 / 4;
+  align-self: start;
+  justify-self: center;
+  width: 2cqi;
+  height: 3.4cqi;
+  margin-top: -3.4cqi;
+  border-block: 0.25cqi solid #ff3d6e;
+  background: linear-gradient(#ff3d6e 0 0) center / 0.25cqi 100% no-repeat;
+}
+.hs-layout__gap::after {
+  content: "24";
+  position: absolute;
+  left: 3cqi;
+  top: 50%;
+  translate: 0 -50%;
+  padding: 0.4cqi 0.8cqi;
+  border-radius: 0.6cqi;
+  background: #ff3d6e;
+  color: #fff;
+  font-size: 1.7cqi;
+  font-weight: 600;
+  line-height: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-layout {
+    animation: hs-rise 0.6s var(--hs-in) 0.3s both;
+  }
+  .hs-layout__cols {
+    animation: hs-reveal 0.8s var(--hs-swap) 0.6s both;
+  }
+  .hs-layout__logo,
+  .hs-layout__nav,
+  .hs-layout__title,
+  .hs-layout__image,
+  .hs-layout__text,
+  .hs-layout__card {
+    animation: hs-gather 0.7s var(--hs-spring) both;
+  }
+  .hs-layout__logo {
+    --hs-fx: -2cqi;
+    --hs-fy: 1.4cqi;
+    animation-delay: 1s;
+  }
+  .hs-layout__nav {
+    --hs-fx: 2.6cqi;
+    --hs-fy: -1cqi;
+    animation-delay: 1.05s;
+  }
+  .hs-layout__title {
+    --hs-fx: -3cqi;
+    --hs-fy: 2cqi;
+    animation-delay: 1.15s;
+  }
+  .hs-layout__image {
+    --hs-fx: 3.4cqi;
+    --hs-fy: 2.4cqi;
+    animation-delay: 1.25s;
+  }
+  .hs-layout__text {
+    --hs-fx: -2.4cqi;
+    --hs-fy: -1.6cqi;
+    animation-delay: 1.35s;
+  }
+  .hs-layout__card:nth-child(7) {
+    --hs-fy: 3cqi;
+    animation-delay: 1.45s;
+  }
+  .hs-layout__card:nth-child(8) {
+    --hs-fx: 1.6cqi;
+    --hs-fy: 3cqi;
+    animation-delay: 1.52s;
+  }
+  .hs-layout__card:nth-child(9) {
+    --hs-fx: 2.4cqi;
+    --hs-fy: 3cqi;
+    animation-delay: 1.59s;
+  }
+  .hs-layout__gap {
+    animation: hs-grow-y 0.4s var(--hs-in) 2.1s both;
+  }
+  .hs-layout__gap::after {
+    animation: hs-pop 0.35s var(--hs-spring) 2.35s both;
+  }
+}
+
+/* 05 Vector Illustration: a landscape drawn with the pen on a dotted
+   canvas. The path runs through its anchors, the peak's handles pull
+   out, then the shapes fill; the hill stays selected. */
+.hero-slide--vector {
+  --hs-bg: #fff;
+  --hs-ink: #161b26;
+  background: radial-gradient(circle, #dde1e8 1px, transparent 1.5px) 0 0 / 16px 16px, var(--hs-bg);
+}
+.hs-vector {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hs-vector__path,
+.hs-vector__ground {
+  stroke-dasharray: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-vector__tools {
+    animation: hs-fade 0.5s ease 0.3s both;
+  }
+  .hs-vector__path {
+    animation: hs-draw 1.1s cubic-bezier(0.45, 0, 0.55, 1) 0.5s both;
+  }
+  .hs-vector__anchor {
+    animation: hs-pop 0.35s var(--hs-spring) 0.5s both;
+  }
+  .hs-vector__anchor:nth-of-type(2) {
+    animation-delay: 1.02s;
+  }
+  .hs-vector__anchor:nth-of-type(3) {
+    animation-delay: 1.55s;
+  }
+  .hs-vector__handle {
+    animation: hs-grow-x 0.45s var(--hs-in) 1.25s both;
+  }
+  .hs-vector__knob {
+    animation: hs-pop 0.35s var(--hs-spring) 1.45s both;
+  }
+  .hs-vector__pen {
+    animation: hs-fade 0.3s ease 1.5s both;
+  }
+  .hs-vector__ground {
+    animation: hs-draw 0.7s ease-out 1.75s both;
+  }
+  .hs-vector__back {
+    animation: hs-fill 0.6s ease 1.85s both;
+  }
+  .hs-vector__front {
+    animation: hs-fill 0.6s ease 2.05s both;
+  }
+  .hs-vector__sun {
+    animation: hs-pop 0.6s var(--hs-spring) 2.3s both;
+  }
+}
+
+/* 06 Logo & Brand: a mark built on its construction (two circles whose
+   overlap is the leaf, a vein, a seed), then the wordmark, its line and
+   the brand colors, on the brand's own green. */
+.hero-slide--logo {
+  --hs-bg: #0f3d2e;
+  --hs-ink: #f1e9d2;
+}
+.hs-logo__mark {
+  left: 7cqi;
+  top: 15cqi;
+  width: 42cqi;
+  height: 42cqi;
+}
+.hs-logo__guides {
+  opacity: 0.3;
+  stroke-dasharray: 1;
+}
+.hs-logo__leaf {
+  fill: var(--hs-ink);
+}
+.hs-logo__vein {
+  fill: none;
+  stroke: var(--hs-bg);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+.hs-logo__seed {
+  fill: #e2b04a;
+}
+.hs-logo__word {
+  left: 56cqi;
+  top: 25cqi;
+  font-size: 8.4cqi;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.hs-logo__tag {
+  left: 56.4cqi;
+  top: 37cqi;
+  color: #e2b04a;
+  font-size: 2.1cqi;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.hs-logo__chips {
+  left: 56.4cqi;
+  top: 46cqi;
+  display: flex;
+  gap: 3cqi;
+  font-size: 1.8cqi;
+  font-weight: 500;
+}
+.hs-logo__chips > span::before {
+  content: "";
+  display: block;
+  width: 6.4cqi;
+  height: 6.4cqi;
+  margin-bottom: 1.2cqi;
+  border-radius: 50%;
+  background: var(--hs-chip);
+  box-shadow: inset 0 0 0 0.3cqi rgba(241, 233, 210, 0.5);
+}
+.hs-logo__chips > span:nth-child(1) {
+  --hs-chip: #0f3d2e;
+}
+.hs-logo__chips > span:nth-child(2) {
+  --hs-chip: #f1e9d2;
+}
+.hs-logo__chips > span:nth-child(3) {
+  --hs-chip: #e2b04a;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-logo__guides {
+    animation: hs-guides 2.6s ease 0.3s both;
+  }
+  .hs-logo__guides > * {
+    animation: hs-draw 0.9s cubic-bezier(0.45, 0, 0.55, 1) 0.35s both;
+  }
+  .hs-logo__guides > :nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  .hs-logo__guides > :nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  .hs-logo__guides > :nth-child(4) {
+    animation-delay: 0.8s;
+  }
+  .hs-logo__leaf {
+    animation: hs-pop 0.6s var(--hs-spring) 1.35s both;
+  }
+  .hs-logo__vein {
+    animation: hs-draw 0.45s ease-out 1.8s both;
+  }
+  .hs-logo__seed {
+    animation: hs-pop 0.5s var(--hs-spring) 1.95s both;
+  }
+  .hs-logo__word {
+    animation: hs-reveal 0.7s var(--hs-swap) 2.05s both;
+  }
+  .hs-logo__tag {
+    animation: hs-fade 0.5s ease 2.4s both;
+  }
+  .hs-logo__chips > span {
+    animation: hs-rise 0.5s var(--hs-in) 2.55s both;
+  }
+  .hs-logo__chips > span:nth-child(2) {
+    animation-delay: 2.65s;
+  }
+  .hs-logo__chips > span:nth-child(3) {
+    animation-delay: 2.75s;
+  }
+}
+@keyframes hs-guides {
+  0%,
+  55% {
+    opacity: 0.8;
+  }
+}
+
+/* 07 Poster Design: a Swiss-style poster and its smaller partner, hung
+   on a gallery wall beside their label. */
+.hero-slide--poster {
+  --hs-bg: #e6e2da;
+  --hs-ink: #161616;
+}
+.hs-poster {
+  left: 13cqi;
+  top: 10cqi;
+  width: 38.6cqi;
+  height: 54cqi;
+  overflow: hidden;
+  background: #ec3b22;
+  box-shadow:
+    0 0.3cqi 0.6cqi rgba(22, 22, 22, 0.12),
+    0 2.4cqi 4cqi rgba(22, 22, 22, 0.16);
+}
+.hs-poster > * {
+  position: absolute;
+}
+.hs-poster__meta {
+  left: 2.4cqi;
+  right: 2.4cqi;
+  top: 2.4cqi;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.7cqi;
+  font-weight: 600;
+}
+.hs-poster__sun {
+  right: -7cqi;
+  top: 9cqi;
+  width: 27cqi;
+  height: 27cqi;
+  border-radius: 50%;
+  background: #f6ead6;
+}
+.hs-poster__title {
+  left: 2.4cqi;
+  top: 12cqi;
+  font-size: 5.4cqi;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.hs-poster__num {
+  left: 1.2cqi;
+  bottom: 5cqi;
+  font-size: 30cqi;
+  font-weight: 800;
+  line-height: 0.74;
+  letter-spacing: -0.06em;
+}
+.hs-poster__foot {
+  left: 2.4cqi;
+  right: 2.4cqi;
+  bottom: 2.2cqi;
+  height: 1.2cqi;
+  border-top: 0.25cqi solid;
+}
+.hs-poster--small {
+  left: 59cqi;
+  top: 15cqi;
+  width: 26cqi;
+  height: 36.4cqi;
+  background: #161616;
+  color: #f6ead6;
+}
+.hs-poster__ring {
+  left: 4cqi;
+  top: 4cqi;
+  width: 18cqi;
+  height: 18cqi;
+  border: 1.6cqi solid #ec3b22;
+  border-radius: 50%;
+}
+.hs-poster--small .hs-poster__title {
+  top: auto;
+  bottom: 2.4cqi;
+  font-size: 4.4cqi;
+}
+.hs-poster__caption {
+  left: 59cqi;
+  top: 55cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqi;
+  padding: 1.2cqi 1.6cqi;
+  background: #fbf9f5;
+  box-shadow: 0 0.3cqi 0.8cqi rgba(22, 22, 22, 0.1);
+  color: #6d675e;
+  font-size: 1.7cqi;
+}
+.hs-poster__caption b {
+  color: var(--hs-ink);
+  font-size: 1.9cqi;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-poster {
+    animation: hs-hang 0.9s var(--hs-spring) 0.3s both;
+  }
+  .hs-poster--small {
+    animation-delay: 0.5s;
+  }
+  .hs-poster__num {
+    animation: hs-rise-far 0.9s var(--hs-in) 0.9s both;
+  }
+  .hs-poster__sun,
+  .hs-poster__ring {
+    animation: hs-pop 0.7s var(--hs-spring) 1.1s both;
+  }
+  .hs-poster__title {
+    animation: hs-reveal 0.6s var(--hs-swap) 1.4s both;
+  }
+  .hs-poster__meta,
+  .hs-poster__foot {
+    animation: hs-fade 0.5s ease 1.6s both;
+  }
+  .hs-poster__caption {
+    animation: hs-rise 0.5s var(--hs-in) 1.9s both;
+  }
+}
+@keyframes hs-hang {
+  from {
+    opacity: 0;
+    translate: 0 -5cqi;
+    rotate: -2deg;
+  }
+}
+
+/* 08 Web Design: a landing page in a browser window. The pointer
+   presses its call to action, then the page scrolls to the features. */
+.hero-slide--web {
+  --hs-bg: #e7e3ff;
+  --hs-ink: #1d1747;
+}
+.hs-web {
+  left: 9cqi;
+  top: 11cqi;
+  width: 84cqi;
+  height: 57cqi;
+  overflow: hidden;
+  border-radius: 1.8cqi;
+  background: #fff;
+  box-shadow: 0 2cqi 5cqi rgba(45, 30, 140, 0.18);
+}
+.hs-web__bar {
+  display: flex;
+  align-items: center;
+  height: 5cqi;
+  padding: 0 2cqi;
+  border-bottom: 1px solid #ebe8f6;
+  background: #f5f3fc;
+}
+.hs-web__bar > span:first-child {
+  width: 6cqi;
+  height: 1.3cqi;
+  background: radial-gradient(circle closest-side, #d5d0ea 90%, transparent) 0 0 / 2cqi 100%;
+}
+.hs-web__bar > span:last-child {
+  margin: 0 auto;
+  padding: 0.6cqi 5cqi;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: #7b7699;
+  font-size: 1.6cqi;
+}
+.hs-web__view {
+  position: relative;
+  height: 52cqi;
+  overflow: hidden;
+}
+.hs-web__page {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 72cqi;
+}
+.hs-web__page > * {
+  position: absolute;
+}
+.hs-web__nav {
+  left: 4cqi;
+  right: 4cqi;
+  top: 2.6cqi;
+  display: flex;
+  align-items: center;
+  gap: 3cqi;
+  font-size: 2.1cqi;
+}
+.hs-web__nav b {
+  flex: 1;
+  font-weight: 700;
+}
+.hs-web__nav > span:first-of-type {
+  width: 22cqi;
+  height: 1cqi;
+  background: repeating-linear-gradient(90deg, #d8d4ec 0 5cqi, transparent 5cqi 7.5cqi);
+}
+.hs-web__nav > span:last-of-type {
+  padding: 0.8cqi 1.8cqi;
+  border-radius: var(--radius-pill);
+  background: var(--hs-ink);
+  color: #fff;
+  font-size: 1.6cqi;
+  font-weight: 600;
+}
+.hs-web__title {
+  left: 4cqi;
+  top: 11cqi;
+  font-size: 5.6cqi;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+.hs-web__lede {
+  left: 4cqi;
+  top: 25cqi;
+  width: 32cqi;
+  height: 3.4cqi;
+  background:
+    linear-gradient(#cfcae6 0 0) left top / 100% 1cqi no-repeat,
+    linear-gradient(#cfcae6 0 0) left bottom / 70% 1cqi no-repeat;
+}
+.hs-web__cta {
+  left: 4cqi;
+  top: 31.5cqi;
+  padding: 1.2cqi 2.6cqi;
+  border-radius: var(--radius-pill);
+  background: #5b3df5;
+  color: #fff;
+  font-size: 1.9cqi;
+  font-weight: 600;
+}
+.hs-web__art {
+  left: 44cqi;
+  top: 10cqi;
+  width: 36cqi;
+  height: 29cqi;
+  border-radius: 1.6cqi;
+  background:
+    radial-gradient(circle at 36% 54%, #5b3df5 0 7.5cqi, transparent 7.7cqi),
+    linear-gradient(135deg, transparent 62%, #ff6b6b 62%),
+    #ffd166;
+}
+.hs-web__features {
+  left: 4cqi;
+  right: 4cqi;
+  top: 42cqi;
+  height: 19cqi;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2cqi;
+}
+.hs-web__features > span {
+  border-radius: 1.4cqi;
+  background:
+    radial-gradient(circle at 4cqi 4.4cqi, var(--hs-dot, #5b3df5) 0 2cqi, transparent 2.1cqi),
+    linear-gradient(#d8d4ec 0 0) 2cqi 9.4cqi / 60% 1.1cqi no-repeat,
+    linear-gradient(#e6e3f4 0 0) 2cqi 12.2cqi / 80% 0.9cqi no-repeat,
+    linear-gradient(#e6e3f4 0 0) 2cqi 14.6cqi / 70% 0.9cqi no-repeat,
+    #f5f3fe;
+}
+.hs-web__features > span:nth-child(2) {
+  --hs-dot: #ff6b6b;
+}
+.hs-web__features > span:nth-child(3) {
+  --hs-dot: #ffb703;
+}
+.hs-web__cursor {
+  left: 20.5cqi;
+  top: 48cqi;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-web {
+    animation: hs-rise 0.7s var(--hs-in) 0.3s both;
+  }
+  .hs-web__title {
+    animation: hs-reveal 0.7s var(--hs-swap) 0.65s both;
+  }
+  .hs-web__lede {
+    animation: hs-fade 0.5s ease 0.9s both;
+  }
+  .hs-web__cta {
+    animation:
+      hs-fade 0.5s ease 0.9s both,
+      hs-press 0.3s ease 1.75s;
+  }
+  .hs-web__art {
+    animation: hs-pop 0.7s var(--hs-spring) 0.8s both;
+  }
+  .hs-web__cursor {
+    animation: hs-point 0.7s var(--hs-in) 1.05s both;
+  }
+  .hs-web__page {
+    animation: hs-scroll 1.1s var(--hs-swap) 2.2s both;
+  }
+  .hs-web__features > span {
+    animation: hs-rise 0.5s var(--hs-in) 2.6s both;
+  }
+  .hs-web__features > span:nth-child(2) {
+    animation-delay: 2.7s;
+  }
+  .hs-web__features > span:nth-child(3) {
+    animation-delay: 2.8s;
+  }
+}
+/* far enough to show the features whole, not so far the headline leaves */
+@keyframes hs-scroll {
+  to {
+    translate: 0 -10cqi;
+  }
+}
+
+/* 09 Dashboard UI: a product dashboard in dark mode. The tiles come up,
+   the line chart draws, the bars grow and a data point lights. */
+.hero-slide--dash {
+  --hs-bg: #0b1020;
+  --hs-ink: #e7ecf6;
+}
+.hs-dash {
+  left: 5cqi;
+  top: 11cqi;
+  width: 90cqi;
+  height: 57cqi;
+  display: grid;
+  grid-template-columns: 8cqi repeat(3, minmax(0, 1fr));
+  grid-template-rows: 5cqi 12cqi minmax(0, 1fr);
+  gap: 2cqi;
+  padding: 2cqi 2.4cqi 2.4cqi 0;
+  border: 1px solid #1d2741;
+  border-radius: 1.8cqi;
+  background: #10172a;
+}
+.hs-dash__side {
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2cqi;
+  padding-top: 0.6cqi;
+  border-right: 1px solid #1d2741;
+}
+.hs-dash__side > span {
+  width: 3cqi;
+  height: 3cqi;
+  border-radius: 0.8cqi;
+  background: #1c2540;
+}
+.hs-dash__side > span:first-child {
+  border-radius: 50%;
+  background: #8b7cff;
+}
+.hs-dash__side > span:nth-child(2) {
+  background: #2d3566;
+  box-shadow: inset 0 0 0 0.25cqi #8b7cff;
+}
+.hs-dash__head {
+  grid-column: 2 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.6cqi;
+  font-weight: 600;
+}
+.hs-dash__head span {
+  padding: 0.6cqi 1.4cqi;
+  border: 1px solid #26314d;
+  border-radius: var(--radius-pill);
+  color: #8a94ad;
+  font-size: 1.6cqi;
+  font-weight: 500;
+}
+.hs-dash__kpi {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6cqi;
+  padding: 0 2cqi;
+  border-radius: 1.2cqi;
+  background: #161f38;
+  font-size: 3.4cqi;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.hs-dash__kpi span {
+  color: #8a94ad;
+  font-size: 1.6cqi;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.hs-dash__kpi b {
+  position: absolute;
+  right: 1.4cqi;
+  top: 1.4cqi;
+  padding: 0.3cqi 0.8cqi;
+  border-radius: var(--radius-pill);
+  background: rgba(52, 209, 191, 0.14);
+  color: #34d1bf;
+  font-size: 1.5cqi;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.hs-dash__chart {
+  grid-column: 2 / 4;
+  padding: 2cqi;
+  border-radius: 1.2cqi;
+  background: #161f38;
+}
+.hs-dash__chart svg {
+  width: 100%;
+  height: 100%;
+}
+.hs-dash__area {
+  fill: rgba(52, 209, 191, 0.14);
+}
+.hs-dash__line {
+  fill: none;
+  stroke: #34d1bf;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+.hs-dash__guide {
+  fill: none;
+  stroke: #8a94ad;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.hs-dash__dot {
+  fill: #0b1020;
+  stroke: #34d1bf;
+  stroke-width: 2.4;
+}
+.hs-dash__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.2cqi;
+  padding: 2.4cqi 2cqi 2cqi;
+  border-radius: 1.2cqi;
+  background: #161f38;
+}
+.hs-dash__bars > span {
+  flex: 1;
+  height: var(--hs-h);
+  border-radius: 0.5cqi 0.5cqi 0.2cqi 0.2cqi;
+  background: #8b7cff;
+  transform-origin: bottom;
+}
+.hs-dash__bars > span:nth-child(odd) {
+  background: #4f4aa6;
+}
+.hs-dash__bars > span:nth-child(1) {
+  --hs-h: 42%;
+}
+.hs-dash__bars > span:nth-child(2) {
+  --hs-h: 66%;
+}
+.hs-dash__bars > span:nth-child(3) {
+  --hs-h: 54%;
+}
+.hs-dash__bars > span:nth-child(4) {
+  --hs-h: 84%;
+}
+.hs-dash__bars > span:nth-child(5) {
+  --hs-h: 62%;
+}
+.hs-dash__bars > span:nth-child(6) {
+  --hs-h: 96%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-dash {
+    animation: hs-fade 0.6s ease 0.3s both;
+  }
+  .hs-dash__kpi {
+    animation: hs-rise 0.55s var(--hs-in) 0.55s both;
+  }
+  .hs-dash__kpi:nth-child(4) {
+    animation-delay: 0.65s;
+  }
+  .hs-dash__kpi:nth-child(5) {
+    animation-delay: 0.75s;
+  }
+  .hs-dash__line {
+    animation: hs-draw 1.4s cubic-bezier(0.45, 0, 0.55, 1) 1s both;
+  }
+  .hs-dash__area {
+    animation: hs-fill 0.6s ease 2s both;
+  }
+  .hs-dash__guide {
+    animation: hs-fade 0.3s ease 2.5s both;
+  }
+  .hs-dash__dot {
+    animation: hs-pop 0.4s var(--hs-spring) 2.55s both;
+  }
+  .hs-dash__bars > span {
+    animation: hs-grow-y 0.7s var(--hs-in) 1.1s both;
+  }
+  .hs-dash__bars > span:nth-child(2) {
+    animation-delay: 1.18s;
+  }
+  .hs-dash__bars > span:nth-child(3) {
+    animation-delay: 1.26s;
+  }
+  .hs-dash__bars > span:nth-child(4) {
+    animation-delay: 1.34s;
+  }
+  .hs-dash__bars > span:nth-child(5) {
+    animation-delay: 1.42s;
+  }
+  .hs-dash__bars > span:nth-child(6) {
+    animation-delay: 1.5s;
+  }
+}
+
+/* 10 Mobile App: a travel app on a phone. The screen fills in, a tap
+   ripples on the trip card, and a notification slides in beside it. */
+.hero-slide--mobile {
+  --hs-bg: #ffd9c6;
+  --hs-ink: #2b1a14;
+}
+.hs-phone {
+  left: 35cqi;
+  top: 4cqi;
+  width: 30cqi;
+  height: 66cqi;
+  padding: 1cqi;
+  border-radius: 5cqi;
+  background: #16110f;
+  box-shadow: 0 2cqi 5cqi rgba(120, 50, 20, 0.25);
+}
+.hs-phone__screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6cqi;
+  height: 100%;
+  padding: 5.4cqi 2.2cqi 0;
+  overflow: hidden;
+  border-radius: 4cqi;
+  background: #fffaf6;
+}
+.hs-phone__screen::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 1.2cqi;
+  width: 8cqi;
+  height: 2cqi;
+  margin-left: -4cqi;
+  border-radius: var(--radius-pill);
+  background: #16110f;
+}
+.hs-phone__hello {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqi;
+  color: #8a766c;
+  font-size: 1.7cqi;
+}
+.hs-phone__hello b {
+  color: var(--hs-ink);
+  font-size: 3cqi;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.hs-phone__trip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: none;
+  height: 16cqi;
+  padding: 2cqi;
+  overflow: hidden;
+  border-radius: 2.4cqi;
+  background:
+    radial-gradient(circle at 82% 30%, #ffd3a8 0 3.4cqi, transparent 3.6cqi),
+    #ff5f3d;
+  color: #fff;
+  font-size: 1.7cqi;
+}
+.hs-phone__trip b {
+  font-size: 3cqi;
+  font-weight: 700;
+}
+.hs-phone__trip::after {
+  content: "";
+  position: absolute;
+  left: 58%;
+  top: 56%;
+  width: 12cqi;
+  height: 12cqi;
+  margin: -6cqi;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+}
+.hs-phone__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4cqi;
+  flex: none;
+  height: 8cqi;
+}
+.hs-phone__row > span {
+  border-radius: 1.8cqi;
+  background: #ffe6da;
+}
+.hs-phone__row > span + span {
+  background: #e3ebff;
+}
+.hs-phone__item {
+  flex: none;
+  height: 4.6cqi;
+  background:
+    radial-gradient(circle at 2.3cqi 50%, #ffd0bd 0 2.1cqi, transparent 2.2cqi),
+    linear-gradient(#eadfd8 0 0) 6cqi 30% / 10cqi 0.9cqi no-repeat,
+    linear-gradient(#f2ebe6 0 0) 6cqi 70% / 15cqi 0.9cqi no-repeat;
+}
+.hs-phone__tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 7cqi;
+  padding-bottom: 1cqi;
+  border-top: 1px solid #f1e6e0;
+  background: #fff;
+}
+.hs-phone__tabs > span {
+  width: 2.6cqi;
+  height: 2.6cqi;
+  border-radius: 0.9cqi;
+  background: #e2d6cf;
+}
+.hs-phone__tabs > span:first-child {
+  background: #ff5f3d;
+}
+.hs-phone__toast {
+  left: 58cqi;
+  top: 50cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqi;
+  width: 26cqi;
+  padding: 1.6cqi 2cqi 1.6cqi 7.4cqi;
+  border-radius: 2cqi;
+  background: #fff;
+  box-shadow: 0 1.4cqi 3.6cqi rgba(120, 50, 20, 0.2);
+  color: #8a766c;
+  font-size: 1.7cqi;
+}
+.hs-phone__toast::before {
+  content: "";
+  position: absolute;
+  left: 2cqi;
+  top: 50%;
+  width: 4cqi;
+  height: 4cqi;
+  margin-top: -2cqi;
+  border-radius: 1.2cqi;
+  background: #ff5f3d;
+}
+.hs-phone__toast b {
+  color: var(--hs-ink);
+  font-size: 2.1cqi;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-phone {
+    animation: hs-rise-far 0.9s var(--hs-in) 0.3s both;
+  }
+  .hs-phone__hello {
+    animation: hs-rise 0.5s var(--hs-in) 0.75s both;
+  }
+  .hs-phone__trip {
+    animation:
+      hs-rise 0.5s var(--hs-in) 0.85s both,
+      hs-press 0.35s ease 1.9s;
+  }
+  .hs-phone__trip::after {
+    animation: hs-ripple 0.7s ease-out 1.9s both;
+  }
+  .hs-phone__row {
+    animation: hs-rise 0.5s var(--hs-in) 0.95s both;
+  }
+  .hs-phone__item {
+    animation: hs-rise 0.5s var(--hs-in) 1.05s both;
+  }
+  .hs-phone__item + .hs-phone__item {
+    animation-delay: 1.12s;
+  }
+  .hs-phone__tabs {
+    animation: hs-fade 0.5s ease 1.2s both;
+  }
+  .hs-phone__toast {
+    animation: hs-toast 0.6s var(--hs-spring) 2.5s both;
+  }
+}
+@keyframes hs-ripple {
+  from {
+    opacity: 0.7;
+    scale: 0;
+  }
+  to {
+    opacity: 0;
+    scale: 3;
+  }
+}
+@keyframes hs-toast {
+  from {
+    opacity: 0;
+    translate: 8cqi 0;
+  }
+}
+
+/* 11 Motion Design: a bouncing ball, keyed. It travels its arc with a
+   squash at each contact (x linear, y on true parabolas), leaving onion
+   skins, while the playhead crosses the keyframes and the ease curve
+   draws. The trail, the skins and the keys sit on the same timings:
+   contacts at 22.35%, 57.87%, 83.27% and 100% of the run. */
+.hero-slide--motion {
+  --hs-bg: #d2efe0;
+  --hs-ink: #0f3b2c;
+}
+.hs-motion__arc {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hs-motion__trail {
+  fill: none;
+  stroke: var(--hs-ink);
+  stroke-opacity: 0.4;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 9;
+}
+.hs-motion__floor {
+  fill: none;
+  stroke: var(--hs-ink);
+  stroke-opacity: 0.5;
+  stroke-width: 2;
+}
+.hs-motion__arc circle {
+  fill: none;
+  stroke: #ff5a3c;
+  stroke-width: 2;
+  stroke-opacity: 0.45;
+}
+.hs-motion__x {
+  left: 0;
+  top: 0;
+  translate: 86cqi 0;
+}
+.hs-motion__y {
+  display: block;
+  translate: 0 48.5cqi;
+}
+.hs-motion__ball {
+  display: block;
+  width: 7cqi;
+  height: 7cqi;
+  margin: -3.5cqi 0 0 -3.5cqi;
+  border-radius: 50%;
+  background: #ff5a3c;
+  transform-origin: 50% 100%;
+}
+.hs-motion__keys {
+  left: 15cqi;
+  top: 59cqi;
+  width: 36cqi;
+  height: 7cqi;
+  border-radius: 1.2cqi;
+  background:
+    linear-gradient(rgba(15, 59, 44, 0.3) 0 0) center / 92% 0.25cqi no-repeat,
+    rgba(15, 59, 44, 0.08);
+}
+.hs-motion__keys > span {
+  position: absolute;
+  top: 50%;
+  left: var(--hs-at);
+  width: 2cqi;
+  height: 2cqi;
+  margin: -1cqi;
+  border-radius: 0.3cqi;
+  background: var(--hs-ink);
+  rotate: 45deg;
+}
+.hs-motion__keys > span:nth-child(1) {
+  --hs-at: 4%;
+}
+.hs-motion__keys > span:nth-child(2) {
+  --hs-at: 24.6%;
+}
+.hs-motion__keys > span:nth-child(3) {
+  --hs-at: 57.2%;
+}
+.hs-motion__keys > span:nth-child(4) {
+  --hs-at: 96%;
+}
+/* the playhead spans the keyed part of the track and moves by its own
+   width, so translate 0 to 100% is the whole run */
+.hs-motion__head {
+  left: 16.44cqi;
+  top: 58cqi;
+  width: 33.12cqi;
+  height: 9cqi;
+  translate: 100% 0;
+}
+.hs-motion__head::before {
+  content: "";
+  position: absolute;
+  left: -0.15cqi;
+  top: 0;
+  bottom: 0;
+  width: 0.3cqi;
+  border-radius: 0.3cqi;
+  background: #ff5a3c;
+}
+.hs-motion__ease {
+  left: 56cqi;
+  top: 56cqi;
+  width: 36cqi;
+  height: 14cqi;
+  border-radius: 1.4cqi;
+  background: #fff;
+  box-shadow: 0 0.8cqi 2cqi rgba(15, 59, 44, 0.12);
+}
+.hs-motion__ease text {
+  fill: var(--hs-ink);
+  font-size: 9px;
+  font-weight: 600;
+}
+.hs-motion__grid {
+  fill: none;
+  stroke: #e1ece6;
+  stroke-width: 1;
+}
+.hs-motion__handles {
+  fill: none;
+  stroke: #9ab0a5;
+  stroke-width: 1;
+}
+.hs-motion__curve {
+  fill: none;
+  stroke: var(--hs-ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+.hs-motion__ease circle {
+  fill: #ff5a3c;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-motion__trail {
+    animation: hs-fade 0.6s ease 0.3s both;
+  }
+  .hs-motion__keys,
+  .hs-motion__ease {
+    animation: hs-rise 0.5s var(--hs-in) 0.35s both;
+  }
+  .hs-motion__x {
+    animation: hs-ball-x 2.6s linear 0.6s both;
+  }
+  .hs-motion__y {
+    animation: hs-ball-y 2.6s 0.6s both;
+  }
+  .hs-motion__ball {
+    animation: hs-ball-squash 2.6s linear 0.6s both;
+  }
+  .hs-motion__head {
+    animation: hs-head 2.6s linear 0.6s both;
+  }
+  .hs-motion__arc circle {
+    animation: hs-fade 0.2s ease both;
+  }
+  .hs-motion__arc circle:nth-of-type(1) {
+    animation-delay: 0.86s;
+  }
+  .hs-motion__arc circle:nth-of-type(2) {
+    animation-delay: 1.07s;
+  }
+  .hs-motion__arc circle:nth-of-type(3) {
+    animation-delay: 1.41s;
+  }
+  .hs-motion__arc circle:nth-of-type(4) {
+    animation-delay: 1.64s;
+  }
+  .hs-motion__arc circle:nth-of-type(5) {
+    animation-delay: 1.87s;
+  }
+  .hs-motion__arc circle:nth-of-type(6) {
+    animation-delay: 2.26s;
+  }
+  .hs-motion__arc circle:nth-of-type(7) {
+    animation-delay: 2.6s;
+  }
+  .hs-motion__keys > span {
+    animation: hs-pop 0.3s var(--hs-spring) 0.6s both;
+  }
+  .hs-motion__keys > span:nth-child(2) {
+    animation-delay: 1.18s;
+  }
+  .hs-motion__keys > span:nth-child(3) {
+    animation-delay: 2.1s;
+  }
+  .hs-motion__keys > span:nth-child(4) {
+    animation-delay: 3.2s;
+  }
+  .hs-motion__curve {
+    animation: hs-draw 1s var(--hs-swap) 1s both;
+  }
+  .hs-motion__ease circle {
+    animation: hs-pop 0.35s var(--hs-spring) 1.7s both;
+  }
+}
+@keyframes hs-ball-x {
+  from {
+    translate: 14cqi 0;
+  }
+}
+/* falls follow t squared and rises its mirror: parabolas, like the trail */
+@keyframes hs-ball-y {
+  0% {
+    translate: 0 16cqi;
+    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0.33);
+  }
+  22.35% {
+    translate: 0 48.5cqi;
+    animation-timing-function: cubic-bezier(0.33, 0.67, 0.67, 1);
+  }
+  40.11% {
+    translate: 0 28cqi;
+    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0.33);
+  }
+  57.87% {
+    translate: 0 48.5cqi;
+    animation-timing-function: cubic-bezier(0.33, 0.67, 0.67, 1);
+  }
+  70.57% {
+    translate: 0 38cqi;
+    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0.33);
+  }
+  83.27% {
+    translate: 0 48.5cqi;
+    animation-timing-function: cubic-bezier(0.33, 0.67, 0.67, 1);
+  }
+  91.59% {
+    translate: 0 44cqi;
+    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0.33);
+  }
+  100% {
+    translate: 0 48.5cqi;
+  }
+}
+@keyframes hs-ball-squash {
+  0%,
+  20.5%,
+  24.5%,
+  56%,
+  60%,
+  81.5%,
+  85%,
+  100% {
+    scale: 1;
+  }
+  22.35% {
+    scale: 1.3 0.72;
+  }
+  57.87% {
+    scale: 1.2 0.82;
+  }
+  83.27% {
+    scale: 1.12 0.9;
+  }
+}
+@keyframes hs-head {
+  from {
+    translate: 0 0;
+  }
+}
+
+/* 12 Video Editing: a cinematic edit. The playhead runs across the
+   tracks, the timecode counts, and the monitor cuts from dusk to night
+   as the playhead crosses the cut on V1 (48% of the lane: running 6% to
+   82% in 3s from 0.9s, it gets there at 2.56s). */
+@property --hs-sec {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 11;
+}
+@property --hs-fr {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 14;
+}
+.hero-slide--video {
+  --hs-bg: #131316;
+  --hs-ink: #ece8e1;
+}
+.hs-video__monitor {
+  left: 20cqi;
+  top: 10cqi;
+  width: 60cqi;
+  height: 29cqi;
+  overflow: hidden;
+  border-radius: 1cqi;
+  background: #050506;
+}
+.hs-video__shot {
+  position: absolute;
+  inset: 2cqi 0;
+  background:
+    linear-gradient(transparent 66%, #16394a 66%),
+    radial-gradient(circle at 64% 66%, #ffe0a0 0 3.6cqi, transparent 3.8cqi),
+    linear-gradient(#f7b267, #f27059 60%, #b14f6d);
+}
+.hs-video__shot + .hs-video__shot {
+  background:
+    linear-gradient(transparent 66%, #0a1730 66%),
+    radial-gradient(circle at 30% 34%, #f3f0de 0 2.8cqi, transparent 3cqi),
+    radial-gradient(circle at 58% 20%, #fff 0 0.25cqi, transparent 0.35cqi),
+    radial-gradient(circle at 76% 42%, #fff 0 0.2cqi, transparent 0.3cqi),
+    radial-gradient(circle at 88% 16%, #fff 0 0.25cqi, transparent 0.35cqi),
+    linear-gradient(#0d1a3c, #24396b);
+}
+/* the headland: the same location in both shots */
+.hs-video__monitor::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2cqi;
+  height: 11cqi;
+  background: #0a0a0d;
+  clip-path: polygon(0 30%, 10% 14%, 22% 40%, 30% 62%, 40% 100%, 0 100%);
+}
+.hs-video__time {
+  --hs-sec: 11;
+  --hs-fr: 14;
+  left: 20cqi;
+  top: 41cqi;
+  color: #ffb020;
+  font-size: 2cqi;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  counter-reset: hs-sec var(--hs-sec) hs-fr var(--hs-fr);
+}
+.hs-video__time::after {
+  content: "00:00:" counter(hs-sec, decimal-leading-zero) ":" counter(hs-fr, decimal-leading-zero);
+}
+.hs-video__transport {
+  left: 45cqi;
+  top: 41cqi;
+  display: flex;
+  align-items: center;
+  gap: 2cqi;
+}
+.hs-video__transport > span {
+  width: 2cqi;
+  height: 2.2cqi;
+  background: #8d8a84;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.hs-video__transport > span:first-child {
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+.hs-video__transport > span:nth-child(2) {
+  width: 2.4cqi;
+  height: 2.6cqi;
+  background: var(--hs-ink);
+}
+.hs-video__timeline {
+  left: 14cqi;
+  top: 45.5cqi;
+  width: 80cqi;
+  height: 24.5cqi;
+  display: grid;
+  grid-template-rows: 2.2cqi repeat(3, minmax(0, 1fr));
+  gap: 1cqi;
+  padding: 1.4cqi 1.4cqi 1.4cqi 6cqi;
+  border-radius: 1.2cqi;
+  background: #1c1c21;
+}
+.hs-video__ruler {
+  background:
+    repeating-linear-gradient(90deg, rgba(236, 232, 225, 0.28) 0 1px, transparent 1px 2.4cqi) left bottom / 100% 45% no-repeat,
+    repeating-linear-gradient(90deg, rgba(236, 232, 225, 0.5) 0 1px, transparent 1px 12cqi);
+}
+.hs-video__track {
+  position: relative;
+  border-radius: 0.6cqi;
+  background: #232329;
+}
+.hs-video__track b {
+  position: absolute;
+  left: -4.6cqi;
+  top: 50%;
+  translate: 0 -50%;
+  color: #8d8a84;
+  font-size: 1.5cqi;
+  font-weight: 600;
+}
+.hs-video__clip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 0.6cqi;
+}
+.hs-video__clip--title {
+  left: 30%;
+  width: 24%;
+  display: flex;
+  align-items: center;
+  padding-left: 1cqi;
+  background: #7c5cff;
+  color: #fff;
+  font-size: 1.5cqi;
+  font-weight: 600;
+}
+.hs-video__clip--a {
+  left: 0;
+  width: 47.6%;
+  background: repeating-linear-gradient(90deg, transparent 0 6cqi, rgba(0, 0, 0, 0.18) 6cqi 6.3cqi), #2b8a80;
+}
+.hs-video__clip--b {
+  left: 48.4%;
+  right: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 6cqi, rgba(0, 0, 0, 0.18) 6cqi 6.3cqi), #d9773e;
+}
+/* the waveform: blobs of level, cut into bars by the mask */
+.hs-video__wave {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 7% 46% at 6% 50%, #45c08a 96%, transparent),
+    radial-gradient(ellipse 9% 30% at 18% 50%, #45c08a 96%, transparent),
+    radial-gradient(ellipse 10% 44% at 33% 50%, #45c08a 96%, transparent),
+    radial-gradient(ellipse 8% 22% at 47% 50%, #45c08a 96%, transparent),
+    radial-gradient(ellipse 12% 46% at 62% 50%, #45c08a 96%, transparent),
+    radial-gradient(ellipse 9% 30% at 79% 50%, #45c08a 96%, transparent),
+    radial-gradient(ellipse 8% 40% at 93% 50%, #45c08a 96%, transparent),
+    linear-gradient(#45c08a 0 0) center / 100% 8% no-repeat;
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 0.45cqi, transparent 0.45cqi 0.9cqi);
+  mask: repeating-linear-gradient(90deg, #000 0 0.45cqi, transparent 0.45cqi 0.9cqi);
+}
+/* the playhead spans the lane and moves by its own width */
+.hs-video__timeline > .hs-video__head {
+  position: absolute;
+  left: 6cqi;
+  right: 1.4cqi;
+  top: 0.6cqi;
+  bottom: 0.8cqi;
+  translate: 82% 0;
+}
+.hs-video__head::before {
+  content: "";
+  position: absolute;
+  left: -0.15cqi;
+  top: 1.6cqi;
+  bottom: 0;
+  width: 0.3cqi;
+  background: #ff4d3d;
+}
+.hs-video__head::after {
+  content: "";
+  position: absolute;
+  left: -1cqi;
+  top: 0;
+  width: 2cqi;
+  height: 2cqi;
+  background: #ff4d3d;
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-video__monitor {
+    animation: hs-fade 0.6s ease 0.3s both;
+  }
+  .hs-video__shot + .hs-video__shot {
+    animation: hs-cut 0.01s linear 2.56s both;
+  }
+  .hs-video__timeline {
+    animation: hs-rise 0.6s var(--hs-in) 0.45s both;
+  }
+  .hs-video__timeline > .hs-video__head {
+    animation: hs-playhead 3s linear 0.9s both;
+  }
+  .hs-video__time {
+    animation:
+      hs-seconds 3s linear 0.9s both,
+      hs-frames 1s linear 0.9s 3 both;
+  }
+}
+@keyframes hs-cut {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hs-playhead {
+  from {
+    translate: 6% 0;
+  }
+}
+@keyframes hs-seconds {
+  from {
+    --hs-sec: 8;
+  }
+}
+@keyframes hs-frames {
+  from {
+    --hs-fr: 0;
+  }
+  to {
+    --hs-fr: 23;
+  }
+}
+
+/* 13 Photo Editing: a landscape being graded. The before/after split
+   sweeps from gray to color while the sliders move, by the histogram. */
+.hero-slide--photo {
+  --hs-bg: #dcd7cf;
+  --hs-ink: #23201c;
+}
+.hs-photo {
+  left: 6cqi;
+  top: 11cqi;
+  width: 56cqi;
+  height: 50cqi;
+  overflow: hidden;
+  border-radius: 1cqi;
+  box-shadow: 0 1.4cqi 3.4cqi rgba(40, 30, 20, 0.2);
+}
+.hs-photo > * {
+  position: absolute;
+}
+.hs-photo__img {
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 40%, #fff3cf 0 3cqi, transparent 3.2cqi),
+    linear-gradient(#ffd08a, #f6a26c 38%, #d66f79 66%, #7a5aa1);
+}
+.hs-photo__img::before,
+.hs-photo__img::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.hs-photo__img::before {
+  top: 40%;
+  background: #6c5591;
+  clip-path: polygon(0 34%, 16% 8%, 28% 26%, 46% 0, 62% 28%, 78% 12%, 100% 34%, 100% 100%, 0 100%);
+}
+.hs-photo__img::after {
+  top: 56%;
+  background: linear-gradient(#3b2d5e 0 36%, #b08fc8 36% 38%, #8a6fb3 38%);
+  clip-path: polygon(0 26%, 12% 6%, 24% 20%, 38% 0, 56% 24%, 70% 10%, 84% 22%, 100% 4%, 100% 100%, 0 100%);
+}
+/* the same photo, ungraded, left of the split */
+.hs-photo__before {
+  filter: grayscale(1) contrast(0.92) brightness(1.04);
+  clip-path: inset(0 58% 0 0);
+}
+.hs-photo__split {
+  inset: 0;
+  translate: 42% 0;
+}
+.hs-photo__split::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.2cqi;
+  width: 0.4cqi;
+  background: #fff;
+}
+.hs-photo__split::after {
+  content: "";
+  position: absolute;
+  left: -2.2cqi;
+  top: 50%;
+  width: 4.4cqi;
+  height: 4.4cqi;
+  margin-top: -2.2cqi;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0.4cqi 1cqi rgba(0, 0, 0, 0.25);
+}
+.hs-photo__tag {
+  left: 2cqi;
+  bottom: 2cqi;
+  padding: 0.5cqi 1.2cqi;
+  border-radius: var(--radius-pill);
+  background: rgba(20, 16, 12, 0.55);
+  color: #fff;
+  font-size: 1.6cqi;
+  font-weight: 600;
+}
+.hs-photo__tag:last-child {
+  left: auto;
+  right: 2cqi;
+}
+.hs-photo__panel {
+  left: 66cqi;
+  top: 11cqi;
+  width: 28cqi;
+  height: 50cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2cqi;
+  padding: 2.4cqi;
+  border-radius: 1.4cqi;
+  background: #f8f6f2;
+  box-shadow: 0 1cqi 2.6cqi rgba(40, 30, 20, 0.14);
+  color: #7a7267;
+  font-size: 1.8cqi;
+  font-weight: 500;
+}
+.hs-photo__panel b {
+  color: var(--hs-ink);
+  font-size: 2.2cqi;
+  font-weight: 600;
+}
+.hs-photo__histo {
+  flex: none;
+  width: 100%;
+  height: 9cqi;
+  border-radius: 0.6cqi;
+  background: #ece8e1;
+}
+.hs-photo__histo path {
+  fill: rgba(214, 111, 121, 0.55);
+  transform-origin: 50% 100%;
+}
+.hs-photo__histo path + path {
+  fill: rgba(108, 85, 145, 0.55);
+}
+.hs-photo__slider {
+  position: relative;
+  padding-bottom: 2.2cqi;
+  line-height: 1;
+}
+.hs-photo__slider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.5cqi;
+  height: 0.4cqi;
+  border-radius: var(--radius-pill);
+  background: #ddd6cb;
+}
+.hs-photo__slider::after {
+  content: "";
+  position: absolute;
+  left: var(--hs-v);
+  bottom: -0.2cqi;
+  width: 1.8cqi;
+  height: 1.8cqi;
+  margin-left: -0.9cqi;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 0.35cqi var(--hs-ink);
+}
+.hs-photo__slider:nth-of-type(1) {
+  --hs-v: 62%;
+}
+.hs-photo__slider:nth-of-type(2) {
+  --hs-v: 38%;
+}
+.hs-photo__slider:nth-of-type(3) {
+  --hs-v: 80%;
+}
+.hs-photo__slider:nth-of-type(4) {
+  --hs-v: 66%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-photo {
+    animation: hs-rise 0.6s var(--hs-in) 0.3s both;
+  }
+  .hs-photo__panel {
+    animation: hs-rise 0.6s var(--hs-in) 0.45s both;
+  }
+  .hs-photo__histo path {
+    animation: hs-grow-y 0.7s var(--hs-in) 0.8s both;
+  }
+  .hs-photo__before {
+    animation: hs-before 1.5s var(--hs-swap) 1s both;
+  }
+  .hs-photo__split {
+    animation: hs-split 1.5s var(--hs-swap) 1s both;
+  }
+  .hs-photo__tag {
+    animation: hs-fade 0.4s ease 2.5s both;
+  }
+  .hs-photo__slider::after {
+    animation: hs-thumb 1.3s var(--hs-swap) 1.05s both;
+  }
+  .hs-photo__slider:nth-of-type(2)::after {
+    animation-delay: 1.15s;
+  }
+  .hs-photo__slider:nth-of-type(3)::after {
+    animation-delay: 1.25s;
+  }
+  .hs-photo__slider:nth-of-type(4)::after {
+    animation-delay: 1.35s;
+  }
+}
+@keyframes hs-before {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes hs-split {
+  from {
+    translate: 100% 0;
+  }
+}
+@keyframes hs-thumb {
+  from {
+    left: 50%;
+  }
+}
+
+/* 14 UX Flow: three wireframes of a sign-up journey on a dotted wall,
+   linked by flow arrows and a return loop, with a review note. */
+.hero-slide--ux {
+  --hs-bg: #f6ebc6;
+  --hs-ink: #2a251d;
+  background: radial-gradient(circle, rgba(42, 37, 29, 0.14) 1px, transparent 1.5px) 0 0 / 18px 18px, var(--hs-bg);
+}
+.hs-ux__screen {
+  top: 13cqi;
+  width: 20cqi;
+  height: 34cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8cqi;
+  padding: 2.6cqi 2.2cqi 2.4cqi;
+  border: 0.35cqi solid var(--hs-ink);
+  border-radius: 2.4cqi;
+  background: #fffdf6;
+  font-size: 2cqi;
+  font-weight: 600;
+}
+.hs-ux__screen:nth-of-type(1) {
+  left: 10cqi;
+}
+.hs-ux__screen:nth-of-type(2) {
+  left: 40cqi;
+}
+.hs-ux__screen:nth-of-type(3) {
+  left: 70cqi;
+}
+.hs-ux__field {
+  flex: none;
+  height: 3.6cqi;
+  border: 0.3cqi solid rgba(42, 37, 29, 0.45);
+  border-radius: 0.8cqi;
+}
+.hs-ux__btn {
+  flex: none;
+  height: 3.8cqi;
+  margin-top: auto;
+  border-radius: var(--radius-pill);
+  background: var(--hs-ink);
+}
+.hs-ux__img {
+  flex: none;
+  height: 12cqi;
+  border: 0.3cqi solid rgba(42, 37, 29, 0.45);
+  border-radius: 0.8cqi;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.2cqi), rgba(42, 37, 29, 0.45) 0 calc(50% + 0.2cqi), transparent 0),
+    linear-gradient(to bottom right, transparent calc(50% - 0.2cqi), rgba(42, 37, 29, 0.45) 0 calc(50% + 0.2cqi), transparent 0);
+}
+.hs-ux__lines {
+  flex: none;
+  height: 4.2cqi;
+  background: repeating-linear-gradient(rgba(42, 37, 29, 0.3) 0 0.9cqi, transparent 0.9cqi 1.8cqi);
+}
+.hs-ux__row {
+  flex: none;
+  height: 5cqi;
+  border-bottom: 0.25cqi solid rgba(42, 37, 29, 0.2);
+  background:
+    radial-gradient(circle at 1.8cqi 45%, rgba(42, 37, 29, 0.35) 0 1.6cqi, transparent 1.7cqi),
+    linear-gradient(rgba(42, 37, 29, 0.3) 0 0) 4.6cqi 30% / 8cqi 0.8cqi no-repeat,
+    linear-gradient(rgba(42, 37, 29, 0.18) 0 0) 4.6cqi 70% / 10cqi 0.8cqi no-repeat;
+}
+.hs-ux__links {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--hs-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hs-ux__links path:nth-child(-n + 2) {
+  stroke-dasharray: 1;
+}
+.hs-ux__loop {
+  stroke-dasharray: 5 6;
+  stroke-opacity: 0.6;
+}
+.hs-ux__tag {
+  left: 50cqi;
+  top: 56.2cqi;
+  translate: -50% 0;
+  padding: 0.4cqi 1.2cqi;
+  background: var(--hs-bg);
+  color: rgba(42, 37, 29, 0.75);
+  font-size: 1.8cqi;
+  font-weight: 600;
+}
+.hs-ux__note {
+  left: 80cqi;
+  top: 4cqi;
+  width: 15cqi;
+  height: 13cqi;
+  padding: 1.6cqi;
+  background: #ff9fb5;
+  box-shadow: 0 0.8cqi 1.6cqi rgba(80, 40, 20, 0.18);
+  color: #3a1f27;
+  font-size: 2.2cqi;
+  font-weight: 600;
+  line-height: 1.15;
+  rotate: 5deg;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-ux__screen {
+    animation: hs-rise 0.6s var(--hs-in) 0.3s both;
+  }
+  .hs-ux__screen:nth-of-type(2) {
+    animation-delay: 0.45s;
+  }
+  .hs-ux__screen:nth-of-type(3) {
+    animation-delay: 0.6s;
+  }
+  .hs-ux__links path:nth-child(1) {
+    animation: hs-draw 0.4s ease-out 1s both;
+  }
+  .hs-ux__links path:nth-child(3) {
+    animation: hs-fade 0.2s ease 1.3s both;
+  }
+  .hs-ux__links path:nth-child(2) {
+    animation: hs-draw 0.4s ease-out 1.45s both;
+  }
+  .hs-ux__links path:nth-child(4) {
+    animation: hs-fade 0.2s ease 1.75s both;
+  }
+  .hs-ux__links path:nth-child(n + 5) {
+    animation: hs-fade 0.5s ease 2s both;
+  }
+  .hs-ux__tag {
+    animation: hs-fade 0.5s ease 2.2s both;
+  }
+  .hs-ux__note {
+    animation: hs-stick 0.5s var(--hs-spring) 2.5s both;
+  }
+}
+@keyframes hs-stick {
+  from {
+    opacity: 0;
+    scale: 1.25;
+    rotate: -6deg;
+  }
+}
+
+/* 15 3D Design: a studio scene. The cube turns half a revolution in
+   perspective over a receding floor grid, beside a lit sphere, with the
+   viewport's axis gizmo. */
+.hero-slide--3d {
+  --hs-bg: #17143d;
+  --hs-ink: #ebe8ff;
+  background: radial-gradient(ellipse 60% 55% at 50% 38%, #2f2a78, transparent 70%), var(--hs-bg);
+}
+.hs-3d__floor {
+  left: -30cqi;
+  right: -30cqi;
+  top: 44cqi;
+  height: 40cqi;
+  background:
+    linear-gradient(rgba(235, 232, 255, 0.16) 1px, transparent 1px) 0 0 / 7cqi 7cqi,
+    linear-gradient(90deg, rgba(235, 232, 255, 0.16) 1px, transparent 1px) 0 0 / 7cqi 7cqi;
+  transform: perspective(120cqi) rotateX(64deg);
+  transform-origin: 50% 0;
+  -webkit-mask: linear-gradient(transparent, #000 30%, #000 60%, transparent);
+  mask: linear-gradient(transparent, #000 30%, #000 60%, transparent);
+}
+.hs-3d__shadow {
+  left: 20cqi;
+  top: 44cqi;
+  width: 30cqi;
+  height: 6cqi;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(5, 4, 20, 0.65), transparent);
+}
+.hs-3d__shadow--ball {
+  left: 57cqi;
+  top: 42.5cqi;
+  width: 19cqi;
+  height: 4cqi;
+}
+.hs-3d__view {
+  left: 23cqi;
+  top: 14cqi;
+  width: 24cqi;
+  height: 24cqi;
+  perspective: 120cqi;
+}
+.hs-3d__cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotateX(-22deg) rotateY(36deg);
+  transform-style: preserve-3d;
+}
+.hs-3d__cube > span {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.4cqi;
+}
+.hs-3d__cube > span:nth-child(1) {
+  transform: translateZ(12cqi);
+  background: #ff8a65;
+}
+.hs-3d__cube > span:nth-child(2) {
+  transform: rotateY(180deg) translateZ(12cqi);
+  background: #c94f33;
+}
+.hs-3d__cube > span:nth-child(3) {
+  transform: rotateY(90deg) translateZ(12cqi);
+  background: #e2603f;
+}
+.hs-3d__cube > span:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(12cqi);
+  background: #ffa184;
+}
+.hs-3d__cube > span:nth-child(5) {
+  transform: rotateX(90deg) translateZ(12cqi);
+  background: #ffd3c2;
+}
+.hs-3d__cube > span:nth-child(6) {
+  transform: rotateX(-90deg) translateZ(12cqi);
+  background: #8f3420;
+}
+.hs-3d__ball {
+  left: 59cqi;
+  top: 28cqi;
+  width: 15cqi;
+  height: 15cqi;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #e5e8ff, #8d9bff 22%, #4450d6 55%, #1d2170);
+}
+.hs-3d__gizmo {
+  left: 83cqi;
+  top: 55cqi;
+  width: 9cqi;
+  height: 9cqi;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.hs-3d__chip {
+  right: 4cqi;
+  top: 5cqi;
+  padding: 0.6cqi 1.4cqi;
+  border: 1px solid rgba(235, 232, 255, 0.25);
+  border-radius: var(--radius-pill);
+  color: rgba(235, 232, 255, 0.8);
+  font-size: 1.7cqi;
+  font-weight: 500;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-3d__floor {
+    animation: hs-fade 0.8s ease 0.3s both;
+  }
+  .hs-3d__shadow {
+    animation: hs-fade 0.8s ease 0.6s both;
+  }
+  .hs-3d__view {
+    animation: hs-drop 0.8s var(--hs-spring) 0.4s both;
+  }
+  .hs-3d__cube {
+    animation: hs-spin 3.2s cubic-bezier(0.3, 0.6, 0.2, 1) 0.5s both;
+  }
+  .hs-3d__ball {
+    animation: hs-pop 0.7s var(--hs-spring) 0.9s both;
+  }
+  .hs-3d__gizmo,
+  .hs-3d__chip {
+    animation: hs-fade 0.5s ease 1.3s both;
+  }
+}
+@keyframes hs-spin {
+  from {
+    transform: rotateX(-22deg) rotateY(-144deg);
+  }
+}
+
+/* 16 Portfolio: a designer's selected work in a masonry grid; the
+   pointer opens one case study. */
+.hero-slide--folio {
+  --hs-bg: #f1f0ec;
+  --hs-ink: #151515;
+}
+.hs-folio__head {
+  left: 8cqi;
+  right: 8cqi;
+  top: 11cqi;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 4.4cqi;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.hs-folio__head span {
+  color: #77756f;
+  font-size: 1.7cqi;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.hs-folio__tile {
+  width: 26.4cqi;
+  border-radius: 1.2cqi;
+}
+.hs-folio__tile:nth-of-type(1) {
+  left: 8cqi;
+  top: 19cqi;
+  height: 22cqi;
+  background: #ff7a59;
+}
+.hs-folio__tile:nth-of-type(1)::after {
+  content: "Aa";
+  position: absolute;
+  left: 2cqi;
+  bottom: 1.4cqi;
+  color: #fff1e6;
+  font-size: 9cqi;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.hs-folio__tile:nth-of-type(2) {
+  left: 8cqi;
+  top: 43.4cqi;
+  height: 18.6cqi;
+  background:
+    radial-gradient(circle at 5cqi 50%, #ff7a59 0 1.8cqi, transparent 1.9cqi),
+    radial-gradient(circle at 10cqi 50%, #ffd23f 0 1.8cqi, transparent 1.9cqi),
+    radial-gradient(circle at 15cqi 50%, #a8c8ff 0 1.8cqi, transparent 1.9cqi),
+    radial-gradient(circle at 20cqi 50%, #b9d6b0 0 1.8cqi, transparent 1.9cqi),
+    #1b1b1b;
+}
+.hs-folio__tile:nth-of-type(3) {
+  left: 36.8cqi;
+  top: 19cqi;
+  height: 15cqi;
+  background: radial-gradient(circle, #fff 0 4.4cqi, transparent 4.6cqi), #a8c8ff;
+}
+.hs-folio__tile:nth-of-type(4) {
+  left: 36.8cqi;
+  top: 36.4cqi;
+  height: 25.6cqi;
+  background: radial-gradient(ellipse 9cqi 11cqi at 50% 100%, #2f5d3a 98%, transparent), #b9d6b0;
+}
+.hs-folio__tile:nth-of-type(5) {
+  left: 65.6cqi;
+  top: 19cqi;
+  height: 19cqi;
+  background:
+    linear-gradient(rgba(21, 21, 21, 0.14) 1px, transparent 1px) 0 0 / 3.3cqi 3.3cqi,
+    linear-gradient(90deg, rgba(21, 21, 21, 0.14) 1px, transparent 1px) 0 0 / 3.3cqi 3.3cqi,
+    #ffd23f;
+}
+.hs-folio__tile:nth-of-type(6) {
+  left: 65.6cqi;
+  top: 40.4cqi;
+  height: 21.6cqi;
+  background: #6c5ce7;
+}
+.hs-folio__tile:nth-of-type(6)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8cqi;
+  height: 14cqi;
+  margin: -7cqi 0 0 -4cqi;
+  border: 0.5cqi solid rgba(255, 255, 255, 0.85);
+  border-radius: 1.6cqi;
+}
+.hs-folio__caption {
+  left: 38.6cqi;
+  top: 52.4cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqi;
+  padding: 1cqi 1.6cqi;
+  border-radius: 1cqi;
+  background: #fff;
+  box-shadow: 0 0.8cqi 2cqi rgba(21, 21, 21, 0.14);
+  color: #77756f;
+  font-size: 1.6cqi;
+}
+.hs-folio__caption b {
+  color: var(--hs-ink);
+  font-size: 2cqi;
+  font-weight: 600;
+}
+.hs-folio__cursor {
+  left: 54cqi;
+  top: 44cqi;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-folio__head {
+    animation: hs-fade 0.5s ease 0.3s both;
+  }
+  .hs-folio__tile {
+    animation: hs-rise 0.6s var(--hs-in) 0.45s both;
+  }
+  .hs-folio__tile:nth-of-type(2) {
+    animation-delay: 0.6s;
+  }
+  .hs-folio__tile:nth-of-type(3) {
+    animation-delay: 0.52s;
+  }
+  .hs-folio__tile:nth-of-type(4) {
+    animation:
+      hs-rise 0.6s var(--hs-in) 0.67s both,
+      hs-lift 0.4s var(--hs-in) 2s both;
+  }
+  .hs-folio__tile:nth-of-type(5) {
+    animation-delay: 0.59s;
+  }
+  .hs-folio__tile:nth-of-type(6) {
+    animation-delay: 0.74s;
+  }
+  .hs-folio__cursor {
+    animation: hs-point 0.8s var(--hs-in) 1.3s both;
+  }
+  .hs-folio__caption {
+    animation: hs-rise 0.45s var(--hs-in) 2.15s both;
+  }
+}
+@keyframes hs-lift {
+  to {
+    translate: 0 -1cqi;
+    box-shadow: 0 1.6cqi 3cqi rgba(21, 21, 21, 0.2);
+  }
+}
+
+/* 17 Ecommerce: a product card. The color follows the chosen swatch,
+   then the item goes into the bag. */
+.hero-slide--shop {
+  --hs-bg: #ebdfce;
+  --hs-ink: #2a221b;
+}
+.hs-shop__card {
+  left: 30cqi;
+  top: 8cqi;
+  width: 40cqi;
+  height: 62cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqi;
+  padding: 1.6cqi 1.6cqi 2cqi;
+  border-radius: 2.4cqi;
+  background: #fff;
+  box-shadow: 0 2cqi 5cqi rgba(90, 60, 30, 0.16);
+}
+.hs-shop__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: 30cqi;
+  border-radius: 1.6cqi;
+  background: #f5eee4;
+}
+.hs-shop__vase {
+  width: 15cqi;
+  height: 20cqi;
+  fill: #8aa38b;
+}
+.hs-shop__shine {
+  fill: none;
+  stroke: #fff;
+  stroke-opacity: 0.45;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.hs-shop__badge {
+  position: absolute;
+  left: 1.4cqi;
+  top: 1.4cqi;
+  padding: 0.4cqi 1.1cqi;
+  border-radius: var(--radius-pill);
+  background: var(--hs-ink);
+  color: #fff;
+  font-size: 1.5cqi;
+  font-weight: 600;
+}
+.hs-shop__name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqi;
+  padding: 0 0.6cqi;
+  font-size: 2.7cqi;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.hs-shop__name span {
+  color: #8a7e72;
+  font-size: 1.7cqi;
+  font-weight: 500;
+}
+.hs-shop__rating {
+  display: flex;
+  align-items: center;
+  gap: 1cqi;
+  padding: 0 0.6cqi;
+  color: #8a7e72;
+  font-size: 1.6cqi;
+  font-weight: 600;
+}
+.hs-shop__rating::before {
+  content: "";
+  width: 11cqi;
+  height: 2cqi;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23e8a33d' d='M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z'/%3E%3C/svg%3E") left center / 2.2cqi 2cqi repeat-x;
+}
+.hs-shop__buy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.6cqi;
+  font-size: 3.4cqi;
+  font-weight: 700;
+}
+.hs-shop__swatches {
+  position: relative;
+  display: flex;
+  gap: 1.2cqi;
+}
+.hs-shop__swatches > span {
+  width: 2.6cqi;
+  height: 2.6cqi;
+  border-radius: 50%;
+  background: #c8643b;
+}
+.hs-shop__swatches > span:nth-child(2) {
+  background: #8aa38b;
+}
+.hs-shop__swatches > span:nth-child(3) {
+  background: #3f4a5c;
+}
+/* the selection ring, on the second swatch */
+.hs-shop__swatches::after {
+  content: "";
+  position: absolute;
+  left: -0.6cqi;
+  top: -0.6cqi;
+  width: 3.8cqi;
+  height: 3.8cqi;
+  border: 0.3cqi solid var(--hs-ink);
+  border-radius: 50%;
+  translate: 3.8cqi 0;
+}
+.hs-shop__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: 6cqi;
+  margin-top: auto;
+  border-radius: 1.4cqi;
+  background: var(--hs-ink);
+  color: #fbf6ef;
+  font-size: 2cqi;
+  font-weight: 600;
+}
+.hs-shop__bag {
+  left: 76cqi;
+  top: 8cqi;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9cqi;
+  height: 9cqi;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1cqi 2.4cqi rgba(90, 60, 30, 0.16);
+}
+.hs-shop__bag svg {
+  width: 4.2cqi;
+  height: 4.2cqi;
+  fill: none;
+  stroke: var(--hs-ink);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+.hs-shop__bag b {
+  position: absolute;
+  right: -0.4cqi;
+  top: -0.4cqi;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4cqi;
+  height: 3.4cqi;
+  border-radius: 50%;
+  background: #e2583e;
+  color: #fff;
+  font-size: 1.7cqi;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-shop__card {
+    animation: hs-rise 0.7s var(--hs-in) 0.3s both;
+  }
+  .hs-shop__vase {
+    animation: hs-pop 0.6s var(--hs-spring) 0.65s both;
+  }
+  .hs-shop__vase path:first-child {
+    animation: hs-recolor 0.45s ease 1.8s both;
+  }
+  .hs-shop__swatches::after {
+    animation: hs-swatch 0.45s var(--hs-in) 1.6s both;
+  }
+  .hs-shop__bag {
+    animation: hs-fade 0.5s ease 0.8s both;
+  }
+  .hs-shop__cta {
+    animation: hs-press 0.35s ease 2.45s;
+  }
+  .hs-shop__bag b {
+    animation: hs-pop 0.45s var(--hs-spring) 2.75s both;
+  }
+}
+@keyframes hs-recolor {
+  from {
+    fill: #c8643b;
+  }
+}
+@keyframes hs-swatch {
+  from {
+    translate: 0 0;
+  }
+}
+
+/* The sequence: the wipe, the slide underneath easing aside, and the
+   label coming in. A hidden slide's artwork carries no animations, so it
+   rests and starts over when the slide comes back; is-paused holds
+   everything where it is. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scene.has-moved .hero-slide.is-active {
+    animation: hero-wipe 0.9s var(--hs-swap) both;
+  }
+  .hero-slide.is-leaving {
+    animation: hero-recede 0.9s var(--hs-swap) both;
+  }
+  .hero-slide__label {
+    animation: hs-label 0.5s var(--hs-in) 0.3s both;
+  }
+  .hero-slide:not(.is-active):not(.is-leaving) *,
+  .hero-slide:not(.is-active):not(.is-leaving) *::before,
+  .hero-slide:not(.is-active):not(.is-leaving) *::after {
+    animation-name: none !important;
+  }
+  .hero.is-paused .hero-slide,
+  .hero.is-paused .hero-slide *,
+  .hero.is-paused .hero-slide *::before,
+  .hero.is-paused .hero-slide *::after {
+    animation-play-state: paused !important;
+  }
+}
+@keyframes hero-wipe {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes hero-recede {
+  to {
+    translate: -4% 0;
+  }
+}
+@keyframes hs-label {
+  from {
+    opacity: 0;
+    translate: -8px 0;
+  }
+}
+@keyframes hs-rise {
+  from {
+    opacity: 0;
+    translate: 0 3cqi;
+  }
+}
+@keyframes hs-rise-far {
+  from {
+    translate: 0 30cqi;
+  }
+}
+@keyframes hs-drop {
+  from {
+    opacity: 0;
+    translate: 0 -5cqi;
+  }
+}
+@keyframes hs-pop {
+  from {
+    opacity: 0;
+    scale: 0.3;
+  }
+}
+@keyframes hs-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hs-grow-x {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes hs-grow-y {
+  from {
+    scale: 1 0;
+  }
+}
+@keyframes hs-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes hs-fill {
+  from {
+    fill-opacity: 0;
+  }
+}
+/* left to right, with room around the box for overhanging glyphs */
+@keyframes hs-reveal {
+  from {
+    clip-path: inset(-20% 100% -20% -20%);
+  }
+  to {
+    clip-path: inset(-20%);
+  }
+}
+@keyframes hs-gather {
+  from {
+    opacity: 0;
+    translate: var(--hs-fx, 0) var(--hs-fy, 0);
+    rotate: var(--hs-fr, 0deg);
+  }
+}
+@keyframes hs-press {
+  50% {
+    scale: 0.94;
+  }
+}
+@keyframes hs-point {
+  from {
+    opacity: 0;
+    translate: 22cqi 14cqi;
+  }
+}
+
+/* The stage follows the board's shape (styles.css): 16:10 from 959px
+   down, 4:3 from 640px, where the label shrinks with the board too. */
+@media (max-width: 959px) {
+  .hero-slide__stage {
+    width: 83.333%;
+  }
+}
+@media (max-width: 640px) {
+  .hero-slide__stage {
+    width: 100%;
+  }
+  .hero-slide__label {
+    top: clamp(8px, 2.5vw, 12px);
+    left: clamp(8px, 2.5vw, 12px);
+    gap: 5px;
+    padding: 6px 9px 6px 8px;
+    font-size: 11px;
   }
 }

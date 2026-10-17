@@ -988,274 +988,29 @@ html[data-auth] .mobile-menu__auth {
   transform: translateY(-100%);
 }
 
-/* ---------- hero scene ----------
-   A dark board in the wordmark's #101010 with the faint guides of a
-   12-column grid. On it, three design surfaces (a type specimen, a
-   palette, a page layout) gather on load, then live: they drift, the
-   specimen's weight breathes along the variable axis, the swatches
-   retune and the layout reflows. A selection frame and a pointer move to
-   the card the supporting line's phrase names (data-focus, set by
-   core.js); "all" selects the three together. All of it is decoration
-   (aria-hidden) except the pause button.
-   Size: the parts sit on a 4:3 stage measured in cqi (the stage is a size
-   container, 100cqi wide and 75cqi tall), so the composition scales as
-   one picture. The board around it is 3:2 in two columns, 16:10 on
-   tablets and 4:3 on phones; the stage sits centred on it.
-   Motion: the entrance runs once. The loops run only while .hero has
-   is-live (core.js) and freeze with is-paused (the button, or the hero
-   off screen or in a hidden tab). Under reduced motion none of it runs:
-   the board shows the finished composition, all three cards selected. */
+/* ---------- hero board ----------
+   The frame of the board beside the copy: 3:2 in two columns, 16:10 on
+   tablets and 4:3 on phones, clipped to its rounded corners, with the
+   pause button in its bottom-left corner. The design scenes on it (each
+   on its own ground, one at a time) are homepage-only and live in
+   home.css, which loads after this file; core.js runs their sequence. */
 .hero-visual {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-radius: 24px;
-  background-color: var(--header-bg);
-  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: calc(100% / 12) 100%;
+  /* the first scene's ground, under everything */
+  background: #f3eee4;
   isolation: isolate;
 }
-.hero-scene {
-  position: relative;
-  container-type: inline-size;
-  width: 88.889%;
-  aspect-ratio: 4 / 3;
-}
-.hero-scene__item {
-  position: absolute;
-}
-.hero-scene__item--type {
-  left: 8cqi;
-  top: 8cqi;
-  width: 36cqi;
-  height: 35cqi;
-}
-.hero-scene__item--color {
-  left: 50cqi;
-  top: 12cqi;
-  width: 42cqi;
-  height: 24cqi;
-}
-.hero-scene__item--layout {
-  left: 20cqi;
-  top: 47cqi;
-  width: 58cqi;
-  height: 21cqi;
-}
-.hero-scene__item--dot {
-  left: 83cqi;
-  top: 46cqi;
-  width: 9cqi;
-  height: 9cqi;
-}
-.hero-scene__item--chip {
-  left: 7cqi;
-  top: 48cqi;
-  width: 7cqi;
-  height: 7cqi;
-}
-.hero-card {
-  position: relative;
-  height: 100%;
-  border-radius: 2.4cqi;
-  background: var(--paper);
-  box-shadow: 0 1.6cqi 4cqi rgba(0, 0, 0, 0.35);
-}
-.hero-card__lines {
-  display: grid;
-  gap: 1.2cqi;
-}
-.hero-card__lines > span {
-  height: 1.2cqi;
-  border-radius: 1cqi;
-  background: var(--line);
-}
-.hero-card__lines > span:nth-child(1) {
-  width: 84%;
-}
-.hero-card__lines > span:nth-child(2) {
-  width: 62%;
-}
-.hero-card__lines > span:nth-child(3) {
-  width: 44%;
-}
-/* the type specimen: "Aa" in the site's own Mona Sans */
-.hero-card--type {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 3cqi 3.2cqi 3.4cqi;
-}
-.hero-card__glyph {
-  color: var(--header-bg);
-  font-size: 15cqi;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-/* the palette: four swatches, as a library palette holds four colors,
-   in the homepage's own tones */
-.hero-card--color {
-  display: flex;
-  flex-direction: column;
-  gap: 2cqi;
-  padding: 2.4cqi;
-}
-.hero-card__swatches {
-  display: flex;
-  flex: 1;
-  gap: 0.8cqi;
-}
-.hero-card__swatches > span {
-  flex: 1 1 0;
-  border-radius: 1.4cqi;
-}
-.hero-card__swatches > span:nth-child(1) {
-  background: var(--action);
-}
-.hero-card__swatches > span:nth-child(2) {
-  background: #4a2ca8;
-}
-.hero-card__swatches > span:nth-child(3) {
-  background: #fbdeeb;
-}
-.hero-card__swatches > span:nth-child(4) {
-  background: #fde5cc;
-}
-.hero-card--color .hero-card__lines > span:nth-child(1) {
-  width: 52%;
-}
-.hero-card--color .hero-card__lines > span:nth-child(2) {
-  width: 32%;
-}
-/* the page layout: a title bar over a row of three blocks */
-.hero-card--layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2cqi;
-  padding: 2.6cqi 3cqi 3cqi;
-}
-.hero-card__bar {
-  width: 30%;
-  height: 1.8cqi;
-  border-radius: 1cqi;
-  background: var(--header-bg);
-}
-.hero-card__blocks {
-  display: flex;
-  flex: 1;
-  gap: 1.4cqi;
-}
-.hero-card__blocks > span {
-  flex: 1 1 0;
-  border-radius: 1.2cqi;
-  background: var(--surface-muted);
-}
-.hero-card__blocks > span:nth-child(1) {
-  background: #dde6fd;
-}
-.hero-card__blocks > span:nth-child(2) {
-  background: var(--action);
-}
-.hero-scene__dot,
-.hero-scene__chip {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.hero-scene__dot {
-  border-radius: 50%;
-  background: var(--action);
-}
-.hero-scene__chip {
-  border-radius: 1.6cqi;
-  background: #fde5cc;
-  rotate: 12deg;
-}
-/* Selection: a design tool's frame with corner handles, in --action, one
-   per card. data-focus shows one, or "all" three at once. */
-.hero-card__select {
-  position: absolute;
-  inset: -1.4cqi;
-  border: 0.3cqi solid var(--action);
-  border-radius: 0.6cqi;
-  opacity: 0;
-  scale: 1.03;
-  transition:
-    opacity 0.35s ease,
-    scale 0.5s var(--ease);
-}
-.hero-card__select > span {
-  position: absolute;
-  width: 1.8cqi;
-  height: 1.8cqi;
-  border: 0.3cqi solid var(--action);
-  border-radius: 0.3cqi;
-  background: var(--paper);
-}
-.hero-card__select > span:nth-child(1) {
-  top: -1.05cqi;
-  left: -1.05cqi;
-}
-.hero-card__select > span:nth-child(2) {
-  top: -1.05cqi;
-  right: -1.05cqi;
-}
-.hero-card__select > span:nth-child(3) {
-  bottom: -1.05cqi;
-  left: -1.05cqi;
-}
-.hero-card__select > span:nth-child(4) {
-  bottom: -1.05cqi;
-  right: -1.05cqi;
-}
-.hero-scene[data-focus="all"] .hero-card__select,
-.hero-scene[data-focus="type"] .hero-scene__item--type .hero-card__select,
-.hero-scene[data-focus="color"] .hero-scene__item--color .hero-card__select,
-.hero-scene[data-focus="layout"] .hero-scene__item--layout .hero-card__select {
-  opacity: 1;
-  scale: 1;
-}
-/* The pointer: its tip on the selected card's corner handle, or, with
-   all three selected, in the open space right of the layout. It moves
-   by translate, which shifts no layout. */
-.hero-scene__item--cursor {
-  left: 0;
-  top: 0;
-  width: 4.6cqi;
-  translate: 87.9cqi 60.5cqi;
-  transition: translate 0.9s var(--ease);
-}
-.hero-scene[data-focus="type"] .hero-scene__item--cursor {
-  translate: 44.6cqi 43.7cqi;
-}
-.hero-scene[data-focus="color"] .hero-scene__item--cursor {
-  translate: 92.6cqi 36.7cqi;
-}
-.hero-scene[data-focus="layout"] .hero-scene__item--cursor {
-  translate: 78.6cqi 68.7cqi;
-}
-.hero-scene__item--cursor svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  fill: var(--paper);
-  stroke: var(--header-bg);
-  stroke-width: 1.5;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0.4cqi 0.8cqi rgba(0, 0, 0, 0.4));
-}
 /* Pause: one white button on the board for all of the hero's motion
-   (WCAG 2.2.2). core.js unhides it when the motion can run and keeps
-   aria-pressed; the icon follows it. */
+   (WCAG 2.2.2), over the scenes. core.js unhides it when the motion can
+   run and keeps aria-pressed; the icon follows it. */
 .hero-motion-toggle {
   position: absolute;
   left: 16px;
   bottom: 16px;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1287,100 +1042,14 @@ html[data-auth] .mobile-menu__auth {
   display: block;
 }
 /* Motion, only for visitors who have not asked for less (the global
-   near-zero duration under reduced motion would flicker the loops). The
-   copy rises in and the surfaces gather from scattered positions, once;
-   the loops wait for core.js (is-live). */
+   near-zero duration under reduced motion would flicker it): the copy
+   rises in, once. The board's motion is with its scenes, in home.css. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy > * {
     animation: hero-rise 0.7s var(--ease) both;
   }
   .hero-copy > .hero-lede {
     animation-delay: 0.08s;
-  }
-  .hero-scene__item {
-    animation: hero-gather 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-  .hero-scene__item--type {
-    --gather-x: -16cqi;
-    --gather-y: 10cqi;
-    --gather-turn: -8deg;
-    animation-delay: 0.15s;
-  }
-  .hero-scene__item--color {
-    --gather-x: 14cqi;
-    --gather-y: -10cqi;
-    --gather-turn: 6deg;
-    animation-delay: 0.25s;
-  }
-  .hero-scene__item--layout {
-    --gather-x: 4cqi;
-    --gather-y: 16cqi;
-    --gather-turn: -4deg;
-    animation-delay: 0.35s;
-  }
-  .hero-scene__item--chip {
-    --gather-x: -12cqi;
-    --gather-y: 10cqi;
-    --gather-turn: 40deg;
-    animation-delay: 0.45s;
-  }
-  .hero-scene__item--dot {
-    --gather-x: 12cqi;
-    --gather-y: 12cqi;
-    animation-delay: 0.5s;
-  }
-  .hero-scene__item--cursor {
-    --gather-x: 6cqi;
-    --gather-y: 6cqi;
-    animation-delay: 0.9s;
-  }
-  .hero.is-live .hero-card,
-  .hero.is-live .hero-scene__chip {
-    animation: hero-float 7s ease-in-out infinite alternate;
-  }
-  .hero.is-live .hero-scene__item--color .hero-card {
-    animation-duration: 8.5s;
-    animation-delay: -3s;
-  }
-  .hero.is-live .hero-scene__item--layout .hero-card {
-    animation-duration: 9.5s;
-    animation-delay: -5s;
-  }
-  .hero.is-live .hero-scene__chip {
-    animation-duration: 8s;
-    animation-delay: -2s;
-  }
-  .hero.is-live .hero-card__glyph {
-    animation: hero-weight 8s ease-in-out infinite;
-  }
-  /* one swatch, then one block, widens at a time, in order */
-  .hero.is-live .hero-card__swatches > span {
-    animation: hero-tune 10s ease-in-out infinite;
-  }
-  .hero.is-live .hero-card__swatches > span:nth-child(2) {
-    animation-delay: -7.5s;
-  }
-  .hero.is-live .hero-card__swatches > span:nth-child(3) {
-    animation-delay: -5s;
-  }
-  .hero.is-live .hero-card__swatches > span:nth-child(4) {
-    animation-delay: -2.5s;
-  }
-  .hero.is-live .hero-card__blocks > span {
-    animation: hero-reflow 12s ease-in-out infinite;
-  }
-  .hero.is-live .hero-card__blocks > span:nth-child(2) {
-    animation-delay: -8s;
-  }
-  .hero.is-live .hero-card__blocks > span:nth-child(3) {
-    animation-delay: -4s;
-  }
-  .hero.is-live .hero-scene__dot {
-    animation: hero-orbit 11s ease-in-out infinite;
-  }
-  /* outranks every loop rule above, the "> span" ones included */
-  .hero.is-live.is-paused .hero-scene__item * {
-    animation-play-state: paused;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1394,72 +1063,13 @@ html[data-auth] .mobile-menu__auth {
     transform: translateY(12px);
   }
 }
-@keyframes hero-gather {
-  from {
-    opacity: 0;
-    transform: translate(var(--gather-x, 0), var(--gather-y, 0)) rotate(var(--gather-turn, 0deg)) scale(0.9);
-  }
-}
-@keyframes hero-float {
-  to {
-    translate: 0 -1.2cqi;
-  }
-}
-@keyframes hero-weight {
-  0%,
-  100% {
-    font-weight: 600;
-  }
-  35% {
-    font-weight: 300;
-  }
-  70% {
-    font-weight: 800;
-  }
-}
-@keyframes hero-tune {
-  0%,
-  40%,
-  100% {
-    flex-grow: 1;
-  }
-  20% {
-    flex-grow: 2.4;
-  }
-}
-@keyframes hero-reflow {
-  0%,
-  50%,
-  100% {
-    flex-grow: 1;
-  }
-  25% {
-    flex-grow: 2.2;
-  }
-}
-@keyframes hero-orbit {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  25% {
-    translate: 1.2cqi -1cqi;
-  }
-  50% {
-    translate: 0 -2cqi;
-  }
-  75% {
-    translate: -1.2cqi -1cqi;
-  }
-}
 /* 1024px and narrower: home.css's tablet side padding. */
 @media (max-width: 1024px) {
   .hero {
     padding-inline: 24px;
   }
 }
-/* 959px and narrower: one column, the board under the copy, 16:10 with
-   the stage centred on it. */
+/* 959px and narrower: one column, the board under the copy, at 16:10. */
 @media (max-width: 959px) {
   .hero-inner {
     grid-template-columns: minmax(0, 1fr);
@@ -1473,13 +1083,10 @@ html[data-auth] .mobile-menu__auth {
     aspect-ratio: 16 / 10;
     border-radius: 20px;
   }
-  .hero-scene {
-    width: 83.333%;
-  }
 }
-/* 640px and narrower: phone padding, a 4:3 board the stage fills, and a
-   pause button that shrinks with the board (33px at 320px, 40px from
-   about 430px), so it stays clear of the cards' selection handles. */
+/* 640px and narrower: phone padding, a 4:3 board, and a pause button
+   that shrinks with the board (33px at 320px, 40px from about 430px), so
+   it stays in the corner the scenes keep clear. */
 @media (max-width: 640px) {
   .hero {
     padding: 28px 16px 16px;
@@ -1494,9 +1101,6 @@ html[data-auth] .mobile-menu__auth {
   .hero-visual {
     aspect-ratio: 4 / 3;
     border-radius: 16px;
-  }
-  .hero-scene {
-    width: 100%;
   }
   .hero-motion-toggle {
     left: clamp(8px, 2.5vw, 12px);

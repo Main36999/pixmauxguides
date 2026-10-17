@@ -209,48 +209,93 @@
   // The mobile menu is wired by the script at the end of the header itself
   // (partials/header.html), on every page; it used to be repeated here.
 
-  // ---------- homepage hero: rotating phrase and motion scene ----------
-  // The supporting line ends in a phrase that changes every few seconds
-  // (index.html). The first phrase completes the sentence as written: it
-  // is the one assistive technology reads (the rest are aria-hidden) and
-  // the one that stays without this script or under reduced motion. Each
-  // phrase names the scene card it selects (data-focus), so the scene's
-  // selection frame and pointer follow the words. The scene's own loops
-  // (styles.css) run while .hero has is-live and freeze with is-paused.
-  // The button on the scene pauses the phrase and the loops together;
-  // both also rest while the hero is off screen or the tab is hidden.
-  // Nothing moves under reduced motion, and the button stays hidden then.
+  // ---------- homepage hero: rotating phrase and scene sequence ----------
+  // The board beside the copy (index.html) is a sequence of design
+  // scenes, one discipline each, every one on its own ground. One shows
+  // at a time; every HOLD_MS the next wipes in over it and builds its
+  // artwork once (styles.css). The supporting line ends in a phrase that
+  // follows the scenes: a scene names the phrase it calls for
+  // (data-focus: type, color or layout), and the rest take the general
+  // phrases ("all") in turn, so the words change with the picture and
+  // never contradict it. The first phrase completes the sentence as
+  // written: it is the one assistive technology reads (the rest are
+  // aria-hidden) and the one that stays, with the first scene, without
+  // this script or under reduced motion. The button on the board pauses
+  // the sequence and every animation on it; both also rest while the hero
+  // is off screen or the tab is hidden. Nothing moves under reduced
+  // motion, and the button stays hidden then.
   (function heroMotion() {
     var hero = document.querySelector(".hero");
     var scene = hero && hero.querySelector(".hero-scene");
     var toggle = hero && hero.querySelector(".hero-motion-toggle");
+    var slides = scene ? scene.querySelectorAll(".hero-slide") : [];
     var items = hero ? hero.querySelectorAll(".hero-rotator__item") : [];
-    if (!scene || !toggle || !items.length || !window.matchMedia) return;
-    var HOLD_MS = 3200;
+    if (!slides.length || !toggle || !items.length || !window.matchMedia) return;
+    var HOLD_MS = 4400;
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    var current = 0;
+    var current = 0; // the slide shown
+    var phrase = 0; // the phrase shown
+    var general = 0; // how many "all" phrases have been used, to take turns
     var timer = null;
     var paused = false;
     var onScreen = true;
 
+    // The phrase a slide calls for: the one with its focus, or for an
+    // "all" slide the next general phrase in turn.
+    function phraseFor(focus) {
+      var matches = [];
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].getAttribute("data-focus") === focus) matches.push(i);
+      }
+      if (!matches.length) return 0;
+      if (focus !== "all") return matches[0];
+      general += 1;
+      return matches[general % matches.length];
+    }
     // The outgoing phrase leaves upward (is-leaving); the one before it
     // drops back below, unseen, ready to rise in again.
-    function show(next) {
+    function setPhrase(next) {
       for (var i = 0; i < items.length; i++) {
         items[i].classList.toggle("is-current", i === next);
-        items[i].classList.toggle("is-leaving", i === current && i !== next);
+        items[i].classList.toggle("is-leaving", i === phrase && i !== next);
+      }
+      phrase = next;
+    }
+    // With motion, the line names the slide shown from the start (the first
+    // slide calls for "typography."), swapped in place with no transition;
+    // without it, the sentence stays as written.
+    function matchPhrase() {
+      var next = phraseFor(slides[current].getAttribute("data-focus"));
+      if (next === phrase) return;
+      var i;
+      for (i = 0; i < items.length; i++) items[i].style.transition = "none";
+      setPhrase(next);
+      void items[0].offsetWidth; // apply the swap before transitions come back
+      for (i = 0; i < items.length; i++) {
+        items[i].classList.remove("is-leaving");
+        items[i].style.transition = "";
+      }
+    }
+    // The outgoing slide stays under the incoming one (is-leaving) while
+    // the wipe covers it; the one before that is hidden. "still" shows a
+    // slide on its own, with nothing leaving.
+    function show(next, still) {
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].classList.toggle("is-active", i === next);
+        slides[i].classList.toggle("is-leaving", !still && i === current && i !== next);
       }
       current = next;
-      scene.setAttribute("data-focus", items[next].getAttribute("data-focus"));
     }
     function tick() {
       timer = null;
-      show((current + 1) % items.length);
+      var next = (current + 1) % slides.length;
+      scene.classList.add("has-moved");
+      show(next);
+      setPhrase(phraseFor(slides[next].getAttribute("data-focus")));
       sync();
     }
     function sync() {
       var run = !reduced.matches && !paused && onScreen && !document.hidden;
-      hero.classList.toggle("is-live", !reduced.matches);
       hero.classList.toggle("is-paused", !run);
       toggle.hidden = reduced.matches;
       if (run && !timer) timer = setTimeout(tick, HOLD_MS);
@@ -267,7 +312,14 @@
     });
     if (reduced.addEventListener) {
       reduced.addEventListener("change", function () {
-        if (reduced.matches) show(0);
+        if (reduced.matches) {
+          scene.classList.remove("has-moved");
+          show(0, true);
+          setPhrase(0);
+          general = 0;
+        } else {
+          matchPhrase();
+        }
         sync();
       });
     }
@@ -278,6 +330,7 @@
       }).observe(hero);
     }
     document.addEventListener("visibilitychange", sync);
+    if (!reduced.matches) matchPhrase();
     sync();
   })();
 
