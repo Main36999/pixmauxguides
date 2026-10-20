@@ -323,9 +323,6 @@ const ICON_SAVE =
 const ICON_MORE =
   '<svg class="font-icon font-icon--dots" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
   '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>';
-const ICON_SEARCH =
-  '<svg class="font-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
-  '<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg>';
 const ICON_DOWNLOAD =
   '<svg class="font-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
   '<path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>';
@@ -470,7 +467,7 @@ function listingHtml(fonts, ctx, partials) {
   const labels = categoryLabels(config);
   const count = fonts.length;
 
-  const title = "Free Fonts — bpozz";
+  const title = "Free Fonts - bpozz";
   const description =
     `Browse ${count} free, open-source fonts by category. Preview each font ` +
     `with your own text and download TTF files licensed under the SIL Open ` +
@@ -537,11 +534,6 @@ ${head.skipLinkHtml("fonts-content", "Skip to content")}
           ${chips}
         </div>
         <div class="fonts-controls">
-          <div class="fonts-field fonts-field--search">
-            <label class="sr-only" for="fonts-search">Search fonts</label>
-            ${ICON_SEARCH}
-            <input type="search" id="fonts-search" placeholder="Search fonts…" autocomplete="off" spellcheck="false" />
-          </div>
           <div class="fonts-field fonts-field--preview">
             <label class="sr-only" for="fonts-preview-text">Preview text</label>
             <input type="text" id="fonts-preview-text" placeholder="Type to preview…" maxlength="80" autocomplete="off" />
@@ -742,7 +734,7 @@ function detailHtml(font, fonts, pkg, ctx, partials) {
   const styleCount = `${variants.length} style${variants.length === 1 ? "" : "s"}`;
   const name = escapeHtml(font.name);
 
-  const title = `${font.name} Font — Free Download | bpozz`;
+  const title = `${font.name} Font - Free Download | bpozz`;
   // The family's own description, so no two detail pages share one.
   const description = font.description;
   const canonical = origin + pageUrl(font);

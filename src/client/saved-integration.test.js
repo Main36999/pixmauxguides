@@ -115,7 +115,7 @@ test("the site draws Save controls for exactly font, palette, color and guide â€
 });
 
 test("no page ships a Save control in its HTML: they are drawn at runtime, and only once Saved is launched", () => {
-  const pages = ["index.html", "account.html", "guides/index.html", "palettes/index.html", "colors/index.html", ...GUIDE_PAGES];
+  const pages = ["index.html", "account.html", "guides/index.html", "palettes/index.html", "colors/index.html", "image-picker/index.html", ...GUIDE_PAGES];
   for (const page of pages) assert.ok(!read(page).includes("data-save"), `${page}: no Save markup`);
   for (const file of sources(["src/build", "src/shared"])) assert.ok(!read(file).includes("data-save"), `${file}: builds no Save markup`);
   for (const { script } of SAVE_PAGES) {

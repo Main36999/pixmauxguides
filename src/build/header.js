@@ -246,14 +246,29 @@ const ROOT_LINKS = [
  * was removed. Its resource-types.json entry went with it, and the old
  * /image-picker/ URLs return 410 (public/_redirects). Same every-page blast
  * radius: one removed <a> per nav region.
+ *
+ * PLATFORM REDESIGN — GROUPED NAV
+ *
+ * The header is now grouped: Explore, Learn and Resources as disclosure
+ * panels, with the same destinations grouped again in the menu panel. That markup is hand-authored in partials/header.html and carries no
+ * NAV_RESOURCES region, so this list no longer renders links. It is still
+ * the registry of every header destination: each must resolve to a built
+ * page, and a page a destination resolves to (or whose route file starts
+ * with one of its `activePaths`) gets aria-current on every link to it.
+ * "All" is gone; the logo links home.
  */
 const MAIN_HEADER_NAV = [
-  { label: "All", landingUrl: "/" },
+  { label: "Projects", landingUrl: "/projects/", activePaths: ["projects/"] },
+  { label: "Designers", landingUrl: "/designers/", activePaths: ["designers/"] },
+  { label: "UI/UX Guides", landingUrl: "/guides/" },
+  { label: "Learning Roadmap", landingUrl: "/roadmap" },
   { label: "Colors", landingUrl: "/colors/" },
   { label: "Palettes", landingUrl: "/palettes/" },
   { label: "Fonts", landingUrl: "/fonts/" },
-  { label: "UI/UX Guides", landingUrl: "/guides/" },
-  { label: "Learning Roadmap", landingUrl: "/roadmap" },
+  // IMAGE PICKER — RESTORED (owner decision, 2026-10-20): in Resources,
+  // after Fonts, in the header panel, the menu panel and the footer.
+  { label: "Image Picker", landingUrl: "/image-picker/", activePaths: ["image-picker/"] },
+  { label: "Share work", landingUrl: "/studio/upload" },
 ];
 
 /**
@@ -397,11 +412,8 @@ function syncNavRegions(label, source, linksHtml) {
     from = contentStart + linksHtml.length + NAV_END_MARKER.length;
     regions++;
   }
-  if (regions === 0) {
-    throw new Error(
-      `${label} has no ${NAV_START_MARKER} / ${NAV_END_MARKER} region`,
-    );
-  }
+  // PLATFORM REDESIGN: a partial with no region is valid now — the grouped
+  // nav is hand-authored — and is returned unchanged.
   return { html, regions, changed: html !== source };
 }
 
@@ -425,12 +437,14 @@ function markCurrent(html, file) {
  * double-marks.
  */
 function markNavCurrent(html, entry) {
-  const link = `<a href="${escapeHtml(entry.landingUrl)}">${escapeHtml(entry.label)}</a>`;
+  // PLATFORM REDESIGN: by href, since the grouped links carry a class and
+  // nested labels. No entry links "/", so the brand link is never matched.
+  const mark = ' aria-current="page"';
+  const href = `href="${escapeHtml(entry.landingUrl)}"`;
   return html
-    .split(link)
-    .join(
-      `<a href="${escapeHtml(entry.landingUrl)}" aria-current="page">${escapeHtml(entry.label)}</a>`,
-    );
+    .split(href)
+    .map((part, i) => (i === 0 || part.startsWith(mark) ? part : mark + part))
+    .join(href);
 }
 
 /**
@@ -511,7 +525,10 @@ function render(ctx) {
     return result.html.trim();
   };
 
-  const partial = readPartial(PARTIAL);
+  const partial = fillDisciplines(
+    readPartial(PARTIAL),
+    ctx.model.showcase ? ctx.model.showcase.disciplines : [],
+  );
 
   let updated = 0;
   let unchanged = 0;
@@ -544,7 +561,10 @@ function render(ctx) {
     // Nav entries that are not resource types ("All", "Learning Roadmap")
     // are current when their landing URL resolves to this very page.
     for (const entry of MAIN_HEADER_NAV) {
-      if (resolveLandingUrl(stage, entry.landingUrl) === file) {
+      if (
+        resolveLandingUrl(stage, entry.landingUrl) === file ||
+        (entry.activePaths || []).some((prefix) => r.file.startsWith(prefix))
+      ) {
         headerHtml = markNavCurrent(headerHtml, entry);
       }
     }
@@ -571,8 +591,37 @@ function render(ctx) {
   return { updated, unchanged, skipped, stale };
 }
 
+/**
+ * PLATFORM REDESIGN (revision 03): Explore's discipline links, in the
+ * desktop panel and in the mobile menu, are written here from the one
+ * source of the demo disciplines, src/data/showcase-demo.json (through
+ * src/build/showcase-data.js, which lists only disciplines that have
+ * projects). Each links to the gallery filtered by it. A partial without
+ * the markers is returned unchanged.
+ */
+const DISCIPLINE_REGIONS = [
+  {
+    start: "<!--NAV_DISCIPLINES_START-->",
+    end: "<!--NAV_DISCIPLINES_END-->",
+    link: (d) => `<li><a href="/projects/?discipline=${escapeHtml(d.slug)}">${escapeHtml(d.label)}</a></li>`,
+  },
+  {
+    start: "<!--MOBILE_DISCIPLINES_START-->",
+    end: "<!--MOBILE_DISCIPLINES_END-->",
+    link: (d) => `<a href="/projects/?discipline=${escapeHtml(d.slug)}">${escapeHtml(d.label)}</a>`,
+  },
+];
+
+function fillDisciplines(partial, disciplines) {
+  return DISCIPLINE_REGIONS.reduce((html, region) => {
+    const filled = replaceBetween(html, region.start, region.end, disciplines.map(region.link).join(""));
+    return filled === null ? html : filled;
+  }, partial);
+}
+
 module.exports = {
   render,
+  fillDisciplines,
   headerFor,
   navLinksHtml,
   syncNavRegions,

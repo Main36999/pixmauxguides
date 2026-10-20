@@ -354,7 +354,10 @@
       query: params.get("q") || "",
       sort: ["az", "newest", "featured"].indexOf(params.get("sort")) !== -1 ? params.get("sort") : "az",
     };
-    search.value = state.query;
+    // PLATFORM REDESIGN (revision 03): the listing has no search field of
+    // its own any more (the header search covers the site). A ?q= link
+    // still filters the grid; with no field there is nothing to fill.
+    if (search) search.value = state.query;
     sort.value = state.sort;
 
     function normalize(text) {
@@ -465,7 +468,7 @@
         // Launched, and the account's saved fonts aren't known: signed
         // out, or the list hasn't loaded (saved.js says so if it failed).
         var signedOut = account.signedIn() === false;
-        emptyTitle.textContent = signedOut ? "Sign in to see your saved fonts." : "Your saved fonts haven't loaded yet.";
+        emptyTitle.textContent = signedOut ? "Log in to see your saved fonts." : "Your saved fonts haven't loaded yet.";
         emptyHint.textContent = signedOut
           ? "Fonts you save are kept in your account, wherever you sign in."
           : "They'll appear here as soon as they do.";
@@ -496,10 +499,12 @@
       });
     });
 
-    search.addEventListener("input", function () {
-      state.query = search.value;
-      apply({ announce: true });
-    });
+    if (search) {
+      search.addEventListener("input", function () {
+        state.query = search.value;
+        apply({ announce: true });
+      });
+    }
 
     sort.addEventListener("change", function () {
       state.sort = sort.value;

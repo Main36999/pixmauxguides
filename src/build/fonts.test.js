@@ -397,7 +397,7 @@ test("every font page carries title, description, canonical, Open Graph and vali
   });
   model.fonts.forEach((f) => {
     const html = pageByFile.get(`fonts/${f.id}.html`);
-    assert.ok(html.includes(`<title>${f.name.replace(/&/g, "&amp;")} Font — Free Download | bpozz</title>`), f.id);
+    assert.ok(html.includes(`<title>${f.name.replace(/&/g, "&amp;")} Font - Free Download | bpozz</title>`), f.id);
   });
 });
 
@@ -437,9 +437,12 @@ test("the client script parses and matches the page's element ids", () => {
   const src = fs.readFileSync(path.join(config.paths.client, "fonts.js"), "utf8");
   assert.doesNotThrow(() => new vm.Script(src, { filename: "fonts.js" }));
   const listing = pageByFile.get("fonts/index.html");
-  ["font-grid", "fonts-search", "fonts-sort", "fonts-preview-text", "fonts-count", "fonts-empty", "fonts-status"].forEach(
+  ["font-grid", "fonts-sort", "fonts-preview-text", "fonts-count", "fonts-empty", "fonts-status"].forEach(
     (id) => assert.ok(listing.includes(`id="${id}"`), id),
   );
+  // Platform redesign, revision 03: the listing's own search field is gone
+  // (the header search covers the site); fonts.js runs without it.
+  assert.ok(!listing.includes('id="fonts-search"'), "no page-level font search");
   const detail = pageByFile.get(`fonts/${model.fonts[0].id}.html`);
   ["font-custom-text", "font-size", "font-size-value", "fonts-status"].forEach((id) =>
     assert.ok(detail.includes(`id="${id}"`), id),

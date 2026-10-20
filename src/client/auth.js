@@ -75,7 +75,7 @@
   var COPY = {
     signin: {
       title: "Hello!",
-      lede: "Sign in to continue with bpozz.",
+      lede: "Log in to continue with bpozz.",
       emailTitle: "Welcome back",
       emailLede: "Enter your email to continue.",
       switchText: "New to bpozz?",
@@ -88,7 +88,7 @@
       emailTitle: "Create your account",
       emailLede: "Enter your email to get started.",
       switchText: "Already have an account?",
-      switchAction: "Sign in",
+      switchAction: "Log in",
       switchTo: "signin",
     },
   };
@@ -1037,11 +1037,14 @@
         showAuthMessage("Couldn’t sign out. Please try again.");
         return;
       }
-      // The button that had focus is gone; land on the matching Sign in.
-      var next = document.querySelector(
-        scope + " [data-auth-open='signin']",
+      // The button that had focus is gone; land on the matching Log in —
+      // the first one in that scope that is on screen (the header carries
+      // a second .header-auth inside the mobile menu sheet).
+      var next = Array.prototype.find.call(
+        document.querySelectorAll(scope + " [data-auth-open='signin']"),
+        isVisible,
       );
-      if (next && isVisible(next)) next.focus();
+      if (next) next.focus();
     });
   }
 

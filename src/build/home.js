@@ -195,16 +195,26 @@ const LEVEL_LABEL = BpozzCard.LEVEL_LABEL;
 // .roadmap-step-state is empty. The state sits inside the link, ahead of the
 // meta line, so it is part of the link's name; styles.css draws the " · "
 // after it only when it has text.
+//
+// PLATFORM REDESIGN (2026-10-20): an editorial row. The guide's own 4:3
+// thumbnail leads it (the /guides card's plate, BpozzCard.thumbMediaHtml,
+// so a guide without an image shows the same category illustration the
+// grid falls back to), decorative here because the title beside it names
+// the guide. The guide's description sits in the link between its title
+// and the meta line; platform.css lays the meta line out above the title.
+// The checkbox, the link, the state and the meta line are as they were.
 function roadmapStepHtml(g, isNext) {
   const ariaLabel = escapeHtml(`Mark "${g.title}" as read`);
   return (
     `<li class="roadmap-step${isNext ? " is-next" : ""}">` +
+    `<span class="card-thumb roadmap-step-thumb" aria-hidden="true">${BpozzCard.thumbMediaHtml(g)}</span>` +
     `<label class="roadmap-step-check">` +
     `<input type="checkbox" class="roadmap-step-checkbox" data-roadmap-id="${escapeHtml(g.id)}" aria-label="${ariaLabel}">` +
     `<span class="roadmap-step-box" aria-hidden="true"><svg viewBox="0 0 12 10"><path d="M1 5.2L4.4 8.6L11 1.4"/></svg></span>` +
     `</label>` +
     `<a class="roadmap-step-link" href="/guide/${g.id}"${isNext ? ' aria-current="step"' : ""}>` +
     `<span class="roadmap-step-title">${escapeHtml(g.title)}</span>` +
+    (g.description ? `<span class="roadmap-step-desc">${escapeHtml(g.description)}</span>` : "") +
     `<span class="roadmap-step-meta"><span class="roadmap-step-state">${isNext ? "Next up" : ""}</span>${LEVEL_LABEL[g.level]} · ${g.readTime} min read</span>` +
     `</a>` +
     `</li>`
@@ -597,37 +607,25 @@ function replaceBetween(html, startMarker, endMarker, replacement, fileLabel) {
 }
 
 /**
- * Homepage: the tool cards and the resource cards below the static hero.
- * The resource cards skip RESOURCE_TOPICS_SKIPPED.
+ * Homepage.
+ *
+ * PLATFORM REDESIGN, revision 02: the homepage no longer carries the tool
+ * and resource cards (the owner removed both sections), so home.js writes
+ * nothing into index.html; its discovery region belongs to
+ * src/build/showcase.js. A leftover marker pair fails the build instead of
+ * shipping an empty section. toolCardsHtml() and resourceCardsHtml() stay,
+ * still tested, for any page that lists the tools again.
  */
-function buildIndexHtml(file, model, knownUrls) {
-  const label = "index.html";
-  let html = fs.readFileSync(file, "utf8");
-
-  const topics = resourceTopics(
-    model.categories,
-    model.guides,
-    RESOURCE_TOPICS_SKIPPED,
-  );
-  const resources = resourceCardsHtml(topics, knownUrls);
-
-  html = replaceBetween(
-    html,
-    "<!--HOME_TOOLS_START-->",
-    "<!--HOME_TOOLS_END-->",
-    toolCardsHtml(model, knownUrls),
-    label,
-  );
-  html = replaceBetween(
-    html,
-    "<!--HOME_RESOURCES_START-->",
-    "<!--HOME_RESOURCES_END-->",
-    resources.html,
-    label,
-  );
-
-  fs.writeFileSync(file, html);
-  return { tools: HOME_TOOLS.length, resources: resources.count };
+function buildIndexHtml(file) {
+  const html = fs.readFileSync(file, "utf8");
+  ["<!--HOME_TOOLS_START-->", "<!--HOME_RESOURCES_START-->"].forEach((marker) => {
+    if (html.includes(marker)) {
+      throw new Error(
+        `index.html still carries ${marker}, but the homepage has no tool or resource cards any more`,
+      );
+    }
+  });
+  return { tools: 0, resources: 0 };
 }
 
 /**

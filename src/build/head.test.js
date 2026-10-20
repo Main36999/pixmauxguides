@@ -66,10 +66,12 @@ const routeTable = routes.build(model);
  */
 function committedPages() {
   const { records: contentIndex } = content.buildContentIndex(model, config);
+  // PLATFORM REDESIGN: the showcase pages are generated too.
   const generated = new Map(
     fonts
       .build({ config, model })
       .pages.concat(categories.build({ config, model, contentIndex }).pages)
+      .concat(require("./showcase.js").build({ config, model }).pages)
       .map((p) => [p.file, p.html]),
   );
   return routeTable.map((r) => ({

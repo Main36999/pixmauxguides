@@ -64,9 +64,15 @@
 
 const CONTEXT = "https://schema.org";
 
-/** Publisher identity. One statement, used by every node that needs it. */
+/**
+ * Publisher identity. One statement, used by every node that needs it. The
+ * logo is the bpozz brand mark (the white B on its blue tile): a square PNG,
+ * 8334px, the source the header wordmark and favicon came from (5ecaef3).
+ * The old /assets/logo.png was deleted on purpose and must not come back.
+ * absolute() percent-encodes the spaces in its name.
+ */
 const ORGANIZATION_NAME = "bpozz";
-const ORGANIZATION_LOGO = "/assets/logo.png";
+const ORGANIZATION_LOGO = "/assets/bpozz brand logo.png";
 
 /** The site's content language. Every page is English; none declares otherwise. */
 const IN_LANGUAGE = "en";

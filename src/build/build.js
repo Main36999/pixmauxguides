@@ -111,6 +111,7 @@ const home = require("./home.js");
 const categories = require("./categories.js");
 const guides = require("./guides.js");
 const fonts = require("./fonts.js");
+const showcase = require("./showcase.js");
 const header = require("./header.js");
 const footer = require("./footer.js");
 
@@ -190,6 +191,23 @@ const PUBLISH_FILES = [
   { from: "src/styles/guide-article.css", to: "guide-article.css" },
 
   /**
+   * PLATFORM REDESIGN — the design system layer (tokens, header, menus,
+   * footer, shared components). Every page loads it last: generated pages
+   * through src/build/head.js assetsHtml(), the hand-authored pages by
+   * their own <link>.
+   */
+  { from: "src/styles/platform.css", to: "platform.css" },
+
+  /**
+   * PLATFORM REDESIGN — the showcase surfaces (project gallery, project and
+   * designer pages, the designer studio, moderation) and their design-preview
+   * script. Loaded by the homepage and the pages src/build/showcase.js
+   * writes.
+   */
+  { from: "src/styles/showcase.css", to: "showcase.css" },
+  { from: "src/client/showcase.js", to: "showcase.js" },
+
+  /**
    * ERROR BEACON — reports this site's own uncaught script errors to
    * /api/client-error. It is also bundled into /app.js, as the first of
    * APP_BUNDLE.modules; this standalone copy is for the six pages that do
@@ -249,9 +267,33 @@ const PUBLISH_FILES = [
   { from: "src/client/colors.js", to: "colors/colors.js" },
   { from: "src/styles/colors.css", to: "colors/colors.css" },
 
-  // IMAGE PICKER: removed. image-picker/image-picker.js,
-  // image-picker/image-picker.css and image-picker/assets/standby.jpg are no
-  // longer published; their URLs return 410 (public/_redirects).
+  /**
+   * IMAGE PICKER — RESTORED (owner decision, 2026-10-20, after its removal in
+   * 598f507). Same shape as the Color Library block above: a page-specific
+   * script and stylesheet, published beside the page they belong to. No
+   * JSON data file: the palette this page produces comes from whatever
+   * image is loaded (the standby photo below, or whatever the visitor
+   * browses to), extracted client-side.
+   *
+   * Not added to APP_BUNDLE for the same reason colors.js/palettes.js
+   * aren't: it is code only /image-picker runs, not every page on the
+   * site.
+   *
+   * standby.jpg is the one binary asset this feature owns: a local,
+   * royalty-free photograph (Unsplash License, via Picsum) fetched once
+   * at authoring time and committed here — never fetched from the
+   * network at runtime. It is what the page shows and extracts a palette
+   * from immediately on load, before any upload, so a visitor never sees
+   * an empty "no image" workspace. Kept under image-picker/assets/ rather
+   * than the site-wide assets/ directory so it stays obviously scoped to
+   * this one feature.
+   */
+  { from: "src/client/image-picker.js", to: "image-picker/image-picker.js" },
+  { from: "src/styles/image-picker.css", to: "image-picker/image-picker.css" },
+  {
+    from: "image-picker/assets/standby.jpg",
+    to: "image-picker/assets/standby.jpg",
+  },
 
   /**
    * FONTS — the page-specific stylesheet and script for /fonts/ and every
@@ -696,6 +738,12 @@ function render(ctx) {
   // relationship with the other writers.
   const fontsResult = fonts.render(ctx);
 
+  // PLATFORM REDESIGN (design preview): the showcase, studio, moderation,
+  // report and styleguide pages, plus the homepage's discovery region. A
+  // writer like fonts, and it must run before the header, which validates
+  // /projects/, /designers/ and /studio/upload as header destinations.
+  const showcaseResult = showcase.render(ctx);
+
   // PHASE 4 STEP 3B: the header, in-process and still third. It occupies the
   // same slot build-header.js held in RENDER_ORDER — after the page writers,
   // whose category and guide pages carry the raw partial and so need their
@@ -760,6 +808,7 @@ function render(ctx) {
     `6 in-process builders in locked order, ` +
     `${ctx.routes.length} pages published ` +
     `(${homeTally}; ${categoriesTally}; ${guidesTally}; ${fontsTally}; ` +
+    `showcase: ${showcaseResult.written.length} written; ` +
     `${tally("header", headerResult)}; ${tally("footer", footerResult)})`
   );
 }

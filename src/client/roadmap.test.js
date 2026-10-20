@@ -57,16 +57,20 @@ const built = home.buildRoadmap(model.guides);
 
 const ENTITIES = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" };
 const decode = (text) => text.replace(/&(amp|lt|gt|quot|#39);/g, (_, name) => ENTITIES[name]);
-const VOID = new Set(["input"]);
+// <img> joined <input> when each roadmap step gained its guide's thumbnail
+// (2026-10-20): both are void elements, written without a closing tag.
+const VOID = new Set(["input", "img"]);
 
 /**
  * Parses markup into test-dom elements under `parent`: tags, double-quoted
  * or valueless attributes, "/>", text, comments (dropped) and the five
  * entities escapeHtml writes. It throws on anything else, so markup this
- * can't read fails a test instead of being skipped.
+ * can't read fails a test instead of being skipped. Attribute names may
+ * carry digits after their first letter: the thumbnail's SVG plate uses
+ * x1, y1, x2 and y2.
  */
 function parseInto(doc, parent, html) {
-  const TOKEN = /<!--[\s\S]*?-->|<\/([a-z0-9]+)>|<([a-z0-9]+)((?:\s+[a-zA-Z-]+(?:="[^"]*")?)*)\s*(\/?)>|([^<]+)/y;
+  const TOKEN = /<!--[\s\S]*?-->|<\/([a-z0-9]+)>|<([a-z0-9]+)((?:\s+[a-zA-Z][a-zA-Z0-9-]*(?:="[^"]*")?)*)\s*(\/?)>|([^<]+)/y;
   const stack = [parent];
   let at = 0;
   while (at < html.length) {
@@ -80,7 +84,7 @@ function parseInto(doc, parent, html) {
       stack.pop();
     } else if (m[2]) {
       const node = doc.createElement(m[2]);
-      for (const [, name, , value] of m[3].matchAll(/\s+([a-zA-Z-]+)(="([^"]*)")?/g)) {
+      for (const [, name, , value] of m[3].matchAll(/\s+([a-zA-Z][a-zA-Z0-9-]*)(="([^"]*)")?/g)) {
         if (node.hasAttribute(name)) throw new Error(`attribute ${name} given twice`);
         node.setAttribute(name, value === undefined ? "" : decode(value));
       }

@@ -29,7 +29,7 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search — bpozz</title>
+    <title>Search - bpozz</title>
     <meta
       name="description"
       content="Search bpozz's guides and color palettes by title, topic, tag, or category."
@@ -70,6 +70,8 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="/palettes/palettes.css" />
+    <link rel="stylesheet" href="/showcase.css" />
+    <link rel="stylesheet" href="/platform.css" />
 
     <!-- Page-specific rules only. The result cards are the site's own:
          guide results are the /guides card (styles.css) and palette
@@ -84,90 +86,132 @@
          every selector below is namespaced under .search-page (on
          <body>) so nothing here can reach another page. ---------- */
 
-      /* ---------- type filter chips ----------
-         Retuned to the reference: a single rounded segmented control —
-         hairline outer capsule, pill segments inside, the active segment
-         filled solid black with white text. (The reference fills its
-         active segment red; BPOZZ marks selected states black and keeps
-         blue for actions.)
+      /* ===================================================================
+         SEARCH PAGE - appearance only (platform redesign, revision 03)
+         ===================================================================
+         The homepage's discovery language without its hero: one site
+         header (its search holds the query; there is no second search on
+         the page), the gallery's wide column on the header's side
+         padding, a short left-aligned heading, the type filters as the
+         gallery's chips, the category as the bpozz pill select, then the
+         result groups on the gallery's grid rhythm. Nothing here changes
+         what search returns, how the filters behave or any URL; the class
+         names are the ones search.js already uses.
 
-         The class names (.search-type-tabs/.search-type-tab) are kept
-         exactly as they were so the filter JavaScript is untouched — only
-         their appearance changes. */
+         Every selector stays under .search-page.
+         =================================================================== */
+
+      .search-page .guides-main {
+        padding-top: clamp(20px, 3vw, 40px);
+        padding-bottom: 88px;
+      }
+
+      /* The heading: what was searched for, and the scope line. */
+      .search-page .category-hero {
+        padding: 0 0 20px;
+        text-align: left;
+      }
+      .search-page .category-hero__title {
+        max-width: none;
+        margin: 0 0 8px;
+        font-size: clamp(24px, 1.2vw + 18px, 36px);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+      .search-page .category-hero__dek {
+        max-width: 62ch;
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      /* The controls: one row, left-aligned, no rule under it. */
+      .search-page .section-head {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px 20px;
+        margin-bottom: 28px;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      .search-page .results-count {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .search-page .section-head__meta {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+      /* The filters are the Guides category's: search.js hides them while
+         it loads and for the Projects and Designers categories (revision
+         04). styles.css gives this row a display of its own, which would
+         override the hidden attribute. */
+      .search-page .section-head__meta[hidden] {
+        display: none;
+      }
+
+      /* Type filters: the gallery's discipline chips (regular weight, the
+         ink fill when chosen). */
       .search-page .search-type-tabs {
         display: inline-flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
-        gap: 2px;
-        padding: 4px;
-        background: #ffffff;
-        border: 1px solid var(--grid-line);
-        border-radius: 999px;
+        gap: 8px;
+        padding: 0;
+        border: 0;
+        background: none;
       }
       .search-page .search-type-tab {
         appearance: none;
         display: inline-flex;
         align-items: center;
         min-height: 38px;
-        padding: 0 18px;
-        font-family: var(--sans);
-        font-size: 13.5px;
-        font-weight: 600;
-        color: var(--text-muted);
-        background: transparent;
-        border: 0;
+        padding: 0 16px;
+        border: 1px solid transparent;
         border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 400;
         white-space: nowrap;
         cursor: pointer;
-        transition:
-          color 0.15s ease,
-          background 0.15s ease;
+        transition: background 0.15s ease;
       }
       .search-page .search-type-tab:hover {
-        color: var(--text);
-        background: var(--surface-muted);
+        background: var(--surface-3);
       }
       .search-page .search-type-tab[aria-pressed="true"] {
+        background: var(--ink);
         color: #ffffff;
-        background: #000000;
-        border-color: transparent;
       }
-
-      /* The reference has no second filter; BPOZZ's category select stays,
-         restyled as a matching capsule so the two read as one control
-         group rather than a form. The arrow, font and behaviour still come
-         from .select-field in styles.css. */
-      .search-page .level-filter {
-        flex: 0 0 auto;
-        padding-left: 0;
-        border-left: none;
-      }
-      .search-page .level-filter select {
-        min-height: 46px;
-        padding: 0 34px 0 18px;
-        background-color: #ffffff;
-        background-position: right 16px center;
-        border: 1px solid var(--grid-line);
-        border-radius: 999px;
-      }
-
-      /* Compact is what the reference shows, but a 38px segment is under
-         the 44px touch minimum. Pointer-less devices get the full target
-         back; mouse/trackpad keeps the reference proportions. Same
-         `hover: none` split styles.css already uses elsewhere. */
       @media (hover: none) {
         .search-page .search-type-tab {
           min-height: 44px;
         }
       }
 
-      /* ---------- visible keyboard focus, search page only ----------
-         styles.css sets a global :focus-visible ring (2px --action) but
-         later rules cancel it with `outline: none` on selects and on the
-         header search field. This restores a ring for the controls in
-         THIS page's results UI only. The global header search pill is
-         deliberately left alone so it behaves identically on every page. */
+      /* The category: the bpozz pill select. */
+      .search-page .level-filter {
+        flex: 0 0 auto;
+        padding-left: 0;
+        border-left: none;
+      }
+      .search-page .level-filter select {
+        min-height: 40px;
+        padding: 0 36px 0 16px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background-color: var(--surface-muted);
+        background-position: right 16px center;
+        color: var(--ink);
+        font-weight: 400;
+      }
+
+      /* Visible keyboard focus for this page's controls. */
       .search-page .search-type-tab:focus-visible,
       .search-page .level-filter select:focus-visible,
       .search-page .empty-state .btn:focus-visible {
@@ -175,89 +219,26 @@
         outline-offset: 2px;
       }
 
-      /* ===================================================================
-         SEARCH PAGE LAYOUT - appearance only
-         ===================================================================
-         Nothing below changes what search returns, how filters behave or
-         any URL. It sets the frame: the /guides column, a centred intro,
-         the controls, the result groups and the empty state.
-
-         Every selector stays under .search-page, so the homepage, /guides,
-         /palettes and the /category/ pages keep the shared definitions
-         exactly as they are.
-         =================================================================== */
-
-      /* Page frame: the shared .guides-main column (up to 1800px wide,
-         styles.css, as /palettes uses) with 24px sides, so the result
-         grids use the available width. The intro and controls stay
-         centred by their own rules below. */
-      .search-page .guides-main {
-        padding: 68px 24px 88px;
-      }
-
-      /* Centred intro: the heading, then the one-line scope disclosure,
-         then the controls one intro gap below. */
-      .search-page .category-hero {
-        padding: 0 0 var(--intro-title-gap);
-        text-align: center;
-      }
-      .search-page .category-hero__title {
-        font-size: clamp(24px, 2.6vw, 36px);
-        line-height: 1.2;
-        margin: 0 0 10px;
-      }
-      .search-page .category-hero__dek {
-        font-size: 13px;
-        line-height: 1.55;
-        max-width: 50ch;
-        margin: 0 auto;
-      }
-
-      /* Controls stack and centre: the status line (visually hidden while
-         the page shows the counts itself), then the filter capsule. The
-         space below them is the site's standard section spacing
-         (styles.css .section-head), so results and the empty state start
-         close to the controls. */
-      .search-page .section-head {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 14px;
-        padding-bottom: 0;
-        border-bottom: none;
-      }
-      .search-page .results-count {
-        font-size: 12px;
-      }
-      .search-page .section-head__meta {
-        justify-content: center;
-        gap: 12px;
-      }
-
       /* ---------- result groups ----------
          search.js writes one section per type that has matches, Guides
-         first: an h2 with the count, then that type's native grid
-         (.grid.guides-grid as on /guides, .palettes-grid as on
-         /palettes). The grids and cards come from styles.css and
-         palettes.css; only the headings and the gap between the two
-         sections are set here. */
+         first: an h2 with the count, then that type's native grid. */
       .search-page .search-group + .search-group {
-        margin-top: var(--intro-space-bottom);
+        margin-top: 56px;
       }
       .search-page .search-group__title {
         display: flex;
         align-items: baseline;
-        gap: 10px;
-        margin: 0 0 var(--intro-title-gap);
-        font-size: var(--intro-dek);
-        font-weight: 700;
+        gap: 8px;
+        margin: 0 0 18px;
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 600;
         line-height: 1.2;
-        color: var(--text);
       }
       .search-page .search-group__count {
-        font-size: 14px;
-        font-weight: 600;
         color: var(--text-muted);
+        font-size: 14px;
+        font-weight: 500;
         font-variant-numeric: tabular-nums;
       }
 
@@ -279,40 +260,18 @@
         font-weight: 500;
       }
 
-      /* ---------- wide screens: more columns, native card sizes ----------
-         The results use the full frame, so on wide screens each grid adds
-         columns instead of stretching its cards: guide cards stay near
-         the /guides size (~230-270px) and palette cards near the /palettes
-         size (~290-340px). Below 1280px the native breakpoints apply. */
-      @media (min-width: 1280px) {
-        .search-page .guides-grid {
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-        }
-      }
-      @media (min-width: 1536px) {
-        .search-page .guides-grid {
-          grid-template-columns: repeat(6, minmax(0, 1fr));
-        }
-      }
-      @media (min-width: 1600px) {
-        .search-page .palettes-grid {
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-        }
-      }
-
       /* ---------- empty state ----------
-         One compact card under the controls: muted fill, the large
-         radius, no border. With no results anywhere the h1 already says
-         "0 results for ...", so the card holds one line and two ways on;
-         when a filter hides every match it holds that message and the
+         The gallery's empty card: with no results anywhere the h1 already
+         says "0 results for ...", so the card holds one line and two ways
+         on; when a filter hides every match it holds that message and the
          Clear filters button search.js adds. */
       .search-page .empty-state {
-        max-width: 480px;
-        margin: 0 auto;
-        padding: 28px 24px;
-        border: 0;
-        border-radius: var(--radius-lg);
-        background: var(--surface-muted);
+        max-width: none;
+        margin: 0;
+        padding: 40px 24px;
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--radius-xl);
+        background: var(--canvas);
       }
       .search-page .search-empty-actions {
         display: flex;
@@ -333,26 +292,10 @@
 
       @media (max-width: 640px) {
         .search-page .guides-main {
-          padding: 36px 24px 56px;
-        }
-        .search-page .section-head {
-          gap: 12px;
+          padding-bottom: 56px;
         }
         .search-page .section-head__meta {
           gap: 10px;
-        }
-      }
-
-      @media (max-width: 420px) {
-        /* Keeps all four segments on a single row inside the capsule at
-           320px — wrapping would break the pill shape. */
-        .search-page .search-type-tab {
-          padding: 0 10px;
-          font-size: 12px;
-        }
-        .search-page .level-filter select {
-          font-size: 12.5px;
-          padding: 0 30px 0 14px;
         }
       }
     </style>
@@ -552,6 +495,12 @@
           <a href="/palettes/" class="search-empty-link">Browse palettes</a>
         </div>
       </div>
+
+      <!-- PLATFORM REDESIGN (design preview): sample projects and designers
+           matching the query, written by src/build/showcase.js and filled by
+           src/client/showcase.js. Kept apart from the real results above.
+           Do not hand-edit between the markers. -->
+      <!--SEARCH_SHOWCASE_START--><!--SEARCH_SHOWCASE_END-->
     </main>
 
     <!--FOOTER_START--><footer class="site-footer">
@@ -568,5 +517,6 @@
 </footer><!--FOOTER_END-->
 
     <script src="app.js"></script>
+    <script src="/showcase.js"></script>
   </body>
 </html>

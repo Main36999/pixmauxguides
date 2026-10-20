@@ -239,6 +239,8 @@ const FONTS = `    <link
 const STYLESHEETS = {
   site: "/styles.css",
   guideArticle: "/guide-article.css",
+  showcase: "/showcase.css",
+  platform: "/platform.css",
 };
 
 const stylesheetLink = (href) =>
@@ -250,8 +252,12 @@ const stylesheetLink = (href) =>
  * place the guide pages' extra /guide-article.css is stated.
  */
 function assetsHtml(stylesheets) {
+  // PLATFORM REDESIGN: the design system layer always loads last.
+  const sheets = stylesheets.includes(STYLESHEETS.platform)
+    ? stylesheets
+    : stylesheets.concat(STYLESHEETS.platform);
   return (
-    THEME_AND_ICONS + "\n" + FONTS + stylesheets.map(stylesheetLink).join("") + "\n"
+    THEME_AND_ICONS + "\n" + FONTS + sheets.map(stylesheetLink).join("") + "\n"
   );
 }
 

@@ -554,8 +554,10 @@ test("the pointer-focus script marks its form on a press and clears the mark onc
 });
 
 test("search focus styles: no ring on a pressed form, a visible non-blue ring for keyboard focus", () => {
-  const css = fs
-    .readFileSync(path.join(config.paths.root, "src", "styles", "styles.css"), "utf8")
+  // PLATFORM REDESIGN: the header search is styled in platform.css now.
+  const css = ["styles.css", "platform.css"]
+    .map((f) => fs.readFileSync(path.join(config.paths.root, "src", "styles", f), "utf8"))
+    .join("\n")
     .replace(/\/\*[\s\S]*?\*\//g, "");
   const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({
     selectors: m[1].split(",").map((s) => s.trim()),
@@ -984,6 +986,56 @@ test("Clear filters restores the unfiltered results and URL", async () => {
     cleared.groups.reduce((n, g) => n + g.count, 0),
     cleared.hrefs.length,
   );
+});
+
+// ---------------------------------------------------------------------
+// the search box's category, ?scope= (platform redesign, revision 04)
+// ---------------------------------------------------------------------
+
+// The one search component (the header's, and a discovery block's) sends
+// its category as ?scope=. Guides, and every URL without a scope, is this
+// index search exactly as before; Projects and Designers are the design
+// preview's sample data, which src/client/showcase.js lists itself.
+test("partials/header.html: the search box's category is Projects, Designers or Guides, Guides by default", () => {
+  const html = fs.readFileSync(path.join(config.paths.root, "partials/header.html"), "utf8");
+  const form = /<form[^>]*role="search"[\s\S]*?<\/form>/.exec(html)[0];
+  const select = /<select\s[^>]*name="scope"[^>]*>([\s\S]*?)<\/select>/.exec(form);
+  assert.ok(select, 'the form carries a <select name="scope">');
+  const id = /id="([^"]+)"/.exec(select[0])[1];
+  assert.match(form, new RegExp(`<label for="${id}"[^>]*>Search in</label>`), "the category has a label");
+  assert.deepStrictEqual(
+    [...select[1].matchAll(/<option value="([^"]*)"( selected)?>([^<]*)<\/option>/g)].map((m) => [m[1], m[3], !!m[2]]),
+    [
+      ["projects", "Projects", false],
+      ["designers", "Designers", false],
+      ["guides", "Guides", true],
+    ],
+  );
+});
+
+test("?scope=projects and ?scope=designers: the index search stands down", async () => {
+  for (const scope of ["projects", "designers"]) {
+    const s = await search("blue", { extra: "&scope=" + scope });
+    assert.strictEqual(s.heading, "", `${scope}: the heading is left to the sample search`);
+    assert.strictEqual(s.count, "", `${scope}: no index count`);
+    assert.strictEqual(s.grid, "", `${scope}: no index results`);
+    assert.ok(!s.empty, `${scope}: no index empty state`);
+  }
+});
+
+test("?scope=guides searches the index exactly as a URL without a scope does", async () => {
+  for (const [q, extra] of [["blue", ""], ["color", "&type=palette"], ["zzqxnomatchzz", ""]]) {
+    const plain = await search(q, { extra });
+    const scoped = await search(q, { extra: "&scope=guides" + extra });
+    for (const key of ["ranked", "grid", "heading", "dek", "count", "empty", "filteredMessage"]) {
+      assert.deepStrictEqual(scoped[key], plain[key], `${q}${extra}: ${key}`);
+    }
+  }
+});
+
+test("?scope=guides stays in the URL when a filter changes", async () => {
+  const s = await search("blue", { extra: "&scope=guides&type=guide&category=typography" });
+  assert.strictEqual(s.clearFilters().url, "/search?s=blue&scope=guides");
 });
 
 test("the filtered empty state comes back identically from the URL alone (refresh)", async () => {

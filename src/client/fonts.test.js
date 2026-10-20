@@ -428,12 +428,12 @@ test("launched Saved view, signed out: asks to sign in, whatever the search; thi
   await settle(10);
   assert.deepStrictEqual(p.visible(), []);
   assert.strictEqual(p.empty.hidden, false);
-  assert.strictEqual(p.title.textContent, "Sign in to see your saved fonts.");
+  assert.strictEqual(p.title.textContent, "Log in to see your saved fonts.");
   assert.strictEqual(p.hint.textContent, "Fonts you save are kept in your account, wherever you sign in.");
   p.search.value = "abel";
   fire(p.doc, p.search, "input");
   assert.deepStrictEqual(p.visible(), []);
-  assert.strictEqual(p.title.textContent, "Sign in to see your saved fonts.");
+  assert.strictEqual(p.title.textContent, "Log in to see your saved fonts.");
   assert.deepStrictEqual(p.calls, []);
   assert.ok(!p.log.some(([, , key]) => key === FONTS_KEY), "not even read");
 });

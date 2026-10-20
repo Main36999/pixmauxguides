@@ -662,7 +662,7 @@ test("a 401 the refresh can't fix: signed out, everything reset, sign-in offered
   assert.strictEqual(p.api.has("font", "abel"), null);
   assert.deepStrictEqual(p.opened.map(([mode, trigger]) => [mode, trigger === p.nodes[0]]), [["signin", true]]);
   await wait(80);
-  assert.strictEqual(p.status(), "You’ve been signed out. Sign in to save.");
+  assert.strictEqual(p.status(), "You’ve been signed out. Log in to save.");
 });
 
 test("a 401 again after a refresh that said signed in: treated as signed out", async () => {

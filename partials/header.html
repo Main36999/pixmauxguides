@@ -8,58 +8,70 @@
       aria-controls="mobile-menu"
       aria-label="Open menu"
     >
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--open"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="4" y1="7" x2="20" y2="7" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="17" x2="20" y2="17" />
-      </svg>
-      <svg
-        class="menu-toggle__icon menu-toggle__icon--close"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <line x1="5" y1="5" x2="19" y2="19" />
-        <line x1="19" y1="5" x2="5" y2="19" />
-      </svg>
+      <!-- Three rules that platform.css turns into a cross while the menu
+           is open (aria-expanded="true"). -->
+      <span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
 
-    <!-- The mobile menu (640px and narrower). It follows the menu button in
-         the source, so the first Tab after opening it lands on its first
-         link. #mobile-menu is the dimmed backdrop; .mobile-nav-panel is the
-         white panel on it. Its behaviour is the script at the end of this
-         header. -->
-    <div class="mobile-menu" id="mobile-menu" hidden>
+    <!-- The mobile menu (1023px and narrower): a full-screen white sheet with
+         its own top row (close, the wordmark, Log in or the account
+         button), then Explore, Learn and Resources, each opening and
+         closing on its own. It follows the menu button in the source; the
+         script at the end of this header moves focus into it, keeps Tab
+         inside it and returns focus to the menu button on close. -->
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
       <div class="mobile-nav-panel">
-        <nav class="mobile-menu__nav" aria-label="Primary">
-          <!--NAV_RESOURCES_START-->
-      <a href="/">All</a>
-      <a href="/colors/">Colors</a>
-      <a href="/palettes/">Palettes</a>
-      <a href="/fonts/">Fonts</a>
-      <a href="/guides/">UI/UX Guides</a>
-      <a href="/roadmap">Learning Roadmap</a>
-      <!--NAV_RESOURCES_END-->
-        </nav>
-        <div class="mobile-menu__auth">
-          <button type="button" class="btn btn-ghost" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
-          <button type="button" class="btn btn-primary" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
+        <div class="mobile-menu__top">
+          <button type="button" class="mobile-menu__close" data-menu-close aria-label="Close menu">
+            <span class="menu-bars menu-bars--close" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <a href="/" class="brand" aria-label="bpozz home" translate="no">
+            <img class="brand-logo" src="/assets/bpozz%20brand%20logo.svg" alt="" width="91" height="35" />
+          </a>
+          <div class="header-auth mobile-menu__auth-slot">
+            <button type="button" class="btn header-auth__pill" data-auth-open="signin" aria-haspopup="dialog">Log in</button>
+          </div>
         </div>
+        <nav class="mobile-menu__nav" aria-label="Primary">
+          <div class="mobile-menu__section">
+            <button type="button" class="mobile-menu__toggle" aria-expanded="false" aria-controls="mobile-menu-explore">
+              Explore
+              <svg class="mobile-menu__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+            </button>
+            <div class="mobile-menu__sub" id="mobile-menu-explore" hidden>
+              <a href="/projects/">Projects</a>
+              <a href="/designers/">Designers</a>
+              <p class="mobile-menu__label" id="mobile-menu-disciplines">Disciplines</p>
+              <div class="mobile-menu__chips" role="group" aria-labelledby="mobile-menu-disciplines"><!--MOBILE_DISCIPLINES_START--><!--MOBILE_DISCIPLINES_END--></div>
+            </div>
+          </div>
+          <div class="mobile-menu__section">
+            <button type="button" class="mobile-menu__toggle" aria-expanded="false" aria-controls="mobile-menu-learn">
+              Learn
+              <svg class="mobile-menu__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+            </button>
+            <div class="mobile-menu__sub" id="mobile-menu-learn" hidden>
+              <a href="/guides/">UI/UX Guides</a>
+              <a href="/roadmap">Learning Roadmap</a>
+            </div>
+          </div>
+          <div class="mobile-menu__section">
+            <button type="button" class="mobile-menu__toggle" aria-expanded="false" aria-controls="mobile-menu-resources">
+              Resources
+              <svg class="mobile-menu__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+            </button>
+            <div class="mobile-menu__sub" id="mobile-menu-resources" hidden>
+              <a href="/colors/">Colors</a>
+              <a href="/palettes/">Palettes</a>
+              <a href="/fonts/">Fonts</a>
+              <a href="/image-picker/">Image Picker</a>
+            </div>
+          </div>
+        </nav>
+        <a class="mobile-menu__share" href="/studio/upload">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16V5M7.5 9.5L12 5l4.5 4.5" /><path d="M5 15v3.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15" /></svg>
+          Share your work
+        </a>
       </div>
     </div>
 
@@ -67,7 +79,28 @@
       <img class="brand-logo" src="/assets/bpozz%20brand%20logo.svg" alt="" width="91" height="35" />
     </a>
 
-    <form class="header-search" role="search" action="/search" method="get">
+    <!-- The phone's search button (640px and narrower; revision 06): it
+         opens the search form right after it as a tray under the bar (the
+         tray script after the form). Wider than that it is not shown: the
+         search is in the bar. Without JavaScript it is this link to the
+         form, which opens the tray by :target (platform.css). On the
+         homepage, /projects/ and /designers/ it shows only once the page's
+         own search has scrolled up under the bar (src/client/showcase.js);
+         everywhere else it shows from the start. -->
+    <a class="header-search-toggle" href="#header-search" aria-label="Search bpozz">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.2" y2="16.2" /></svg>
+    </a>
+
+    <!-- The search: the site's one search component (revision 04), here and
+         in the discovery blocks, which src/build/showcase.js writes with the
+         same markup at the same size. The query, the category (Projects,
+         Designers or Guides) and the blue button, in one pill; it opens
+         /search?s=…&scope=…. Without JavaScript the category is the native
+         <select>; the second script below makes it a button and a list. It
+         sits between the wordmark and the nav; where it waits for a
+         discovery search, its slot closes and the nav sits by the wordmark
+         (platform.css). On a phone it is the search button's tray. -->
+    <form class="header-search usearch" id="header-search" role="search" action="/search" method="get" data-usearch>
       <label for="header-search-input" class="sr-only">Search bpozz</label>
       <input
         type="search"
@@ -76,6 +109,15 @@
         placeholder="Search bpozz…"
         autocomplete="off"
       />
+      <span class="usearch__scope">
+        <label for="header-search-scope" class="sr-only">Search in</label>
+        <select id="header-search-scope" class="usearch__select" name="scope" autocomplete="off">
+          <option value="projects">Projects</option>
+          <option value="designers">Designers</option>
+          <option value="guides" selected>Guides</option>
+        </select>
+        <svg class="usearch__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+      </span>
       <button type="submit" aria-label="Search bpozz">
         <svg
           viewBox="0 0 24 24"
@@ -111,41 +153,492 @@
         });
       })(document.currentScript.previousElementSibling);
     </script>
+    <!-- The search's category menu, for every search box on the page (this
+         one and a discovery block's). The hidden <select> stays in the form
+         and carries the choice; the button shows it and opens a list of the
+         three: mouse, touch and keyboard (arrows, Home, End, a first letter,
+         Enter or Space to choose; Escape, Tab or a press outside to close).
+         Choosing closes the list, keeps the query and sets the category of
+         every search box on the page, which also share one query, so the
+         header search shows what the discovery search held.
+         The header's category starts from the page: Projects on the
+         homepage and the project pages, Designers on the designer pages,
+         the URL's on /search, Guides everywhere else (the guide and palette
+         index the header search always searched). A discovery block's own
+         <select> overrides it; window.bpozzSearchScope.set() changes it.
+         Every box is enhanced in place, as the page is read: this one here,
+         a discovery block's by the one-line script right after its form
+         (window.bpozzSearchScope.enhance), so no box waits for a page-load
+         event that a consent script or a slow page could hold back
+         (revision 04: the discovery search used to wait for
+         DOMContentLoaded and could be left as the native <select>).
+         DOMContentLoaded is only a backstop. The native <select> is
+         swapped for the button and list as the very last step, so if
+         anything fails before that, the box keeps a working <select>. -->
+    <script data-cookieconsent="ignore">
+      (function (header) {
+        if (window.bpozzSearchScope || !header) return;
+        var SCOPES = ["projects", "designers", "guides"];
+        var ICONS = {
+          projects: '<rect x="4" y="4" width="7" height="7" rx="1.5" /><rect x="13" y="4" width="7" height="7" rx="1.5" /><rect x="4" y="13" width="7" height="7" rx="1.5" /><rect x="13" y="13" width="7" height="7" rx="1.5" />',
+          designers: '<circle cx="9" cy="8" r="3.5" /><path d="M2.5 19c1.2-3.2 3.6-5 6.5-5s5.3 1.8 6.5 5" /><path d="M15.5 4.8a3.5 3.5 0 0 1 0 6.4M18 14.4c1.6.7 2.8 2.3 3.5 4.6" />',
+          guides: '<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" />',
+        };
+        var boxes = [];
 
+        function svg(cls, view, paths) {
+          return '<svg class="' + cls + '" viewBox="' + view + '" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + paths + "</svg>";
+        }
+
+        function setScope(value) {
+          if (SCOPES.indexOf(value) === -1) return;
+          boxes.forEach(function (box) {
+            box.paint(value);
+          });
+        }
+
+        function enhance(form) {
+          if (!form || form.hasAttribute("data-usearch-ready")) return;
+          var input = form.querySelector('input[type="search"]');
+          var select = form.querySelector("select.usearch__select");
+          if (!input || !select || !select.id) return;
+          try {
+            build(form, input, select);
+          } catch (err) {
+            // Nothing was swapped in: the native <select> still works.
+            if (window.console) console.error("bpozz search: category menu not built", err);
+          }
+        }
+
+        function build(form, input, select) {
+          var wrap = select.parentNode;
+          var trigger = document.createElement("button");
+          trigger.type = "button";
+          trigger.className = "usearch__trigger";
+          trigger.setAttribute("aria-haspopup", "listbox");
+          trigger.setAttribute("aria-expanded", "false");
+          trigger.setAttribute("aria-controls", select.id + "-list");
+          trigger.innerHTML =
+            '<span class="sr-only">Search in: </span><span class="usearch__current"></span>' +
+            svg("usearch__caret", "0 0 12 12", '<path d="M3 4.5l3 3 3-3" />');
+          var current = trigger.querySelector(".usearch__current");
+          var list = document.createElement("ul");
+          list.className = "usearch__menu";
+          list.id = select.id + "-list";
+          list.setAttribute("role", "listbox");
+          list.setAttribute("aria-label", "Search in");
+          list.hidden = true;
+          var options = Array.prototype.map.call(select.options, function (option) {
+            var item = document.createElement("li");
+            item.className = "usearch__option";
+            item.id = select.id + "-" + option.value;
+            item.setAttribute("role", "option");
+            item.setAttribute("data-value", option.value);
+            item.tabIndex = -1;
+            item.innerHTML =
+              svg("usearch__icon", "0 0 24 24", ICONS[option.value] || "") +
+              '<span class="usearch__label"></span>' +
+              svg("usearch__check", "0 0 24 24", '<path d="M5 12.5l4.5 4.5L19 7.5" />');
+            item.querySelector(".usearch__label").textContent = option.textContent;
+            list.appendChild(item);
+            return item;
+          });
+
+          function paint(value) {
+            select.value = value;
+            form.setAttribute("data-scope", value);
+            options.forEach(function (item) {
+              var on = item.getAttribute("data-value") === value;
+              item.setAttribute("aria-selected", String(on));
+              if (on) current.textContent = item.textContent;
+            });
+          }
+          function selected() {
+            return options.filter(function (item) {
+              return item.getAttribute("aria-selected") === "true";
+            })[0] || options[0];
+          }
+          function open() {
+            boxes.forEach(function (box) {
+              if (box.form !== form) box.close(false);
+            });
+            list.hidden = false;
+            trigger.setAttribute("aria-expanded", "true");
+            selected().focus();
+          }
+          function close(returnFocus) {
+            if (list.hidden) return;
+            if (returnFocus) trigger.focus();
+            list.hidden = true;
+            trigger.setAttribute("aria-expanded", "false");
+          }
+          function choose(item) {
+            setScope(item.getAttribute("data-value"));
+            close(true);
+          }
+
+          trigger.addEventListener("click", function () {
+            if (list.hidden) open();
+            else close(false);
+          });
+          trigger.addEventListener("keydown", function (e) {
+            if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+            e.preventDefault();
+            open();
+          });
+          list.addEventListener("click", function (e) {
+            var item = e.target.closest('[role="option"]');
+            if (item) choose(item);
+          });
+          list.addEventListener("keydown", function (e) {
+            var at = options.indexOf(document.activeElement);
+            var next = null;
+            if (e.key === "ArrowDown") next = options[Math.min(at + 1, options.length - 1)];
+            else if (e.key === "ArrowUp") next = options[Math.max(at - 1, 0)];
+            else if (e.key === "Home") next = options[0];
+            else if (e.key === "End") next = options[options.length - 1];
+            else if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              if (at !== -1) choose(options[at]);
+              return;
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              close(true);
+              return;
+            } else if (e.key === "Tab") {
+              // Out of the list from the button: Tab goes on to the search
+              // button after it, Shift+Tab stays on the category button.
+              close(true);
+              if (e.shiftKey) e.preventDefault();
+              return;
+            } else if (e.key.length === 1) {
+              var letter = e.key.toLowerCase();
+              next = options.filter(function (item) {
+                return item.textContent.trim().toLowerCase().charAt(0) === letter;
+              })[0];
+            }
+            if (next) {
+              e.preventDefault();
+              next.focus();
+            }
+          });
+          wrap.addEventListener("focusout", function (e) {
+            if (e.relatedTarget && !wrap.contains(e.relatedTarget)) close(false);
+          });
+          document.addEventListener("pointerdown", function (e) {
+            if (!wrap.contains(e.target)) close(false);
+          });
+          input.addEventListener("input", function () {
+            boxes.forEach(function (box) {
+              if (box.input !== input) box.input.value = input.value;
+            });
+          });
+
+          var lead = boxes[0];
+          boxes.push({ form: form, input: input, paint: paint, close: close });
+          if (!lead) {
+            paint(select.value);
+          } else {
+            // A later box (a discovery block's) brings its own category; the
+            // query is whichever box already holds one.
+            setScope(select.value);
+            if (input.value) lead.input.value = input.value;
+            else input.value = lead.input.value;
+          }
+
+          // Last: the button and list take the native <select>'s place. The
+          // <select> stays in the form, hidden (out of sight and of the tab
+          // order), and still carries the choice to /search.
+          wrap.appendChild(trigger);
+          wrap.appendChild(list);
+          wrap.classList.add("usearch__scope--menu");
+          select.hidden = true;
+          form.setAttribute("data-usearch-ready", "");
+        }
+
+        function enhanceAll() {
+          Array.prototype.forEach.call(document.querySelectorAll("form[data-usearch]"), enhance);
+        }
+
+        var form = header.querySelector("form[data-usearch]");
+        var select = form && form.querySelector("select.usearch__select");
+        if (select) {
+          var page = document.body ? " " + document.body.className + " " : "";
+          var start = "guides";
+          if (/ (page-home|sc-page) /.test(page)) start = "projects";
+          if (/ (sc-designers|sc-profile) /.test(page)) start = "designers";
+          if (/ search-page /.test(page)) {
+            var url = new URLSearchParams(location.search);
+            start = SCOPES.indexOf(url.get("scope")) !== -1 ? url.get("scope") : "guides";
+            form.querySelector('input[type="search"]').value = (url.get("s") || "").trim();
+          }
+          select.value = start;
+          enhance(form);
+        }
+        document.addEventListener("DOMContentLoaded", enhanceAll);
+        window.bpozzSearchScope = {
+          enhance: enhance,
+          set: function (value) {
+            enhanceAll();
+            setScope(value);
+          },
+          get: function () {
+            return boxes.length ? boxes[0].form.getAttribute("data-scope") : null;
+          },
+        };
+      })(document.currentScript.closest(".site-header"));
+    </script>
+
+    <!-- The phone's search tray (640px and narrower; revision 06). The
+         search button above opens the search form as a tray under the bar
+         (<html> .hs-tray-open; platform.css) and puts the cursor in its
+         field; it never opens by itself. The button again or Escape closes
+         it and returns the cursor to the button; a press outside the tray,
+         Tab out of it (or Shift+Tab past the button), a page restored from
+         the back-forward cache and widening past 640px close it too. The
+         category list closes first on its own Escape (it prevents the
+         default), so the next Escape closes the tray. Narrowing to 640px
+         with the cursor in the bar's field opens the tray around it, so the
+         field never hides under the visitor where its button shows. First,
+         the button's #header-search link (what a visitor without JavaScript
+         gets) is swapped for the real button, which carries aria-expanded
+         and aria-controls, and <html> .hs-tray-js turns off the link's
+         :target fallback. window.bpozzSearchTray lets the pages with a
+         discovery search (src/client/showcase.js) close the tray when their
+         own search is back in view. -->
+    <script data-cookieconsent="ignore">
+      (function (header) {
+        if (window.bpozzSearchTray || !header) return;
+        var root = document.documentElement;
+        var form = header.querySelector(".header-bar > .header-search");
+        var link = header.querySelector(".header-bar > a.header-search-toggle");
+        if (!form || !form.id || !link) return;
+        root.classList.add("hs-tray-js");
+        var phone = window.matchMedia("(max-width: 640px)");
+        var field = form.querySelector('input[type="search"]');
+        var toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = link.className;
+        toggle.setAttribute("aria-controls", form.id);
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", link.getAttribute("aria-label"));
+        while (link.firstChild) toggle.appendChild(link.firstChild);
+        link.parentNode.replaceChild(toggle, link);
+
+        function isOpen() {
+          return root.classList.contains("hs-tray-open");
+        }
+        // `byPointer`: opened with a press rather than the keyboard, so the
+        // form gets the pointer mark and draws no keyboard ring (the mark
+        // lifts once focus leaves the form, as after a press in it).
+        function open(byPointer) {
+          root.classList.add("hs-tray-open");
+          toggle.setAttribute("aria-expanded", "true");
+          if (byPointer) form.setAttribute("data-pointer-focus", "");
+          if (field) field.focus({ preventScroll: true });
+        }
+        // `focusTo`: where a cursor that was in the tray goes; nowhere when
+        // focus is already elsewhere.
+        function close(focusTo) {
+          if (!isOpen()) return;
+          var inside = form.contains(document.activeElement);
+          root.classList.remove("hs-tray-open");
+          toggle.setAttribute("aria-expanded", "false");
+          if (inside && focusTo) focusTo.focus({ preventScroll: true });
+        }
+
+        toggle.addEventListener("click", function (e) {
+          // e.detail counts the presses; a click from Enter or Space has none.
+          if (isOpen()) close(toggle);
+          else open(e.detail > 0);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape" || e.defaultPrevented || !isOpen()) return;
+          close(toggle);
+        });
+        document.addEventListener("pointerdown", function (e) {
+          if (!isOpen()) return;
+          var t = e.target;
+          // The tray's white band is the header's own ::after, so a press on
+          // it lands on the header itself: that is inside the tray.
+          if (t === header || form.contains(t) || toggle.contains(t)) return;
+          close(null);
+        });
+        form.addEventListener("focusout", function (e) {
+          if (e.relatedTarget && !form.contains(e.relatedTarget) && e.relatedTarget !== toggle) close(null);
+        });
+        // Shift+Tab from the field lands on the button, with the tray still
+        // open; going on from there, anywhere but back into the tray, closes it.
+        toggle.addEventListener("focusout", function (e) {
+          if (isOpen() && e.relatedTarget && !form.contains(e.relatedTarget)) close(null);
+        });
+        window.addEventListener("pageshow", function (e) {
+          if (e.persisted) close(null);
+        });
+        function onBreakpoint() {
+          if (!phone.matches) {
+            // The field is back in the bar (or waiting there): no tray.
+            close(null);
+            return;
+          }
+          var shown = getComputedStyle(toggle).visibility === "visible";
+          if (shown && form.contains(document.activeElement)) open(form.hasAttribute("data-pointer-focus"));
+        }
+        if (phone.addEventListener) phone.addEventListener("change", onBreakpoint);
+        else if (phone.addListener) phone.addListener(onBreakpoint);
+        window.bpozzSearchTray = { open: open, close: close, isOpen: isOpen };
+      })(document.currentScript.closest(".site-header"));
+    </script>
+
+    <!-- The primary navigation. Explore, Learn and Resources are disclosure
+         buttons, not ARIA menus: each opens a panel of ordinary links,
+         reached with Tab. The script after the nav opens them on click (and
+         on hover where the pointer can hover), and closes them on Escape, on
+         a press outside and when focus leaves. Explore's discipline links
+         are written by src/build/header.js from the demo showcase data. -->
     <nav class="site-nav" aria-label="Primary">
-      <!--NAV_RESOURCES_START-->
-      <a href="/">All</a>
-      <a href="/colors/">Colors</a>
-      <a href="/palettes/">Palettes</a>
-      <a href="/fonts/">Fonts</a>
-      <a href="/guides/">UI/UX Guides</a>
-      <a href="/roadmap">Learning Roadmap</a>
-      <!--NAV_RESOURCES_END-->
+      <div class="site-nav__group">
+        <button type="button" class="site-nav__link site-nav__trigger" aria-expanded="false" aria-controls="nav-menu-explore">
+          Explore
+          <svg class="site-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+        </button>
+        <div class="nav-menu nav-menu--explore" id="nav-menu-explore" hidden>
+          <div class="nav-menu__col">
+            <a class="nav-menu__item" href="/projects/">
+              <span class="nav-menu__icon nav-menu__icon--violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1.5" /><rect x="13" y="4" width="7" height="7" rx="1.5" /><rect x="4" y="13" width="7" height="7" rx="1.5" /><rect x="13" y="13" width="7" height="7" rx="1.5" /></svg></span>
+              <span class="nav-menu__text"><span class="nav-menu__label">Projects</span><span class="nav-menu__desc">Work shared by designers, newest first</span></span>
+            </a>
+            <a class="nav-menu__item" href="/designers/">
+              <span class="nav-menu__icon nav-menu__icon--blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="9" cy="8" r="3.5" /><path d="M2.5 19c1.2-3.2 3.6-5 6.5-5s5.3 1.8 6.5 5" /><path d="M15.5 4.8a3.5 3.5 0 0 1 0 6.4M18 14.4c1.6.7 2.8 2.3 3.5 4.6" /></svg></span>
+              <span class="nav-menu__text"><span class="nav-menu__label">Designers</span><span class="nav-menu__desc">The people behind the work</span></span>
+            </a>
+          </div>
+          <div class="nav-menu__col nav-menu__col--list">
+            <p class="nav-menu__heading" id="nav-menu-disciplines">Disciplines</p>
+            <ul class="nav-menu__list" aria-labelledby="nav-menu-disciplines"><!--NAV_DISCIPLINES_START--><!--NAV_DISCIPLINES_END--></ul>
+          </div>
+        </div>
+      </div>
+      <div class="site-nav__group">
+        <button type="button" class="site-nav__link site-nav__trigger" aria-expanded="false" aria-controls="nav-menu-learn">
+          Learn
+          <svg class="site-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+        </button>
+        <div class="nav-menu" id="nav-menu-learn" hidden>
+          <a class="nav-menu__item" href="/guides/">
+            <span class="nav-menu__icon nav-menu__icon--pink" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" /></svg></span>
+            <span class="nav-menu__text"><span class="nav-menu__label">UI/UX Guides</span><span class="nav-menu__desc">Practical guides on type, color, layout and systems</span></span>
+          </a>
+          <a class="nav-menu__item" href="/roadmap">
+            <span class="nav-menu__icon nav-menu__icon--orange" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6" /></svg></span>
+            <span class="nav-menu__text"><span class="nav-menu__label">Learning Roadmap</span><span class="nav-menu__desc">A reading order through the guides, stage by stage</span></span>
+          </a>
+        </div>
+      </div>
+      <div class="site-nav__group">
+        <button type="button" class="site-nav__link site-nav__trigger" aria-expanded="false" aria-controls="nav-menu-resources">
+          Resources
+          <svg class="site-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4.5l3 3 3-3" /></svg>
+        </button>
+        <div class="nav-menu" id="nav-menu-resources" hidden>
+          <a class="nav-menu__item" href="/colors/">
+            <span class="nav-menu__icon nav-menu__icon--cyan" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /></svg></span>
+            <span class="nav-menu__text"><span class="nav-menu__label">Colors</span><span class="nav-menu__desc">A library of named colors with copyable HEX values</span></span>
+          </a>
+          <a class="nav-menu__item" href="/palettes/">
+            <span class="nav-menu__icon nav-menu__icon--blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="5" width="17" height="14" rx="2" /><path d="M7.75 5v14M12 5v14M16.25 5v14" /></svg></span>
+            <span class="nav-menu__text"><span class="nav-menu__label">Palettes</span><span class="nav-menu__desc">Ready-made four-color palettes for your projects</span></span>
+          </a>
+          <a class="nav-menu__item" href="/fonts/">
+            <span class="nav-menu__icon nav-menu__icon--green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 19L9.5 5h1L16 19M6.2 14h7.6" /><path d="M17 11.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM19.5 11v8" /></svg></span>
+            <span class="nav-menu__text"><span class="nav-menu__label">Fonts</span><span class="nav-menu__desc">Free, open-source fonts with license files included</span></span>
+          </a>
+          <a class="nav-menu__item" href="/image-picker/">
+            <span class="nav-menu__icon nav-menu__icon--violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M15.5 4.5a2.1 2.1 0 0 1 3 3L16 10l1 1-1.5 1.5-4-4L13 7l1 1z" /><path d="M11.5 8.5L5.3 14.7a1.5 1.5 0 0 0-.4.8L4.5 19.5l4-.4a1.5 1.5 0 0 0 .8-.4l6.2-6.2" /></svg></span>
+            <span class="nav-menu__text"><span class="nav-menu__label">Image Picker</span><span class="nav-menu__desc">Pull a color palette from any image, in your browser</span></span>
+          </a>
+        </div>
+      </div>
     </nav>
+    <script data-cookieconsent="ignore">
+      (function (nav) {
+        if (!nav) return;
+        var groups = nav.querySelectorAll(".site-nav__group");
+        var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        function set(group, open) {
+          var trigger = group.querySelector(".site-nav__trigger");
+          var panel = group.querySelector(".nav-menu");
+          panel.hidden = !open;
+          trigger.setAttribute("aria-expanded", String(open));
+        }
+        function closeAll(except) {
+          Array.prototype.forEach.call(groups, function (g) {
+            if (g !== except) set(g, false);
+          });
+        }
+        Array.prototype.forEach.call(groups, function (group) {
+          var trigger = group.querySelector(".site-nav__trigger");
+          var timer = null;
+          trigger.addEventListener("click", function () {
+            var open = trigger.getAttribute("aria-expanded") !== "true";
+            closeAll(group);
+            set(group, open);
+          });
+          group.addEventListener("focusout", function (e) {
+            if (e.relatedTarget && !group.contains(e.relatedTarget)) set(group, false);
+          });
+          if (canHover) {
+            group.addEventListener("mouseenter", function () {
+              clearTimeout(timer);
+              closeAll(group);
+              set(group, true);
+            });
+            group.addEventListener("mouseleave", function () {
+              timer = setTimeout(function () {
+                set(group, false);
+              }, 140);
+            });
+          }
+        });
+        document.addEventListener("click", function (e) {
+          if (!nav.contains(e.target)) closeAll(null);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          var open = nav.querySelector('.site-nav__trigger[aria-expanded="true"]');
+          closeAll(null);
+          if (open && nav.contains(document.activeElement)) open.focus();
+        });
+      })(document.currentScript.previousElementSibling);
+    </script>
+
+    <a class="header-share" href="/studio/upload" aria-label="Share work">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16V5M7.5 9.5L12 5l4.5 4.5" /><path d="M5 15v3.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15" /></svg>
+      <span aria-hidden="true">Share work</span>
+    </a>
 
     <div class="header-auth">
       <button type="button" class="btn header-auth__text" data-auth-open="signup" aria-haspopup="dialog">Sign up</button>
-      <button type="button" class="btn header-auth__pill" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
+      <button type="button" class="btn header-auth__pill" data-auth-open="signin" aria-haspopup="dialog">Log in</button>
     </div>
   </div>
-  <!-- The mobile menu's behaviour, on every page: the one copy (it used to be
-       repeated in core.js and inline on the seven pages that load no app.js).
-       It only ever sets the three attributes src/client/auth.js mirrors when
-       it closes the menu itself: #mobile-menu's hidden, and the button's
+  <!-- The mobile menu's behaviour, on every page: the one copy. It only ever
+       sets the three attributes src/client/auth.js mirrors when it closes
+       the menu itself: #mobile-menu's hidden, and the button's
        aria-expanded and aria-label.
-         - The button opens and closes the menu.
-         - Escape, a press on the backdrop, following a link, a hash change
-           and widening past 640px close it.
-         - Tabbing out of the header closes it, so focus never moves on to
-           the page behind the backdrop.
-         - Closing never strands focus: if it was inside the panel, which is
-           now hidden, it goes back to the menu button. -->
+         - The menu button opens it; its own close button, Escape, following
+           a link, a hash change and widening past 1023px (where the nav
+           is back in the bar) close it.
+         - Opening moves focus to the close button; Tab and Shift+Tab stay
+           inside the sheet while it is open.
+         - Closing returns focus to the menu button if it was inside.
+         - Explore, Learn and Resources each open and close on their own. -->
   <script data-cookieconsent="ignore">
     (function () {
       var toggle = document.getElementById("menu-toggle");
       var menu = document.getElementById("mobile-menu");
-      var header = toggle && toggle.closest(".site-header");
-      if (!toggle || !menu || !header) return;
+      if (!toggle || !menu) return;
+      var closeButton = menu.querySelector("[data-menu-close]");
 
       function setOpen(open) {
         menu.hidden = !open;
@@ -160,25 +653,58 @@
         if (focusWasInside) toggle.focus();
       }
 
+      function focusables() {
+        return Array.prototype.filter.call(
+          menu.querySelectorAll("a[href], button:not([disabled])"),
+          function (el) {
+            return el.getClientRects().length > 0;
+          },
+        );
+      }
+
       toggle.addEventListener("click", function () {
-        if (menu.hidden) setOpen(true);
-        else close();
+        if (menu.hidden) {
+          setOpen(true);
+          if (closeButton) closeButton.focus();
+        } else close();
       });
+      if (closeButton) closeButton.addEventListener("click", close);
       menu.addEventListener("click", function (e) {
-        // #mobile-menu itself is the backdrop around the panel.
-        if (e.target === menu || e.target.closest("a")) close();
+        if (e.target.closest("a")) close();
+      });
+      Array.prototype.forEach.call(menu.querySelectorAll(".mobile-menu__toggle"), function (button) {
+        var sub = document.getElementById(button.getAttribute("aria-controls"));
+        button.addEventListener("click", function () {
+          var open = button.getAttribute("aria-expanded") !== "true";
+          button.setAttribute("aria-expanded", String(open));
+          if (sub) sub.hidden = !open;
+        });
       });
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") close();
-      });
-      header.addEventListener("focusout", function (e) {
-        if (!menu.hidden && e.relatedTarget && !header.contains(e.relatedTarget)) {
-          setOpen(false);
+        if (menu.hidden) return;
+        if (e.key === "Escape") {
+          close();
+          return;
+        }
+        if (e.key !== "Tab") return;
+        var items = focusables();
+        if (!items.length) return;
+        var first = items[0];
+        var last = items[items.length - 1];
+        if (!menu.contains(document.activeElement)) {
+          e.preventDefault();
+          first.focus();
+        } else if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
       });
       window.addEventListener("hashchange", close);
       window.addEventListener("resize", function () {
-        if (window.innerWidth > 640) close();
+        if (window.innerWidth > 1023) close();
       });
     })();
   </script>

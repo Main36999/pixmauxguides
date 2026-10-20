@@ -74,6 +74,7 @@ const roadmap = require("./roadmap.js");
 const fontEditorialSchema = require("./font-editorial.js");
 const fontMetrics = require("./font-metrics.js");
 const routes = require("./routes.js");
+const showcaseData = require("./showcase-data.js");
 
 /** content/guide/'s index of page records. */
 const GUIDE_PAGES_INDEX = "pages.json";
@@ -1405,6 +1406,13 @@ function load(config) {
     fontMeasurements,
     categories,
     resourceTypes,
+    /**
+     * PLATFORM REDESIGN (design preview): the fictional designers and
+     * projects the showcase pages are reviewed with, from
+     * src/data/showcase-demo.json. Feeds src/build/showcase.js and its
+     * routes. Not content: never in content-index.json or the sitemap.
+     */
+    showcase: showcaseData.load(src.showcase, rawPalettes),
     /**
      * GUIDE RESOURCES (Issue #10): { guide id → resolved entries }, from
      * validateGuideResources. Each guide page already carries its own list

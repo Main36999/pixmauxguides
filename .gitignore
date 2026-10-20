@@ -4,6 +4,9 @@ dist/
 # Private build staging. Disposable.
 .build/
 
+# Local design preview (scripts/dev/preview.js). Disposable.
+.preview/
+
 # QA output — the current snapshot the gate diffs against the frozen
 # Phase 1 baseline in src/tools/baseline/.
 .qa/

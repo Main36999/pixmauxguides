@@ -38,7 +38,7 @@
          in sitemap.xml; it still declares its canonical like every page but
          the 404. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Account — bpozz</title>
+    <title>Your Account - bpozz</title>
     <meta
       name="description"
       content="Your bpozz account: your profile, what you've saved and your settings."
@@ -74,6 +74,8 @@
       crossorigin
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/showcase.css" />
+    <link rel="stylesheet" href="/platform.css" />
     <style>
       /* ---------- /account — Your Account ----------
          Page-scoped styles, inline for the same reason search.html keeps
@@ -386,11 +388,12 @@
 
           <div class="account-page__signed-out">
             <p>
-              Sign in to see your profile and settings. An account is optional:
+              Log in to see your profile and settings. An account is optional:
               everything on bpozz works without one.
             </p>
             <div class="account-page__actions">
-              <button type="button" class="btn btn-primary" data-auth-open="signin" aria-haspopup="dialog">Sign in</button>
+              <button type="button" class="btn btn-primary" data-auth-open="signin" aria-haspopup="dialog">Log in</button>
+              <button type="button" class="btn btn-outline" data-auth-open="signup" aria-haspopup="dialog">Create an account</button>
             </div>
           </div>
 
@@ -415,6 +418,16 @@
                 <p><a href="/fonts/?category=saved">See your saved fonts</a></p>
               </div>
               <div class="account-saved" data-account-saved hidden></div>
+            </section>
+
+            <!-- PLATFORM REDESIGN (design preview): the way into the
+                 designer studio, which is not open yet. -->
+            <section class="account-page__section account-page__studio" aria-labelledby="studio-title">
+              <h2 class="legal-subheading" id="studio-title">Designer studio <span class="badge badge--demo">Design preview</span></h2>
+              <p>Sharing projects and a public designer profile are coming to bpozz. The studio preview shows how they will work; nothing in it is saved.</p>
+              <div class="account-page__actions">
+                <a class="btn btn-outline" href="/studio/">Open the studio preview</a>
+              </div>
             </section>
 
             <section class="account-page__section" id="settings" aria-labelledby="settings-title">

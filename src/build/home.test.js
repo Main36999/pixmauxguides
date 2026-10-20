@@ -86,7 +86,10 @@ test("Home has no Icon Packs link anywhere: the feature is retired", () => {
   assert.ok(!indexSource.includes("HOME_ICON_PACKS"), "the standalone section's markers are gone");
   assert.ok(!indexSource.includes("/icons/"), "no /icons/ link in index.html");
   assert.ok(!/Icon Packs/.test(indexSource), "no Icon Packs label in index.html");
-  assert.strictEqual((indexSource.match(/>More useful resources</g) || []).length, 1);
+  // Platform redesign, revision 02: the owner removed the homepage's tool
+  // and resource sections; their destinations stay in the header and footer.
+  assert.strictEqual((indexSource.match(/>More useful resources</g) || []).length, 0);
+  assert.strictEqual((indexSource.match(/>Tools and guides</g) || []).length, 0);
   assert.strictEqual(home.iconPacksHtml, undefined, "the per-pack renderer is gone");
   assert.strictEqual(home.HOME_ICONS, undefined, "the Icon Packs card is gone");
 });

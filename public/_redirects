@@ -227,11 +227,10 @@
 # 3. Everything else under /icons/: the 185 SVG and PNG files.
 /icons/*                                            /   410
 
-# ── /hoysomrach and Image Picker: removed ───────────────────────
-# The founder's personal page (/hoysomrach) and the Image Picker tool
-# (/image-picker/) were deleted. Every URL they served returns 410 Gone,
-# for the reasons given for the Colour Tokens block above. NONE of them
-# redirects to another page.
+# ── /hoysomrach: removed ────────────────────────────────────────
+# The founder's personal page (/hoysomrach) was deleted. Both its URLs
+# return 410 Gone, for the reasons given for the Colour Tokens block above.
+# NONE of them redirects to another page.
 #
 # BODY: unlike the blocks above, the `to` field here is /404.html, not /.
 # A non-3xx rule keeps the requested URL in the address bar, sends the
@@ -241,20 +240,15 @@
 # instead of the homepage. 404.html sets <base href="/"> and noindex, so
 # it renders correctly at any depth.
 #
-# Each page is listed by its extensionless URL and by its .html path, and
-# the Image Picker's own script, stylesheet and standby photo are listed
-# one by one, so the retired set stays auditable against the removed
-# sitemap entries and the approved-output manifest. There is no
-# /image-picker/* catch-all: these are all the files it published.
-# /hoysomrach also answers /hoysomrach/ and /image-picker answers
-# /image-picker/ (Netlify matches a rule with or without the trailing
-# slash). Re-check every one of these after deploy; if Netlify ever
+# The page is listed by its extensionless URL and by its .html path.
+# /hoysomrach also answers /hoysomrach/ (Netlify matches a rule with or
+# without the trailing slash). Re-check both after deploy; if Netlify ever
 # serves them with the wrong status, 404 in the third column is the
 # fallback, never a redirect.
+#
+# The Image Picker (/image-picker/) was removed with it (598f507) and
+# RESTORED on the owner's decision (2026-10-20): its five 410 rules are
+# gone, so the page, its script, stylesheet and standby photo are served
+# again.
 /hoysomrach                                         /404.html   410
 /hoysomrach.html                                    /404.html   410
-/image-picker                                       /404.html   410
-/image-picker/index.html                            /404.html   410
-/image-picker/image-picker.js                       /404.html   410
-/image-picker/image-picker.css                      /404.html   410
-/image-picker/assets/standby.jpg                    /404.html   410

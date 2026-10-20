@@ -291,6 +291,16 @@
     if (TYPE_VALUES.indexOf(typeFilter) === -1) typeFilter = "all";
     var categoryFilter = initialParams.get("category") || "all";
 
+    // PLATFORM REDESIGN (revision 04, design preview): the search box's
+    // category, ?scope=. Guides, and every URL without a scope (each link
+    // and bookmark made before there was one), is this page's own index
+    // search, exactly as before. Projects and Designers are the design
+    // preview's sample data, listed by src/client/showcase.js, which then
+    // writes the heading, intro and status line itself: this search stands
+    // down and leaves the page's markup as it is.
+    var scope = initialParams.get("scope");
+    if (scope === "projects" || scope === "designers") return;
+
     var INDEX_RECORDS = [];
     var PREPARED = []; // one prepareRecord() per INDEX_RECORDS entry, same order
     var CATEGORY_NAME_BY_SLUG = {};
@@ -798,6 +808,7 @@
     function syncUrl() {
       var params = new URLSearchParams();
       if (query) params.set("s", query);
+      if (scope === "guides") params.set("scope", scope);
       if (typeFilter !== "all") params.set("type", typeFilter);
       if (categoryFilter !== "all") params.set("category", categoryFilter);
       var qs = params.toString();
@@ -821,7 +832,7 @@
       if (!query) {
         headingEl.textContent = "Search";
         dekEl.textContent = SCOPE_DEK;
-        document.title = "Search — bpozz";
+        document.title = "Search - bpozz";
         countEl.textContent = "";
         gridEl.innerHTML = "";
         emptyEl.removeAttribute("data-visible");
@@ -829,7 +840,7 @@
         return;
       }
 
-      document.title = 'Search results for "' + query + '" — bpozz';
+      document.title = 'Search results for "' + query + '" - bpozz';
       headingEl.textContent = 'Search results for "' + query + '"';
       dekEl.textContent = SCOPE_DEK;
 

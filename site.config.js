@@ -115,6 +115,13 @@ module.exports = {
        * src/build/fonts.js.
        */
       guideResources: path.join(ROOT, "src", "data", "guide-resources.json"),
+
+      /**
+       * PLATFORM REDESIGN (design preview) — fictional designers and
+       * projects for reviewing the showcase design. A build input; rendered
+       * by src/build/showcase.js into noindex demo pages only.
+       */
+      showcase: path.join(ROOT, "src", "data", "showcase-demo.json"),
     },
 
     src: path.join(ROOT, "src"),
@@ -594,11 +601,22 @@ module.exports = {
    *   htmlPages    347 → 345  (−2: hoysomrach.html, image-picker/index.html)
    *   sitemapUrls  344 → 342  (−2: https://bpozz.com/hoysomrach and
    *                            https://bpozz.com/image-picker/)
+   *
+   * PLATFORM REDESIGN (design preview) — the showcase, studio, moderation,
+   * report and styleguide pages, written from src/data/showcase-demo.json:
+   *   htmlPages    345 → 393  (+48: 10 fixed pages, 30 demo project pages,
+   *                            8 demo designer pages)
+   *   sitemapUrls  342 → 342  (unchanged: every one is noindex demo content)
+   *
+   * IMAGE PICKER — RESTORED (owner decision, 2026-10-20). The page is back,
+   * indexable and in the sitemap as it was before its removal:
+   *   htmlPages    393 → 394  (+1: image-picker/index.html)
+   *   sitemapUrls  342 → 343  (+1: https://bpozz.com/image-picker/)
    */
   expected: {
-    htmlPages: 345,
+    htmlPages: 394,
     snapshotUrls: 89,
-    sitemapUrls: 342,
+    sitemapUrls: 343,
   },
 
   /**

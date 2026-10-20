@@ -42,7 +42,7 @@
          JSON-LD: an error page is not content. -->
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page not found — bpozz</title>
+    <title>Page not found - bpozz</title>
     <meta
       name="description"
       content="The page you were looking for could not be found on bpozz."
@@ -77,6 +77,7 @@
       crossorigin
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/platform.css" />
   </head>
   <body>
     <!-- A standalone page: the site header and footer stay out (the build
@@ -93,6 +94,11 @@
       <div class="notfound__copy">
         <p class="notfound__code">404</p>
         <h1 class="notfound__title">Page not found</h1>
+        <div class="notfound__actions">
+          <a class="btn btn-dark" href="/">Go to the homepage</a>
+          <a class="btn btn-outline" href="/guides/">Read the guides</a>
+          <a class="btn btn-outline" href="/search">Search bpozz</a>
+        </div>
       </div>
     </main>
     <!--FOOTER_START--><!--FOOTER_END-->

@@ -2,12 +2,12 @@
   "generatedBy": "scripts/qa/snapshot.js (recorded as the baseline)",
   "phase": "phase4-step10",
   "counts": {
-    "pages": 345,
+    "pages": 394,
     "dataEndpoints": 5,
     "siteFiles": 5,
-    "assets": 1869,
-    "code": 14,
-    "total": 2238
+    "assets": 1870,
+    "code": 19,
+    "total": 2293
   },
   "pages": [
     {
@@ -89,6 +89,51 @@
       "file": "contact.html",
       "url": "/contact",
       "canonical": "https://bpozz.com/contact"
+    },
+    {
+      "file": "designers/index.html",
+      "url": "/designers",
+      "canonical": null
+    },
+    {
+      "file": "designers/aiko-n.html",
+      "url": "/designers/aiko-n.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/elif-k.html",
+      "url": "/designers/elif-k.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/jonas-b.html",
+      "url": "/designers/jonas-b.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/kofi-a.html",
+      "url": "/designers/kofi-a.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/mira-s.html",
+      "url": "/designers/mira-s.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/noah-p.html",
+      "url": "/designers/noah-p.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/sana-r.html",
+      "url": "/designers/sana-r.html",
+      "canonical": null
+    },
+    {
+      "file": "designers/tomas-e.html",
+      "url": "/designers/tomas-e.html",
+      "canonical": null
     },
     {
       "file": "fonts/index.html",
@@ -1711,6 +1756,16 @@
       "canonical": "https://bpozz.com/guides/"
     },
     {
+      "file": "image-picker/index.html",
+      "url": "/image-picker",
+      "canonical": "https://bpozz.com/image-picker/"
+    },
+    {
+      "file": "moderation/index.html",
+      "url": "/moderation",
+      "canonical": null
+    },
+    {
       "file": "palettes/index.html",
       "url": "/palettes",
       "canonical": "https://bpozz.com/palettes/"
@@ -1721,6 +1776,166 @@
       "canonical": "https://bpozz.com/privacy"
     },
     {
+      "file": "projects/index.html",
+      "url": "/projects",
+      "canonical": null
+    },
+    {
+      "file": "projects/atlas-botanica-brand.html",
+      "url": "/projects/atlas-botanica-brand.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/blue-notes-gig-posters.html",
+      "url": "/projects/blue-notes-gig-posters.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/bridges-bilingual-magazine.html",
+      "url": "/projects/bridges-bilingual-magazine.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/care-clinic-booking.html",
+      "url": "/projects/care-clinic-booking.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/crunch-snack-boxes.html",
+      "url": "/projects/crunch-snack-boxes.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/desert-bloom-posters.html",
+      "url": "/projects/desert-bloom-posters.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/ember-hot-sauce-labels.html",
+      "url": "/projects/ember-hot-sauce-labels.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/field-notes-quarterly-08.html",
+      "url": "/projects/field-notes-quarterly-08.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/folk-tales-picture-book.html",
+      "url": "/projects/folk-tales-picture-book.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/forecast-weather-kit.html",
+      "url": "/projects/forecast-weather-kit.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/grain-serif-revival.html",
+      "url": "/projects/grain-serif-revival.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/highline-lodge-identity.html",
+      "url": "/projects/highline-lodge-identity.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/island-birds-field-guide.html",
+      "url": "/projects/island-birds-field-guide.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/kiln-ceramics-identity.html",
+      "url": "/projects/kiln-ceramics-identity.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/kumo-grotesk.html",
+      "url": "/projects/kumo-grotesk.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/ledger-budgeting-app.html",
+      "url": "/projects/ledger-budgeting-app.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/line-4-wayfinding.html",
+      "url": "/projects/line-4-wayfinding.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/monsoon-city.html",
+      "url": "/projects/monsoon-city.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/museum-annual-report.html",
+      "url": "/projects/museum-annual-report.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/night-market-posters.html",
+      "url": "/projects/night-market-posters.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/northfold-bakery.html",
+      "url": "/projects/northfold-bakery.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/orbit-rounded-mono.html",
+      "url": "/projects/orbit-rounded-mono.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/orchard-cider-packaging.html",
+      "url": "/projects/orchard-cider-packaging.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/pulse-fitness-dashboard.html",
+      "url": "/projects/pulse-fitness-dashboard.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/saltwater-display.html",
+      "url": "/projects/saltwater-display.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/steep-tea-tins.html",
+      "url": "/projects/steep-tea-tins.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/streak-habit-tracker.html",
+      "url": "/projects/streak-habit-tracker.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/tide-ocean-campaign.html",
+      "url": "/projects/tide-ocean-campaign.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/tidewater-coffee-identity.html",
+      "url": "/projects/tidewater-coffee-identity.html",
+      "canonical": null
+    },
+    {
+      "file": "projects/waveform-music-player.html",
+      "url": "/projects/waveform-music-player.html",
+      "canonical": null
+    },
+    {
+      "file": "report.html",
+      "url": "/report.html",
+      "canonical": null
+    },
+    {
       "file": "roadmap.html",
       "url": "/roadmap",
       "canonical": "https://bpozz.com/roadmap"
@@ -1729,6 +1944,36 @@
       "file": "search.html",
       "url": "/search",
       "canonical": "https://bpozz.com/search"
+    },
+    {
+      "file": "studio/index.html",
+      "url": "/studio",
+      "canonical": null
+    },
+    {
+      "file": "studio/profile.html",
+      "url": "/studio/profile.html",
+      "canonical": null
+    },
+    {
+      "file": "studio/projects.html",
+      "url": "/studio/projects.html",
+      "canonical": null
+    },
+    {
+      "file": "studio/settings.html",
+      "url": "/studio/settings.html",
+      "canonical": null
+    },
+    {
+      "file": "studio/upload.html",
+      "url": "/studio/upload.html",
+      "canonical": null
+    },
+    {
+      "file": "styleguide.html",
+      "url": "/styleguide.html",
+      "canonical": null
     },
     {
       "file": "terms.html",
@@ -3598,6 +3843,7 @@
     "/fonts/zilla-slab/ZillaSlab-SemiBoldItalic.ttf",
     "/fonts/zilla-slab/ZillaSlab-SemiBoldItalic.woff2",
     "/fonts/zilla-slab/ZillaSlab.zip",
+    "/image-picker/assets/standby.jpg",
     "/thumbnail_image_webp/A Color Palette Is a Token System, Not a Row of Swatches.webp",
     "/thumbnail_image_webp/Accessibility Is a Structural Decision, Not a Final Pass.webp",
     "/thumbnail_image_webp/Auto Layout Is a Constraint System, Not a Convenience Toggle.webp",
@@ -3632,9 +3878,14 @@
     "/fonts/fonts.js",
     "/guide-article.css",
     "/home.css",
+    "/image-picker/image-picker.css",
+    "/image-picker/image-picker.js",
     "/palettes/palettes.css",
     "/palettes/palettes.js",
+    "/platform.css",
     "/saved.js",
+    "/showcase.css",
+    "/showcase.js",
     "/styles.css"
   ],
   "platformFiles": [

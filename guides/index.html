@@ -29,7 +29,7 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UI/UX Design Guides — bpozz</title>
+    <title>UI/UX Design Guides - bpozz</title>
     <meta
       name="description"
       content="Every bpozz guide in one place: practical UI/UX tutorials on color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile &amp; web layout, written like engineering specs."
@@ -55,7 +55,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://bpozz.com/guides/" />
     <meta property="og:site_name" content="bpozz" />
-    <meta property="og:title" content="UI/UX Design Guides — bpozz" />
+    <meta property="og:title" content="UI/UX Design Guides - bpozz" />
     <meta
       property="og:description"
       content="Every bpozz guide in one place: practical UI/UX tutorials on color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile &amp; web layout, written like engineering specs."
@@ -67,7 +67,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://bpozz.com/guides/" />
-    <meta name="twitter:title" content="UI/UX Design Guides — bpozz" />
+    <meta name="twitter:title" content="UI/UX Design Guides - bpozz" />
     <meta
       name="twitter:description"
       content="Every bpozz guide in one place: practical UI/UX tutorials on color theory, typography, spacing systems, Figma and Adobe XD workflows, and mobile &amp; web layout, written like engineering specs."
@@ -87,6 +87,7 @@
       crossorigin
     />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/platform.css" />
 
     <script type="application/ld+json">
       {
@@ -260,20 +261,15 @@
       <div class="guides-hero">
         <h1>UI/UX Design Guides</h1>
         <p>
-          Practical UI/UX tutorials written like engineering specs. Search by
-          topic, or filter by category and level. Not sure where to start?
-          Follow the <a href="/roadmap">Learning Roadmap</a>.
+          Practical UI/UX tutorials written like engineering specs. Filter by
+          category and level. Not sure where to start? Follow the
+          <a href="/roadmap">Learning Roadmap</a>.
         </p>
       </div>
 
       <div class="guides-toolbar">
         <div class="guides-filters" role="group" aria-label="Filter guides by category"><!--GUIDE_CATEGORIES_START--><button type="button" class="guides-filter" data-category="all" aria-pressed="true">All</button><button type="button" class="guides-filter" data-category="color-theory" aria-pressed="false">Color Theory</button><button type="button" class="guides-filter" data-category="typography" aria-pressed="false">Typography</button><button type="button" class="guides-filter" data-category="spacing" aria-pressed="false">Spacing &amp; Layout</button><button type="button" class="guides-filter" data-category="figma" aria-pressed="false">Figma Workflow</button><button type="button" class="guides-filter" data-category="adobe-xd" aria-pressed="false">Adobe XD Workflow</button><button type="button" class="guides-filter" data-category="mobile" aria-pressed="false">Mobile App Design</button><button type="button" class="guides-filter" data-category="web" aria-pressed="false">Web Layout</button><button type="button" class="guides-filter" data-category="systems" aria-pressed="false">Design Systems</button><button type="button" class="guides-filter" data-category="accessibility" aria-pressed="false">Accessibility</button><button type="button" class="guides-filter" data-category="motion" aria-pressed="false">Prototyping &amp; Motion</button><!--GUIDE_CATEGORIES_END--></div>
         <div class="guides-controls">
-          <div class="guides-field guides-field--search">
-            <label class="sr-only" for="guides-search">Search guides</label>
-            <svg class="guides-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg>
-            <input type="search" id="guides-search" placeholder="Search guides…" autocomplete="off" spellcheck="false" />
-          </div>
           <div class="guides-field guides-field--level">
             <label for="level-select">Level</label>
             <select id="level-select">

@@ -447,7 +447,7 @@ function pageHtml(
   // Guides-only archive — it also carries the related_palettes
   // rail below — so the title names the category and
   // the site, nothing else. The <h1> below was already neutral.
-  const title = `${cat.label} — bpozz`;
+  const title = `${cat.label} - bpozz`;
   const description = meta.dek;
   // PHASE 4 STEP 7: `origin` instead of four hard-coded "https://bpozz.com"
   // literals. site.config.js's first field is the canonical origin and is

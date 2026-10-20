@@ -793,7 +793,13 @@ test("public API: getSession, refreshSession, signOut; Google entry point unchan
   assert.match(SOURCE, /API \+\s*"\/google\/start\?intent=" \+\s*encodeURIComponent\(mode\) \+\s*"&return_to=" \+\s*encodeURIComponent\(returnTo\(\)\)/);
   const header = fs.readFileSync(path.join(ROOT, "partials", "header.html"), "utf8");
   assert.strictEqual((header.match(/data-auth-open="signin"/g) || []).length, 2, "header.html");
-  assert.strictEqual((header.match(/data-auth-open="signup"/g) || []).length, 2, "header.html");
+  // Platform redesign, revision 03 (owner item 14): the mobile menu sheet
+  // keeps one Log in in its top row and no second Sign up; signing up is
+  // reached from the dialog's own "Create an account" switch.
+  assert.strictEqual((header.match(/data-auth-open="signup"/g) || []).length, 1, "header.html");
+  const sheet = header.slice(header.indexOf('id="mobile-menu"'), header.indexOf("</nav>", header.indexOf('id="mobile-menu"')));
+  assert.strictEqual((sheet.match(/data-auth-open="signin"/g) || []).length, 1, "the menu sheet has one Log in");
+  assert.strictEqual((sheet.match(/data-auth-open="signup"/g) || []).length, 0, "the menu sheet has no Sign up");
 });
 
 // The mobile menu's open/close logic lives in one place: the inline script at

@@ -106,7 +106,7 @@
     importTooMany: "Too many attempts. Try again in a minute.",
     unavailable: "Saving isn’t available right now. Please try again later.",
     loadFailed: "Couldn’t load your Saved items right now.",
-    signedOut: "You’ve been signed out. Sign in to save.",
+    signedOut: "You’ve been signed out. Log in to save.",
   };
 
   // ---------- pure helpers (published even while dormant) ----------
